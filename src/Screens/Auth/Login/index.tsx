@@ -6,26 +6,39 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './styles';
-import { RenderSvgIcon } from '../../../Components/atoms/svg';
-import { Form, Formik } from 'formik';
-import { Input } from 'react-native-elements';
+import {RenderSvgIcon} from '../../../Components/atoms/svg';
+import {Form, Formik} from 'formik';
+import {Input} from 'react-native-elements';
 import InputView from '../../../Components/molecules/Input';
 import Button from '../../../Components/molecules/Button';
 import SocialCard from '../../../Components/molecules/SocialCard';
 import DonotHaveAccountSection from '../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../Components/molecules/AuthTopSection';
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { BigLogo, LogoWithName } from 'assets/Svgs';
+import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {BigLogo, LogoWithName} from 'assets/Svgs';
 
+import {useAppDispatch} from 'src/redux/store';
+import AuthThunks from 'src/redux/auth/thunks';
+import {useSelector} from 'react-redux';
+import {useLoadingSelector} from 'src/redux/selectors';
+import {selectReseted} from 'src/redux/auth';
+import { LoginSchema } from 'src/Formik/schema';
 const Login = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>();
+  const [email, setEmail] = React.useState('');
+  const Reseted = useSelector(selectReseted);
+  useEffect(() => {
+    Reseted && navigation.navigate('Verification', { email});
+  }, [Reseted]);
   const _handleNavigate = () => {
-    navigation.navigate("ForgetPassword")
-  }
+    navigation.navigate('ForgetPassword');
+  };
+  const dispatch = useAppDispatch();
+
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <KeyboardAwareScrollView>
@@ -46,28 +59,44 @@ const Login = () => {
               subtitle="Log in with your e-mail and password"
             />
             <Formik
-              initialValues={{ email: '', password: '' }}
+                validationSchema={LoginSchema}
+              initialValues={{email: '', password: ''}}
               onSubmit={values => {
-                navigation.navigate("app")
+                setEmail(values.email);
+                const formdata = new FormData();
+                formdata.append('email', values.email?.toLowerCase());
+                formdata.append('password', values.password?.toLowerCase());
+                // Dispatch(AuthThunks.doSignIn(formdata))
+                dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
+                  if (res?.payload?.data?.message == 'Email not verified.') {
+                    const formData = new FormData();
+                    formData.append('email', values?.email?.toLowerCase());
+                    dispatch(AuthThunks.doResetPassword(formData));
+                  }
+                });
+
+                // navigation.navigate("app")
               }}>
-              {(props: any) => (
+              {(props:any) => (
                 <View>
                   <InputView
+                  {...props}
+
                     name="email"
                     placeholder="Write your email"
                     iconName={'RIGIHTININPUT'}
-                    props={props}
                   />
                   <InputView
+                   {...props}
+
                     name="password"
                     placeholder="Write your password"
                     iconName={'EYE'}
                     secure={true}
-                    props={props}
                   />
-                  <Text style={styles.forgotPassword}
-                    onPress={_handleNavigate}
-                  >Forgot password ?</Text>
+                  <Text style={styles.forgotPassword} onPress={_handleNavigate}>
+                    Forgot password ?
+                  </Text>
                   <Button text="Log in" onPress={props.handleSubmit} />
                 </View>
               )}
@@ -92,7 +121,6 @@ const Login = () => {
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
-
   );
 };
 

@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   innerCircle: {
     width: 13,
     height: 13,
-    borderRadius: 13 / 2,
+    borderRadius: 13 ,
     backgroundColor: appColors.primary
   },
   agree: {

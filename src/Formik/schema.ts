@@ -22,18 +22,18 @@ export const LoginSchema = Yup.object().shape({
 export const RegistSchema = Yup.object().shape({
   email: Yup.string().email('E-mail must be valid').trim().min(8, 'Enter a valid e-mail').required('Please Enter your E-mail').matches(EmailReg, 'Invalid e-mail'),
   password: Yup.string().required('Please Enter your Password').min(8, 'Password must be at least 8 numbers'),
-  fullname: Yup.string().required('Please Enter your Full name'),
-  mobilenumber: Yup.string().required('Please Enter your Mobile number').matches(phoneRegExp, 'Invalid mobile number'),
-  confirmpassword: Yup.string().required('Please Enter your Confirm password').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('password'), null], 'Passwords do not match'),
+  fullName: Yup.string().required('Please Enter your Full name'),
+  phone: Yup.string().required('Please Enter your Mobile number').matches(phoneRegExp, 'Invalid mobile number'),
+  confirmPassword: Yup.string().required('Please Enter your Confirm password').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('password'), null], 'Passwords do not match'),
 
   referralcode: Yup.string().notRequired(),
 });
 export const RegistSchemaCompany = Yup.object().shape({
   email: Yup.string().email('E-mail must be valid').trim().min(8, 'Enter a valid e-mail').required('Please Enter your E-mail').matches(EmailReg, 'Invalid e-mail'),
   password: Yup.string().required('Please Enter your Password').min(8, 'Password must be at least 8 numbers'),
-  fullname: Yup.string().required('Please Enter your Full name'),
-  mobilenumber: Yup.string().required('Please Enter your Mobile number').matches(phoneRegExp, 'Invalid mobile number'),
-  confirmpassword: Yup.string().required('Please Enter your Confirm password').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('password'), null], 'Passwords do not match'),
+  fullName: Yup.string().required('Please Enter your Full name'),
+  phone: Yup.string().required('Please Enter your Mobile number').matches(phoneRegExp, 'Invalid mobile number'),
+  confirmPassword: Yup.string().required('Please Enter your Confirm password').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('password'), null], 'Passwords do not match'),
   taxID: Yup.string().required('Please Enter your taxID'),
   referralcode: Yup.string().notRequired(),
 });
@@ -50,24 +50,17 @@ export const RegistSchemaCompany = Yup.object().shape({
 //   // country: Yup.string().required("Please Enter your Country "),
 //   // city: Yup.string().required("Please Enter your City "),
 // });
-// export const ForgetSchema = Yup.object().shape({
-//   email: Yup.string()
-//     .email('E-mail must be valid')
-//     .trim()
-//     .min(8, 'Enter a valid e-mail')
-//     .required('Please Enter your E-mail ')
-//     .matches(EmailReg, 'Invalid e-mail'),
-// });
+export const ForgetSchema = Yup.object().shape({
+  email: Yup.string().email('E-mail must be valid').trim().min(8, 'Enter a valid e-mail').required('Please Enter your E-mail ').matches(EmailReg, 'Invalid e-mail'),
+});
+export const OtpSchema = Yup.object().shape({
+  otp: Yup.string().required('Please Enter your otp')
+});
 
-// export const ResetSchema = Yup.object().shape({
-//   newpassword: Yup.string()
-//     .required('Please Enter your New password ')
-//     .min(8, 'New password must be at least 8 numbers'),
-//   confirmpassword: Yup.string()
-//     .required('Please Enter your Confirm password ')
-//     .min(8, 'Confirm Password must be at least 8 numbers')
-//     .oneOf([Yup.ref('newpassword'), null], 'Passwords do not match'),
-// });
+export const ResetSchema = Yup.object().shape({
+  password: Yup.string().required('Please Enter your New password ').min(8, 'New password must be at least 8 numbers'),
+  confirmPassword: Yup.string().required('Please Enter your Confirm password ').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('newpassword'), null], 'Passwords do not match'),
+});
 
 // export const ChangePasswordSchema = Yup.object().shape({
 //   currentpassword: Yup.string()

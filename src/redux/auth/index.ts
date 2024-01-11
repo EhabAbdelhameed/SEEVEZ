@@ -28,97 +28,116 @@ const slice = createSlice({
     },
   },
   extraReducers(builder) {
-    //doSignIn
-    // builder.addCase(thunks.doSignIn.fulfilled, (state, action) => {
-    //   AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
-    //   state.currentUser = action.payload?.data;
-    //   state.isAuth = true;
-    // });
-    // builder.addCase(thunks.doSignIn.rejected, (state, action: any) => {
-    //   console.log(action.payload.data);
-    //   if (action.payload.data.message == 'Validation error.') {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.error,
-    //     });
-    //   } else {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.message,
-    //     });
-    //   }
-    // });
+   // doSignIn
+    builder.addCase(thunks.doSignIn.fulfilled, (state, action) => {
+          
+      
+      // console.log(action.payload.data?.token)
+      AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
+      state.currentUser = action.payload?.data;
+   
+      state.isAuth = true;
+    });
+    builder.addCase(thunks.doSignIn.rejected, (state, action: any) => {
+      console.log(action.payload.data);
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
 
-    //doVerifyOTP
-    // builder.addCase(thunks.doVerifyOTP.fulfilled, (state, action) => {
-    //   if (
-    //     action.payload.message ==
-    //     'Code verified, continue to change your password.'
-    //   ) {
-    //     state.verified = true;
-    //   } else {
-    //     AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
-    //     state.currentUser = action.payload?.data;
-    //     state.isAuth = true;
-    //   }
-    // });
-    // builder.addCase(thunks.doVerifyOTP.rejected, (state, action: any) => {
-    //   console.log(action.payload.data);
-    //   if (action.payload.data.message == 'Validation error.') {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.error,
-    //     });
-    //   } else {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.message,
-    //     });
-    //   }
-    // });
-
+   // doVerifyOTP
+    builder.addCase(thunks.doVerifyOTP.fulfilled, (state, action) => {
+   
+        state.verified = true;
+    
+    });
+    builder.addCase(thunks.doVerifyOTP.rejected, (state, action: any) => {
+      console.log(action.payload.data);
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //doResendCode
+    builder.addCase(thunks.doResendCode.fulfilled, (state, action) => {
+   
+      state.verified = true;
+  
+  });
+  builder.addCase(thunks.doResendCode.rejected, (state, action: any) => {
+    console.log(action.payload.data);
+    if (action.payload.data.message == 'Validation error.') {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.error,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.message,
+      });
+    }
+  });
     //doResetPassword
-    // builder.addCase(thunks.doResetPassword.fulfilled, (state, action) => {
-    //   state.reset = true;
-    //   Toast.show({
-    //     type: 'success',
-    //     text1: 'Check code in your e-mail',
-    //   });
-    // });
-    // builder.addCase(thunks.doResetPassword.rejected, (state, action: any) => {
-    //   console.log(action.payload.data);
-    //   if (action.payload.data.message == 'Validation error.') {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.error,
-    //     });
-    //   } else {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.message,
-    //     });
-    //   }
-    // });
+    builder.addCase(thunks.doResetPassword.fulfilled, (state, action) => {
+      state.reset = true;
+      // Toast.show({
+      //   type: 'success',
+      //   text1: 'Check code in your e-mail',
+      // });
+    });
+    builder.addCase(thunks.doResetPassword.rejected, (state, action: any) => {
+      console.log(action.payload.data);
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
 
-    //doConfirmPassword
-    // builder.addCase(thunks.doConfirmPassword.fulfilled, (state, action) => {
-    //   AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
-    //   state.currentUser = action.payload?.data;
-    //   state.isAuth = true;
-    // });
-    // builder.addCase(thunks.doConfirmPassword.rejected, (state, action: any) => {
-    //   if (action.payload.data.message == 'Validation error.') {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.error,
-    //     });
-    //   } else {
-    //     Toast.show({
-    //       type: 'error',
-    //       text1: action.payload.data.message,
-    //     });
-    //   }
-    // });
+    //doForgetPassword
+    builder.addCase(thunks.doForgetPassword.fulfilled, (state, action) => {
+     
+      state.reset = true;
+      Toast.show({
+        type: 'success',
+        text1: 'Check code in your e-mail',
+      });
+    });
+    builder.addCase(thunks.doForgetPassword.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
 
     //doSignUpCompany
     builder.addCase(thunks.doSignUpCompany.fulfilled, (state, action) => {

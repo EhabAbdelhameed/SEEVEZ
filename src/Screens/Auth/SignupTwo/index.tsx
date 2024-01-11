@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../Components/atoms/svg';
 import {Formik} from 'formik';
@@ -21,39 +21,70 @@ import {BigLogo, PDF} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import DocumentPicker from 'react-native-document-picker';
 import {RegistSchema, RegistSchemaCompany} from '../../../Formik/schema';
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-// import {useAppDispatch} from 'src/redux/store';
+import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import DeviceInfo from 'react-native-device-info';
+import {useSelector} from 'react-redux';
+import {selectIsSignedUp} from 'src/redux/auth';
 const SignupTwo = () => {
+  const signedUp = useSelector(selectIsSignedUp);
+  const navigation = useNavigation<any>();
+  const [email, setEmail] = React.useState('');
+  const [deviceId, setDeviceId] = React.useState('');
+  const [deviceVersion, setDeviceVersion] = React.useState('');
+  const [deviceModel, setDeviceModel] = React.useState('');
+  const [index, setIndex] = React.useState(false);
+  const [tax_card_document, setTaxCardDocument] = React.useState([]);
+  const [commercial_registration_document, setCommercialRegistrationDocument] =
+    React.useState([]);
+
   const UineqId = async () => {
     const ff = await DeviceInfo.getUniqueId();
-    return ff;
+    setDeviceId(ff);
+    console.log(deviceId);
+    // return ff;
   };
+
   const DeviceVersion = async () => {
     const ff = await DeviceInfo.getVersion();
-
-    return ff;
+    setDeviceVersion(ff);
   };
+
   const DeviceModel = async () => {
     const ff = await DeviceInfo.getModel();
-    return ff;
+    setDeviceModel(ff);
   };
 
-  const Dispatch = useDispatch();
-  const uploadFile = async (setFieldValue: any, name: any) => {
+  useEffect(() => {
+    signedUp && navigation.navigate('Verification', {email, type: 'register'});
+  }, [signedUp]);
+
+  useEffect(() => {
+    UineqId();
+    DeviceVersion();
+    DeviceModel();
+  }, []);
+  const Dispatch = useAppDispatch();
+  const uploadFile = async (type: any) => {
+    console.log('hello');
     try {
       const res: any = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
       });
-      setFieldValue(name.replace(/\s/g, ''), {
-        uri: res[0]?.uri,
-        type: res[0]?.type,
-        name: res[0]?.name,
-      });
+      console.log(res);
+      if (type == '1') {
+        setTaxCardDocument(res);
+      } else {
+        setCommercialRegistrationDocument(res);
+      }
+      // setFieldValue(name.replace(/\s/g, ''), {
+      //   uri: res[0]?.uri,
+      //   type: res[0]?.type,
+      //   name: res[0]?.name,
+      // });
     } catch (err) {
-      setFieldValue(name.replace(/\s/g, ''), '');
+      // setFieldValue(name.replace(/\s/g, ''), '');
       if (DocumentPicker.isCancel(err)) {
         console.log('Canceled');
       } else {
@@ -63,8 +94,7 @@ const SignupTwo = () => {
     }
   };
   const {work_type, title}: any = useRoute().params;
-  console.log(work_type, title);
-  const navigation = useNavigation<any>();
+  console.log(work_type);
   return (
     // <View style={styles.container}>
     <SafeAreaView edges={['top']} style={styles.container}>
@@ -118,66 +148,72 @@ const SignupTwo = () => {
               phone: '',
               taxId: '',
             }}
+            validationSchema={
+              work_type == 'Company' ? RegistSchemaCompany : RegistSchema
+            }
             // validationSchema={work_type === 'Company' ? RegistSchemaCompany : RegistSchema}
-            onSubmit={(values) => {
+            onSubmit={values => {
+              setEmail(values.email);
+              console.log(work_type?.toLowerCase());
               const formdata = new FormData();
 
               formdata.append('name', values.fullName);
-              formdata.append('country_code', values.code==''?'+20':values.code.dial_code);
+              formdata.append(
+                'country_code',
+                values.code == '' ? '+20' : values.code.dial_code,
+              );
               formdata.append('phone_number', values.phone);
               formdata.append('email', values.email);
               formdata.append('password', values.password);
               formdata.append('password_confirmation', values.confirmPassword);
-              formdata.append('device_id', UineqId());
+              formdata.append('device_id', deviceId);
               formdata.append('device_kind', Platform.OS);
-              formdata.append('device_model', DeviceModel());
-              formdata.append('device_version', DeviceVersion());
+              formdata.append('device_model', deviceModel);
+              formdata.append('device_version', deviceVersion);
               if (
-                title == 'Sign up as a recruiter' &&
+                title != 'Sign up as a recruiter' &&
                 work_type !== 'Company'
               ) {
-                formdata.append('work_type', work_type);
-                // Dispatch(AuthThunks.doSignUpJobSeeker(formdata));
+                formdata.append('work_type', work_type?.toLowerCase());
+                Dispatch(AuthThunks.doSignUpJobSeeker(formdata));
+              } else if (work_type == 'Company') {
+                console.log(tax_card_document);
+                formdata.append('tax_id', '2585');
+                formdata.append('tax_card_document', tax_card_document);
+                formdata.append(
+                  'commercial_registration_document',
+                  commercial_registration_document,
+                );
+                Dispatch(AuthThunks.doSignUpCompany(formdata));
+              } else {
+                Dispatch(AuthThunks.doSignUpRecruiter(formdata));
               }
-
-              if (work_type == 'Company') {
-                // formdata.append("tax_id",values.taxId)
-                // formdata.append("tax_card_document",values.password)
-                // formdata.append("commercial_registration_d",values.password)
-              }
-
-              Dispatch(AuthThunks.doSignUpRecruiter(formdata));
-              // console.log(JSON.stringify(formdata))
-
-              // navigation.navigate('Verification');
             }}>
             {(props: any) => (
               <View>
                 <InputView
+                  {...props}
                   name="fullName"
                   placeholder="Your full name"
-                  props={props}
                 />
-                <InputView
-                  name="phone"
-                  placeholder="Your phone"
-                  props={props}
-                />
+                <InputView {...props} name="phone" placeholder="Your phone" />
                 <InputView
                   name="email"
                   placeholder="Write your email"
                   iconName={'RIGIHTININPUT'}
-                  props={props}
+                  {...props}
                 />
                 {work_type == 'Company' ? (
                   <View>
                     <InputView
                       name="taxID"
                       placeholder="Enter the taxID"
-                      //  iconName={'RIGIHTININPUT'}
-                      props={props}
+                      iconName={'RIGIHTININPUT'}
+                      {...props}
                     />
-                    <View style={styles.DocStyle}>
+                    <TouchableOpacity
+                      onPress={() => uploadFile('1')}
+                      style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
                         <PDF />
                         <Text
@@ -189,8 +225,10 @@ const SignupTwo = () => {
                           Upload Tax card
                         </Text>
                       </View>
-                    </View>
-                    <View style={styles.DocStyle}>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => uploadFile('2')}
+                      style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
                         <PDF />
                         <Text
@@ -202,7 +240,7 @@ const SignupTwo = () => {
                           Upload commercial registration
                         </Text>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   </View>
                 ) : null}
                 <InputView
@@ -210,18 +248,20 @@ const SignupTwo = () => {
                   placeholder="Write your password"
                   iconName={'EYE'}
                   secure={true}
-                  props={props}
+                  {...props}
                 />
                 <InputView
                   name="confirmPassword"
                   placeholder="Confirm your password"
                   iconName={'EYE'}
                   secure={true}
-                  props={props}
+                  {...props}
                 />
                 <View style={styles.rowAgree}>
-                  <TouchableOpacity style={styles.Circle}>
-                    <View style={styles.innerCircle} />
+                  <TouchableOpacity
+                    onPress={() => setIndex(!index)}
+                    style={styles.Circle}>
+                    <View style={index ? styles.innerCircle : null} />
                   </TouchableOpacity>
                   <Text style={styles.agree}>
                     I agree to the seevez{' '}

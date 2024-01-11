@@ -5,7 +5,7 @@ import {
     Alert,
     TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles';
 import { RenderSvgIcon } from '../../../Components/atoms/svg';
 import { Formik } from 'formik';
@@ -17,10 +17,78 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { appColors } from '../../../theme/appColors';
 import Video from 'react-native-fast-video';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useLoadingSelector } from 'src/redux/selectors';
+import AuthThunks from 'src/redux/auth/thunks';
+import { useAppDispatch } from 'src/redux/store';
+import AuthSlice, { selectVerified } from 'src/redux/auth';
+import { useSelector } from 'react-redux';
+import DeviceInfo from 'react-native-device-info';
+import { OtpSchema } from 'src/Formik/schema';
 
 const Verification = () => {
     const navigation=useNavigation()
+    const dispatch = useAppDispatch()
+    const { email,type }: any = useRoute().params;
+  
+    const [minutes, setMinutes] = React.useState(0);
+    const [seconds, setSeconds] = React.useState(59);
+  const [otpValue,setOtpValue]=React.useState('')
+   
+    // const { goBack, navigate } = useNavigation<any>()
+    const loading = useLoadingSelector(AuthThunks.doSignIn())
+    const Verified = useSelector(selectVerified)
+    useEffect(() => {
+        dispatch(AuthSlice.chnageIsSignedUp(false))
+        dispatch(AuthSlice.chnageReseted(false))
+        const interval = setInterval(() => {
+            if (seconds > 0) {
+                setSeconds(seconds - 1);
+            }
+
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(interval);
+                } else {
+                    setSeconds(59);
+                    setMinutes(minutes - 1);
+                }
+            }
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [seconds])
+
+    useEffect(() => {
+         if(type=='forget'){
+            Verified && navigation.navigate('ResetPassword', { email,otpValue })
+         }else{
+            Verified && dispatch(AuthSlice.chnageisAuth(true))
+
+         }
+    
+    }, [Verified])
+
+    const ActiveAccount = (values:any) => {
+        const formData = new FormData()
+        formData.append('email', email)
+        formData.append('otp', values.otp)
+        setOtpValue(values.otp)
+        // formData.append('type', type == 'Forget' ? 'reset' : 'verify')
+       
+
+        dispatch(AuthThunks.doVerifyOTP(formData))
+    }
+
+    const ResendOTP = () => {
+        const formData = new FormData()
+        formData.append('email', email?.toLowerCase())
+
+        dispatch(AuthThunks.doResendCode(formData))
+        setSeconds(59)
+    }
     return (
         <SafeAreaView edges={['top']} style={styles.container}>
 
@@ -70,24 +138,31 @@ const Verification = () => {
                     <Text style={styles.verificationText}>Verification</Text>
                     <Text style={styles.verificationText2}>We will send you a one-time password on this  email Address : exampel@info.com</Text>
                     <Formik
+                    validationSchema={OtpSchema}
                         initialValues={{ otp: '', }}
                         onSubmit={values => {
-                            navigation.navigate("ResetPassword")
+                            ActiveAccount(values) 
+                            // navigation.navigate("ResetPassword")
                         }}>
-                        {(props: any) => (
+                        {(props:any) => (
                             <View>
                                 <InputView
                                     name="otp"
                                     placeholder="Your OTP Code"
-                                    props={props}
+                                    // props={props}
+                                    {...props}
                                 />
 
 
-                                <Button text="Activate the account" onPress={props.handleSubmit} />
+                                <Button text={type=='forget'?'Change Password':"Activate the account"} onPress={props.handleSubmit} />
                             </View>
                         )}
                     </Formik>
-                    <Text style={styles.resendCode}>Resend the code</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'center' }}>
+                            <Text disabled={seconds != 0} onPress={() => ResendOTP()} style={styles.resendCode}>Resend the code </Text>
+                            {seconds != 0 && <Text style={styles.resendCode}>{minutes}:{seconds}</Text>}
+                        </View>
+                    
                     <View style={{ height: 50 }} />
                 </View>
             </KeyboardAwareScrollView>

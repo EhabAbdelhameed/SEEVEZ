@@ -5,7 +5,7 @@ import {
     Alert,
     TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles';
 import { RenderSvgIcon } from '../../../Components/atoms/svg';
 import { Formik } from 'formik';
@@ -15,9 +15,29 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { appColors } from '../../../theme/appColors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import AuthThunks from 'src/redux/auth/thunks';
+import { useAppDispatch } from 'src/redux/store';
+import { useSelector } from 'react-redux';
+import { selectReseted } from 'src/redux/auth';
+import { useLoadingSelector } from 'src/redux/selectors';
+import { ForgetSchema } from 'src/Formik/schema';
 
 const ForgetPassword = () => {
-    const navigation=useNavigation()
+    const navigation = useNavigation<any>();
+    const dispatch = useAppDispatch();
+  
+    const Reseted = useSelector(selectReseted);
+    const [email, setEmail] = React.useState('');
+  
+    const loading = useLoadingSelector(AuthThunks.doResetPassword());
+
+    useEffect(() => {
+      if (Reseted) {
+        navigation.navigate('Verification', { email,type:'forget' });
+        // navigation.navigate('ResetPassword', { email })
+      }
+    }, [Reseted]);
+
     return (
         <SafeAreaView edges={['top']} style={styles.container}>
             <View style={styles.container}>
@@ -54,15 +74,25 @@ const ForgetPassword = () => {
                         <Text style={styles.verificationText}>Forgot password ?</Text>
                         <Text style={styles.verificationText2}>We will send you a one-time password on your email.</Text>
                         <Formik
+                          validationSchema={ForgetSchema}
                             initialValues={{ email: '', }}
-                            onSubmit={values =>navigation.navigate("Verification")}>
-                            {(props: any) => (
+                            onSubmit={values =>{
+                                const formData = new FormData()
+                                formData.append('email', values.email)
+                                setEmail(values.email)
+                                dispatch(AuthThunks.doForgetPassword(formData))
+                            // navigation.navigate("Verification", { email:values.email })
+
+                            }
+                            }>
+                            {(props:any) => (
                                 <View>
                                     <InputView
                                         name="email"
                                         placeholder="Write your email"
-                                        props={props}
+                                        // props={props}
                                         iconName={'RIGIHTININPUT'}
+                                        {...props}
                                     />
                                     <Button text="Next" onPress={props.handleSubmit} />
                                 </View>
