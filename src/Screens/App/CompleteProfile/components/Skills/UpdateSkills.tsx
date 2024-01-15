@@ -40,7 +40,7 @@ const UpdateSkills = () => {
             onPress={_handleNavigate}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
-          <BigLogo style={{marginLeft: 40}} />
+          <BigLogo height={30} width={96} style={{marginLeft:70 }} />
         </View>
         <View style={styles.circles}>
           <RenderSvgIcon icon="CIRCLELOGIN" width={240} height={220} />
