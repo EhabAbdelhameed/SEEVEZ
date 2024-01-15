@@ -24,6 +24,30 @@ const doGetHome: any = createAsyncThunk<any, any, any>(
     }
 )
 
+//doSkills
+const doSkills: any = createAsyncThunk<any, any, any>(
+    'app/Skills',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.Skills(data);
+            // alert(response?.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+
 
 const doGetLatestOrder: any = createAsyncThunk<any, any, any>(
     'app/latestOrder',
@@ -729,6 +753,7 @@ const doSuccessPaymentOnline: any = createAsyncThunk<any, any, any>(
     }
 )
 const AppThunks = {
+    doSkills,
     doGetBranches,
     getMenu,
     getCategories,

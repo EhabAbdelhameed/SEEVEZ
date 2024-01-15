@@ -129,7 +129,44 @@ const styles = StyleSheet.create({
 skipText: {
     color: appColors.white,
     fontSize: 18
-}
+},
+rowAgree: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  columnGap: 6,
+  width: "94%",
+  marginBottom: appSizes.spacing_l,
+  marginLeft:10
+  // marginTop:appSizes.spacing_s
+},
+Circle: {
+  width: 20,
+  height: 20,
+  borderRadius: 20 / 2,
+  backgroundColor: appColors.secondary,
+  borderWidth: 1,
+  borderColor: appColors.primary,
+  alignItems: "center",
+  justifyContent: "center",
+  // marginTop:2,
+},
+innerCircle: {
+  width: 13,
+  height: 13,
+  borderRadius: 13 ,
+  backgroundColor: appColors.primary
+},
+agree: {
+  color: appColors.black,
+  fontSize: appSizes.font_m-1,
+  fontWeight: '400',
+  textAlign: 'left',
+},
+agreeLine:{
+  color:appColors.primary,
+  textDecorationLine:"underline"
+},
 });
 
 export default styles;

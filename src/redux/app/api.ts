@@ -1,6 +1,7 @@
 import { api } from "../_axios"
 
 const home = (data: any) => api.get(`home?${data}`)
+const Skills = (data: any) => api.post(`api/skills`, data)
 const latestOrder = () => api.get(`latest-order`)
 
 const branches = (data: any) => api.get(`branches?${data}`)
@@ -44,6 +45,7 @@ const search = (text: any, brancheId: number) => api.get(`branches/${brancheId}/
 
 
 const AppAPI = {
+    Skills,
     home,
     branches,
     latestOrder,

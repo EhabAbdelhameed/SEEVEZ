@@ -31,12 +31,28 @@ const slice = createSlice({
                 })
             } else {
                 Toast.show({
+                    type: "error",   
+                    text1: action.payload.data.message,
+                })
+            }
+        });
+           //doSkills
+           builder.addCase(thunks.doSkills.fulfilled, (state, action) => {
+            
+        });
+        builder.addCase(thunks.doSkills.rejected, (state, action: any) => {
+            if (action.payload.data.message == "Validation error.") {
+                Toast.show({
+                    type: "error",
+                    text1: action.payload.data.error,
+                })
+            } else {
+                Toast.show({
                     type: "error",
                     text1: action.payload.data.message,
                 })
             }
         });
-
 
         //doGetBranches
         builder.addCase(thunks.doGetBranches.fulfilled, (state, action) => {

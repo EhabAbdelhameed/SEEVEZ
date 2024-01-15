@@ -1,27 +1,40 @@
-import {Image, StyleSheet, Text, View, ImageBackground} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import { AVATAR } from 'assets/Svgs';
+import {AVATAR} from 'assets/Svgs';
+import {useNavigation} from '@react-navigation/native';
 
 const EducationCard = () => {
+  const navigation = useNavigation<any>();
+
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Education</Text>
           <View style={styles.Row2}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateEducation')}>
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.Row2}>
-        <View
+          <View
             style={{
               width: 65,
               height: 65,
@@ -35,9 +48,7 @@ const EducationCard = () => {
           </View>
           <View style={{marginLeft: 10}}>
             <Text style={styles.Title2}>School/university name</Text>
-            <Text style={styles.CompanyName}>
-             field of study
-            </Text>
+            <Text style={styles.CompanyName}>field of study</Text>
             {/* <Text style={styles.des}>2014 - 2018 ·4 years · Cairo, Egypt</Text>
             <View style={styles.Row2}>
               <Text style={styles.Title3}>Grade : </Text>

@@ -12,11 +12,14 @@ import AddPhoto from 'screens/App/CreatePost/AddPhoto';
 import CreateVideo2 from 'screens/App/CreatePost/CreateVideo2';
 import UpdateAchievements from 'screens/App/CompleteProfile/components/Achievements/UpdateAchievements';
 import CreatePull from 'screens/App/CreatePost/CreatePull';
+import UpdateExperience from 'screens/App/CompleteProfile/components/Experience/UpdateExperience';
 import UpdateTraining from 'screens/App/CompleteProfile/components/Training/UpdateTraining';
 import UpdateRefernceCheck from 'screens/App/CompleteProfile/components/RefernceCheck/UpdateRefernceCheck';
 import UpdateAbout from 'screens/App/CompleteProfile/components/About/UpdateAbout';
 import UpdateSkills from 'screens/App/CompleteProfile/components/Skills/UpdateSkills';
-import UpdateLanguages from 'screens/App/CompleteProfile/components//Languages/UpdateLanguages'
+import UpdateInfo from 'screens/App/CompleteProfile/components/Info/UpdateInfo';
+import UpdateLanguages from 'screens/App/CompleteProfile/components//Languages/UpdateLanguages';
+import UpdateEducation from 'screens/App/CompleteProfile/components/Education/UpdateEducation';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -55,6 +58,18 @@ const AppStack = () => {
               <Stack.Screen
                 name="UpdateTraining"
                 component={UpdateTraining}
+            />
+              <Stack.Screen
+                name="UpdateExperience"
+                component={UpdateExperience}
+            />
+             <Stack.Screen
+                name="UpdateEducation"
+                component={UpdateEducation}
+            />
+               <Stack.Screen
+                name="UpdateInfo"
+                component={UpdateInfo}
             />
             <Stack.Screen
                 name="ProfileScreen"

@@ -14,14 +14,19 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import InputView from 'components/molecules/Input';
-import { appSizes } from 'theme/appSizes';
+import {appSizes} from 'theme/appSizes';
+import AppThunks from 'src/redux/app/thunks';
+import {useAppDispatch} from 'src/redux/store';
 
 const UpdateSkills = () => {
+  const [loading, setLoading] = React.useState(false);
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const dispatch = useAppDispatch();
+
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -40,7 +45,7 @@ const UpdateSkills = () => {
             onPress={_handleNavigate}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
-          <BigLogo height={30} width={96} style={{marginLeft:70 }} />
+          <BigLogo height={30} width={96} style={{marginLeft: 70}} />
         </View>
         <View style={styles.circles}>
           <RenderSvgIcon icon="CIRCLELOGIN" width={240} height={220} />
@@ -83,6 +88,14 @@ const UpdateSkills = () => {
           <Formik
             initialValues={{Skills: ''}}
             onSubmit={values => {
+              setLoading(true);
+              const formdata = new FormData();
+
+              formdata.append('name', values.Skills);
+              dispatch(AppThunks.doSkills(formdata)).then((res: any) => {
+                setLoading(false);
+              });
+
               // navigation.navigate("ResetPassword")
             }}>
             {(props: any) => (
@@ -94,9 +107,13 @@ const UpdateSkills = () => {
                   {...props}
                 />
 
-                <View style={{height:appSizes.height * 0.28}}/>
+                <View style={{height: appSizes.height * 0.28}} />
 
-                <Button text={'Done'} onPress={props.handleSubmit} />
+                <Button
+                  loading={loading}
+                  text={'Done'}
+                  onPress={props.handleSubmit}
+                />
               </View>
             )}
           </Formik>

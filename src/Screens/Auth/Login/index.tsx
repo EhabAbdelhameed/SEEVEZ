@@ -68,7 +68,7 @@ const Login = () => {
                 const formdata = new FormData();
                 formdata.append('email', values.email);
                 formdata.append('password', values.password);
-                // Dispatch(AuthThunks.doSignIn(formdata))
+                
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false)
                   if (res?.payload?.data?.message == 'Email not verified.') {

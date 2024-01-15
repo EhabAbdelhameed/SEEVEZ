@@ -21,7 +21,7 @@ import PULL from './Pull.svg'
 import ADDONTHEROPTION from './AddOntherOption.svg'
 import PDF from './pdf.svg'
 import AVATAR from './clarity_avatar-solid.svg'
-
+import PERSON from './Person.svg'
 import CALANDER from './Calunder.svg'
 
 
@@ -48,5 +48,6 @@ export {
     ADDONTHEROPTION,
     PDF,
     AVATAR,
-    CALANDER
+    CALANDER,
+    PERSON
 }

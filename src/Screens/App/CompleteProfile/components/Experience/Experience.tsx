@@ -1,24 +1,28 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import React from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {AVATAR} from 'assets/Svgs';
 import ReadMore from '@fawazahmed/react-native-read-more';
+import { useNavigation } from '@react-navigation/native';
 
 const ExperienceCard = () => {
+  const navigation = useNavigation<any>();
+
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Experience</Text>
           <View style={styles.Row2}>
-            {/* <RenderSvgIcon icon='PLUSFOLLOW' style={{ marginRight: 10 }} width={20} height={20} color={appColors.primary} /> */}
+          <TouchableOpacity onPress={()=>navigation.navigate("UpdateExperience")}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
           </View>
         </View>
 

@@ -11,13 +11,21 @@ const InfoCard = () => {
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
-        <RenderSvgIcon
-          icon="PEN"
-          width={20}
-          height={20}
-          color={appColors.white}
-          style={styles.PENIcon}
-        />
+    
+      <View style={styles.Row1}>
+          
+          <View style={styles.Row2}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateInfo')}>
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
         <ImageBackground
           source={{
             uri: 'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-profile-glyph-black-icon-png-image_691589.jpg',
@@ -113,7 +121,21 @@ const styles = StyleSheet.create({
   Row: {
     flexDirection: 'row',
     alignItems: 'center',
+    // justifyContent:'flex-end',
     marginVertical: 5,
+  },
+  Row1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'flex-end',
+    marginVertical: 5,
+  },
+  Row2:{
+   
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      justifyContent:'flex-end'
+ 
   },
   Name: {
     fontSize: 23,
