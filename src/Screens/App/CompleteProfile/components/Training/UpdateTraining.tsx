@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, TextInput, Alert} from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
@@ -15,10 +15,13 @@ import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker'
+
 const UpdateTraining = () => {
+    const [date, setDate] = useState(new Date())
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
+
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
@@ -148,7 +151,7 @@ const UpdateTraining = () => {
                         height: 60,
                       
                       }}>
-
+            <DatePicker date={date} onDateChange={setDate} />
                       </View>
                   </View>
                   <View style={{width: '46%'}}>
