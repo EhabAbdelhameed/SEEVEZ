@@ -15,10 +15,16 @@ import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
-import DatePicker from 'react-native-date-picker'
+// import DatePicker from 'react-native-date-picker';
+// import Modal from "react-native-modal";
 
+// import DateTimePicker from '@react-native-community/datetimepicker';
+// import RNDateTimePicker from '@react-native-community/datetimepicker';
+// import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateTraining = () => {
     const [date, setDate] = useState(new Date())
+    const [Visiable, setVisiable] = useState(false)
+
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
 
@@ -151,7 +157,7 @@ const UpdateTraining = () => {
                         height: 60,
                       
                       }}>
-            <DatePicker date={date} onDateChange={setDate} />
+           
                       </View>
                   </View>
                   <View style={{width: '46%'}}>
@@ -178,6 +184,11 @@ const UpdateTraining = () => {
             )}
           </Formik>
         </View>
+        {/* <Modal isVisible={Visiable}>
+        <View style={{ flex: 1 }}>
+        <DatePicker date={date} onDateChange={setDate} />
+        </View>
+      </Modal> */}
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
