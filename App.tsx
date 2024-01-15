@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { Store } from 'src/redux/store';
+import Toast from 'react-native-toast-message';
 
 enableScreens()
 
@@ -21,9 +22,11 @@ const App = () => {
         {/* <CommonStatusBar /> */}
 
         <PortalProvider>
+
           <Navigation />
         </PortalProvider>
       </SafeAreaProvider>
+      <Toast topOffset={50}/>
     </GestureHandlerRootView>
     </Provider>
   )
