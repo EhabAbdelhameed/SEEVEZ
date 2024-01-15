@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     // alignItems: '',
     marginVertical: appSizes.x,
-    marginBottom: appSizes.height * 0.07,
+    marginBottom: appSizes.height * 0.04,
   },
   bottomSection: {
     backgroundColor: appColors.white,

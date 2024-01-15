@@ -66,8 +66,8 @@ const Login = () => {
                 setLoading(true)
                 setEmail(values.email);
                 const formdata = new FormData();
-                formdata.append('email', values.email?.toLowerCase());
-                formdata.append('password', values.password?.toLowerCase());
+                formdata.append('email', values.email);
+                formdata.append('password', values.password);
                 // Dispatch(AuthThunks.doSignIn(formdata))
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false)
