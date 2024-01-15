@@ -28,8 +28,9 @@ const ForgetPassword = () => {
   
     const Reseted = useSelector(selectReseted);
     const [email, setEmail] = React.useState('');
-  
-    const loading = useLoadingSelector(AuthThunks.doResetPassword());
+    const [loading, setLoading] = React.useState(false);
+
+    // const loading = useLoadingSelector(AuthThunks.doResetPassword());
 
     useEffect(() => {
       if (Reseted) {
@@ -77,10 +78,15 @@ const ForgetPassword = () => {
                           validationSchema={ForgetSchema}
                             initialValues={{ email: '', }}
                             onSubmit={values =>{
+                                setLoading(true)
                                 const formData = new FormData()
                                 formData.append('email', values.email)
                                 setEmail(values.email)
-                                dispatch(AuthThunks.doForgetPassword(formData))
+                                dispatch(AuthThunks.doForgetPassword(formData)).then(() => 
+                                    setLoading(false)
+                                 
+                                  );
+                  
                             // navigation.navigate("Verification", { email:values.email })
 
                             }
@@ -94,7 +100,7 @@ const ForgetPassword = () => {
                                         iconName={'RIGIHTININPUT'}
                                         {...props}
                                     />
-                                    <Button text="Next" onPress={props.handleSubmit} />
+                                    <Button loading={loading} text="Next" onPress={props.handleSubmit} />
                                 </View>
                             )}
                         </Formik>

@@ -38,6 +38,7 @@ const SignupTwo = () => {
   const [tax_card_document, setTaxCardDocument] = React.useState<any>([]);
   const [commercial_registration_document, setCommercialRegistrationDocument] =
     React.useState<any>([]);
+    const [loading, setLoading] = React.useState(false);
 
   const UineqId = async () => {
     const ff = await DeviceInfo.getUniqueId();
@@ -153,6 +154,7 @@ const SignupTwo = () => {
             }
             // validationSchema={work_type === 'Company' ? RegistSchemaCompany : RegistSchema}
             onSubmit={values => {
+              setLoading(true)
               setEmail(values.email);
               console.log(work_type?.toLowerCase());
               const formdata = new FormData();
@@ -175,7 +177,7 @@ const SignupTwo = () => {
                 work_type !== 'Company'
               ) {
                 formdata.append('work_type', work_type?.toLowerCase());
-                Dispatch(AuthThunks.doSignUpJobSeeker(formdata));
+                Dispatch(AuthThunks.doSignUpJobSeeker(formdata)).then(()=>setLoading(false))
               } else if (work_type == 'Company') {
                 console.log(tax_card_document);
                 formdata.append('tax_id', values.taxID);
@@ -192,9 +194,9 @@ const SignupTwo = () => {
                   name: commercial_registration_document[0]?.name,
                 },
                 );
-                Dispatch(AuthThunks.doSignUpCompany(formdata));
+                Dispatch(AuthThunks.doSignUpCompany(formdata)).then(()=>setLoading(false))
               } else {
-                Dispatch(AuthThunks.doSignUpRecruiter(formdata));
+                Dispatch(AuthThunks.doSignUpRecruiter(formdata)).then(()=>setLoading(false))
               }
             }}>
             {(props: any) => (
@@ -278,7 +280,7 @@ const SignupTwo = () => {
                     <Text style={styles.agreeLine}>privacy policy</Text>
                   </Text>
                 </View>
-                <Button text="Sign up" onPress={props.handleSubmit} />
+                <Button loading={loading} text="Sign up" onPress={props.handleSubmit} />
               </View>
             )}
           </Formik>

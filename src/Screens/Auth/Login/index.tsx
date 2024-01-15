@@ -30,6 +30,7 @@ import { LoginSchema } from 'src/Formik/schema';
 const Login = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
   const Reseted = useSelector(selectReseted);
   useEffect(() => {
     Reseted && navigation.navigate('Verification', { email});
@@ -62,12 +63,14 @@ const Login = () => {
                 validationSchema={LoginSchema}
               initialValues={{email: '', password: ''}}
               onSubmit={values => {
+                setLoading(true)
                 setEmail(values.email);
                 const formdata = new FormData();
                 formdata.append('email', values.email?.toLowerCase());
                 formdata.append('password', values.password?.toLowerCase());
                 // Dispatch(AuthThunks.doSignIn(formdata))
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
+                  setLoading(false)
                   if (res?.payload?.data?.message == 'Email not verified.') {
                     const formData = new FormData();
                     formData.append('email', values?.email?.toLowerCase());
@@ -97,7 +100,7 @@ const Login = () => {
                   <Text style={styles.forgotPassword} onPress={_handleNavigate}>
                     Forgot password ?
                   </Text>
-                  <Button text="Log in" onPress={props.handleSubmit} />
+                  <Button loading={loading} text="Log in" onPress={props.handleSubmit} />
                 </View>
               )}
             </Formik>

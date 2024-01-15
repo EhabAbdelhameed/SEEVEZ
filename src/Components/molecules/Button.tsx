@@ -1,11 +1,16 @@
-import { StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 import React from 'react';
 import { appColors } from '../../theme/appColors';
 
-const Button = ({ text, onPress, style, textStyle }: { text: string; onPress: () => void; style?: ViewStyle; textStyle?: TextStyle; }) => {
+const Button = ({ text, onPress, style, textStyle,loading }: {loading?:boolean; text: string; onPress: () => void; style?: ViewStyle; textStyle?: TextStyle; }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, { ...style }]}>
-      <Text style={[styles.text, {...textStyle}]}>{text}</Text>
+    <TouchableOpacity disabled={loading} onPress={onPress} style={[styles.container, { ...style }]}>
+    {
+    loading?
+    <ActivityIndicator size={'large'} color='#FFF'/> 
+    :
+     <Text style={[styles.text, {...textStyle}]}>{text}</Text>
+     }
     </TouchableOpacity>
   );
 };

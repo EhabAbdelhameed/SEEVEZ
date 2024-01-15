@@ -22,8 +22,9 @@ const ResetPassword = () => {
   const navigation = useNavigation();
   const {email, otpValue}: any = useRoute().params;
   const dispatch = useAppDispatch();
-  const loading = useLoadingSelector(AuthThunks.doResetPassword());
+  // const loading = useLoadingSelector(AuthThunks.doResetPassword());
   const [Token, setToken] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
     dispatch(AuthSlice.chnageVerified(false));
@@ -66,6 +67,7 @@ const ResetPassword = () => {
           validationSchema={ResetSchema}
             initialValues={{password: '', confirmPassword: ''}}
             onSubmit={values => {
+              setLoading(true)
               const formData = new FormData();
 
               formData.append('email', email?.toLowerCase());
@@ -74,7 +76,9 @@ const ResetPassword = () => {
               formData.append('password', values.password);
               formData.append('password_confirmation', values.confirmPassword);
 
-              dispatch(AuthThunks.doResetPassword(formData));
+              dispatch(AuthThunks.doResetPassword(formData)).then(() => 
+                setLoading(false));
+
             }}>
             {(props: any) => (
               <View>
@@ -97,6 +101,7 @@ const ResetPassword = () => {
 
                 <Button
                   text="Get started"
+                  loading={loading}
                   onPress={props.handleSubmit}
                   style={styles.btn}
                 />

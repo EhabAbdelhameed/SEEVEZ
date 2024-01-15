@@ -36,7 +36,9 @@ const Verification = () => {
   const [otpValue,setOtpValue]=React.useState('')
    
     // const { goBack, navigate } = useNavigation<any>()
-    const loading = useLoadingSelector(AuthThunks.doSignIn())
+    // const loading = useLoadingSelector(AuthThunks.doSignIn())
+    const [loading, setLoading] = React.useState(false);
+
     const Verified = useSelector(selectVerified)
     useEffect(() => {
         dispatch(AuthSlice.chnageIsSignedUp(false))
@@ -72,6 +74,7 @@ const Verification = () => {
     }, [Verified])
 
     const ActiveAccount = (values:any) => {
+        setLoading(true)
         const formData = new FormData()
         formData.append('email', email)
         formData.append('otp', values.otp)
@@ -79,7 +82,7 @@ const Verification = () => {
         // formData.append('type', type == 'Forget' ? 'reset' : 'verify')
        
 
-        dispatch(AuthThunks.doVerifyOTP(formData))
+        dispatch(AuthThunks.doVerifyOTP(formData)).then(()=>setLoading(false))
     }
 
     const ResendOTP = () => {
@@ -141,6 +144,7 @@ const Verification = () => {
                     validationSchema={OtpSchema}
                         initialValues={{ otp: '', }}
                         onSubmit={values => {
+                        
                             ActiveAccount(values) 
                             // navigation.navigate("ResetPassword")
                         }}>
