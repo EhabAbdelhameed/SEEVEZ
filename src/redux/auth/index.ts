@@ -5,6 +5,7 @@ import {EntityKeys} from 'src/redux/keys';
 import {RootState} from '../store';
 import {initialState} from './types';
 import thunks from './thunks';
+import {Alert} from 'react-native';
 
 const slice = createSlice({
   name: EntityKeys.AUTH,
@@ -28,14 +29,12 @@ const slice = createSlice({
     },
   },
   extraReducers(builder) {
-   // doSignIn
+    // doSignIn
     builder.addCase(thunks.doSignIn.fulfilled, (state, action) => {
-          
-      
       // console.log(action.payload.data?.token)
       AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
       state.currentUser = action.payload?.data;
-   
+
       state.isAuth = true;
     });
     builder.addCase(thunks.doSignIn.rejected, (state, action: any) => {
@@ -53,14 +52,11 @@ const slice = createSlice({
       }
     });
 
-   // doVerifyOTP
+    // doVerifyOTP
     builder.addCase(thunks.doVerifyOTP.fulfilled, (state, action) => {
-   
-        state.verified = true;
-    
+      state.verified = true;
     });
     builder.addCase(thunks.doVerifyOTP.rejected, (state, action: any) => {
-      console.log(action.payload.data);
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -75,24 +71,22 @@ const slice = createSlice({
     });
     //doResendCode
     builder.addCase(thunks.doResendCode.fulfilled, (state, action) => {
-   
       state.verified = true;
-  
-  });
-  builder.addCase(thunks.doResendCode.rejected, (state, action: any) => {
-    console.log(action.payload.data);
-    if (action.payload.data.message == 'Validation error.') {
-      Toast.show({
-        type: 'error',
-        text1: action.payload.data.error,
-      });
-    } else {
-      Toast.show({
-        type: 'error',
-        text1: action.payload.data.message,
-      });
-    }
-  });
+    });
+    builder.addCase(thunks.doResendCode.rejected, (state, action: any) => {
+      console.log(action.payload.data);
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
     //doResetPassword
     builder.addCase(thunks.doResetPassword.fulfilled, (state, action) => {
       state.reset = true;
@@ -118,7 +112,6 @@ const slice = createSlice({
 
     //doForgetPassword
     builder.addCase(thunks.doForgetPassword.fulfilled, (state, action) => {
-     
       state.reset = true;
       Toast.show({
         type: 'success',

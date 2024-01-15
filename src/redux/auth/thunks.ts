@@ -83,7 +83,7 @@ const doSignIn: any = createAsyncThunk<any, any, any>(
     console.log(data)
     try {
       const response = await AuthAPI.login(data);
-      // console.log(JSON.stringify(response))
+      console.log(JSON.stringify(response))
       if (
         response.status == 400 ||
         response.status == 401 ||
@@ -131,7 +131,7 @@ const doVerifyOTP: any = createAsyncThunk<any, any, any>(
   async (data: any, thunkApi: any) => {
     try {
       const response = await AuthAPI.verifyOTP(data);
-      // console.log(JSON.stringify(response.data))
+      console.log(JSON.stringify(response.data))
       if (
         response.status == 400 ||
         response.status == 401 ||

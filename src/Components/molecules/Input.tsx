@@ -47,7 +47,7 @@ const InputView = ({
           borderRadius: 16,
           borderColor: '#1D5EDD',
           borderWidth: 1,
-          paddingHorizontal: 15,
+          paddingHorizontal: 15, 
           paddingVertical: 4,
           borderBottomWidth: 0.5,
         }}

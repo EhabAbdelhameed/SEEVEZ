@@ -4,14 +4,19 @@ import ReelsScreen from '../Screens/App/Reels/Reels';
 import TabBar from './BottomTab/TabBar';
 import { AppParamsList } from './types';
 import ProfileScreen from 'screens/App/Profile/Main Profile';
+import CompleteProfileScreen from 'screens/App/CompleteProfile'
 import CreateVideo from 'screens/App/CreatePost/CreateVideo';
 import CreateVoice from 'screens/App/CreatePost/CreateVoice';
 import AnalyticsScreen from 'screens/App/Profile/Analytics';
 import AddPhoto from 'screens/App/CreatePost/AddPhoto';
 import CreateVideo2 from 'screens/App/CreatePost/CreateVideo2';
+import UpdateAchievements from 'screens/App/CompleteProfile/components/Achievements/UpdateAchievements';
 import CreatePull from 'screens/App/CreatePost/CreatePull';
-
-
+import UpdateTraining from 'screens/App/CompleteProfile/components/Training/UpdateTraining';
+import UpdateRefernceCheck from 'screens/App/CompleteProfile/components/RefernceCheck/UpdateRefernceCheck';
+import UpdateAbout from 'screens/App/CompleteProfile/components/About/UpdateAbout';
+import UpdateSkills from 'screens/App/CompleteProfile/components/Skills/UpdateSkills';
+import UpdateLanguages from 'screens/App/CompleteProfile/components//Languages/UpdateLanguages'
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -22,6 +27,34 @@ const AppStack = () => {
             <Stack.Screen
                 name="TabBar"
                 component={TabBar}
+            />
+               <Stack.Screen
+                name="CompleteProfileScreen"
+                component={CompleteProfileScreen}
+            />
+              <Stack.Screen
+                name="UpdateAbout"
+                component={UpdateAbout}
+            />
+                <Stack.Screen
+                name="UpdateLanguages"
+                component={UpdateLanguages}
+            />
+              <Stack.Screen
+                name="UpdateAchievements"
+                component={UpdateAchievements}
+            />
+             <Stack.Screen
+                name="UpdateRefernceCheck"
+                component={UpdateRefernceCheck}
+            />
+             <Stack.Screen
+                name="UpdateSkills"
+                component={UpdateSkills}
+            />
+              <Stack.Screen
+                name="UpdateTraining"
+                component={UpdateTraining}
             />
             <Stack.Screen
                 name="ProfileScreen"

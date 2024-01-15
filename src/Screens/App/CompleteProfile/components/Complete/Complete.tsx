@@ -1,16 +1,15 @@
 import { View, Text,TouchableOpacity } from 'react-native'
 import React from 'react'
-import { styles } from './styles'
+import { styles } from '../styles'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import { appColors } from '../../../../../theme/appColors'
-import { useNavigation } from '@react-navigation/native'
 
-const CompleteProfile = ({
+const Complete = ({
     pers = 0
 }: {
     pers: number;
 }) => {
-    const navigation = useNavigation()
+
     const Slider = () => {
         return (
             <View style={styles.rowItemSlide}>
@@ -38,7 +37,7 @@ const CompleteProfile = ({
 
     return (
         <>
-            <TouchableOpacity onPress={()=>navigation.navigate('CompleteProfileScreen')} style={styles.containerCompleteProfile}>
+            <View style={styles.containerCompleteProfile}>
                 <View style={styles.rowContainer}>
                     <View style={styles.contentContainer}>
                         <Text style={styles.text1}>Complete your profile</Text>
@@ -52,9 +51,9 @@ const CompleteProfile = ({
                     </View>
                 </View>
                 <Slider />
-            </TouchableOpacity>
+            </View>
         </>
     )
 }
 
-export default CompleteProfile
+export default Complete

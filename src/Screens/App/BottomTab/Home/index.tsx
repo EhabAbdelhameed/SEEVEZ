@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styles } from './styles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from './components/Header'
@@ -18,13 +18,21 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { globalStyles } from 'src/globalStyle'
 import { appSizes } from 'theme'
 import { PlayVideo, Trending } from 'assets/Svgs'
+import { useAppDispatch } from 'src/redux/store'
+import AuthSlice from 'src/redux/auth'
 
 const Home = () => {
     const navigation = useNavigation()
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(AuthSlice.chnageVerified(false));
+        dispatch(AuthSlice.chnageIsSignedUp(false))
+        dispatch(AuthSlice.chnageReseted(false))
+      }, []);
     return (
         <SafeAreaView edges={['top']} style={globalStyles.screen}>
             <View style={globalStyles.screen}>
-                <Header />
+                <Header />   
                 <KeyboardAwareScrollView
                     contentContainerStyle={{
                         alignItems: "center",
@@ -36,6 +44,7 @@ const Home = () => {
                     enableResetScrollToCoords={false}
                     showsVerticalScrollIndicator={false}
                 >
+                    
                     <CompleteProfile pers={10} />
                     <View style={styles.rowContainer}>
                         <BoxContentTitle

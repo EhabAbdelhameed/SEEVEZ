@@ -35,14 +35,14 @@ const SignupTwo = () => {
   const [deviceVersion, setDeviceVersion] = React.useState('');
   const [deviceModel, setDeviceModel] = React.useState('');
   const [index, setIndex] = React.useState(false);
-  const [tax_card_document, setTaxCardDocument] = React.useState([]);
+  const [tax_card_document, setTaxCardDocument] = React.useState<any>([]);
   const [commercial_registration_document, setCommercialRegistrationDocument] =
-    React.useState([]);
+    React.useState<any>([]);
 
   const UineqId = async () => {
     const ff = await DeviceInfo.getUniqueId();
     setDeviceId(ff);
-    console.log(deviceId);
+   
     // return ff;
   };
 
@@ -146,7 +146,7 @@ const SignupTwo = () => {
               confirmPassword: '',
               code: '',
               phone: '',
-              taxId: '',
+              taxID: '',
             }}
             validationSchema={
               work_type == 'Company' ? RegistSchemaCompany : RegistSchema
@@ -178,11 +178,19 @@ const SignupTwo = () => {
                 Dispatch(AuthThunks.doSignUpJobSeeker(formdata));
               } else if (work_type == 'Company') {
                 console.log(tax_card_document);
-                formdata.append('tax_id', '2585');
-                formdata.append('tax_card_document', tax_card_document);
+                formdata.append('tax_id', values.taxID);
+                formdata.append('tax_card_document', {
+                  uri: tax_card_document[0]?.uri,
+                  type: tax_card_document[0]?.type,
+                  name: tax_card_document[0]?.name,
+                });
                 formdata.append(
                   'commercial_registration_document',
-                  commercial_registration_document,
+                   {
+                  uri: commercial_registration_document[0]?.uri,
+                  type: commercial_registration_document[0]?.type,
+                  name: commercial_registration_document[0]?.name,
+                },
                 );
                 Dispatch(AuthThunks.doSignUpCompany(formdata));
               } else {

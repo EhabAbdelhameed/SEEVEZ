@@ -21,6 +21,13 @@ export type AppParamsList = {
     Reels: undefined;
     TabBar: undefined;
     ProfileScreen: undefined;
+    CompleteProfileScreen:undefined;
+    UpdateAbout:undefined;
+    UpdateLanguages:undefined;
+    UpdateAchievements:undefined;
+    UpdateRefernceCheck:undefined;
+    UpdateSkills:undefined;
+    UpdateTraining:undefined;
     CreateVideo:undefined;
     CreateVoice:undefined;
     Analytics: undefined;

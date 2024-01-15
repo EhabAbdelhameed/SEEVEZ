@@ -2,7 +2,7 @@ import LogoWithName from './LogoWithName.svg'
 import PlayVideo from './PlayVideo.svg'
 import LayerDashboard from './LayerDashboard.svg'
 import Trending from './Trending.svg'
-
+import PHOTO from './photo.svg'
 import PLUSTAB from './PlusTab.svg'
 import PLUSCONTAINER from './ContainerPlus.svg'
 
@@ -20,8 +20,9 @@ import CV from './CV.svg'
 import PULL from './Pull.svg'
 import ADDONTHEROPTION from './AddOntherOption.svg'
 import PDF from './pdf.svg'
+import AVATAR from './clarity_avatar-solid.svg'
 
-
+import CALANDER from './Calunder.svg'
 
 
 export {
@@ -29,7 +30,7 @@ export {
     PlayVideo,
     LayerDashboard,
     Trending,
-
+    PHOTO,
     PLUSTAB,
     PLUSCONTAINER,
     ReviewCV,
@@ -45,5 +46,7 @@ export {
     CV,
     PULL,
     ADDONTHEROPTION,
-    PDF
+    PDF,
+    AVATAR,
+    CALANDER
 }
