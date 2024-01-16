@@ -19,11 +19,14 @@ import { globalStyles } from 'src/globalStyle'
 import { appSizes } from 'theme'
 import { PlayVideo, Trending } from 'assets/Svgs'
 import { useAppDispatch } from 'src/redux/store'
-import AuthSlice from 'src/redux/auth'
+import AuthSlice, { selectUser } from 'src/redux/auth'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
     const navigation = useNavigation()
     const dispatch = useAppDispatch();
+    const CurrentUserData = useSelector(selectUser);
+    // console.log("0000000000"+JSON.stringify(CurrentUserData))
     useEffect(() => {
         dispatch(AuthSlice.chnageVerified(false));
         dispatch(AuthSlice.chnageIsSignedUp(false))

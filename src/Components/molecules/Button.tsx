@@ -25,8 +25,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: appColors.white,
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: '500',
     textAlign: 'center',
+    fontFamily:'Noto Sans'
   },
 });

@@ -17,8 +17,12 @@ import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
 import DatePicker from 'react-native-date-picker';
 import Modal from 'react-native-modal';
-
+import DocumentPicker from 'react-native-document-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import AppThunks from 'src/redux/app/thunks';
+import {useAppDispatch} from 'src/redux/store';
+import Moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateExperience = () => {
@@ -27,20 +31,52 @@ const UpdateExperience = () => {
   const [index, setIndex] = React.useState(false);
   const [isVisible, setVisible] = useState(false);
   const [type, setType] = useState('0');
+  const [Work, setWork] = useState(0);
 
-
+  const [jobTitle, setJobTitle] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [experienceLetter, setExperienceLetter] = useState<any>([]);
+  const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
   const handleDateChange = (event: any, selectedDate: any) => {
-    // Handle date change logic here
-    if (selectedDate !== undefined&&type=='1') {
+    console.log(selectedDate);
+    if (selectedDate !== undefined && type == '1') {
       setDate(selectedDate);
-    }else if(selectedDate !== undefined&&type=='2'){
+    } else if (selectedDate !== undefined && type == '2') {
       setDate1(selectedDate);
-
     }
     setVisible(false); // Close the DateTimePicker modal
   };
- 
 
+  // const na = async () => {
+  //   const token: any = await AsyncStorage.getItem('USER_TOKEN');
+  //   console.log(token);
+  // };
+// React.useEffect(()=>{
+//   na()
+// },[])
+  const uploadFile = async (type: any) => {
+    try {
+      const res: any = await DocumentPicker.pick({
+        type: [DocumentPicker.types.pdf],
+      });
+      console.log(res);
+      setExperienceLetter(res);
+      // setFieldValue(name.replace(/\s/g, ''), {
+      //   uri: res[0]?.uri,
+      //   type: res[0]?.type,
+      //   name: res[0]?.name,
+      // });
+    } catch (err) {
+      // setFieldValue(name.replace(/\s/g, ''), '');
+      if (DocumentPicker.isCancel(err)) {
+        console.log('Canceled');
+      } else {
+        console.log('Unknown Error: ' + JSON.stringify(err));
+        throw err;
+      }
+    }
+  };
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
 
@@ -53,7 +89,6 @@ const UpdateExperience = () => {
       <KeyboardAwareScrollView
         contentContainerStyle={{
           backgroundColor: appColors.bg,
-          
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
@@ -106,17 +141,37 @@ const UpdateExperience = () => {
             Experience
           </Text>
           <Formik
-            initialValues={{Industry: '',YearsOfExperience:'',JobType:''}}
+            initialValues={{Industry: '', YearsOfExperience: '', JobType: ''}}
             onSubmit={values => {
+              setLoading(true);
+              const formdata = new FormData();
+
+              formdata.append('job_title', jobTitle);
+              formdata.append('company_name', companyName);
+              formdata.append('industry', values.Industry);
+              formdata.append('job_type', values.JobType);
+              formdata.append('years_of_experience', values.YearsOfExperience);
+
+              formdata.append('start_date', Moment(date).format('yyyy/MM/DD'));
+              formdata.append('end_date', Moment(date1).format('yyyy/MM/DD'));
+              formdata.append('still_work_here', Work);
+              formdata.append('experience_letter', {
+                uri: experienceLetter[0]?.uri,
+                type: experienceLetter[0]?.type,
+                name: experienceLetter[0]?.name,
+              });
+              dispatch(AppThunks.doAddExperience(formdata)).then((res: any) => {
+                setLoading(false);
+              });
               // navigation.navigate("ResetPassword")
             }}>
             {(props: any) => (
               <View>
-                  <View
+                <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-around',
-                    marginBottom:10
+                    marginBottom: 10,
                   }}>
                   <TextInput
                     placeholder="Job title"
@@ -130,6 +185,7 @@ const UpdateExperience = () => {
                       height: 60,
                       width: '46%',
                     }}
+                    onChangeText={e => setJobTitle(e)}
                   />
                   <TextInput
                     placeholder="Company name"
@@ -143,6 +199,7 @@ const UpdateExperience = () => {
                       height: 60,
                       width: '46%',
                     }}
+                    onChangeText={e => setCompanyName(e)}
                   />
                 </View>
                 <InputView
@@ -151,19 +208,19 @@ const UpdateExperience = () => {
                   // props={props}
                   {...props}
                 />
-                   <InputView
+                <InputView
                   name="YearsOfExperience"
                   placeholder="Years of experience"
                   // props={props}
                   {...props}
                 />
-                   <InputView
+                <InputView
                   name="JobType"
                   placeholder="Job type"
                   // props={props}
                   {...props}
                 />
-              
+
                 <View
                   style={{
                     flexDirection: 'row',
@@ -182,7 +239,10 @@ const UpdateExperience = () => {
                       }}>
                       Start date
                     </Text>
-                    <TouchableOpacity onPress={() =>{ setVisible(true),setType('1')}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setVisible(true), setType('1');
+                      }}>
                       <View
                         style={{
                           borderRadius: 16,
@@ -202,12 +262,7 @@ const UpdateExperience = () => {
                             color: '#DDD',
                             fontSize: 16,
                           }}>
-                          {date.getDate() +
-                            '/' +
-                            date.getMonth() +
-                            1 +
-                            '/' +
-                            date.getFullYear()}
+                          {Moment(date).format('DD/MM/yyyy')}
                         </Text>
                         <CALANDER />
                       </View>
@@ -224,7 +279,10 @@ const UpdateExperience = () => {
                       }}>
                       End date
                     </Text>
-                    <TouchableOpacity onPress={() => {setVisible(true),setType('2')}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setVisible(true), setType('2');
+                      }}>
                       <View
                         style={{
                           borderRadius: 16,
@@ -244,12 +302,7 @@ const UpdateExperience = () => {
                             color: '#DDD',
                             fontSize: 16,
                           }}>
-                          {date1.getDate() +
-                            '/' +
-                            date1.getMonth() +
-                            1 +
-                            '/' +
-                            date1.getFullYear()}
+                          {Moment(date1).format('DD/MM/yyyy')}
                         </Text>
                         <CALANDER />
                       </View>
@@ -258,17 +311,17 @@ const UpdateExperience = () => {
                 </View>
                 <View style={styles.rowAgree}>
                   <TouchableOpacity
-                    onPress={() => setIndex(!index)}
+                    onPress={() => {
+                      setIndex(!index),
+                        index == false ? setWork(1) : setWork(0);
+                    }}
                     style={styles.Circle}>
                     <View style={index ? styles.innerCircle : null} />
                   </TouchableOpacity>
-                  <Text style={styles.agree}>
-                  I currently work there
-                    
-                   
-                  </Text>
+                  <Text style={styles.agree}>I currently work there</Text>
                 </View>
-                <View
+                <TouchableOpacity
+                  onPress={uploadFile}
                   style={{
                     borderRadius: 16,
                     borderColor: '#1D5EDD',
@@ -285,9 +338,11 @@ const UpdateExperience = () => {
                   }}>
                   <PHOTO style={{marginRight: 20}} />
                   <Text style={{fontSize: 20, color: appColors.primary}}>
-                  Upload experience Letter 
+                    {experienceLetter.length == 0
+                      ? 'Upload experience Letter'
+                      : experienceLetter[0]?.name}
                   </Text>
-                </View>
+                </TouchableOpacity>
                 <View style={{flexDirection: 'row', marginBottom: 10}}>
                   <View
                     style={{
@@ -318,7 +373,11 @@ const UpdateExperience = () => {
                     </Text>
                   </View>
                 </View>
-                <Button text={'Done'} onPress={props.handleSubmit} />
+                <Button
+                  loading={loading}
+                  text={'Done'}
+                  onPress={props.handleSubmit}
+                />
               </View>
             )}
           </Formik>
@@ -326,7 +385,7 @@ const UpdateExperience = () => {
         {isVisible && (
           <DateTimePicker
             mode="date"
-            value={date}
+            value={type == '1' ? date : date1}
             onChange={handleDateChange}
           />
         )}

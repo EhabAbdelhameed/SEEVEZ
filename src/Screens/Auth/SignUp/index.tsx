@@ -40,14 +40,16 @@ const SignUp = () => {
               <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
             </View>
             <View style={styles.loginTextContainer}>
-              <View>
-                <RenderSvgIcon icon="ICON2CV" width={32} height={48} />
+              <View style={{width:32}}>
+                {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
               </View>
               <View>
                 {/* <Image
                   source={require('../../../assets/images/logoWithName.png')}
                 /> */}
-                <BigLogo/>
+                {/* <BigLogo/> */}
+            <Image source={require('../../../assets/images/seevezlogo.png')} style={{width:140,height:40}} />
+
               </View>
               <View>
                 <RenderSvgIcon

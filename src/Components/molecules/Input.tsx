@@ -23,6 +23,7 @@ const InputView = ({
   touched?: any;
   errors?: any;
 }) => {
+ console.log(errors[name])
   return (
     <>
       <Input
@@ -42,30 +43,38 @@ const InputView = ({
         onBlur={props.handleBlur(name)}
         style={{
           borderBottomWidth: 0,
+         
+        
         }}
         inputContainerStyle={{
           borderRadius: 16,
-          borderColor: '#1D5EDD',
+          borderColor: errors[name] !== undefined ?'red':'#1D5EDD',
           borderWidth: 1,
           paddingHorizontal: 15, 
-          paddingVertical: 4,
-          borderBottomWidth: 0.5,
+         
+          // paddingVertical: 4,
+         
+          // borderBottomWidth: 0.5,
         }}
         inputStyle={{
           fontSize: 14,
+          //  color: 'red' 
         }}
+        placeholderTextColor={'#B9B9B9'}
+        // inputStyle={{color:'red'}}
         containerStyle={{
           paddingHorizontal: 0,
           marginVertical: 1,
-          height: 70,
+          height: 60,
+          
         }}
         {...props}
       />
-      {errors[name] && touched[name] && (
+      {/* {errors[name] && touched[name] && (
         <View style={{justifyContent:'center',alignItems:'center'}}>
           <Text style={{color: 'red', fontSize: 14,marginBottom:10}}>{errors[name]}</Text>
         </View>
-      )}
+      )} */}
     </>
   );
 };

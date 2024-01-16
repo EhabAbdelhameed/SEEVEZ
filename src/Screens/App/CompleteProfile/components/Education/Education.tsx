@@ -12,7 +12,7 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {AVATAR} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 
-const EducationCard = () => {
+const EducationCard = (data:any) => {
   const navigation = useNavigation<any>();
 
   return (
@@ -33,29 +33,49 @@ const EducationCard = () => {
           </View>
         </View>
 
+        {data?.data.length == 0 ? (
+         
         <View style={styles.Row2}>
-          <View
-            style={{
-              width: 65,
-              height: 65,
-              borderRadius: 100,
-              borderWidth: 1,
-              borderColor: '#DDD',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <AVATAR style={styles.Image} />
-          </View>
-          <View style={{marginLeft: 10}}>
-            <Text style={styles.Title2}>School/university name</Text>
-            <Text style={styles.CompanyName}>field of study</Text>
-            {/* <Text style={styles.des}>2014 - 2018 ·4 years · Cairo, Egypt</Text>
-            <View style={styles.Row2}>
-              <Text style={styles.Title3}>Grade : </Text>
-              <Text style={styles.Title4}>Excellent</Text>
-            </View> */}
-          </View>
+        <View
+          style={{
+            width: 65,
+            height: 65,
+            borderRadius: 100,
+            borderWidth: 1,
+            borderColor: '#DDD',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <AVATAR style={styles.Image} />
         </View>
+        <View style={{marginLeft: 10}}>
+          <Text style={styles.Title2}>School/university name</Text>
+          <Text style={styles.CompanyName}>field of study</Text>
+       
+        </View>
+      </View>
+        ) : (
+          data?.data.map(() => (
+            <View style={styles.Row2}>
+              <View
+                style={{
+                  width: 65,
+                  height: 65,
+                  borderRadius: 100,
+                  borderWidth: 1,
+                  borderColor: '#DDD',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <AVATAR style={styles.Image} />
+              </View>
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.Title2}>Course </Text>
+                <Text style={styles.CompanyName}>Company</Text>
+              </View>
+            </View>
+          ))
+        )}
       </View>
 
       {/* <View style={styles.devider} />

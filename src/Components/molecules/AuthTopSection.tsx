@@ -19,8 +19,8 @@ const AuthTopSection = ({
 }) => {
   return (
     <View style={styles.loginTextContainer}>
-      <View>
-        <RenderSvgIcon icon="ICON2CV" width={32} height={48} />
+      <View style={{width:32}}>
+        {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
       </View>
       <View style={[{alignItems:"center"},{...style}]}>
         <Text style={[styles.loginText,{...titleStyle}]}>{title}</Text>
@@ -47,21 +47,24 @@ const styles = StyleSheet.create({
     flexBasis: 'auto',
     justifyContent: 'space-between',
     marginBottom: appSizes.spacing_m,
+    fontFamily:'Noto Sans'
   },
   loginText: {
     color: appColors.textColor,
     fontSize: appSizes.font_xxxxxl-2,
     textAlign: 'center',
     fontWeight: '700',
+    fontFamily:'Noto Sans'
   },
   loginTextSub: {
     color: appColors.textColor,
-    fontSize: appSizes.font_xs,
+    fontSize: appSizes.font_xs-.5,
     textAlign: 'center',
-    fontWeight: '400',
-    width: appSizes.width * 0.6,
+    // fontWeight: '100', 
+    // width: appSizes.width * 0.6,
     lineHeight: 20,
-    marginTop:5
+    marginTop:5,
+    fontFamily:'Noto Sans'
   },
   yellowIcon: {
     // marginTop: 5,

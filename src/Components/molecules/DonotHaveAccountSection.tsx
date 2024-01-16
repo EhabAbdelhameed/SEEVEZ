@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     color: '#0C0C0C',
     fontSize: 14,
     fontWeight: '400',
+    fontFamily:'Noto Sans'
   },
   signUp: {
     color: '#E8AB00',
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textDecorationColor: '#E8AB00',
     textDecorationLine: 'underline',
+    fontFamily:'Noto Sans'
   },
   language: {
     color: '#000000',
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginTop: appSizes.spacing_m,
     textAlign: 'center',
+    fontFamily:'Noto Sans'
   },
   languageContainer: {
     flexDirection: 'row',
@@ -67,5 +70,6 @@ const styles = StyleSheet.create({
     color: appColors.textColor,
     fontSize: 12,
     fontWeight: '400',
+    fontFamily:'Noto Sans'
   },
 });

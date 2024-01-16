@@ -1,12 +1,12 @@
-import {Image, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {AVATAR} from 'assets/Svgs';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-const ExperienceCard = () => {
+const ExperienceCard = (data: any) => {
   const navigation = useNavigation<any>();
 
   return (
@@ -15,53 +15,62 @@ const ExperienceCard = () => {
         <View style={styles.Row}>
           <Text style={styles.Title}>Experience</Text>
           <View style={styles.Row2}>
-          <TouchableOpacity onPress={()=>navigation.navigate("UpdateExperience")}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateExperience')}>
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.Row2}>
-          {/* <Image
-                        source={{ uri:'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-profile-glyph-black-icon-png-image_691589.jpg' }}
-                        style={styles.Image}
-                    /> */}
-          <View
-            style={{
-              width: 65,
-              height: 65,
-              borderRadius: 100,
-              borderWidth: 1,
-              borderColor: '#DDD',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <AVATAR style={styles.Image} />
-          </View>
+        {data?.data.length == 0 ? (
+          <View style={styles.Row2}>
+            <View
+              style={{
+                width: 65,
+                height: 65,
+                borderRadius: 100,
+                borderWidth: 1,
+                borderColor: '#DDD',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <AVATAR style={styles.Image} />
+            </View>
 
-          <View style={{marginLeft: 10}}>
-            <Text style={styles.Title2}>Job Title</Text>
-            <Text style={styles.CompanyName}>Company Name</Text>
-            {/* <Text style={styles.des}>Sep 2023 - Present · 2 mos  Cairo, Egypt</Text> */}
+            <View style={{marginLeft: 10}}>
+              <Text style={styles.Title2}>Job Title</Text>
+              <Text style={styles.CompanyName}>Company Name</Text>
+            </View>
           </View>
-        </View>
-        {/* <View style={styles.Row3}>
-                    <View style={styles.FollowersContainer}>
-                        <Text style={styles.FollowersText}>Full time</Text>
-                    </View>
-                    <View style={styles.statuesContainer}>
-                        <Text style={styles.statuesText}>Hybrid</Text>
-                    </View>
-                </View> */}
+        ) : (
+          data?.data.map((item:any) => (
+            <View style={styles.Row2}>
+              <View
+                style={{
+                  width: 65,
+                  height: 65,
+                  borderRadius: 100,
+                  borderWidth: 1,
+                  borderColor: '#DDD',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <AVATAR style={styles.Image} />
+              </View>
+
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.Title2}>{item.job_title}</Text>
+                <Text style={styles.CompanyName}>{item.company_name}</Text>
+              </View>
+            </View>
+          ))
+        )}
       </View>
-
-      {/* <View style={styles.devider} />
-            <Text style={styles.seeAll}>See all</Text> */}
     </View>
   );
 };

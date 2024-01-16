@@ -13,7 +13,7 @@ const SkillsCard = ({
     data?: any[];
 }) => {
   const navigation = useNavigation<any>();
-
+ 
     return (
         <View style={styles.CardContainer}>
             <View style={styles.secContainer}>
@@ -31,7 +31,7 @@ const SkillsCard = ({
                     {
                         data?.map((item) => (
                             <View style={styles.smallCardContainer}>
-                                <Text style={styles.smallCardText}>{item}</Text>
+                                <Text style={styles.smallCardText}>{item.name}</Text>
                                 <Close />
                             </View>
                         ))

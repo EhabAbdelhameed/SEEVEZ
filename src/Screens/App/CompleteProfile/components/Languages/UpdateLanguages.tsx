@@ -15,10 +15,19 @@ import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import InputView from 'components/molecules/Input';
 import { appSizes } from 'theme/appSizes';
+import AppThunks from 'src/redux/app/thunks';
+import { useAppDispatch } from 'src/redux/store';
+import { selectUser } from 'src/redux/auth';
+import { useSelector } from 'react-redux';
 
 const UpdateLanguages = () => {
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
+  const CurrentUserData = useSelector(selectUser);
+ 
+  console.log(CurrentUserData)
+  const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
@@ -83,6 +92,15 @@ const UpdateLanguages = () => {
           <Formik
             initialValues={{Language: ''}}
             onSubmit={values => {
+              setLoading(true);
+              const formdata = new FormData();
+
+              formdata.append('name', values.Language);
+              formdata.append('user_id', CurrentUserData.id);
+              formdata.append('rate',5 );
+              dispatch(AppThunks.doAddLanguages(formdata)).then((res: any) => {
+                setLoading(false);
+              });
               // navigation.navigate("ResetPassword")
             }}>
             {(props: any) => (
@@ -125,7 +143,7 @@ const UpdateLanguages = () => {
                 </View>
                 <View style={{height:appSizes.height * 0.22}}/>
 
-                <Button text={'Done'} onPress={props.handleSubmit} />
+                <Button loading={loading} text={'Done'} onPress={props.handleSubmit} />
               </View>
             )}
           </Formik>

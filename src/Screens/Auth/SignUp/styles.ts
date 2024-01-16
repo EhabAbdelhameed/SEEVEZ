@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     zIndex: 10,
     paddingHorizontal: appSizes.padding_x,
-    marginTop:-25,
+    marginTop:-80,
     width:"100%"
   },
   circles: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
 
   loginTextContainer: {
-    marginTop: appSizes.spacing_m,
+    marginTop: appSizes.spacing_xx,
     flexDirection: 'row',
     flexBasis: 'auto',
     justifyContent: 'space-between',
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     fontSize: appSizes.font_xxxxxl,
     textAlign: 'center',
     fontWeight: '700',
+    fontFamily:'Noto Sans'
   },
   loginTextSub: {
     color: appColors.textColor,
@@ -59,21 +60,23 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     width: appSizes.width * 0.6,
     lineHeight: 20,
+    fontFamily:'Noto Sans'
   },
   yellowIcon: {
     // marginTop: 5,
   },
   signup: {
     color: appColors.textColor,
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: '500',
     textAlign: 'center',
   },
   letsJumpIn: {
-    color: appColors.textColor,
-    fontSize: 38,
-    fontWeight: '600',
+    color: appColors.black,
+    fontSize: 38,  
+    fontWeight: '700',
     textAlign: 'center',
+    fontFamily:'Noto Sans'
   },
   rowRectangles: {
     width: "100%",
@@ -87,8 +90,8 @@ const styles = StyleSheet.create({
     // backgroundColor:appColors.secondary
   },
   rectangleContainer: {
-    width: 170,
-    height: 210,
+    // width: 170,
+    // height: 210,
     borderRadius: 16,
     backgroundColor: appColors.secondary,
     borderWidth: .2,
@@ -101,10 +104,20 @@ const styles = StyleSheet.create({
   },
   rectangleText: {
     color: appColors.primary,
-    fontSize: 25,
-    fontWeight: '500',
+    fontSize: 24,
+    fontWeight: '600',
     textAlign: 'center',
     marginTop: 10,
+    fontFamily:'Noto Sans'
+  },
+  rectangleText1: {
+    color: appColors.primary,
+    fontSize: 24,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginTop: -6,
+    fontFamily:'Noto Sans',
+    marginBottom:10
   },
   ModalHeaderContanier: {
     width: '100%',
@@ -123,7 +136,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'left',
     marginTop: 10,
-    alignSelf:"flex-start"
+    alignSelf:"flex-start",
+    fontFamily:'Noto Sans'
   },
   rowAnswer:{
     flexDirection:"row",
@@ -153,6 +167,6 @@ const styles = StyleSheet.create({
     width:"100%",
     marginTop: 20
   }
-});
+});   
 
 export default styles;

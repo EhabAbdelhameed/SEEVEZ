@@ -81,7 +81,7 @@ const UpdateRefernceCheck = () => {
             Reference check
           </Text>
           <Formik
-            initialValues={{ReferenceCheck: ''}}
+            initialValues={{ReferenceCheck: '',code:''}}
             onSubmit={values => {
               // navigation.navigate("ResetPassword")
             }}>

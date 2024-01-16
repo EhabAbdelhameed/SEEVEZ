@@ -31,14 +31,14 @@ const slice = createSlice({
   extraReducers(builder) {
     // doSignIn
     builder.addCase(thunks.doSignIn.fulfilled, (state, action) => {
-      // console.log(action.payload.data?.token)
+      // console.log(action.payload.data)
       AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
       state.currentUser = action.payload?.data;
 
       state.isAuth = true;
     });
     builder.addCase(thunks.doSignIn.rejected, (state, action: any) => {
-      console.log(action.payload.data);
+      // console.log(action.payload.data);
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -255,7 +255,7 @@ export const selectToken = (state: RootState) => state.auth.Token;
 // export const selectCountries = (state: RootState) => state.auth.countries
 // export const selectCities = (state: RootState) => state.auth.cities
 const AuthSlice = {
-  thunks,
+  thunks, 
   slice,
   logout: slice.actions.logout,
   chnageisAuth: slice.actions.chnageisAuth,

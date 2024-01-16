@@ -12,12 +12,11 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import { useNavigation } from '@react-navigation/native';
 
 
-const AchievementsCard = () => {
-  const [achievementsSection, setAchievementsSection] = useState('');
-  const [editMode, setEditMode] = useState(true); // Added state to track edit mode
-  const [SaveAachievementsSection, setSavedAachievementsSection] =
-    useState(achievementsSection);
+const AchievementsCard = (data:any) => {
+
     const navigation = useNavigation<any>();
+    
+    console.log(data)
   const saveAachievementSection = () => {
     navigation.navigate('UpdateAchievements')
     // setAchievementsSection(SaveAachievementsSection);
@@ -41,17 +40,9 @@ const AchievementsCard = () => {
             <RenderSvgIcon icon="HEART" width={20} height={20} color={appColors.black} />
           </TouchableOpacity> */}
         </View>
-        {editMode ? (
-          <TextInput
-            style={styles.EditDes}
-            placeholder="Bio"
-            multiline
-            value={SaveAachievementsSection}
-            onChangeText={text => setSavedAachievementsSection(text)}
-          />
-        ) : (
-          <Text style={styles.Des}>{achievementsSection}</Text>
-        )}
+   
+          <Text style={styles.Des}>{data.data==null?'Bio':data.data}</Text>
+      
       </View>
     </View>
   );

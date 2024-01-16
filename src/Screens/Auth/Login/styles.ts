@@ -39,10 +39,11 @@ const styles = StyleSheet.create({
 
   forgotPassword: {
     color: appColors.primary,
-    fontSize: 14,
-    fontWeight: '400',
+    fontSize: 13,
+    fontWeight: '200',
     textAlign: 'center',
     marginBottom: appSizes.spacing_m,
+    fontFamily:'Noto Sans'
   },
   orContainer: {
     flexDirection: 'row',
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     color: '#B9B9B9',
     fontSize: 16,
     fontWeight: '500',
+    fontFamily:'Noto Sans'
   },
   line: {
     width: 51,

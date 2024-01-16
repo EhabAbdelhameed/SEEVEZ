@@ -4,7 +4,7 @@ import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import { useNavigation } from '@react-navigation/native';
 
-const AboutCard = () => {
+const AboutCard = (About:any) => {
     const [aboutSection, setAboutSection] = useState('');
     const [editMode, setEditMode] = useState(true); // Added state to track edit mode
     const [SaveAboutSection, setSavedAboutSection] = useState(aboutSection); // Added state to track edited content

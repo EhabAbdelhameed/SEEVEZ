@@ -45,8 +45,10 @@ const Login = () => {
       <KeyboardAwareScrollView>
         <View style={styles.container}>
           <View style={styles.logoContainer}>
-            {/* <Image source={require('../../../assets/images/logoWithName.png')} /> */}
-            <BigLogo />
+            <Image source={require('../../../assets/images/seevezlogo.png')} style={{width:150,height:40}} />
+            {/* <BigLogo /> */}
+
+
           </View>
           <View style={styles.bottomSection}>
             <View style={styles.circles}>
@@ -87,6 +89,7 @@ const Login = () => {
 
                     name="email"
                     placeholder="Write your email"
+                    
                     iconName={'RIGIHTININPUT'}
                   />
                   <InputView
@@ -100,7 +103,7 @@ const Login = () => {
                   <Text style={styles.forgotPassword} onPress={_handleNavigate}>
                     Forgot password ?
                   </Text>
-                  <Button loading={loading} text="Log in" onPress={props.handleSubmit} />
+                  <Button loading={loading} text="Login" onPress={props.handleSubmit} />
                 </View>
               )}
             </Formik>

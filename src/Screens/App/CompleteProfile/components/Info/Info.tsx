@@ -6,7 +6,8 @@ import {ImageBackground} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
-const InfoCard = () => {
+const InfoCard = (user_data:any) => {
+  console.log(user_data.user_data.name)
   const navigation = useNavigation();
   return (
     <View style={styles.CardContainer}>
@@ -43,7 +44,7 @@ const InfoCard = () => {
         </ImageBackground>
 
         <View style={styles.Row}>
-          <Text style={styles.Name}>Carter Rosser</Text>
+          <Text style={styles.Name}>{user_data.user_data.name}</Text>
           <RenderSvgIcon
             icon="RIGHTACCOUNT"
             width={20}

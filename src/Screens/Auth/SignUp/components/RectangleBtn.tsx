@@ -1,4 +1,4 @@
-import { View, Text, Image, ImageRequireSource, TouchableOpacity } from 'react-native'
+import { View, Text, Image, ImageRequireSource, TouchableOpacity,useWindowDimensions } from 'react-native'
 import React, { useRef, useState } from 'react'
 import styles from '../styles';
 import { Modalize } from 'react-native-modalize';
@@ -53,11 +53,13 @@ const RectangleBtn = ({
         title2: string;
         nav?: any
     }) => {
+        const {width,height}=useWindowDimensions();
+        console.log(width)
     const ModalRef = useRef<Modalize>(null)
     const [data, setData] = useState(creator)
     return (
         <>
-            <TouchableOpacity style={styles.rectangleContainer}
+            <TouchableOpacity style={[styles.rectangleContainer,{width:width/2.3}]}
                 onPress={() => {
                     title2.toLowerCase().includes('recruiter') ?
                         setData(creator) : setData(jobSeeker)
@@ -71,8 +73,10 @@ const RectangleBtn = ({
                     style={styles.imgRectangle}
                     resizeMode='stretch'
                 />
+                 <View style={{width:'100%'}}>
                 <Text style={styles.rectangleText}>{title1}</Text>
-                <Text style={[styles.rectangleText, { marginTop: 1 }]}>{title2}</Text>
+                <Text style={[styles.rectangleText1]}>{title2}</Text>
+                </View>
             </TouchableOpacity>
             <JumpModal
                 ModalRef={ModalRef}

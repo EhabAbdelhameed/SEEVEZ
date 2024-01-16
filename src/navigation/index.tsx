@@ -27,7 +27,7 @@ const Navigation = () => {
       setSplash(false)
     }, 2000);
   }, []);
-    console.log(isAuth)
+    // console.log(isAuth)
   return (
     <NavigationContainer>
       <Root.Navigator

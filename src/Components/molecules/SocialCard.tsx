@@ -32,5 +32,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '500',
     color: appColors.textColor,
+    fontFamily:'Noto Sans'
   },
 });

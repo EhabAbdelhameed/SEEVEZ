@@ -90,9 +90,10 @@ const UpdateSkills = () => {
             onSubmit={values => {
               setLoading(true);
               const formdata = new FormData();
+              formdata.append('user_id', 3);
 
               formdata.append('name', values.Skills);
-              dispatch(AppThunks.doSkills(formdata)).then((res: any) => {
+              dispatch(AppThunks.doAddSkills(formdata)).then((res: any) => {
                 setLoading(false);
               });
 

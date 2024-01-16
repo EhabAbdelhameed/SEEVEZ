@@ -8,19 +8,52 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {appColors} from '../../../../../theme/appColors';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
-
+import DocumentPicker from 'react-native-document-picker';
 import {BigLogo, PHOTO} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import {appSizes} from 'theme/appSizes';
-
+import { useAppDispatch } from 'src/redux/store';
+import AppThunks from 'src/redux/app/thunks';
+import {launchImageLibrary} from 'react-native-image-picker'
 const UpdateAchievements = () => {
+  const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const uploadImage = () => {
+    
+    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then(res =>
+      console.log(res),
+    );
+  };
+
+  const uploadFile = async (type: any) => {
+    try {
+      const res: any = await DocumentPicker.pick({
+        type: [DocumentPicker.types.pdf],
+      });
+      console.log(res);
+      // setExperienceLetter(res);
+      // setFieldValue(name.replace(/\s/g, ''), {
+      //   uri: res[0]?.uri,
+      //   type: res[0]?.type,
+      //   name: res[0]?.name,
+      // });
+    } catch (err) {
+      // setFieldValue(name.replace(/\s/g, ''), '');
+      if (DocumentPicker.isCancel(err)) {
+        console.log('Canceled');
+      } else {
+        console.log('Unknown Error: ' + JSON.stringify(err));
+        throw err;
+      }
+    }
+  };
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -81,6 +114,15 @@ const UpdateAchievements = () => {
           <Formik
             initialValues={{Achievements: ''}}
             onSubmit={values => {
+              setLoading(true);
+              const formdata = new FormData();
+
+              formdata.append('text', values.Achievements);
+              formdata.append('user_id', 3);
+              formdata.append('rate',5 );
+              dispatch(AppThunks.doAddAchievement(formdata)).then((res: any) => {
+                setLoading(false);
+              });
               // navigation.navigate("ResetPassword")
             }}>
             {(props: any) => (
