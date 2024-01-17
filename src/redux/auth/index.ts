@@ -55,6 +55,10 @@ const slice = createSlice({
     // doVerifyOTP
     builder.addCase(thunks.doVerifyOTP.fulfilled, (state, action) => {
       state.verified = true;
+      Toast.show({
+        type: 'success',
+        text1: 'Your Otp is Vaild',
+      });
     });
     builder.addCase(thunks.doVerifyOTP.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {

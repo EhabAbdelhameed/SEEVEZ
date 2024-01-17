@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: appColors.textColor,
-    fontSize: appSizes.font_xxxxxl-2,
+    fontSize: appSizes.font_xxxxxl-10,
     textAlign: 'center',
     fontWeight: '700',
     fontFamily:'Noto Sans'

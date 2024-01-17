@@ -26,14 +26,14 @@ import AuthThunks from 'src/redux/auth/thunks';
 import {useSelector} from 'react-redux';
 import {useLoadingSelector} from 'src/redux/selectors';
 import {selectReseted} from 'src/redux/auth';
-import { LoginSchema } from 'src/Formik/schema';
+import {LoginSchema} from 'src/Formik/schema';
 const Login = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const Reseted = useSelector(selectReseted);
   useEffect(() => {
-    Reseted && navigation.navigate('Verification', { email});
+    Reseted && navigation.navigate('Verification', {email});
   }, [Reseted]);
   const _handleNavigate = () => {
     navigation.navigate('ForgetPassword');
@@ -45,10 +45,10 @@ const Login = () => {
       <KeyboardAwareScrollView>
         <View style={styles.container}>
           <View style={styles.logoContainer}>
-            <Image source={require('../../../assets/images/seevezlogo.png')} style={{width:150,height:40}} />
-            {/* <BigLogo /> */}
-
-
+            <Image
+              source={require('../../../assets/images/seevezlogo.png')}
+              style={{width: 148, height: 40}}
+            />
           </View>
           <View style={styles.bottomSection}>
             <View style={styles.circles}>
@@ -62,17 +62,17 @@ const Login = () => {
               subtitle="Log in with your e-mail and password"
             />
             <Formik
-                validationSchema={LoginSchema}
+              validationSchema={LoginSchema}
               initialValues={{email: '', password: ''}}
               onSubmit={values => {
-                setLoading(true)
+                setLoading(true);
                 setEmail(values.email);
                 const formdata = new FormData();
                 formdata.append('email', values.email);
                 formdata.append('password', values.password);
-                
+
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
-                  setLoading(false)
+                  setLoading(false);
                   if (res?.payload?.data?.message == 'Email not verified.') {
                     const formData = new FormData();
                     formData.append('email', values?.email?.toLowerCase());
@@ -82,19 +82,16 @@ const Login = () => {
 
                 // navigation.navigate("app")
               }}>
-              {(props:any) => (
+              {(props: any) => (
                 <View>
                   <InputView
-                  {...props}
-
+                    {...props}
                     name="email"
                     placeholder="Write your email"
-                    
                     iconName={'RIGIHTININPUT'}
                   />
                   <InputView
-                   {...props}
-
+                    {...props}
                     name="password"
                     placeholder="Write your password"
                     iconName={'EYE'}
@@ -103,7 +100,11 @@ const Login = () => {
                   <Text style={styles.forgotPassword} onPress={_handleNavigate}>
                     Forgot password ?
                   </Text>
-                  <Button loading={loading} text="Login" onPress={props.handleSubmit} />
+                  <Button
+                    loading={loading}
+                    text="Login"
+                    onPress={props.handleSubmit}
+                  />
                 </View>
               )}
             </Formik>

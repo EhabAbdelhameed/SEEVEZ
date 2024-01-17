@@ -44,7 +44,10 @@ const ResetPassword = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-          <BigLogo />
+        <Image
+              source={require('../../../assets/images/seevezlogo.png')}
+              style={{width: 148, height: 47}}
+            />
         </View>
         <View style={styles.circles}>
           <RenderSvgIcon icon="CIRCLELOGIN" width={270} height={237} />
@@ -84,7 +87,7 @@ const ResetPassword = () => {
               <View>
                 <InputView
                   name="password"
-                  placeholder="Write your password"
+                  placeholder="Enter your password"
                   iconName={'EYE'}
                   secure={true}
                   // props={props}

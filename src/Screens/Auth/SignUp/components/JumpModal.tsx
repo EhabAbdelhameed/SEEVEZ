@@ -40,7 +40,7 @@ const JumpModal = (
                     <Text style={[styles.rectangleText, {
                         marginTop: 0,
                         color: appColors.black,
-                        alignSelf: "flex-start"
+                        alignSelf: "flex-start",marginLeft:12
                     }]}>{data?.title}</Text>
                 </View>
             </>
@@ -50,10 +50,10 @@ const JumpModal = (
         <RNModal
             ref={ModalRef}
             renderModalHeader={header}
-            // height={appSizes.height * .5}
+            height={appSizes.height * .4}
         >
             <View style={styles.ModalContanier}>
-                {data?.question.length ? <Text style={[styles.questionText, { marginBottom: 10 }]}>{data?.question}</Text> : null}
+                {data?.question.length ? <Text style={[styles.questionText, { marginLeft:13, fontSize: 17,}]}>{data?.question}</Text> : null}
                 {data?.answers.map(({ answer, selected }, index) => (
                     <View style={styles.rowAnswer}>
                         <Text style={[styles.questionText,
@@ -72,7 +72,7 @@ const JumpModal = (
                         </TouchableOpacity>
                     </View>
                 ))}
-                <Button text="Done" onPress={() => {
+                <Button textStyle={{fontSize:16}} text="Done" onPress={() => {
                     ModalRef.current?.close()
                     navigation.navigate("SignupWithSocail",{work_type:data?.answers[buttonIndex].answer,title:data?.title})
                 }}

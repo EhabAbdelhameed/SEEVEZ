@@ -38,12 +38,12 @@ const SignupTwo = () => {
   const [tax_card_document, setTaxCardDocument] = React.useState<any>([]);
   const [commercial_registration_document, setCommercialRegistrationDocument] =
     React.useState<any>([]);
-    const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const UineqId = async () => {
     const ff = await DeviceInfo.getUniqueId();
     setDeviceId(ff);
-   
+
     // return ff;
   };
 
@@ -112,16 +112,13 @@ const SignupTwo = () => {
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
           {/* <Image source={require('../../../assets/images/logoWithName.png')} /> */}
-          <BigLogo />
-          {/* <RenderSvgIcon
-            icon='LOGOWITHTITLE'
-            width={100}
-            height={50}
-            style={{width:"100%",height:"100%"}}
-          /> */}
+          <Image
+            source={require('../../../assets/images/seevezlogo.png')}
+            style={{width: 148, height: 47}}
+          />
         </View>
         <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={270} height={237} />
+          <RenderSvgIcon icon="CIRCLELOGIN" width={270} height={200} />
         </View>
         <View style={styles.bottomSection}>
           <View style={styles.blueCircle}>
@@ -154,7 +151,7 @@ const SignupTwo = () => {
             }
             // validationSchema={work_type === 'Company' ? RegistSchemaCompany : RegistSchema}
             onSubmit={values => {
-              setLoading(true)
+              setLoading(true);
               setEmail(values.email);
               console.log(work_type?.toLowerCase());
               const formdata = new FormData();
@@ -177,7 +174,9 @@ const SignupTwo = () => {
                 work_type !== 'Company'
               ) {
                 formdata.append('work_type', work_type?.toLowerCase());
-                Dispatch(AuthThunks.doSignUpJobSeeker(formdata)).then(()=>setLoading(false))
+                Dispatch(AuthThunks.doSignUpJobSeeker(formdata)).then(() =>
+                  setLoading(false),
+                );
               } else if (work_type == 'Company') {
                 console.log(tax_card_document);
                 formdata.append('tax_id', values.taxID);
@@ -186,17 +185,18 @@ const SignupTwo = () => {
                   type: tax_card_document[0]?.type,
                   name: tax_card_document[0]?.name,
                 });
-                formdata.append(
-                  'commercial_registration_document',
-                   {
+                formdata.append('commercial_registration_document', {
                   uri: commercial_registration_document[0]?.uri,
                   type: commercial_registration_document[0]?.type,
                   name: commercial_registration_document[0]?.name,
-                },
+                });
+                Dispatch(AuthThunks.doSignUpCompany(formdata)).then(() =>
+                  setLoading(false),
                 );
-                Dispatch(AuthThunks.doSignUpCompany(formdata)).then(()=>setLoading(false))
               } else {
-                Dispatch(AuthThunks.doSignUpRecruiter(formdata)).then(()=>setLoading(false))
+                Dispatch(AuthThunks.doSignUpRecruiter(formdata)).then(() =>
+                  setLoading(false),
+                );
               }
             }}>
             {(props: any) => (
@@ -204,12 +204,16 @@ const SignupTwo = () => {
                 <InputView
                   {...props}
                   name="fullName"
-                  placeholder="Your full name"
+                  placeholder="Enter Your full name"
                 />
-                <InputView {...props} name="phone" placeholder="Your phone" />
+                <InputView
+                  {...props}
+                  name="phone"
+                  placeholder="Enter Your Mobile Number"
+                />
                 <InputView
                   name="email"
-                  placeholder="Write your email"
+                  placeholder="Enter your email"
                   iconName={'RIGIHTININPUT'}
                   {...props}
                 />
@@ -225,14 +229,16 @@ const SignupTwo = () => {
                       onPress={() => uploadFile('1')}
                       style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
-                        <PDF />
+                        <PDF width={20} height={20} />
                         <Text
                           style={{
                             marginLeft: 10,
-                            fontSize: 20,
+                            fontSize: 17,
                             color: '#15439D',
                           }}>
-                          Upload Tax card
+                          {tax_card_document.length == 0
+                            ? 'Upload Tax card'
+                            : tax_card_document[0]?.name}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -240,14 +246,16 @@ const SignupTwo = () => {
                       onPress={() => uploadFile('2')}
                       style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
-                        <PDF />
+                        <PDF height={20} width={20} />
                         <Text
                           style={{
                             marginLeft: 10,
-                            fontSize: 20,
+                            fontSize: 17,
                             color: '#15439D',
                           }}>
-                          Upload commercial registration
+                          {commercial_registration_document.length == 0
+                            ? 'Upload commercial registration'
+                            : commercial_registration_document[0]?.name}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -255,7 +263,7 @@ const SignupTwo = () => {
                 ) : null}
                 <InputView
                   name="password"
-                  placeholder="Write your password"
+                  placeholder="Enter your password"
                   iconName={'EYE'}
                   secure={true}
                   {...props}
@@ -280,7 +288,11 @@ const SignupTwo = () => {
                     <Text style={styles.agreeLine}>privacy policy</Text>
                   </Text>
                 </View>
-                <Button loading={loading} text="Sign up" onPress={props.handleSubmit} />
+                <Button
+                  loading={loading}
+                  text="Sign up"
+                  onPress={props.handleSubmit}
+                />
               </View>
             )}
           </Formik>

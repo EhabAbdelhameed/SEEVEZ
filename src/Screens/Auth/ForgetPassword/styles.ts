@@ -68,11 +68,12 @@ const styles = StyleSheet.create({
   },
   verificationText:{
     color: appColors.black,
-    fontSize: appSizes.font_xxxxl,
+    fontSize: appSizes.font_xxxxl-3,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: appSizes.spacing_s-1,
-    marginTop:-10
+    marginTop:-10,
+    fontFamily:'Noto Sans'
   },
   verificationText2: {
     color: appColors.black,
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'center',
     marginBottom: appSizes.spacing_m,
+    fontFamily:'Noto Sans'
   },
   resendCode:{
     color: appColors.primary,
@@ -87,7 +89,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'center',
     marginTop: appSizes.spacing_m,
-    textDecorationLine:"underline"
+    textDecorationLine:"underline",
+    fontFamily:'Noto Sans'
   }
 
 

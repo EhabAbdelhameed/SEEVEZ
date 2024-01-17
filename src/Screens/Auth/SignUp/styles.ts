@@ -5,29 +5,30 @@ import { appSizes } from '../../../theme/appSizes';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // paddingHorizontal:20,
     backgroundColor: appColors.white,
   },
   video: {
     width: '100%',
-    height: 290,
+    // height: 175,
     backgroundColor: '#fff',
   },
   bottomSection: {
     backgroundColor: appColors.white,
     // flex: 1,
     // flexGrow: 1,
-    height: appSizes.height * 0.7,
+    height: appSizes.height * 0.75,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    position: 'relative',
-    zIndex: 10,
-    paddingHorizontal: appSizes.padding_x,
-    marginTop:-80,
-    width:"100%"
+    // position: 'relative',
+    // zIndex: 10,
+    paddingHorizontal:20,
+    marginTop:-25,
+    // width:"100%"
   },
   circles: {
     position: 'absolute',
-    top: -155,
+    top: -125,
     width: appSizes.width,
     alignItems: 'center',
     zIndex: -1,
@@ -83,56 +84,64 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  
     // paddingHorizontal:18,
     columnGap: 10,
     paddingVertical: 5,
-    marginTop: 15
-    // backgroundColor:appColors.secondary
+    marginTop: 10,
+    // overflow:'hidden',
+    // backgroundColor:'red'
+  
   },
   rectangleContainer: {
-    // width: 170,
+    width: '50%',   
+    // backgroundColor:'red',
     // height: 210,
     borderRadius: 16,
     backgroundColor: appColors.secondary,
-    borderWidth: .2,
+    borderWidth: .4,
     borderColor: appColors.primary
   },
   imgRectangle: {
     width: "100%",
     height: 122,
+    borderTopRightRadius: 16,
+    borderTopLeftRadius: 16,
+
     // borderRadius:10,
   },
   rectangleText: {
     color: appColors.primary,
-    fontSize: 24,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '700',
     textAlign: 'center',
     marginTop: 10,
-    fontFamily:'Noto Sans'
+    fontFamily:'Noto Sans'  
   },
   rectangleText1: {
     color: appColors.primary,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
-    marginTop: -6,
+    marginTop: -7,
     fontFamily:'Noto Sans',
     marginBottom:10
   },
   ModalHeaderContanier: {
     width: '100%',
     alignItems: "center",
-    paddingHorizontal: appSizes.padding_m
+    paddingHorizontal: appSizes.padding_m,
+    
   },
   ModalContanier: {
     width: '100%',
     alignItems: "center",
     paddingHorizontal: appSizes.padding_m,
-    marginTop: 10
+    marginTop: 2
   },
   questionText:{
     color: appColors.dark,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '400',
     textAlign: 'left',
     marginTop: 10,
@@ -142,7 +151,7 @@ const styles = StyleSheet.create({
   rowAnswer:{
     flexDirection:"row",
     justifyContent:"space-between",
-    // paddingHorizontal:appSizes.padding_m,
+    paddingHorizontal:appSizes.padding_m,
     width:"100%",
     marginTop: 10,
     alignItems:"center"
@@ -165,7 +174,11 @@ const styles = StyleSheet.create({
   },
   btn:{
     width:"100%",
-    marginTop: 20
+    marginTop: 20,
+    fontFamily:'Noto Sans',
+    fontSize:12
+    // position:'absolute',
+    // bottom:-110,
   }
 });   
 

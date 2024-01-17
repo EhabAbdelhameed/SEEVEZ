@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'center',
     marginBottom: appSizes.spacing_m,
+    fontFamily:'Noto Sans'
   },
   orContainer: {
     flexDirection: 'row',
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     color: '#B9B9B9',
     fontSize: 16,
     fontWeight: '500',
+    fontFamily:'Noto Sans'
   },
   line: {
     width: 51,
@@ -101,22 +103,25 @@ const styles = StyleSheet.create({
     fontSize: appSizes.font_m-1,
     fontWeight: '400',
     textAlign: 'left',
+    fontFamily:'Noto Sans'
   },
   agreeLine:{
     color:appColors.primary,
-    textDecorationLine:"underline"
+    textDecorationLine:"underline",
+    fontFamily:'Noto Sans'
   },
   DocStyle:{
     borderRadius: 16,
     borderColor: '#1D5EDD',
     borderWidth: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 4,
+    // paddingHorizontal: 15,
+    // paddingVertical: 4,
     borderBottomWidth: 0.5,
     justifyContent: 'center',
-    paddingLeft: 32,
+    paddingLeft: 17,
+    alignItems:'flex-start',
     // alignItems: 'center',
-    height: 58,
+    height: 50,
     marginBottom: 10,
     backgroundColor: '#E8EFFC',
   }

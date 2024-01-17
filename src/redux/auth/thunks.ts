@@ -174,7 +174,9 @@ const doResendCode: any = createAsyncThunk<any, any, any>(
 );
 const doResetPassword: any = createAsyncThunk<any, any, any>(
   'auth/change',
+  
   async (data: any, thunkApi: any) => {
+    console.log(data)
     try {
       const response = await AuthAPI.restPassword(data);
       console.warn(JSON.stringify(response.data))

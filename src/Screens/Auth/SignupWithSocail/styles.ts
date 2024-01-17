@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   socialBtnContainer:{
     width:"98%",
-    height:60,
+    height:50,
     marginBottom:20,
     borderRadius:15,
     justifyContent:"center",
@@ -53,9 +53,10 @@ const styles = StyleSheet.create({
     alignSelf:"center"
   },
   textSocail:{
-    fontSize:appSizes.font_l,
+    fontSize:appSizes.font_l-2,
     color:appColors.black,
-    fontWeight:"500"
+    fontWeight:"500",
+    fontFamily:'Noto Sans'
   },
   orContainer: {
     flexDirection: 'row',
@@ -78,7 +79,8 @@ const styles = StyleSheet.create({
       backgroundColor: appColors.secondary,
       borderColor: appColors.primary,
       borderWidth: .8,
-      marginBottom:12
+      marginBottom:12,
+      height:55
   }
   
   

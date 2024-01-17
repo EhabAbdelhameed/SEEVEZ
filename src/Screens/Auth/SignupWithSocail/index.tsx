@@ -38,7 +38,10 @@ const SignupWithSocail = () => {
       >
         <View style={styles.logoContainer}>
           {/* <Image source={require('../../../assets/images/logoWithName.png')} /> */}
-          <BigLogo />
+          <Image
+                  source={require('../../../assets/images/seevezlogo.png')}
+                  style={{width: 148, height: 47}}
+                />
         </View>
         <View style={styles.circles}>
           <RenderSvgIcon icon="CIRCLELOGIN" width={240} height={220} />
@@ -59,7 +62,7 @@ const SignupWithSocail = () => {
           <SocailBtn title="Apple" icon='APPLE' />
           <View style={styles.orContainer}>
             <View style={styles.line}></View>
-            <Text style={styles.orText}>Or Sign up by</Text>
+            <Text style={styles.orText}>Or sign up by</Text>
             <View style={styles.line}></View>
           </View>
           <Button text="Continue with email" onPress={() => { navigation.navigate("signup2",{work_type:work_type,title:title}) }}

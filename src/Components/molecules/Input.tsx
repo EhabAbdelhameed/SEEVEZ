@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Input} from 'react-native-elements';
 import {RenderSvgIcon, TName} from '../atoms/svg';
 import {FormikProps} from 'formik';
-import {Text, View} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import NewPicker from './PhonePicker';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 const InputView = ({
   name,
   placeholder,
@@ -23,17 +23,42 @@ const InputView = ({
   touched?: any;
   errors?: any;
 }) => {
- console.log(errors[name])
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <Input
+      keyboardType={name == 'phone'||name=='otp'?'number-pad':'default'}
         placeholder={placeholder}
-        secureTextEntry={secure}
+        secureTextEntry={showPassword?!secure:secure}
         autoComplete="off"
         leftIcon={name == 'phone' ? <NewPicker props={props} /> : <View />}
         rightIcon={
           iconName ? (
-            <RenderSvgIcon icon={iconName} width={16} height={16} />
+            name == 'password' || name == 'confirmPassword' ? (
+              <TouchableOpacity
+                onPress={toggleShowPassword}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  // borderBottomWidth: 1,
+                  // borderColor: 'black',
+                  paddingVertical: 10,
+                }}>
+                  {showPassword?
+                <Icon
+                  name={'eye-slash'}
+                  size={15}
+                  color="#B9B9B9"
+                />:<RenderSvgIcon icon={iconName} width={16} height={16} />}
+              </TouchableOpacity>
+            ) : (
+              <RenderSvgIcon icon={iconName} width={16} height={16} />
+            )
           ) : (
             <View />
           )
@@ -43,22 +68,20 @@ const InputView = ({
         onBlur={props.handleBlur(name)}
         style={{
           borderBottomWidth: 0,
-         
-        
         }}
         inputContainerStyle={{
           borderRadius: 16,
-          borderColor: errors[name] !== undefined ?'red':'#1D5EDD',
+          borderColor: errors[name] !== undefined ? 'red' : '#1D5EDD',
           borderWidth: 1,
-          paddingHorizontal: 15, 
-         
+          paddingHorizontal: 15,
+
           // paddingVertical: 4,
-         
+
           // borderBottomWidth: 0.5,
         }}
         inputStyle={{
           fontSize: 14,
-          //  color: 'red' 
+          //  color: 'red'
         }}
         placeholderTextColor={'#B9B9B9'}
         // inputStyle={{color:'red'}}
@@ -66,7 +89,6 @@ const InputView = ({
           paddingHorizontal: 0,
           marginVertical: 1,
           height: 60,
-          
         }}
         {...props}
       />

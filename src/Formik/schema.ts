@@ -59,7 +59,7 @@ export const OtpSchema = Yup.object().shape({
 
 export const ResetSchema = Yup.object().shape({
   password: Yup.string().required('Please Enter your New password ').min(8, 'New password must be at least 8 numbers'),
-  confirmPassword: Yup.string().required('Please Enter your Confirm password ').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('newpassword'), null], 'Passwords do not match'),
+  confirmPassword: Yup.string().required('Please Enter your Confirm password ').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('password'), null], 'Passwords do not match'),
 });
 
 // export const ChangePasswordSchema = Yup.object().shape({
