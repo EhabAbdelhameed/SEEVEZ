@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     flexBasis: 'auto',
     justifyContent: 'space-around',
-    flexDirection:'row',
+    flexDirection: 'row',
     // alignItems: '',
     marginVertical: appSizes.x,
     marginBottom: appSizes.height * 0.07,
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     fontSize: appSizes.font_l,
     color: appColors.black,
     fontWeight: '500',
+    fontFamily: 'Noto Sans',
   },
   orContainer: {
     flexDirection: 'row',
@@ -69,11 +70,13 @@ const styles = StyleSheet.create({
     color: '#B9B9B9',
     fontSize: 16,
     fontWeight: '500',
+    fontFamily: 'Noto Sans',
   },
   line: {
     width: 51,
     height: 1,
     backgroundColor: '#B9B9B9',
+    fontFamily: 'Noto Sans',
   },
   btn: {
     backgroundColor: appColors.secondary,
@@ -93,6 +96,7 @@ const styles = StyleSheet.create({
     fontSize: appSizes.font_xxxxxl - 2,
     textAlign: 'center',
     fontWeight: '700',
+    fontFamily: 'Noto Sans',
   },
   loginTextSub: {
     color: appColors.textColor,
@@ -102,6 +106,7 @@ const styles = StyleSheet.create({
     width: appSizes.width * 0.7,
     lineHeight: 20,
     marginTop: 5,
+    fontFamily: 'Noto Sans',
   },
   yellowIcon: {
     // marginTop: 5,
@@ -113,60 +118,114 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 4,
     borderBottomWidth: 0.5,
-    marginBottom:40,
-    marginTop:10
+    marginBottom: 40,
+    marginTop: 10,
   },
   skipContainer: {
     paddingHorizontal: 20,
     paddingVertical: 8,
     backgroundColor: appColors.primary,
     borderRadius: appSizes.radius_m,
-    width:81,
-    height:38,
-    justifyContent:'center',
-    alignItems:'center'
-},
-skipText: {
+    width: 81,
+    height: 38,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  skipText: {
     color: appColors.white,
-    fontSize: 18
-},
-rowAgree: {
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  columnGap: 6,
-  width: "94%",
-  marginBottom: appSizes.spacing_l,
-  marginLeft:10
-  // marginTop:appSizes.spacing_s
-},
-Circle: {
-  width: 20,
-  height: 20,
-  borderRadius: 20 / 2,
-  backgroundColor: appColors.secondary,
-  borderWidth: 1,
-  borderColor: appColors.primary,
-  alignItems: "center",
-  justifyContent: "center",
-  // marginTop:2,
-},
-innerCircle: {
-  width: 13,
-  height: 13,
-  borderRadius: 13 ,
-  backgroundColor: appColors.primary
-},
-agree: {
-  color: appColors.black,
-  fontSize: appSizes.font_m-1,
-  fontWeight: '400',
-  textAlign: 'left',
-},
-agreeLine:{
-  color:appColors.primary,
-  textDecorationLine:"underline"
-},
+    fontSize: 18,
+    fontFamily: 'Noto Sans',
+  },
+  rowAgree: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    columnGap: 6,
+    width: '94%',
+    marginBottom: appSizes.spacing_l,
+    marginLeft: 10,
+    // marginTop:appSizes.spacing_s
+  },
+  Circle: {
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    backgroundColor: appColors.secondary,
+    borderWidth: 1,
+    borderColor: appColors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // marginTop:2,
+  },
+  innerCircle: {
+    width: 13,
+    height: 13,
+    borderRadius: 13,
+    backgroundColor: appColors.primary,
+  },
+  agree: {
+    color: appColors.black,
+    fontSize: appSizes.font_m - 1,
+    fontWeight: '400',
+    textAlign: 'left',
+    fontFamily: 'Noto Sans',
+  },
+  agreeLine: {
+    color: appColors.primary,
+    textDecorationLine: 'underline',
+    fontFamily: 'Noto Sans',
+  },
+  Image: {
+    height: 30,
+    width: 30,
+  },
+  InputStyle: {
+    borderRadius: 16,
+    borderColor: '#1D5EDD',
+    borderWidth: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 4,
+    // borderBottomWidth: 0.5,
+    height: 50,
+    width: '49%',
+  },
+  labelStyle: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: '400',
+    marginBottom: 10,
+    marginLeft: 10,
+    fontFamily: 'Noto Sans',
+  },
+  InputStyleWithOutWidth: {
+    borderRadius: 16,
+    borderColor: '#1D5EDD',
+    borderWidth: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 4,
+    // borderBottomWidth: 0.5,
+    height: 50,
+  },
+  labelStyle1: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#000',
+    marginLeft: 8,
+    marginBottom: 5,
+    fontFamily: 'Noto Sans',
+  },
+  dateStyle:{
+    borderRadius: 16,
+    borderColor: '#1D5EDD',
+    borderWidth: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 4,
+    // borderBottomWidth: 0.5,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  }
 });
 
 export default styles;

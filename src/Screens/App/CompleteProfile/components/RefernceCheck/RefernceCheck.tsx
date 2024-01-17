@@ -33,7 +33,31 @@ const ReferenceCheckCard = (data: any) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.Des}>{data.data==null?'Bio':data.data}</Text>
+        {data.data == null ? (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: '#E8E8E8',
+              height: 100,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              borderRadius: 16,
+            }}>
+            <Text style={{color: '#B9B9B9', fontFamily: 'Noto Sans'}}>Bio</Text>
+          </View>
+        ) : (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: '#E8E8E8',
+              height: 100,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              borderRadius: 16,
+            }}>
+            <Text style={styles.Des}>{data.data}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -71,6 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
 
   Des: {

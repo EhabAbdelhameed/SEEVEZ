@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   verificationText2: {
     color: appColors.black,
-    fontSize: appSizes.font_xs,
+    fontSize: appSizes.font_xs-2,
     fontWeight: '400',
     textAlign: 'center',
     marginBottom: appSizes.spacing_m,
@@ -90,7 +90,28 @@ const styles = StyleSheet.create({
     marginTop: appSizes.spacing_m,
     textDecorationLine:"underline",
     fontFamily:'Noto Sans'
-  }
+  },
+  cellRoot: {
+    width: 67,
+    height: 57,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#707070',
+    borderWidth: 1,
+    opacity: 0.5,
+    alignSelf: 'center',
+    backgroundColor: '#F5F5F5',
+    marginBottom:20
+  },
+  focusCell: {
+    borderColor:'red',
+    borderWidth: 2,
+  },
+  cellText: {
+    color: '#000',
+    fontSize: 36,
+    textAlign: 'center',
+  },
 
 
 });

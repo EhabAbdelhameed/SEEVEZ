@@ -5,19 +5,17 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {ImageBackground} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
+import {AVATAR, PDF} from 'assets/Svgs';
 
-const InfoCard = (user_data:any) => {
-  console.log(user_data.user_data.name)
+const InfoCard = (user_data: any) => {
+  console.log(user_data.user_data.name);
   const navigation = useNavigation();
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
-    
-      <View style={styles.Row1}>
-          
+        <View style={styles.Row1}>
           <View style={styles.Row2}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('UpdateInfo')}>
+            <TouchableOpacity onPress={() => navigation.navigate('UpdateInfo')}>
               <RenderSvgIcon
                 icon="PEN"
                 width={20}
@@ -27,22 +25,46 @@ const InfoCard = (user_data:any) => {
             </TouchableOpacity>
           </View>
         </View>
-        <ImageBackground
-          source={{
-            uri: 'https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-profile-glyph-black-icon-png-image_691589.jpg',
-          }}
-          style={styles.ImageBackground}
-          imageStyle={styles.imageStyle}>
-          <View style={styles.PlusContainer}>
+        <View
+          style={{
+            width: 96,
+            height: 96,
+            borderRadius: 96,
+            // borderWidth: 1,
+            // borderColor: '#DDD',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: appColors.bg,
+          }}>
+          <AVATAR height={48} width={48} />
+          <View
+            style={{
+              width: 15,
+              height: 15,
+              borderRadius: 15,
+              // borderWidth: 1,
+              // borderColor: '#DDD',
+              justifyContent: 'center',
+              position: 'absolute',
+              bottom: 2,
+              right: 12,
+              alignItems: 'center',
+              backgroundColor: appColors.primary,
+
+            }}>
             <RenderSvgIcon
               icon="PLUSFOLLOW"
-              width={20}
-              height={20}
+              // style={{marginRight: 10}}
+              width={10}
+              height={10}
               color={appColors.white}
             />
           </View>
-        </ImageBackground>
-
+        </View>
+      
+      
+    
+        <View>
         <View style={styles.Row}>
           <Text style={styles.Name}>{user_data.user_data.name}</Text>
           <RenderSvgIcon
@@ -53,21 +75,35 @@ const InfoCard = (user_data:any) => {
           />
         </View>
         <Text style={styles.Description}>Senior React native at O-Project</Text>
-        <View style={[styles.Row, { marginTop: 10 }]}>
-                    <View style={styles.subContainer}>
-                        <Text style={styles.subText}>Free Account</Text>
-                    </View>
-                    <View style={styles.statuesContainer}>
-                        <Text style={styles.statuesText}>Online</Text>
-                    </View>
-                    <View style={styles.FollowersContainer}>
-                        <Text style={styles.FollowersText}>0 Followers</Text>
-                    </View>
-                </View>
+        <View style={[styles.Row, {marginTop: 10}]}>
+          <View style={styles.subContainer}>
+            <Text style={styles.subText}>Free account</Text>
+          </View>
+          <View style={styles.statuesContainer}>
+            <Text style={styles.statuesText}>Online</Text>
+          </View>
+          <View style={styles.FollowersContainer}>
+            <Text style={styles.FollowersText}>0 Followers</Text>
+          </View>
+        </View>
         <View style={[styles.Row, {marginTop: 15}]}>
           {/* <ReviewCV width={140} /> */}
-          <TouchableOpacity style={{width:140,height:40,backgroundColor:appColors.primary,borderRadius:50,justifyContent:'center',alignItems:'center'}}>
-                  <Text style={{color:'#FFF'}}>Upload CV</Text>
+          <TouchableOpacity
+            style={{
+              width: 140,
+              height: 40,
+              backgroundColor: appColors.bg,
+              borderRadius: 50,
+              borderWidth:1,
+              borderColor:appColors.primary,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection:'row',
+              columnGap:10
+            }}>
+              <PDF width={20} height={20}/>
+            <Text style={{color: appColors.primary}}>Upload CV</Text>
+
           </TouchableOpacity>
           {/* <TouchableOpacity
             activeOpacity={0.8}
@@ -76,6 +112,7 @@ const InfoCard = (user_data:any) => {
             }}>
             <Analytics width={140} style={{marginLeft: 10}} />
           </TouchableOpacity> */}
+        </View>
         </View>
       </View>
     </View>
@@ -95,6 +132,7 @@ const styles = StyleSheet.create({
   },
   secContainer: {
     width: '100%',
+    
     backgroundColor: appColors.lightGrey2,
     borderRadius: 25,
     padding: 5,
@@ -128,15 +166,13 @@ const styles = StyleSheet.create({
   Row1: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'flex-end',
+    justifyContent: 'flex-end',
     marginVertical: 5,
   },
-  Row2:{
-   
-      flexDirection: 'row',
-      alignItems: 'flex-end',
-      justifyContent:'flex-end'
- 
+  Row2: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
   Name: {
     fontSize: 23,
@@ -155,42 +191,45 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 3,
     borderRadius: 30,
-    backgroundColor: '#F8E5B0',
-    borderColor: '#A57900',
-    borderWidth: 0.3,
+    backgroundColor: appColors.bg,
+    borderColor: '#B9CDF4',
+    borderWidth: 1,
     marginRight: 10,
   },
   subText: {
     fontSize: 12,
-    fontWeight: '400',
-    color: '#A57900',
+    fontWeight: '500',
+    color:appColors.primary,
+    fontFamily:'Noto Sans'
   },
   statuesContainer: {
     paddingHorizontal: 15,
     paddingVertical: 3,
     borderRadius: 30,
-    backgroundColor: '#E6FAFA',
-    borderColor: '#00928E',
-    borderWidth: 0.3,
+    backgroundColor: 'rgba(176,240,238,.5)',
+    borderColor: '#B0F0EE',
+    borderWidth: 1,
     marginRight: 10,
   },
   statuesText: {
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#00928E',
+    fontFamily:'Noto Sans'
   },
   FollowersContainer: {
     paddingHorizontal: 15,
     paddingVertical: 3,
     borderRadius: 30,
-    backgroundColor: '#E8EFFC',
-    borderColor: '#15439D',
-    borderWidth: 0.3,
+    backgroundColor: appColors.bg,
+    borderColor: '#B9CDF4',
+    borderWidth: 1,
   },
   FollowersText: {
     fontSize: 12,
-    fontWeight: '400',
-    color: '#15439D',
+    fontWeight: '500',
+    color:appColors.primary,
+    fontFamily:'Noto Sans'
   },
   InfoText: {
     fontWeight: '600',

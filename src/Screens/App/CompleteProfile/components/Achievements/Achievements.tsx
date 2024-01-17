@@ -9,16 +9,14 @@ import {
 import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
+const AchievementsCard = (data: any) => {
+  const navigation = useNavigation<any>();
 
-const AchievementsCard = (data:any) => {
-
-    const navigation = useNavigation<any>();
-    
-    console.log(data)
+  console.log(data);
   const saveAachievementSection = () => {
-    navigation.navigate('UpdateAchievements')
+    navigation.navigate('UpdateAchievements');
     // setAchievementsSection(SaveAachievementsSection);
     // setEditMode(false);
   };
@@ -40,9 +38,31 @@ const AchievementsCard = (data:any) => {
             <RenderSvgIcon icon="HEART" width={20} height={20} color={appColors.black} />
           </TouchableOpacity> */}
         </View>
-   
-          <Text style={styles.Des}>{data.data==null?'Bio':data.data}</Text>
-      
+        {data.data == null ? (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: '#E8E8E8',
+              height: 100,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              borderRadius: 16,
+            }}>
+            <Text style={{color: '#B9B9B9', fontFamily: 'Noto Sans'}}>Bio</Text>
+          </View>
+        ) : (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: '#E8E8E8',
+              height: 100,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              borderRadius: 16,
+            }}>
+            <Text style={styles.Des}>{data.data}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -80,6 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
 
   Des: {

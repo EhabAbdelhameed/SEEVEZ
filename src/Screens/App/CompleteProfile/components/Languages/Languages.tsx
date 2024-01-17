@@ -27,16 +27,17 @@ const LanguagesCard = (data: any) => {
           </View>
         </View>
 
-        <View style={[styles.Row, {marginTop: 10, marginBottom: 0}]}>
+        <View style={[styles.Row, {marginTop: 2, marginBottom: 0}]}>
           {data?.data.map((item:any) => (
-            <View>
+            <View style={{flexDirection:'row',columnGap:50,justifyContent:'center',alignItems:'center'}}>
               <View>
                 <Text style={styles.Head}>{item.name}</Text>
                 <Text style={styles.Des}>Native or bilingual proficiency</Text>
               </View>
               <View style={styles.Row2}>
-                <Text style={styles.RatingText}>5/5</Text>
+              <Text style={styles.RatingText}>Rate</Text>
                 <Star />
+                
               </View>
             </View>
           ))}
@@ -76,28 +77,33 @@ const styles = StyleSheet.create({
   Row2: {
     flexDirection: 'row',
     alignItems: 'center',
+    columnGap:2
   },
   Title: {
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
   Head: {
     fontSize: 16,
     fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
   Des: {
     fontSize: 14,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    fontFamily: 'Noto Sans'
   },
   RatingText: {
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: '700',
     color: appColors.black,
     marginRight: 3,
+    fontFamily: 'Noto Sans'
   },
   devider: {
     height: 1,
@@ -112,5 +118,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
+    fontFamily: 'Noto Sans'
   },
 });

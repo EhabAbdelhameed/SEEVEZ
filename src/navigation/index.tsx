@@ -13,6 +13,7 @@ import CreateShareLink from 'screens/App/CreatePost/CreateShareLink';
 import {useSelector} from 'react-redux';
 import AuthSlice, {selectIsAuth} from 'src/redux/auth';
 import { useAppDispatch } from 'src/redux/store';
+import AppDrawer from './Drawer/Drawer';
 
 
 const Root = createNativeStackNavigator<RootParamsList>();
@@ -40,7 +41,7 @@ const Navigation = () => {
           <Root.Screen name="auth" component={AuthStack} />
        ) : (
           <> 
-            <Root.Screen name="app" component={AppStack} />
+            <Root.Screen name="app" component={AppDrawer} />
             <Root.Screen name="CreateShareLink" component={CreateShareLink} />
           </> 
         )} 

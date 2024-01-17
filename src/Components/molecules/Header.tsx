@@ -49,9 +49,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     Title: {
-        fontSize: 24,
-        fontWeight: '600',
+        fontSize: 22,
+        fontWeight: '700',
         color: appColors.black,
-        marginLeft: 10
+        marginLeft: 10,
+        fontFamily: 'Noto Sans'
     }
 })

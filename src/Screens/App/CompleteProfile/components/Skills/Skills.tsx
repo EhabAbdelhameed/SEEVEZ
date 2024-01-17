@@ -32,7 +32,8 @@ const SkillsCard = ({
                         data?.map((item) => (
                             <View style={styles.smallCardContainer}>
                                 <Text style={styles.smallCardText}>{item.name}</Text>
-                                <Close />
+                                <RenderSvgIcon icon='PLUSFOLLOW' width={20} height={20} color={'#8AE8E6'} />
+
                             </View>
                         ))
                     }
@@ -78,15 +79,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         color: appColors.black,
+        fontFamily: 'Noto Sans'
     },
     smallCardContainer: {
         paddingVertical: 10,
         paddingHorizontal: 16,
-        borderColor: appColors.lightPurple,
-        borderWidth: 1,
+        borderColor: '#00928E',
+        borderWidth: .5,
         borderRadius: 50,
         flexDirection: 'row',
-        backgroundColor: appColors.bg,
+        backgroundColor: '#E6FAFA',
+        
         marginRight: 10,
         marginBottom: 10,
     },
@@ -98,8 +101,9 @@ const styles = StyleSheet.create({
     smallCardText: {
         fontSize: 12,
         fontWeight: '400',
-        color: appColors.blue2,
-        marginRight: 5
+        color: '#00928E',
+        marginRight: 5,
+        fontFamily: 'Noto Sans'
     },
     devider: {
         height: 1,
@@ -113,6 +117,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
         color: appColors.primary,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Noto Sans'
     }
 })

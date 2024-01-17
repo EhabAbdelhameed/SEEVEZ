@@ -31,8 +31,6 @@ const UpdateInfo = () => {
   const [buttonIndexHealth, setButtonIndexHealth] = React.useState(0);
   const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(0);
 
-
-
   const handleDateChange = (event: any, selectedDate: any) => {
     // Handle date change logic here
     if (selectedDate !== undefined && type == '1') {
@@ -124,228 +122,82 @@ const UpdateInfo = () => {
             }}>
             {(props: any) => (
               <View>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: '500',
-                    color: '#000',
-                    marginLeft: 8,
-                    marginBottom: 5,
-                  }}>
-                  Your full name
-                </Text>
+                <Text style={styles.labelStyle1}>Your full name</Text>
                 <InputView
                   name="FullName"
-                  placeholder="Your Full Name"
+                  placeholder="Enter your Full Name"
                   // props={props}
                   {...props}
                 />
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: '500',
-                    color: '#000',
-                    marginLeft: 8,
-                    marginBottom: 5,
-                  }}>
-                  Job title
-                </Text>
+                <Text style={styles.labelStyle1}>Job title</Text>
                 <InputView
                   name="JobTitle"
                   placeholder="Job title"
                   // props={props}
                   {...props}
                 />
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: '500',
-                    color: '#000',
-                    marginLeft: 8,
-                    marginBottom: 5,
-                  }}>
-                  Location
-                </Text>
+                <Text style={styles.labelStyle1}>Location</Text>
                 <InputView
                   name="Location"
                   placeholder="Your country"
                   // props={props}
                   {...props}
                 />
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: '500',
-                    color: '#000',
-                    marginLeft: 8,
-                    marginBottom: 5,
-                  }}>
-                  Phone
-                </Text>
+                <Text style={styles.labelStyle1}>Phone</Text>
                 <InputView {...props} name="phone" placeholder="Your phone" />
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: '500',
-                    color: '#000',
-                    marginLeft: 8,
-                    marginBottom: 5,
-                  }}>
-                  External links
-                </Text>
+                <Text style={styles.labelStyle1}>External links</Text>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     marginBottom: 10,
+                    columnGap:15
                   }}>
-                  <TextInput
-                    placeholder="Facebook"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '49%',
-                    }}
-                  />
-                  <TextInput
-                    placeholder="Linkedin"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '49%',
-                    }}
-                  />
+                  <TextInput placeholder="Facebook" style={styles.InputStyle} />
+                  <TextInput placeholder="Linkedin" style={styles.InputStyle} />
                 </View>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     marginBottom: 10,
+                    columnGap:15
                   }}>
                   <TextInput
                     placeholder="Instagram"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '49%',
-                    }}
+                    style={styles.InputStyle}
                   />
-                  <TextInput
-                    placeholder="Website"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '49%',
-                    }}
-                  />
+                  <TextInput placeholder="Website" style={styles.InputStyle} />
                 </View>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     marginBottom: 10,
+                    columnGap:15
                   }}>
-                  <TextInput
-                    placeholder="Github"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '49%',
-                    }}
-                  />
-                  <TextInput
-                    placeholder="Others"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '49%',
-                    }}
-                  />
+                  <TextInput placeholder="Github" style={styles.InputStyle} />
+                  <TextInput placeholder="Others" style={styles.InputStyle} />
                 </View>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     marginBottom: 10,
+                    columnGap:15
                   }}>
                   <View style={{width: '49%'}}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
-                        marginBottom: 10,
-                        marginLeft: 10,
-                      }}>
-                      Current salary
-                    </Text>
+                    <Text style={styles.labelStyle}>Current salary</Text>
                     <TextInput
                       placeholder="Write here.."
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        paddingVertical: 4,
-                        borderBottomWidth: 0.5,
-                        height: 60,
-                        //   width: '49%',
-                      }}
+                      style={styles.InputStyleWithOutWidth}
                     />
                   </View>
                   <View style={{width: '49%'}}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
-                        marginBottom: 10,
-                        marginLeft: 10,
-                      }}>
-                      Expected Salary
-                    </Text>
+                    <Text style={styles.labelStyle}>Expected Salary</Text>
                     <TextInput
                       placeholder="Write here.."
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        paddingVertical: 4,
-                        borderBottomWidth: 0.5,
-                        height: 60,
-                        //   width: '100%',
-                      }}
+                      style={styles.InputStyleWithOutWidth}
                     />
                   </View>
                 </View>
@@ -357,16 +209,7 @@ const UpdateInfo = () => {
                   </TouchableOpacity>
                   <Text style={styles.agree}>Don’t show my salary</Text>
                 </View>
-                <Text
-                  style={{
-                    color: '#000',
-                    fontSize: 16,
-                    fontWeight: '400',
-                    marginBottom: 10,
-                    marginLeft: 10,
-                  }}>
-                  Gender
-                </Text>
+                <Text style={styles.labelStyle}>Gender</Text>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -398,40 +241,21 @@ const UpdateInfo = () => {
                     justifyContent: 'space-around',
                     marginTop: 20,
                     marginBottom: 20,
+                    columnGap:15
                   }}>
                   <View style={{width: '49%'}}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
-                        marginBottom: 10,
-                        marginLeft: 10,
-                      }}>
-                      Birthdate
-                    </Text>
+                    <Text style={styles.labelStyle}>Birthdate</Text>
                     <TouchableOpacity
                       onPress={() => {
                         setVisible(true), setType('1');
                       }}>
-                      <View
-                        style={{
-                          borderRadius: 16,
-                          borderColor: '#1D5EDD',
-                          borderWidth: 1,
-                          paddingHorizontal: 15,
-                          paddingVertical: 4,
-                          borderBottomWidth: 0.5,
-                          height: 60,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                        }}>
+                      <View style={styles.dateStyle}>
                         <Text
                           style={{
                             marginRight: 20,
                             color: '#DDD',
                             fontSize: 16,
+                           fontFamily: 'Noto Sans'
                           }}>
                           {date.getDate() +
                             '/' +
@@ -446,31 +270,16 @@ const UpdateInfo = () => {
                   </View>
                   <View style={{width: '49%'}}>
                     <Text
-                      style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
-                        marginBottom: 10,
-                        marginLeft: 10,
-                      }}>
+                     style={styles.labelStyle}>
                       Nationality
                     </Text>
                     <TextInput
                       placeholder="Write here.."
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        paddingVertical: 4,
-                        borderBottomWidth: 0.5,
-                        height: 60,
-                        //   width: '100%',
-                      }}
+                      style={styles.InputStyleWithOutWidth}
                     />
                   </View>
                 </View>
-                <View style={{flexDirection: 'row', marginBottom: 10}}>
+                <View style={{flexDirection: 'row', marginBottom: 10,columnGap:15}}>
                   <View
                     style={{
                       justifyContent: 'center',
@@ -495,19 +304,14 @@ const UpdateInfo = () => {
                         fontWeight: '500',
                         marginLeft: 15,
                         color: '#000',
+                        fontFamily: 'Noto Sans'
                       }}>
                       Add another Nationality
                     </Text>
                   </View>
                 </View>
                 <Text
-                  style={{
-                    color: '#000',
-                    fontSize: 16,
-                    fontWeight: '400',
-                    marginBottom: 10,
-                    marginLeft: 10,
-                  }}>
+                  style={styles.labelStyle}>
                   Health profile
                 </Text>
                 <View
@@ -515,7 +319,8 @@ const UpdateInfo = () => {
                     flexDirection: 'row',
                     flexWrap: 'wrap',
                     justifyContent: 'space-around',
-                    marginBottom:20
+                    marginBottom: 20,
+                    columnGap:15
                   }}>
                   {HealthProfile?.map((item, index) => (
                     <View
@@ -541,66 +346,31 @@ const UpdateInfo = () => {
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     marginBottom: 10,
+                    columnGap:15
                   }}>
                   <View style={{width: '49%'}}>
                     <Text
-                      style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
-                        marginBottom: 10,
-                        marginLeft: 10,
-                      }}>
+                      style={styles.labelStyle}>
                       Height
                     </Text>
                     <TextInput
                       placeholder="Write here.."
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        paddingVertical: 4,
-                        borderBottomWidth: 0.5,
-                        height: 60,
-                        //   width: '49%',
-                      }}
+                      style={styles.InputStyleWithOutWidth}
                     />
                   </View>
                   <View style={{width: '49%'}}>
                     <Text
-                      style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
-                        marginBottom: 10,
-                        marginLeft: 10,
-                      }}>
+                      style={styles.labelStyle}>
                       Weight
                     </Text>
                     <TextInput
                       placeholder="Write here.."
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        paddingVertical: 4,
-                        borderBottomWidth: 0.5,
-                        height: 60,
-                        //   width: '100%',
-                      }}
+                      style={styles.InputStyleWithOutWidth}
                     />
                   </View>
                 </View>
                 <Text
-                  style={{
-                    color: '#000',
-                    fontSize: 16,
-                    fontWeight: '400',
-                    marginBottom: 10,
-                    marginLeft: 10,
-                  }}>
+                  style={styles.labelStyle}>
                   Smoker
                 </Text>
                 <View
@@ -608,7 +378,8 @@ const UpdateInfo = () => {
                     flexDirection: 'row',
                     flexWrap: 'wrap',
                     justifyContent: 'space-around',
-                    marginBottom:20
+                    marginBottom: 20,
+                    columnGap:15
                   }}>
                   {Smoker?.map((item, index) => (
                     <View
@@ -625,7 +396,7 @@ const UpdateInfo = () => {
                           ) : null}
                         </View>
                       </TouchableOpacity>
-                      <Text style={{color: '#000', marginLeft: 5}}>{item}</Text>
+                      <Text style={{color: '#000', marginLeft: 5,fontFamily: 'Noto Sans'}}>{item}</Text>
                     </View>
                   ))}
                 </View>

@@ -61,7 +61,7 @@ const ResetPassword = () => {
               marginTop: 50,
             }}
             titleStyle={{
-              fontSize: 35,
+              fontSize: 32,
             }}
             title="Reset password ?"
             subtitle="Lorem ipsum dolor sit amet consectetur. Posuere pellentesque morbi placerat orci"

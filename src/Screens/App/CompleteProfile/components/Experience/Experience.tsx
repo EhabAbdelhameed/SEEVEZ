@@ -29,18 +29,20 @@ const ExperienceCard = (data: any) => {
 
         {data?.data.length == 0 ? (
           <View style={styles.Row2}>
-            <View
-              style={{
-                width: 65,
-                height: 65,
-                borderRadius: 100,
-                borderWidth: 1,
-                borderColor: '#DDD',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <AVATAR style={styles.Image} />
-            </View>
+           <View
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: 64,
+        
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: appColors.bg,
+          }}>
+          <AVATAR height={32} width={32} />
+      
+        
+        </View>
 
             <View style={{marginLeft: 10}}>
               <Text style={styles.Title2}>Job Title</Text>
@@ -50,24 +52,26 @@ const ExperienceCard = (data: any) => {
         ) : (
           data?.data.map((item:any) => (
             <View style={styles.Row2}>
-              <View
-                style={{
-                  width: 65,
-                  height: 65,
-                  borderRadius: 100,
-                  borderWidth: 1,
-                  borderColor: '#DDD',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <AVATAR style={styles.Image} />
-              </View>
-
-              <View style={{marginLeft: 10}}>
-                <Text style={styles.Title2}>{item.job_title}</Text>
-                <Text style={styles.CompanyName}>{item.company_name}</Text>
-              </View>
-            </View>
+            <View
+           style={{
+             width: 64,
+             height: 64,
+             borderRadius: 64,
+         
+             justifyContent: 'center',
+             alignItems: 'center',
+             backgroundColor: appColors.bg,
+           }}>
+           <AVATAR height={32} width={32} />
+       
+         
+         </View>
+ 
+             <View style={{marginLeft: 10}}>
+               <Text style={styles.Title2}>Job Title</Text>
+               <Text style={styles.CompanyName}>Company Name</Text>
+             </View>
+           </View>
           ))
         )}
       </View>
@@ -139,11 +143,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
   Title2: {
-    fontSize: 19,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
   Image: {
     height: 30,
@@ -151,7 +157,7 @@ const styles = StyleSheet.create({
     // borderRadius: 65
   },
   CompanyName: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
@@ -161,17 +167,20 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    fontFamily: 'Noto Sans'
   },
   Title3: {
     fontWeight: '600',
     color: appColors.black,
     marginTop: 15,
+    fontFamily: 'Noto Sans'
   },
   PostText: {
     fontSize: 12,
     fontWeight: '400',
     marginTop: 15,
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
   devider: {
     height: 1,
@@ -186,5 +195,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
+    fontFamily: 'Noto Sans'
   },
 });

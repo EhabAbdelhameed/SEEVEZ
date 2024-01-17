@@ -12,7 +12,7 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {AVATAR} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 
-const EducationCard = (data:any) => {
+const EducationCard = (data: any) => {
   const navigation = useNavigation<any>();
 
   return (
@@ -34,40 +34,38 @@ const EducationCard = (data:any) => {
         </View>
 
         {data?.data.length == 0 ? (
-         
-        <View style={styles.Row2}>
-        <View
-          style={{
-            width: 65,
-            height: 65,
-            borderRadius: 100,
-            borderWidth: 1,
-            borderColor: '#DDD',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <AVATAR style={styles.Image} />
-        </View>
-        <View style={{marginLeft: 10}}>
-          <Text style={styles.Title2}>School/university name</Text>
-          <Text style={styles.CompanyName}>field of study</Text>
-       
-        </View>
-      </View>
+          <View style={styles.Row2}>
+            <View
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 64,
+
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: appColors.bg,
+              }}>
+              <AVATAR height={32} width={32} />
+            </View>
+            <View style={{marginLeft: 10}}>
+              <Text style={styles.Title2}>School/university name</Text>
+              <Text style={styles.CompanyName}>field of study</Text>
+            </View>
+          </View>
         ) : (
           data?.data.map(() => (
             <View style={styles.Row2}>
               <View
                 style={{
-                  width: 65,
-                  height: 65,
-                  borderRadius: 100,
-                  borderWidth: 1,
-                  borderColor: '#DDD',
+                  width: 64,
+                  height: 64,
+                  borderRadius: 64,
+
                   justifyContent: 'center',
                   alignItems: 'center',
+                  backgroundColor: appColors.bg,
                 }}>
-                <AVATAR style={styles.Image} />
+                <AVATAR height={32} width={32} />
               </View>
               <View style={{marginLeft: 10}}>
                 <Text style={styles.Title2}>Course </Text>
@@ -116,11 +114,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
   Title2: {
-    fontSize: 19,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: '700',
     color: appColors.black,
+    fontFamily: 'Noto Sans'
   },
   Image: {
     height: 30,
@@ -129,28 +129,32 @@ const styles = StyleSheet.create({
     // marginRight: 10,
   },
   CompanyName: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
-    width: '90%',
+    // width: '90%',
+    fontFamily: 'Noto Sans'
   },
   des: {
     fontSize: 11,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    fontFamily: 'Noto Sans'
   },
   Title3: {
     fontWeight: '600',
     color: appColors.black,
     marginTop: 3,
+    fontFamily: 'Noto Sans'
   },
   Title4: {
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
     fontSize: 12,
+    fontFamily: 'Noto Sans'
   },
   devider: {
     height: 1,
@@ -165,5 +169,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
+    fontFamily: 'Noto Sans'
   },
 });

@@ -1,5 +1,5 @@
 import {View, Text, Image, Alert, TouchableOpacity} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../Components/atoms/svg';
 import {Formik} from 'formik';
@@ -19,16 +19,19 @@ import AuthSlice, {selectVerified} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import {OtpSchema} from 'src/Formik/schema';
-import OtpInputs from 'react-native-otp-inputs';
+import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
+
 const Verification = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const [value,setValue]=useState('')
   const {email, type}: any = useRoute().params;
-
+  const CELL_COUNT = 4;
   const [minutes, setMinutes] = React.useState(0);
   const [seconds, setSeconds] = React.useState(59);
   const [otpValue, setOtpValue] = React.useState('');
-
+  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+    const [props, getCellOnLayoutHandler] = useClearByFocusCell({ value, setValue });
   // const { goBack, navigate } = useNavigation<any>()
   // const loading = useLoadingSelector(AuthThunks.doSignIn())
   const [loading, setLoading] = React.useState(false);
@@ -65,12 +68,13 @@ const Verification = () => {
     }
   }, [Verified]);
 
-  const ActiveAccount = (values: any) => {
+  const ActiveAccount = () => {
+   
     setLoading(true);
     const formData = new FormData();
     formData.append('email', email);
-    formData.append('otp', values.otp);
-    setOtpValue(values.otp);
+    formData.append('otp', value);
+    setOtpValue(value);
     // formData.append('type', type == 'Forget' ? 'reset' : 'verify')
 
     dispatch(AuthThunks.doVerifyOTP(formData)).then(() => setLoading(false));
@@ -114,49 +118,68 @@ const Verification = () => {
               <View style={{width: 32}} />
               {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
             </View>
-            <RenderSvgIcon icon="LOGOWITHTITLE" width={170} height={90} />
+            {/* <RenderSvgIcon icon="LOGOWITHTITLE" width={170} height={90} /> */}
+            <Image
+                  source={require('../../../assets/images/seevezlogo.png')}
+                  style={{width: 135, height: 40,marginTop:10,marginBottom:10}}
+                />
             <View>
               <RenderSvgIcon icon="ICONCV" width={40} height={48} />
             </View>
           </View>
 
-          <Text style={styles.verificationText}>Otp Verification</Text>
+          <Text style={styles.verificationText}>OTP Verification</Text>
           <Text style={styles.verificationText2}>
             We will send you a one-time password on this email Address :
             <Text style={{fontWeight: '700'}}>exampel@info.com</Text>
           </Text>
-          <Formik
-            validationSchema={OtpSchema}
-            initialValues={{otp: ''}}
-            onSubmit={values => {
-              ActiveAccount(values);
-              // navigation.navigate("ResetPassword")
-            }}>
-            {(props: any) => (
+   
               <View>
-                <InputView
+                {/* <InputView
                   name="otp"
                   placeholder="Your OTP Code"
                   // props={props}
                   {...props}
-                />
+                /> */}
                 {/* <OtpInputs
                   handleChange={code => console.log(code)}
                   numberOfInputs={6}
                 /> */}
+                <CodeField
+                            ref={ref}
+                            {...props}
+                            value={value}
+                            onChangeText={setValue}
+                            cellCount={CELL_COUNT}
+                            rootStyle={{}}
+                            keyboardType="number-pad"
+                            textContentType="oneTimeCode"
+                            renderCell={({ index, symbol, isFocused }) => (
+                                <View
+                                    onLayout={getCellOnLayoutHandler(index)}
+                                    key={index}
+                                    style={[
+                                        styles.cellRoot,
+                                        isFocused && styles.focusCell,
+                                    ]}>
+                                    <Text style={styles.cellText}>
+                                        {symbol || (isFocused ? <Cursor /> : null)}
+                                    </Text>
+                                </View>
+                            )}
+                        />
 
                 <Button
                 loading={loading}
                   text={
                     type == 'forget'
-                      ? 'Change Password'
-                      : 'Activate the account'
+                      ? 'Change password'
+                      : 'Activate your account'
                   }
-                  onPress={props.handleSubmit}
+                  onPress={()=>ActiveAccount()}
                 />
               </View>
-            )}
-          </Formik>
+       
           <View
             style={{
               flexDirection: 'row',

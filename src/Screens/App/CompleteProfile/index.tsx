@@ -11,6 +11,8 @@ import { useNavigation } from '@react-navigation/native'
 import EducationCard from './components/Education/Education'
 import TrainingCard from './components/Training/Training'
 import SkillsCard from './components/Skills/Skills'
+import RecordVideo from './components/RecordVideo/RecordVideo'
+
 import LanguagesCard from './components/Languages/Languages'
 import ReferenceCheckCard from './components/RefernceCheck/RefernceCheck'
 
@@ -30,8 +32,10 @@ const CompleteProfileScreen = () => {
     return (
         <SafeAreaView edges={['top']} style={styles.Container}>
             <Header Title='My profile' onPress={() => navigation.goBack()} />
-            <ScrollView showsVerticalScrollIndicator={false} style={styles.PaddingContainer}>
-                <Complete  pers ={0} />
+            <ScrollView showsVerticalScrollIndicator={false} >
+                 <RecordVideo user_data={CurrentUserData}/>
+                 <View style={styles.PaddingContainer}>
+                <Complete  pers ={10} />
                 <InfoCard user_data={CurrentUserData}/>
                 <AboutCard About={CurrentUserData}/>
                 <ExperienceCard data={CurrentUserData.user_data.experiences}/>
@@ -42,13 +46,13 @@ const CompleteProfileScreen = () => {
                 <LanguagesCard data={CurrentUserData.user_data.languages} />
                 <AchievementsCard data={CurrentUserData.user_data.achievement}/>
                 <ReferenceCheckCard data={CurrentUserData.user_data.reference_check}/> 
-           
+                </View>
                 
                 
                 
                
             
-                <View style={{ height: 20 }} />
+                {/* <View style={{ height: 20 }} /> */}
             </ScrollView>
         </SafeAreaView>
     )

@@ -22,7 +22,7 @@ const AuthTopSection = ({
       <View style={{width:32}}>
         {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
       </View>
-      <View style={[{alignItems:"center"},{...style}]}>
+      <View style={[{alignItems:"center",justifyContent:'center'},{...style}]}>
         <Text style={[styles.loginText,{...titleStyle}]}>{title}</Text>
         <Text style={[styles.loginTextSub,{...subTitleStyle}]}>{subtitle}</Text>
       </View>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   loginTextSub: {
     color: appColors.textColor,
-    fontSize: appSizes.font_xs-.5,
+    fontSize: appSizes.font_xs-2,
     textAlign: 'center',
     // fontWeight: '100', 
     // width: appSizes.width * 0.6,

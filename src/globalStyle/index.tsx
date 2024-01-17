@@ -30,4 +30,30 @@ export const globalStyles=StyleSheet.create({
         height: "100%",
         backgroundColor: appColors.bg
     },
+    userAvatar: {
+        height: 67.5,
+        width: 67.5,
+        borderRadius: 40,
+        marginBottom: 10,
+        marginTop: 30,
+      },
+      switchTextContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginLeft: 7,
+        paddingVertical: 5,
+      },
+      preferences: {
+        fontSize: 16,
+        color: "#ccc",
+        paddingTop: 10,
+        fontWeight: "500",
+        paddingLeft: 20,
+      },
+      switchText: {
+        fontSize: 17,
+        color: "",
+        paddingTop: 10,
+        fontWeight: "bold",
+      },
 })

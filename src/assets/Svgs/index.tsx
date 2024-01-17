@@ -23,10 +23,21 @@ import PDF from './pdf.svg'
 import AVATAR from './clarity_avatar-solid.svg'
 import PERSON from './Person.svg'
 import CALANDER from './Calunder.svg'
-
-
+import VIDEOICON from './VideoIcon.svg'
+import DropDownIcon from './DropDownIcon.svg'
+import ImageDrawer from './Ellipse 8.svg'
+import ArrowDown    from './arrwoDown.svg'
+import Packages from './Packages.svg'
+import Setting from './Settings.svg'
+import LogOut from './LogOut.svg'
 export {
     LogoWithName,
+    Packages,
+    Setting,
+    LogOut,
+    ArrowDown,
+    VIDEOICON,
+    ImageDrawer,
     PlayVideo,
     LayerDashboard,
     Trending,
@@ -49,5 +60,6 @@ export {
     PDF,
     AVATAR,
     CALANDER,
-    PERSON
+    PERSON,
+    DropDownIcon
 }
