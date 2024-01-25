@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity, TextInput, Alert} from 'react-native';
-import React, {useCallback} from 'react';
+import {View, Text, TouchableOpacity, TextInput, Alert, Image} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
@@ -16,74 +16,79 @@ import {Formik} from 'formik';
 import {appSizes} from 'theme/appSizes';
 import { useAppDispatch } from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import {launchImageLibrary} from 'react-native-image-picker'
+import { useSelector } from 'react-redux';
+import { selectDone } from 'src/redux/app';
+
+
 const UpdateAchievements = () => {
   const [loading, setLoading] = React.useState(false);
   const dispatch = useAppDispatch();
   // const navigation = useNavigation<any>();
+  const [Source, setSource] = useState<any>([]);
+  const [achievements, setAchievements] = useState('');
+  const changeDone=useSelector(selectDone)
+      // console.log(changeDone)
+  useEffect(() => {
+    changeDone?navigation.goBack():null
+  }, [changeDone]);
   const navigation = useNavigation();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
-  const uploadImage = () => {
-    
-    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then(res =>
-      console.log(res),
-    );
-  };
-
-  const uploadFile = async (type: any) => {
+  const openGallery = async () => {
     try {
-      const res: any = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
+      const result = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles],
       });
-      console.log(res);
-      // setExperienceLetter(res);
-      // setFieldValue(name.replace(/\s/g, ''), {
-      //   uri: res[0]?.uri,
-      //   type: res[0]?.type,
-      //   name: res[0]?.name,
-      // });
+
+      // The selected media is available in the result.uri
+      // dispatch(setImageURL(result[0].uri));
+
+      setSource(result);
     } catch (err) {
-      // setFieldValue(name.replace(/\s/g, ''), '');
       if (DocumentPicker.isCancel(err)) {
-        console.log('Canceled');
+        console.log('User cancelled document picker');
       } else {
-        console.log('Unknown Error: ' + JSON.stringify(err));
-        throw err;
+        console.error('DocumentPicker Error:', err);
       }
     }
   };
+  
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
           backgroundColor: appColors.bg,
-          marginTop: 40,
+       
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.logoContainer}>
+       <View style={styles.logoContainer}>
           <TouchableOpacity
             style={styles.skipContainer}
             onPress={_handleNavigate}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
-          <BigLogo height={30} width={96} style={{marginLeft:70 }} />
+          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
+           */}
+          <Image
+            source={require('../../../../../assets/images/seevezlogo.png')}
+            style={{width: 100, height: 30}}
+          />
         </View>
         <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={240} height={220} />
+          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
         </View>
         <View style={styles.bottomSection}>
           <View style={styles.blueCircle}>
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
           <View style={styles.loginTextContainer}>
-            <View>
-              <RenderSvgIcon icon="ICON2CV" width={32} height={48} />
+            <View style={{width:32}}>
+              {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
             </View>
             <View style={[{alignItems: 'center'}]}>
               <Text style={[styles.loginText, {fontSize: 24}]}>
@@ -108,8 +113,9 @@ const UpdateAchievements = () => {
               fontWeight: '500',
               color: '#000',
               marginLeft: 8,
+              fontFamily: 'Noto Sans',
             }}>
-            Achievements
+            Achievements 
           </Text>
           <Formik
             initialValues={{Achievements: ''}}
@@ -117,46 +123,50 @@ const UpdateAchievements = () => {
               setLoading(true);
               const formdata = new FormData();
 
-              formdata.append('text', values.Achievements);
-              formdata.append('user_id', 3);
-              formdata.append('rate',5 );
+              formdata.append('text',achievements );
+              // formdata.append('user_id', 3);
+              // formdata.append('rate',5 );
+              formdata.append('certificate', {
+                uri: Source[0]?.uri,
+                type: Source[0]?.type,
+                name: Source[0]?.name,
+              });
+              // console.log("555555 "+JSON.stringify(formdata))
               dispatch(AppThunks.doAddAchievement(formdata)).then((res: any) => {
+                dispatch(AppThunks.GetProfileInfo())
                 setLoading(false);
+
               });
               // navigation.navigate("ResetPassword")
             }}>
             {(props: any) => (
+            
               <View>
-                <TextInput
+                 <TextInput
                   multiline
-                  numberOfLines={8} // Set the number of lines you want to display
+                  numberOfLines={10} // Set the number of lines you want to display
                   style={styles.textArea} // Define your own styles for the text area
                   placeholder="Write here.."
-                  onChangeText={props.handleChange('About')}
-                  onBlur={props.handleBlur('About')}
-                  value={props.values.About}
+                  placeholderTextColor={'#B9B9B9'}
+                  
+                  onChangeText={(e)=>setAchievements(e)}
+                  onBlur={props.handleBlur('Achievements')}
+                  value={props.values.achievement}
+                  textAlignVertical="top"
                 />
-                <Text style={{marginBottom: 20}}>1500 characters</Text>
-                <View
-                  style={{
-                    borderRadius: 16,
-                    borderColor: '#1D5EDD',
-                    borderWidth: 1,
-                    paddingHorizontal: 15,
-                    paddingVertical: 4,
-                    borderBottomWidth: 0.5,
-                    marginBottom: 30,
-                    marginTop: 10,
-                    height: 54,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+                <Text style={{marginBottom: 10}}>1500 characters</Text>
+                <TouchableOpacity
+                  onPress={openGallery}
+                  style={[styles.InputStyleNoWidth,{marginBottom:10}]}>
                   <PHOTO style={{marginRight: 20}} />
-                  <Text style={{fontSize:20,color:appColors.primary}}>Upload certificate image</Text>
-                </View>
-
-                <Button text={'Done'} onPress={props.handleSubmit} />
+                  <Text style={{fontSize: 20, color: appColors.primary, fontFamily: 'Noto Sans'}}>
+                    {Source.length == 0
+                      ? 'Upload certificate image'
+                      : Source[0].name}
+                  </Text>
+                </TouchableOpacity>
+                <View style={{height:appSizes.height * 0.06}}/>
+                <Button loading={loading} text={'Done'} onPress={props.handleSubmit} />
               </View>
             )}
           </Formik>

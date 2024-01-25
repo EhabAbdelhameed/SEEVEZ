@@ -15,8 +15,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useAppDispatch} from 'src/redux/store';
 import {useLoadingSelector} from 'src/redux/selectors';
 import AuthThunks from 'src/redux/auth/thunks';
-import AuthSlice from 'src/redux/auth';
+import AuthSlice, { selectReseted } from 'src/redux/auth';
 import { ResetSchema } from 'src/Formik/schema';
+import { useSelector } from 'react-redux';
 
 const ResetPassword = () => {
   const navigation = useNavigation();
@@ -25,10 +26,14 @@ const ResetPassword = () => {
   // const loading = useLoadingSelector(AuthThunks.doResetPassword());
   const [Token, setToken] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-
+   const reseted=useSelector(selectReseted)
   useEffect(() => {
     dispatch(AuthSlice.chnageVerified(false));
-  }, []);
+
+    reseted ? navigation.navigate('login') : null;
+
+
+  }, [reseted]);
   return (
     // <View style={styles.container}>
     <SafeAreaView edges={['top']} style={styles.container}>
@@ -101,7 +106,7 @@ const ResetPassword = () => {
                   {...props}
                 />
                 <View style={{height: 50}} />
-
+  
                 <Button
                   text="Get started"
                   loading={loading}

@@ -5,6 +5,8 @@ import TabBar from './BottomTab/TabBar';
 import { AppParamsList } from './types';
 import ProfileScreen from 'screens/App/Profile/Main Profile';
 import CompleteProfileScreen from 'screens/App/CompleteProfile'
+import CompleteCompanyProfileScreen from 'screens/App/CompleteCompanyProfile'
+
 import CreateVideo from 'screens/App/CreatePost/CreateVideo';
 import CreateVoice from 'screens/App/CreatePost/CreateVoice';
 import AnalyticsScreen from 'screens/App/Profile/Analytics';
@@ -20,6 +22,10 @@ import UpdateSkills from 'screens/App/CompleteProfile/components/Skills/UpdateSk
 import UpdateInfo from 'screens/App/CompleteProfile/components/Info/UpdateInfo';
 import UpdateLanguages from 'screens/App/CompleteProfile/components//Languages/UpdateLanguages';
 import UpdateEducation from 'screens/App/CompleteProfile/components/Education/UpdateEducation';
+import UpdateCompanyInfo from 'screens/App/CompleteCompanyProfile/components/Info/UpdateInfo';
+import UpdateCompanyAbout from 'screens/App/CompleteCompanyProfile/components/About/UpdateAbout';
+import UpdateRecordVideo from 'screens/App/CompleteProfile/components/RecordVideo/UpdateRecordVideo';
+import SaveVideo from 'screens/App/CompleteProfile/components/RecordVideo/SaveVideo';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -35,9 +41,25 @@ const AppStack = () => {
                 name="CompleteProfileScreen"
                 component={CompleteProfileScreen}
             />
+             <Stack.Screen
+                name="CompleteCompanyProfileScreen"
+                component={CompleteCompanyProfileScreen}
+            />
               <Stack.Screen
                 name="UpdateAbout"
                 component={UpdateAbout}
+            />
+             <Stack.Screen
+                name="SaveVideo"
+                component={SaveVideo}
+            />
+              <Stack.Screen
+                name="UpdateRecordVideo"
+                component={UpdateRecordVideo}
+            />
+              <Stack.Screen
+                name="UpdateCompanyAbout"
+                component={UpdateCompanyAbout}
             />
                 <Stack.Screen
                 name="UpdateLanguages"
@@ -70,6 +92,10 @@ const AppStack = () => {
                <Stack.Screen
                 name="UpdateInfo"
                 component={UpdateInfo}
+            />
+              <Stack.Screen
+                name="UpdateCompanyInfo"
+                component={UpdateCompanyInfo}
             />
             <Stack.Screen
                 name="ProfileScreen"

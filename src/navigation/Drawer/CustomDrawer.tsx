@@ -19,6 +19,7 @@ import {ArrowDown, ImageDrawer, LogOut, Packages, Setting} from 'assets/Svgs';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {appColors} from 'theme/appColors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppThunks from 'src/redux/app/thunks';
 
 const {height} = Dimensions.get('window');
 
@@ -27,11 +28,12 @@ const CustomSidebarMenu = (props: any) => {
   const LogOutFun = () => {
     dispatch(AuthSlice.chnageisAuth(false));
     AsyncStorage.setItem('USER_TOKEN', '');
+    dispatch(AuthSlice.changeCurentData([]))
   };
   const navigation = useNavigation<any>();
   //   const dispatch = useAppDispatch();
     const USER = useSelector(selectUser);
-    console.log(USER.name)
+   
   return (
     <SafeAreaView style={styles.Container}>
       <DrawerContentScrollView {...props}>
@@ -44,8 +46,10 @@ const CustomSidebarMenu = (props: any) => {
             height: 100,
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
-            marginTop: -10,
+            position:'absolute',
+            marginTop: 0,
           }}></LinearGradient>
+          
         <View
           style={{
             justifyContent: 'center',
@@ -55,9 +59,10 @@ const CustomSidebarMenu = (props: any) => {
           <ImageDrawer
             width={96}
             height={96}
-            style={{position: 'absolute', top: -20}}
+
+            style={{marginTop: 50}}
           />
-          <View style={{marginTop: 75, flexDirection: 'row', columnGap: 5}}>
+          <View style={{marginTop: 10, flexDirection: 'row', columnGap: 5}}>
             <Text
               style={{
                 fontSize: 22,
@@ -65,7 +70,7 @@ const CustomSidebarMenu = (props: any) => {
                 fontWeight: '600',
                 fontFamily: 'Noto Sans',
               }}>
-             {USER.name}
+             {USER?.name}
             </Text>
             <RenderSvgIcon
               icon="RIGHTACCOUNT"

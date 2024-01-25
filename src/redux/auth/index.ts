@@ -6,6 +6,7 @@ import {RootState} from '../store';
 import {initialState} from './types';
 import thunks from './thunks';
 import {Alert} from 'react-native';
+import AppThunks from '../app/thunks';
 
 const slice = createSlice({
   name: EntityKeys.AUTH,
@@ -27,11 +28,15 @@ const slice = createSlice({
     chnageToken: (state, action) => {
       state.Token = action.payload;
     },
+    chnageCurrentData: (state, action) => {
+      state.currentUser = action.payload;
+    },
   },
   extraReducers(builder) {
     // doSignIn
     builder.addCase(thunks.doSignIn.fulfilled, (state, action) => {
       // console.log(action.payload.data)
+
       AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
       state.currentUser = action.payload?.data;
 
@@ -51,10 +56,34 @@ const slice = createSlice({
         });
       }
     });
+   // doGetProfile
+   builder.addCase(AppThunks.GetProfileInfo.fulfilled, (state, action) => {
+   
+   
+    state.currentUser = action.payload?.data;
 
+   
+  });
+  builder.addCase(AppThunks.GetProfileInfo.rejected, (state, action: any) => {
+    // console.log(action.payload.data);
+    if (action.payload.data.message == 'Validation error.') {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.error,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.message,
+      });
+    }
+  });
     // doVerifyOTP
     builder.addCase(thunks.doVerifyOTP.fulfilled, (state, action) => {
+      // console.log("this is verify Data ",action.payload?.data)
       state.verified = true;
+      AsyncStorage.setItem('USER_TOKEN', action.payload?.data?.token);
+      state.currentUser = action.payload?.data;
       Toast.show({
         type: 'success',
         text1: 'Your Otp is Vaild',
@@ -75,7 +104,11 @@ const slice = createSlice({
     });
     //doResendCode
     builder.addCase(thunks.doResendCode.fulfilled, (state, action) => {
-      state.verified = true;
+      // state.verified = true;
+      Toast.show({
+        type: 'success',
+        text1: 'Check code in your email',
+      });
     });
     builder.addCase(thunks.doResendCode.rejected, (state, action: any) => {
       console.log(action.payload.data);
@@ -94,10 +127,11 @@ const slice = createSlice({
     //doResetPassword
     builder.addCase(thunks.doResetPassword.fulfilled, (state, action) => {
       state.reset = true;
-      // Toast.show({
-      //   type: 'success',
-      //   text1: 'Check code in your e-mail',
-      // });
+      Toast.show({
+        type: 'success',
+        text1: 'Your password Reseted successfully',
+      });
+     
     });
     builder.addCase(thunks.doResetPassword.rejected, (state, action: any) => {
       console.log(action.payload.data);
@@ -138,6 +172,10 @@ const slice = createSlice({
 
     //doSignUpCompany
     builder.addCase(thunks.doSignUpCompany.fulfilled, (state, action) => {
+      console.log(action.payload.data)
+      AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
+
+      state.currentUser=action?.payload?.data
       state.signedUp = true;
       Toast.show({
         type: 'success',
@@ -161,13 +199,14 @@ const slice = createSlice({
     //doSignUpRecruiter
     builder.addCase(thunks.doSignUpRecruiter.fulfilled, (state, action) => {
       state.signedUp = true;
+    
       Toast.show({
         type: 'success',
         text1: 'Check code in your e-mail',
       });
     });
     builder.addCase(thunks.doSignUpRecruiter.rejected, (state, action: any) => {
-      console.log(action.payload.data);
+    
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -184,13 +223,14 @@ const slice = createSlice({
 
     builder.addCase(thunks.doSignUpJobSeeker.fulfilled, (state, action) => {
       state.signedUp = true;
+     
       Toast.show({
         type: 'success',
         text1: 'Check code in your e-mail',
       });
     });
     builder.addCase(thunks.doSignUpJobSeeker.rejected, (state, action: any) => {
-      console.log(action.payload.data);
+    
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -267,5 +307,7 @@ const AuthSlice = {
   chnageReseted: slice.actions.chnageReseted,
   chnageVerified: slice.actions.chnageVerified,
   chnageToken: slice.actions.chnageToken,
+  changeCurentData:slice.actions.chnageCurrentData
+  
 };
 export default AuthSlice;

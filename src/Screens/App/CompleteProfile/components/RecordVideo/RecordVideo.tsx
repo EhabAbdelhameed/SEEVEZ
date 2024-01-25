@@ -4,94 +4,75 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import {VIDEOICON} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
+import { VIDEOICON } from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
+import Video from 'react-native-fast-video';
+import { styles } from './styles';
+import AppThunks from 'src/redux/app/thunks';
+import { useAppDispatch } from 'src/redux/store';
 
 const RecordVideo = (data: any) => {
   const navigation = useNavigation<any>();
+  const [isPaused, setPaused] = useState(false);
 
-  const saveReferenceCheckSection = () => {
-    //   navigation.navigate('UpdateRefernceCheck');
+ 
+  const handleVideoLoad = () => {
+    // Video has loaded, you can now play it
+    setTimeout(() => {
+      
+      setPaused(true);
+    }, 1);
+  
   };
+
+ 
+
   return (
-    <View style={styles.CardContainer}>
-      <TouchableOpacity style={styles.secContainer}>
-        {/* <TouchableOpacity onPress={saveReferenceCheckSection}> */}
+    <View style={[styles.CardContainer,{ borderWidth:Object.keys(data?.user_data).length !== 0?0:1}]}>
+      {Object.keys(data?.user_data)?.length === 0 ? (
+        <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('UpdateRecordVideo')}
+            style={styles.secContainer}>
+            <VIDEOICON />
+          </TouchableOpacity>
+         
+        </View>
+      ) : (
+        // <TouchableOpacity onPress={handleVideoPress}>
+          <Video
+          
+            resizeMode="cover"  
+            paused={isPaused}
+            source={{ uri: data?.user_data?.media }}
+            style={styles.videoContainer}
+            onLoad={handleVideoLoad}
+            
+          />
+        // </TouchableOpacity>
+      )}
+      <View style={styles.topContainer1}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('UpdateRecordVideo')}
+          style={[
+            styles.secContainer,
+            {
+              backgroundColor:
+                Object.keys(data?.user_data).length === 0
+                  ? appColors.white
+                  : appColors.bg,
+            },
+          ]}>
           <VIDEOICON />
-        {/* </TouchableOpacity> */}
-      </TouchableOpacity>
-      <Text style={styles.RecordText}>Record video cv</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 export default RecordVideo;
 
-const styles = StyleSheet.create({
-  CardContainer: {
-    // paddingHorizontal: 20,
-    // paddingVertical: 15,
-    width: '100%',
-    backgroundColor: appColors.bg,
-    borderBottomRightRadius: 25,
-    borderBottomLeftRadius: 25,
-
-    // marginTop: 15,
-    height: 600,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: appColors.primary,
-  },
-  secContainer: {
-    width: 96,
-    height: 96,
-    // backgroundColor: appColors.bg,
-    borderRadius: 96,
-    borderWidth: 0.5,
-    marginBottom:10,
-    borderColor: appColors.primary,
-
-    padding: 5,
-    paddingTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  RecordText: {
-    fontFamily: ' Noto Sans',
-    fontSize: 24,
-    color:appColors.primary,
-    fontWeight: '700',
-  },
-  Row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  Row2: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Title: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: appColors.black,
-  },
-
-  Des: {
-    fontWeight: '400',
-    color: appColors.black,
-  },
-  EditDes: {
-    fontWeight: '400',
-    color: appColors.black,
-    textAlignVertical: 'top',
-    marginBottom: 10,
-  },
-});

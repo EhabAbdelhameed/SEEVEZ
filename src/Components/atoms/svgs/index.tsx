@@ -58,11 +58,14 @@ import {
   ADDLOCATION,
   AUDIENCE,
   TAG,
-  WHO
+  WHO,
+  ArrowDown,
+  ArrowUp
 } from './Svgs';
 
 export const svgmap = {
   ARROWBACK,
+  ArrowUp,
   COMMENT,
   NOTIFICATION,
   SEARCH,
@@ -96,7 +99,7 @@ export const svgmap = {
   COMMONUCATIONS,
   PRIVATE,
   CLOCK,
-
+  ArrowDown,
   BAG,
   CALENDAR,
   CAMERA,

@@ -27,7 +27,7 @@ const ExperienceCard = (data: any) => {
           </View>
         </View>
 
-        {data?.data.length == 0 ? (
+        {data?.data?.length == 0 ? (
           <View style={styles.Row2}>
            <View
           style={{
@@ -50,7 +50,7 @@ const ExperienceCard = (data: any) => {
             </View>
           </View>
         ) : (
-          data?.data.map((item:any) => (
+          data?.data?.map((item:any) => (
             <View style={styles.Row2}>
             <View
            style={{
@@ -67,9 +67,9 @@ const ExperienceCard = (data: any) => {
          
          </View>
  
-             <View style={{marginLeft: 10}}>
-               <Text style={styles.Title2}>Job Title</Text>
-               <Text style={styles.CompanyName}>Company Name</Text>
+             <View style={{marginLeft: 10,width:'90%'}}>
+               <Text style={styles.Title2}>{item?.job_title}</Text>
+               <Text style={styles.CompanyName}>{item?.company_name}</Text>
              </View>
            </View>
           ))

@@ -26,6 +26,29 @@ const doAddSkills: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//doAddIntersts
+const doAddIntersts: any = createAsyncThunk<any, any, any>(
+    'app/Intersts',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.Interests(data);
+            console.log(response?.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //doAddEducation
 const doAddEducation: any = createAsyncThunk<any, any, any>(
     'app/Education',
@@ -78,7 +101,7 @@ const doAddTrainingCourse: any = createAsyncThunk<any, any, any>(
     'app/Training',
     async (data, thunkApi: any) => {
         try {
-            const response = await AppAPI.Experience(data);
+            const response = await AppAPI.TrainingCourse(data);
             // alert(response?.data)
             if (
                 response.status == 401 ||
@@ -99,10 +122,12 @@ const doAddTrainingCourse: any = createAsyncThunk<any, any, any>(
 //doAddReferenceCheck
 const doAddReferenceCheck: any = createAsyncThunk<any, any, any>(
     'app/ReferenceCheck',
+    
     async (data, thunkApi: any) => {
+        // console.log(data)
         try {
             const response = await AppAPI.ReferenceCheck(data);
-            // alert(response?.data)
+               console.log(response)
             if (
                 response.status == 401 ||
                 response.status == 422 ||
@@ -125,7 +150,7 @@ const doAddAchievement: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.Achievement(data);
-            // alert(response?.data)
+            console.log(response)
             if (
                 response.status == 401 ||
                 response.status == 422 ||
@@ -171,7 +196,7 @@ const doAddPersonalInfo: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.Info(data);
-            // alert(response?.data)
+            console.log(response)
             if (
                 response.status == 401 ||
                 response.status == 422 ||
@@ -188,7 +213,98 @@ const doAddPersonalInfo: any = createAsyncThunk<any, any, any>(
         }
     }
 )
-
+//GetIndustry
+const GetIndustry: any = createAsyncThunk<any, any, any>(
+    'app/Industry',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.Industry();
+            // console.log(response.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//GetYearsOfExperience
+const GetYearsOfExperience: any = createAsyncThunk<any, any, any>(
+    'app/Years',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.YearsOfExperience();
+            // console.log(response.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//GetJobType
+const GetJobType: any = createAsyncThunk<any, any, any>(
+    'app/JobType',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.JobType();
+            // console.log(response.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//GetJobType
+const GetEducationLevel: any = createAsyncThunk<any, any, any>(
+    'app/EducationLevel',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.EducationLevel();
+            // console.log(response.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //doUploadCV
 const doUploadCV: any = createAsyncThunk<any, any, any>(
     'app/UploadCV',
@@ -212,7 +328,123 @@ const doUploadCV: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//doAddAbout
+const doAddAbout: any = createAsyncThunk<any, any, any>(
+    'app/AddAbout',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.About(data);
+          console.log(("0000000 "+JSON.stringify(response)+" 1111111111"))
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//Company
+//doAddCompanyInfo
+const doAddCompanyInfo: any = createAsyncThunk<any, any, any>(
+    'app/CompanyInfo',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.CompanyInfo(data);
+            console.log("0000000000"+JSON.stringify(response))
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+// doAddCompanyAbout
+const doAddCompanyAbout: any = createAsyncThunk<any, any, any>(
+    'app/CompanyAbout',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.CompanyAbout(data);
+            console.log(response?.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 
+// doAddUploadPortfolio
+const doAddUploadPortfolio: any = createAsyncThunk<any, any, any>(
+    'app/CompanyPortfolio',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.CVCompany(data);
+            console.log(response?.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//GetProfileInfo
+const GetProfileInfo: any = createAsyncThunk<any, any, any>(
+    'app/ProfileInfo',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.profileInfo();
+            // alert(JSON.stringify(response?.data))
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 
 
 
@@ -224,8 +456,18 @@ const AppThunks = {
     doAddReferenceCheck,
     doAddAchievement,
     doAddLanguages,
+    GetIndustry,
+    GetEducationLevel,
+    GetYearsOfExperience,
     doAddPersonalInfo,
     doUploadCV,
+    doAddCompanyInfo,
+    doAddUploadPortfolio,
+    doAddCompanyAbout,
+    doAddAbout,
+    GetProfileInfo,
+    doAddIntersts,
+    GetJobType
    
 };
 

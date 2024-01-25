@@ -25,10 +25,23 @@ const slice = createSlice({
     changeSearch: (state, action) => {
       state.Search = action.payload;
     },
+    chnageIndsturyData: (state, action) => {
+      state.IndsturyData = action.payload;
+    },
+    changeYearsOfExperience: (state, action) => {
+      state.YearsOfExperience = action.payload;
+    },
+    changeJobType: (state, action) => {
+      state.JobType = action.payload;
+    },
+    changeEducationLevel: (state, action) => {
+      state.EducationLevel = action.payload;
+    },
   },
   extraReducers(builder) {
     //doAddSkills  Your Skills has been added successfully.
     builder.addCase(thunks.doAddSkills.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
         type: 'success',
 
@@ -48,8 +61,37 @@ const slice = createSlice({
         });
       }
     });
+    //
+    builder.addCase(thunks.doAddIntersts.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'Your Skills has been added successfully',
+      });
+    });
+    builder.addCase(thunks.doAddIntersts.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
     //doAddEducation
-    builder.addCase(thunks.doAddEducation.fulfilled, (state, action) => {});
+    builder.addCase(thunks.doAddEducation.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
     builder.addCase(thunks.doAddEducation.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
@@ -65,7 +107,14 @@ const slice = createSlice({
     });
 
     //doAddExperience
-    builder.addCase(thunks.doAddExperience.fulfilled, (state, action) => {});
+    builder.addCase(thunks.doAddExperience.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
     builder.addCase(thunks.doAddExperience.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
@@ -80,10 +129,14 @@ const slice = createSlice({
       }
     });
     //doAddTrainingCourse
-    builder.addCase(
-      thunks.doAddTrainingCourse.fulfilled,
-      (state, action) => {},
-    );
+    builder.addCase(thunks.doAddTrainingCourse.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
     builder.addCase(
       thunks.doAddTrainingCourse.rejected,
       (state, action: any) => {
@@ -101,10 +154,14 @@ const slice = createSlice({
       },
     );
     //doAddReferenceCheck
-    builder.addCase(
-      thunks.doAddReferenceCheck.fulfilled,
-      (state, action) => {},
-    );
+    builder.addCase(thunks.doAddReferenceCheck.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
     builder.addCase(
       thunks.doAddReferenceCheck.rejected,
       (state, action: any) => {
@@ -122,7 +179,14 @@ const slice = createSlice({
       },
     );
     //doAddAchievement
-    builder.addCase(thunks.doAddAchievement.fulfilled, (state, action) => {});
+    builder.addCase(thunks.doAddAchievement.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
     builder.addCase(thunks.doAddAchievement.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
@@ -138,11 +202,12 @@ const slice = createSlice({
     });
     //doAddLanguages
     builder.addCase(thunks.doAddLanguages.fulfilled, (state, action) => {
-        Toast.show({
-            type: 'success',
-    
-            text1: 'Your Language has been added successfully',
-          });
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'Your Language has been added successfully',
+      });
     });
     builder.addCase(thunks.doAddLanguages.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -158,7 +223,14 @@ const slice = createSlice({
       }
     });
     //doAddPersonalInfo
-    builder.addCase(thunks.doAddPersonalInfo.fulfilled, (state, action) => {});
+    builder.addCase(thunks.doAddPersonalInfo.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
     builder.addCase(thunks.doAddPersonalInfo.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
@@ -172,8 +244,87 @@ const slice = createSlice({
         });
       }
     });
+    //GetIndustry
+    builder.addCase(thunks.GetIndustry.fulfilled, (state, action) => {
+      state.IndsturyData = action.payload?.data;
+    });
+    builder.addCase(thunks.GetIndustry.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //GetYearsOfExperience
+    builder.addCase(thunks.GetYearsOfExperience.fulfilled, (state, action) => {
+    
+     state.YearsOfExperience = action.payload?.data;
+    });
+    builder.addCase(thunks.GetYearsOfExperience.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+     //GetJobType
+     builder.addCase(thunks.GetJobType.fulfilled, (state, action) => {
+       
+      state.JobType = action.payload?.data;
+     });
+     builder.addCase(thunks.GetJobType.rejected, (state, action: any) => {
+       if (action.payload.data.message == 'Validation error.') {
+         Toast.show({
+           type: 'error',
+           text1: action.payload.data.error,
+         });
+       } else {
+         Toast.show({
+           type: 'error',
+           text1: action.payload.data.message,
+         });
+       }
+     });
+     //GetEducationLevel
+     builder.addCase(thunks.GetEducationLevel.fulfilled, (state, action) => {
+      //  console.log(action.payload?.data)
+      state.EducationLevel = action.payload?.data;
+     });
+     builder.addCase(thunks.GetEducationLevel.rejected, (state, action: any) => {
+       if (action.payload.data.message == 'Validation error.') {
+         Toast.show({
+           type: 'error',
+           text1: action.payload.data.error,
+         });
+       } else {
+         Toast.show({
+           type: 'error',
+           text1: action.payload.data.message,
+         });
+       }
+     });
     //doUploadCV
-    builder.addCase(thunks.doUploadCV.fulfilled, (state, action) => {});
+    builder.addCase(thunks.doUploadCV.fulfilled, (state, action) => {
+      state.done = true;
+
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
     builder.addCase(thunks.doUploadCV.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
@@ -188,6 +339,96 @@ const slice = createSlice({
       }
     });
     //doGetLatestOrder
+    //doAddAbout
+    builder.addCase(thunks.doAddAbout.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
+    builder.addCase(thunks.doAddAbout.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    // doAddCompanyInfo
+    builder.addCase(thunks.doAddCompanyInfo.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+        text1: 'success added',
+      });
+    });
+    builder.addCase(thunks.doAddCompanyInfo.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    // doAddCompanyAbout
+    builder.addCase(thunks.doAddCompanyAbout.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
+    builder.addCase(thunks.doAddCompanyAbout.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    // doAddUploadPortfolio
+    builder.addCase(thunks.doAddUploadPortfolio.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'success added',
+      });
+    });
+    builder.addCase(
+      thunks.doAddUploadPortfolio.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
   },
 });
 
@@ -201,6 +442,12 @@ export const selectProductDetail = (state: RootState) =>
   state.app.ProductDetail;
 export const selectFavourites = (state: RootState) => state.app.Favourites;
 export const selectFAQS = (state: RootState) => state.app.FAQS;
+export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
+export const selectYears = (state: RootState) => state.app.YearsOfExperience;
+export const selectJobtype = (state: RootState) => state.app.JobType;
+export const selectEducation = (state: RootState) => state.app.EducationLevel;
+
+
 export const selectAddresses = (state: RootState) => state.app.Addresses;
 export const selectAreas = (state: RootState) => state.app.Areas;
 export const selectOrders = (state: RootState) => state.app.orders;
@@ -225,5 +472,11 @@ const AppSlice = {
   changePlaceOrderData: slice.actions.changePlaceOrderData,
   changePromoValue: slice.actions.changePromoValue,
   changeSearch: slice.actions.changeSearch,
+  changeIndsturyData: slice.actions.chnageIndsturyData,
+  changeYearsOfExperience: slice.actions.changeYearsOfExperience,
+  changeJobType: slice.actions.changeJobType,
+  changeEducationLevel: slice.actions.changeEducationLevel,
+
+
 };
 export default AppSlice;

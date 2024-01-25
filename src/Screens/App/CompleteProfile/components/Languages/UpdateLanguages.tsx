@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity, TextInput, Alert} from 'react-native';
-import React, {useCallback} from 'react';
+import {View, Text, TouchableOpacity, TextInput, Alert, Image} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
@@ -19,13 +19,21 @@ import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
 import { selectUser } from 'src/redux/auth';
 import { useSelector } from 'react-redux';
+import { selectDone } from 'src/redux/app';
+import { Input } from 'react-native-elements';
 
 const UpdateLanguages = () => {
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
- 
-  console.log(CurrentUserData)
+  const changeDone=useSelector(selectDone)
+  const [Languages, setLanguages] = useState<any>([1]);
+
+  // console.log(changeDone)  
+useEffect(() => {
+changeDone?navigation.goBack():null
+}, [changeDone]);
+  // console.log(CurrentUserData)
   const [loading, setLoading] = React.useState(false);
   const dispatch = useAppDispatch();
   const _handleNavigate = useCallback(() => {
@@ -37,7 +45,7 @@ const UpdateLanguages = () => {
       <KeyboardAwareScrollView
         contentContainerStyle={{
           backgroundColor: appColors.bg,
-          marginTop: 40,
+      
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
@@ -49,18 +57,23 @@ const UpdateLanguages = () => {
             onPress={_handleNavigate}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
-          <BigLogo height={30} width={96} style={{marginLeft:70 }} />
+          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
+           */}
+          <Image
+            source={require('../../../../../assets/images/seevezlogo.png')}
+            style={{width: 100, height: 30}}
+          />
         </View>
         <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={240} height={220} />
+          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
         </View>
         <View style={styles.bottomSection}>
           <View style={styles.blueCircle}>
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
           <View style={styles.loginTextContainer}>
-            <View>
-              <RenderSvgIcon icon="ICON2CV" width={32} height={48} />
+            <View style={{width:32}}>
+              {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
             </View>
             <View style={[{alignItems: 'center'}]}>
               <Text style={[styles.loginText, {fontSize: 24}]}>
@@ -90,29 +103,53 @@ const UpdateLanguages = () => {
             Language
           </Text>
           <Formik
-            initialValues={{Language: ''}}
+            initialValues={{Languages:[{name:'',rate:''}]}}
             onSubmit={values => {
+
               setLoading(true);
               const formdata = new FormData();
+              values.Languages.map((item: any, index: any) => {
+                formdata.append(`array[${index}][name]`, item.name);
+                formdata.append(`array[${index}][rate]`, 5);
+              });
 
-              formdata.append('name', values.Language);
-              formdata.append('user_id', CurrentUserData.id);
-              formdata.append('rate',5 );
+            
+              console.log(formdata);
               dispatch(AppThunks.doAddLanguages(formdata)).then((res: any) => {
+                dispatch(AppThunks.GetProfileInfo())
                 setLoading(false);
               });
               // navigation.navigate("ResetPassword")
             }}>
             {(props: any) => (
               <View>
-                <InputView
-                  name="Language"
-                  placeholder="Write here.."
-                  // props={props}
-                  {...props}
-                />
-
-                <View style={{flexDirection: 'row', marginBottom: 20}}>
+              {Languages.map((lang: any, index: any) => (
+                 <Input
+                      {...props}
+                      
+                      name={`phones[${index}][phone]`}
+                      inputContainerStyle={{
+                        borderRadius: 16,
+                        borderColor: '#1D5EDD',
+                        borderWidth: 1,
+                        paddingHorizontal: 15
+                      }}
+                      onChangeText={(e)=>props?.setFieldValue(`Languages[${index}]["name"]`,e)}
+                      containerStyle={{
+                        paddingHorizontal: 0,
+                        marginVertical: 1,
+                        height: 60,
+                      }}
+                    
+                   
+                      placeholder={`Enter your language ${index + 1}`}
+                    />
+              ))}
+                <TouchableOpacity  onPress={() => {
+                    setLanguages((prev: any) => {
+                      return [...prev, 1];
+                    });
+                  }} style={{flexDirection: 'row', marginBottom: 20}}>
                   <View
                     style={{
                       justifyContent: 'center',
@@ -140,7 +177,7 @@ const UpdateLanguages = () => {
                     Add another language
                   </Text>
                   </View>
-                </View>
+                </TouchableOpacity>
                 <View style={{height:appSizes.height * 0.22}}/>
 
                 <Button loading={loading} text={'Done'} onPress={props.handleSubmit} />

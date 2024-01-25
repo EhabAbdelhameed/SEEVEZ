@@ -40,17 +40,21 @@ interface userState {
       cv_media: any;
       educations: any;
       experiences: any;
+      complete_progress:any;
       id:any;
       languages: any;
       nationality:any;
       online_status: any;
       reference_check: any;
       skills: any;
+      interests:any;
       training_courses:any;
       user_type: any;
     };
+    user_id: any;
     website: any;
     weight: any;
+    work_type:any;
   };
 }
 
@@ -96,16 +100,21 @@ export const initialState: userState = {
       cv_media: null,
       educations: [],
       experiences: [],
+      complete_progress:null,
       id: null,
       languages: [],
       nationality: [],
       online_status: null,
       reference_check: null,
       skills: [],
+      interests:[],
       training_courses: [],
+
       user_type: null,
     },
+    user_id:null,
     website: null,
     weight: null,
+    work_type:null,
   },
 };

@@ -9,8 +9,9 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     flexBasis: 'auto',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     flexDirection: 'row',
+    paddingHorizontal:20,
     // alignItems: '',
     marginVertical: appSizes.x,
     marginBottom: appSizes.height * 0.07,
@@ -79,9 +80,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Noto Sans',
   },
   btn: {
-    backgroundColor: appColors.secondary,
-    borderColor: appColors.primary,
-    borderWidth: 0.8,
+    backgroundColor: appColors.primary,
+    // borderColor: appColors.primary,
+    // borderWidth: 0.8,
     marginBottom: 12,
   },
   loginTextContainer: {
@@ -93,14 +94,14 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: appColors.textColor,
-    fontSize: appSizes.font_xxxxxl - 2,
+    fontSize: 22,
     textAlign: 'center',
     fontWeight: '700',
     fontFamily: 'Noto Sans',
   },
   loginTextSub: {
     color: appColors.textColor,
-    fontSize: appSizes.font_xs,
+    fontSize: 13,
     textAlign: 'center',
     fontWeight: '400',
     width: appSizes.width * 0.7,
@@ -122,8 +123,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   skipContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 8,
+    // paddingHorizontal: 20,
+    // paddingVertical: 8,
     backgroundColor: appColors.primary,
     borderRadius: appSizes.radius_m,
     width: 81,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   },
   skipText: {
     color: appColors.white,
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Noto Sans',
   },
   rowAgree: {
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     columnGap: 6,
     width: '94%',
     marginBottom: appSizes.spacing_l,
-    marginLeft: 10,
+    // marginLeft: 10,
     // marginTop:appSizes.spacing_s
   },
   Circle: {
@@ -191,10 +192,10 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: '#000',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '400',
     marginBottom: 10,
-    marginLeft: 10,
+    marginLeft: 2,
     fontFamily: 'Noto Sans',
   },
   InputStyleWithOutWidth: {
@@ -225,7 +226,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-  }
+  },
+  rectangleText: {
+    color: appColors.primary,
+    fontSize: 20,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginTop: 10,
+    fontFamily:'Noto Sans'  
+  },
+  rectangleText1: {
+    color: appColors.primary,
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginTop: -7,
+    fontFamily:'Noto Sans',
+    marginBottom:10
+  },
+  ModalHeaderContanier: {
+    width: '100%',
+    alignItems: "center",
+    paddingHorizontal: appSizes.padding_m,
+    
+  },
+  ModalContanier: {
+    width: '100%',
+    // alignItems: "center",
+    paddingHorizontal: appSizes.padding_m,
+    marginTop: 2
+  },
+  questionText:{
+    color: appColors.dark,
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'left',
+    marginTop: 10,
+    alignSelf:"flex-start",
+    fontFamily:'Noto Sans'
+  },
 });
 
 export default styles;

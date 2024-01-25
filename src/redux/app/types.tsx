@@ -1,4 +1,26 @@
 interface appState {
+    IndsturyData:[{
+        deleted_at: any;
+         id: any;
+         name:any
+    }]
+    YearsOfExperience:[{
+        deleted_at: any;
+         id: any;
+         name:any
+    }]
+    JobType:[{
+        deleted_at: any;
+         id: any;
+         name:any
+    }]
+    EducationLevel:[{
+        deleted_at: any;
+         id: any;
+         name:any
+    }]
+
+    
     HomeData: {
         branch: {
             id: any;
@@ -293,6 +315,27 @@ export const initialState: appState = {
     done: false,
     Nav: "",
     HomeData: [],
+    IndsturyData:[{
+        deleted_at: null,
+         id:null,
+         name:null
+    }],
+    YearsOfExperience:[{
+        deleted_at: null,
+         id:null,
+         name:null
+    }],
+    JobType:[{
+        deleted_at: null,
+         id:null,
+         name:null
+    }],
+    EducationLevel:[{
+        deleted_at: null,
+         id:null,
+         name:null
+    }],
+
     placeOrderData: {},
     Branches: [],
     Menu: [],

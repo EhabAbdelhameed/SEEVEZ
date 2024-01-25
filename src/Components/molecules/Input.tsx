@@ -28,7 +28,7 @@ const InputView = ({
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
+ 
   return (
     <>
       <Input
@@ -71,9 +71,9 @@ const InputView = ({
         }}
         inputContainerStyle={{
           borderRadius: 16,
-          borderColor: errors[name] !== undefined ? 'red' : '#1D5EDD',
+          borderColor:( errors[name]!=undefined&&touched[name]!=undefined ) ? 'red' : '#1D5EDD',
           borderWidth: 1,
-          paddingHorizontal: 15,
+          paddingHorizontal: 15,  
 
           // paddingVertical: 4,
 

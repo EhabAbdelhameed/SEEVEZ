@@ -1,6 +1,6 @@
 import { View, Text,TouchableOpacity } from 'react-native'
 import React from 'react'
-import { styles } from '../styles'
+import  styles  from './styles'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import { appColors } from '../../../../../theme/appColors'
 

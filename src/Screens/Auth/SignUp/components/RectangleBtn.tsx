@@ -39,7 +39,7 @@ const creator = {
   question: 'Are you a company or a freelance recruiter ?',
   answers: [
     {
-      answer: 'Company',
+      answer: 'Company', 
       selected: false,
     },
     {

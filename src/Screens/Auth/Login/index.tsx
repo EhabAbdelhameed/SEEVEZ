@@ -25,20 +25,25 @@ import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import {useSelector} from 'react-redux';
 import {useLoadingSelector} from 'src/redux/selectors';
-import {selectReseted} from 'src/redux/auth';
+import AuthSlice, {selectReseted} from 'src/redux/auth';
 import {LoginSchema} from 'src/Formik/schema';
 const Login = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const Reseted = useSelector(selectReseted);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    Reseted && navigation.navigate('Verification', {email});
-  }, [Reseted]);
+    const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(AuthSlice.chnageReseted(false))
+  })
+  return RenderFunction
+  
+  }, []);
   const _handleNavigate = () => {
     navigation.navigate('ForgetPassword');
   };
-  const dispatch = useAppDispatch();
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>

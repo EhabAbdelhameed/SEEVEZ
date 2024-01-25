@@ -14,7 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 const AchievementsCard = (data: any) => {
   const navigation = useNavigation<any>();
 
-  console.log(data);
+
   const saveAachievementSection = () => {
     navigation.navigate('UpdateAchievements');
     // setAchievementsSection(SaveAachievementsSection);
@@ -38,7 +38,7 @@ const AchievementsCard = (data: any) => {
             <RenderSvgIcon icon="HEART" width={20} height={20} color={appColors.black} />
           </TouchableOpacity> */}
         </View>
-        {data.data == null ? (
+        {data?.data == null ? (
           <View
             style={{
               borderWidth: 1,
@@ -60,7 +60,7 @@ const AchievementsCard = (data: any) => {
               paddingVertical: 10,
               borderRadius: 16,
             }}>
-            <Text style={styles.Des}>{data.data}</Text>
+            <Text style={styles.Des}>{data?.data?.text}</Text>
           </View>
         )}
       </View>

@@ -26,7 +26,7 @@ const Home = () => {
     const navigation = useNavigation()
     const dispatch = useAppDispatch();
     const CurrentUserData = useSelector(selectUser);
-    // console.log("0000000000"+JSON.stringify(CurrentUserData))
+        
     useEffect(() => {
         dispatch(AuthSlice.chnageVerified(false));
         dispatch(AuthSlice.chnageIsSignedUp(false))
@@ -48,7 +48,7 @@ const Home = () => {
                     showsVerticalScrollIndicator={false}
                 >
                     
-                    <CompleteProfile pers={10} />
+                    <CompleteProfile pers={CurrentUserData?.user_data?.complete_progress} />
                     <View style={styles.rowContainer}>
                         <BoxContentTitle
                             title='My video CV'

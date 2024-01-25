@@ -22,6 +22,11 @@ export type AppParamsList = {
     TabBar: undefined;
     ProfileScreen: undefined;
     CompleteProfileScreen:undefined;
+    CompleteCompanyProfileScreen:undefined;
+    UpdateCompanyAbout:undefined;
+    SaveVideo:undefined;
+    UpdateCompanyInfo:undefined;
+    UpdateRecordVideo:undefined;
     UpdateAbout:undefined;
     UpdateLanguages:undefined;
     UpdateInfo:undefined;

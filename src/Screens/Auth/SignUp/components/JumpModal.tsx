@@ -23,7 +23,7 @@ const JumpModal = (
                 answer: string;
                 selected: boolean
             }[]
-        },
+        }, 
         setData: (str: any) => void;
     }
 ) => {
@@ -71,7 +71,7 @@ const JumpModal = (
                         </View>
                         </TouchableOpacity>
                     </View>
-                ))}
+                ))} 
                 <Button textStyle={{fontSize:16}} text="Done" onPress={() => {
                     ModalRef.current?.close()
                     navigation.navigate("SignupWithSocail",{work_type:data?.answers[buttonIndex].answer,title:data?.title})

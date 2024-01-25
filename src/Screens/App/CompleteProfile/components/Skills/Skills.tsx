@@ -22,7 +22,9 @@ const SkillsCard = ({
                     <View style={styles.Row2}>
                        
                         {/* <RenderSvgIcon icon='PLUSFOLLOW' style={{ marginRight: 10 }} width={20} height={20} color={appColors.primary} /> */}
-                        <TouchableOpacity onPress={()=>navigation.navigate('UpdateSkills')}>
+                        <TouchableOpacity onPress={()=>navigation.navigate('UpdateSkills',{
+                            title:title=='Interests'?'Interests':'Skills'
+                        })}>
                         <RenderSvgIcon icon='PEN' width={20} height={20} color={appColors.primary} />
                         </TouchableOpacity>
                     </View>

@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const LanguagesCard = (data: any) => {
   const navigation = useNavigation<any>();
-     
+
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
@@ -27,17 +27,28 @@ const LanguagesCard = (data: any) => {
           </View>
         </View>
 
-        <View style={[styles.Row, {marginTop: 2, marginBottom: 0}]}>
-          {data?.data.map((item:any) => (
-            <View style={{flexDirection:'row',columnGap:50,justifyContent:'center',alignItems:'center'}}>
+        <View
+          style={{
+            marginTop: 2,
+            marginBottom: 0,
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          {data?.data?.map((item: any) => (
+            <View
+              style={{
+                flexDirection: 'row',
+                columnGap: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
               <View>
                 <Text style={styles.Head}>{item.name}</Text>
                 <Text style={styles.Des}>Native or bilingual proficiency</Text>
               </View>
               <View style={styles.Row2}>
-              <Text style={styles.RatingText}>Rate</Text>
+                <Text style={styles.RatingText}>Rate</Text>
                 <Star />
-                
               </View>
             </View>
           ))}
@@ -77,33 +88,33 @@ const styles = StyleSheet.create({
   Row2: {
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap:2
+    columnGap: 2,
   },
   Title: {
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   Head: {
     fontSize: 16,
     fontWeight: '700',
     color: appColors.black,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   Des: {
     fontSize: 14,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   RatingText: {
     fontSize: 12,
     fontWeight: '700',
     color: appColors.black,
     marginRight: 3,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   devider: {
     height: 1,
@@ -118,6 +129,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
 });

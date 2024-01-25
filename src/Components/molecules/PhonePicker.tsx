@@ -9,7 +9,7 @@ import { appSizes } from '../../theme/appSizes';
 import { RenderSvgIcon } from '../atoms/svg';
 import { styles } from './styles';
 export const deafultCode = { "code": "EG", "dial_code": "+20", "flag": "🇪🇬", "name": { "ar": "مصر", "bg": "Египет", "by": "Егіпет", "cn": "埃及", "cz": "Egypt", "de": "Ägypten", "ee": "Egiptus", "el": "Αίγυπτος", "en": "Egypt", "es": "Egipto", "fr": "Egypte", "he": "מצרים", "it": "Egitto", "jp": "エジプト", "nl": "Egypte", "pl": "Egipt", "pt": "Egipto", "ro": "Egipt", "ru": "Египет", "ua": "Єгипет", "zh": "埃及" } };
-const NewPicker = ({ props }: { props?: FormikProps<any> }) => {
+const NewPicker = ({ props,setcode,index }: { props?: FormikProps<any> ,setcode?:any,index?:any}) => {
     const [selectedCode, setSelectedCode] = useState<any>(deafultCode);
     const [show, setShow] = useState(false);
     const pickerRef = useRef<any>();
@@ -47,7 +47,10 @@ const NewPicker = ({ props }: { props?: FormikProps<any> }) => {
                         setSelectedCode(item);
                         props?.setFieldValue('code', item);
                         setShow(false);
-
+                        if(setcode){
+                            props?.setFieldValue(`phones[${index}]["code"]`,item.dial_code)
+                        }
+                        setcode(item.dial_code)
                     }}
                     lang={'en'}
                     style={{

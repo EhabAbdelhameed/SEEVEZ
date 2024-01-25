@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     selected: {
         height: 9,
-        backgroundColor: appColors.primary,
+        backgroundColor: "rgba(0, 206, 200, 1)",
         borderRadius: 20
     },
     Row: {
@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
     RenderSvgIcon: {
         position: 'absolute',
         right: 0,
-        marginTop: -3
+        marginTop: -3,
+        color:"rgba(0, 206, 200, 1)",
     },
     Title: {
         fontSize: 12,

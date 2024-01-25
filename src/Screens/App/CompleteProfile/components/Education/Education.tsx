@@ -14,7 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const EducationCard = (data: any) => {
   const navigation = useNavigation<any>();
-
+ 
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
@@ -33,7 +33,7 @@ const EducationCard = (data: any) => {
           </View>
         </View>
 
-        {data?.data.length == 0 ? (
+        {data?.data?.length == 0 ? (
           <View style={styles.Row2}>
             <View
               style={{
@@ -53,7 +53,7 @@ const EducationCard = (data: any) => {
             </View>
           </View>
         ) : (
-          data?.data.map(() => (
+          data?.data?.map((item:any) => (
             <View style={styles.Row2}>
               <View
                 style={{
@@ -67,9 +67,9 @@ const EducationCard = (data: any) => {
                 }}>
                 <AVATAR height={32} width={32} />
               </View>
-              <View style={{marginLeft: 10}}>
-                <Text style={styles.Title2}>Course </Text>
-                <Text style={styles.CompanyName}>Company</Text>
+              <View style={{marginLeft: 10,width:'90%'}}>
+                <Text style={styles.Title2}>{item.university_name} </Text>
+                <Text style={styles.CompanyName}>{item.field_of_study}</Text>
               </View>
             </View>
           ))

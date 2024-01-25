@@ -59,7 +59,7 @@ const AboutCard = (About: any) => {
             paddingVertical: 10,
             borderRadius:16
           }}>
-          <Text style={{color: '#B9B9B9',fontFamily: 'Noto Sans'}}>Bio</Text>
+          <Text style={{color: '#B9B9B9',fontFamily: 'Noto Sans'}}>{About?.About?.about==null?"Bio":About?.About?.about}</Text>
         </View>
         <Text style={styles.Des}>{aboutSection}</Text>
       </View>

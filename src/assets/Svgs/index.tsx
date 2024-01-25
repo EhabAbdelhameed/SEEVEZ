@@ -8,6 +8,8 @@ import PLUSCONTAINER from './ContainerPlus.svg'
 
 import ReviewCV from './ReviewCV.svg'
 import Analytics from './Analytics.svg'
+import Analytic from './analytic.svg'
+
 import CreateVideoIcon from './CreateVideo.svg'
 import PauseVideoIcon from './PauseVideoReocrd.svg'
 import ImagePicker from './ImagePicker.svg'
@@ -30,11 +32,20 @@ import ArrowDown    from './arrwoDown.svg'
 import Packages from './Packages.svg'
 import Setting from './Settings.svg'
 import LogOut from './LogOut.svg'
+import ImageInfo from './imageInfo.svg'
+
+import CompanyLogo from './CompanyLogo.svg'
+import Upload from './Upload.svg'
+
+
 export {
     LogoWithName,
+    ImageInfo,
+    CompanyLogo,
     Packages,
     Setting,
     LogOut,
+    Upload,
     ArrowDown,
     VIDEOICON,
     ImageDrawer,
@@ -46,6 +57,7 @@ export {
     PLUSCONTAINER,
     ReviewCV,
     Analytics,
+    Analytic,
     CreateVideoIcon,
     ImagePicker,
     RecordAudio,

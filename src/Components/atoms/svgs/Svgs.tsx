@@ -255,6 +255,37 @@ export const EYE = ({
 </clipPath>
 </defs>
 </svg>`;
+export const ArrowDown = ({
+  color = '',
+}: {
+  color?: string;
+}) => `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+<g clip-path="url(#clip0_40_1915)">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.41845 12.5816C7.97635 13.1395 8.88087 13.1395 9.43876 12.5816L16.5816 5.43872C17.1395 4.88083 17.1395 3.97631 16.5816 3.41842C16.0237 2.86053 15.1192 2.86053 14.5613 3.41842L8.42861 9.55112L2.2959 3.41842C1.73801 2.86053 0.833488 2.86053 0.275597 3.41842C-0.282295 3.97631 -0.282295 4.88083 0.275597 5.43872L7.41845 12.5816Z" fill="#B9B9B9"/>
+</g>
+<defs>
+  <clipPath id="clip0_40_1915">
+    <rect width="16" height="16" fill="white" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 16 16)"/>
+  </clipPath>
+</defs>
+</svg>`;
+export const ArrowUp = ({
+  color = '',
+}: {
+  color?: string;
+}) => `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+<g clip-path="url(#clip0_41_2098)">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.41845 3.41842C7.97635 2.86053 8.88087 2.86053 9.43876 3.41842L16.5816 10.5613C17.1395 11.1192 17.1395 12.0237 16.5816 12.5816C16.0237 13.1395 15.1192 13.1395 14.5613 12.5816L8.42861 6.44888L2.2959 12.5816C1.73801 13.1395 0.833488 13.1395 0.275597 12.5816C-0.282295 12.0237 -0.282295 11.1192 0.275597 10.5613L7.41845 3.41842Z" fill="#B9B9B9"/>
+</g>
+<defs>
+  <clipPath id="clip0_41_2098">
+    <rect width="16" height="16" fill="white" transform="translate(16) rotate(90)"/>
+  </clipPath>
+</defs>
+</svg>`;
+
+
+
 
 export const FACEBOOK = ({
   color = '',

@@ -1,5 +1,12 @@
-import {View, Text, TouchableOpacity, TextInput, Alert} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  Image,
+} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
@@ -8,38 +15,87 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {appColors} from '../../../../../theme/appColors';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
-
+import Moment from 'moment';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {BigLogo, CALANDER, PHOTO} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
-import DatePicker from 'react-native-date-picker';
-import Modal from 'react-native-modal';
+import {Dropdown} from 'react-native-element-dropdown';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DocumentPicker from 'react-native-document-picker';
+
+import AppThunks from 'src/redux/app/thunks';
+import {useAppDispatch} from 'src/redux/store';
+import {useSelector} from 'react-redux';
+import {selectDone, selectEducation} from 'src/redux/app';
+import axios from 'axios';
+import {selectUser} from 'src/redux/auth';
+import {Input} from 'react-native-elements';
+import {isDate} from 'lodash';
+
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateEducation = () => {
-  const [date, setDate] = useState(new Date());
-  const [date1, setDate1] = useState(new Date());
-  const [index, setIndex] = React.useState(false);
+  const [startDates, setStartDates] = useState<Array<Date>>([new Date()]);
+  const [endDates, setEndDates] = useState<Array<Date>>([new Date()]);
+
   const [isVisible, setVisible] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const [type, setType] = useState('0');
+  const [value, setValue] = useState(null);
+  const [Source, setSource] =  useState<Array<any>>([]);
+  const [loading, setLoading] = React.useState(false);
 
+  const dispatch = useAppDispatch();
+  const [Education, setEducation] = useState<any>([1]);
 
-  const handleDateChange = (event: any, selectedDate: any) => {
-    // Handle date change logic here
-    if (selectedDate !== undefined&&type=='1') {
-      setDate(selectedDate);
-    }else if(selectedDate !== undefined&&type=='2'){
-      setDate1(selectedDate);
+  const changeDone = useSelector(selectDone);
+  // const UserData = useSelector(selectUser);
+  const EducationLevelData = useSelector(selectEducation);
+  // console.log(changeDone)
+  useEffect(() => {
+    changeDone ? navigation.goBack() : null;
+  }, [changeDone]);
+  useEffect(() => {
+    const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(AppThunks.GetEducationLevel());
+      // console.log(EducationLevelData)
+    });
+    return RenderFunction;
+  }, []);
 
+  const openGallery = async (props: any, index: any) => {
+    try {
+      const result = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+
+      // The selected media is available in the result.uri
+      // dispatch(setImageURL(result[0].uri));
+      setSource([
+        ...Source.slice(0, index),
+        result[0].name,
+        ...Source.slice(index + 1),
+      ]);
+     
+      props?.setFieldValue(`Education[${index}]["degree_certificate"]`, {
+        uri: result[0]?.uri,
+        type: result[0]?.type,
+        name: result[0]?.name,
+      });
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('User cancelled document picker');
+      } else {
+        console.error('DocumentPicker Error:', err);
+      }
     }
-    setVisible(false); // Close the DateTimePicker modal
   };
- 
 
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
@@ -53,7 +109,6 @@ const UpdateEducation = () => {
       <KeyboardAwareScrollView
         contentContainerStyle={{
           backgroundColor: appColors.bg,
-          
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
@@ -65,18 +120,23 @@ const UpdateEducation = () => {
             onPress={_handleNavigate}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
-          <BigLogo height={30} width={96} style={{marginLeft: 70}} />
+          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
+           */}
+          <Image
+            source={require('../../../../../assets/images/seevezlogo.png')}
+            style={{width: 100, height: 30}}
+          />
         </View>
         <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={240} height={220} />
+          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
         </View>
         <View style={styles.bottomSection}>
           <View style={styles.blueCircle}>
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
           <View style={styles.loginTextContainer}>
-            <View>
-              <RenderSvgIcon icon="ICON2CV" width={32} height={48} />
+            <View style={{width: 32}}>
+              {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
             </View>
             <View style={[{alignItems: 'center'}]}>
               <Text style={[styles.loginText, {fontSize: 24}]}>
@@ -95,184 +155,289 @@ const UpdateEducation = () => {
               />
             </View>
           </View>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '500',
-              color: '#000',
-              marginLeft: 8,
-              marginBottom: 10,
-            }}>
-            Education
-          </Text>
+
           <Formik
-            initialValues={{UniversityName: '',YearsOfExperience:'',JobType:''}}
+            initialValues={{
+              Education: [
+                {
+                  university_name: '',
+                  level_id: '',
+                  field_of_study: '',
+                  grade: '',
+                  start_date: '',
+                  end_date: '',
+                  degree_certificate: '',
+                },
+              ],
+            }}
             onSubmit={values => {
-              // navigation.navigate("ResetPassword")
+              setLoading(true);
+              const formdata = new FormData();
+              values.Education.map((item: any, index: any) => {
+                formdata.append(
+                  `array[${index}][university_name]`,
+                  item.university_name,
+                );
+                formdata.append(
+                  `array[${index}][field_of_study]`,
+                  item.field_of_study,
+                );
+                formdata.append(`array[${index}][level_id]`, item.level_id);
+                formdata.append(`array[${index}][grade]`, item.grade);
+
+                formdata.append(`array[${index}][start_date]`, item.start_date);
+                formdata.append(`array[${index}][end_date]`, item.end_date);
+
+                formdata.append(
+                  `array[${index}][degree_certificate]`,
+                  item.degree_certificate,
+                );
+              });
+              console.log(formdata);
+
+              dispatch(AppThunks.doAddEducation(formdata)).then((res: any) => {
+                setLoading(false);
+              });
             }}>
             {(props: any) => (
               <View>
-             
-                <InputView
-                  name="UniversityName"
-                  placeholder="School / university name"
-                  // props={props}
-                  {...props}
-                />
-                   <InputView
-                  name="EducationLevel"
-                  placeholder="Education level"
-                  // props={props}
-                  {...props}
-                />
+                {Education.map((Exp: any, index: any) => (
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontWeight: '500',
+                        color: '#000',
+                        marginLeft: 8,
+                        marginBottom: 10,
+                      }}>
+                      {`Education ${index + 1}`}
+                    </Text>
+                    <Input
+                      {...props}
+                      name={`Education[${index}][university_name]`}
+                      placeholderTextColor={'#B9B9B9'}
+                      inputContainerStyle={{
+                        borderRadius: 16,
+                        borderColor: '#1D5EDD',
+                        borderWidth: 1,
+                        paddingHorizontal: 15,
+                      }}
+                      onChangeText={e =>
+                        props?.setFieldValue(
+                          `Education[${index}]["university_name"]`,
+                          e,
+                        )
+                      }
+                      containerStyle={{
+                        paddingHorizontal: 0,
+                        marginVertical: 1,
+                        height: 60,
+                      }}
+                      inputStyle={{
+                        fontSize: 14,
+                        //  color: 'red'
+                      }}
+                      placeholder={`School / university name`}
+                    />
+
+                    <Dropdown
+                      style={styles.uploadContainer}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      data={EducationLevelData}
+                      search
+                      // maxHeight={300}
+                      labelField="name"
+                      valueField="id"
+                      placeholder="Education level"
+                      searchPlaceholder="Search..."
+                      value={value}
+                      onChange={(item: any) => {
+                        props?.setFieldValue(
+                          `Education[${index}]["level_id"]`,
+                          item?.id,
+                        );
+                      }}
+                      renderRightIcon={() => (
+                        <RenderSvgIcon
+                          icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                          width={16}
+                          height={16}
+                        />
+                      )}
+                      onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
+                      onBlur={() => setDropdownOpen(false)}
+                    />
+
                     <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    marginBottom:10
-                  }}>
-                  <TextInput
-                    placeholder="Field of study"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '46%',
-                    }}
-                  />
-                  <TextInput
-                    placeholder="Grade"
-                    style={{
-                      borderRadius: 16,
-                      borderColor: '#1D5EDD',
-                      borderWidth: 1,
-                      paddingHorizontal: 15,
-                      paddingVertical: 4,
-                      borderBottomWidth: 0.5,
-                      height: 60,
-                      width: '46%',
-                    }}
-                  />
-                </View>
-              
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    // marginTop: 20,
-                    marginBottom: 20,
-                  }}>
-                  <View style={{width: '46%'}}>
-                    <Text
                       style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
                         marginBottom: 10,
-                        marginLeft: 10,
+                        columnGap: 15,
                       }}>
-                      Start date
-                    </Text>
-                    <TouchableOpacity onPress={() =>{ setVisible(true),setType('1')}}>
-                      <View
-                        style={{
-                          borderRadius: 16,
-                          borderColor: '#1D5EDD',
-                          borderWidth: 1,
-                          paddingHorizontal: 15,
-                          paddingVertical: 4,
-                          borderBottomWidth: 0.5,
-                          height: 60,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                        }}>
+                      <TextInput
+                        placeholder="Field of study"
+                        style={styles.inputStyle}
+                        onChangeText={e =>
+                          props?.setFieldValue(
+                            `Education[${index}]["field_of_study"]`,
+                            e,
+                          )
+                        }
+                      />
+
+                      <TextInput
+                        placeholder="Grade"
+                        style={styles.inputStyle}
+                        onChangeText={e =>
+                          props?.setFieldValue(
+                            `Education[${index}]["grade"]`,
+                            e,
+                          )
+                        }
+                      />
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        // marginTop: 20,
+                        marginBottom: 20,
+                        columnGap: 15,
+                      }}>
+                      <View style={{width: '48%'}}>
                         <Text
                           style={{
-                            marginRight: 20,
-                            color: '#DDD',
+                            color: '#000',
                             fontSize: 16,
+                            fontWeight: '400',
+                            marginBottom: 10,
+                            marginLeft: 10,
+                            fontFamily: 'Noto Sans',
                           }}>
-                          {date.getDate() +
-                            '/' +
-                            date.getMonth() +
-                            1 +
-                            '/' +
-                            date.getFullYear()}
+                          Start date
                         </Text>
-                        <CALANDER />
+                        <TouchableOpacity
+                          onPress={() => {
+                            setVisible(true), setType('1');
+                          }}>
+                          <View style={styles.InputStyleNoWidth}>
+                            <Text
+                              style={{
+                                marginRight: 20,
+                                color: '#DDD',
+                                fontSize: 16,
+                              }}>
+                              {Moment(startDates[index]).format('DD/MM/yyyy')}
+                            </Text>
+                            <CALANDER />
+                          </View>
+                        </TouchableOpacity>
                       </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{width: '46%'}}>
-                    <Text
-                      style={{
-                        color: '#000',
-                        fontSize: 16,
-                        fontWeight: '400',
-                        marginBottom: 10,
-                        marginLeft: 10,
-                      }}>
-                      End date
-                    </Text>
-                    <TouchableOpacity onPress={() => {setVisible(true),setType('2')}}>
-                      <View
-                        style={{
-                          borderRadius: 16,
-                          borderColor: '#1D5EDD',
-                          borderWidth: 1,
-                          paddingHorizontal: 15,
-                          paddingVertical: 4,
-                          borderBottomWidth: 0.5,
-                          height: 60,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                        }}>
+                      <View style={{width: '48%'}}>
                         <Text
                           style={{
-                            marginRight: 20,
-                            color: '#DDD',
+                            color: '#000',
                             fontSize: 16,
+                            fontWeight: '400',
+                            marginBottom: 10,
+                            marginLeft: 10,
                           }}>
-                          {date1.getDate() +
-                            '/' +
-                            date1.getMonth() +
-                            1 +
-                            '/' +
-                            date1.getFullYear()}
+                          End date
                         </Text>
-                        <CALANDER />
+                        <TouchableOpacity
+                          onPress={() => {
+                            setVisible(true), setType('2');
+                          }}>
+                          <View style={styles.InputStyleNoWidth}>
+                            <Text
+                              style={{
+                                marginRight: 20,
+                                color: '#DDD',
+                                fontSize: 16,
+                              }}>
+                              {Moment(endDates[index]).format('DD/MM/yyyy')}
+                            </Text>
+                            <CALANDER />
+                          </View>
+                        </TouchableOpacity>
                       </View>
+                    </View>
+                    {isVisible && (
+                      <DateTimePicker
+                        mode="date"
+                        // display="spinner"
+                        value={
+                          type === '1' && isDate(startDates[index])
+                            ? startDates[index]
+                            : isDate(endDates[index])
+                            ? endDates[index]
+                            : new Date() // Provide a default date if the specified date is invalid
+                        }
+                        onChange={(event: any, selectedDate: any) => {
+                          if (selectedDate !== undefined) {
+                            if (type == '1') {
+                              if (index == 0) {
+                                setStartDates([
+                                  ...startDates.slice(0, index),
+                                  selectedDate,
+                                  ...startDates.slice(index + 1),
+                                ]);
+                              } else {
+                                let array = startDates;
+                                array.push(selectedDate);
+                                setStartDates(array);
+                              }
+                              props?.setFieldValue(
+                                `Education[${index}]["start_date"]`,
+                                Moment(selectedDate).format('yyyy/MM/DD'),
+                              );
+                            } else {
+                              if (index == 0) {
+                                setEndDates([
+                                  ...endDates.slice(0, index),
+                                  selectedDate,
+                                  ...endDates.slice(index + 1),
+                                ]);
+                              } else {
+                                let array = endDates;
+                                array.push(selectedDate);
+                                setEndDates(array);
+                              }
+                              props?.setFieldValue(
+                                `Education[${index}]["end_date"]`,
+                                Moment(selectedDate).format('yyyy/MM/DD'),
+                              );
+                            }
+                          }
+                          setVisible(false);
+                        }}
+                      />
+                    )}
+                    <TouchableOpacity
+                      onPress={() => openGallery(props, index)}
+                      style={[styles.InputStyleNoWidth, {marginBottom: 10}]}>
+                      <PHOTO style={{marginRight: 20}} />
+                      <Text style={{fontSize: 20, color: appColors.primary}}>
+                        {Source[index] == null
+                          ? 'Upload degree certificate'
+                          : Source[index]}
+                      </Text>
                     </TouchableOpacity>
                   </View>
-                </View>
-               
-                <View
-                  style={{
-                    borderRadius: 16,
-                    borderColor: '#1D5EDD',
-                    borderWidth: 1,
-                    paddingHorizontal: 15,
-                    paddingVertical: 4,
-                    borderBottomWidth: 0.5,
-                    marginBottom: 10,
-                    marginTop: 5,
-                    height: 54,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <PHOTO style={{marginRight: 20}} />
-                  <Text style={{fontSize: 20, color: appColors.primary}}>
-                  Upload degree certificate  
-                  </Text>
-                </View>
-                <View style={{flexDirection: 'row', marginBottom: 10}}>
+                ))}
+                <TouchableOpacity
+                  onPress={() => {
+                    setEducation((prev: any) => {
+                      return [...prev, 1];
+                    });
+                  }}
+                  style={{flexDirection: 'row', marginBottom: 10}}>
                   <View
                     style={{
                       justifyContent: 'center',
@@ -301,19 +466,16 @@ const UpdateEducation = () => {
                       Add another school
                     </Text>
                   </View>
-                </View>
-                <Button text={'Done'} onPress={props.handleSubmit} />
+                </TouchableOpacity>
+                <Button
+                  loading={loading}
+                  text={'Done'}
+                  onPress={props.handleSubmit}
+                />
               </View>
             )}
           </Formik>
         </View>
-        {isVisible && (
-          <DateTimePicker
-            mode="date"
-            value={date}
-            onChange={handleDateChange}
-          />
-        )}
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );

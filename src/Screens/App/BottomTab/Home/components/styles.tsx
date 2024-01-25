@@ -39,10 +39,11 @@ export const styles = StyleSheet.create({
         marginBottom: 4
     },
     text2: {
-        fontSize: appSizes.font_xs,
+        fontSize: appSizes.font_xs-3,
         fontWeight: "400",
         color: appColors.dark,
         opacity: .8,
+        marginLeft:10
     },
     text3: {
         fontSize: appSizes.font_s,

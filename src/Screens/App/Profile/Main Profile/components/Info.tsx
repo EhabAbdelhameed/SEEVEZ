@@ -6,7 +6,9 @@ import { ImageBackground } from 'react-native'
 import { Analytics, ReviewCV } from '../../../../../assets/Svgs'
 import { useNavigation } from '@react-navigation/native'
 
-const InfoCard = () => {
+const InfoCard = (data:any) => {
+    console.log("from My Info",data)
+
     const navigation = useNavigation()
     return (
         <View style={styles.CardContainer}>
@@ -14,9 +16,10 @@ const InfoCard = () => {
                 <RenderSvgIcon icon='SEND' width={20} height={20} color={appColors.white} style={styles.SENDIcon} />
                 <RenderSvgIcon icon='PEN' width={20} height={20} color={appColors.white} style={styles.PENIcon} />
                 <ImageBackground
-                    source={{ uri: 'https://scontent.fcai19-2.fna.fbcdn.net/v/t39.30808-6/359534542_3391290584470469_8259665208312422637_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=3635dc&_nc_ohc=0R-hkOPP8gMAX9J78MR&_nc_ht=scontent.fcai19-2.fna&oh=00_AfDdItg61cVUz2yJVvmpbFFhmWn20WjpcHk7PpuD86yycg&oe=657D4854' }}
+                    source={{ uri: data?.data?.avatar }}
                     style={styles.ImageBackground}
                     imageStyle={styles.imageStyle}
+                  
                 >
                     <View style={styles.PlusContainer}>
                         <RenderSvgIcon icon='PLUSFOLLOW' width={20} height={20} color={appColors.white} />
@@ -24,10 +27,10 @@ const InfoCard = () => {
                 </ImageBackground>
 
                 <View style={styles.Row}>
-                    <Text style={styles.Name}>Ahmed khalifa</Text>
+                    <Text style={styles.Name}>{data?.data?.name}</Text>
                     <RenderSvgIcon icon='RIGHTACCOUNT' width={20} height={20} color={appColors.white} />
                 </View>
-                <Text style={styles.Description}>Senior React native at O-Project</Text>
+                <Text style={styles.Description}>{data?.data?.job_title}</Text>
                 <View style={[styles.Row, { marginTop: 10 }]}>
                     <View style={styles.subContainer}>
                         <Text style={styles.subText}>Premium</Text>
@@ -41,15 +44,15 @@ const InfoCard = () => {
                 </View>
                 <View style={styles.Row}>
                     <RenderSvgIcon icon='LOCATION' width={20} height={20} color={appColors.white} />
-                    <Text style={styles.InfoText}>Nasr City ، Cairo Egypt</Text>
+                    <Text style={styles.InfoText}>{data?.data?.area}، {data?.data?.city} {data?.data?.country}</Text>
                 </View>
                 <View style={styles.Row}>
                     <RenderSvgIcon icon='EMAIL' width={20} height={20} color={appColors.white} />
-                    <Text style={styles.InfoText}>Example@info.com</Text>
+                    <Text style={styles.InfoText}>{data?.data?.email}</Text>
                 </View>
                 <View style={styles.Row}>
                     <RenderSvgIcon icon='PHONE' width={20} height={20} color={appColors.white} />
-                    <Text style={styles.InfoText}>0127 356 4321</Text>
+                    <Text style={styles.InfoText}>{data?.data?.phone_number}</Text>
                 </View>
                 <View style={styles.Row}>
                     <RenderSvgIcon icon='WEBSITE' width={20} height={20} color={appColors.white} />
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
     },
     imageStyle: {
         borderRadius: 95,
-        resizeMode: 'contain',
+        resizeMode: 'cover',
         backgroundColor: appColors.six
     },
     SENDIcon: {
