@@ -7,7 +7,6 @@ import { Analytics, ReviewCV } from '../../../../../assets/Svgs'
 import { useNavigation } from '@react-navigation/native'
 
 const InfoCard = (data:any) => {
-    console.log("from My Info",data)
 
     const navigation = useNavigation()
     return (

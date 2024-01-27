@@ -8,6 +8,7 @@ interface userState {
   isGuest: boolean;
   Token: any;
   currentUser: {
+    about:any;
     area: any;
     avatar: any;
     birthdate: any;
@@ -68,6 +69,7 @@ export const initialState: userState = {
   verified: false,
   Token: '',
   currentUser: {
+    about:null,
     area: null,
     avatar: null,
     birthdate: null,

@@ -26,6 +26,7 @@ import UpdateCompanyInfo from 'screens/App/CompleteCompanyProfile/components/Inf
 import UpdateCompanyAbout from 'screens/App/CompleteCompanyProfile/components/About/UpdateAbout';
 import UpdateRecordVideo from 'screens/App/CompleteProfile/components/RecordVideo/UpdateRecordVideo';
 import SaveVideo from 'screens/App/CompleteProfile/components/RecordVideo/SaveVideo';
+import UpdateAboutCard from 'screens/App/Profile/Main Profile/UpdateComponents/About/UpdateAboutCard';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -96,6 +97,10 @@ const AppStack = () => {
               <Stack.Screen
                 name="UpdateCompanyInfo"
                 component={UpdateCompanyInfo}
+            />
+                <Stack.Screen
+                name="UpdateAboutCard"
+                component={UpdateAboutCard}
             />
             <Stack.Screen
                 name="ProfileScreen"

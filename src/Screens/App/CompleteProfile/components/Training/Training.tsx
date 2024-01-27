@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '700',
     color: appColors.black,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
+    width:'80%'
   },
   Image: {
     height: 30,

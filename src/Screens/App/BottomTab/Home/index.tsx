@@ -21,12 +21,19 @@ import { PlayVideo, Trending } from 'assets/Svgs'
 import { useAppDispatch } from 'src/redux/store'
 import AuthSlice, { selectUser } from 'src/redux/auth'
 import { useSelector } from 'react-redux'
+import AppThunks from 'src/redux/app/thunks'
 
 const Home = () => {
     const navigation = useNavigation()
     const dispatch = useAppDispatch();
     const CurrentUserData = useSelector(selectUser);
-        
+    React.useEffect(() => {
+        const RenderFunction = navigation.addListener('focus', () => {
+             dispatch(AppThunks.GetProfileInfo())
+          
+         })
+         return RenderFunction
+     }, [navigation])
     useEffect(() => {
         dispatch(AuthSlice.chnageVerified(false));
         dispatch(AuthSlice.chnageIsSignedUp(false))

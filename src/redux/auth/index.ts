@@ -35,9 +35,11 @@ const slice = createSlice({
   extraReducers(builder) {
     // doSignIn
     builder.addCase(thunks.doSignIn.fulfilled, (state, action) => {
-      // console.log(action.payload.data)
+      // console.log("HELLO FORM INDEX ",)
 
       AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
+      AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.data?.user_data?.user_amity?.accessToken);
+
       state.currentUser = action.payload?.data;
 
       state.isAuth = true;
@@ -80,10 +82,10 @@ const slice = createSlice({
   });
     // doVerifyOTP
     builder.addCase(thunks.doVerifyOTP.fulfilled, (state, action) => {
-      // console.log("this is verify Data ",action.payload?.data)
+     
       state.verified = true;
       AsyncStorage.setItem('USER_TOKEN', action.payload?.data?.token);
-      state.currentUser = action.payload?.data;
+   
       Toast.show({
         type: 'success',
         text1: 'Your Otp is Vaild',

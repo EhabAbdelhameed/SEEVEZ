@@ -184,7 +184,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: 'Hey! Your Achievement has been added successfully',
       });
     });
     builder.addCase(thunks.doAddAchievement.rejected, (state, action: any) => {

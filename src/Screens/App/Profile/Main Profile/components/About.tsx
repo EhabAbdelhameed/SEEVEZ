@@ -1,47 +1,39 @@
-import {StyleSheet, Text, View,TouchableOpacity,TextInput} from 'react-native';
-import React,{useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
+import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import { useNavigation } from '@react-navigation/native';
 
-const AboutCard = () => {
-    const [aboutSection, setAboutSection] = useState('Highly experienced, creative, and multitalented Senior UI/UX Designer and Senior Graphic Designer with an extensive background in, UI & UX marketing, social media advertising, branding and print design.Exceptional collaborative and interpersonal skills; very strong team player with well-developed communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs;talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.Also excels at several tech tools, including Illustrator, Photoshop, InDesign. XD, Figmaand After Effect');
-    const [editMode, setEditMode] = useState(false); // Added state to track edit mode
-    const [updatedAboutSection, setUpdatedAboutSection] = useState(aboutSection); // Added state to track edited content
-  
-    const updateAboutSection = () => {
-      setEditMode(true);
-    };
-  
-    const saveAboutSection = () => {
-      setAboutSection(updatedAboutSection);
-      setEditMode(false);
-    };
- return (
+const AboutCard = (data: any) => {
+  const [aboutSection, setAboutSection] = useState('Bio'); // Added state to track edited content
+  const navigation = useNavigation<any>();
+
+
+  return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>About</Text>
-          {!editMode ? (  
-            <TouchableOpacity onPress={updateAboutSection}>
-              <RenderSvgIcon icon="PEN" width={20} height={20} color={appColors.white} />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={saveAboutSection}>
-              <RenderSvgIcon icon="HEART" width={20} height={20} color={appColors.black} />
-            </TouchableOpacity>
-          )}
+
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAboutCard')}>
+            <RenderSvgIcon
+              icon="PEN"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
+          </TouchableOpacity>
         </View>
-        {editMode ? (
-          <TextInput
-            style={styles.EditDes}
-            multiline
-            value={updatedAboutSection}
-            onChangeText={(text) => setUpdatedAboutSection(text)}
-          />
+        {data?.data == null ? (
+          <Text style={styles.Des}>{aboutSection}</Text>
         ) : (
-          <Text style={styles.Des}>
-            {aboutSection}
-          </Text>
+          <Text style={styles.Des}>{data?.data}</Text>
         )}
       </View>
     </View>
