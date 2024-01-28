@@ -282,12 +282,35 @@ const GetJobType: any = createAsyncThunk<any, any, any>(
         }
     }
 )
-//GetJobType
+//GetEducationLevel
 const GetEducationLevel: any = createAsyncThunk<any, any, any>(
     'app/EducationLevel',
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.EducationLevel();
+            // console.log(response.data)
+            if (
+                response.status == 401 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doGetCompanies
+const GetCompaniesName: any = createAsyncThunk<any, any, any>(
+    'app/companiesName',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.CompaniesName(data);
             // console.log(response.data)
             if (
                 response.status == 401 ||
@@ -311,8 +334,9 @@ const doUploadCV: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.CV(data);
-            // alert(response?.data)
+            console.log(response)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -467,7 +491,8 @@ const AppThunks = {
     doAddAbout,
     GetProfileInfo,
     doAddIntersts,
-    GetJobType
+    GetJobType,
+    GetCompaniesName
    
 };
 

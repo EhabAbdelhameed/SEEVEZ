@@ -23,6 +23,8 @@ const Industry = () => api.get(`api/drop-down/industry`)
 const YearsOfExperience = () => api.get(`api/drop-down/year-of-experience`)
 const JobType = () => api.get(`api/drop-down/job-type`)
 const EducationLevel = () => api.get(`api/drop-down/education-level`)
+const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?name=${data}`)
+
 
 
 
@@ -40,6 +42,7 @@ const AppAPI = {
   Experience,
   TrainingCourse,
   ReferenceCheck,
+  CompaniesName,
   Achievement,
   Languages,
   Industry,

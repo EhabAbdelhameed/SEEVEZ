@@ -32,8 +32,8 @@ const RecordVideo = (data: any) => {
  
 
   return (
-    <View style={[styles.CardContainer,{ borderWidth:Object.keys(data?.user_data).length !== 0?0:1}]}>
-      {Object.keys(data?.user_data)?.length === 0 ? (
+    <View style={[styles.CardContainer,{ borderWidth:data?.user_data !== null?0:1}]}>
+      {data?.user_data === null ? (
         <View>
           <TouchableOpacity
             onPress={() => navigation.navigate('UpdateRecordVideo')}
@@ -62,9 +62,9 @@ const RecordVideo = (data: any) => {
             styles.secContainer,
             {
               backgroundColor:
-                Object.keys(data?.user_data).length === 0
-                  ? appColors.white
-                  : appColors.bg,
+               data?.user_data === null
+                  ? appColors.bg
+                  : appColors.white,
             },
           ]}>
           <VIDEOICON />

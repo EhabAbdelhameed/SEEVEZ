@@ -4,10 +4,12 @@ import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import moment from 'moment';
 import {AVATAR} from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
 
 const EducationCard = (data: any) => {
   
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
+  const navigation = useNavigation()
   const differenceInYears = (date1: any, date2: any) => {
     let start_date = moment(date1).format('yyyy-MM-DD');
     let end_date = moment(date2).format('yyyy-MM-DD');
@@ -24,6 +26,7 @@ const EducationCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>Education</Text>
           <View style={styles.Row2}>
+            <TouchableOpacity onPress={()=>navigation.navigate('UpdateEducation')} >
             <RenderSvgIcon
               icon="PLUSFOLLOW"
               style={{marginRight: 10}}
@@ -31,6 +34,7 @@ const EducationCard = (data: any) => {
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
             <RenderSvgIcon
               icon="PEN"
               width={20}

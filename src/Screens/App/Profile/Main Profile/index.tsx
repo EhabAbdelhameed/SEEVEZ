@@ -17,10 +17,18 @@ import RecommendationsCard from './components/Recommendations';
 import RecordVideoCard from './components/RecordVideo';
 import {selectUser} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
+import AppSlice from 'src/redux/app';
+import {useAppDispatch} from 'src/redux/store';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-
+  const dispatch = useAppDispatch();
+  React.useEffect(() => {
+    const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(AppSlice.changeDone(false));
+    });
+    return RenderFunction;
+  }, [navigation]);
   const CurrentUserData = useSelector(selectUser);
   return (
     <SafeAreaView edges={['top']} style={styles.Container}>

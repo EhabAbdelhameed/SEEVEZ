@@ -28,6 +28,9 @@ const slice = createSlice({
     chnageIndsturyData: (state, action) => {
       state.IndsturyData = action.payload;
     },
+    chnageCompaniesData: (state, action) => {
+      state.CompaniesData = action.payload;
+    },
     changeYearsOfExperience: (state, action) => {
       state.YearsOfExperience = action.payload;
     },
@@ -188,6 +191,25 @@ const slice = createSlice({
       });
     });
     builder.addCase(thunks.doAddAchievement.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //doGetCompaniesName
+    builder.addCase(thunks.GetCompaniesName.fulfilled, (state, action) => {
+      console.log(action.payload?.data)
+      state.CompaniesData = action.payload?.data;
+ 
+    });
+    builder.addCase(thunks.GetCompaniesName.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -443,6 +465,8 @@ export const selectProductDetail = (state: RootState) =>
 export const selectFavourites = (state: RootState) => state.app.Favourites;
 export const selectFAQS = (state: RootState) => state.app.FAQS;
 export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
+export const selectCompanies = (state: RootState) => state.app.CompaniesData;
+
 export const selectYears = (state: RootState) => state.app.YearsOfExperience;
 export const selectJobtype = (state: RootState) => state.app.JobType;
 export const selectEducation = (state: RootState) => state.app.EducationLevel;
@@ -473,6 +497,7 @@ const AppSlice = {
   changePromoValue: slice.actions.changePromoValue,
   changeSearch: slice.actions.changeSearch,
   changeIndsturyData: slice.actions.chnageIndsturyData,
+  changeCompainesData:slice.actions.chnageCompaniesData,
   changeYearsOfExperience: slice.actions.changeYearsOfExperience,
   changeJobType: slice.actions.changeJobType,
   changeEducationLevel: slice.actions.changeEducationLevel,

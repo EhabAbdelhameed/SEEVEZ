@@ -9,39 +9,37 @@ import {
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
-import AuthTopSection from '../../../../../Components/molecules/AuthTopSection';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {appColors} from '../../../../../theme/appColors';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import Button from '../../../../../Components/molecules/Button';
+import {RenderSvgIcon} from '../../../../../../Components/atoms/svg';
 
-import {BigLogo, CALANDER, CompanyLogo, PHOTO} from 'assets/Svgs';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {appColors} from '../../../../../../theme/appColors';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import Button from '../../../../../../Components/molecules/Button';
+
+import {BigLogo, CALANDER, PHOTO} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
-
+import InputView from 'components/molecules/Input';
+import {appSizes} from 'theme/appSizes';
+import DatePicker from 'react-native-date-picker';
+import Modal from 'react-native-modal';
 import DocumentPicker from 'react-native-document-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import Moment from 'moment';
 import {Dropdown} from 'react-native-element-dropdown';
-
 import {useSelector} from 'react-redux';
 import {
-  selectCompanies,
   selectDone,
   selectIndstruy,
   selectJobtype,
   selectYears,
 } from 'src/redux/app';
 import {isDate, values} from 'lodash';
-import {Input} from 'react-native-elements';
-// import RNDateTimePicker from '@react-native-community/datetimepicker';
-// import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-const UpdateExperience = () => {
+
+const AddNewExperience = () => {
   const [date, setDate] = useState(new Date());
   const [date1, setDate1] = useState(new Date());
   const [startDates, setStartDates] = useState<Array<Date>>([new Date()]);
@@ -65,15 +63,12 @@ const UpdateExperience = () => {
   const IndustryData = useSelector(selectIndstruy);
   const YearsData = useSelector(selectYears);
   const JobTypeData = useSelector(selectJobtype);
-  const CompaniesData = useSelector(selectCompanies);
 
   const [value, setValue] = useState(null);
   const [value1, setValue1] = useState(null);
   const [value2, setValue2] = useState(null);
   const [index1, setIndex1] = useState(null);
   const [propsData, setPropsData] = useState<any>([]);
-  const [selectedItem, setSelectedItem] = useState<any>([]);
-
   // console.log(changeDone)
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
@@ -83,84 +78,33 @@ const UpdateExperience = () => {
       dispatch(AppThunks.GetIndustry());
       dispatch(AppThunks.GetYearsOfExperience());
       dispatch(AppThunks.GetJobType());
-      dispatch(AppThunks?.GetCompaniesName(searchQuery)).then(() => {
-        // setLoad(false)
-      });
     });
     return RenderFunction;
   }, []);
   const [searchQuery, setSearchQuery] = useState('');
-
-  // const filteredData = data.filter(item =>
-  //   item.toLowerCase().includes(searchQuery.toLowerCase()),
-  // );
-  const filteredData = (data: any) =>
-    data?.name?.toLowerCase().includes(searchQuery?.toLowerCase());
-  const renderListItem = (item:any,props:any,index:any) => (
-    <TouchableOpacity style={{}} onPress={() => handleItemSelected(item,props,index)}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 5,
-          borderBottomWidth: 1,
-          borderColor: '#CCC',
-        }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 20,
-            height: 20,
-            borderRadius: 20,
-            backgroundColor: '#E8EFFC',
-            borderWidth: 1,
-            borderColor: '#B9CDF4',
-          }}>
-          {item?.avatar == null ? (
-            <CompanyLogo width={25} height={25} />
-          ) : (
-            <Image
-              source={{uri: item?.avatar}}
-              style={{width: 25, height: 25, borderRadius: 25}}
-              resizeMode="cover"
-            />
-          )}
-        </View>
-
-        <Text style={{padding: 10, borderColor: '#ccc',fontSize:14}}>{item.name}</Text>
-      </View>
+  const [data, setData] = useState([
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Grape',
+  ]);
+  const filteredData = data.filter(item =>
+    item.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+  const renderListItem = ({item}: any) => (
+    <TouchableOpacity onPress={() => handleItemSelected(item)}>
+      <Text style={{padding: 10, borderBottomWidth: 1, borderColor: '#ccc'}}>
+        {item}
+      </Text>
     </TouchableOpacity>
   );
-  const handleItemSelected = (selectedItem: any,props:any,index:any) => {
+  const handleItemSelected = (selectedItem: any) => {
     // Handle the selected item, for example, update the state or perform other actions.
     console.log('Selected Item:', selectedItem);
-    setSelectedItem(selectedItem)
-    props?.setFieldValue(
-      `Experince[${index}]["company_id"]`,
-      selectedItem?.id,
-    )
     // You may want to close the dropdown or clear the search query here.
     setSearchQuery('');
   };
-
-  // const na = async () => {
-  //   const token: any = await AsyncStorage.getItem('USER_TOKEN');
-  //   console.log(token);
-  // };
-  // React.useEffect(()=>{
-  //   na()
-  // },[])
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      searchQuery &&
-        dispatch(AppThunks?.GetCompaniesName(searchQuery)).then(() => {
-          // setLoad(false)
-        });
-    }, 500);
-    console.log(CompaniesData);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
   const uploadFile = async (props: any, index: any) => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -213,7 +157,7 @@ const UpdateExperience = () => {
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
           <Image
-            source={require('../../../../../assets/images/seevezlogo.png')}
+            source={require('../../../../../../assets/images/seevezlogo.png')}
             style={{width: 100, height: 30}}
           />
         </View>
@@ -259,8 +203,6 @@ const UpdateExperience = () => {
                   end_date: '',
                   still_work_here: 0,
                   experience_letter: '',
-                  description: '',
-                  company_id:'',
                 },
               ],
             }}
@@ -269,22 +211,13 @@ const UpdateExperience = () => {
               const formdata = new FormData();
               values.Experince.map((item: any, index: any) => {
                 formdata.append(`array[${index}][job_title]`, item.job_title);
-                selectedItem?.length==0?
                 formdata.append(
                   `array[${index}][company_name]`,
                   item.company_name,
-                )
-                : formdata.append(
-                  `array[${index}][company_id]`,
-                  item.company_id,
                 );
                 formdata.append(
                   `array[${index}][industry_id]`,
                   item.industry_id,
-                );
-                formdata.append(
-                  `array[${index}][description]`,
-                  item.description,
                 );
                 formdata.append(
                   `array[${index}][years_of_experience_id]`,
@@ -305,7 +238,6 @@ const UpdateExperience = () => {
                   item.experience_letter,
                 );
               });
-              console.log("FormData",formdata)
 
               dispatch(AppThunks.doAddExperience(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());
@@ -325,68 +257,47 @@ const UpdateExperience = () => {
                         marginLeft: 8,
                         marginBottom: 10,
                       }}>
-                      Experience
+                      {`Experience`}
                     </Text>
-                    <TextInput
-                      placeholder="Job title"
-                      onChangeText={value =>
-                        props?.setFieldValue(
-                          `Experince[${index}]["job_title"]`,
-                          value,
-                        )
-                      }
+                    <View
                       style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        height: 50,
-                        fontSize: 14,
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
                         marginBottom: 10,
-                      }}
-                    />
-                    <TextInput
-                      placeholder="Company name"
-                      onChangeText={
-                        value => {setSearchQuery(value),
-                          selectedItem.length==0?
-                          // console.log("sss",value)
-                        props?.setFieldValue(
-                          `Experince[${index}]["company_name"]`,
-                          value,
-                        )
-                        :null
-                    
-                      }}
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        height: 50,
-                        fontSize: 14,
-                        marginBottom: 10,
-                      }}
-                    />
-
+                        columnGap: 15,
+                      }}>
+                      <TextInput
+                        placeholder="Job title"
+                        style={styles.inputStyle}
+                        onChangeText={e =>
+                          props?.setFieldValue(
+                            `Experince[${index}]["job_title"]`,
+                            e,
+                          )
+                        }
+                        placeholderTextColor={'#B9B9B9'}
+                      />
+                      <TextInput
+                        placeholder="Company name"
+                        style={styles.inputStyle}
+                        value={searchQuery}
+                        onChangeText={
+                          e => setSearchQuery(e)
+                          // props?.setFieldValue(
+                          //   `Experince[${index}]["company_name"]`,
+                          //   e,
+                          // )
+                        }
+                        placeholderTextColor={'#B9B9B9'}
+                      />
+                    </View>
                     {searchQuery.length > 0 && (
-                      <View
-                        style={{
-                          borderWidth: 1,
-                          borderColor: appColors.bg,
-                          borderRadius: 16,
-                          backgroundColor: '#FFF',
-                          paddingHorizontal:15
-                        }}>
-                        <FlatList
-                          scrollEnabled={false}
-                          data={CompaniesData?.filter(filteredData)}
-                          renderItem={({item})=>renderListItem(item,props,index)}
-                          keyExtractor={(item, index) => index.toString()}
-                        />
-                      </View>
+                      <FlatList
+                        data={filteredData}
+                        renderItem={renderListItem}
+                        keyExtractor={(item, index) => index.toString()}
+                      />
                     )}
-
                     <Dropdown
                       style={styles.uploadContainer1}
                       placeholderStyle={styles.placeholderStyle}
@@ -419,7 +330,6 @@ const UpdateExperience = () => {
                       onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen(false)}
                     />
-
                     <Dropdown
                       style={styles.uploadContainer1}
                       placeholderStyle={styles.placeholderStyle}
@@ -482,33 +392,6 @@ const UpdateExperience = () => {
                       )}
                       onFocus={() => setDropdownOpen2(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen2(false)}
-                    />
-                    <Input
-                      {...props}
-                      name={`Experince[${index}][description]`}
-                      placeholderTextColor={'#B9B9B9'}
-                      inputContainerStyle={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                      }}
-                      onChangeText={e =>
-                        props?.setFieldValue(
-                          `Experince[${index}]["description"]`,
-                          e,
-                        )
-                      }
-                      containerStyle={{
-                        paddingHorizontal: 0,
-                        marginVertical: 1,
-                        height: 60,
-                      }}
-                      inputStyle={{
-                        fontSize: 14,
-                        //  color: 'red'
-                      }}
-                      placeholder={`description`}
                     />
 
                     <View
@@ -725,4 +608,4 @@ const UpdateExperience = () => {
   );
 };
 
-export default UpdateExperience;
+export default AddNewExperience;

@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: appColors.black,
     fontFamily: 'Noto Sans',
-    width:'80%'
+    // width:'90%'
   },
   Image: {
     height: 30,

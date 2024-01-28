@@ -55,7 +55,7 @@ const Home = () => {
                     showsVerticalScrollIndicator={false}
                 >
                     
-                    <CompleteProfile pers={CurrentUserData?.user_data?.complete_progress} />
+                    <CompleteProfile pers={parseInt(CurrentUserData?.user_data?.complete_progress)} />
                     <View style={styles.rowContainer}>
                         <BoxContentTitle
                             title='My video CV'

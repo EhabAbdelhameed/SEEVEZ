@@ -4,10 +4,11 @@ import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import moment from 'moment';
 import {AVATAR} from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
 
 const TrainingCard = (data: any) => {
   
-
+  const navigation = useNavigation()
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const differenceInYears = (date1: any, date2: any) => {
     let start_date = moment(date1).format('yyyy-MM-DD');
@@ -25,6 +26,7 @@ const TrainingCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>Training Courses</Text>
           <View style={styles.Row2}>
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateTraining')} >
             <RenderSvgIcon
               icon="PLUSFOLLOW"
               style={{marginRight: 10}}
@@ -32,6 +34,7 @@ const TrainingCard = (data: any) => {
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
             <RenderSvgIcon
               icon="PEN"
               width={20}

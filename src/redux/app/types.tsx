@@ -19,6 +19,11 @@ interface appState {
          id: any;
          name:any
     }]
+    CompaniesData:[{
+        avatar: any;
+         id: any;
+         name:any
+    }]
 
     
     HomeData: {
@@ -334,6 +339,11 @@ export const initialState: appState = {
         deleted_at: null,
          id:null,
          name:null
+    }],
+    CompaniesData:[{
+        avatar: null,
+         id: null,
+         name:null,
     }],
 
     placeOrderData: {},

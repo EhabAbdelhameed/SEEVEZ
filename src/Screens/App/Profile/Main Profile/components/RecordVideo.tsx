@@ -13,42 +13,44 @@ const RecordVideoCard = (data: any) => {
   const handleVideoLoad = () => {
     setTimeout(() => {
       setPaused(true);
-    }, 20);
+    }, 2);
   };
 
   return (
-    <View style={styles.CardContainer}>
-      {Object.keys(data?.data)?.length === 0 ? (
+    <View
+      style={[
+        styles.CardContainer,
+        {borderWidth: data?.data === null ? 1 : 0},
+      ]}>
+      {data?.data === null ? (
         <View>
           <TouchableOpacity
             onPress={() => navigation.navigate('UpdateRecordVideo')}
             style={styles.secContainer}>
             <VIDEOICON />
           </TouchableOpacity>
-       
         </View>
-  ) : ( 
+      ) : (
         <Video
           resizeMode="cover"
           paused={isPaused}
           source={{uri: data?.data?.media}}
           style={styles.videoContainer}
           onLoad={handleVideoLoad}
-        /> 
-   )} 
+        />
+      )}
       <View style={styles.topContainer1}>
         <TouchableOpacity
           onPress={() => setPaused(!isPaused)}
           style={[
             styles.secContainer,
             {
-              backgroundColor: appColors.bg,
+              backgroundColor:
+                data?.data === null ? appColors.bg : appColors.white,
             },
           ]}>
           <VIDEOICON />
-          
         </TouchableOpacity>
-       {Object.keys(data?.data)?.length === 0?<Text style={styles.RecordText}>Record video cv</Text>:null}
       </View>
     </View>
   );
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: appColors.bg,
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25,
-    marginBottom:15,
+    marginBottom: 15,
 
     // marginTop: 15,
     height: 600,

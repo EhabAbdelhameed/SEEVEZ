@@ -13,6 +13,7 @@ const InputView = ({
   secure = false,
   touched,
   errors,
+  value,
   ...props
 }: {
   name: string;
@@ -22,6 +23,7 @@ const InputView = ({
   secure?: boolean;
   touched?: any;
   errors?: any;
+  value?:any;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
