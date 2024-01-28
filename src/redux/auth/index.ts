@@ -174,8 +174,8 @@ const slice = createSlice({
 
     //doSignUpCompany
     builder.addCase(thunks.doSignUpCompany.fulfilled, (state, action) => {
-      console.log(action.payload.data)
-      AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
+     
+      AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.data?.accessToken)
 
       state.currentUser=action?.payload?.data
       state.signedUp = true;
@@ -201,7 +201,7 @@ const slice = createSlice({
     //doSignUpRecruiter
     builder.addCase(thunks.doSignUpRecruiter.fulfilled, (state, action) => {
       state.signedUp = true;
-    
+      AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.data?.accessToken)
       Toast.show({
         type: 'success',
         text1: 'Check code in your e-mail',
@@ -225,7 +225,8 @@ const slice = createSlice({
 
     builder.addCase(thunks.doSignUpJobSeeker.fulfilled, (state, action) => {
       state.signedUp = true;
-     
+       
+        AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.data?.accessToken)
       Toast.show({
         type: 'success',
         text1: 'Check code in your e-mail',
