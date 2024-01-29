@@ -34,23 +34,7 @@ const SaveVideo = () => {
   const [loading, setLoading] = React.useState(false);
   const [isPaused, setPaused] = useState(false);
   const dispatch = useAppDispatch();
-  const convertFileUriToContentUri = async (videoPath:any) => {
-    try {
-      // Get the absolute path from the file URI
-      const absolutePath = '/' + videoPath.split('/').pop();
-  
-      // Rename the file to get a new URI
-      await RNFS.moveFile(videoPath, absolutePath);
-  
-      // Get the content URI from the absolute path
-      const contentUri = `content://media/external/video/media/${absolutePath}`;
-  
-      return contentUri;
-    } catch (error) {
-      console.error('Error converting file URI to content URI:', error);
-      return null;
-    }
-  };
+
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
@@ -63,36 +47,38 @@ const SaveVideo = () => {
   const saveVideoFun = () => {
     if (key == 1) {
       setLoading(true);
+      RNFS.readFile(
+        videoPath,
+        'base64',
+      )
+        .then(content => {
+          console.log('File Content:', content);
+        })
+        .catch(error => {
+          console.error('Error reading file:', error);
+        });
       const formdata = new FormData();
-      convertFileUriToContentUri(videoPath)
-      .then((contentUri) => {
-        console.log('Content URI hhhhhh:', contentUri);
-        formdata.append('media', {
-          uri: contentUri,     
-          type: 'video/mp4',
-          name: 'VID-20240121-WA0052.mp4',
-        });
-        console.log("key",JSON.stringify(formdata))
-        dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
-          dispatch(AppThunks.GetProfileInfo());
-          setLoading(false);
-        });
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+
+      formdata.append('media', {
+        uri: videoPath,
+        type: 'video/mp4',
+        name: 'VID-20240121-WA0052.mp4',
       });
-     
-     
+      console.log('key', JSON.stringify(formdata));
+      dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
+        dispatch(AppThunks.GetProfileInfo());
+        setLoading(false);
+      });
     } else {
       setLoading(true);
       const formdata = new FormData();
-      
+
       formdata.append('media', {
         uri: source[0]?.uri,
         type: source[0]?.type,
         name: source[0]?.name,
       });
-      console.log("2222",JSON.stringify(formdata))
+      console.log('2222', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
         dispatch(AppThunks.GetProfileInfo());
         setLoading(false);
