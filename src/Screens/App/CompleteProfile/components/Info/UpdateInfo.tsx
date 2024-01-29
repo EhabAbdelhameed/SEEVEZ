@@ -34,17 +34,19 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import {selectDone} from 'src/redux/app';
+import {selectUser} from 'src/redux/auth';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
   const [date, setDate] = useState(new Date());
+  const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
   const [index, setIndex] = React.useState(false);
   const [isVisible, setVisible] = useState(false);
   const [type, setType] = useState('0');
   const [buttonIndex, setButtonIndex] = React.useState(0);
-  const [buttonIndexHealth, setButtonIndexHealth] = React.useState(0);
-  const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(0);
+  const [buttonIndexHealth, setButtonIndexHealth] = React.useState(2);
+  const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(2);
   const [isShowSalary, setIsShowSalary] = useState(false);
   const changeDone = useSelector(selectDone);
   // console.log(changeDone)
@@ -100,7 +102,6 @@ const UpdateInfo = () => {
   // useEffect(() => {
   //   changeDone ? navigation.goBack() : null;
   // }, [changeDone]);
-
 
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
@@ -232,6 +233,7 @@ const UpdateInfo = () => {
             initialValues={{
               FullName: '',
               JobTitle: '',
+
               Location: '',
               phone: '',
               code: '',
@@ -277,10 +279,7 @@ const UpdateInfo = () => {
               instagram != '' ? formdata.append('instagram', instagram) : null;
 
               for (var i = 0; i < Nationality.length; i++) {
-                formdata.append(
-                  `array[${i}][nationality]`,
-                  Nationality[i],
-                );
+                formdata.append(`array[${i}][nationality]`, Nationality[i]);
               }
 
               values.Location != ''
@@ -294,7 +293,7 @@ const UpdateInfo = () => {
                 type: source[0]?.type,
                 name: source[0]?.name,
               });
-    console.log(formdata)
+              console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
                 (res: any) => {
                   dispatch(AppThunks.GetProfileInfo());
@@ -306,25 +305,68 @@ const UpdateInfo = () => {
             {(props: any) => (
               <View>
                 <Text style={styles.labelStyle1}>Full name</Text>
-                <InputView
-                  name="FullName"
+
+                <TextInput
                   placeholder="Enter your Full Name"
-                  // props={props}
-                  {...props}
+                  onChangeText={value =>
+                    props?.setFieldValue(`FullName`, value)
+                  }
+                  value={
+                    CurrentUserData?.name == null ? '' : CurrentUserData?.name
+                  }
+                  style={{
+                    borderRadius: 16,
+                    borderColor: '#1D5EDD',
+                    borderWidth: 1,
+                    paddingHorizontal: 15,
+                    height: 50,
+                    fontSize: 14,
+                    marginBottom: 10,
+                  }}
                 />
                 <Text style={styles.labelStyle1}>Job title</Text>
-                <InputView
-                  name="JobTitle"
+
+                <TextInput
                   placeholder="Job title"
-                  // props={props}
-                  {...props}
+                  onChangeText={value =>
+                    props?.setFieldValue(`JobTitle`, value)
+                  }
+                  value={
+                    CurrentUserData?.job_title == null
+                      ? ''
+                      : CurrentUserData?.job_title
+                  }
+                  style={{
+                    borderRadius: 16,
+                    borderColor: '#1D5EDD',
+                    borderWidth: 1,
+                    paddingHorizontal: 15,
+                    height: 50,
+                    fontSize: 14,
+                    marginBottom: 10,
+                  }}
                 />
                 <Text style={styles.labelStyle1}>Location</Text>
-                <InputView
-                  name="Location"
+
+                <TextInput
                   placeholder="Your country"
-                  // props={props}
-                  {...props}
+                  onChangeText={value =>
+                    props?.setFieldValue(`Location`, value)
+                  }
+                  value={
+                    CurrentUserData?.country == null
+                      ? ''
+                      : CurrentUserData?.country
+                  }
+                  style={{
+                    borderRadius: 16,
+                    borderColor: '#1D5EDD',
+                    borderWidth: 1,
+                    paddingHorizontal: 15,
+                    height: 50,
+                    fontSize: 14,
+                    marginBottom: 10,
+                  }}
                 />
                 <View
                   style={{
@@ -339,6 +381,7 @@ const UpdateInfo = () => {
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
                       onChangeText={e => setCity(e)}
+                      value={CurrentUserData?.city}
                     />
                   </View>
                   <View style={{width: '49%'}}>
@@ -347,6 +390,8 @@ const UpdateInfo = () => {
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
                       onChangeText={e => setArea(e)}
+                      value={CurrentUserData?.area}
+
                     />
                   </View>
                 </View>
@@ -365,12 +410,16 @@ const UpdateInfo = () => {
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
                     onChangeText={e => setFacebook(e)}
+                    value={CurrentUserData?.facebook}
+
                   />
                   <TextInput
                     placeholder="Linkedin"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
                     onChangeText={e => setLinkedin(e)}
+                    value={CurrentUserData?.linkedin}
+
                   />
                 </View>
                 <View
@@ -385,12 +434,16 @@ const UpdateInfo = () => {
                     style={styles.InputStyle}
                     placeholderTextColor={'#B9B9B9'}
                     onChangeText={e => setInstagram(e)}
+                    value={CurrentUserData?.instagram}
+
                   />
                   <TextInput
                     placeholder="Website"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
                     onChangeText={e => setWebsite(e)}
+                    value={CurrentUserData?.website}
+
                   />
                 </View>
                 <View
@@ -405,51 +458,59 @@ const UpdateInfo = () => {
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
                     onChangeText={e => setGithub(e)}
+                    value={CurrentUserData?.github}
+
                   />
                   <TextInput
                     placeholder="Others"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
                     onChangeText={e => setOthers(e)}
+                    value={CurrentUserData?.other}
+
                   />
                 </View>
-               
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-around',
-                      marginBottom: 10,
-                      columnGap: 15,
-                    }}>
-                    <View style={{width: '49%'}}>
-                      <Text style={styles.labelStyle}>Current salary</Text>
-                      <TextInput
-                        placeholder="Write here.."
-                        placeholderTextColor={'#B9B9B9'}
-                        style={styles.InputStyleWithOutWidth}
-                        onChangeText={e => setCurrentSalary(e)}
-                      />
-                    </View>
-                    <View style={{width: '49%'}}>
-                      <Text style={styles.labelStyle}>Expected Salary</Text>
-                      <TextInput
-                        placeholder="Write here.."
-                        style={styles.InputStyleWithOutWidth}
-                        placeholderTextColor={'#B9B9B9'}
-                        onChangeText={e => setExpectedSalary(e)}
-                      />
-                    </View>
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    marginBottom: 10,
+                    columnGap: 15,
+                  }}>
+                  <View style={{width: '49%'}}>
+                    <Text style={styles.labelStyle}>Current salary</Text>
+                    <TextInput
+                      placeholder="Write here.."
+                      placeholderTextColor={'#B9B9B9'}
+                      style={styles.InputStyleWithOutWidth}
+                      onChangeText={e => setCurrentSalary(e)}
+                      value={CurrentUserData?.current_salary}
+
+                    />
                   </View>
-              
+                  <View style={{width: '49%'}}>
+                    <Text style={styles.labelStyle}>Expected Salary</Text>
+                    <TextInput
+                      placeholder="Write here.."
+                      style={styles.InputStyleWithOutWidth}
+                      placeholderTextColor={'#B9B9B9'}
+                      onChangeText={e => setExpectedSalary(e)}
+                      value={CurrentUserData?.expected_salary}
+
+                    />
+                  </View>
+                </View>
+
                 <TouchableOpacity
                   onPress={() => {
                     setIndex(!index), setIsShowSalary(!isShowSalary);
                   }}
                   style={styles.rowAgree}>
-                  <View style={styles.Circle}>
-                    <View style={index ? styles.innerCircle : null} />
+                  <View style={[styles.Circle,{width:15,height:15,borderRadius:15}]}>
+                    <View style={index ? [styles.innerCircle,{width:15,height:15,borderRadius:15}] : null} />
                   </View>
-                  <Text style={styles.agree}>Don’t show my salary</Text>
+                  <Text style={[styles.agree,{fontSize:12}]}>Don’t show my salary</Text>
                 </TouchableOpacity>
                 <Text style={styles.labelStyle}>Gender</Text>
                 <View
@@ -513,7 +574,7 @@ const UpdateInfo = () => {
                             fontSize: 16,
                             fontFamily: 'Noto Sans',
                           }}>
-                          {Moment(date).format('DD/MM/yyyy')}
+                          {Moment(CurrentUserData?.birthdate==null?date:CurrentUserData?.birthdate).format('DD/MM/yyyy')}
                         </Text>
                         <CALANDER />
                       </View>
@@ -530,7 +591,7 @@ const UpdateInfo = () => {
                         <TextInput
                           placeholder={`Enter your Nationality ${index + 1}`}
                           placeholderTextColor={'#B9B9B9'}
-                          value={na}
+                          value={CurrentUserData?.user_data?.nationality[index]?.name}
                           style={styles.InputStyleWithOutWidth}
                           onChangeText={e => {
                             let data = [...Nationality];
@@ -538,6 +599,7 @@ const UpdateInfo = () => {
                             data[index] = e;
                             setNationality(data);
                           }}
+                          
                         />
 
                         {index > 0 && (

@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   Circle: {
     width: 20,
     height: 20,
-    borderRadius: 20 / 2,
+    borderRadius: 20 ,
     backgroundColor: appColors.secondary,
     borderWidth: 1,
     borderColor: appColors.primary,

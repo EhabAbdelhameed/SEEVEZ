@@ -6,6 +6,8 @@ import {
   View,
   TouchableOpacity,
   Settings,
+  Image,
+  Platform,
 } from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 // import { Back, ContactUs, LogOut, Privcy } from 'assets/svgs';
@@ -15,9 +17,16 @@ import {useAppDispatch} from 'src/redux/store';
 import AuthSlice, {selectUser} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
-import {ArrowDown, ImageDrawer, LogOut, Packages, Setting} from 'assets/Svgs';
+import {
+  AVATAR,
+  ArrowDown,
+  ImageDrawer,
+  LogOut,
+  Packages,
+  Setting,
+} from 'assets/Svgs';
 import {RenderSvgIcon} from 'components/atoms/svg';
-import {appColors} from 'theme/appColors';
+// import {appColors} from 'theme/appColors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppThunks from 'src/redux/app/thunks';
 
@@ -28,12 +37,12 @@ const CustomSidebarMenu = (props: any) => {
   const LogOutFun = () => {
     dispatch(AuthSlice.chnageisAuth(false));
     AsyncStorage.setItem('USER_TOKEN', '');
-    dispatch(AuthSlice.changeCurentData([]))
+    dispatch(AuthSlice.changeCurentData([]));
   };
   const navigation = useNavigation<any>();
   //   const dispatch = useAppDispatch();
-    const USER = useSelector(selectUser);
-   
+  const USER = useSelector(selectUser);
+
   return (
     <SafeAreaView style={styles.Container}>
       <DrawerContentScrollView {...props}>
@@ -46,22 +55,39 @@ const CustomSidebarMenu = (props: any) => {
             height: 100,
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
-            position:'absolute',
-            marginTop: 0,
+            position: 'absolute',
+            top: 0,
           }}></LinearGradient>
-          
+
         <View
           style={{
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
+            marginTop:Platform.OS=='ios'? 30:50,
           }}>
-          <ImageDrawer
-            width={96}
-            height={96}
+          {USER?.avatar == null ? (
+            <View
+              style={{
+                width: 96,
+                height: 96,
+                borderRadius: 96,
+                // borderWidth: 1,
+                // borderColor: '#DDD',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#E8EFFC',
+              }}>
+              <AVATAR height={48} width={48} />
+            </View>
+          ) : (
+            <Image
+              source={{uri: USER?.avatar}}
+              style={{width: 96, height: 96, borderRadius: 96}}
+              resizeMode="cover"
+            />
+          )}
 
-            style={{marginTop: 50}}
-          />
           <View style={{marginTop: 10, flexDirection: 'row', columnGap: 5}}>
             <Text
               style={{
@@ -70,20 +96,26 @@ const CustomSidebarMenu = (props: any) => {
                 fontWeight: '600',
                 fontFamily: 'Noto Sans',
               }}>
-             {USER?.name}
+              {USER?.name}
             </Text>
             <RenderSvgIcon
               icon="RIGHTACCOUNT"
               width={20}
               height={20}
-              color={appColors.white}
+              color={'#FFF'}
               style={{marginTop: 5}}
             />
           </View>
-          <Text
-            style={{fontSize: 16, fontWeight: '400', fontFamily: 'Noto Sans'}}>
-            Ui Ux designer at O-Project
-          </Text>
+          {USER?.job_title == null ? null : (
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '400',
+                fontFamily: 'Noto Sans',
+              }}>
+              {USER?.job_title}
+            </Text>
+          )}
           <View style={{flexDirection: 'row', marginTop: 20, columnGap: 10}}>
             <View style={styles.subContainer}>
               <Text style={styles.subText}>Premium</Text>
@@ -97,7 +129,7 @@ const CustomSidebarMenu = (props: any) => {
             style={{
               width: '80%',
               height: 50,
-              backgroundColor: appColors.primary,
+              backgroundColor:'#1D5EDD',
               marginTop: 20,
               borderRadius: 16,
               justifyContent: 'center',
@@ -112,7 +144,7 @@ const CustomSidebarMenu = (props: any) => {
             style={{
               width: '80%',
               height: 50,
-              backgroundColor: appColors.bg,
+              backgroundColor: '#E8EFFC',
               marginTop: 20,
               borderRadius: 16,
               justifyContent: 'center',
@@ -124,7 +156,7 @@ const CustomSidebarMenu = (props: any) => {
               style={{
                 fontFamily: 'Noto Sans',
                 fontSize: 18,
-                color: appColors.primary,
+                color: '#1D5EDD',
               }}>
               Switch profile
             </Text>
@@ -160,7 +192,8 @@ const CustomSidebarMenu = (props: any) => {
             Settings
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={LogOutFun}
+        <TouchableOpacity
+          onPress={LogOutFun}
           style={{flexDirection: 'row', columnGap: 10, marginBottom: 15}}>
           <LogOut />
           <Text

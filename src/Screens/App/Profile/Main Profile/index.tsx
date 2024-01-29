@@ -19,12 +19,15 @@ import {selectUser} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
 import AppSlice from 'src/redux/app';
 import {useAppDispatch} from 'src/redux/store';
+import AppThunks from 'src/redux/app/thunks';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(AppThunks.GetProfileInfo())
       dispatch(AppSlice.changeDone(false));
     });
     return RenderFunction;

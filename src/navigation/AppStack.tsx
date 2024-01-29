@@ -29,6 +29,7 @@ import SaveVideo from 'screens/App/CompleteProfile/components/RecordVideo/SaveVi
 import UpdateAboutCard from 'screens/App/Profile/Main Profile/UpdateComponents/About/UpdateAboutCard';
 import UpdateInfoCard from 'screens/App/Profile/Main Profile/UpdateComponents/Info/UpdateInfoCard';
 import AddNewExperience from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/AddNewExperience';
+import UpdateExperienceCard from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/UpdateExperienceCard';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -111,6 +112,10 @@ const AppStack = () => {
              <Stack.Screen
                 name="AddNewExperience"
                 component={AddNewExperience}
+            />
+             <Stack.Screen
+                name="UpdateExperienceCard"
+                component={UpdateExperienceCard}
             />
             <Stack.Screen
                 name="ProfileScreen"

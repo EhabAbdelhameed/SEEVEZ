@@ -5,11 +5,12 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import {AVATAR} from 'assets/Svgs';
 import moment from 'moment';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const ExperienceCard = (data: any) => {
+  console.log(data);
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>();
   const differenceInMonths = (date1: any, date2: any) => {
     let start_date = moment(date1).format('yyyy-MM-DD');
     let end_date = moment(date2).format('yyyy-MM-DD');
@@ -33,21 +34,27 @@ const ExperienceCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>Experience</Text>
           <View style={styles.Row2}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddNewExperience')}>
-            <RenderSvgIcon
-              icon="PLUSFOLLOW"
-              style={{marginRight: 10}}
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AddNewExperience')}>
+              <RenderSvgIcon
+                icon="PLUSFOLLOW"
+                style={{marginRight: 10}}
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
             </TouchableOpacity>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('UpdateExperienceCard', {data: data})
+              }>
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         {data?.data?.length == 0 ? (
@@ -72,7 +79,7 @@ const ExperienceCard = (data: any) => {
           </View>
         ) : seeAllExperiences ? (
           data?.data?.map((item: any) => (
-            <View style={{marginBottom:15}}>
+            <View style={{marginBottom: 15}}>
               <View style={styles.Row2}>
                 <Image
                   source={require('../../../../../assets/images/CompanyLogo.png')}
@@ -80,7 +87,11 @@ const ExperienceCard = (data: any) => {
                 />
                 <View style={{marginLeft: 10}}>
                   <Text style={styles.Title2}>{item.job_title}</Text>
-                  <Text style={styles.CompanyName}>{item.company_name}</Text>
+                  <Text style={styles.CompanyName}>
+                    {item?.company_name == null
+                      ? item?.company_id?.name
+                      : item?.company_name}
+                  </Text>
                   <Text style={styles.des}>
                     {moment(item.start_date).format('MMM yyyy')} - Present{' '}
                     {differenceInMonths(item?.start_date, item?.end_date)} mos ·
@@ -113,9 +124,7 @@ const ExperienceCard = (data: any) => {
                 seeLessText="less"
                 seeMoreText="Read more"
                 numberOfLines={3}>
-                {
-                  'Highly experienced, creative, and multitalented Senior UI/UX Designer and Senior Graphic Designer with an extensive background in, UI & UX marketing, social media advertising, branding and print design. Exceptional collaborative and interpersonal skills; very strong team player with well-developed communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs; talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.Also excels at several tech tools, including Illustrator, Photoshop, InDesign. XD , Figmaand After Effect'
-                }
+                {item.description}
               </ReadMore>
             </View>
           ))
@@ -163,9 +172,7 @@ const ExperienceCard = (data: any) => {
                   seeLessText="less"
                   seeMoreText="Read more"
                   numberOfLines={3}>
-                  {
-                    'Highly experienced, creative, and multitalented Senior UI/UX Designer and Senior Graphic Designer with an extensive background in, UI & UX marketing, social media advertising, branding and print design. Exceptional collaborative and interpersonal skills; very strong team player with well-developed communication abilities. Experienced at producing high-end business-to-business and consumer-facing designs; talented at building and maintaining partnerships. Passionate and accustomed to performing in deadline-driven environments.Also excels at several tech tools, including Illustrator, Photoshop, InDesign. XD , Figmaand After Effect'
-                  }
+                  {item.description}
                 </ReadMore>
               </View>
             ) : null,
@@ -246,7 +253,7 @@ const styles = StyleSheet.create({
   Row2: {
     flexDirection: 'row',
     alignItems: 'center',
-   },
+  },
   Title: {
     fontSize: 20,
     fontWeight: '700',

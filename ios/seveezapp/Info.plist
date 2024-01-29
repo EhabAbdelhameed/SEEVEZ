@@ -37,6 +37,33 @@
 	<string>We need access to your calendar for event scheduling.</string>
 	<key>NSCameraUsageDescription</key>
 	<string></string>
+	<!-- Camera -->
+		<key>NSCameraUsageDescription</key>
+		<string>$(PRODUCT_NAME) need access to your camera to take photos and record videos.</string>
+		<!-- Location When In Use -->
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>$(PRODUCT_NAME) need your location to provide location-based services when the app
+			is in use.</string>
+		<!-- Media Library -->
+		<key>NSAppleMusicUsageDescription</key>
+		<string>$(PRODUCT_NAME) need access to your media library to enhance your experience with
+			music.</string>
+	<!-- Microphone -->
+		<key>NSMicrophoneUsageDescription</key>
+		<string>$(PRODUCT_NAME) need access to your microphone to record audio for videos and other
+			features.</string>
+					<!-- Notifications -->
+		<key>NSLocalNetworkUsageDescription</key>
+		<string>$(PRODUCT_NAME) use local network access to send and receive notifications for
+			important updates.</string>
+
+		<!-- Photo Library -->
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>$(PRODUCT_NAME) need access to your photo library to upload and share photos.</string>
+
+		<!-- Photo Library Add Only -->
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>$(PRODUCT_NAME) need permission to add photos to your library.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -130,6 +157,20 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>ms-word</string>
+  <string>ms-excel</string>
+  <string>ms-powerpoint</string>
+  <string>com.adobe.pdf</string>
+  <string>com.google.drive</string> <!-- Example for Google Drive -->
+  <string>pdf</string>
+  <string>com.apple.mobileslideshow</string> <!-- Photos app for images -->
+  <string>com.apple.mobilequicklook</string> <!-- Quick Look for various file types -->
+  <string>com.apple.camera</string> <!-- Camera app for photos and videos -->
+  <string>public.image</string> <!-- Image file type -->
+  <string>public.movie</string> <!-- Video file type -->
+</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

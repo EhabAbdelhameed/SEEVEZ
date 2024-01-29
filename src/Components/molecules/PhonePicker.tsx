@@ -44,13 +44,15 @@ const NewPicker = ({ props,setcode,index }: { props?: FormikProps<any> ,setcode?
                     show={show}
                     onBackdropPress={() => setShow(false)}
                     pickerButtonOnPress={item => {
-                        setSelectedCode(item);
+                        setSelectedCode(item)
                         props?.setFieldValue('code', item);
                         setShow(false);
+                        
                         if(setcode){
                             props?.setFieldValue(`phones[${index}]["code"]`,item.dial_code)
-                        }
                         setcode(item.dial_code)
+
+                        }
                     }}
                     lang={'en'}
                     style={{

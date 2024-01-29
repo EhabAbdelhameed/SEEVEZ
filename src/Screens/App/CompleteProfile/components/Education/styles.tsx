@@ -209,6 +209,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Noto Sans',
   },
+
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+  },
+  dateTimePicker: {
+    backgroundColor: 'white', // Customize background color
+  },
 });
 
 export default styles;

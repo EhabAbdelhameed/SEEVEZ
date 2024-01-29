@@ -214,6 +214,79 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontFamily: 'Noto Sans',
     },
+    Row3: {
+      flexDirection: 'row',
+      marginTop: 10,
+      marginLeft: 75,
+    },
+    FollowersText: {
+      fontSize: 12,
+      fontWeight: '400',
+      color: '#15439D',
+    },
+    secContainer: {
+      width: '100%',
+      backgroundColor: appColors.lightGrey2,
+      borderRadius: 25,
+      padding: 5,
+      paddingTop: 10,
+    },
+    Row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 15,
+    },
+    Row2: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    Title: {
+      fontSize: 20,
+      fontWeight: '700',
+      color: appColors.black,
+    },
+    Title2: {
+      fontSize: 19,
+      fontWeight: '600',
+      color: appColors.black,
+    },
+    Image: {
+      height: 65,
+      width: 65,
+      borderRadius: 65,
+    },
+    CompanyName: {
+      fontSize: 15,
+      fontWeight: '400',
+      color: appColors.black,
+      marginTop: 3,
+    },
+    des: {
+      fontSize: 11,
+      fontWeight: '400',
+      color: appColors.black,
+      marginTop: 3,
+    },
+    Title3: {
+      fontWeight: '600',
+      color: appColors.black,
+      marginTop: 15,
+    },
+    PostText: {
+      fontSize: 12,
+      fontWeight: '400',
+      marginTop: 15,
+      color: appColors.black,
+    },
+    FollowersContainer: {
+      paddingHorizontal: 15,
+      paddingVertical: 3,
+      borderRadius: 30,
+      backgroundColor: '#E8EFFC',
+      borderColor: '#15439D',
+      borderWidth: 0.3,
+    },
   });
   
   export default styles;

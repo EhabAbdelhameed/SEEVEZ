@@ -41,7 +41,12 @@ const styles = StyleSheet.create({
     width: appSizes.width,
     alignItems: 'center',
   },
-
+  buttonText: {
+    color: 'white',
+  },
+  dateTimePicker: {
+    backgroundColor: 'white', // Customize background color
+  },
   btn: {
     backgroundColor: appColors.secondary,
     borderColor: appColors.primary,

@@ -55,14 +55,15 @@ const JumpModal = (
             <View style={styles.ModalContanier}>
                 {data?.question.length ? <Text style={[styles.questionText, { marginLeft:13, fontSize: 17,}]}>{data?.question}</Text> : null}
                 {data?.answers.map(({ answer, selected }, index) => (
-                    <View style={styles.rowAnswer}>
+                    // <View >
+                          <TouchableOpacity style={styles.rowAnswer} onPress={()=>{
+                           setButtonIndex(index)
+                        }}>
                         <Text style={[styles.questionText,
                         {
                             marginTop: 0
                         }]}>{answer}</Text>
-                        <TouchableOpacity onPress={()=>{
-                           setButtonIndex(index)
-                        }}>
+                      
                         <View style={styles.Circle}>
                             {buttonIndex==index?
                            <View
@@ -70,7 +71,7 @@ const JumpModal = (
                             />:null}
                         </View>
                         </TouchableOpacity>
-                    </View>
+                    // </View>
                 ))} 
                 <Button textStyle={{fontSize:16}} text="Done" onPress={() => {
                     ModalRef.current?.close()

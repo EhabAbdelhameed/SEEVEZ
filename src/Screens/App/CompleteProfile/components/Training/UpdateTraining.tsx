@@ -5,6 +5,7 @@ import {
   TextInput,
   Alert,
   Image,
+  Platform,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
@@ -315,64 +316,126 @@ const UpdateTraining = () => {
                         </TouchableOpacity>
                       </View>
                     </View>
-                    {isVisible && (
-                      <DateTimePicker
-                        mode="date"
-                        display="spinner"
-                        value={
-                          type === '1' && isDate(startDates[index])
-                            ? startDates[index]
-                            : isDate(endDates[index])
-                            ? endDates[index]
-                            : new Date() // Provide a default date if the specified date is invalid
-                        }
-                        onChange={(event: any, selectedDate: any) => {
-                          console.log(selectedDate);
-                          if (selectedDate !== undefined) {
-                            console.log('Index: ', index);
-                            if (type == '1') {
-                              // updatedStartDates[index] = selectedDate;
-                              // setStartDates(updatedStartDates);
-                              if (index == 0) {
-                                setStartDates([
-                                  ...startDates.slice(0, index),
-                                  selectedDate,
-                                  ...startDates.slice(index + 1),
-                                ]);
-                              } else {
-                                let array = startDates;
-                                array.push(selectedDate);
-                                setStartDates(array);
-                              }
-
-                              props?.setFieldValue(
-                                `TrainingCourse[${index}]["start_date"]`,
-                                Moment(selectedDate).format('yyyy/MM/DD'),
-                              );
-                            } else {
-                              if (index == 0) {
-                                setEndDates([
-                                  ...endDates.slice(0, index),
-                                  selectedDate,
-                                  ...endDates.slice(index + 1),
-                                ]);
-                              } else {
-                                let array = endDates;
-                                array.push(selectedDate);
-                                setEndDates(array);
-                              }
-
-                              props?.setFieldValue(
-                                `TrainingCourse[${index}]["end_date"]`,
-                                Moment(selectedDate).format('yyyy/MM/DD'),
-                              );
-                            }
-                          }
-                          console.log(startDates);
-                          setVisible(false);
-                        }}
-                      />
-                    )}
+                    {Platform.OS == 'ios'
+                          ? isVisible && (
+                              <DateTimePicker
+                                testID="dateTimePicker"
+                                value={
+                                  type === '1' && isDate(startDates[index])
+                                    ? startDates[index]
+                                    : isDate(endDates[index])
+                                    ? endDates[index]
+                                    : new Date() // Provide a default date if the specified date is invalid
+                                }
+                                mode="date"
+                                is24Hour={true}
+                                display="default"
+                                onChange={(event: any, selectedDate: any) => {
+                                  console.log(selectedDate);
+                                  if (selectedDate !== undefined) {
+                                    console.log('Index: ', index);
+                                    if (type == '1') {
+                                      // updatedStartDates[index] = selectedDate;
+                                      // setStartDates(updatedStartDates);
+                                      if (index == 0) {
+                                        setStartDates([
+                                          ...startDates.slice(0, index),
+                                          selectedDate,
+                                          ...startDates.slice(index + 1),
+                                        ]);
+                                      } else {
+                                        let array = startDates;
+                                        array.push(selectedDate);
+                                        setStartDates(array);
+                                      }
+        
+                                      props?.setFieldValue(
+                                        `TrainingCourse[${index}]["start_date"]`,
+                                        Moment(selectedDate).format('yyyy/MM/DD'),
+                                      );
+                                    } else {
+                                      if (index == 0) {
+                                        setEndDates([
+                                          ...endDates.slice(0, index),
+                                          selectedDate,
+                                          ...endDates.slice(index + 1),
+                                        ]);
+                                      } else {
+                                        let array = endDates;
+                                        array.push(selectedDate);
+                                        setEndDates(array);
+                                      }
+        
+                                      props?.setFieldValue(
+                                        `TrainingCourse[${index}]["end_date"]`,
+                                        Moment(selectedDate).format('yyyy/MM/DD'),
+                                      );
+                                    }
+                                  }
+                                  console.log(startDates);
+                                  setVisible(false);
+                                }}
+                                style={styles.dateTimePicker} // Customize styles here
+                              />
+                            )
+                          : isVisible && (
+                              <DateTimePicker
+                                mode="date"
+                                value={
+                                  type === '1' && isDate(startDates[index])
+                                    ? startDates[index]
+                                    : isDate(endDates[index])
+                                    ? endDates[index]
+                                    : new Date() // Provide a default date if the specified date is invalid
+                                }
+                                onChange={(event: any, selectedDate: any) => {
+                                  console.log(selectedDate);
+                                  if (selectedDate !== undefined) {
+                                    console.log('Index: ', index);
+                                    if (type == '1') {
+                                      // updatedStartDates[index] = selectedDate;
+                                      // setStartDates(updatedStartDates);
+                                      if (index == 0) {
+                                        setStartDates([
+                                          ...startDates.slice(0, index),
+                                          selectedDate,
+                                          ...startDates.slice(index + 1),
+                                        ]);
+                                      } else {
+                                        let array = startDates;
+                                        array.push(selectedDate);
+                                        setStartDates(array);
+                                      }
+        
+                                      props?.setFieldValue(
+                                        `TrainingCourse[${index}]["start_date"]`,
+                                        Moment(selectedDate).format('yyyy/MM/DD'),
+                                      );
+                                    } else {
+                                      if (index == 0) {
+                                        setEndDates([
+                                          ...endDates.slice(0, index),
+                                          selectedDate,
+                                          ...endDates.slice(index + 1),
+                                        ]);
+                                      } else {
+                                        let array = endDates;
+                                        array.push(selectedDate);
+                                        setEndDates(array);
+                                      }
+        
+                                      props?.setFieldValue(
+                                        `TrainingCourse[${index}]["end_date"]`,
+                                        Moment(selectedDate).format('yyyy/MM/DD'),
+                                      );
+                                    }
+                                  }
+                                  console.log(startDates);
+                                  setVisible(false);
+                                }}
+                              />
+                            )}
+                   
                     <TouchableOpacity
                       onPress={() => openGallery(props, index)}
                       style={[styles.InputStyleNoWidth, {marginBottom: 10}]}>

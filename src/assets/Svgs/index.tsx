@@ -5,7 +5,7 @@ import Trending from './Trending.svg'
 import PHOTO from './photo.svg'
 import PLUSTAB from './PlusTab.svg'
 import PLUSCONTAINER from './ContainerPlus.svg'
-
+import DELETE from './DeleteIcon.svg'
 import ReviewCV from './ReviewCV.svg'
 import Analytics from './Analytics.svg'
 import Analytic from './analytic.svg'
@@ -43,6 +43,7 @@ export {
     ImageInfo,
     CompanyLogo,
     Packages,
+    DELETE,
     Setting,
     LogOut,
     Upload,

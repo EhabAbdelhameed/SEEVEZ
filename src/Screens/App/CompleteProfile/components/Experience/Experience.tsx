@@ -69,7 +69,7 @@ const ExperienceCard = (data: any) => {
  
              <View style={{marginLeft: 10,width:'90%'}}>
                <Text style={styles.Title2}>{item?.job_title}</Text>
-               <Text style={styles.CompanyName}>{item?.company_name}</Text>
+               <Text style={styles.CompanyName}>{item?.company_name==null?item?.company_id?.name:item?.company_name}</Text>
              </View>
            </View>
           ))
