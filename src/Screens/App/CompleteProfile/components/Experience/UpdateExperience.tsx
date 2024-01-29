@@ -63,7 +63,7 @@ const UpdateExperience = () => {
   const YearsData = useSelector(selectYears);
   const JobTypeData = useSelector(selectJobtype);
   const CompaniesData = useSelector(selectCompanies);
-
+  const [key,setKey]=useState('')
   const [value, setValue] = useState(null);
   const [value1, setValue1] = useState(null);
   const [value2, setValue2] = useState(null);
@@ -137,6 +137,7 @@ const UpdateExperience = () => {
     // Handle the selected item, for example, update the state or perform other actions.
     console.log('Selected Item:', selectedItem);
     setSelectedItem(selectedItem);
+    setKey('selected')
     setSelectedCompanyName(selectedItem.name);
     props?.setFieldValue(`Experince[${index}]["company_id"]`, selectedItem?.id);
     // You may want to close the dropdown or clear the search query here.
@@ -247,7 +248,7 @@ const UpdateExperience = () => {
               const formdata = new FormData();
               values.Experince.map((item: any, index: any) => {
                 formdata.append(`array[${index}][job_title]`, item.job_title);
-                selectedItem?.length == 0
+                key == ''
                   ? formdata.append(
                       `array[${index}][company_name]`,
                       item.company_name,
@@ -656,7 +657,8 @@ const UpdateExperience = () => {
                   onPress={() => {
                     setExperience((prev: any) => {
                       return [...prev, 1];
-                    });
+                    })
+                    setKey('')
                   }}
                   style={{flexDirection: 'row', marginBottom: 10}}>
                   <View
