@@ -11,6 +11,7 @@ const doAddSkills: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Skills(data);
             console.log(response?.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -34,6 +35,7 @@ const doAddIntersts: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Interests(data);
             console.log(response?.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -57,6 +59,7 @@ const doAddEducation: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Education(data);
             // alert(response?.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -81,6 +84,7 @@ const doAddExperience: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Experience(data);
             console.log(response)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -104,6 +108,7 @@ const doAddTrainingCourse: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.TrainingCourse(data);
             // alert(response?.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -129,6 +134,7 @@ const doAddReferenceCheck: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.ReferenceCheck(data);
                console.log(response)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -152,6 +158,7 @@ const doAddAchievement: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Achievement(data);
             console.log(response)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -175,6 +182,7 @@ const doAddLanguages: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Languages(data);
             console.log(response?.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -198,6 +206,7 @@ const doAddPersonalInfo: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Info(data);
             console.log(response)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -221,6 +230,7 @@ const GetIndustry: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.Industry();
             // console.log(response.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -244,6 +254,7 @@ const GetYearsOfExperience: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.YearsOfExperience();
             // console.log(response.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -267,6 +278,7 @@ const GetJobType: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.JobType();
             // console.log(response.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -290,6 +302,7 @@ const GetEducationLevel: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.EducationLevel();
             // console.log(response.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -313,6 +326,7 @@ const GetCompaniesName: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.CompaniesName(data);
             // console.log(response.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -360,6 +374,7 @@ const doAddAbout: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.About(data);
           console.log(("0000000 "+JSON.stringify(response)+" 1111111111"))
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -384,6 +399,7 @@ const doAddCompanyInfo: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.CompanyInfo(data);
             console.log("0000000000"+JSON.stringify(response))
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -407,6 +423,7 @@ const doAddCompanyAbout: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.CompanyAbout(data);
             console.log(response?.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -431,6 +448,7 @@ const doAddUploadPortfolio: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.CVCompany(data);
             console.log(response?.data)
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||
@@ -454,6 +472,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
             const response = await AppAPI.profileInfo();
             // alert(JSON.stringify(response?.data))
             if (
+                response.status == null ||
                 response.status == 401 ||
                 response.status == 422 ||
                 response.status == 404 ||

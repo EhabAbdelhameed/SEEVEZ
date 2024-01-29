@@ -68,7 +68,7 @@ const SaveVideo = () => {
       .then((contentUri) => {
         console.log('Content URI hhhhhh:', contentUri);
         formdata.append('media', {
-          uri: contentUri,
+          uri: contentUri,     
           type: 'video/mp4',
           name: 'VID-20240121-WA0052.mp4',
         });
@@ -92,6 +92,7 @@ const SaveVideo = () => {
         type: source[0]?.type,
         name: source[0]?.name,
       });
+      console.log("2222",JSON.stringify(formdata))
       dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
         dispatch(AppThunks.GetProfileInfo());
         setLoading(false);

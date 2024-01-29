@@ -28,7 +28,7 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import Moment from 'moment';
 import {Dropdown} from 'react-native-element-dropdown';
-
+import Header from './Header'
 import {useSelector} from 'react-redux';
 import {
   selectCompanies,
@@ -42,11 +42,9 @@ import {Input} from 'react-native-elements';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateExperience = () => {
-  const [date, setDate] = useState(new Date());
-  const [date1, setDate1] = useState(new Date());
   const [startDates, setStartDates] = useState<Array<Date>>([new Date()]);
   const [endDates, setEndDates] = useState<Array<Date>>([new Date()]);
-  const [index2, setIndex2] = React.useState(false);
+
   const [isVisible, setVisible] = useState(false);
   const [type, setType] = useState('0');
   const [Work, setWork] = useState(0);
@@ -54,8 +52,7 @@ const UpdateExperience = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false);
   const [dropdownOpen2, setDropdownOpen2] = useState(false);
   const [stillWorkHere, setStillWorkHere] = useState<Array<boolean>>([false]);
-  const [jobTitle, setJobTitle] = useState('');
-  const [companyName, setCompanyName] = useState('');
+  const [selectedCompanyName, setSelectedCompanyName] = useState('');
 
   const [experienceLetter, setExperienceLetter] = useState<Array<any>>([]);
   const [loading, setLoading] = React.useState(false);
@@ -96,8 +93,10 @@ const UpdateExperience = () => {
   // );
   const filteredData = (data: any) =>
     data?.name?.toLowerCase().includes(searchQuery?.toLowerCase());
-  const renderListItem = (item:any,props:any,index:any) => (
-    <TouchableOpacity style={{}} onPress={() => handleItemSelected(item,props,index)}>
+  const renderListItem = (item: any, props: any, index: any) => (
+    <TouchableOpacity
+      style={{}}
+      onPress={() => handleItemSelected(item, props, index)}>
       <View
         style={{
           flexDirection: 'row',
@@ -128,18 +127,18 @@ const UpdateExperience = () => {
           )}
         </View>
 
-        <Text style={{padding: 10, borderColor: '#ccc',fontSize:14}}>{item.name}</Text>
+        <Text style={{padding: 10, borderColor: '#ccc', fontSize: 14}}>
+          {item.name}
+        </Text>
       </View>
     </TouchableOpacity>
   );
-  const handleItemSelected = (selectedItem: any,props:any,index:any) => {
+  const handleItemSelected = (selectedItem: any, props: any, index: any) => {
     // Handle the selected item, for example, update the state or perform other actions.
     console.log('Selected Item:', selectedItem);
-    setSelectedItem(selectedItem)
-    props?.setFieldValue(
-      `Experince[${index}]["company_id"]`,
-      selectedItem?.id,
-    )
+    setSelectedItem(selectedItem);
+    setSelectedCompanyName(selectedItem.name);
+    props?.setFieldValue(`Experince[${index}]["company_id"]`, selectedItem?.id);
     // You may want to close the dropdown or clear the search query here.
     setSearchQuery('');
   };
@@ -220,32 +219,11 @@ const UpdateExperience = () => {
         <View style={styles.circles}>
           <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
         </View>
+    
+        
         <View style={styles.bottomSection}>
-          <View style={styles.blueCircle}>
-            <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
-          </View>
-          <View style={styles.loginTextContainer}>
-            <View style={{width: 32}}>
-              {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
-            </View>
-            <View style={[{alignItems: 'center'}]}>
-              <Text style={[styles.loginText, {fontSize: 24}]}>
-                Complete Profile
-              </Text>
-              <Text style={[styles.loginTextSub, {fontSize: 13}]}>
-                Finish setting up your profile to get noticed by recruiters
-              </Text>
-            </View>
-            <View>
-              <RenderSvgIcon
-                icon="ICONCV"
-                width={40}
-                height={48}
-                style={styles.yellowIcon}
-              />
-            </View>
-          </View>
-
+       <Header/>
+         
           <Formik
             initialValues={{
               Experince: [
@@ -260,7 +238,7 @@ const UpdateExperience = () => {
                   still_work_here: 0,
                   experience_letter: '',
                   description: '',
-                  company_id:'',
+                  company_id: '',
                 },
               ],
             }}
@@ -269,15 +247,15 @@ const UpdateExperience = () => {
               const formdata = new FormData();
               values.Experince.map((item: any, index: any) => {
                 formdata.append(`array[${index}][job_title]`, item.job_title);
-                selectedItem?.length==0?
-                formdata.append(
-                  `array[${index}][company_name]`,
-                  item.company_name,
-                )
-                : formdata.append(
-                  `array[${index}][company_id]`,
-                  item.company_id,
-                );
+                selectedItem?.length == 0
+                  ? formdata.append(
+                      `array[${index}][company_name]`,
+                      item.company_name,
+                    )
+                  : formdata.append(
+                      `array[${index}][company_id]`,
+                      item.company_id,
+                    );
                 formdata.append(
                   `array[${index}][industry_id]`,
                   item.industry_id,
@@ -305,7 +283,7 @@ const UpdateExperience = () => {
                   item.experience_letter,
                 );
               });
-              console.log("FormData",formdata)
+              console.log('FormData', formdata);
 
               dispatch(AppThunks.doAddExperience(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());
@@ -347,16 +325,15 @@ const UpdateExperience = () => {
                     />
                     <TextInput
                       placeholder="Company name"
-                      onChangeText={
-                        value => {setSearchQuery(value),
-                          selectedItem.length==0?
-                          // console.log("sss",value)
-                        props?.setFieldValue(
-                          `Experince[${index}]["company_name"]`,
-                          value,
-                        )
-                        :null
-                    
+                      value={selectedCompanyName}
+                      onChangeText={value => {
+                        setSearchQuery(value),
+                          selectedItem.length == 0
+                            ? props?.setFieldValue(
+                                `Experince[${index}]["company_name"]`,
+                                value,
+                              )
+                            : null;
                       }}
                       style={{
                         borderRadius: 16,
@@ -376,12 +353,14 @@ const UpdateExperience = () => {
                           borderColor: appColors.bg,
                           borderRadius: 16,
                           backgroundColor: '#FFF',
-                          paddingHorizontal:15
+                          paddingHorizontal: 15,
                         }}>
                         <FlatList
                           scrollEnabled={false}
                           data={CompaniesData?.filter(filteredData)}
-                          renderItem={({item})=>renderListItem(item,props,index)}
+                          renderItem={({item}) =>
+                            renderListItem(item, props, index)
+                          }
                           keyExtractor={(item, index) => index.toString()}
                         />
                       </View>
