@@ -344,7 +344,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: 'Hey! Your Media has been added successfully',
       });
     });
     builder.addCase(thunks.doUploadCV.rejected, (state, action: any) => {

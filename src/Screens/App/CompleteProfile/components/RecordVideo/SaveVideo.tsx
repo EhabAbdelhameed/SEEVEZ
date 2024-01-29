@@ -37,7 +37,7 @@ const SaveVideo = () => {
   const convertFileUriToContentUri = async (videoPath:any) => {
     try {
       // Get the absolute path from the file URI
-      const absolutePath = RNFS.CachesDirectoryPath + '/' + videoPath.split('/').pop();
+      const absolutePath = '/' + videoPath.split('/').pop();
   
       // Rename the file to get a new URI
       await RNFS.moveFile(videoPath, absolutePath);
