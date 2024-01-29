@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Platform } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import { PortalProvider } from '@gorhom/portal';
 import React from 'react'
 import { enableScreens } from "react-native-screens";
@@ -9,27 +9,12 @@ import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-c
 import { Provider } from 'react-redux';
 import { Store } from 'src/redux/store';
 import Toast from 'react-native-toast-message';
-import CodePush from 'react-native-code-push';
 
 enableScreens()
 
-let CodePushOptions = {
-  checkFrequency: CodePush.CheckFrequency.MANUAL,
-};
 
 const App = () => {
 
- 
- React. useEffect(() => {
-    if (Platform.OS == "ios") {
-      if (!__DEV__) {
-        CodePush.sync({
-          updateDialog: { title: 'A new update is Available' },
-          installMode: CodePush.InstallMode.IMMEDIATE,
-        }).catch(e => Toast.show({ type: 'error', text2: e }));
-      }
-    }
-  }, []);
   return (
     <Provider store={Store().store}>
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -47,4 +32,4 @@ const App = () => {
   )
 }
 
-export default CodePush(CodePushOptions)(App);
+export default App
