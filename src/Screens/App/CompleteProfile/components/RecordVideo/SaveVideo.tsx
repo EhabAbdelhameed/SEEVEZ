@@ -47,24 +47,21 @@ const SaveVideo = () => {
   const saveVideoFun = () => {
     if (key == 1) {
       setLoading(true);
-      RNFS.readFile(
-        videoPath,
-        'base64',
-      )
-        .then(content => {
-          console.log('File Content:', content);
-        })
-        .catch(error => {
-          console.error('Error reading file:', error);
-        });
+   
       const formdata = new FormData();
-
+      // const modifiedUriSlice = videoPath.slice(1)
+      // const fileNameWithoutExtension = videoPath.replace(/\.[^/.]+$/, '');
+     
       formdata.append('media', {
-        uri: videoPath,
+        uri: 'file://'+videoPath,
         type: 'video/mp4',
-        name: 'VID-20240121-WA0052.mp4',
+        name: 'video.mp4',
       });
-      console.log('key', JSON.stringify(formdata));
+      // console.log(JSON.stringify(formdata))
+      // console.log(fileNameWithoutExtension)
+
+     
+     
       dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
         dispatch(AppThunks.GetProfileInfo());
         setLoading(false);
