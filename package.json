@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "IOSInstall": "appcenter codepush release-react -a ahmedkhalifa20199-gmail.com/seevez -d Staging 7af1f392b7e2736a2ac63344523e7338199a1a68"
+    "IOSInstall": "appcenter codepush release-react -a ahmedkhalifa20199-gmail.com/seevez -d Staging e6558547b8e483fb9271aaf4065abf78f4d8db89"
   },
   "dependencies": {
     "@fawazahmed/react-native-read-more": "^3.0.3",
