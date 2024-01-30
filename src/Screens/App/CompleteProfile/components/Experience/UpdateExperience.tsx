@@ -71,6 +71,9 @@ const UpdateExperience = () => {
   const [index1, setIndex1] = useState(null);
   const [propsData, setPropsData] = useState<any>([]);
   const [selectedItem, setSelectedItem] = useState<any>([]);
+  const [selectedCompanyNames, setSelectedCompanyNames] = useState<string[]>(
+    [],
+  );
 
   // console.log(changeDone)
   useEffect(() => {
@@ -139,6 +142,11 @@ const UpdateExperience = () => {
     console.log('Selected Item:', selectedItem);
     setSelectedItem(selectedItem);
     setKey('selected');
+    // setSelectedCompanyNames((prevNames:any) => {
+    //   const updatedNames = [...prevNames];
+    //   updatedNames[index] = selectedItem.name||'';
+    //   return updatedNames;
+    // });
     setSelectedCompanyName(selectedItem.name);
     props?.setFieldValue(`Experince[${index}]["company_id"]`, selectedItem?.id);
     // You may want to close the dropdown or clear the search query here.
@@ -206,10 +214,13 @@ const UpdateExperience = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
+          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
           </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
@@ -326,15 +337,20 @@ const UpdateExperience = () => {
                     />
                     <TextInput
                       placeholder="Company name"
-                      value={selectedCompanyName}
+                      value={selectedCompanyNames[index]}
                       onChangeText={value => {
-                        setSearchQuery(value),
-                          selectedItem.length == 0
-                            ? props?.setFieldValue(
-                                `Experince[${index}]["company_name"]`,
-                                value,
-                              )
-                            : null;
+                        setSearchQuery(value);
+                        if (selectedItem.length === 0) {
+                          props?.setFieldValue(
+                            `Experince[${index}]["company_name"]`,
+                            value,
+                          );
+                          setSelectedCompanyNames(prevNames => {
+                            const updatedNames = [...prevNames];
+                            updatedNames[index] = value;
+                            return updatedNames;
+                          });
+                        }
                       }}
                       style={{
                         borderRadius: 16,
@@ -482,7 +498,7 @@ const UpdateExperience = () => {
                       containerStyle={{
                         paddingHorizontal: 0,
                         marginVertical: 1,
-                        height: 60,
+                        height: 50,
                       }}
                       inputStyle={{
                         fontSize: 14,

@@ -19,10 +19,11 @@ import { useSelector } from 'react-redux';
 import { selectDone } from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { selectUser } from 'src/redux/auth';
 
 const UpdateAbout = () => {
   // const navigation = useNavigation<any>();
-  const token: any =AsyncStorage.getItem("USER_TOKEN")
+  const CurrentUserData = useSelector(selectUser);
   const navigation = useNavigation()
   const [about,setAbout]=useState('')
   const _handleNavigate = useCallback(
@@ -54,10 +55,13 @@ const UpdateAbout = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
          <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
+         <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
           </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
@@ -105,12 +109,12 @@ const UpdateAbout = () => {
             About
           </Text>
           <Formik
-            initialValues={{About: ''}}
+            initialValues={{About:CurrentUserData?.about|| ''}}
             onSubmit={values => {
               setLoading(true);
               const formdata = new FormData();
 
-              formdata.append('about',about);
+              formdata.append('about',values.About);
              
 
               console.log(formdata);
@@ -132,10 +136,13 @@ const UpdateAbout = () => {
                   style={styles.textArea} // Define your own styles for the text area
                   placeholder="Write here.."
                   placeholderTextColor={'#B9B9B9'}
+                  onChangeText={value =>
+                    props?.setFieldValue(`About`, value)
+                  }
+                  value={props.values.About}
                   
-                  onChangeText={(e)=>setAbout(e)}
                   onBlur={props.handleBlur('About')}
-                  value={props.values.about}
+                  
                   textAlignVertical="top"
                 />
                 <View style={{height:appSizes.height * 0.09}}/>

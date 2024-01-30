@@ -10,7 +10,7 @@ import {
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Moment from 'moment';
 import styles from './styles';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../../../Components/molecules/AuthTopSection';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -18,7 +18,7 @@ import {appColors} from '../../../../../theme/appColors';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
 
-import {BigLogo, CALANDER, PHOTO, PERSON, ImageInfo} from 'assets/Svgs';
+import {BigLogo, CALANDER, PHOTO, PERSON, ImageInfo, DELETE} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
@@ -38,6 +38,7 @@ import {selectDone} from 'src/redux/app';
 import {selectUser} from 'src/redux/auth';
 import NewPicker from 'components/molecules/PhonePicker';
 import {Input} from 'react-native-elements';
+import { RenderSvgIcon } from 'components/atoms/svg';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
@@ -47,7 +48,15 @@ const UpdateInfo = () => {
   const [index, setIndex] = React.useState(false);
   const [isVisible, setVisible] = useState(false);
   const [type, setType] = useState('0');
-  const [buttonIndex, setButtonIndex] = React.useState(0);
+  const [buttonIndex, setButtonIndex] = React.useState(
+    CurrentUserData?.gender == 'male'
+      ? 0
+      : CurrentUserData?.gender == 'female'
+      ? 1
+      : CurrentUserData?.gender == null
+      ? 3
+      : 2,
+  );
   const [buttonIndexHealth, setButtonIndexHealth] = React.useState(2);
   const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(2);
   const [isShowSalary, setIsShowSalary] = useState(false);
@@ -149,11 +158,14 @@ const UpdateInfo = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
-          </TouchableOpacity>
+        <TouchableOpacity 
+                onPress={_handleNavigate}
+                activeOpacity={0.8}
+            >
+                <RenderSvgIcon icon='ARROWBACK'
+                    width={30} height={30} color={appColors.primary} />
+               
+            </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
           <Image
@@ -206,11 +218,16 @@ const UpdateInfo = () => {
                 borderWidth: 1,
                 borderColor: '#B9CDF4',
               }}>
-              {source.length == 0 ? (
+              {CurrentUserData?.avatar == null ? (
                 <PERSON />
               ) : (
                 <Image
-                  source={{uri: source[0].uri}}
+                  source={{
+                    uri:
+                      source.length != 0
+                        ? source[0].uri
+                        : CurrentUserData?.avatar,
+                  }}
                   style={{width: 86, height: 86, borderRadius: 86}}
                   resizeMode="cover"
                 />
@@ -235,12 +252,31 @@ const UpdateInfo = () => {
 
           <Formik
             initialValues={{
-              FullName: '',
-              JobTitle: '',
+              FullName: CurrentUserData?.name || '',
+              JobTitle: CurrentUserData?.job_title || '',
 
-              Location: '',
-              phone: '',
-              code: '',
+              Location: CurrentUserData?.country || '',
+              phone: CurrentUserData?.phone_number || '',
+              city: CurrentUserData?.city || '',
+              area: CurrentUserData?.area || '',
+              facebook: CurrentUserData?.facebook || '',
+              linkedin: CurrentUserData?.linkedin || '',
+              instagram: CurrentUserData?.instagram || '',
+              website: CurrentUserData?.website || '',
+              github: CurrentUserData?.github || '',
+              other: CurrentUserData?.other || '',
+              currentSalary: CurrentUserData?.current_salary || '',
+              expectedSalary: CurrentUserData?.expected_salary || '',
+              showSalary: CurrentUserData?.show_salary || false,
+              gender: CurrentUserData?.gender || '',
+              birthdate: CurrentUserData?.birthdate || new Date(),
+              disability: CurrentUserData?.disabilities || '',
+              specialNeeds: CurrentUserData?.special_needs || '',
+              heights: CurrentUserData?.height || '',
+              weight: CurrentUserData?.weight || '',
+              isSmoke: CurrentUserData?.smoker || '',
+
+              code: CurrentUserData?.country_code || '',
             }}
             onSubmit={values => {
               setLoading(true);
@@ -255,15 +291,17 @@ const UpdateInfo = () => {
               values.JobTitle != ''
                 ? formdata.append('job_title', values.JobTitle)
                 : null;
-              formdata.append('phone_number', values.phone);
-              currentSalary != ''
-                ? formdata.append('current_salary', currentSalary)
+              values.phone != ''
+                ? formdata.append('phone_number', values.phone)
                 : null;
-              expectedSalary != ''
-                ? formdata.append('expected_salary', expectedSalary)
+              values.currentSalary != ''
+                ? formdata.append('current_salary', values.currentSalary)
+                : null;
+              values.expectedSalary != ''
+                ? formdata.append('expected_salary', values.expectedSalary)
                 : null;
               formdata.append('show_salary', isShowSalary == false ? 0 : 1);
-              gender != '' ? formdata.append('gender', gender) : null;
+              gender != '' ? formdata.append('gender', gender.toLocaleLowerCase) : null;
               formdata.append('birthdate', Moment(date).format('yyyy/MM/DD'));
 
               disabilityData != ''
@@ -272,27 +310,44 @@ const UpdateInfo = () => {
               specialNeedsData != ''
                 ? formdata.append('special_needs', specialNeedsData)
                 : null;
-              heights != '' ? formdata.append('height', heights) : null;
+              values.heights != ''
+                ? formdata.append('height', values.heights)
+                : null;
               formdata.append('smoker', smoker == false ? 0 : 1);
-              weight != '' ? formdata.append('weight', weight) : null;
-              others != '' ? formdata.append('other', others) : null;
-              github != '' ? formdata.append('github', github) : null;
-              website != '' ? formdata.append('website', website) : null;
-              facebook != '' ? formdata.append('facebook', facebook) : null;
-              linkedin != '' ? formdata.append('linkedin', linkedin) : null;
-              instagram != '' ? formdata.append('instagram', instagram) : null;
-
-              for (var i = 0; i < Nationality.length; i++) {
-                formdata.append(`array[${i}][nationality]`, Nationality[i]);
+              values.weight != ''
+                ? formdata.append('weight', values.weight)
+                : null;
+              values.other != ''
+                ? formdata.append('other', values.other)
+                : null;
+              values.github != ''
+                ? formdata.append('github', values.github)
+                : null;
+              values.website != ''
+                ? formdata.append('website', values.website)
+                : null;
+              values.facebook != ''
+                ? formdata.append('facebook', values.facebook)
+                : null;
+              values.linkedin != ''
+                ? formdata.append('linkedin', values.linkedin)
+                : null;
+              values.instagram != ''
+                ? formdata.append('instagram', values.instagram)
+                : null;
+              if (Nationality[0] != '') {
+                for (var i = 0; i < Nationality.length; i++) {
+                  formdata.append(`array[${i}][nationality]`, Nationality[i]);
+                }
               }
 
               values.Location != ''
                 ? formdata.append('country', values.Location)
                 : null;
-              city != '' ? formdata.append('city', city) : null;
-              area != '' ? formdata.append('area', area) : null;
-
-              source?.length == 0
+              values.city != '' ? formdata.append('city', values.city) : null;
+              values.area != '' ? formdata.append('area', values.area) : null;
+              console.log('SOURCE ', source?.length);
+              source?.length != 0
                 ? formdata.append('avatar', {
                     uri: source[0]?.uri,
                     type: source[0]?.type,
@@ -317,9 +372,7 @@ const UpdateInfo = () => {
                   onChangeText={value =>
                     props?.setFieldValue(`FullName`, value)
                   }
-                  value={
-                    CurrentUserData?.name == null ? '' : CurrentUserData?.name
-                  }
+                  value={props.values.FullName}
                   style={{
                     borderRadius: 16,
                     borderColor: '#1D5EDD',
@@ -337,11 +390,7 @@ const UpdateInfo = () => {
                   onChangeText={value =>
                     props?.setFieldValue(`JobTitle`, value)
                   }
-                  value={
-                    CurrentUserData?.job_title == null
-                      ? ''
-                      : CurrentUserData?.job_title
-                  }
+                  value={props.values.JobTitle}
                   style={{
                     borderRadius: 16,
                     borderColor: '#1D5EDD',
@@ -359,11 +408,7 @@ const UpdateInfo = () => {
                   onChangeText={value =>
                     props?.setFieldValue(`Location`, value)
                   }
-                  value={
-                    CurrentUserData?.country == null
-                      ? ''
-                      : CurrentUserData?.country
-                  }
+                  value={props.values.Location}
                   style={{
                     borderRadius: 16,
                     borderColor: '#1D5EDD',
@@ -386,8 +431,10 @@ const UpdateInfo = () => {
                       placeholder="Your city"
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
-                      onChangeText={e => setCity(e)}
-                      value={CurrentUserData?.city}
+                      onChangeText={value =>
+                        props?.setFieldValue(`city`, value)
+                      }
+                      value={props.values.city}
                     />
                   </View>
                   <View style={{width: '49%'}}>
@@ -395,8 +442,10 @@ const UpdateInfo = () => {
                       placeholder="Your area"
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
-                      onChangeText={e => setArea(e)}
-                      value={CurrentUserData?.area}
+                      onChangeText={value =>
+                        props?.setFieldValue(`area`, value)
+                      }
+                      value={props.values.area}
                     />
                   </View>
                 </View>
@@ -408,7 +457,7 @@ const UpdateInfo = () => {
                     <NewPicker index={index} setcode={setCode} props={props} />
                   }
                   name={`phone`}
-                  value={CurrentUserData?.phone_number}
+                  value={props.values.phone}
                   inputContainerStyle={{
                     borderRadius: 16,
                     borderColor: '#1D5EDD',
@@ -440,15 +489,19 @@ const UpdateInfo = () => {
                     placeholder="Facebook"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setFacebook(e)}
-                    value={CurrentUserData?.facebook}
+                    onChangeText={value =>
+                      props?.setFieldValue(`facebook`, value)
+                    }
+                    value={props.values.facebook}
                   />
                   <TextInput
                     placeholder="Linkedin"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setLinkedin(e)}
-                    value={CurrentUserData?.linkedin}
+                    onChangeText={value =>
+                      props?.setFieldValue(`linkedin`, value)
+                    }
+                    value={props.values.linkedin}
                   />
                 </View>
                 <View
@@ -469,8 +522,10 @@ const UpdateInfo = () => {
                     placeholder="Website"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setWebsite(e)}
-                    value={CurrentUserData?.website}
+                    onChangeText={value =>
+                      props?.setFieldValue(`website`, value)
+                    }
+                    value={props.values.website}
                   />
                 </View>
                 <View
@@ -484,15 +539,17 @@ const UpdateInfo = () => {
                     placeholder="Github"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setGithub(e)}
-                    value={CurrentUserData?.github}
+                    onChangeText={value =>
+                      props?.setFieldValue(`github`, value)
+                    }
+                    value={props.values.github}
                   />
                   <TextInput
                     placeholder="Others"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setOthers(e)}
-                    value={CurrentUserData?.other}
+                    onChangeText={value => props?.setFieldValue(`other`, value)}
+                    value={props.values.other}
                   />
                 </View>
 
@@ -509,8 +566,10 @@ const UpdateInfo = () => {
                       placeholder="Write here.."
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
-                      onChangeText={e => setCurrentSalary(e)}
-                      value={CurrentUserData?.current_salary}
+                      onChangeText={value =>
+                        props?.setFieldValue(`currentSalary`, value)
+                      }
+                      value={props.values.currentSalary}
                     />
                   </View>
                   <View style={{width: '49%'}}>
@@ -519,8 +578,10 @@ const UpdateInfo = () => {
                       placeholder="Write here.."
                       style={styles.InputStyleWithOutWidth}
                       placeholderTextColor={'#B9B9B9'}
-                      onChangeText={e => setExpectedSalary(e)}
-                      value={CurrentUserData?.expected_salary}
+                      onChangeText={value =>
+                        props?.setFieldValue(`expectedSalary`, value)
+                      }
+                      value={props.values.expectedSalary}
                     />
                   </View>
                 </View>
@@ -528,6 +589,7 @@ const UpdateInfo = () => {
                 <TouchableOpacity
                   onPress={() => {
                     setIndex(!index), setIsShowSalary(!isShowSalary);
+                    // props?.setFieldValue(`show_salary`, !isShowSalary)
                   }}
                   style={styles.rowAgree}>
                   <View
@@ -624,38 +686,82 @@ const UpdateInfo = () => {
                     </TouchableOpacity>
                   </View>
                   <View style={{width: '49%'}}>
-                    {Nationality.map((na: any, index: any) => (
+                    {Nationality.map((na: any, index: any) =>
+                      index == 0 ? (
+                        <View key={index}>
+                          <Text
+                            style={[
+                              styles.labelStyle,
+                              {marginTop: index >= 1 ? 10 : 0},
+                            ]}>{`Nationality`}</Text>
+                          <TextInput
+                            placeholder={`Enter your Nationality`}
+                            placeholderTextColor={'#B9B9B9'}
+                            value={
+                              CurrentUserData?.user_data?.nationality[index]
+                                ?.name
+                            }
+                            style={styles.InputStyleWithOutWidth}
+                            onChangeText={e => {
+                              let data = [...Nationality];
+
+                              data[index] = e;
+                              setNationality(data);
+                            }}
+                          />
+                        </View>
+                      ) : null,
+                    )}
+                  </View>
+                </View>
+                <View>
+                  {Nationality.map((na: any, index: any) =>
+                    index !== 0 ? (
                       <View key={index}>
                         <Text
                           style={[
                             styles.labelStyle,
-                            {marginTop: index >= 1 ? 10 : 0},
-                          ]}>{`Nationality ${index + 1}`}</Text>
-                        <TextInput
-                          placeholder={`Enter your Nationality ${index + 1}`}
-                          placeholderTextColor={'#B9B9B9'}
-                          value={
-                            CurrentUserData?.user_data?.nationality[index]?.name
-                          }
-                          style={styles.InputStyleWithOutWidth}
-                          onChangeText={e => {
-                            let data = [...Nationality];
+                           
+                          ]}>{`Nationality`}</Text>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            columnGap: 10,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginBottom:10
+                          }}>
+                          <TextInput
+                            placeholder={`Enter your Nationality`}
+                            placeholderTextColor={'#B9B9B9'}
+                            value={
+                              CurrentUserData?.user_data?.nationality[index]
+                                ?.name
+                            }
+                            style={[
+                              styles.InputStyleWithOutWidth,
+                              {width: '90%'},
+                            ]}
+                            onChangeText={e => {
+                              let data = [...Nationality];
 
-                            data[index] = e;
-                            setNationality(data);
-                          }}
-                        />
+                              data[index] = e;
+                              setNationality(data);
+                            }}
+                          />
 
-                        {index > 0 && (
-                          <TouchableOpacity
-                            onPress={() => removeNationalty(index)}>
-                            <Text>Remove Nationality</Text>
-                          </TouchableOpacity>
-                        )}
+                          {index > 0 && (
+                            <TouchableOpacity
+                              onPress={() => removeNationalty(index)}>
+                              <DELETE width={30} height={30} />
+                            </TouchableOpacity>
+                          )}
+                        </View>
                       </View>
-                    ))}
-                  </View>
+                    ) : null,
+                  )}
                 </View>
+
                 <TouchableOpacity
                   onPress={addNationalty}
                   style={{
@@ -733,7 +839,10 @@ const UpdateInfo = () => {
                       placeholder="Write here.."
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
-                      onChangeText={e => setHeights(e)}
+                      onChangeText={value =>
+                        props?.setFieldValue(`heights`, value)
+                      }
+                      value={props.values.heights}
                     />
                   </View>
                   <View style={{width: '49%'}}>
@@ -742,7 +851,10 @@ const UpdateInfo = () => {
                       placeholder="Write here.."
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
-                      onChangeText={e => setWeight(e)}
+                      onChangeText={value =>
+                        props?.setFieldValue(`weight`, value)
+                      }
+                      value={props.values.weight}
                     />
                   </View>
                 </View>
@@ -787,19 +899,21 @@ const UpdateInfo = () => {
                   text={'Done'}
                   onPress={props.handleSubmit}
                 />
+                {isVisible && (
+                  <DateTimePicker
+                    mode="date"
+                    value={props.values.birthdate}
+                    // display="spinner"
+                    onChange={(event: any, selectedDate: any) => {
+                      props?.setFieldValue(`birthdate`, selectedDate);
+                      setVisible(false);
+                    }}
+                  />
+                )}
               </View>
             )}
           </Formik>
         </View>
-
-        {isVisible && (
-          <DateTimePicker
-            mode="date"
-            value={date}
-            // display="spinner"
-            onChange={handleDateChange}
-          />
-        )}
 
         <BottomModal
           ModalRef={ModalRef}

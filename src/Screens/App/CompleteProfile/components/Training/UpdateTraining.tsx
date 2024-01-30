@@ -98,10 +98,13 @@ const UpdateTraining = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
+        <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
           </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
@@ -376,7 +379,7 @@ const UpdateTraining = () => {
                    
                     <TouchableOpacity
                       onPress={() => openGallery(props, index)}
-                      style={[styles.InputStyleNoWidth, {marginBottom: 10}]}>
+                      style={styles.uploadContainer}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null

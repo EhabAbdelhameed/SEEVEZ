@@ -169,12 +169,12 @@ const styles = StyleSheet.create({
     borderColor: '#1D5EDD',
     borderWidth: 1,
     paddingHorizontal: 15,
-    paddingVertical: 4,
+    paddingVertical: 12,
     borderBottomWidth: 0.5,
     backgroundColor:appColors.bg,
     marginBottom: 10,
     marginTop: 5,
-    height: 54,
+    // height: 54,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     // borderBottomWidth: 0.5,
     marginBottom: 10,
     marginTop: 5,
-    height: 52,
+    height: 50,
   
   },
   placeholderStyle: {

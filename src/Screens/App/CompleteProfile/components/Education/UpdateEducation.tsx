@@ -49,7 +49,7 @@ const UpdateEducation = () => {
 
   const [type, setType] = useState('0');
   const [value, setValue] = useState(null);
-  const [Source, setSource] =  useState<Array<any>>([]);
+  const [Source, setSource] = useState<Array<any>>([]);
   const [loading, setLoading] = React.useState(false);
 
   const dispatch = useAppDispatch();
@@ -83,7 +83,7 @@ const UpdateEducation = () => {
         result[0].name,
         ...Source.slice(index + 1),
       ]);
-     
+
       props?.setFieldValue(`Education[${index}]["degree_certificate"]`, {
         uri: result[0]?.uri,
         type: result[0]?.type,
@@ -116,10 +116,13 @@ const UpdateEducation = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
+          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
           </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
@@ -370,114 +373,114 @@ const UpdateEducation = () => {
                       </View>
                     </View>
                     {Platform.OS == 'ios'
-                          ? isVisible && (
-                              <DateTimePicker
-                                testID="dateTimePicker"
-                                value={
-                                  type === '1' && isDate(startDates[index])
-                                    ? startDates[index]
-                                    : isDate(endDates[index])
-                                    ? endDates[index]
-                                    : new Date() // Provide a default date if the specified date is invalid
-                                }
-                                mode="date"
-                                is24Hour={true}
-                                display="default"
-                                onChange={(event: any, selectedDate: any) => {
-                                  if (selectedDate !== undefined) {
-                                    if (type == '1') {
-                                      if (index == 0) {
-                                        setStartDates([
-                                          ...startDates.slice(0, index),
-                                          selectedDate,
-                                          ...startDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = startDates;
-                                        array.push(selectedDate);
-                                        setStartDates(array);
-                                      }
-                                      props?.setFieldValue(
-                                        `Education[${index}]["start_date"]`,
-                                        Moment(selectedDate).format('yyyy/MM/DD'),
-                                      );
-                                    } else {
-                                      if (index == 0) {
-                                        setEndDates([
-                                          ...endDates.slice(0, index),
-                                          selectedDate,
-                                          ...endDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = endDates;
-                                        array.push(selectedDate);
-                                        setEndDates(array);
-                                      }
-                                      props?.setFieldValue(
-                                        `Education[${index}]["end_date"]`,
-                                        Moment(selectedDate).format('yyyy/MM/DD'),
-                                      );
-                                    }
+                      ? isVisible && (
+                          <DateTimePicker
+                            testID="dateTimePicker"
+                            value={
+                              type === '1' && isDate(startDates[index])
+                                ? startDates[index]
+                                : isDate(endDates[index])
+                                ? endDates[index]
+                                : new Date() // Provide a default date if the specified date is invalid
+                            }
+                            mode="date"
+                            is24Hour={true}
+                            display="default"
+                            onChange={(event: any, selectedDate: any) => {
+                              if (selectedDate !== undefined) {
+                                if (type == '1') {
+                                  if (index == 0) {
+                                    setStartDates([
+                                      ...startDates.slice(0, index),
+                                      selectedDate,
+                                      ...startDates.slice(index + 1),
+                                    ]);
+                                  } else {
+                                    let array = startDates;
+                                    array.push(selectedDate);
+                                    setStartDates(array);
                                   }
-                                  setVisible(false);
-                                }}
-                                style={styles.dateTimePicker} // Customize styles here
-                              />
-                            )
-                          : isVisible && (
-                              <DateTimePicker
-                                mode="date"
-                                value={
-                                  type === '1' && isDate(startDates[index])
-                                    ? startDates[index]
-                                    : isDate(endDates[index])
-                                    ? endDates[index]
-                                    : new Date() // Provide a default date if the specified date is invalid
-                                }
-                                onChange={(event: any, selectedDate: any) => {
-                                  if (selectedDate !== undefined) {
-                                    if (type == '1') {
-                                      if (index == 0) {
-                                        setStartDates([
-                                          ...startDates.slice(0, index),
-                                          selectedDate,
-                                          ...startDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = startDates;
-                                        array.push(selectedDate);
-                                        setStartDates(array);
-                                      }
-                                      props?.setFieldValue(
-                                        `Education[${index}]["start_date"]`,
-                                        Moment(selectedDate).format('yyyy/MM/DD'),
-                                      );
-                                    } else {
-                                      if (index == 0) {
-                                        setEndDates([
-                                          ...endDates.slice(0, index),
-                                          selectedDate,
-                                          ...endDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = endDates;
-                                        array.push(selectedDate);
-                                        setEndDates(array);
-                                      }
-                                      props?.setFieldValue(
-                                        `Education[${index}]["end_date"]`,
-                                        Moment(selectedDate).format('yyyy/MM/DD'),
-                                      );
-                                    }
+                                  props?.setFieldValue(
+                                    `Education[${index}]["start_date"]`,
+                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                  );
+                                } else {
+                                  if (index == 0) {
+                                    setEndDates([
+                                      ...endDates.slice(0, index),
+                                      selectedDate,
+                                      ...endDates.slice(index + 1),
+                                    ]);
+                                  } else {
+                                    let array = endDates;
+                                    array.push(selectedDate);
+                                    setEndDates(array);
                                   }
-                                  setVisible(false);
-                                }}
-                              />
-                            )}
-                   
+                                  props?.setFieldValue(
+                                    `Education[${index}]["end_date"]`,
+                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                  );
+                                }
+                              }
+                              setVisible(false);
+                            }}
+                            style={styles.dateTimePicker} // Customize styles here
+                          />
+                        )
+                      : isVisible && (
+                          <DateTimePicker
+                            mode="date"
+                            value={
+                              type === '1' && isDate(startDates[index])
+                                ? startDates[index]
+                                : isDate(endDates[index])
+                                ? endDates[index]
+                                : new Date() // Provide a default date if the specified date is invalid
+                            }
+                            onChange={(event: any, selectedDate: any) => {
+                              if (selectedDate !== undefined) {
+                                if (type == '1') {
+                                  if (index == 0) {
+                                    setStartDates([
+                                      ...startDates.slice(0, index),
+                                      selectedDate,
+                                      ...startDates.slice(index + 1),
+                                    ]);
+                                  } else {
+                                    let array = startDates;
+                                    array.push(selectedDate);
+                                    setStartDates(array);
+                                  }
+                                  props?.setFieldValue(
+                                    `Education[${index}]["start_date"]`,
+                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                  );
+                                } else {
+                                  if (index == 0) {
+                                    setEndDates([
+                                      ...endDates.slice(0, index),
+                                      selectedDate,
+                                      ...endDates.slice(index + 1),
+                                    ]);
+                                  } else {
+                                    let array = endDates;
+                                    array.push(selectedDate);
+                                    setEndDates(array);
+                                  }
+                                  props?.setFieldValue(
+                                    `Education[${index}]["end_date"]`,
+                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                  );
+                                }
+                              }
+                              setVisible(false);
+                            }}
+                          />
+                        )}
+
                     <TouchableOpacity
                       onPress={() => openGallery(props, index)}
-                      style={[styles.InputStyleNoWidth, {marginBottom: 10}]}>
+                      style={styles.InputStyleNoWidth1}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
