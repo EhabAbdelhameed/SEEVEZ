@@ -5,6 +5,7 @@ import {
   TextInput,
   Alert,
   Image,
+  Platform,
 } from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Moment from 'moment';
@@ -35,6 +36,8 @@ import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import {selectDone} from 'src/redux/app';
 import {selectUser} from 'src/redux/auth';
+import NewPicker from 'components/molecules/PhonePicker';
+import {Input} from 'react-native-elements';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
@@ -73,7 +76,7 @@ const UpdateInfo = () => {
   const [currentSalary, setCurrentSalary] = useState('');
   const [expectedSalary, setExpectedSalary] = useState('');
   // const [Nationality, setNationality] = useState('');
-  const [gender, setGender] = useState('male');
+  const [gender, setGender] = useState('');
   const [heights, setHeights] = useState('');
   const [weight, setWeight] = useState('');
   const [smoker, setSmoker] = useState(false);
@@ -108,6 +111,7 @@ const UpdateInfo = () => {
   const GenderData = ['Male', 'Female', 'Prefer not to say'];
   const HealthProfile = ['Disabilities', 'Special Needs'];
   const Smoker = ['Yes', 'No'];
+  const [code, setCode] = React.useState('');
   const ModalRef = useRef<Modalize>(null);
   const data = {
     title: 'Disabilities',
@@ -246,7 +250,7 @@ const UpdateInfo = () => {
               values.FullName != ''
                 ? formdata.append('name', values.FullName)
                 : null;
-              formdata.append('country_code', '+20');
+              formdata.append('country_code', code == '' ? '+20' : code);
 
               values.JobTitle != ''
                 ? formdata.append('job_title', values.JobTitle)
@@ -288,11 +292,13 @@ const UpdateInfo = () => {
               city != '' ? formdata.append('city', city) : null;
               area != '' ? formdata.append('area', area) : null;
 
-              formdata.append('avatar', {
-                uri: source[0]?.uri,
-                type: source[0]?.type,
-                name: source[0]?.name,
-              });
+              source?.length == 0
+                ? formdata.append('avatar', {
+                    uri: source[0]?.uri,
+                    type: source[0]?.type,
+                    name: source[0]?.name,
+                  })
+                : null;
               console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
                 (res: any) => {
@@ -391,12 +397,37 @@ const UpdateInfo = () => {
                       style={styles.InputStyleWithOutWidth}
                       onChangeText={e => setArea(e)}
                       value={CurrentUserData?.area}
-
                     />
                   </View>
                 </View>
                 <Text style={styles.labelStyle1}>Phone</Text>
-                <InputView {...props} name="phone" placeholder="Your phone" />
+                {/* <InputView {...props} name="phone" placeholder="Your phone" /> */}
+                <Input
+                  {...props}
+                  leftIcon={
+                    <NewPicker index={index} setcode={setCode} props={props} />
+                  }
+                  name={`phone`}
+                  value={CurrentUserData?.phone_number}
+                  inputContainerStyle={{
+                    borderRadius: 16,
+                    borderColor: '#1D5EDD',
+                    borderWidth: 1,
+                    paddingHorizontal: 15,
+                  }}
+                  onChangeText={e => props?.setFieldValue(`phone`, e)}
+                  containerStyle={{
+                    paddingHorizontal: 0,
+                    marginVertical: 1,
+                    height: 60,
+                  }}
+                  inputStyle={{
+                    fontSize: 14,
+                    //  color: 'red'
+                  }}
+                  keyboardType="number-pad"
+                  placeholder={`Enter phone number`}
+                />
                 <Text style={styles.labelStyle1}>External links</Text>
                 <View
                   style={{
@@ -411,7 +442,6 @@ const UpdateInfo = () => {
                     style={styles.InputStyle}
                     onChangeText={e => setFacebook(e)}
                     value={CurrentUserData?.facebook}
-
                   />
                   <TextInput
                     placeholder="Linkedin"
@@ -419,7 +449,6 @@ const UpdateInfo = () => {
                     style={styles.InputStyle}
                     onChangeText={e => setLinkedin(e)}
                     value={CurrentUserData?.linkedin}
-
                   />
                 </View>
                 <View
@@ -435,7 +464,6 @@ const UpdateInfo = () => {
                     placeholderTextColor={'#B9B9B9'}
                     onChangeText={e => setInstagram(e)}
                     value={CurrentUserData?.instagram}
-
                   />
                   <TextInput
                     placeholder="Website"
@@ -443,7 +471,6 @@ const UpdateInfo = () => {
                     style={styles.InputStyle}
                     onChangeText={e => setWebsite(e)}
                     value={CurrentUserData?.website}
-
                   />
                 </View>
                 <View
@@ -459,7 +486,6 @@ const UpdateInfo = () => {
                     style={styles.InputStyle}
                     onChangeText={e => setGithub(e)}
                     value={CurrentUserData?.github}
-
                   />
                   <TextInput
                     placeholder="Others"
@@ -467,7 +493,6 @@ const UpdateInfo = () => {
                     style={styles.InputStyle}
                     onChangeText={e => setOthers(e)}
                     value={CurrentUserData?.other}
-
                   />
                 </View>
 
@@ -486,7 +511,6 @@ const UpdateInfo = () => {
                       style={styles.InputStyleWithOutWidth}
                       onChangeText={e => setCurrentSalary(e)}
                       value={CurrentUserData?.current_salary}
-
                     />
                   </View>
                   <View style={{width: '49%'}}>
@@ -497,7 +521,6 @@ const UpdateInfo = () => {
                       placeholderTextColor={'#B9B9B9'}
                       onChangeText={e => setExpectedSalary(e)}
                       value={CurrentUserData?.expected_salary}
-
                     />
                   </View>
                 </View>
@@ -507,10 +530,25 @@ const UpdateInfo = () => {
                     setIndex(!index), setIsShowSalary(!isShowSalary);
                   }}
                   style={styles.rowAgree}>
-                  <View style={[styles.Circle,{width:15,height:15,borderRadius:15}]}>
-                    <View style={index ? [styles.innerCircle,{width:15,height:15,borderRadius:15}] : null} />
+                  <View
+                    style={[
+                      styles.Circle,
+                      {width: 15, height: 15, borderRadius: 15},
+                    ]}>
+                    <View
+                      style={
+                        index
+                          ? [
+                              styles.innerCircle,
+                              {width: 15, height: 15, borderRadius: 15},
+                            ]
+                          : null
+                      }
+                    />
                   </View>
-                  <Text style={[styles.agree,{fontSize:12}]}>Don’t show my salary</Text>
+                  <Text style={[styles.agree, {fontSize: 12}]}>
+                    Don’t show my salary
+                  </Text>
                 </TouchableOpacity>
                 <Text style={styles.labelStyle}>Gender</Text>
                 <View
@@ -528,6 +566,7 @@ const UpdateInfo = () => {
                       <TouchableOpacity
                         onPress={() => {
                           setButtonIndex(index), setGender(item);
+                          //  console.log("ITEM: ",item)
                         }}
                         style={{
                           flexDirection: 'row',
@@ -574,7 +613,11 @@ const UpdateInfo = () => {
                             fontSize: 16,
                             fontFamily: 'Noto Sans',
                           }}>
-                          {Moment(CurrentUserData?.birthdate==null?date:CurrentUserData?.birthdate).format('DD/MM/yyyy')}
+                          {Moment(
+                            CurrentUserData?.birthdate == null
+                              ? date
+                              : CurrentUserData?.birthdate,
+                          ).format('DD/MM/yyyy')}
                         </Text>
                         <CALANDER />
                       </View>
@@ -591,7 +634,9 @@ const UpdateInfo = () => {
                         <TextInput
                           placeholder={`Enter your Nationality ${index + 1}`}
                           placeholderTextColor={'#B9B9B9'}
-                          value={CurrentUserData?.user_data?.nationality[index]?.name}
+                          value={
+                            CurrentUserData?.user_data?.nationality[index]?.name
+                          }
                           style={styles.InputStyleWithOutWidth}
                           onChangeText={e => {
                             let data = [...Nationality];
@@ -599,7 +644,6 @@ const UpdateInfo = () => {
                             data[index] = e;
                             setNationality(data);
                           }}
-                          
                         />
 
                         {index > 0 && (
@@ -747,14 +791,16 @@ const UpdateInfo = () => {
             )}
           </Formik>
         </View>
+
         {isVisible && (
           <DateTimePicker
             mode="date"
             value={date}
-            display="spinner"
+            // display="spinner"
             onChange={handleDateChange}
           />
         )}
+
         <BottomModal
           ModalRef={ModalRef}
           data={buttonIndexHealth == 0 ? data : data1}

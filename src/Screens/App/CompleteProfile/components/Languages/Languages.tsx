@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const LanguagesCard = (data: any) => {
   const navigation = useNavigation<any>();
-
+  console.log('From Languages', data);
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
@@ -31,23 +31,32 @@ const LanguagesCard = (data: any) => {
           style={{
             marginTop: 2,
             marginBottom: 0,
-            alignItems: 'center',
+            // alignItems: 'center',
             justifyContent: 'space-between',
           }}>
           {data?.data?.map((item: any) => (
             <View
               style={{
                 flexDirection: 'row',
-                columnGap: 50,
-                justifyContent: 'center',
+                // columnGap: 50,      
+                justifyContent: 'space-between',
                 alignItems: 'center',
+                marginBottom:10
               }}>
               <View>
                 <Text style={styles.Head}>{item.name}</Text>
-                <Text style={styles.Des}>Native or bilingual proficiency</Text>
+                <Text style={styles.Des}>
+                  {item.rate == 5
+                    ? 'Native or bilingual proficiency'
+                    : item.rate == 3
+                    ? 'Advanced'
+                    : item.rate == 2
+                    ? 'Intermediate'
+                    : 'Beginner'}
+                </Text>
               </View>
               <View style={styles.Row2}>
-                <Text style={styles.RatingText}>Rate</Text>
+              <Text style={styles.RatingText}>{item?.rate}/5</Text>
                 <Star />
               </View>
             </View>

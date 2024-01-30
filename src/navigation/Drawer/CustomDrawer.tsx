@@ -64,7 +64,7 @@ const CustomSidebarMenu = (props: any) => {
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
-            marginTop:Platform.OS=='ios'? 30:50,
+            marginTop:Platform.OS=='ios'? 20:50,
           }}>
           {USER?.avatar == null ? (
             <View

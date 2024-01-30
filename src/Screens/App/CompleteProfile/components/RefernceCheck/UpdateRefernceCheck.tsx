@@ -172,9 +172,13 @@ const UpdateRefernceCheck = () => {
                         marginVertical: 1,
                         height: 60,
                       }}
+                      inputStyle={{
+                        fontSize: 14,
+                        //  color: 'red'
+                      }}
                       keyboardType='number-pad'
                    
-                      placeholder={`Enter phone number ${index + 1}`}
+                      placeholder={`Enter phone number`}
                     />
                     {/* {index > 0 && (
                       <TouchableOpacity

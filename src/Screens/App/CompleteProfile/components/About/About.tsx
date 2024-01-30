@@ -57,11 +57,20 @@ const AboutCard = (About: any) => {
             height: 100,
             paddingHorizontal: 20,
             paddingVertical: 10,
-            borderRadius:16
+            borderRadius: 16,
           }}>
-          <Text numberOfLines={4} style={{color: '#B9B9B9',fontFamily: 'Noto Sans'}}>{About?.About?.about==null?"Bio":About?.About?.about}</Text>
+          {About?.About?.about == null ? (
+            <Text
+              numberOfLines={4}
+              style={{color: '#B9B9B9', fontFamily: 'Noto Sans'}}>
+              Bio
+            </Text>
+          ) : (
+            <Text style={{fontWeight: '400', color: appColors.black}}>
+              {About?.About?.about}
+            </Text>
+          )}
         </View>
-       
       </View>
     </View>
   );
@@ -95,18 +104,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   Des: {
     fontWeight: '400',
     color: appColors.black,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   EditDes: {
     fontWeight: '400',
     color: appColors.black,
     textAlignVertical: 'top',
     marginBottom: 10,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
 });

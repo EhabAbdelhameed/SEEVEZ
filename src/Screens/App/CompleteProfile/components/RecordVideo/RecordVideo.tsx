@@ -47,7 +47,7 @@ const RecordVideo = (data: any) => {
           <Video
           
             resizeMode="cover"  
-            paused={isPaused}
+            // paused={isPaused}
             source={{ uri: data?.user_data?.media }}
             style={styles.videoContainer}
             onLoad={handleVideoLoad}

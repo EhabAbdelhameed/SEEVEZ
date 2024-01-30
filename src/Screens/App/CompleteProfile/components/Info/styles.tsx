@@ -207,6 +207,9 @@ const styles = StyleSheet.create({
     // borderBottomWidth: 0.5,
     height: 50,
   },
+  dateTimePicker: {
+    backgroundColor: 'white', // Customize background color
+  },
   labelStyle1: {
     fontSize: 18,
     fontWeight: '500',

@@ -60,7 +60,7 @@ const AchievementsCard = (data: any) => {
               paddingVertical: 10,
               borderRadius: 16,
             }}>
-            <Text style={styles.Des}>{data?.data?.text}</Text>
+            <Text numberOfLines={4} style={styles.Des}>{data?.data?.text}</Text>
           </View>
         )}
       </View>

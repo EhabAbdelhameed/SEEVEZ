@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, Platform} from 'react-native';
 import React from 'react';
 import {RNModal} from '../../../../../ui';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
@@ -59,7 +59,7 @@ const BottomModal = ({
           placeholderTextColor={'#B9B9B9'}
           onChangeText={e => {setData(e)}}
           onEndEditing={()=>setmodalHeight('')}
-        onFocus={()=>setmodalHeight(appSizes.height * 0.6)}  
+           onFocus={()=>setmodalHeight(Platform.OS=='ios'?appSizes.height * 0.9:appSizes.height * 0.6)}  
         
           style={[
             styles.InputStyleWithOutWidth,

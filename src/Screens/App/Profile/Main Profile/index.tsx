@@ -56,7 +56,7 @@ const ProfileScreen = () => {
             data={CurrentUserData?.user_data?.interests}
           />
           <LanguagesCard data={CurrentUserData?.user_data?.languages} />
-          <AchievementsCard />
+          <AchievementsCard data={CurrentUserData?.user_data?.achievement} />
           <RecommendationsCard />
           <View style={{height: 20}} />
         </View>

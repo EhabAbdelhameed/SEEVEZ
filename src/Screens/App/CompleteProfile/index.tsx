@@ -24,39 +24,32 @@ import AppSlice from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
-
+import LoadingAnimation from '../../../assets/images/Loading.json'
 const CompleteProfileScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // console.log(CurrentUserData)
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
-      dispatch(AppThunks.GetProfileInfo());
+      dispatch(AppThunks.GetProfileInfo()).then(
+        (res: any) => {
+            setIsLoading(false);
+        },
+      );;
       dispatch(AppSlice.changeDone(false));
     });
     return RenderFunction;
   }, [navigation]);
-
-  const data = [
-    'Ux design',
-    'Research',
-    'Figma',
-    'XD',
-    'Web',
-    'User flow',
-    'Ui design',
-  ];
-  const data2 = ['Creative/Design/Art', 'Human ', 'IT/Software Development'];
   return (
     <SafeAreaView edges={['top']} style={styles.Container}>
       <Header Title="My profile" onPress={() => navigation.goBack()} />
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <LottieView
-            source={''}
+            source={LoadingAnimation}
             autoPlay
             loop
             style={styles.loadingAnimation}

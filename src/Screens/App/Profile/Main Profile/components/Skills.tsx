@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 const SkillsCard = ({title, data}: {title?: any; data?: any}) => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
+  console.log("data?.data?.length",data?.length)
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
@@ -54,14 +55,14 @@ const SkillsCard = ({title, data}: {title?: any; data?: any}) => {
           </View>
         )}
       </View>
-
+              
       <View style={styles.devider} />
       <TouchableOpacity
         disabled={
-          data?.data?.length == 0 ||
-          data?.data?.length == 1 ||
-          data?.data?.length == 2
-            ? true
+          data?.length == 0 ||
+          data?.length == 1 ||
+          data?.length == 2
+             ? true
             : false
         }
         onPress={() => setSeeAllExperiences(!seeAllExperiences)}>

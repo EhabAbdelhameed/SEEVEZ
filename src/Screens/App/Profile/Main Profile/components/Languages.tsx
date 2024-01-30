@@ -36,8 +36,13 @@ const LanguagesCard = (data: any) => {
                   <View>
                     <Text style={styles.Head}>{item?.name}</Text>
                     <Text style={styles.Des}>
-
-                      Native or bilingual proficiency
+                    {item.rate == 5
+                    ? 'Native or bilingual proficiency'
+                    : item.rate == 3
+                    ? 'Advanced'
+                    : item.rate == 2
+                    ? 'Intermediate'
+                    : 'Beginner'}
                     </Text>
                   </View>
                   <View style={styles.Row2}>
@@ -122,7 +127,7 @@ const styles = StyleSheet.create({
   },
   RatingText: {
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: '700',
     color: appColors.black,
     marginRight: 3,
   },

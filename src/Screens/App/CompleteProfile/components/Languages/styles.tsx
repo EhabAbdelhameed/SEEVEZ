@@ -98,6 +98,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  questionText:{
+    color: appColors.dark,
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'left',
+    marginTop: 10,
+    alignSelf:"flex-start",
+    fontFamily:'Noto Sans'
+  },
+  rowAnswer:{
+    flexDirection:"row",
+    // justifyContent:"",
+    paddingHorizontal:appSizes.padding_m,
+    width:"100%",
+    marginTop: 10,
+    alignItems:"center",
+    columnGap:15
+  },
   skipText: {
     color: appColors.white,
     fontSize: 18,
