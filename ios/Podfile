@@ -53,6 +53,6 @@ target 'seveezapp' do
       installer,
       config[:reactNativePath],
       :mac_catalyst_enabled => false
-    )
-  end
+   )
+end
 end
