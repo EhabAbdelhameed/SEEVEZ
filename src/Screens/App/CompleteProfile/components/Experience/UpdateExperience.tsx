@@ -31,6 +31,7 @@ import Moment from 'moment';
 import {Dropdown} from 'react-native-element-dropdown';
 import Header from './Header';
 import {useSelector} from 'react-redux';
+import ReactNativeModal from 'react-native-modal';
 import {
   selectCompanies,
   selectDone,
@@ -142,12 +143,12 @@ const UpdateExperience = () => {
     console.log('Selected Item:', selectedItem);
     setSelectedItem(selectedItem);
     setKey('selected');
-    // setSelectedCompanyNames((prevNames:any) => {
-    //   const updatedNames = [...prevNames];
-    //   updatedNames[index] = selectedItem.name||'';
-    //   return updatedNames;
-    // });
-    setSelectedCompanyName(selectedItem.name);
+    setSelectedCompanyNames((prevNames:any) => {
+      const updatedNames = [...prevNames];
+      updatedNames[index] = selectedItem.name||'';
+      return updatedNames;
+    });
+    // setSelectedCompanyName(selectedItem.name);
     props?.setFieldValue(`Experince[${index}]["company_id"]`, selectedItem?.id);
     // You may want to close the dropdown or clear the search query here.
     setSearchQuery('');
@@ -578,18 +579,26 @@ const UpdateExperience = () => {
                         </TouchableOpacity>
                         {Platform.OS == 'ios'
                           ? isVisible && (
+                            <ReactNativeModal isVisible={isVisible}>
+                            <View style={{
+                              width: '100%',
+                              paddingVertical: 20,
+                              borderRadius: 10,
+                              backgroundColor: '#fff',
+                              alignItems: 'center'
+                            }}>
                               <DateTimePicker
                                 testID="dateTimePicker"
                                 value={
                                   type === '1' && isDate(startDates[index])
                                     ? startDates[index]
                                     : isDate(endDates[index])
-                                    ? endDates[index]
-                                    : new Date() // Provide a default date if the specified date is invalid
+                                      ? endDates[index]
+                                      : new Date() // Provide a default date if the specified date is invalid
                                 }
                                 mode="date"
                                 is24Hour={true}
-                                display="default"
+                                display="spinner"
                                 onChange={(event: any, selectedDate: any) => {
                                   if (selectedDate !== undefined) {
                                     if (type == '1') {
@@ -630,10 +639,14 @@ const UpdateExperience = () => {
                                       );
                                     }
                                   }
-                                  setVisible(false);
+                                  // setVisible(false);
                                 }}
-                                style={styles.dateTimePicker} // Customize styles here
+                              // style={styles.dateTimePicker} // Customize styles here
                               />
+                              <Button text='Choose' onPress={() => setVisible(false)} style={{width:'90%',marginTop:20}} />
+                            </View>
+
+                          </ReactNativeModal>
                             )
                           : isVisible && (
                               <DateTimePicker

@@ -69,11 +69,11 @@ const SaveVideo = () => {
     } else {
       setLoading(true);
       const formdata = new FormData();
-
+      //  console.log(source)
       formdata.append('media', {
-        uri: source[0]?.uri,
-        type: source[0]?.type,
-        name: source[0]?.name,
+        uri: source?.assets[0]?.uri,
+        type: source?.assets[0]?.type,
+        name: source?.assets[0]?.fileName,
       });
       console.log('2222', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {

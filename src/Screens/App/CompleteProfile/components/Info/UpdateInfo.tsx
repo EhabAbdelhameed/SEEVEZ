@@ -39,6 +39,7 @@ import {selectUser} from 'src/redux/auth';
 import NewPicker from 'components/molecules/PhonePicker';
 import {Input} from 'react-native-elements';
 import { RenderSvgIcon } from 'components/atoms/svg';
+import { launchImageLibrary } from 'react-native-image-picker';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
@@ -111,6 +112,15 @@ const UpdateInfo = () => {
       }
     }
   };
+  const pick = () => {
+    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res:any) =>{
+      setSource(res)
+      console.log("sdasdas "+JSON.stringify(res))
+    }
+      
+    );
+  };
+
   // useEffect(() => {
   //   changeDone ? navigation.goBack() : null;
   // }, [changeDone]);
@@ -201,7 +211,7 @@ const UpdateInfo = () => {
             </View>
           </View>
           <TouchableOpacity
-            onPress={UploadImageProfile}
+            onPress={Platform.OS=="ios"?pick:UploadImageProfile}
             style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -301,7 +311,7 @@ const UpdateInfo = () => {
                 ? formdata.append('expected_salary', values.expectedSalary)
                 : null;
               formdata.append('show_salary', isShowSalary == false ? 0 : 1);
-              gender != '' ? formdata.append('gender', gender.toLocaleLowerCase) : null;
+              gender != '' ? formdata.append('gender', gender.toLocaleLowerCase()) : null;
               formdata.append('birthdate', Moment(date).format('yyyy/MM/DD'));
 
               disabilityData != ''

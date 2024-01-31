@@ -25,6 +25,7 @@ import {
   import {useNavigation} from '@react-navigation/native';
 import DocumentPicker from 'react-native-document-picker';
 import {appColors} from 'theme';
+import { launchImageLibrary } from 'react-native-image-picker';
   
   const UpdateRecordVideo = () => {
     const navigation = useNavigation<any>();
@@ -69,6 +70,23 @@ import {appColors} from 'theme';
             console.error('DocumentPicker Error:', err);
           }
         }
+      };
+      const pick = () => {
+        launchImageLibrary({ quality: 0.5, mediaType: 'video' }).then((res:any) =>{
+          setSourceVideo(res?.assets);
+          setVideoPath(res?.assets[0].uri)
+          setTimeout(() => {
+            navigation.navigate("SaveVideo",{
+                videoPath:res?.assets[0].uri,
+                source:res,
+                key:2
+            })
+         }, 1000);
+          // setSource(res)
+          // console.log("sdasdas "+JSON.stringify(res?.assets[0].uri))
+        }
+          
+        );
       };
       const startRecording = async () => {
         setVideoPath('');
@@ -209,7 +227,7 @@ import {appColors} from 'theme';
           </Pressable> */}
         </View>
         <View style={styles.bottomContainer}>
-          <ImagePicker onPress={UploadVideoProfile}/>
+          <ImagePicker onPress={pick}/>
           <TouchableOpacity
             onPress={() => {
               isRecording ? stopRecording() : startRecording();

@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const LanguagesCard = (data: any) => {
   const navigation = useNavigation<any>();
-  console.log('From Languages', data);
+
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
