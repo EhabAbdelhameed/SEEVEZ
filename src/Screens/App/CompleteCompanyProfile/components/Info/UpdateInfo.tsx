@@ -178,11 +178,12 @@ const UpdateCompanyInfo = () => {
                   <CompanyLogo />
                 ) : (
                   <Image
-                    source={{uri: source[0].uri}}
+                    source={{uri: source[0]?.uri}}
                     style={{width: 86, height: 86, borderRadius: 86}}
                     resizeMode="cover"
                   />
                 )}
+                {console.log(source)}
                 <View
                   style={{
                     justifyContent: 'center',

@@ -7,39 +7,39 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Moment from 'moment';
 import styles from './styles';
 
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../../../Components/molecules/AuthTopSection';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {appColors} from '../../../../../theme/appColors';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { appColors } from '../../../../../theme/appColors';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
 
-import {BigLogo, CALANDER, PHOTO, PERSON, ImageInfo, DELETE} from 'assets/Svgs';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {StatusBar} from 'react-native';
-import {Formik} from 'formik';
+import { BigLogo, CALANDER, PHOTO, PERSON, ImageInfo, DELETE } from 'assets/Svgs';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'react-native';
+import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
-import {appSizes} from 'theme/appSizes';
+import { appSizes } from 'theme/appSizes';
 import DatePicker from 'react-native-date-picker';
-import Modal, {ReactNativeModal} from 'react-native-modal';
+import Modal, { ReactNativeModal } from 'react-native-modal';
 import DocumentPicker from 'react-native-document-picker';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import BottomModal from './BottomModal';
-import {Modalize} from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize';
 import AppThunks from 'src/redux/app/thunks';
-import {useAppDispatch} from 'src/redux/store';
-import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
-import {selectUser} from 'src/redux/auth';
+import { useAppDispatch } from 'src/redux/store';
+import { useSelector } from 'react-redux';
+import { selectDone } from 'src/redux/app';
+import { selectUser } from 'src/redux/auth';
 import NewPicker from 'components/molecules/PhonePicker';
-import {Input} from 'react-native-elements';
-import {RenderSvgIcon} from 'components/atoms/svg';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { Input } from 'react-native-elements';
+import { RenderSvgIcon } from 'components/atoms/svg';
+import { launchImageLibrary } from 'react-native-image-picker';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
@@ -53,10 +53,10 @@ const UpdateInfo = () => {
     CurrentUserData?.gender == 'male'
       ? 0
       : CurrentUserData?.gender == 'female'
-      ? 1
-      : CurrentUserData?.gender == null
-      ? 3
-      : 2,
+        ? 1
+        : CurrentUserData?.gender == null
+          ? 3
+          : 2,
   );
   const [buttonIndexHealth, setButtonIndexHealth] = React.useState(2);
   const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(2);
@@ -66,7 +66,7 @@ const UpdateInfo = () => {
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
- 
+
   const [disabilityData, setDisabilityData] = useState('');
   const [specialNeedsData, setSpecialNeedsData] = useState('');
   const [city, setCity] = useState('');
@@ -107,8 +107,8 @@ const UpdateInfo = () => {
     }
   };
   const pick = () => {
-    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
-      setSource(res);
+    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res: any) => {
+      setSource(res?.assets);
       // console.log("sdasdas "+JSON.stringify(res))
     });
   };
@@ -172,7 +172,7 @@ const UpdateInfo = () => {
            */}
           <Image
             source={require('../../../../../assets/images/seevezlogo.png')}
-            style={{width: 100, height: 30}}
+            style={{ width: 100, height: 30 }}
           />
         </View>
         <View style={styles.circles}>
@@ -184,10 +184,10 @@ const UpdateInfo = () => {
           </View>
           <View style={styles.loginTextContainer}>
             <View>
-              <View style={{width: 32}} />
+              <View style={{ width: 32 }} />
               {/* <RenderSvgIcon icon="ICON2CV" width={32} height={49} /> */}
             </View>
-            <View style={[{alignItems: 'center'}]}>
+            <View style={[{ alignItems: 'center' }]}>
               <Text style={styles.loginText}>Complete Profile</Text>
               <Text style={styles.loginTextSub}>
                 Finish setting up your profile to get noticed by recruiters
@@ -226,11 +226,11 @@ const UpdateInfo = () => {
                 <Image
                   source={{
                     uri:
-                      source.length != 0
-                        ? source[0].uri
+                      source ?
+                        source[0]?.uri
                         : CurrentUserData?.avatar,
                   }}
-                  style={{width: 86, height: 86, borderRadius: 86}}
+                  style={{ width: 86, height: 86, borderRadius: 86 }}
                   resizeMode="cover"
                 />
               )}
@@ -353,10 +353,10 @@ const UpdateInfo = () => {
               console.log('SOURCE ', source?.length);
               source?.length != 0
                 ? formdata.append('avatar', {
-                    uri: source[0]?.uri,
-                    type: source[0]?.type,
-                    name: source[0]?.name,
-                  })
+                  uri: source[0]?.uri,
+                  type: source[0]?.type,
+                  name: source[0]?.name,
+                })
                 : null;
               console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
@@ -430,7 +430,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <TextInput
                       placeholder="Your city"
                       placeholderTextColor={'#B9B9B9'}
@@ -441,7 +441,7 @@ const UpdateInfo = () => {
                       value={props.values.city}
                     />
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <TextInput
                       placeholder="Your area"
                       placeholderTextColor={'#B9B9B9'}
@@ -564,7 +564,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Current salary</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -576,7 +576,7 @@ const UpdateInfo = () => {
                       value={props.values.currentSalary}
                     />
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Expected Salary</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -599,20 +599,20 @@ const UpdateInfo = () => {
                   <View
                     style={[
                       styles.Circle,
-                      {width: 15, height: 15, borderRadius: 15},
+                      { width: 15, height: 15, borderRadius: 15 },
                     ]}>
                     <View
                       style={
                         index
                           ? [
-                              styles.innerCircle,
-                              {width: 15, height: 15, borderRadius: 15},
-                            ]
+                            styles.innerCircle,
+                            { width: 15, height: 15, borderRadius: 15 },
+                          ]
                           : null
                       }
                     />
                   </View>
-                  <Text style={[styles.agree, {fontSize: 12}]}>
+                  <Text style={[styles.agree, { fontSize: 12 }]}>
                     Don’t show my salary
                   </Text>
                 </TouchableOpacity>
@@ -665,7 +665,7 @@ const UpdateInfo = () => {
                     marginBottom: 20,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Birthdate</Text>
                     <TouchableOpacity
                       onPress={() => {
@@ -685,14 +685,14 @@ const UpdateInfo = () => {
                       </View>
                     </TouchableOpacity>
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     {Nationality.map((na: any, index: any) =>
                       index == 0 ? (
                         <View key={index}>
                           <Text
                             style={[
                               styles.labelStyle,
-                              {marginTop: index >= 1 ? 10 : 0},
+                              { marginTop: index >= 1 ? 10 : 0 },
                             ]}>{`Nationality`}</Text>
                           <TextInput
                             placeholder={`Enter your Nationality`}
@@ -736,7 +736,7 @@ const UpdateInfo = () => {
                             }
                             style={[
                               styles.InputStyleWithOutWidth,
-                              {width: '90%'},
+                              { width: '90%' },
                             ]}
                             onChangeText={e => {
                               let data = [...Nationality];
@@ -782,7 +782,7 @@ const UpdateInfo = () => {
                     />
                   </View>
                   <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <Text
                       style={{
                         fontSize: 20,
@@ -818,7 +818,7 @@ const UpdateInfo = () => {
                         ) : null}
                       </View>
 
-                      <Text style={{color: '#000', marginLeft: 5}}>{item}</Text>
+                      <Text style={{ color: '#000', marginLeft: 5 }}>{item}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -829,7 +829,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Height</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -841,7 +841,7 @@ const UpdateInfo = () => {
                       value={props.values.heights}
                     />
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Weight</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -897,47 +897,47 @@ const UpdateInfo = () => {
                 />
                 {Platform.OS == 'ios'
                   ? isVisible && (
-                      <ReactNativeModal isVisible={isVisible}>
-                        <View
-                          style={{
-                            width: '100%',
-                            paddingVertical: 20,
-                            borderRadius: 10,
-                            backgroundColor: '#fff',
-                            alignItems: 'center',
-                          }}>
-                          <DateTimePicker
-                            testID="dateTimePicker"
-                            value={date}
-                            mode="date"
-                            is24Hour={true}
-                            display="spinner"
-                            onChange={(event: any, selectedDate: any) => {
-                              // props?.setFieldValue(`birthdate`, selectedDate);
-                              setDate(selectedDate);
-                              // setVisible(false);
-                            }}
-                          />
-                          <Button
-                            text="Choose"
-                            onPress={() => setVisible(false)}
-                            style={{width: '90%', marginTop: 20}}
-                          />
-                        </View>
-                      </ReactNativeModal>
-                    )
+                    <ReactNativeModal isVisible={isVisible}>
+                      <View
+                        style={{
+                          width: '100%',
+                          paddingVertical: 20,
+                          borderRadius: 10,
+                          backgroundColor: '#fff',
+                          alignItems: 'center',
+                        }}>
+                        <DateTimePicker
+                          testID="dateTimePicker"
+                          value={date}
+                          mode="date"
+                          is24Hour={true}
+                          display="spinner"
+                          onChange={(event: any, selectedDate: any) => {
+                            // props?.setFieldValue(`birthdate`, selectedDate);
+                            setDate(selectedDate);
+                            // setVisible(false);
+                          }}
+                        />
+                        <Button
+                          text="Choose"
+                          onPress={() => setVisible(false)}
+                          style={{ width: '90%', marginTop: 20 }}
+                        />
+                      </View>
+                    </ReactNativeModal>
+                  )
                   : isVisible && (
-                      <DateTimePicker
-                        mode="date"
-                        value={date}
-                        // display="spinner"
-                        onChange={(event: any, selectedDate: any) => {
-                          // props?.setFieldValue(`birthdate`, selectedDate);
-                          setDate(selectedDate);
-                          setVisible(false);
-                        }}
-                      />
-                    )}
+                    <DateTimePicker
+                      mode="date"
+                      value={date}
+                      // display="spinner"
+                      onChange={(event: any, selectedDate: any) => {
+                        // props?.setFieldValue(`birthdate`, selectedDate);
+                        setDate(selectedDate);
+                        setVisible(false);
+                      }}
+                    />
+                  )}
               </View>
             )}
           </Formik>
