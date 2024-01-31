@@ -1,17 +1,18 @@
-import {StyleSheet} from 'react-native';
-import {appColors} from '../../../../../theme/appColors';
-import {appSizes} from '../../../../../theme/appSizes';
+import { StyleSheet } from 'react-native';
+import { appColors } from '../../../../../theme/appColors';
+import { appSizes } from '../../../../../theme/appSizes';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: '100%',
     backgroundColor: appColors.white,
   },
   logoContainer: {
     flexBasis: 'auto',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
     // alignItems: '',
     marginVertical: appSizes.x,
     marginBottom: appSizes.height * 0.07,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
   Circle: {
     width: 20,
     height: 20,
-    borderRadius: 20 ,
+    borderRadius: 20,
     backgroundColor: appColors.secondary,
     borderWidth: 1,
     borderColor: appColors.primary,
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontFamily: 'Noto Sans',
   },
-  dateStyle:{
+  dateStyle: {
     borderRadius: 16,
     borderColor: '#1D5EDD',
     borderWidth: 1,
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     marginTop: 10,
-    fontFamily:'Noto Sans'  
+    fontFamily: 'Noto Sans'
   },
   rectangleText1: {
     color: appColors.primary,
@@ -244,29 +245,32 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     marginTop: -7,
-    fontFamily:'Noto Sans',
-    marginBottom:10
+    fontFamily: 'Noto Sans',
+    marginBottom: 10
   },
   ModalHeaderContanier: {
     width: '100%',
     alignItems: "center",
     paddingHorizontal: appSizes.padding_m,
-    
+
   },
   ModalContanier: {
     width: '100%',
+    paddingVertical: 20,
+    backgroundColor: '#ffff',
     // alignItems: "center",
     paddingHorizontal: appSizes.padding_m,
-    marginTop: 2
+    marginTop: 2,
+    borderRadius: 15
   },
-  questionText:{
+  questionText: {
     color: appColors.dark,
     fontSize: 16,
     fontWeight: '400',
     textAlign: 'left',
     marginTop: 10,
-    alignSelf:"flex-start",
-    fontFamily:'Noto Sans'
+    alignSelf: "flex-start",
+    fontFamily: 'Noto Sans'
   },
 });
 

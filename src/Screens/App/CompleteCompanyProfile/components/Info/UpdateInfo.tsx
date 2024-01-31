@@ -183,7 +183,6 @@ const UpdateCompanyInfo = () => {
                     resizeMode="cover"
                   />
                 )}
-                {console.log(source)}
                 <View
                   style={{
                     justifyContent: 'center',

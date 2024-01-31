@@ -6,6 +6,7 @@ import {
   Alert,
   Image,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Moment from 'moment';
@@ -150,15 +151,19 @@ const UpdateInfo = () => {
   }, []);
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
+
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
-      <KeyboardAwareScrollView
-        contentContainerStyle={{
-          backgroundColor: appColors.bg,
-        }}
-        enableOnAndroid={true}
-        keyboardShouldPersistTaps={'handled'}
-        enableResetScrollToCoords={false}
-        showsVerticalScrollIndicator={false}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1, paddingBottom: Platform.OS == 'ios' ? 0 : 20 }}>
+        <BottomModal
+          visable={true}
+          setVisable={{}}
+          data={buttonIndexHealth == 0 ? data : data1}
+          setData={
+            buttonIndexHealth == 0 ? setDisabilityData : setSpecialNeedsData
+          }
+        />
         <View style={styles.logoContainer}>
           <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
             <RenderSvgIcon
@@ -943,14 +948,8 @@ const UpdateInfo = () => {
           </Formik>
         </View>
 
-        <BottomModal
-          ModalRef={ModalRef}
-          data={buttonIndexHealth == 0 ? data : data1}
-          setData={
-            buttonIndexHealth == 0 ? setDisabilityData : setSpecialNeedsData
-          }
-        />
-      </KeyboardAwareScrollView>
+
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
