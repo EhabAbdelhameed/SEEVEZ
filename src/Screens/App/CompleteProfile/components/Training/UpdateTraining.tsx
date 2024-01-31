@@ -25,7 +25,7 @@ import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
 import DatePicker from 'react-native-date-picker';
 import DocumentPicker from 'react-native-document-picker';
-import Modal from 'react-native-modal';
+import Modal, {ReactNativeModal} from 'react-native-modal';
 import {isDate} from 'lodash';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AppThunks from 'src/redux/app/thunks';
@@ -98,7 +98,7 @@ const UpdateTraining = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-        <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
             <RenderSvgIcon
               icon="ARROWBACK"
               width={30}
@@ -319,9 +319,19 @@ const UpdateTraining = () => {
                         </TouchableOpacity>
                       </View>
                     </View>
-                    {isVisible && (
+                    {Platform.OS == 'ios'
+                      ? isVisible && (
+                          <ReactNativeModal isVisible={isVisible}>
+                            <View
+                              style={{
+                                width: '100%',
+                                paddingVertical: 20,
+                                borderRadius: 10,
+                                backgroundColor: '#fff',
+                                alignItems: 'center',
+                              }}>
                               <DateTimePicker
-                                mode="date"
+                                testID="dateTimePicker"
                                 value={
                                   type === '1' && isDate(startDates[index])
                                     ? startDates[index]
@@ -329,13 +339,12 @@ const UpdateTraining = () => {
                                     ? endDates[index]
                                     : new Date() // Provide a default date if the specified date is invalid
                                 }
+                                mode="date"
+                                is24Hour={true}
+                                display="spinner"
                                 onChange={(event: any, selectedDate: any) => {
-                                  console.log(selectedDate);
                                   if (selectedDate !== undefined) {
-                                    console.log('Index: ', index);
                                     if (type == '1') {
-                                      // updatedStartDates[index] = selectedDate;
-                                      // setStartDates(updatedStartDates);
                                       if (index == 0) {
                                         setStartDates([
                                           ...startDates.slice(0, index),
@@ -347,10 +356,11 @@ const UpdateTraining = () => {
                                         array.push(selectedDate);
                                         setStartDates(array);
                                       }
-        
                                       props?.setFieldValue(
                                         `TrainingCourse[${index}]["start_date"]`,
-                                        Moment(selectedDate).format('yyyy/MM/DD'),
+                                        Moment(selectedDate).format(
+                                          'yyyy/MM/DD',
+                                        ),
                                       );
                                     } else {
                                       if (index == 0) {
@@ -364,19 +374,84 @@ const UpdateTraining = () => {
                                         array.push(selectedDate);
                                         setEndDates(array);
                                       }
-        
                                       props?.setFieldValue(
                                         `TrainingCourse[${index}]["end_date"]`,
-                                        Moment(selectedDate).format('yyyy/MM/DD'),
+                                        Moment(selectedDate).format(
+                                          'yyyy/MM/DD',
+                                        ),
                                       );
                                     }
                                   }
-                                  console.log(startDates);
-                                  setVisible(false);
+                                  // setVisible(false);
                                 }}
+                                // style={styles.dateTimePicker} // Customize styles here
                               />
-                            )}
-                   
+                              <Button
+                                text="Choose"
+                                onPress={() => setVisible(false)}
+                                style={{width: '90%', marginTop: 20}}
+                              />
+                            </View>
+                          </ReactNativeModal>
+                        )
+                      : isVisible && (
+                          <DateTimePicker
+                            mode="date"
+                            value={
+                              type === '1' && isDate(startDates[index])
+                                ? startDates[index]
+                                : isDate(endDates[index])
+                                ? endDates[index]
+                                : new Date() // Provide a default date if the specified date is invalid
+                            }
+                            onChange={(event: any, selectedDate: any) => {
+                              console.log(selectedDate);
+                              if (selectedDate !== undefined) {
+                                console.log('Index: ', index);
+                                if (type == '1') {
+                                  // updatedStartDates[index] = selectedDate;
+                                  // setStartDates(updatedStartDates);
+                                  if (index == 0) {
+                                    setStartDates([
+                                      ...startDates.slice(0, index),
+                                      selectedDate,
+                                      ...startDates.slice(index + 1),
+                                    ]);
+                                  } else {
+                                    let array = startDates;
+                                    array.push(selectedDate);
+                                    setStartDates(array);
+                                  }
+
+                                  props?.setFieldValue(
+                                    `TrainingCourse[${index}]["start_date"]`,
+                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                  );
+                                } else {
+                                  if (index == 0) {
+                                    setEndDates([
+                                      ...endDates.slice(0, index),
+                                      selectedDate,
+                                      ...endDates.slice(index + 1),
+                                    ]);
+                                  } else {
+                                    let array = endDates;
+                                    array.push(selectedDate);
+                                    setEndDates(array);
+                                  }
+
+                                  props?.setFieldValue(
+                                    `TrainingCourse[${index}]["end_date"]`,
+                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                  );
+                                }
+                              }
+                              console.log(startDates);
+                              setVisible(false);
+                            }}
+                          />
+                        )}
+
                     <TouchableOpacity
                       onPress={() => openGallery(props, index)}
                       style={styles.uploadContainer}>

@@ -25,7 +25,7 @@ import {Formik} from 'formik';
 import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
 import DatePicker from 'react-native-date-picker';
-import Modal from 'react-native-modal';
+import Modal, {ReactNativeModal} from 'react-native-modal';
 import DocumentPicker from 'react-native-document-picker';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -38,8 +38,8 @@ import {selectDone} from 'src/redux/app';
 import {selectUser} from 'src/redux/auth';
 import NewPicker from 'components/molecules/PhonePicker';
 import {Input} from 'react-native-elements';
-import { RenderSvgIcon } from 'components/atoms/svg';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {RenderSvgIcon} from 'components/atoms/svg';
+import {launchImageLibrary} from 'react-native-image-picker';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
@@ -66,13 +66,7 @@ const UpdateInfo = () => {
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
-  const handleDateChange = (event: any, selectedDate: any) => {
-    // Handle date change logic here
-
-    setDate(selectedDate);
-
-    setVisible(false); // Close the DateTimePicker modal
-  };
+ 
   const [disabilityData, setDisabilityData] = useState('');
   const [specialNeedsData, setSpecialNeedsData] = useState('');
   const [city, setCity] = useState('');
@@ -113,12 +107,10 @@ const UpdateInfo = () => {
     }
   };
   const pick = () => {
-    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res:any) =>{
-      setSource(res)
-      console.log("sdasdas "+JSON.stringify(res))
-    }
-      
-    );
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+      setSource(res);
+      // console.log("sdasdas "+JSON.stringify(res))
+    });
   };
 
   // useEffect(() => {
@@ -168,14 +160,14 @@ const UpdateInfo = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-        <TouchableOpacity 
-                onPress={_handleNavigate}
-                activeOpacity={0.8}
-            >
-                <RenderSvgIcon icon='ARROWBACK'
-                    width={30} height={30} color={appColors.primary} />
-               
-            </TouchableOpacity>
+          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
+          </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
           <Image
@@ -211,7 +203,7 @@ const UpdateInfo = () => {
             </View>
           </View>
           <TouchableOpacity
-            onPress={Platform.OS=="ios"?pick:UploadImageProfile}
+            onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}
             style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -311,7 +303,9 @@ const UpdateInfo = () => {
                 ? formdata.append('expected_salary', values.expectedSalary)
                 : null;
               formdata.append('show_salary', isShowSalary == false ? 0 : 1);
-              gender != '' ? formdata.append('gender', gender.toLocaleLowerCase()) : null;
+              gender != ''
+                ? formdata.append('gender', gender.toLocaleLowerCase())
+                : null;
               formdata.append('birthdate', Moment(date).format('yyyy/MM/DD'));
 
               disabilityData != ''
@@ -685,11 +679,7 @@ const UpdateInfo = () => {
                             fontSize: 16,
                             fontFamily: 'Noto Sans',
                           }}>
-                          {Moment(
-                            CurrentUserData?.birthdate == null
-                              ? date
-                              : CurrentUserData?.birthdate,
-                          ).format('DD/MM/yyyy')}
+                          {Moment(date).format('DD/MM/yyyy')}
                         </Text>
                         <CALANDER />
                       </View>
@@ -728,18 +718,14 @@ const UpdateInfo = () => {
                   {Nationality.map((na: any, index: any) =>
                     index !== 0 ? (
                       <View key={index}>
-                        <Text
-                          style={[
-                            styles.labelStyle,
-                           
-                          ]}>{`Nationality`}</Text>
+                        <Text style={[styles.labelStyle]}>{`Nationality`}</Text>
                         <View
                           style={{
                             flexDirection: 'row',
                             columnGap: 10,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            marginBottom:10
+                            marginBottom: 10,
                           }}>
                           <TextInput
                             placeholder={`Enter your Nationality`}
@@ -909,17 +895,49 @@ const UpdateInfo = () => {
                   text={'Done'}
                   onPress={props.handleSubmit}
                 />
-                {isVisible && (
-                  <DateTimePicker
-                    mode="date"
-                    value={props.values.birthdate}
-                    // display="spinner"
-                    onChange={(event: any, selectedDate: any) => {
-                      props?.setFieldValue(`birthdate`, selectedDate);
-                      setVisible(false);
-                    }}
-                  />
-                )}
+                {Platform.OS == 'ios'
+                  ? isVisible && (
+                      <ReactNativeModal isVisible={isVisible}>
+                        <View
+                          style={{
+                            width: '100%',
+                            paddingVertical: 20,
+                            borderRadius: 10,
+                            backgroundColor: '#fff',
+                            alignItems: 'center',
+                          }}>
+                          <DateTimePicker
+                            testID="dateTimePicker"
+                            value={date}
+                            mode="date"
+                            is24Hour={true}
+                            display="spinner"
+                            onChange={(event: any, selectedDate: any) => {
+                              // props?.setFieldValue(`birthdate`, selectedDate);
+                              setDate(selectedDate);
+                              // setVisible(false);
+                            }}
+                          />
+                          <Button
+                            text="Choose"
+                            onPress={() => setVisible(false)}
+                            style={{width: '90%', marginTop: 20}}
+                          />
+                        </View>
+                      </ReactNativeModal>
+                    )
+                  : isVisible && (
+                      <DateTimePicker
+                        mode="date"
+                        value={date}
+                        // display="spinner"
+                        onChange={(event: any, selectedDate: any) => {
+                          // props?.setFieldValue(`birthdate`, selectedDate);
+                          setDate(selectedDate);
+                          setVisible(false);
+                        }}
+                      />
+                    )}
               </View>
             )}
           </Formik>

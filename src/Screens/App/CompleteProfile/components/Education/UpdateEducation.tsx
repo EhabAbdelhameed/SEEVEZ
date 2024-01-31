@@ -37,6 +37,7 @@ import axios from 'axios';
 import {selectUser} from 'src/redux/auth';
 import {Input} from 'react-native-elements';
 import {isDate} from 'lodash';
+import ReactNativeModal from 'react-native-modal';
 
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -373,19 +374,27 @@ const UpdateEducation = () => {
                       </View>
                     </View>
                     {Platform.OS == 'ios'
-                      ? isVisible && (
+                      ? isVisible &&  (
+                        <ReactNativeModal isVisible={isVisible}>
+                        <View style={{
+                          width: '100%',
+                          paddingVertical: 20,
+                          borderRadius: 10,
+                          backgroundColor: '#fff',
+                          alignItems: 'center'
+                        }}>
                           <DateTimePicker
                             testID="dateTimePicker"
                             value={
                               type === '1' && isDate(startDates[index])
                                 ? startDates[index]
                                 : isDate(endDates[index])
-                                ? endDates[index]
-                                : new Date() // Provide a default date if the specified date is invalid
+                                  ? endDates[index]
+                                  : new Date() // Provide a default date if the specified date is invalid
                             }
                             mode="date"
                             is24Hour={true}
-                            display="default"
+                            display="spinner"
                             onChange={(event: any, selectedDate: any) => {
                               if (selectedDate !== undefined) {
                                 if (type == '1') {
@@ -402,7 +411,9 @@ const UpdateEducation = () => {
                                   }
                                   props?.setFieldValue(
                                     `Education[${index}]["start_date"]`,
-                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                    Moment(selectedDate).format(
+                                      'yyyy/MM/DD',
+                                    ),
                                   );
                                 } else {
                                   if (index == 0) {
@@ -418,14 +429,20 @@ const UpdateEducation = () => {
                                   }
                                   props?.setFieldValue(
                                     `Education[${index}]["end_date"]`,
-                                    Moment(selectedDate).format('yyyy/MM/DD'),
+                                    Moment(selectedDate).format(
+                                      'yyyy/MM/DD',
+                                    ),
                                   );
                                 }
                               }
-                              setVisible(false);
+                              // setVisible(false);
                             }}
-                            style={styles.dateTimePicker} // Customize styles here
+                          // style={styles.dateTimePicker} // Customize styles here
                           />
+                          <Button text='Choose' onPress={() => setVisible(false)} style={{width:'90%',marginTop:20}} />
+                        </View>
+
+                      </ReactNativeModal>
                         )
                       : isVisible && (
                           <DateTimePicker
