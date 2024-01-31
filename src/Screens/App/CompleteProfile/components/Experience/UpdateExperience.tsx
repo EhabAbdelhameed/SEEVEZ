@@ -489,17 +489,18 @@ const UpdateExperience = () => {
                         borderColor: '#1D5EDD',
                         borderWidth: 1,
                         paddingHorizontal: 15,
+                        height: 50,
                       }}
                       onChangeText={e =>
                         props?.setFieldValue(
                           `Experince[${index}]["description"]`,
                           e,
                         )
-                      }
+                        }
                       containerStyle={{
                         paddingHorizontal: 0,
                         marginVertical: 1,
-                        height: 50,
+                       
                       }}
                       inputStyle={{
                         fontSize: 14,
@@ -584,7 +585,7 @@ const UpdateExperience = () => {
                               width: '100%',
                               paddingVertical: 20,
                               borderRadius: 10,
-                              backgroundColor: '#fff',
+                              backgroundColor: '#FFF',
                               alignItems: 'center'
                             }}>
                               <DateTimePicker
@@ -597,6 +598,7 @@ const UpdateExperience = () => {
                                       : new Date() // Provide a default date if the specified date is invalid
                                 }
                                 mode="date"
+                                textColor='#000'
                                 is24Hour={true}
                                 display="spinner"
                                 onChange={(event: any, selectedDate: any) => {

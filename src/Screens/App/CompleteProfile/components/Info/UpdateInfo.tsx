@@ -906,6 +906,7 @@ const UpdateInfo = () => {
                           }}>
                           <DateTimePicker
                             testID="dateTimePicker"
+                            textColor='#000'
                             value={date}
                             mode="date"
                             is24Hour={true}

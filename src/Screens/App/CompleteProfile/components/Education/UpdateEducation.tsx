@@ -385,6 +385,7 @@ const UpdateEducation = () => {
                         }}>
                           <DateTimePicker
                             testID="dateTimePicker"
+                            textColor='#000'
                             value={
                               type === '1' && isDate(startDates[index])
                                 ? startDates[index]
