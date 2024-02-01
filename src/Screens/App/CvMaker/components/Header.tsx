@@ -21,10 +21,12 @@ const Header = () => {
                 <Text style={style.text1}>CV Maker</Text>
             </TouchableOpacity>
             <View style={style.rightContainer}>
-                <RenderSvgIcon
-                    icon='SEARCH'
-                    color={appColors.primary}
-                />
+                <TouchableOpacity activeOpacity={.8} onPress={() => { navigation.navigate('CompleteProfileScreen') }}>
+                    <RenderSvgIcon
+                        icon='EDITCV'
+                        color={appColors.primary}
+                    />
+                </TouchableOpacity>
                 <RenderSvgIcon
                     icon='COMMENT'
                     color={appColors.primary}

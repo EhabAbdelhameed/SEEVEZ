@@ -27,12 +27,23 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: 20,
         alignSelf:"center"
-
+    },
+    AvatarContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 86,
+        height: 86,
+        borderRadius: 86,
+        backgroundColor: '#E8EFFC',
+        borderWidth: 1,
+        borderColor: '#B9CDF4',
+        marginBottom:10
     },
     avatar: {
-        width: 70,
-        height: 70,
+        width: 86,
+        height: 86,
         borderRadius: 50,
+        marginBottom:10
     },
     userName: {
         color: appColors.black,
@@ -72,7 +83,7 @@ export const styles = StyleSheet.create({
         color: appColors.black,
         fontSize: appSizes.font_xs,
         fontWeight: "400",
-        marginTop: 5,
+        marginTop: 10,
     },
     rowContainer:{
         width:"100%",

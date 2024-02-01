@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import { appColors } from '../../../../../theme/appColors';
 import { appSizes } from '../../../../../theme/appSizes';
@@ -9,67 +9,50 @@ import EditDragIcons from './EditDragIcons';
 interface Props {
     drag: any;
     isActive: any
-  }
+    User?: any
+}
 
 const Skills = (props: Props) => {
     return (
         <TouchableOpacity style={[styles.container2, {
             backgroundColor: appColors.sisth
         }]}
-        onLongPress={props.drag}
-        disabled={props.isActive}
+            onLongPress={props.drag}
+            disabled={props.isActive}
         >
             <EditDragIcons color={appColors.green} />
             <Text style={styles.textHeaderSection}>Skills</Text>
 
             <View style={styles.rowContainer}>
                 <View style={{ flex: 1.5 }}>
-
-                    <Text style={[styles.textContentSection, {
-                        fontWeight: "500",
-                        fontSize: appSizes.font_m
-                    }]}>Computer skills</Text>
-                    {ComputerSkills.map((item) => <Text style={[
+                    <FlatList
+                        data={props.User?.user_data?.skills}
+                        renderItem={({ item }) => (
+                            <>
+                                <Text style={[styles.textContentSection, { opacity: .7 }]}> . {item?.name}</Text>
+                            </>
+                        )}
+                    />
+                    {/* {ComputerSkills.map((item) => <Text style={[
                         styles.textContentSection, {
                             opacity: .7
-                        }]}> . {item}</Text>)}
+                        }]}> . {item}</Text>)}*/}
                 </View>
                 <View style={{ flex: 1 }}>
+                    <FlatList
+                        data={props.User?.user_data?.languages}
+                        renderItem={({ item }) => (
+                            <>
+                                <Text style={[styles.textContentSection, { opacity: .7 }]}> . {item?.name}</Text>
+                            </>
+                        )}
+                    />
 
-                    <Text style={[styles.textContentSection, {
-                        fontWeight: "500",
-                        fontSize: appSizes.font_m
-                    }]}>Language skills</Text>
-                    {langSkills.map((item) => <Text style={[
+                    {/* {langSkills.map((item) => <Text style={[
                         styles.textContentSection, {
                             opacity: .7
 
-                        }]}> . {item}</Text>)}
-                </View>
-            </View>
-            <View style={styles.rowContainer}>
-                <View style={{ flex: 1.5 }}>
-
-                    <Text style={[styles.textContentSection, {
-                        fontWeight: "500",
-                        fontSize: appSizes.font_m
-                    }]}>Computer skills</Text>
-                    {ComputerSkills.map((item) => <Text style={[
-                        styles.textContentSection, {
-                            opacity: .7
-                        }]}> . {item}</Text>)}
-                </View>
-                <View style={{ flex: 1 }}>
-
-                    <Text style={[styles.textContentSection, {
-                        fontWeight: "500",
-                        fontSize: appSizes.font_m
-                    }]}>Language skills</Text>
-                    {langSkills.map((item) => <Text style={[
-                        styles.textContentSection, {
-                            opacity: .7
-
-                        }]}> . {item}</Text>)}
+                        }]}> . {item}</Text>)} */}
                 </View>
             </View>
         </TouchableOpacity>

@@ -11,11 +11,13 @@ import FooterSection from './FooterSection'
 import DraggableFlatList, {
     ScaleDecorator,
 } from "react-native-draggable-flatlist";
+import { useAppSelector } from 'src/redux/store'
+import { selectUser } from 'src/redux/auth'
 
 const Arr = [Objective, Education, Experience, Achievements, Courses, Skills, AdditionalData]
 const CVRN = () => {
     const [data, setData] = useState(Arr)
-
+    const User: any = useAppSelector(selectUser);
     return (
         <>
             <DraggableFlatList
@@ -34,7 +36,7 @@ const CVRN = () => {
                 }}
                 renderItem={({ item: Item, drag, isActive }) => (
                     <ScaleDecorator>
-                        <Item drag={drag} isActive={isActive} />
+                        <Item drag={drag} isActive={isActive} User={User} />
                     </ScaleDecorator>
 
                 )}
