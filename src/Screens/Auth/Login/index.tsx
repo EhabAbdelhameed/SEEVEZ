@@ -25,7 +25,7 @@ import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import {useSelector} from 'react-redux';
 import {useLoadingSelector} from 'src/redux/selectors';
-import AuthSlice, {selectReseted} from 'src/redux/auth';
+import AuthSlice, {selectReseted, selectVerified} from 'src/redux/auth';
 import {LoginSchema} from 'src/Formik/schema';
 const Login = () => {
   const navigation = useNavigation<any>();
@@ -33,14 +33,17 @@ const Login = () => {
   const [loading, setLoading] = React.useState(false);
   const Reseted = useSelector(selectReseted);
   const dispatch = useAppDispatch();
-
+  const Verified = useSelector(selectVerified);
   useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
-      dispatch(AuthSlice.chnageReseted(false))
-  })
-  return RenderFunction
-  
+      dispatch(AuthSlice.chnageReseted(false));
+    });
+    return RenderFunction;
   }, []);
+  // useEffect(() => {
+  //   !Verified && navigation.navigate('Verification', {email, type: 'register'});
+  // }, [Verified]);
+
   const _handleNavigate = () => {
     navigation.navigate('ForgetPassword');
   };
@@ -78,10 +81,11 @@ const Login = () => {
 
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false);
-                  if (res?.payload?.data?.message == 'Email not verified.') {
-                    const formData = new FormData();
-                    formData.append('email', values?.email?.toLowerCase());
-                    dispatch(AuthThunks.doResetPassword(formData));
+                  if (!Verified) {
+                    navigation.navigate('Verification', {
+                      email: values.email,
+                      type: 'register',
+                    });
                   }
                 });
 

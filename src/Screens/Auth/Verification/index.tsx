@@ -131,7 +131,7 @@ const Verification = () => {
           <Text style={styles.verificationText}>OTP Verification</Text>
           <Text style={styles.verificationText2}>
             We will send you a one-time password on this email Address :
-            <Text style={{fontWeight: '700'}}>exampel@info.com</Text>
+            <Text style={{fontWeight: '700'}}>{email}</Text>
           </Text>
    
               <View>

@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     
     // borderBottomWidth: 0.5,
     marginBottom: 10,
-    marginTop: 5,
+    marginTop: 7,
     height: 52,
   
   },

@@ -43,9 +43,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     paddingHorizontal: 18,
-
+      top:10,
     position: 'absolute',
     zIndex: 100,
     // top: 50,

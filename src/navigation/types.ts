@@ -27,6 +27,7 @@ export type AppParamsList = {
     UpdateAboutCard:undefined;
     UpdateInfoCard:undefined;
     AddNewExperience:undefined;
+    UpdateOneExperience:undefined;
     UpdateExperienceCard:undefined;
     SaveVideo:undefined;
     UpdateCompanyInfo:undefined;

@@ -5,7 +5,7 @@ import {appSizes} from '../../../../../theme/appSizes';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: appColors.white,
+    backgroundColor:'#FFF',
   },
   logoContainer: {
     flexBasis: 'auto',
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     marginBottom: appSizes.height * 0.07,
   },
   bottomSection: {
-    backgroundColor: appColors.white,
+    backgroundColor:"#FFF",
     flex: 1,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

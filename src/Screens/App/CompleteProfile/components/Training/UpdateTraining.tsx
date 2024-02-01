@@ -33,6 +33,7 @@ import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import {selectDone} from 'src/redux/app';
 import {Input} from 'react-native-elements';
+import { launchImageLibrary } from 'react-native-image-picker';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateTraining = () => {
@@ -78,6 +79,23 @@ const UpdateTraining = () => {
         console.error('DocumentPicker Error:', err);
       }
     }
+  };
+  const pick = (props: any, index: any) => {
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+
+      setSource([
+        ...Source.slice(0, index),
+        res?.assets[0]?.fileName,
+        ...Source.slice(index + 1),
+      ]);
+      props?.setFieldValue(`TrainingCourse[${index}]["certificate_image"]`, {
+        uri: res?.assets[0]?.uri,
+        type: res?.assets[0]?.type,
+        name: res?.assets[0]?.fileName,
+      });
+     
+      // console.log("sdasdas "+JSON.stringify(res))
+    });
   };
 
   // const navigation = useNavigation<any>();
@@ -204,6 +222,7 @@ const UpdateTraining = () => {
                         borderColor: '#1D5EDD',
                         borderWidth: 1,
                         paddingHorizontal: 15,
+                        height:Platform.OS=='android'?null:50
                       }}
                       onChangeText={e =>
                         props?.setFieldValue(
@@ -215,7 +234,8 @@ const UpdateTraining = () => {
                       containerStyle={{
                         paddingHorizontal: 0,
                         marginVertical: 1,
-                        height: 60,
+                        height: 50,
+                        marginBottom:15
                       }}
                       inputStyle={{
                         fontSize: 14,
@@ -454,7 +474,7 @@ const UpdateTraining = () => {
                         )}
 
                     <TouchableOpacity
-                      onPress={() => openGallery(props, index)}
+                      onPress={() =>Platform.OS=="ios"?pick(props, index): openGallery(props, index)}
                       style={styles.uploadContainer}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text style={{fontSize: 20, color: appColors.primary}}>

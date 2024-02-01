@@ -90,7 +90,7 @@ const UpdateInfo = () => {
 
       // The selected media is available in the result.uri
       // dispatch(setImageURL(result[0].uri));
-
+    console.log(result)
       setSource(result);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -214,15 +214,21 @@ const UpdateInfo = () => {
                 borderWidth: 1,
                 borderColor: '#B9CDF4',
               }}>
-              {CurrentUserData?.avatar == null ? (
+              {CurrentUserData?.avatar == null&&source?.length == 0 ? (
                 <PERSON />
+              ) : Platform.OS == 'ios' ? (
+                <Image
+                  source={{
+                    uri: source ? source[0]?.uri : CurrentUserData?.avatar,
+                  }}
+                  style={{width: 86, height: 86, borderRadius: 86}}
+                  resizeMode="cover"
+                />
               ) : (
                 <Image
                   source={{
                     uri:
-                      Platform.OS == 'ios'
-                        ? source
-                        : source?.length != 0
+                      source?.length != 0
                         ? source[0]?.uri
                         : CurrentUserData?.avatar,
                   }}
@@ -906,7 +912,7 @@ const UpdateInfo = () => {
                           }}>
                           <DateTimePicker
                             testID="dateTimePicker"
-                            textColor='#000'
+                            textColor="#000"
                             value={date}
                             mode="date"
                             is24Hour={true}

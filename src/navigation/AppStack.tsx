@@ -30,6 +30,7 @@ import UpdateAboutCard from 'screens/App/Profile/Main Profile/UpdateComponents/A
 import UpdateInfoCard from 'screens/App/Profile/Main Profile/UpdateComponents/Info/UpdateInfoCard';
 import AddNewExperience from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/AddNewExperience';
 import UpdateExperienceCard from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/UpdateExperienceCard';
+import UpdateOneExperience from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/LastUpdatePage';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -116,6 +117,10 @@ const AppStack = () => {
              <Stack.Screen
                 name="UpdateExperienceCard"
                 component={UpdateExperienceCard}
+            />
+                <Stack.Screen
+                name="UpdateOneExperience"
+                component={UpdateOneExperience}
             />
             <Stack.Screen
                 name="ProfileScreen"

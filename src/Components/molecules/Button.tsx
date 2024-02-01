@@ -20,8 +20,11 @@ export default Button;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: appColors.primary,
-    paddingVertical: 15,
+    paddingVertical: 10,
     borderRadius: 16,
+    height:50,
+    justifyContent:'center',
+    alignItems:'center'
   },
   text: {
     color: appColors.white,

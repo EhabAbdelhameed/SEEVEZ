@@ -37,6 +37,8 @@ const CustomSidebarMenu = (props: any) => {
   const LogOutFun = () => {
     dispatch(AuthSlice.chnageisAuth(false));
     AsyncStorage.setItem('USER_TOKEN', '');
+    AsyncStorage.setItem('USER_ACCESS_TOKEN', '');
+
     dispatch(AuthSlice.changeCurentData([]));
   };
   const navigation = useNavigation<any>();
@@ -55,7 +57,7 @@ const CustomSidebarMenu = (props: any) => {
             height: 120,
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
-            marginTop: Platform.OS == 'ios' ? 0 : -10
+            marginTop: Platform.OS == 'ios' ? -10 : -10
             // position: 'absolute',
             // top: 0,
           }}></LinearGradient>

@@ -13,7 +13,7 @@ const InfoCard = (data:any) => {
         <View style={styles.CardContainer}>
             <View style={styles.secContainer}>
                 <RenderSvgIcon icon='SEND' width={20} height={20} color={appColors.white} style={styles.SENDIcon} />
-                <TouchableOpacity onPress={() => navigation.navigate('UpdateInfoCard')}>
+                <TouchableOpacity onPress={() => navigation.navigate('UpdateInfo')}>
                 <RenderSvgIcon icon='PEN' width={20} height={20} color={appColors.white} style={styles.PENIcon} />
                 </TouchableOpacity>
                 <ImageBackground

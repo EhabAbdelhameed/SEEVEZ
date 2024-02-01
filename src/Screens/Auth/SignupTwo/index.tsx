@@ -68,7 +68,7 @@ const SignupTwo = () => {
   }, []);
   const Dispatch = useAppDispatch();
   const uploadFile = async (type: any) => {
-    console.log('hello');
+    
     try {
       const res: any = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],

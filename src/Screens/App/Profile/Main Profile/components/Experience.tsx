@@ -8,7 +8,7 @@ import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 
 const ExperienceCard = (data: any) => {
-  console.log(data);
+  console.log(JSON.stringify(data));
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
   const differenceInMonths = (date1: any, date2: any) => {
@@ -35,7 +35,7 @@ const ExperienceCard = (data: any) => {
           <Text style={styles.Title}>Experience</Text>
           <View style={styles.Row2}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('AddNewExperience')}>
+              onPress={() => navigation.navigate('UpdateExperience')}>
               <RenderSvgIcon
                 icon="PLUSFOLLOW"
                 style={{marginRight: 10}}
@@ -45,9 +45,7 @@ const ExperienceCard = (data: any) => {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('UpdateExperienceCard', {data: data})
-              }>
+              onPress={() => navigation.navigate('UpdateExperienceCard')}>
               <RenderSvgIcon
                 icon="PEN"
                 width={20}
@@ -78,7 +76,7 @@ const ExperienceCard = (data: any) => {
             </View>
           </View>
         ) : seeAllExperiences ? (
-          data?.data?.map((item: any) => (
+          data?.data?.map((item: any, index: any) => (
             <View style={{marginBottom: 15}}>
               <View style={styles.Row2}>
                 <Image
@@ -139,7 +137,11 @@ const ExperienceCard = (data: any) => {
                   />
                   <View style={{marginLeft: 10}}>
                     <Text style={styles.Title2}>{item.job_title}</Text>
-                    <Text style={styles.CompanyName}>{item.company_name}</Text>
+                    <Text style={styles.CompanyName}>
+                      {item?.company_name == null
+                        ? item?.company_id?.name
+                        : item?.company_name}
+                    </Text>
                     <Text style={styles.des}>
                       {moment(item.start_date).format('MMM yyyy')} - Present{' '}
                       {differenceInMonths(item?.start_date, item?.end_date)} mos

@@ -39,7 +39,7 @@ const RecordVideo = (data: any) => {
             onPress={() => navigation.navigate('UpdateRecordVideo')}
             style={styles.secContainer}>
             <VIDEOICON />
-          </TouchableOpacity>
+          </TouchableOpacity>  
          
         </View>
       ) : (
@@ -47,7 +47,7 @@ const RecordVideo = (data: any) => {
           <Video
           
             resizeMode="cover"  
-            paused={isPaused}
+            // paused={isPaused}
             source={{ uri: data?.user_data?.media }}
             style={styles.videoContainer}
             onLoad={handleVideoLoad}
@@ -65,9 +65,16 @@ const RecordVideo = (data: any) => {
                data?.user_data === null
                   ? appColors.bg
                   : appColors.white,
+                  width:40,height:40,borderRadius:40
             },
+        
           ]}>
-          <VIDEOICON />
+          <RenderSvgIcon
+              icon="PEN"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
         </TouchableOpacity>
       </View>
     </View>

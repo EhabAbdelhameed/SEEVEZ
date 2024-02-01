@@ -142,13 +142,14 @@ const UpdateExperience = () => {
     // Handle the selected item, for example, update the state or perform other actions.
     console.log('Selected Item:', selectedItem);
     setSelectedItem(selectedItem);
-    setKey('selected');
-    setSelectedCompanyNames((prevNames:any) => {
+
+    setSelectedCompanyNames((prevNames: any) => {
       const updatedNames = [...prevNames];
-      updatedNames[index] = selectedItem.name||'';
+      updatedNames[index] = selectedItem.name || '';
       return updatedNames;
     });
     // setSelectedCompanyName(selectedItem.name);
+
     props?.setFieldValue(`Experince[${index}]["company_id"]`, selectedItem?.id);
     // You may want to close the dropdown or clear the search query here.
     setSearchQuery('');
@@ -260,7 +261,7 @@ const UpdateExperience = () => {
               const formdata = new FormData();
               values.Experince.map((item: any, index: any) => {
                 formdata.append(`array[${index}][job_title]`, item.job_title);
-                key == ''
+                values.Experince[index].company_id == ''
                   ? formdata.append(
                       `array[${index}][company_name]`,
                       item.company_name,
@@ -296,7 +297,7 @@ const UpdateExperience = () => {
                   item.experience_letter,
                 );
               });
-              console.log('FormData', formdata);
+              console.log('FormData f ', formdata);
 
               dispatch(AppThunks.doAddExperience(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());
@@ -341,17 +342,16 @@ const UpdateExperience = () => {
                       value={selectedCompanyNames[index]}
                       onChangeText={value => {
                         setSearchQuery(value);
-                        if (selectedItem.length === 0) {
-                          props?.setFieldValue(
-                            `Experince[${index}]["company_name"]`,
-                            value,
-                          );
-                          setSelectedCompanyNames(prevNames => {
-                            const updatedNames = [...prevNames];
-                            updatedNames[index] = value;
-                            return updatedNames;
-                          });
-                        }
+
+                        props?.setFieldValue(
+                          `Experince[${index}]["company_name"]`,
+                          value,
+                        );
+                        setSelectedCompanyNames(prevNames => {
+                          const updatedNames = [...prevNames];
+                          updatedNames[index] = value;
+                          return updatedNames;
+                        });
                       }}
                       style={{
                         borderRadius: 16,
@@ -496,11 +496,10 @@ const UpdateExperience = () => {
                           `Experince[${index}]["description"]`,
                           e,
                         )
-                        }
+                      }
                       containerStyle={{
                         paddingHorizontal: 0,
                         marginVertical: 1,
-                       
                       }}
                       inputStyle={{
                         fontSize: 14,
@@ -580,75 +579,82 @@ const UpdateExperience = () => {
                         </TouchableOpacity>
                         {Platform.OS == 'ios'
                           ? isVisible && (
-                            <ReactNativeModal isVisible={isVisible}>
-                            <View style={{
-                              width: '100%',
-                              paddingVertical: 20,
-                              borderRadius: 10,
-                              backgroundColor: '#FFF',
-                              alignItems: 'center'
-                            }}>
-                              <DateTimePicker
-                                testID="dateTimePicker"
-                                value={
-                                  type === '1' && isDate(startDates[index])
-                                    ? startDates[index]
-                                    : isDate(endDates[index])
-                                      ? endDates[index]
-                                      : new Date() // Provide a default date if the specified date is invalid
-                                }
-                                mode="date"
-                                textColor='#000'
-                                is24Hour={true}
-                                display="spinner"
-                                onChange={(event: any, selectedDate: any) => {
-                                  if (selectedDate !== undefined) {
-                                    if (type == '1') {
-                                      if (index == 0) {
-                                        setStartDates([
-                                          ...startDates.slice(0, index),
-                                          selectedDate,
-                                          ...startDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = startDates;
-                                        array.push(selectedDate);
-                                        setStartDates(array);
-                                      }
-                                      props?.setFieldValue(
-                                        `Experince[${index}]["start_date"]`,
-                                        Moment(selectedDate).format(
-                                          'yyyy/MM/DD',
-                                        ),
-                                      );
-                                    } else {
-                                      if (index == 0) {
-                                        setEndDates([
-                                          ...endDates.slice(0, index),
-                                          selectedDate,
-                                          ...endDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = endDates;
-                                        array.push(selectedDate);
-                                        setEndDates(array);
-                                      }
-                                      props?.setFieldValue(
-                                        `Experince[${index}]["end_date"]`,
-                                        Moment(selectedDate).format(
-                                          'yyyy/MM/DD',
-                                        ),
-                                      );
+                              <ReactNativeModal isVisible={isVisible}>
+                                <View
+                                  style={{
+                                    width: '100%',
+                                    paddingVertical: 20,
+                                    borderRadius: 10,
+                                    backgroundColor: '#FFF',
+                                    alignItems: 'center',
+                                  }}>
+                                  <DateTimePicker
+                                    testID="dateTimePicker"
+                                    value={
+                                      type === '1' && isDate(startDates[index])
+                                        ? startDates[index]
+                                        : isDate(endDates[index])
+                                        ? endDates[index]
+                                        : new Date() // Provide a default date if the specified date is invalid
                                     }
-                                  }
-                                  // setVisible(false);
-                                }}
-                              // style={styles.dateTimePicker} // Customize styles here
-                              />
-                              <Button text='Choose' onPress={() => setVisible(false)} style={{width:'90%',marginTop:20}} />
-                            </View>
-
-                          </ReactNativeModal>
+                                    mode="date"
+                                    textColor="#000"
+                                    is24Hour={true}
+                                    display="spinner"
+                                    onChange={(
+                                      event: any,
+                                      selectedDate: any,
+                                    ) => {
+                                      if (selectedDate !== undefined) {
+                                        if (type == '1') {
+                                          if (index == 0) {
+                                            setStartDates([
+                                              ...startDates.slice(0, index),
+                                              selectedDate,
+                                              ...startDates.slice(index + 1),
+                                            ]);
+                                          } else {
+                                            let array = startDates;
+                                            array.push(selectedDate);
+                                            setStartDates(array);
+                                          }
+                                          props?.setFieldValue(
+                                            `Experince[${index}]["start_date"]`,
+                                            Moment(selectedDate).format(
+                                              'yyyy/MM/DD',
+                                            ),
+                                          );
+                                        } else {
+                                          if (index == 0) {
+                                            setEndDates([
+                                              ...endDates.slice(0, index),
+                                              selectedDate,
+                                              ...endDates.slice(index + 1),
+                                            ]);
+                                          } else {
+                                            let array = endDates;
+                                            array.push(selectedDate);
+                                            setEndDates(array);
+                                          }
+                                          props?.setFieldValue(
+                                            `Experince[${index}]["end_date"]`,
+                                            Moment(selectedDate).format(
+                                              'yyyy/MM/DD',
+                                            ),
+                                          );
+                                        }
+                                      }
+                                      // setVisible(false);
+                                    }}
+                                    // style={styles.dateTimePicker} // Customize styles here
+                                  />
+                                  <Button
+                                    text="Choose"
+                                    onPress={() => setVisible(false)}
+                                    style={{width: '90%', marginTop: 20}}
+                                  />
+                                </View>
+                              </ReactNativeModal>
                             )
                           : isVisible && (
                               <DateTimePicker
@@ -714,7 +720,7 @@ const UpdateExperience = () => {
                             updatedArray[index] = !prev[index];
                             return updatedArray;
                           });
-
+                           console.log("still Work Here",index,stillWorkHere[index])
                           props?.setFieldValue(
                             `Experince[${index}]["still_work_here"]`,
                             stillWorkHere[index] ? 0 : 1,

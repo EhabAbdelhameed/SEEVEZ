@@ -100,6 +100,23 @@ const UpdateEducation = () => {
   };
 
   // const navigation = useNavigation<any>();
+  const pick = (props: any, index: any) => {
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+
+      setSource([
+        ...Source.slice(0, index),
+        res?.assets[0]?.fileName,
+        ...Source.slice(index + 1),
+      ]);
+      props?.setFieldValue(`Education[${index}]["degree_certificate"]`, {
+        uri: res?.assets[0]?.uri,
+        type: res?.assets[0]?.type,
+        name: res?.assets[0]?.fileName,
+      });
+     
+      // console.log("sdasdas "+JSON.stringify(res))
+    });
+  };
   const navigation = useNavigation();
 
   const _handleNavigate = useCallback(() => {
@@ -216,7 +233,7 @@ const UpdateEducation = () => {
                         marginLeft: 8,
                         marginBottom: 10,
                       }}>
-                      {`Education ${index + 1}`}
+                      {`Education`}
                     </Text>
                     <Input
                       {...props}
@@ -227,6 +244,8 @@ const UpdateEducation = () => {
                         borderColor: '#1D5EDD',
                         borderWidth: 1,
                         paddingHorizontal: 15,
+                        height:Platform.OS=='ios'?50:null,
+                        // marginBottom:5
                       }}
                       onChangeText={e =>
                         props?.setFieldValue(
@@ -236,8 +255,9 @@ const UpdateEducation = () => {
                       }
                       containerStyle={{
                         paddingHorizontal: 0,
-                        marginVertical: 1,
-                        height: 60,
+                        height:50,
+                        marginVertical: 2,
+                       
                       }}
                       inputStyle={{
                         fontSize: 14,
@@ -286,6 +306,7 @@ const UpdateEducation = () => {
                       }}>
                       <TextInput
                         placeholder="Field of study"
+                        // placeholderTextColor={'#B9B9B9'}
                         style={styles.inputStyle}
                         onChangeText={e =>
                           props?.setFieldValue(
@@ -297,6 +318,7 @@ const UpdateEducation = () => {
 
                       <TextInput
                         placeholder="Grade"
+                        // placeholderTextColor={'#B9B9B9'}
                         style={styles.inputStyle}
                         onChangeText={e =>
                           props?.setFieldValue(
@@ -497,7 +519,7 @@ const UpdateEducation = () => {
                         )}
 
                     <TouchableOpacity
-                      onPress={() => openGallery(props, index)}
+                      onPress={() =>Platform.OS=="ios"?pick(props, index): openGallery(props, index)}
                       style={styles.InputStyleNoWidth1}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text style={{fontSize: 20, color: appColors.primary}}>

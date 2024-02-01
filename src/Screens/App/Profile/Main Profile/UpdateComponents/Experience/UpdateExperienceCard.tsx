@@ -19,12 +19,27 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import moment from 'moment';
+import {useAppDispatch} from 'src/redux/store';
+import AppThunks from 'src/redux/app/thunks';
+import AppSlice from 'src/redux/app';
+import {useSelector} from 'react-redux';
+import {selectUser} from 'src/redux/auth';
 
 const UpdateExperienceCard = () => {
-  const {data}: any = useRoute().params;
+  const CurrentUserData = useSelector(selectUser);
+  let data = CurrentUserData?.user_data?.experiences;
+  console.log('11111111 ', data);
+  const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
 
-  const navigation = useNavigation();
-  console.log('FromUpdated ', data);
+  React.useEffect(() => {
+    const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(AppThunks.GetProfileInfo());
+      dispatch(AppSlice.changeDone(false));
+    });
+    return RenderFunction;
+  }, [navigation]);
+  // console.log('FromUpdated ', data);
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
@@ -42,7 +57,8 @@ const UpdateExperienceCard = () => {
 
     return years + months;
   };
-  const showConfirmDialog = () => {
+  const handleDeleteExperience = (experienceId:any) => {
+    // Show confirmation dialog
     Alert.alert(
       'Confirmation',
       'Are you sure you want to delete this experience?',
@@ -54,12 +70,12 @@ const UpdateExperienceCard = () => {
         {
           text: 'OK',
           onPress: () => {
-            // Handle the confirm action
-            console.log('Confirmed!');
+            // Dispatch the action to delete the experience
+            dispatch(AppThunks.doDeleteExperience(experienceId));
           },
         },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   };
   return (
@@ -74,10 +90,13 @@ const UpdateExperienceCard = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
+          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
           </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
@@ -109,7 +128,7 @@ const UpdateExperienceCard = () => {
             </View>
           </View>
 
-          {data?.data?.map((item: any) => (
+          {data?.map((item: any) => (
             <View style={{marginBottom: 15, flexDirection: 'row'}}>
               <View>
                 <View style={styles.Row2}>
@@ -141,10 +160,16 @@ const UpdateExperienceCard = () => {
               </View>
               <View
                 style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
-                    <TouchableOpacity onPress={showConfirmDialog}>
-                <DELETE />
+                <TouchableOpacity
+                  onPress={() => handleDeleteExperience(item.id)}>
+                  <DELETE />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('UpdateOneExperience', {
+                      data: item,
+                    })
+                  }>
                   <RenderSvgIcon
                     icon="PEN"
                     width={20}

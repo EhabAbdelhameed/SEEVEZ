@@ -115,10 +115,54 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: 'Hey! Your Experience has been added successfully',
       });
     });
     builder.addCase(thunks.doAddExperience.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+        //doUpdateExperience
+        builder.addCase(thunks.doUpdateExperience.fulfilled, (state, action) => {
+          state.done = true;
+          Toast.show({
+            type: 'success',
+    
+            text1: 'Hey! Your Experience has been updated successfully',
+          });
+        });
+        builder.addCase(thunks.doUpdateExperience.rejected, (state, action: any) => {
+          if (action.payload.data.message == 'Validation error.') {
+            Toast.show({
+              type: 'error',
+              text1: action.payload.data.error,
+            });
+          } else {
+            Toast.show({
+              type: 'error',
+              text1: action.payload.data.message,
+            });
+          }
+        });
+            //doDeleteExperience
+    builder.addCase(thunks.doDeleteExperience.fulfilled, (state, action) => {
+      
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Experience has been successfully deleted!',
+      });
+    });
+    builder.addCase(thunks.doDeleteExperience.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',

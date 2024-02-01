@@ -8,6 +8,9 @@ const Interests = (data: any) => api.post(`api/interests`, data);
 
 const Education = (data: any) => api.post(`api/education`, data);  
 const Experience = (data: any) => api.post(`api/experience`, data);
+const updateExperience = (data: any) => api.post(`api/edit-experience`, data);
+const DeleteExperience = (id: number) => api.delete(`api/delete-experience/${id}`)
+
 const TrainingCourse = (data: any) => api.post(`api/training-course`, data);
 const ReferenceCheck = (data: any) => api.post(`api/reference-check`, data);
 const Achievement = (data: any) => api.post(`api/achievement`, data);
@@ -40,6 +43,8 @@ const AppAPI = {
   CompanyAbout,
   CVCompany,
   Experience,
+  updateExperience,
+  DeleteExperience,
   TrainingCourse,
   ReferenceCheck,
   CompaniesName,

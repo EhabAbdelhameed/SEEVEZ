@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, TextInput, Alert, Image} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, Alert, Image, Platform} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
@@ -18,6 +18,7 @@ import { useAppDispatch } from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import { useSelector } from 'react-redux';
 import { selectDone } from 'src/redux/app';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 
 const UpdateAchievements = () => {
@@ -52,6 +53,12 @@ const UpdateAchievements = () => {
         console.error('DocumentPicker Error:', err);
       }
     }
+  };
+  const pick = () => {
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+      setSource(res?.assets);
+      // console.log("sdasdas "+JSON.stringify(res))
+    });
   };
   
   return (
@@ -159,13 +166,13 @@ const UpdateAchievements = () => {
                 />
                 <Text style={{marginBottom: 10}}>1500 characters</Text>
                 <TouchableOpacity
-                  onPress={openGallery}
+                  onPress={Platform.OS=="ios"?pick: openGallery}
                   style={styles.uploadContainer}>
                   <PHOTO style={{marginRight: 20}} />
                   <Text style={{fontSize: 20, color: appColors.primary, fontFamily: 'Noto Sans'}}>
                     {Source.length == 0
                       ? 'Upload certificate image'
-                      : Source[0].name}
+                      :Platform.OS=='android'? Source[0].name:Source[0].fileName}
                   </Text>
                 </TouchableOpacity>
                 <View style={{height:appSizes.height * 0.06}}/>

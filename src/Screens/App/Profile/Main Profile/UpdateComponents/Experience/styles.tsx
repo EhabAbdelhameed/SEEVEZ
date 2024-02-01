@@ -199,6 +199,13 @@ const styles = StyleSheet.create({
       
   
     },
+    placeholderStyle1: {
+      fontSize: 14,
+      color:"rgba(0,0,0,.8)",
+      fontFamily: 'Noto Sans',
+      
+  
+    },
     selectedTextStyle: {
       fontSize: 14,
       fontFamily: 'Noto Sans',

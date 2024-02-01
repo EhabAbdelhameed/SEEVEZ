@@ -13,6 +13,7 @@ const doAddSkills: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -37,6 +38,7 @@ const doAddIntersts: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -61,6 +63,7 @@ const doAddEducation: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -86,6 +89,59 @@ const doAddExperience: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doUpdateExperience
+const doUpdateExperience: any = createAsyncThunk<any, any, any>(
+    'app/UpdateExperience',
+    async (data, thunkApi: any) => {
+        // console.log(data)
+        try {
+            const response = await AppAPI.updateExperience(data);
+            console.log("Update",response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteExperience
+const doDeleteExperience: any = createAsyncThunk<any, any, any>(
+    'app/DeleteExperience',
+    async (data, thunkApi: any) => {
+        console.log(data)
+        try {
+            const response = await AppAPI.DeleteExperience(data);
+            console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -110,6 +166,7 @@ const doAddTrainingCourse: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -136,6 +193,7 @@ const doAddReferenceCheck: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -160,6 +218,7 @@ const doAddAchievement: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -184,6 +243,7 @@ const doAddLanguages: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -208,6 +268,7 @@ const doAddPersonalInfo: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -232,6 +293,7 @@ const GetIndustry: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -256,6 +318,7 @@ const GetYearsOfExperience: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -280,6 +343,7 @@ const GetJobType: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -304,6 +368,7 @@ const GetEducationLevel: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -328,6 +393,7 @@ const GetCompaniesName: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -352,6 +418,7 @@ const doUploadCV: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -376,6 +443,7 @@ const doAddAbout: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -401,6 +469,7 @@ const doAddCompanyInfo: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -425,6 +494,7 @@ const doAddCompanyAbout: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -450,6 +520,7 @@ const doAddUploadPortfolio: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -474,6 +545,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
             if (
                 response.status == null ||
                 response.status == 401 ||
+                response.status == 400 ||
                 response.status == 422 ||
                 response.status == 404 ||
                 response.status == 403 ||
@@ -495,6 +567,8 @@ const AppThunks = {
     doAddSkills,
     doAddEducation,
     doAddExperience,
+    doUpdateExperience,
+    doDeleteExperience,
     doAddTrainingCourse,
     doAddReferenceCheck,
     doAddAchievement,
