@@ -35,12 +35,15 @@ const TrainingCard = (data: any) => {
               color={appColors.primary}
             />
             </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('UpdateTrainingCard')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
           </View>
         </View>
 

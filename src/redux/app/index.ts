@@ -48,7 +48,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Your Skills has been added successfully',
+        text1: 'Your skills has been added successfully',
       });
     });
     builder.addCase(thunks.doAddSkills.rejected, (state, action: any) => {
@@ -64,13 +64,57 @@ const slice = createSlice({
         });
       }
     });
-    //
+    //doUpdateSkills
+    builder.addCase(thunks.doUpdateSkills.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Skills has been updated successfully',
+      });
+    });
+    builder.addCase(thunks.doUpdateSkills.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //doDeleteSkills
+    builder.addCase(thunks.doDeleteSkills.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Skills has been successfully deleted!',
+      });
+    });
+    builder.addCase(thunks.doDeleteSkills.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+
+    //doAddIntersts
     builder.addCase(thunks.doAddIntersts.fulfilled, (state, action) => {
       state.done = true;
       Toast.show({
         type: 'success',
 
-        text1: 'Your Skills has been added successfully',
+        text1: 'Your intersts has been added successfully',
       });
     });
     builder.addCase(thunks.doAddIntersts.rejected, (state, action: any) => {
@@ -86,16 +130,103 @@ const slice = createSlice({
         });
       }
     });
+    //doUpdateIntersts
+    builder.addCase(thunks.doUpdateIntersts.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Interests has been updated successfully',
+      });
+    });
+    builder.addCase(thunks.doUpdateIntersts.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //doDeleteIntersts
+    builder.addCase(thunks.doDeleteIntersts.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Interests has been successfully deleted!',
+      });
+    });
+    builder.addCase(thunks.doDeleteIntersts.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+
     //doAddEducation
     builder.addCase(thunks.doAddEducation.fulfilled, (state, action) => {
       state.done = true;
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: 'Hey! Your Education has been added successfully',
       });
     });
     builder.addCase(thunks.doAddEducation.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //doUpdateEducation
+    builder.addCase(thunks.doUpdateEducation.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Education has been updated successfully',
+      });
+    });
+    builder.addCase(thunks.doUpdateEducation.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //doDeleteEducation
+    builder.addCase(thunks.doDeleteEducation.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Education has been successfully deleted!',
+      });
+    });
+    builder.addCase(thunks.doDeleteEducation.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -131,50 +262,55 @@ const slice = createSlice({
         });
       }
     });
-        //doUpdateExperience
-        builder.addCase(thunks.doUpdateExperience.fulfilled, (state, action) => {
-          state.done = true;
+    //doUpdateExperience
+    builder.addCase(thunks.doUpdateExperience.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Experience has been updated successfully',
+      });
+    });
+    builder.addCase(
+      thunks.doUpdateExperience.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
           Toast.show({
-            type: 'success',
-    
-            text1: 'Hey! Your Experience has been updated successfully',
+            type: 'error',
+            text1: action.payload.data.error,
           });
-        });
-        builder.addCase(thunks.doUpdateExperience.rejected, (state, action: any) => {
-          if (action.payload.data.message == 'Validation error.') {
-            Toast.show({
-              type: 'error',
-              text1: action.payload.data.error,
-            });
-          } else {
-            Toast.show({
-              type: 'error',
-              text1: action.payload.data.message,
-            });
-          }
-        });
-            //doDeleteExperience
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+    //doDeleteExperience
     builder.addCase(thunks.doDeleteExperience.fulfilled, (state, action) => {
-      
       Toast.show({
         type: 'success',
 
         text1: 'Hey! Your Experience has been successfully deleted!',
       });
     });
-    builder.addCase(thunks.doDeleteExperience.rejected, (state, action: any) => {
-      if (action.payload.data.message == 'Validation error.') {
-        Toast.show({
-          type: 'error',
-          text1: action.payload.data.error,
-        });
-      } else {
-        Toast.show({
-          type: 'error',
-          text1: action.payload.data.message,
-        });
-      }
-    });
+    builder.addCase(
+      thunks.doDeleteExperience.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
     //doAddTrainingCourse
     builder.addCase(thunks.doAddTrainingCourse.fulfilled, (state, action) => {
       state.done = true;
@@ -200,6 +336,62 @@ const slice = createSlice({
         }
       },
     );
+    //doUpdateTrainingCourse
+    builder.addCase(
+      thunks.doUpdateTrainingCourse.fulfilled,
+      (state, action) => {
+        state.done = true;
+        Toast.show({
+          type: 'success',
+
+          text1: 'Hey! Your Training course has been updated successfully',
+        });
+      },
+    );
+    builder.addCase(
+      thunks.doUpdateTrainingCourse.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+    //doDeleteTrainingCourse
+    builder.addCase(
+      thunks.doDeleteTrainingCourse.fulfilled,
+      (state, action) => {
+        Toast.show({
+          type: 'success',
+
+          text1: 'Hey! Your Training course has been successfully deleted!',
+        });
+      },
+    );
+    builder.addCase(
+      thunks.doDeleteTrainingCourse.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+
     //doAddReferenceCheck
     builder.addCase(thunks.doAddReferenceCheck.fulfilled, (state, action) => {
       state.done = true;
@@ -225,6 +417,62 @@ const slice = createSlice({
         }
       },
     );
+    //doUpdateReferenceCheck
+    builder.addCase(
+      thunks.doUpdateReferenceCheck.fulfilled,
+      (state, action) => {
+        state.done = true;
+        Toast.show({
+          type: 'success',
+
+          text1: 'Hey! Your Reference Check has been updated successfully',
+        });
+      },
+    );
+    builder.addCase(
+      thunks.doUpdateReferenceCheck.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+    //doDeleteReferenceCheck
+    builder.addCase(
+      thunks.doDeleteReferenceCheck.fulfilled,
+      (state, action) => {
+        Toast.show({
+          type: 'success',
+
+          text1: 'Hey! Your Reference Check has been successfully deleted!',
+        });
+      },
+    );
+    builder.addCase(
+      thunks.doDeleteReferenceCheck.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+
     //doAddAchievement
     builder.addCase(thunks.doAddAchievement.fulfilled, (state, action) => {
       state.done = true;
@@ -247,11 +495,60 @@ const slice = createSlice({
         });
       }
     });
+    //doUpdateAchievement
+    builder.addCase(thunks.doUpdateAchievement.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Achievement has been updated successfully',
+      });
+    });
+    builder.addCase(
+      thunks.doUpdateAchievement.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+    //doDeleteAchievement
+    builder.addCase(thunks.doDeleteAchievement.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+
+        text1: 'Hey! Your Achievement has been successfully deleted!',
+      });
+    });
+    builder.addCase(
+      thunks.doDeleteAchievement.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+
     //doGetCompaniesName
     builder.addCase(thunks.GetCompaniesName.fulfilled, (state, action) => {
-      console.log(action.payload?.data)
+      console.log(action.payload?.data);
       state.CompaniesData = action.payload?.data;
- 
     });
     builder.addCase(thunks.GetCompaniesName.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -288,6 +585,51 @@ const slice = createSlice({
         });
       }
     });
+            //doUpdateLanguages
+            builder.addCase(thunks.doUpdateLanguages.fulfilled, (state, action) => {
+              state.done = true;
+              Toast.show({
+                type: 'success',
+        
+                text1: 'Hey! Your Language has been updated successfully',
+              });
+            });
+            builder.addCase(thunks.doUpdateLanguages.rejected, (state, action: any) => {
+              if (action.payload.data.message == 'Validation error.') {
+                Toast.show({
+                  type: 'error',
+                  text1: action.payload.data.error,
+                });
+              } else {
+                Toast.show({
+                  type: 'error',
+                  text1: action.payload.data.message,
+                });
+              }
+            });
+                //doDeleteLanguages
+        builder.addCase(thunks.doDeleteLanguages.fulfilled, (state, action) => {
+          
+          Toast.show({
+            type: 'success',
+    
+            text1: 'Hey! Your Language has been successfully deleted!',
+          });
+        });
+        builder.addCase(thunks.doDeleteLanguages.rejected, (state, action: any) => {
+          if (action.payload.data.message == 'Validation error.') {
+            Toast.show({
+              type: 'error',
+              text1: action.payload.data.error,
+            });
+          } else {
+            Toast.show({
+              type: 'error',
+              text1: action.payload.data.message,
+            });
+          }
+        });
+    
     //doAddPersonalInfo
     builder.addCase(thunks.doAddPersonalInfo.fulfilled, (state, action) => {
       state.done = true;
@@ -329,10 +671,29 @@ const slice = createSlice({
     });
     //GetYearsOfExperience
     builder.addCase(thunks.GetYearsOfExperience.fulfilled, (state, action) => {
-    
-     state.YearsOfExperience = action.payload?.data;
+      state.YearsOfExperience = action.payload?.data;
     });
-    builder.addCase(thunks.GetYearsOfExperience.rejected, (state, action: any) => {
+    builder.addCase(
+      thunks.GetYearsOfExperience.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      },
+    );
+    //GetJobType
+    builder.addCase(thunks.GetJobType.fulfilled, (state, action) => {
+      state.JobType = action.payload?.data;
+    });
+    builder.addCase(thunks.GetJobType.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -345,42 +706,24 @@ const slice = createSlice({
         });
       }
     });
-     //GetJobType
-     builder.addCase(thunks.GetJobType.fulfilled, (state, action) => {
-       
-      state.JobType = action.payload?.data;
-     });
-     builder.addCase(thunks.GetJobType.rejected, (state, action: any) => {
-       if (action.payload.data.message == 'Validation error.') {
-         Toast.show({
-           type: 'error',
-           text1: action.payload.data.error,
-         });
-       } else {
-         Toast.show({
-           type: 'error',
-           text1: action.payload.data.message,
-         });
-       }
-     });
-     //GetEducationLevel
-     builder.addCase(thunks.GetEducationLevel.fulfilled, (state, action) => {
+    //GetEducationLevel
+    builder.addCase(thunks.GetEducationLevel.fulfilled, (state, action) => {
       //  console.log(action.payload?.data)
       state.EducationLevel = action.payload?.data;
-     });
-     builder.addCase(thunks.GetEducationLevel.rejected, (state, action: any) => {
-       if (action.payload.data.message == 'Validation error.') {
-         Toast.show({
-           type: 'error',
-           text1: action.payload.data.error,
-         });
-       } else {
-         Toast.show({
-           type: 'error',
-           text1: action.payload.data.message,
-         });
-       }
-     });
+    });
+    builder.addCase(thunks.GetEducationLevel.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
     //doUploadCV
     builder.addCase(thunks.doUploadCV.fulfilled, (state, action) => {
       state.done = true;
@@ -432,7 +775,7 @@ const slice = createSlice({
       state.done = true;
       Toast.show({
         type: 'success',
-        text1: 'success added',
+        text1: 'Hey! Your about section has been added successfully',
       });
     });
     builder.addCase(thunks.doAddCompanyInfo.rejected, (state, action: any) => {
@@ -515,7 +858,6 @@ export const selectYears = (state: RootState) => state.app.YearsOfExperience;
 export const selectJobtype = (state: RootState) => state.app.JobType;
 export const selectEducation = (state: RootState) => state.app.EducationLevel;
 
-
 export const selectAddresses = (state: RootState) => state.app.Addresses;
 export const selectAreas = (state: RootState) => state.app.Areas;
 export const selectOrders = (state: RootState) => state.app.orders;
@@ -541,11 +883,9 @@ const AppSlice = {
   changePromoValue: slice.actions.changePromoValue,
   changeSearch: slice.actions.changeSearch,
   changeIndsturyData: slice.actions.chnageIndsturyData,
-  changeCompainesData:slice.actions.chnageCompaniesData,
+  changeCompainesData: slice.actions.chnageCompaniesData,
   changeYearsOfExperience: slice.actions.changeYearsOfExperience,
   changeJobType: slice.actions.changeJobType,
   changeEducationLevel: slice.actions.changeEducationLevel,
-
-
 };
 export default AppSlice;

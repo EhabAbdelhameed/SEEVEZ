@@ -28,6 +28,56 @@ const doAddSkills: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//doUpdateSkills
+const doUpdateSkills: any = createAsyncThunk<any, any, any>(
+    'app/UpdateSkills',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.updateSkills(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteSkills
+const doDeleteSkills: any = createAsyncThunk<any, any, any>(
+    'app/DeleteSkills',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.DeleteSkills(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //doAddIntersts
 const doAddIntersts: any = createAsyncThunk<any, any, any>(
     'app/Intersts',
@@ -53,12 +103,112 @@ const doAddIntersts: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//doUpdateIntersts
+const doUpdateIntersts: any = createAsyncThunk<any, any, any>(
+    'app/UpdateIntersts',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.updateInterests(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteIntersts
+const doDeleteIntersts: any = createAsyncThunk<any, any, any>(
+    'app/DeleteIntersts',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.DeleteInterests(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //doAddEducation
 const doAddEducation: any = createAsyncThunk<any, any, any>(
     'app/Education',
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.Education(data);
+            // alert(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doUpdateEducation
+const doUpdateEducation: any = createAsyncThunk<any, any, any>(
+    'app/UpdateEducation',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.updateEducation(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteEducation
+const doDeleteEducation: any = createAsyncThunk<any, any, any>(
+    'app/DeleteEducation',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.DeleteEducation(data);
             // alert(response?.data)
             if (
                 response.status == null ||
@@ -181,6 +331,56 @@ const doAddTrainingCourse: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//doAddTrainingCourse
+const doUpdateTrainingCourse: any = createAsyncThunk<any, any, any>(
+    'app/UpdateTraining',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.updateTrainingCourse(data);
+              console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteTrainingCourse
+const doDeleteTrainingCourse: any = createAsyncThunk<any, any, any>(
+    'app/DeleteTraining',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.DeleteTrainingCourse(data);
+            // alert(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //doAddReferenceCheck
 const doAddReferenceCheck: any = createAsyncThunk<any, any, any>(
     'app/ReferenceCheck',
@@ -208,12 +408,116 @@ const doAddReferenceCheck: any = createAsyncThunk<any, any, any>(
         }
     }
 )
-//doAddReferenceCheck
+//doUpdateReferenceCheck
+const doUpdateReferenceCheck: any = createAsyncThunk<any, any, any>(
+    'app/UpdateReferenceCheck',
+    
+    async (data, thunkApi: any) => {
+        // console.log(data)
+        try {
+            const response = await AppAPI.updateReferenceCheck(data);
+               console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteReferenceCheck
+const doDeleteReferenceCheck: any = createAsyncThunk<any, any, any>(
+    'app/DeleteReferenceCheck',
+    
+    async (data, thunkApi: any) => {
+        // console.log(data)
+        try {
+            const response = await AppAPI.DeleteReferenceCheck(data);
+               console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doAddAchievement
 const doAddAchievement: any = createAsyncThunk<any, any, any>(
     'app/Achievement',
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.Achievement(data);
+            console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doUpdateAchievement
+const doUpdateAchievement: any = createAsyncThunk<any, any, any>(
+    'app/UpdateAchievement',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.updateAchievement(data);
+            console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteAchievement
+const doDeleteAchievement: any = createAsyncThunk<any, any, any>(
+    'app/DeleteAchievement',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.DeleteAchievement(data);
             console.log(response)
             if (
                 response.status == null ||
@@ -258,6 +562,57 @@ const doAddLanguages: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//doUpdateLanguages
+const doUpdateLanguages: any = createAsyncThunk<any, any, any>(
+    'app/UpdateLanguages',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.updateLanguages(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//doDeleteLanguages
+const doDeleteLanguages: any = createAsyncThunk<any, any, any>(
+    'app/DeleteLanguages',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.DeleteLanguages(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+
 //doAddPersonalInfo
 const doAddPersonalInfo: any = createAsyncThunk<any, any, any>(
     'app/Info',
@@ -565,14 +920,26 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
 
 const AppThunks = {
     doAddSkills,
+    doUpdateSkills,
+    doDeleteSkills,
     doAddEducation,
+    doUpdateEducation,
+    doDeleteEducation,
     doAddExperience,
     doUpdateExperience,
     doDeleteExperience,
     doAddTrainingCourse,
+    doUpdateTrainingCourse,
+    doDeleteTrainingCourse,
     doAddReferenceCheck,
+    doUpdateReferenceCheck,
+    doDeleteReferenceCheck,
     doAddAchievement,
+    doUpdateAchievement,
+    doDeleteAchievement,
     doAddLanguages,
+    doUpdateLanguages,
+    doDeleteLanguages,
     GetIndustry,
     GetEducationLevel,
     GetYearsOfExperience,
@@ -584,6 +951,8 @@ const AppThunks = {
     doAddAbout,
     GetProfileInfo,
     doAddIntersts,
+    doUpdateIntersts,
+    doDeleteIntersts,
     GetJobType,
     GetCompaniesName
    

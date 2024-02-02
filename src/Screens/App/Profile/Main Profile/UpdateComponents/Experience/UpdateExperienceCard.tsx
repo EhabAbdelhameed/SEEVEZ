@@ -71,7 +71,10 @@ const UpdateExperienceCard = () => {
           text: 'OK',
           onPress: () => {
             // Dispatch the action to delete the experience
-            dispatch(AppThunks.doDeleteExperience(experienceId));
+            dispatch(AppThunks.doDeleteExperience(experienceId)).then((res: any) => {
+              dispatch(AppThunks.GetProfileInfo());
+            
+            });
           },
         },
       ],

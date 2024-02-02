@@ -31,6 +31,15 @@ import UpdateInfoCard from 'screens/App/Profile/Main Profile/UpdateComponents/In
 import AddNewExperience from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/AddNewExperience';
 import UpdateExperienceCard from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/UpdateExperienceCard';
 import UpdateOneExperience from 'screens/App/Profile/Main Profile/UpdateComponents/Experience/LastUpdatePage';
+import UpdateRecordVideoCompany from 'screens/App/CompleteCompanyProfile/components/RecordVideo/UpdateRecordVideoCompany';
+import SaveVideoCompany from 'screens/App/CompleteCompanyProfile/components/RecordVideo/SaveVideoCompany';
+import ProfileCompanyScreen from 'screens/App/Profile/Main Company Profile';
+import UpdateEducationCard from 'screens/App/Profile/Main Profile/UpdateComponents/Education/UpdateEducationCard';
+import UpdateOneEducation from 'screens/App/Profile/Main Profile/UpdateComponents/Education/lastUpdateEducation';
+import UpdateLanguageCard from 'screens/App/Profile/Main Profile/UpdateComponents/Languages/UpdateLanguageCard';
+import UpdateOneLanguage from 'screens/App/Profile/Main Profile/UpdateComponents/Languages/lastUpdateLanguage';
+import UpdateTrainingCard from 'screens/App/Profile/Main Profile/UpdateComponents/TrainingCourse/UpdateTrainingCard';
+import UpdateOneTraining from 'screens/App/Profile/Main Profile/UpdateComponents/TrainingCourse/lastUpdateTrainingCard';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -59,8 +68,16 @@ const AppStack = () => {
                 component={SaveVideo}
             />
               <Stack.Screen
+                name="SaveVideoCompany"
+                component={SaveVideoCompany}
+            />
+              <Stack.Screen
                 name="UpdateRecordVideo"
                 component={UpdateRecordVideo}
+            />
+            <Stack.Screen
+                name="UpdateRecordVideoCompany"
+                component={UpdateRecordVideoCompany}
             />
               <Stack.Screen
                 name="UpdateCompanyAbout"
@@ -123,10 +140,38 @@ const AppStack = () => {
                 component={UpdateOneExperience}
             />
             <Stack.Screen
+                name="UpdateEducationCard"
+                component={UpdateEducationCard}
+            />
+            <Stack.Screen
+                name="UpdateOneEducation"
+                component={UpdateOneEducation}
+            />
+              <Stack.Screen
+                name="UpdateLanguageCard"
+                component={UpdateLanguageCard}
+            />
+            <Stack.Screen
+                name="UpdateOneLanguage"
+                component={UpdateOneLanguage}
+            />
+              <Stack.Screen
+                name="UpdateTrainingCard"
+                component={UpdateTrainingCard}
+            />
+            <Stack.Screen
+                name="UpdateOneTraining"
+                component={UpdateOneTraining}
+            />
+            <Stack.Screen
                 name="ProfileScreen"
                 component={ProfileScreen}
             />
-
+                  <Stack.Screen
+                name="ProfileCompanyScreen"
+                component={ProfileCompanyScreen}
+            />
+           
             <Stack.Screen
                 name="Analytics"
                 component={AnalyticsScreen}

@@ -26,7 +26,7 @@ import {
 import DocumentPicker from 'react-native-document-picker';
 import {appColors} from 'theme';
   
-  const UpdateRecordVideo = () => {
+  const UpdateRecordVideoCompany = () => {
     const navigation = useNavigation<any>();
     const _handleNavigate = useCallback(() => {
       navigation.goBack();
@@ -52,8 +52,10 @@ import {appColors} from 'theme';
           setSourceVideo(result);
           setVideoPath(result[0].uri)
           setTimeout(() => {
-            navigation.navigate("SaveVideo",{
-                videoPath:result[0].uri
+            navigation.navigate("SaveVideoCompany",{
+                videoPath:result[0].uri,
+                source:result,
+                key:2
             })
          }, 1000);
         } catch (err) {
@@ -96,7 +98,7 @@ import {appColors} from 'theme';
               // outputPath: videoPath,
               onRecordingFinished: async (video: any) => {
                 setVideoPath(video?.path);
-                console.log(video)
+                // console.log(video)
               },
             });
           } else {
@@ -114,8 +116,9 @@ import {appColors} from 'theme';
       setIsPlaying(true);
       await cameraRef.current.stopRecording();
      setTimeout(() => {
-        navigation.navigate("SaveVideo",{
-            videoPath:videoPath
+        navigation.navigate("SaveVideoCompany",{
+            videoPath:videoPath,
+            key:1
         })
      }, 1000);
 
@@ -127,7 +130,7 @@ import {appColors} from 'theme';
     if (device == null)
       return (
         <>
-          {console.log('jfhhdsfh')}
+       
           <SafeAreaView edges={['top']} style={globalStyles.screen}>
             <TouchableOpacity
               style={styles.skipContainer}
@@ -224,5 +227,5 @@ import {appColors} from 'theme';
     );
   };
   
-  export default UpdateRecordVideo;
+  export default UpdateRecordVideoCompany;
   

@@ -128,7 +128,12 @@ const CustomSidebarMenu = (props: any) => {
             </View>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ProfileScreen')}
+             onPress={() =>
+              USER?.user_data?.user_type == 'company'
+                ? navigation.navigate('ProfileCompanyScreen')
+                : navigation.navigate('ProfileScreen')
+            }
+         
             style={{
               width: '80%',
               height: 50,

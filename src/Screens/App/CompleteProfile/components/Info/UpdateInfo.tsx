@@ -99,7 +99,7 @@ const UpdateInfo = () => {
         console.error('DocumentPicker Error:', err);
       }
     }
-  };
+  }; 
   const pick = () => {
     launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
       setSource(res?.assets);

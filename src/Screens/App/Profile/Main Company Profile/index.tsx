@@ -1,56 +1,50 @@
 import {ScrollView, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from 'components/molecules/Header';
 import {styles} from './styles';
-
+import Complete from './components/CompleteCompany';
 
 
 import {useNavigation} from '@react-navigation/native';
 
 
-
-import {useAppDispatch} from 'src/redux/store';
-import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
+import {useSelector} from 'react-redux';
 import AppSlice from 'src/redux/app';
+import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import RecordVideoCompany from './components/RecordVideo/RecordVideoCompany';
-import AboutCompanyCard from './components/About/About';
-import InfoCompanyCard from './components/Info/Info';
+import RecordVideoCardCompany from './components/RecordVideocompany';
+import InfoCardCompany from './components/InfoCompany';
+import AboutCardCompany from './components/AboutCompany';
 
-const CompleteCompanyProfileScreen = () => {
-  const dispatch = useAppDispatch();
+const ProfileCompanyScreen = () => {
   const navigation = useNavigation();
-  const CurrentUserData = useSelector(selectUser);
-  console.log("ccccc",CurrentUserData)
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
-      dispatch(AppThunks.GetProfileInfo()).then(
-        (res: any) => {
-           
-        },
-      );;
+      dispatch(AppThunks.GetProfileInfo());
       dispatch(AppSlice.changeDone(false));
     });
     return RenderFunction;
   }, [navigation]);
-
+  const CurrentUserData = useSelector(selectUser);
   return (
     <SafeAreaView edges={['top']} style={styles.Container}>
       <Header Title="My profile" onPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <RecordVideoCompany user_data={CurrentUserData} />
+        <RecordVideoCardCompany data={CurrentUserData?.user_data?.cv_media} />
         <View style={styles.PaddingContainer}>
-          <InfoCompanyCard user_data={CurrentUserData} />
-          <AboutCompanyCard About={CurrentUserData} />
+          <Complete
+            pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
+          />
+          <InfoCardCompany data={CurrentUserData} />
+          <AboutCardCompany data={CurrentUserData?.about} />
         </View>
-
-        {/* <View style={{ height: 20 }} /> */}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default CompleteCompanyProfileScreen;
+export default ProfileCompanyScreen;

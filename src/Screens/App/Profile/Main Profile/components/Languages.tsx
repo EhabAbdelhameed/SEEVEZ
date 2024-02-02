@@ -3,16 +3,19 @@ import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {Star} from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
 
 const LanguagesCard = (data: any) => {
   console.log('This is Languages Data15148', data);
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
+  const navigation = useNavigation()
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Languages</Text>
           <View style={styles.Row2}>
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateLanguages')} >
             <RenderSvgIcon
               icon="PLUSFOLLOW"
               style={{marginRight: 10}}
@@ -20,12 +23,16 @@ const LanguagesCard = (data: any) => {
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateLanguageCard')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
           </View>
         </View>
         {data?.data?.length == 0
@@ -55,7 +62,13 @@ const LanguagesCard = (data: any) => {
                   <View>
                     <Text style={styles.Head}>{item?.name}</Text>
                     <Text style={styles.Des}>
-                      Native or bilingual proficiency
+                    {item.rate == 5
+                    ? 'Native or bilingual proficiency'
+                    : item.rate == 3
+                    ? 'Advanced'
+                    : item.rate == 2
+                    ? 'Intermediate'
+                    : 'Beginner'}
                     </Text>
                   </View>
                   <View style={styles.Row2}>

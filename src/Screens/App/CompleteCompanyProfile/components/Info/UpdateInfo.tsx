@@ -5,6 +5,7 @@ import {
   TextInput,
   Alert,
   Image,
+  Platform,
 } from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Moment from 'moment';
@@ -37,11 +38,13 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import {selectDone} from 'src/redux/app';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {selectUser} from 'src/redux/auth';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateCompanyInfo = () => {
   const dispatch = useAppDispatch();
-
+  const CurrentUserData = useSelector(selectUser);
   const changeDone = useSelector(selectDone);
   // console.log(changeDone)
   useEffect(() => {
@@ -79,31 +82,20 @@ const UpdateCompanyInfo = () => {
       }
     }
   };
-  const UploadVideoProfile = async () => {
-    try {
-      const result = await DocumentPicker.pick({
-        type: [DocumentPicker.types.video],
-      });
 
-      // The selected media is available in the result.uri
-      // dispatch(setImageURL(result[0].uri));
-
-      setSourceVideo(result);
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        console.log('User cancelled document picker');
-      } else {
-        console.error('DocumentPicker Error:', err);
-      }
-    }
+  const pick = () => {
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+      setSource(res?.assets);
+      // console.log("sdasdas "+JSON.stringify(res))
+    });
   };
-
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
 
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+ 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -116,10 +108,13 @@ const UpdateCompanyInfo = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
+          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
           </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
@@ -157,7 +152,7 @@ const UpdateCompanyInfo = () => {
           </View>
           <View style={{flexDirection: 'row', columnGap: 20, marginBottom: 10}}>
             <TouchableOpacity
-              onPress={UploadImageProfile}
+              onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -174,15 +169,29 @@ const UpdateCompanyInfo = () => {
                   borderWidth: 1,
                   borderColor: '#B9CDF4',
                 }}>
-                {source.length == 0 ? (
+                {CurrentUserData?.avatar == null && source?.length == 0 ? (
                   <CompanyLogo />
+                ) : Platform.OS == 'ios' ? (
+                  <Image
+                    source={{
+                      uri: source ? source[0]?.uri : CurrentUserData?.avatar,
+                    }}
+                    style={{width: 86, height: 86, borderRadius: 86}}
+                    resizeMode="cover"
+                  />
                 ) : (
                   <Image
-                    source={{uri: source[0]?.uri}}
+                    source={{
+                      uri:
+                        source?.length != 0
+                          ? source[0]?.uri
+                          : CurrentUserData?.avatar,
+                    }}
                     style={{width: 86, height: 86, borderRadius: 86}}
                     resizeMode="cover"
                   />
                 )}
+
                 <View
                   style={{
                     justifyContent: 'center',
@@ -211,7 +220,7 @@ const UpdateCompanyInfo = () => {
                   marginBottom: 20,
                   fontWeight: '600',
                 }}>
-                O- Project
+                {CurrentUserData?.name}
               </Text>
               <View style={{flexDirection: 'row'}}>
                 <View style={styles.statuesContainer}>
@@ -243,32 +252,52 @@ const UpdateCompanyInfo = () => {
           </TouchableOpacity> */}
           <Formik
             initialValues={{
-              Location: '',
+              Location: CurrentUserData?.country || '',
+
+              city: CurrentUserData?.city || '',
+              area: CurrentUserData?.area || '',
+              facebook: CurrentUserData?.facebook || '',
+              linkedin: CurrentUserData?.linkedin || '',
+              instagram: CurrentUserData?.instagram || '',
+              website: CurrentUserData?.website || '',
+              github: CurrentUserData?.github || '',
+              other: CurrentUserData?.other || '',
             }}
             onSubmit={values => {
               setLoading(true);
               const formdata = new FormData();
 
-              formdata.append('other', others);
-              formdata.append('github', github);
-              formdata.append('website', website);
-              formdata.append('facebook', facebook);
-              formdata.append('linkedin', linkedin);
-              formdata.append('instagram', instagram);
+              values.other != ''
+                ? formdata.append('other', values.other)
+                : null;
+              values.github != ''
+                ? formdata.append('github', values.github)
+                : null;
+              values.website != ''
+                ? formdata.append('website', values.website)
+                : null;
+              values.facebook != ''
+                ? formdata.append('facebook', values.facebook)
+                : null;
+              values.linkedin != ''
+                ? formdata.append('linkedin', values.linkedin)
+                : null;
+              values.instagram != ''
+                ? formdata.append('instagram', values.instagram)
+                : null;
 
-              formdata.append('country', values.Location);
-              formdata.append('city', city);
-              formdata.append('area', area);
-              formdata.append('cv_pdf', {
-                uri: sourceVideo[0]?.uri,
-                type: sourceVideo[0]?.type,
-                name: sourceVideo[0]?.name,
-              });
-              formdata.append('avatar', {
-                uri: source[0]?.uri,
-                type: source[0]?.type,
-                name: source[0]?.name,
-              });
+              values.Location != ''
+                ? formdata.append('country', values.Location)
+                : null;
+              values.city != '' ? formdata.append('city', values.city) : null;
+              values.area != '' ? formdata.append('area', values.area) : null;
+              source?.length != 0
+                ? formdata.append('avatar', {
+                    uri: source[0]?.uri,
+                    type: source[0]?.type,
+                    name: source[0]?.name,
+                  })
+                : null;
 
               console.log(formdata);
               dispatch(AppThunks.doAddCompanyInfo(formdata)).then(
@@ -281,11 +310,21 @@ const UpdateCompanyInfo = () => {
             {(props: any) => (
               <View>
                 <Text style={styles.labelStyle1}>Location</Text>
-                <InputView
-                  name="Location"
+                <TextInput
                   placeholder="Your country"
-                  // props={props}
-                  {...props}
+                  onChangeText={value =>
+                    props?.setFieldValue(`Location`, value)
+                  }
+                  value={props.values.Location}
+                  style={{
+                    borderRadius: 16,
+                    borderColor: '#1D5EDD',
+                    borderWidth: 1,
+                    paddingHorizontal: 15,
+                    height: 50,
+                    fontSize: 14,
+                    marginBottom: 10,
+                  }}
                 />
                 <View
                   style={{
@@ -296,18 +335,24 @@ const UpdateCompanyInfo = () => {
                   }}>
                   <View style={{width: '49%'}}>
                     <TextInput
-                      placeholder="Your city"
-                      placeholderTextColor={'#B9B9B9'}
-                      style={styles.InputStyleWithOutWidth}
-                      onChangeText={e => setCity(e)}
+                          placeholder="Your city"
+                          placeholderTextColor={'#B9B9B9'}
+                          style={styles.InputStyleWithOutWidth}
+                          onChangeText={value =>
+                            props?.setFieldValue(`city`, value)
+                          }
+                          value={props.values.city}
                     />
                   </View>
                   <View style={{width: '49%'}}>
                     <TextInput
-                      placeholder="Your area"
-                      placeholderTextColor={'#B9B9B9'}
-                      style={styles.InputStyleWithOutWidth}
-                      onChangeText={e => setArea(e)}
+                  placeholder="Your area"
+                  placeholderTextColor={'#B9B9B9'}
+                  style={styles.InputStyleWithOutWidth}
+                  onChangeText={value =>
+                    props?.setFieldValue(`area`, value)
+                  }
+                  value={props.values.area}
                     />
                   </View>
                 </View>
@@ -324,13 +369,19 @@ const UpdateCompanyInfo = () => {
                     placeholder="Facebook"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setFacebook(e)}
+                    onChangeText={value =>
+                      props?.setFieldValue(`facebook`, value)
+                    }
+                    value={props.values.facebook}
                   />
                   <TextInput
                     placeholder="Linkedin"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setLinkedin(e)}
+                    onChangeText={value =>
+                      props?.setFieldValue(`linkedin`, value)
+                    }
+                    value={props.values.linkedin}
                   />
                 </View>
                 <View
@@ -344,13 +395,19 @@ const UpdateCompanyInfo = () => {
                     placeholder="Instagram"
                     style={styles.InputStyle}
                     placeholderTextColor={'#B9B9B9'}
-                    onChangeText={e => setInstagram(e)}
+                    onChangeText={value =>
+                      props?.setFieldValue(`instagram`, value)
+                    }
+                    value={props.values.instagram}
                   />
                   <TextInput
                     placeholder="Website"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setWebsite(e)}
+                    onChangeText={value =>
+                      props?.setFieldValue(`website`, value)
+                    }
+                    value={props.values.website}
                   />
                 </View>
                 <View
@@ -364,15 +421,20 @@ const UpdateCompanyInfo = () => {
                     placeholder="Github"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setGithub(e)}
+                    onChangeText={value =>
+                      props?.setFieldValue(`github`, value)
+                    }
+                    value={props.values.github}
                   />
                   <TextInput
                     placeholder="Others"
                     placeholderTextColor={'#B9B9B9'}
                     style={styles.InputStyle}
-                    onChangeText={e => setOthers(e)}
+                    onChangeText={value => props?.setFieldValue(`other`, value)}
+                    value={props.values.other}
                   />
                 </View>
+
 
                 <Button
                   loading={loading}

@@ -14,26 +14,31 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import { appSizes } from 'theme/appSizes';
-import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
 import { useSelector } from 'react-redux';
 import { selectDone } from 'src/redux/app';
+import AppThunks from 'src/redux/app/thunks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { selectUser } from 'src/redux/auth';
 
 const UpdateCompanyAbout = () => {
   // const navigation = useNavigation<any>();
+  const CurrentUserData = useSelector(selectUser);
   const navigation = useNavigation()
-  const [loading, setLoading] = useState(false);
   const [about,setAbout]=useState('')
-  const dispatch = useAppDispatch();
   const _handleNavigate = useCallback(
       () => {
           navigation.goBack();
       },
       [],
   )
+  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+
   const changeDone = useSelector(selectDone);
   // console.log(changeDone)
   useEffect(() => {
+
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
   return (
@@ -50,10 +55,13 @@ const UpdateCompanyAbout = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
          <View style={styles.logoContainer}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={_handleNavigate}>
-            <Text style={styles.skipText}>Skip</Text>
+         <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+            <RenderSvgIcon
+              icon="ARROWBACK"
+              width={30}
+              height={30}
+              color={appColors.primary}
+            />
           </TouchableOpacity>
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
@@ -101,17 +109,19 @@ const UpdateCompanyAbout = () => {
             About
           </Text>
           <Formik
-            initialValues={{About: ''}}
+            initialValues={{About:CurrentUserData?.about|| ''}}
             onSubmit={values => {
               setLoading(true);
               const formdata = new FormData();
 
-              formdata.append('about', about);
+              formdata.append('about',values.About);
              
 
-              console.log(formdata);
-              dispatch(AppThunks.doAddCompanyAbout(formdata)).then(
+              console.log("FROM ABOUT COMPANY",formdata);
+
+            dispatch(AppThunks.doAddCompanyInfo(formdata)).then(
                 (res: any) => {
+                  dispatch(AppThunks.GetProfileInfo())
                   setLoading(false);
                 },
               );
@@ -125,14 +135,17 @@ const UpdateCompanyAbout = () => {
                   style={styles.textArea} // Define your own styles for the text area
                   placeholder="Write here.."
                   placeholderTextColor={'#B9B9B9'}
-                  
-                  onChangeText={(e)=>setAbout(e)}
-                  onBlur={props.handleBlur('About')}
+                  onChangeText={value =>
+                    props?.setFieldValue(`About`, value)
+                  }
                   value={props.values.About}
+                  
+                  onBlur={props.handleBlur('About')}
+                  
                   textAlignVertical="top"
                 />
                 <View style={{height:appSizes.height * 0.09}}/>
-                <Button loading={loading}  text={'Done'} onPress={props.handleSubmit} />
+                <Button loading={loading} text={'Done'} onPress={props.handleSubmit} />
               </View>
             )}
           </Formik>

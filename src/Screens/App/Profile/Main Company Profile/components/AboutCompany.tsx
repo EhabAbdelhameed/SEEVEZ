@@ -8,21 +8,20 @@ import {
 import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-const AboutCompanyCard = (About: any) => {
+const AboutCardCompany = (data: any) => {
+  const [aboutSection, setAboutSection] = useState('Bio'); // Added state to track edited content
   const navigation = useNavigation<any>();
 
-  const saveAboutSection = () => {
-    navigation.navigate('UpdateCompanyAbout');
-  };
+
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>About</Text>
+          <Text style={styles.Title}>Overview</Text>
 
-          <TouchableOpacity onPress={saveAboutSection}>
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateCompanyAbout')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
@@ -30,36 +29,18 @@ const AboutCompanyCard = (About: any) => {
               color={appColors.white}
             />
           </TouchableOpacity>
-    
         </View>
-   
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: '#E8E8E8',
-            height: 100,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            borderRadius: 16,
-          }}>
-          {About?.About?.about == null ? (
-            <Text
-              numberOfLines={4}
-              style={{color: '#B9B9B9', fontFamily: 'Noto Sans'}}>
-              Bio
-            </Text>
-          ) : (
-            <Text style={{fontWeight: '400', color: appColors.black}}>
-              {About?.About?.about}
-            </Text>
-          )}
-        </View>
+        {data?.data == null ? (
+          <Text style={styles.Des}>{aboutSection}</Text>
+        ) : (
+          <Text style={styles.Des}>{data?.data}</Text>
+        )}
       </View>
     </View>
   );
 };
 
-export default AboutCompanyCard;
+export default AboutCardCompany;
 
 const styles = StyleSheet.create({
   CardContainer: {
@@ -87,18 +68,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
-    fontFamily: 'Noto Sans',
   },
   Des: {
     fontWeight: '400',
     color: appColors.black,
-    fontFamily: 'Noto Sans',
   },
   EditDes: {
     fontWeight: '400',
     color: appColors.black,
     textAlignVertical: 'top',
     marginBottom: 10,
-    fontFamily: 'Noto Sans',
   },
 });

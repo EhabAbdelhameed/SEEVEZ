@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
@@ -6,12 +6,16 @@ import {ImageBackground} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
 import {useNavigation} from '@react-navigation/native';
-import {AVATAR, Analytic, Analytics, PDF} from 'assets/Svgs';
+import {AVATAR, Analytic, Analytics, CompanyLogo, PDF} from 'assets/Svgs';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'src/redux/auth';
 
-const InfoCard = (user_data: any) => {
+const InfoCompanyCard = (user_data: any) => {
   const [name, setName] = useState<any>('');
+  const CurrentUserData = useSelector(selectUser);
+
   const [loading, setLoading] = useState<any>(false);
 const dispatch=useAppDispatch();
 
@@ -35,7 +39,7 @@ const dispatch=useAppDispatch();
       console.log(formdata);
       dispatch(AppThunks.doAddPersonalInfo(formdata)).then((response: any) => {
         setLoading(false);
-        setName(res[0].name)
+     
       });
     } catch (err) {
       // setFieldValue(name.replace(/\s/g, ''), '');
@@ -74,7 +78,16 @@ const dispatch=useAppDispatch();
             alignItems: 'center',
             backgroundColor: appColors.bg,
           }}>
-          <AVATAR height={48} width={48} />
+     {CurrentUserData?.avatar == null ? (
+         
+            <CompanyLogo height={48} width={48} />
+          ) : (
+            <Image
+              source={{uri:CurrentUserData?.avatar }}
+              style={{width: 96, height: 96, borderRadius: 96}}
+              resizeMode="cover"
+            />
+          )}
           <View
             style={{
               width: 15,
@@ -110,7 +123,7 @@ const dispatch=useAppDispatch();
             />
           </View>
           <Text style={styles.Description}>
-          Software Development
+       
           </Text>
           <View style={[styles.Row, {marginTop: 10}]}>
             <View style={styles.subContainer}>
@@ -156,7 +169,7 @@ const dispatch=useAppDispatch();
   );
 };
 
-export default InfoCard;
+export default InfoCompanyCard;
 
 const styles = StyleSheet.create({
   CardContainer: {

@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, TextInput, Alert, Image} from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {styles} from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
@@ -15,18 +15,60 @@ import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
 import { appSizes } from 'theme/appSizes';
 import Video from 'react-native-fast-video';
+import AppThunks from 'src/redux/app/thunks';
+import { useAppDispatch } from 'src/redux/store';
+import { useSelector } from 'react-redux';
+import { selectDone } from 'src/redux/app';
 
-const SaveVideo = () => {
+const SaveVideoCompany = () => {
   // const navigation = useNavigation<any>();
   const navigation = useNavigation()
-  const {videoPath}: any = useRoute().params;
+  const {videoPath,key,source}: any = useRoute().params;
+  const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
   const _handleNavigate = useCallback(
       () => {
           navigation.goBack();
       },
       [],
   )
+  const changeDone = useSelector(selectDone);
+  useEffect(() => {
+    changeDone ? navigation.navigate('CompleteCompanyProfileScreen'): null;
+  }, [changeDone]);
   const saveVideoFun =()=>{
+
+    if (key==1){
+      setLoading(true)
+      const formdata = new FormData();
+
+      formdata.append('media', {
+        uri: videoPath,
+        type: 'video/mp4',
+        name:" VID-20240121-WA0052.mp4",
+      })
+      dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
+        dispatch(AppThunks.GetProfileInfo())
+        setLoading(false);
+        
+      });
+    
+    }else{
+      setLoading(true)
+      const formdata = new FormData();
+
+      formdata.append('media', {
+        uri: source[0]?.uri,
+        type: source[0]?.type,
+        name: source[0]?.name,
+      })
+      dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
+        dispatch(AppThunks.GetProfileInfo())
+        setLoading(false);
+      
+      });
+    }
+    // console.log(source)
 
   }
   return (
@@ -90,11 +132,11 @@ const SaveVideo = () => {
               style={{width:'100%',height:320,borderRadius:16,marginBottom:20}}
             
             />
-            <Button  text={'Done'} onPress={saveVideoFun} />
+            <Button loading={loading}  text={'Done'} onPress={saveVideoFun} />
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
 
-export default SaveVideo;
+export default SaveVideoCompany;

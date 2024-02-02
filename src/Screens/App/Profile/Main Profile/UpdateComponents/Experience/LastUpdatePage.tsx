@@ -282,7 +282,7 @@ const UpdateOneExperience = () => {
               formdata.append(`start_date`, values.start_date);
               formdata.append(`end_date`, values.end_date);
               formdata.append(`still_work_here`, values.still_work_here);
-              formdata.append(`experience_letter`, values.experience_letter);
+              experienceLetter?.length != 0 ?formdata.append(`experience_letter`, values.experience_letter):null;
 
               console.log('FormData', formdata);
 
