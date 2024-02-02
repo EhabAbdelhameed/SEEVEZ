@@ -2,7 +2,7 @@ import { View, Text, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { styles } from './styles'
 import Header from './components/Header'
-import RenderHtml from 'react-native-render-html';
+import Toast from 'react-native-toast-message';
 import Footer from './components/Footer';
 // import htmlCv from "./components/cv.html"
 // const htmlCv = require('./components/cv.html')
@@ -18,25 +18,28 @@ const Cv = () => {
     const dispatch = useAppDispatch()
     const [isLoading, setIsLoading] = useState(false);
     const [count, setCount] = useState(1);
-
+    const User = useAppSelector(selectUser)
     React.useEffect(() => {
         dispatch(AppThunks.GetProfileInfo())
     }, [])
     const onGenerate = async () => {
         try {
-            const options = {
-                html: source.html,
-                fileName: `invoice_${count}`,
-                directory: 'Invoices',
-            };
+            // const options = {
+            //     // html: source.html,
+            //     fileName: `invoice_${count}`,
+            //     directory: 'Invoices',
+            // };
             const file = await RNHTMLtoPDF.convert({
-                html: source.html,
+                html: source(User),
                 fileName: `invoice_${count}`,
                 directory: 'Invoices',
                 bgColor: "#fff",
                 base64: false,
             });
-            Alert.alert('Success', `PDF saved to ${file.filePath}`);
+            Toast.show({
+                type: 'success',
+                text1: 'CV downloaded successfully',
+              });
             console.log('====================================');
             console.log(file.filePath);
             console.log('====================================');

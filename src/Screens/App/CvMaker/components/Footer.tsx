@@ -6,10 +6,11 @@ const Footer = ({onGenerate}:any) => {
     return (
         <View style={style.footer}>
             <TouchableOpacity
+             onPress={onGenerate}
             style={style.btn}
             >
             <Text style={style.textBtn}
-                onPress={onGenerate}
+               
             >Download as a PDF file</Text>
             </TouchableOpacity>
         </View>
