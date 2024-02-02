@@ -7,6 +7,7 @@ import EditDragIcons from './EditDragIcons';
 interface Props {
   drag: any;
   isActive: any
+  User?: any;
 }
 
 const Achievements = (props: Props) => {

@@ -10,11 +10,18 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { source } from './components/cvSource';
 import CVRN from './components/CVSections';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAppDispatch, useAppSelector } from 'src/redux/store';
+import { selectUser } from 'src/redux/auth';
+import AppThunks from 'src/redux/app/thunks';
 
 const Cv = () => {
+    const dispatch = useAppDispatch()
     const [isLoading, setIsLoading] = useState(false);
     const [count, setCount] = useState(1);
 
+    React.useEffect(() => {
+        dispatch(AppThunks.GetProfileInfo())
+    }, [])
     const onGenerate = async () => {
         try {
             const options = {

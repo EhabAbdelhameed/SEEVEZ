@@ -636,7 +636,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: 'Profile updated successfully',
       });
     });
     builder.addCase(thunks.doAddPersonalInfo.rejected, (state, action: any) => {
