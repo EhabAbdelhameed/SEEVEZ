@@ -1,17 +1,20 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
+import { useNavigation } from '@react-navigation/native';
 
 const AchievementsCard = (data: any) => {
-  console.log('From ACH', data);
+  const navigation = useNavigation()
+ 
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Achievements</Text>
           <View style={styles.Row2}>
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAchievements')} >
             <RenderSvgIcon
               icon="PLUSFOLLOW"
               style={{marginRight: 10}}
@@ -19,12 +22,16 @@ const AchievementsCard = (data: any) => {
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
+            <TouchableOpacity disabled={data?.data == null ?true:false}
+              onPress={() => navigation.navigate('UpdateAchievementCard')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
           </View>
         </View>
         {data?.data == null ? null : (

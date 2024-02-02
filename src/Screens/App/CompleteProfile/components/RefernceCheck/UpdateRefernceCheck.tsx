@@ -45,7 +45,10 @@ const UpdateRefernceCheck = () => {
   const [Source, setSource] = useState<any>([]);
   const [loading, setLoading] = React.useState(false);
   const [code, setCode] = React.useState('');
-
+  const [codes, setCodes] = React.useState<any>([]);
+  const addCode = (newCode :any) => {
+    setCodes((prevCodes:any) => [...prevCodes, newCode]);
+  };
   const uploadFile = async (type: any) => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -63,7 +66,7 @@ const UpdateRefernceCheck = () => {
       }
     }
   };
-  
+
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -77,7 +80,7 @@ const UpdateRefernceCheck = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-        <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
             <RenderSvgIcon
               icon="ARROWBACK"
               width={30}
@@ -131,12 +134,18 @@ const UpdateRefernceCheck = () => {
             Reference check
           </Text>
           <Formik
-            initialValues={{phones: [{phone: '', code: ''}]}}
+            initialValues={{phones: [{phone: '', code:'+20'||''}]}}
             onSubmit={values => {
               setLoading(true);
               const formdata = new FormData();
               values.phones.map((item: any, index: any) => {
-                formdata.append(`array[${index}][country_code]`,code==''?'+20':code);
+                console.log("this IS CODE",code)
+                // formdata.append(
+                //   `array[${index}][country_code]`,
+                //   code == '' ? '+20' : code,
+                  
+                // );
+                formdata.append(`array[${index}][country_code]`,item.code==undefined?'+20':item.code);
                 formdata.append(`array[${index}][phone]`, item.phone);
               });
 
@@ -148,7 +157,7 @@ const UpdateRefernceCheck = () => {
               console.log(formdata);
               dispatch(AppThunks.doAddReferenceCheck(formdata)).then(
                 (res: any) => {
-                  dispatch(AppThunks.GetProfileInfo())
+                  dispatch(AppThunks.GetProfileInfo());
                   setLoading(false);
                 },
               );
@@ -161,15 +170,32 @@ const UpdateRefernceCheck = () => {
                   <View key={index}>
                     <Input
                       {...props}
-                      leftIcon={<NewPicker index={index} setcode={setCode} props={props} />}
+                      leftIcon={
+                        <NewPicker
+                          index={index}
+                          setcode={setCode}
+                        
+                          setCodes={(newCode) => {
+                            addCode(newCode);
+                            props?.setFieldValue(
+                              `phones[${index}]["codes"]`,
+                              codes
+                            );
+                          }}
+                          props={props}
+                        />}
+                     
+                  
                       name={`phones[${index}][phone]`}
                       inputContainerStyle={{
                         borderRadius: 16,
                         borderColor: '#1D5EDD',
                         borderWidth: 1,
-                        paddingHorizontal: 15
+                        paddingHorizontal: 15,
                       }}
-                      onChangeText={(e)=>props?.setFieldValue(`phones[${index}]["phone"]`,e)}
+                      onChangeText={e =>
+                        props?.setFieldValue(`phones[${index}]["phone"]`, e)
+                      }
                       containerStyle={{
                         paddingHorizontal: 0,
                         marginVertical: 1,
@@ -179,8 +205,7 @@ const UpdateRefernceCheck = () => {
                         fontSize: 14,
                         //  color: 'red'
                       }}
-                      keyboardType='number-pad'
-                   
+                      keyboardType="number-pad"
                       placeholder={`Enter phone number`}
                     />
                     {/* {index > 0 && (

@@ -47,15 +47,19 @@ const ReferenceCheckCard = (data: any) => {
           </View>
         ) : (
           <View
-            style={{
-              borderWidth: 1,
-              borderColor: '#E8E8E8',
-              height: 100,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              borderRadius: 16,
-            }}>
-            <Text style={styles.Des}>{data?.data?.phone}</Text>
+          style={{
+            borderWidth: 1,
+            borderColor: '#E8E8E8',
+            height: 100,
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            borderRadius: 16,
+          }}>
+          {data?.data?.map((item: any) => (
+      
+            <Text style={styles.Des}>{item.phone}</Text>
+         
+          ))}
           </View>
         )}
       </View>

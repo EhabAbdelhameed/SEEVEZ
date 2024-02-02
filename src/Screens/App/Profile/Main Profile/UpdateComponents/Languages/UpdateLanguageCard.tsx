@@ -126,7 +126,18 @@ import {
                 />
               </View>
             </View>
-  
+            <View style={{marginBottom:15}}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '700',
+                color: '#000',
+                marginLeft: 8,
+                fontFamily: 'Noto Sans',
+              }}>
+              Languages 
+            </Text>
+            </View>
             
          {data?.map((item: any, index: any) =>
            <View style={{marginBottom: 15, flexDirection: 'row',justifyContent:'center',columnGap:20,alignItems:'center'}}>

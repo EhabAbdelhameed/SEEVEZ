@@ -24,7 +24,7 @@ const TrainingCard = (data: any) => {
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>Training Courses</Text>
+          <Text style={styles.Title}>Training courses</Text>
           <View style={styles.Row2}>
           <TouchableOpacity onPress={()=>navigation.navigate('UpdateTraining')} >
             <RenderSvgIcon

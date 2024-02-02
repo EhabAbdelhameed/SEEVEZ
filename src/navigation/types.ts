@@ -23,6 +23,12 @@ export type AppParamsList = {
     ProfileScreen: undefined;
     CompleteProfileScreen:undefined;
     CompleteCompanyProfileScreen:undefined;
+    UpdateAchievementCard:undefined;
+    UpdateOneAchievements:undefined;
+    UpdateSkillsCard:undefined;
+    UpdateOneSkills:undefined;
+    UpdateOneRefernceCheck:undefined;
+    UpdateReferenceCheckCard:undefined;
     UpdateCompanyAbout:undefined;
     UpdateRecordVideoCompany:undefined;
     UpdateLanguageCard:undefined;

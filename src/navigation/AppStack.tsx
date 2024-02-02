@@ -40,6 +40,12 @@ import UpdateLanguageCard from 'screens/App/Profile/Main Profile/UpdateComponent
 import UpdateOneLanguage from 'screens/App/Profile/Main Profile/UpdateComponents/Languages/lastUpdateLanguage';
 import UpdateTrainingCard from 'screens/App/Profile/Main Profile/UpdateComponents/TrainingCourse/UpdateTrainingCard';
 import UpdateOneTraining from 'screens/App/Profile/Main Profile/UpdateComponents/TrainingCourse/lastUpdateTrainingCard';
+import UpdateOneAchievements from 'screens/App/Profile/Main Profile/UpdateComponents/Achievements/lastUpdateAchievements';
+import UpdateAchievementCard from 'screens/App/Profile/Main Profile/UpdateComponents/Achievements/UpdateAchievementsCard';
+import UpdateReferenceCheckCard from 'screens/App/Profile/Main Profile/UpdateComponents/ReferenceCheck/UpdateRefernceCheckCard';
+import UpdateOneRefernceCheck from 'screens/App/Profile/Main Profile/UpdateComponents/ReferenceCheck/lastUpdateReferenceCheck';
+import UpdateSkillsCard from 'screens/App/Profile/Main Profile/UpdateComponents/Skills/UpdateSkillsCard';
+import UpdateOneSkills from 'screens/App/Profile/Main Profile/UpdateComponents/Skills/lastUpdateSkills';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -152,6 +158,14 @@ const AppStack = () => {
                 component={UpdateLanguageCard}
             />
             <Stack.Screen
+                name="UpdateOneAchievements"
+                component={UpdateOneAchievements}
+            />
+                <Stack.Screen
+                name="UpdateAchievementCard"
+                component={UpdateAchievementCard}
+            />
+            <Stack.Screen
                 name="UpdateOneLanguage"
                 component={UpdateOneLanguage}
             />
@@ -162,6 +176,22 @@ const AppStack = () => {
             <Stack.Screen
                 name="UpdateOneTraining"
                 component={UpdateOneTraining}
+            />
+               <Stack.Screen
+                name="UpdateReferenceCheckCard"
+                component={UpdateReferenceCheckCard}
+            />
+            <Stack.Screen
+                name="UpdateOneRefernceCheck"
+                component={UpdateOneRefernceCheck}
+            />
+              <Stack.Screen
+                name="UpdateSkillsCard"
+                component={UpdateSkillsCard}
+            />
+            <Stack.Screen
+                name="UpdateOneSkills"
+                component={UpdateOneSkills}
             />
             <Stack.Screen
                 name="ProfileScreen"

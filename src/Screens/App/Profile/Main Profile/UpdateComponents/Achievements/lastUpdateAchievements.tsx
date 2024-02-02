@@ -1,13 +1,12 @@
 import {View, Text, TouchableOpacity, TextInput, Alert, Image, Platform} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
-import AuthTopSection from '../../../../../Components/molecules/AuthTopSection';
+import {RenderSvgIcon} from '../../../../../../Components/atoms/svg';
+
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {appColors} from '../../../../../theme/appColors';
+import {appColors} from '../../../../../../theme/appColors';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import Button from '../../../../../Components/molecules/Button';
+import Button from '../../../../../../Components/molecules/Button';
 import DocumentPicker from 'react-native-document-picker';
 import {BigLogo, PHOTO} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -21,7 +20,9 @@ import { selectDone } from 'src/redux/app';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 
-const UpdateAchievements = () => {
+const UpdateOneAchievements = () => {
+    const {data}: any = useRoute().params;
+    console.log('Achev', data);
   const [loading, setLoading] = React.useState(false);
   const dispatch = useAppDispatch();
   // const navigation = useNavigation<any>();
@@ -85,7 +86,7 @@ const UpdateAchievements = () => {
           {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
            */}
           <Image
-            source={require('../../../../../assets/images/seevezlogo.png')}
+            source={require('../../../../../../assets/images/seevezlogo.png')}
             style={{width: 100, height: 30}}
           />
         </View>
@@ -128,21 +129,21 @@ const UpdateAchievements = () => {
             Achievements 
           </Text>
           <Formik
-            initialValues={{Achievements: ''}}
+            initialValues={{Achievements:data?.text||''}}
             onSubmit={values => {
               setLoading(true);
               const formdata = new FormData();
-
-              formdata.append('text',achievements );
+              formdata.append('id',data?.id );
+              formdata.append('text',values.Achievements );
               // formdata.append('user_id', 3);
               // formdata.append('rate',5 );
-              formdata.append('certificate', {
+             Source.length!=0? formdata.append('certificate', {
                 uri: Source[0]?.uri,
                 type: Source[0]?.type,
                 name: Source[0]?.name,
-              });
+              }):null
               // console.log("555555 "+JSON.stringify(formdata))
-              dispatch(AppThunks.doAddAchievement(formdata)).then((res: any) => {
+              dispatch(AppThunks.doUpdateAchievement(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo())
                 setLoading(false);
 
@@ -159,9 +160,12 @@ const UpdateAchievements = () => {
                   placeholder="Write here.."
                   placeholderTextColor={'#B9B9B9'}
                   
-                  onChangeText={(e)=>setAchievements(e)}
-                  onBlur={props.handleBlur('Achievements')}
-                  value={props.values.achievement}
+                
+                  onChangeText={e =>
+                    props?.setFieldValue(`Achievements`, e)
+                  }
+                //   onBlur={props.handleBlur('Achievements')}
+                  value={props.values.Achievements}
                   textAlignVertical="top"
                 />
                 <Text style={{marginBottom: 10}}>1500 characters</Text>
@@ -171,8 +175,8 @@ const UpdateAchievements = () => {
                   <PHOTO style={{marginRight: 20}} />
                   <Text style={{fontSize: 20, color: appColors.primary, fontFamily: 'Noto Sans'}}>
                     {Source.length == 0
-                      ? 'Upload certificate image'
-                      :Source[0].name}
+                      ? 'Update certificate image'
+                      : Source[0].name}
                   </Text>
                 </TouchableOpacity>
                 <View style={{height:appSizes.height * 0.06}}/>
@@ -186,4 +190,4 @@ const UpdateAchievements = () => {
   );
 };
 
-export default UpdateAchievements;
+export default UpdateOneAchievements;

@@ -28,7 +28,7 @@ import {
   const UpdateEducationCard = () => {
     const CurrentUserData = useSelector(selectUser);
     let data = CurrentUserData?.user_data?.educations;
-    console.log('11111111 ', data);
+    // console.log('11111111 ', data);
     const navigation = useNavigation<any>();
     const dispatch = useAppDispatch();
   

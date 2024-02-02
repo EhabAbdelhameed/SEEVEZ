@@ -25,10 +25,10 @@ import {
   import {useSelector} from 'react-redux';
   import {selectUser} from 'src/redux/auth';
   
-  const UpdateTrainingCard = () => {
+  const UpdateReferenceCheckCard = () => {
     const CurrentUserData = useSelector(selectUser);
-    let data = CurrentUserData?.user_data?.training_courses;
-    // console.log('11111111 ', data);
+    let data = CurrentUserData?.user_data?.reference_check;
+    console.log('11111111 ', data);
     const navigation = useNavigation<any>();
     const dispatch = useAppDispatch();
   
@@ -43,21 +43,12 @@ import {
     const _handleNavigate = useCallback(() => {
       navigation.goBack();
     }, []);
-    const differenceInYears = (date1: any, date2: any) => {
-        let start_date = moment(date1).format('yyyy-MM-DD');
-        let end_date = moment(date2).format('yyyy-MM-DD');
-        let years =
-          parseInt(end_date.substring(0, 4)) - parseInt(start_date.substring(0, 4));
-    
-        Math.abs(years);
-    
-        return years;
-      };
-    const handleDeleteTraining = (TraniningId:any) => {
+   
+    const handleDeleteReferenceCheck = (RefernceCheckId:any) => {
       // Show confirmation dialog
       Alert.alert(
         'Seevez',
-        'Are you sure you want to delete this training course?',
+        'Are you sure you want to delete this phone number?',
         [
           {
             text: 'Cancel',
@@ -67,7 +58,7 @@ import {
             text: 'OK',
             onPress: () => {
               // Dispatch the action to delete the experience
-              dispatch(AppThunks.doDeleteTrainingCourse(TraniningId)).then((res: any) => {
+              dispatch(AppThunks.doDeleteReferenceCheck(RefernceCheckId)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());
              
               });
@@ -126,49 +117,36 @@ import {
                 />
               </View>
             </View>
-  
-            
-         {data?.map((item: any, index: any) =>
-            <View style={{marginBottom: 15, flexDirection: 'row'}}>
-            <View>
-            <View style={styles.Row2}>
-              <Image
-                source={{
-                  uri: 'https://s.tmimgcdn.com/scr/1200x750/243100/unique-and-creative-education-logo-design-concept-for-book-and-hat_243161-original.jpg',
-                }}
-                style={styles.Image}
-              />
-              <View style={{marginLeft: 10}}>
-                <Text style={styles.Title2}>{item?.institute}</Text>
-                <Text style={styles.CompanyName}>{item?.field_of_study}</Text>
-                <Text style={styles.des}>
-                  {moment(item.start_date).format('yyyy')} -{' '}
-                  {moment(item.end_date).format('yyyy')} ·
-                  {differenceInYears(item.start_date, item.end_date)} years ·
-                  Cairo, Egypt
-                </Text>
-                <View style={styles.Row2}>
-                  <Text style={styles.Title3}>Grade : </Text>
-                  <Text style={styles.Title4}>{item.grade}</Text>
-                </View>
-              </View>
+            <View style={{marginBottom:15}}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '700',
+                color: '#000',
+                marginLeft: 8,
+                fontFamily: 'Noto Sans',
+              }}>
+              Reference check
+            </Text>
             </View>
-            <Image
-              style={styles.Certificate}
-              source={{
-                uri: item?.certificate_image,
-              }}
-            />
-          </View>
-          <View
-              style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
-              <TouchableOpacity
-                onPress={() => handleDeleteTraining(item.id)}>
+            
+            <FlatList
+            scrollEnabled={false}
+            data={data}
+          
+            renderItem={({item}) =>(
+                <View style={{marginBottom:10,flexDirection:'row',justifyContent:'space-between',paddingHorizontal:6}}>
+                  <View style={styles.Row1}>
+                    <RenderSvgIcon icon='PHONE' width={20} height={20} color={appColors.white} />
+                    <Text style={styles.InfoText}>{item?.phone}</Text>
+                </View>
+                <View style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
+              <TouchableOpacity onPress={() => handleDeleteReferenceCheck(item?.id)}>
                 <DELETE />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('UpdateOneTraining', {
+                  navigation.navigate('UpdateOneRefernceCheck', {
                     data: item,
                   })
                 }>
@@ -180,13 +158,17 @@ import {
                 />
               </TouchableOpacity>
             </View>
-          </View>
-          )}
+                </View>
+            )
+            
+            }
+            keyExtractor={(item, index) => index.toString()}
+          />
           </View>
         </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   };
   
-  export default UpdateTrainingCard;
+  export default UpdateReferenceCheckCard;
   

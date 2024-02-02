@@ -20,6 +20,7 @@ import {useSelector} from 'react-redux';
 import AppSlice from 'src/redux/app';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
+import ReferenceCheck from './components/ReferenceCheck';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -33,6 +34,7 @@ const ProfileScreen = () => {
     return RenderFunction;
   }, [navigation]);
   const CurrentUserData = useSelector(selectUser);
+  // console.log("This Data From Hossam ",JSON.stringify(CurrentUserData))
   return (
     <SafeAreaView edges={['top']} style={styles.Container}>
       <Header Title="My profile" onPress={() => navigation.goBack()} />
@@ -57,7 +59,8 @@ const ProfileScreen = () => {
           />
           <LanguagesCard data={CurrentUserData?.user_data?.languages} />
           <AchievementsCard data={CurrentUserData?.user_data?.achievement} />
-          <RecommendationsCard />
+          {/* <RecommendationsCard /> */}
+          <ReferenceCheck data={CurrentUserData?.user_data?.reference_check}/>
           <View style={{height: 20}} />
         </View>
       </ScrollView>

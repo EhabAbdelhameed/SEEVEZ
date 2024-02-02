@@ -29,12 +29,19 @@ const SkillsCard = ({title, data}: {title?: any; data?: any}) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
+            <TouchableOpacity disabled={data?.length == 0?true:false}
+              onPress={() =>
+                navigation.navigate('UpdateSkillsCard', {
+                  title: title == 'Interests' ? 'Interests' : 'Skills',
+                })
+              }>
             <RenderSvgIcon
               icon="PEN"
               width={20}
               height={20}
               color={appColors.primary}
             />
+            </TouchableOpacity>
           </View>
         </View>
         {data?.length == 0 ? null : (
