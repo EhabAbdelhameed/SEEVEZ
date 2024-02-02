@@ -1,22 +1,23 @@
 
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { styles } from './styles';
 import { appColors } from '../../../../../theme/appColors';
 import EditDragIcons from './EditDragIcons';
 
 interface Props {
     drag: any;
-    isActive: any
-  }
+    isActive: any;
+    User: any;
+}
 
 const AdditionalData = (props: Props) => {
     return (
         <TouchableOpacity style={[styles.container2, {
             backgroundColor: appColors.yellow
         }]}
-        onLongPress={props.drag}
-        disabled={props.isActive}
+            onLongPress={props.drag}
+            disabled={props.isActive}
         >
             <EditDragIcons color={appColors.brown} />
             <Text
@@ -27,16 +28,23 @@ const AdditionalData = (props: Props) => {
                     <Text style={styles.label}>Date of birth</Text>
                     <Text
                         style={styles.textContentSection}
-                    >. 09/06/1996</Text>
+                    >{props?.User?.birthdate}</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Text style={styles.label}>Marital status</Text>
-                    <Text
-                        style={styles.textContentSection}
-                    >. Single</Text>
+                    <Text style={styles.label}>Nationality</Text>
+                    <FlatList
+                        data={props.User?.user_data?.nationality}
+                        renderItem={({item}) => (
+                            <>
+                                <Text
+                                    style={styles.textContentSection}
+                                >{item?.name}</Text>
+                            </>
+                        )}
+                    />
                 </View>
             </View>
-            <View style={styles.rowContainer}>
+            {/* <View style={styles.rowContainer}>
                 <View style={{ flex: 1 }}>
                     <Text style={styles.label}>Military status:</Text>
                     <Text
@@ -49,7 +57,7 @@ const AdditionalData = (props: Props) => {
                         style={styles.textContentSection}
                     >. Own a car</Text>
                 </View>
-            </View>
+            </View> */}
 
 
         </TouchableOpacity>
