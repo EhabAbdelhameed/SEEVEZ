@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     paddingHorizontal: 18,
       top:10,
     position: 'absolute',
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 100,
     // top: 50,
-    height: 60,
+    height: 70,
   },
   videoContainer: {  
     width: '100%',

@@ -25,7 +25,7 @@ const Schedule = () => {
                 // backgroundColor:"#a99"
             }]}>
                 <View>
-                    <Text style={[styles.text1,{color:appColors.darkGreen2,marginBottom:0}]}>Senior ui ux designer</Text>
+                    <Text style={[styles.text1,{color:appColors.darkGreen2,marginBottom:0,marginLeft:10}]}>Senior ui ux designer</Text>
                 </View>
                 <View>
                     <View style={[styles.dot2,{

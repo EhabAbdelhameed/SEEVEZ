@@ -204,12 +204,12 @@ const SignupTwo = () => {
                 <InputView
                   {...props}
                   name="fullName"
-                  placeholder="Enter Your full name"
+                  placeholder="Enter your full name"
                 />
                 <InputView
                   {...props}
                   name="phone"
-                  placeholder="Enter Your Mobile Number"
+                  placeholder="Enter your mobile number"
                 />
                 <InputView
                   name="email"
@@ -221,7 +221,7 @@ const SignupTwo = () => {
                   <View>
                     <InputView
                       name="taxID"
-                      placeholder="Enter the taxID"
+                      placeholder="Enter the taxId"
                       iconName={'RIGIHTININPUT'}
                       {...props}
                     />

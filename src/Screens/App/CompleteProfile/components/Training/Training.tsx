@@ -6,7 +6,7 @@ import {AVATAR} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 
 const TrainingCard = (data: any) => {
-  console.log(data)
+  console.log(data);
   const navigation = useNavigation<any>();
 
   return (
@@ -18,7 +18,7 @@ const TrainingCard = (data: any) => {
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateTraining')}>
               <RenderSvgIcon
-                icon="PEN"
+                icon="PLUSFOLLOW"
                 width={20}
                 height={20}
                 color={appColors.primary}
@@ -45,7 +45,7 @@ const TrainingCard = (data: any) => {
             </View>
           </View>
         ) : (
-          data?.data?.map((item:any) => (
+          data?.data?.map((item: any) => (
             <View style={styles.Row2}>
               <View
                 style={{
@@ -58,7 +58,7 @@ const TrainingCard = (data: any) => {
                 }}>
                 <AVATAR height={32} width={32} />
               </View>
-              <View style={{marginLeft: 10,width:'90%'}}>
+              <View style={{marginLeft: 10, width: '90%'}}>
                 <Text style={styles.Title2}>{item?.institute} </Text>
                 <Text style={styles.CompanyName}>{item?.field_of_study}</Text>
               </View>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   Title2: {
     fontSize: 19,
@@ -125,27 +125,27 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   des: {
     fontSize: 11,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   Title3: {
     fontWeight: '600',
     color: appColors.black,
     marginTop: 3,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   Title4: {
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
     fontSize: 12,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
   devider: {
     height: 1,
@@ -160,6 +160,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
 });

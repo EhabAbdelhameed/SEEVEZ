@@ -103,7 +103,7 @@ const UpdateOneAchievements = () => {
             </View>
             <View style={[{alignItems: 'center'}]}>
               <Text style={[styles.loginText, {fontSize: 24}]}>
-                Complete Profile
+                Complete profile
               </Text>
               <Text style={[styles.loginTextSub, {fontSize: 13}]}>
                 Finish setting up your profile to get noticed by recruiters

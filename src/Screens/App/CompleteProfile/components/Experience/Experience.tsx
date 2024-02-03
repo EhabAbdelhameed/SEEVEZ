@@ -17,8 +17,8 @@ const ExperienceCard = (data: any) => {
           <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateExperience')}>
-              <RenderSvgIcon
-                icon="PEN"
+            <RenderSvgIcon
+                icon="PLUSFOLLOW"
                 width={20}
                 height={20}
                 color={appColors.primary}

@@ -43,6 +43,8 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import {launchImageLibrary} from 'react-native-image-picker';
 import BottomModal from './BottomModal';
 import BottomModalIos from './BottomModalIos';
+import TopHeader from '../Header/TopHeader';
+import BottomHeader from '../Header/BottomHeader';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
@@ -90,7 +92,7 @@ const UpdateInfo = () => {
 
       // The selected media is available in the result.uri
       // dispatch(setImageURL(result[0].uri));
-    console.log(result)
+      console.log(result);
       setSource(result);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -99,7 +101,7 @@ const UpdateInfo = () => {
         console.error('DocumentPicker Error:', err);
       }
     }
-  }; 
+  };
   const pick = () => {
     launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
       setSource(res?.assets);
@@ -153,49 +155,9 @@ const UpdateInfo = () => {
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.logoContainer}>
-          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
-            <RenderSvgIcon
-              icon="ARROWBACK"
-              width={30}
-              height={30}
-              color={appColors.primary}
-            />
-          </TouchableOpacity>
-          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
-           */}
-          <Image
-            source={require('../../../../../assets/images/seevezlogo.png')}
-            style={{width: 100, height: 30}}
-          />
-        </View>
-        <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
-        </View>
+        <TopHeader />
         <View style={styles.bottomSection}>
-          <View style={styles.blueCircle}>
-            <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
-          </View>
-          <View style={styles.loginTextContainer}>
-            <View>
-              <View style={{width: 32}} />
-              {/* <RenderSvgIcon icon="ICON2CV" width={32} height={49} /> */}
-            </View>
-            <View style={[{alignItems: 'center'}]}>
-              <Text style={styles.loginText}>Update Profile</Text>
-              <Text style={styles.loginTextSub}>
-                Finish setting up your profile to get noticed by recruiters
-              </Text>
-            </View>
-            <View>
-              <RenderSvgIcon
-                icon="ICONCV"
-                width={40}
-                height={49}
-                style={styles.yellowIcon}
-              />
-            </View>
-          </View>
+          <BottomHeader />
           <TouchableOpacity
             onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}
             style={{
@@ -214,7 +176,7 @@ const UpdateInfo = () => {
                 borderWidth: 1,
                 borderColor: '#B9CDF4',
               }}>
-              {CurrentUserData?.avatar == null&&source?.length == 0 ? (
+              {CurrentUserData?.avatar == null && source?.length == 0 ? (
                 <PERSON />
               ) : Platform.OS == 'ios' ? (
                 <Image

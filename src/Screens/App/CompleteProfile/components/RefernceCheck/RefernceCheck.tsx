@@ -24,12 +24,12 @@ const ReferenceCheckCard = (data: any) => {
           <Text style={styles.Title}>Reference Check</Text>
 
           <TouchableOpacity onPress={saveReferenceCheckSection}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.white}
-            />
+          <RenderSvgIcon
+                icon="PLUSFOLLOW"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
           </TouchableOpacity>
         </View>
 
@@ -50,10 +50,11 @@ const ReferenceCheckCard = (data: any) => {
           style={{
             borderWidth: 1,
             borderColor: '#E8E8E8',
-            height: 100,
+            height: 120,
             paddingHorizontal: 20,
             paddingVertical: 10,
             borderRadius: 16,
+            overflow:"hidden"
           }}>
           {data?.data?.map((item: any) => (
       

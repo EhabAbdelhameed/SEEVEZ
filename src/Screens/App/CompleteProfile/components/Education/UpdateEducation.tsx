@@ -38,6 +38,8 @@ import {selectUser} from 'src/redux/auth';
 import {Input} from 'react-native-elements';
 import {isDate} from 'lodash';
 import ReactNativeModal from 'react-native-modal';
+import TopHeader from '../Header/TopHeader';
+import BottomHeader from '../Header/BottomHeader';
 
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -102,7 +104,6 @@ const UpdateEducation = () => {
   // const navigation = useNavigation<any>();
   const pick = (props: any, index: any) => {
     launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
-
       setSource([
         ...Source.slice(0, index),
         res?.assets[0]?.fileName,
@@ -113,7 +114,7 @@ const UpdateEducation = () => {
         type: res?.assets[0]?.type,
         name: res?.assets[0]?.fileName,
       });
-     
+
       // console.log("sdasdas "+JSON.stringify(res))
     });
   };
@@ -133,50 +134,9 @@ const UpdateEducation = () => {
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.logoContainer}>
-          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
-            <RenderSvgIcon
-              icon="ARROWBACK"
-              width={30}
-              height={30}
-              color={appColors.primary}
-            />
-          </TouchableOpacity>
-          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
-           */}
-          <Image
-            source={require('../../../../../assets/images/seevezlogo.png')}
-            style={{width: 100, height: 30}}
-          />
-        </View>
-        <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
-        </View>
+        <TopHeader />
         <View style={styles.bottomSection}>
-          <View style={styles.blueCircle}>
-            <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
-          </View>
-          <View style={styles.loginTextContainer}>
-            <View style={{width: 32}}>
-              {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
-            </View>
-            <View style={[{alignItems: 'center'}]}>
-              <Text style={[styles.loginText, {fontSize: 24}]}>
-                Complete Profile
-              </Text>
-              <Text style={[styles.loginTextSub, {fontSize: 13}]}>
-                Finish setting up your profile to get noticed by recruiters
-              </Text>
-            </View>
-            <View>
-              <RenderSvgIcon
-                icon="ICONCV"
-                width={40}
-                height={48}
-                style={styles.yellowIcon}
-              />
-            </View>
-          </View>
+          <BottomHeader />
 
           <Formik
             initialValues={{
@@ -244,7 +204,7 @@ const UpdateEducation = () => {
                         borderColor: '#1D5EDD',
                         borderWidth: 1,
                         paddingHorizontal: 15,
-                        height:Platform.OS=='ios'?50:null,
+                        height: Platform.OS == 'ios' ? 50 : null,
                         // marginBottom:5
                       }}
                       onChangeText={e =>
@@ -255,9 +215,8 @@ const UpdateEducation = () => {
                       }
                       containerStyle={{
                         paddingHorizontal: 0,
-                        height:50,
+                        height: 50,
                         marginVertical: 2,
-                       
                       }}
                       inputStyle={{
                         fontSize: 14,
@@ -396,76 +355,80 @@ const UpdateEducation = () => {
                       </View>
                     </View>
                     {Platform.OS == 'ios'
-                      ? isVisible &&  (
-                        <ReactNativeModal isVisible={isVisible}>
-                        <View style={{
-                          width: '100%',
-                          paddingVertical: 20,
-                          borderRadius: 10,
-                          backgroundColor: '#fff',
-                          alignItems: 'center'
-                        }}>
-                          <DateTimePicker
-                            testID="dateTimePicker"
-                            textColor='#000'
-                            value={
-                              type === '1' && isDate(startDates[index])
-                                ? startDates[index]
-                                : isDate(endDates[index])
-                                  ? endDates[index]
-                                  : new Date() // Provide a default date if the specified date is invalid
-                            }
-                            mode="date"
-                            is24Hour={true}
-                            display="spinner"
-                            onChange={(event: any, selectedDate: any) => {
-                              if (selectedDate !== undefined) {
-                                if (type == '1') {
-                                  if (index == 0) {
-                                    setStartDates([
-                                      ...startDates.slice(0, index),
-                                      selectedDate,
-                                      ...startDates.slice(index + 1),
-                                    ]);
-                                  } else {
-                                    let array = startDates;
-                                    array.push(selectedDate);
-                                    setStartDates(array);
-                                  }
-                                  props?.setFieldValue(
-                                    `Education[${index}]["start_date"]`,
-                                    Moment(selectedDate).format(
-                                      'yyyy/MM/DD',
-                                    ),
-                                  );
-                                } else {
-                                  if (index == 0) {
-                                    setEndDates([
-                                      ...endDates.slice(0, index),
-                                      selectedDate,
-                                      ...endDates.slice(index + 1),
-                                    ]);
-                                  } else {
-                                    let array = endDates;
-                                    array.push(selectedDate);
-                                    setEndDates(array);
-                                  }
-                                  props?.setFieldValue(
-                                    `Education[${index}]["end_date"]`,
-                                    Moment(selectedDate).format(
-                                      'yyyy/MM/DD',
-                                    ),
-                                  );
+                      ? isVisible && (
+                          <ReactNativeModal isVisible={isVisible}>
+                            <View
+                              style={{
+                                width: '100%',
+                                paddingVertical: 20,
+                                borderRadius: 10,
+                                backgroundColor: '#fff',
+                                alignItems: 'center',
+                              }}>
+                              <DateTimePicker
+                                testID="dateTimePicker"
+                                textColor="#000"
+                                value={
+                                  type === '1' && isDate(startDates[index])
+                                    ? startDates[index]
+                                    : isDate(endDates[index])
+                                    ? endDates[index]
+                                    : new Date() // Provide a default date if the specified date is invalid
                                 }
-                              }
-                              // setVisible(false);
-                            }}
-                          // style={styles.dateTimePicker} // Customize styles here
-                          />
-                          <Button text='Choose' onPress={() => setVisible(false)} style={{width:'90%',marginTop:20}} />
-                        </View>
-
-                      </ReactNativeModal>
+                                mode="date"
+                                is24Hour={true}
+                                display="spinner"
+                                onChange={(event: any, selectedDate: any) => {
+                                  if (selectedDate !== undefined) {
+                                    if (type == '1') {
+                                      if (index == 0) {
+                                        setStartDates([
+                                          ...startDates.slice(0, index),
+                                          selectedDate,
+                                          ...startDates.slice(index + 1),
+                                        ]);
+                                      } else {
+                                        let array = startDates;
+                                        array.push(selectedDate);
+                                        setStartDates(array);
+                                      }
+                                      props?.setFieldValue(
+                                        `Education[${index}]["start_date"]`,
+                                        Moment(selectedDate).format(
+                                          'yyyy/MM/DD',
+                                        ),
+                                      );
+                                    } else {
+                                      if (index == 0) {
+                                        setEndDates([
+                                          ...endDates.slice(0, index),
+                                          selectedDate,
+                                          ...endDates.slice(index + 1),
+                                        ]);
+                                      } else {
+                                        let array = endDates;
+                                        array.push(selectedDate);
+                                        setEndDates(array);
+                                      }
+                                      props?.setFieldValue(
+                                        `Education[${index}]["end_date"]`,
+                                        Moment(selectedDate).format(
+                                          'yyyy/MM/DD',
+                                        ),
+                                      );
+                                    }
+                                  }
+                                  // setVisible(false);
+                                }}
+                                // style={styles.dateTimePicker} // Customize styles here
+                              />
+                              <Button
+                                text="Choose"
+                                onPress={() => setVisible(false)}
+                                style={{width: '90%', marginTop: 20}}
+                              />
+                            </View>
+                          </ReactNativeModal>
                         )
                       : isVisible && (
                           <DateTimePicker
@@ -519,7 +482,11 @@ const UpdateEducation = () => {
                         )}
 
                     <TouchableOpacity
-                      onPress={() =>Platform.OS=="ios"?pick(props, index): openGallery(props, index)}
+                      onPress={() =>
+                        Platform.OS == 'ios'
+                          ? pick(props, index)
+                          : openGallery(props, index)
+                      }
                       style={styles.InputStyleNoWidth1}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text style={{fontSize: 20, color: appColors.primary}}>

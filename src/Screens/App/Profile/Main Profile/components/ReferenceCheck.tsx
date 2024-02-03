@@ -23,7 +23,7 @@ const ReferenceCheck = ( data:any) => {
                 color={appColors.primary}
               />
               </TouchableOpacity>
-              <TouchableOpacity
+              <TouchableOpacity disabled={data?.data?.length == 0?true:false}
                 onPress={() => navigation.navigate('UpdateReferenceCheckCard')}>
               <RenderSvgIcon
                 icon="PEN"

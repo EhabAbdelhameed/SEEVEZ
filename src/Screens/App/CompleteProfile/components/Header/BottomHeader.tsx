@@ -2,16 +2,12 @@ import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useCallback} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import {AVATAR} from 'assets/Svgs';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import styles from './styles';
+import {Star} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
-
-const Header = () => {
-  const navigation = useNavigation();
-
+import styles from './styles';
+const BottomHeader = () => {
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.blueCircle}>
         <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
       </View>
@@ -36,8 +32,8 @@ const Header = () => {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default Header;
+export default BottomHeader;

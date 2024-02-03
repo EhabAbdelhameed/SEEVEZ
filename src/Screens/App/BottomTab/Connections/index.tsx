@@ -32,7 +32,7 @@ const Connections = (props: any) => {
                         data={[1, 2, 3, 4, 5]}
                     />
                     <ContainerUsers
-                        title='Popular recruiter'
+                        title='Popular recruiters'
                         data={[1, 2, 3, 4, 5]}
                     />
                 </KeyboardAwareScrollView>

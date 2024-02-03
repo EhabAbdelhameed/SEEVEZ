@@ -14,7 +14,6 @@ import {useNavigation} from '@react-navigation/native';
 const AchievementsCard = (data: any) => {
   const navigation = useNavigation<any>();
 
-
   const saveAachievementSection = () => {
     navigation.navigate('UpdateAchievements');
     // setAchievementsSection(SaveAachievementsSection);
@@ -28,10 +27,10 @@ const AchievementsCard = (data: any) => {
 
           <TouchableOpacity onPress={saveAachievementSection}>
             <RenderSvgIcon
-              icon="PEN"
+              icon="PLUSFOLLOW"
               width={20}
               height={20}
-              color={appColors.white}
+              color={appColors.primary}
             />
           </TouchableOpacity>
           {/* <TouchableOpacity onPress={saveAachievementSection}>
@@ -60,7 +59,9 @@ const AchievementsCard = (data: any) => {
               paddingVertical: 10,
               borderRadius: 16,
             }}>
-            <Text numberOfLines={4} style={styles.Des}>{data?.data?.text}</Text>
+            <Text numberOfLines={4} style={styles.Des}>
+              {data?.data?.text}
+            </Text>
           </View>
         )}
       </View>
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
-    fontFamily: 'Noto Sans'
+    fontFamily: 'Noto Sans',
   },
 
   Des: {

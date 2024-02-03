@@ -41,6 +41,8 @@ import {
 } from 'src/redux/app';
 import {isDate, values} from 'lodash';
 import {Input} from 'react-native-elements';
+import TopHeader from '../Header/TopHeader';
+import BottomHeader from '../Header/BottomHeader';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateExperience = () => {
@@ -215,28 +217,9 @@ const UpdateExperience = () => {
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.logoContainer}>
-          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
-            <RenderSvgIcon
-              icon="ARROWBACK"
-              width={30}
-              height={30}
-              color={appColors.primary}
-            />
-          </TouchableOpacity>
-          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
-           */}
-          <Image
-            source={require('../../../../../assets/images/seevezlogo.png')}
-            style={{width: 100, height: 30}}
-          />
-        </View>
-        <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
-        </View>
-
+         <TopHeader />
         <View style={styles.bottomSection}>
-          <Header />
+          <BottomHeader />
 
           <Formik
             initialValues={{

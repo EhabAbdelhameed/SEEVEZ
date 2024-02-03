@@ -88,6 +88,7 @@ const slice = createSlice({
     });
     //doDeleteSkills
     builder.addCase(thunks.doDeleteSkills.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
         type: 'success',
 
@@ -154,6 +155,7 @@ const slice = createSlice({
     });
     //doDeleteIntersts
     builder.addCase(thunks.doDeleteIntersts.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
         type: 'success',
 
@@ -220,6 +222,7 @@ const slice = createSlice({
     });
     //doDeleteEducation
     builder.addCase(thunks.doDeleteEducation.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
         type: 'success',
 
@@ -289,6 +292,7 @@ const slice = createSlice({
     );
     //doDeleteExperience
     builder.addCase(thunks.doDeleteExperience.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
         type: 'success',
 
@@ -368,6 +372,7 @@ const slice = createSlice({
     builder.addCase(
       thunks.doDeleteTrainingCourse.fulfilled,
       (state, action) => {
+        state.done = true;
         Toast.show({
           type: 'success',
 
@@ -449,6 +454,8 @@ const slice = createSlice({
     builder.addCase(
       thunks.doDeleteReferenceCheck.fulfilled,
       (state, action) => {
+        
+        state.done = true;
         Toast.show({
           type: 'success',
 
@@ -522,6 +529,7 @@ const slice = createSlice({
     );
     //doDeleteAchievement
     builder.addCase(thunks.doDeleteAchievement.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
         type: 'success',
 
@@ -609,7 +617,7 @@ const slice = createSlice({
             });
                 //doDeleteLanguages
         builder.addCase(thunks.doDeleteLanguages.fulfilled, (state, action) => {
-          
+          state.done = true;
           Toast.show({
             type: 'success',
     

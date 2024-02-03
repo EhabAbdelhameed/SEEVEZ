@@ -8,13 +8,13 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 // import { Back, ContactUs, LogOut, Privcy } from 'assets/svgs';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
-import { useAppDispatch } from 'src/redux/store';
-import AuthSlice, { selectUser } from 'src/redux/auth';
-import { useSelector } from 'react-redux';
+import {useAppDispatch} from 'src/redux/store';
+import AuthSlice, {selectUser} from 'src/redux/auth';
+import {useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   AVATAR,
@@ -24,13 +24,13 @@ import {
   Packages,
   Setting,
 } from 'assets/Svgs';
-import { RenderSvgIcon } from 'components/atoms/svg';
+import {RenderSvgIcon} from 'components/atoms/svg';
 // import {appColors} from 'theme/appColors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppThunks from 'src/redux/app/thunks';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const { height } = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 
 const CustomSidebarMenu = (props: any) => {
   const dispatch = useAppDispatch();
@@ -49,15 +49,15 @@ const CustomSidebarMenu = (props: any) => {
     <SafeAreaView edges={['']} style={styles.Container}>
       <DrawerContentScrollView {...props}>
         <LinearGradient
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 0 }}
+          start={{x: 1, y: 0}}
+          end={{x: 0, y: 0}}
           colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
           style={{
             width: '100%',
             height: 120,
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
-            marginTop: Platform.OS == 'ios' ? -10 : -10
+            marginTop: Platform.OS == 'ios' ? -10 : -10,
             // position: 'absolute',
             // top: 0,
           }}></LinearGradient>
@@ -67,7 +67,7 @@ const CustomSidebarMenu = (props: any) => {
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
-            marginTop: Platform.OS == 'ios' ? -50 : -50,   
+            marginTop: Platform.OS == 'ios' ? -50 : -50,
           }}>
           {USER?.avatar == null ? (
             <View
@@ -85,13 +85,13 @@ const CustomSidebarMenu = (props: any) => {
             </View>
           ) : (
             <Image
-              source={{ uri: USER?.avatar }}
-              style={{ width: 96, height: 96, borderRadius: 96 }}
+              source={{uri: USER?.avatar}}
+              style={{width: 96, height: 96, borderRadius: 96}}
               resizeMode="cover"
             />
           )}
 
-          <View style={{ marginTop: 10, flexDirection: 'row', columnGap: 5 }}>
+          <View style={{marginTop: 10, flexDirection: 'row', columnGap: 5}}>
             <Text
               style={{
                 fontSize: 22,
@@ -106,7 +106,7 @@ const CustomSidebarMenu = (props: any) => {
               width={20}
               height={20}
               color={'#FFF'}
-              style={{ marginTop: 5 }}
+              style={{marginTop: 5}}
             />
           </View>
           {USER?.job_title == null ? null : (
@@ -119,7 +119,7 @@ const CustomSidebarMenu = (props: any) => {
               {USER?.job_title}
             </Text>
           )}
-          <View style={{ flexDirection: 'row', marginTop: 20, columnGap: 10 }}>
+          <View style={{flexDirection: 'row', marginTop: 20, columnGap: 10}}>
             <View style={styles.subContainer}>
               <Text style={styles.subText}>Premium</Text>
             </View>
@@ -128,12 +128,11 @@ const CustomSidebarMenu = (props: any) => {
             </View>
           </View>
           <TouchableOpacity
-             onPress={() =>
+            onPress={() =>
               USER?.user_data?.user_type == 'company'
                 ? navigation.navigate('ProfileCompanyScreen')
                 : navigation.navigate('ProfileScreen')
             }
-         
             style={{
               width: '80%',
               height: 50,
@@ -144,7 +143,7 @@ const CustomSidebarMenu = (props: any) => {
               alignItems: 'center',
             }}>
             <Text
-              style={{ fontFamily: 'Noto Sans', fontSize: 18, color: '#FFF' }}>
+              style={{fontFamily: 'Noto Sans', fontSize: 18, color: '#FFF'}}>
               View profile
             </Text>
           </TouchableOpacity>
@@ -173,43 +172,64 @@ const CustomSidebarMenu = (props: any) => {
         </View>
       </DrawerContentScrollView>
 
-      <View style={{ position: 'absolute', bottom: 10, marginLeft: 20 }}>
+      <View style={{position: 'absolute', bottom: 10}}>
         <TouchableOpacity
-          style={{ flexDirection: 'row', columnGap: 10, marginBottom: 15 }}>
-          <Packages />
+          style={{
+            flexDirection: 'row',
+            columnGap: 10,
+            marginBottom: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Packages width={30} />
           <Text
             style={{
               fontSize: 16,
               fontFamily: 'Noto Sans',
               fontWeight: '500',
               color: '#0C275D',
+              width:'50%'
             }}>
             Packages
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ flexDirection: 'row', columnGap: 10, marginBottom: 15 }}>
-          <Setting />
+          style={{
+            flexDirection: 'row',
+            columnGap: 10,
+            marginBottom: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Setting width={30} />
           <Text
             style={{
               fontSize: 16,
               fontFamily: 'Noto Sans',
               fontWeight: '500',
               color: '#0C275D',
+              width:'50%'
             }}>
             Settings
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={LogOutFun}
-          style={{ flexDirection: 'row', columnGap: 10, marginBottom: 15 }}>
-          <LogOut />
+          style={{
+            flexDirection: 'row',
+            columnGap: 10,
+            marginBottom: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <LogOut width={30} />
           <Text
             style={{
               fontSize: 16,
               fontFamily: 'Noto Sans',
               fontWeight: '500',
               color: '#0C275D',
+              width:'50%'
             }}>
             Log out
           </Text>

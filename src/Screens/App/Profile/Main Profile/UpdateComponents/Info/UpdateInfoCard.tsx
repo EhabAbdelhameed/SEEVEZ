@@ -169,7 +169,7 @@ const UpdateInfoCard = () => {
               {/* <RenderSvgIcon icon="ICON2CV" width={32} height={49} /> */}
             </View>
             <View style={[{alignItems: 'center'}]}>
-              <Text style={styles.loginText}>Complete Profile</Text>
+              <Text style={styles.loginText}>Complete profile</Text>
               <Text style={styles.loginTextSub}>
                 Finish setting up your profile to get noticed by recruiters
               </Text>

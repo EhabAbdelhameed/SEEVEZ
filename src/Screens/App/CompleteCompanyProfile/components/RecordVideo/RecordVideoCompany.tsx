@@ -8,7 +8,7 @@ import {
 import React, { useState } from 'react';
 import { appColors } from '../../../../../theme/appColors';
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
-import { VIDEOICON } from 'assets/Svgs';
+import { DELETE, VIDEOICON } from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
 import Video from 'react-native-fast-video';
 import { styles } from './styles';
@@ -19,65 +19,97 @@ const RecordVideoCompany = (data: any) => {
   const navigation = useNavigation<any>();
   const [isPaused, setPaused] = useState(false);
    console.log("dd",JSON.stringify(data))
- 
-  const handleVideoLoad = () => {
-    // Video has loaded, you can now play it
-    setTimeout(() => {
-      
-      setPaused(true);
-    }, 1);
-  
-  };
 
  
 
   return (
-    <View style={[styles.CardContainer,{ borderWidth:data?.user_data !== null?0:1}]}>
-      {data?.user_data === null ? (
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateRecordVideo')}
-            style={styles.secContainer}>
-            <VIDEOICON />
-          </TouchableOpacity>  
-         
-        </View>
-      ) : (
-        // <TouchableOpacity onPress={handleVideoPress}>
-          <Video
-          
-            resizeMode="cover"  
-            // paused={isPaused}
-            source={{ uri: data?.user_data?.user_data?.cv_media?.media }}
-            style={styles.videoContainer}
-            onLoad={handleVideoLoad}
-            
-          />
-        // </TouchableOpacity>
-      )}
+    <View
+    style={[
+      styles.CardContainer,
+      {borderWidth: data?.user_data !== null ? 0 : 1},
+    ]}>
+    {data?.user_data === null ? (
+      <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('UpdateRecordVideoCompany')}
+          style={styles.secContainer}>
+          <VIDEOICON />
+        </TouchableOpacity>
+      </View>
+    ) : (
+      // <TouchableOpacity onPress={handleVideoPress}>
+      <Video
+        resizeMode="cover"
+        paused={isPaused}
+        repeat
+        source={{uri: data?.user_data?.media}}
+        style={styles.videoContainer}
+      />
+      // </TouchableOpacity>
+    )}
+    {data?.user_data !== null ? (
       <View style={styles.topContainer1}>
+        <TouchableOpacity
+          style={[
+            styles.secContainer,
+            {
+              backgroundColor: appColors.white,
+              width: 40,
+              height: 40,
+              borderRadius: 40,
+            },
+          ]}>
+          <DELETE />
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate('UpdateRecordVideoCompany')}
           style={[
             styles.secContainer,
             {
               backgroundColor:
-               data?.user_data === null
-                  ? appColors.bg
-                  : appColors.white,
-                  width:40,height:40,borderRadius:40
+                data?.user_data === null ? appColors.bg : appColors.white,
+              width: 40,
+              height: 40,
+              borderRadius: 40,
             },
-        
           ]}>
           <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.white}
-            />
+            icon="PEN"
+            width={20}
+            height={20}
+            color={appColors.white}
+          />
         </TouchableOpacity>
       </View>
-    </View>
+    ) : null}
+    {data?.user_data !== null ? (
+      <View style={styles.topContainer2}>
+        {isPaused==true ? (
+          <TouchableOpacity
+            onPress={() => setPaused(!isPaused)}
+            style={[
+              styles.secContainer,
+              {
+                backgroundColor:
+                  data?.user_data === null ? appColors.bg : appColors.white,
+                width: 96,
+                height: 96,
+                borderRadius: 96,
+              },
+            ]}>
+            <VIDEOICON />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => setPaused(!isPaused)}
+            style={{
+              width: '100%',
+              height: 600,
+            }}/>
+        )}
+      </View>
+    ) : null}
+  </View>
   );
 };
 

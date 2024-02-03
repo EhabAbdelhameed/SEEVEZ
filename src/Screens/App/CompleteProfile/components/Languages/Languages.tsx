@@ -17,8 +17,8 @@ const LanguagesCard = (data: any) => {
             {/* <RenderSvgIcon icon='PLUSFOLLOW' style={{ marginRight: 10 }} width={20} height={20} color={appColors.primary} /> */}
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateLanguages')}>
-              <RenderSvgIcon
-                icon="PEN"
+             <RenderSvgIcon
+                icon="PLUSFOLLOW"
                 width={20}
                 height={20}
                 color={appColors.primary}

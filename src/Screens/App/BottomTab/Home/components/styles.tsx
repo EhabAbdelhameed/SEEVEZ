@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
         paddingHorizontal: appSizes.padding_s,
         paddingVertical: appSizes.padding_m,
         marginTop: appSizes.spacing_m,
-        borderRadius: appSizes.radius_l
+        borderRadius: appSizes.radius_l,
+     
     },
     containerBox: {
         flex: 1,
@@ -36,7 +37,8 @@ export const styles = StyleSheet.create({
         fontSize: appSizes.font_m,
         fontWeight: "700",
         color: appColors.dark,
-        marginBottom: 4
+        marginBottom: 4,
+        
     },
     text2: {
         fontSize: appSizes.font_xs-3,
@@ -145,6 +147,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingVertical:10,
+        height:153
         // backgroundColor:"#a00"
     },
     absIconProfile: {
@@ -155,6 +158,7 @@ export const styles = StyleSheet.create({
     PollsContainer:{
         width:"100%",
         alignItems:"flex-start",
+        height:150
     },
     hashtagItem:{
         width:"90%",

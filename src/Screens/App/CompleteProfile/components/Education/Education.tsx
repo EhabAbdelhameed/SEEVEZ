@@ -23,8 +23,8 @@ const EducationCard = (data: any) => {
           <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateEducation')}>
-              <RenderSvgIcon
-                icon="PEN"
+            <RenderSvgIcon
+                icon="PLUSFOLLOW"
                 width={20}
                 height={20}
                 color={appColors.primary}
@@ -49,7 +49,7 @@ const EducationCard = (data: any) => {
             </View>
             <View style={{marginLeft: 10}}>
               <Text style={styles.Title2}>School/university name</Text>
-              <Text style={styles.CompanyName}>field of study</Text>
+              <Text style={styles.CompanyName}>Field of study</Text>
             </View>
           </View>
         ) : (

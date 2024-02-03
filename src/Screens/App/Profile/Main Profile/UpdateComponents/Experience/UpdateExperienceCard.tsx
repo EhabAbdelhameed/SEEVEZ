@@ -21,7 +21,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import moment from 'moment';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import AppSlice from 'src/redux/app';
+import AppSlice, { selectDone } from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 
@@ -31,7 +31,20 @@ const UpdateExperienceCard = () => {
   console.log('11111111 ', data);
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-
+  const [refreshPage, setRefreshPage] = useState(false);
+    const changeDone = useSelector(selectDone);
+    useEffect(() => {
+      if (data?.length === 0 && changeDone) {
+        setRefreshPage(true);
+      }
+    }, [data, changeDone]);
+  
+    useEffect(() => {
+      if (refreshPage) {
+        navigation.goBack();
+        setRefreshPage(false);
+      }
+    }, [refreshPage, navigation]);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
@@ -39,6 +52,7 @@ const UpdateExperienceCard = () => {
     });
     return RenderFunction;
   }, [navigation]);
+
   // console.log('FromUpdated ', data);
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -60,7 +74,7 @@ const UpdateExperienceCard = () => {
   const handleDeleteExperience = (experienceId:any) => {
     // Show confirmation dialog
     Alert.alert(
-      'Confirmation',
+      'Seevez',
       'Are you sure you want to delete this experience?',
       [
         {

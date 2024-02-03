@@ -21,17 +21,30 @@ import {
   import moment from 'moment';
   import {useAppDispatch} from 'src/redux/store';
   import AppThunks from 'src/redux/app/thunks';
-  import AppSlice from 'src/redux/app';
+  import AppSlice, { selectDone } from 'src/redux/app';
   import {useSelector} from 'react-redux';
   import {selectUser} from 'src/redux/auth';
   
   const UpdateLanguageCard = () => {
     const CurrentUserData = useSelector(selectUser);
     let data = CurrentUserData?.user_data?.languages;
-    console.log('11111111333333333333 ', data);
+  
     const navigation = useNavigation<any>();
     const dispatch = useAppDispatch();
+    const [refreshPage, setRefreshPage] = useState(false);
+    const changeDone = useSelector(selectDone);
+    useEffect(() => {
+      if (data?.length === 0 && changeDone) {
+        setRefreshPage(true);
+      }
+    }, [data, changeDone]);
   
+    useEffect(() => {
+      if (refreshPage) {
+        navigation.goBack();
+        setRefreshPage(false);
+      }
+    }, [refreshPage, navigation]);
     React.useEffect(() => {
       const RenderFunction = navigation.addListener('focus', () => {
         dispatch(AppThunks.GetProfileInfo());

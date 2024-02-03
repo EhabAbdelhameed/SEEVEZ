@@ -21,7 +21,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import moment from 'moment';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import AppSlice from 'src/redux/app';
+import AppSlice, { selectDone } from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 import ReadMore from '@fawazahmed/react-native-read-more';
@@ -32,7 +32,20 @@ const UpdateAchievementCard = () => {
 //   console.log('11111111Ach ', data);
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-
+  const [refreshPage, setRefreshPage] = useState(false);
+    const changeDone = useSelector(selectDone);
+    useEffect(() => {
+      if (data?.length === 0 && changeDone) {
+        setRefreshPage(true);
+      }
+    }, [data, changeDone]);
+  
+    useEffect(() => {
+      if (refreshPage) {
+        navigation.goBack();
+        setRefreshPage(false);
+      }
+    }, [refreshPage, navigation]);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
@@ -44,16 +57,7 @@ const UpdateAchievementCard = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
-  const differenceInYears = (date1: any, date2: any) => {
-    let start_date = moment(date1).format('yyyy-MM-DD');
-    let end_date = moment(date2).format('yyyy-MM-DD');
-    let years =
-      parseInt(end_date.substring(0, 4)) - parseInt(start_date.substring(0, 4));
 
-    Math.abs(years);
-
-    return years;
-  };
   const handleDeleteAchievement = (achievementId: any) => {
     // Show confirmation dialog
     Alert.alert(

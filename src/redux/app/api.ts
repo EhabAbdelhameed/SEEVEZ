@@ -1,7 +1,7 @@
 import {api} from '../_axios';
 
 
-//////////////////////////API Complete Profile ////////////////////////////////////////
+//////////////////////////API Complete profile ////////////////////////////////////////
 const Languages = (data: any) => api.post(`api/languages`, data);
 const updateLanguages = (data: any) => api.post(`api/edit-languages`, data);
 const DeleteLanguages = (id: number) => api.delete(`api/delete-languages/${id}`) 

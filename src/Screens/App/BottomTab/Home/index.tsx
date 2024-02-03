@@ -92,7 +92,7 @@ const Home = () => {
                     </View>
                     <View style={styles.rowContainer}>
                         <BoxContentTitle
-                            title='Cv maker'
+                            title='CV maker'
                             onPress={() => {
                                 navigation.navigate("Cv")
                             }}
@@ -139,7 +139,7 @@ const Home = () => {
                     </View>
                     <View style={styles.rowContainer}>
                         <BoxContentTitle
-                            title='My Schedule'
+                            title='My schedule'
                         >
                             <Schedule />
                         </BoxContentTitle>

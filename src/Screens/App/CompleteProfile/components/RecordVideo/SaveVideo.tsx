@@ -27,6 +27,8 @@ import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import {selectDone} from 'src/redux/app';
 import RNFS from 'react-native-fs';
+import TopHeader from '../Header/TopHeader';
+import BottomHeader from '../Header/BottomHeader';
 const SaveVideo = () => {
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
@@ -47,21 +49,12 @@ const SaveVideo = () => {
   const saveVideoFun = () => {
     if (key == 1) {
       setLoading(true);
-   
       const formdata = new FormData();
-      // const modifiedUriSlice = videoPath.slice(1)
-      // const fileNameWithoutExtension = videoPath.replace(/\.[^/.]+$/, '');
-     
       formdata.append('media', {
-        uri: 'file://'+videoPath,
+        uri: 'file://' + videoPath,
         type: 'video/mp4',
         name: 'video.mp4',
       });
-      // console.log(JSON.stringify(formdata))
-      // console.log(fileNameWithoutExtension)
-
-     
-     
       dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
         dispatch(AppThunks.GetProfileInfo());
         setLoading(false);
@@ -83,12 +76,9 @@ const SaveVideo = () => {
     }
   };
   const handleVideoLoad = () => {
-    // Video has loaded, you can now play it
     setTimeout(() => {
       setPaused(true);
     }, 100);
-
-    // console.log(source)
   };
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
@@ -101,51 +91,10 @@ const SaveVideo = () => {
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.logoContainer}>
-       <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
-            <RenderSvgIcon
-              icon="ARROWBACK"
-              width={30}
-              height={30}
-              color={appColors.primary}
-            />
-          </TouchableOpacity>
-          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
-           */}
-          <Image
-            source={require('../../../../../assets/images/seevezlogo.png')}
-            style={{width: 100, height: 30}}
-          />
-        </View>
-        <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
-        </View>
+        <TopHeader />
         <View style={styles.bottomSection}>
-          <View style={styles.blueCircle}>
-            <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
-          </View>
-          <View style={styles.loginTextContainer}>
-            <View style={{width: 32}}>
-              {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
-            </View>
-            <View style={[{alignItems: 'center'}]}>
-              <Text style={[styles.loginText, {fontSize: 24}]}>
-                Complete Profile
-              </Text>
-              <Text style={[styles.loginTextSub, {fontSize: 13}]}>
-                Finish setting up your profile to get noticed by recruiters
-              </Text>
-            </View>
-            <View>
-              <RenderSvgIcon
-                icon="ICONCV"
-                width={40}
-                height={48}
-                style={styles.yellowIcon}
-              />
-            </View>
-          </View>
-          <View style={styles.topContainer1}></View>
+          <BottomHeader />
+
           <View style={styles.CardContainer1}>
             <Video
               resizeMode="cover"
