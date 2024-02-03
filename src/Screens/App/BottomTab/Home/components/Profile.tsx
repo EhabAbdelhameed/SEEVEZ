@@ -4,13 +4,16 @@ import { styles } from './styles'
 import AvatarIcon from '../../../../../Components/molecules/Avatar'
 import { dummyAvatar } from '../../../../../Dummy'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
+import { useSelector } from 'react-redux'
+import { selectUser } from 'src/redux/auth'
 
 const Profile = () => {
+    const CurrentUserData = useSelector(selectUser);
     return (
         <View style={styles.containerProfile}>
             <View style={{ marginBottom: 10 }}>
                 <AvatarIcon
-                    imgUrl={dummyAvatar}
+                    imgUrl={CurrentUserData?.avatar==null?dummyAvatar:CurrentUserData?.avatar}
                     noActive
                 />
                 <View
@@ -22,8 +25,8 @@ const Profile = () => {
                     />
                 </View>
             </View>
-            <Text style={styles.text1}>Carter Rosser</Text>
-            <Text style={styles.text2}>Ui Ux designer</Text>
+            <Text style={styles.text1}>{CurrentUserData?.name}</Text>
+            <Text style={styles.text2}>{CurrentUserData?.job_title==null?null:CurrentUserData?.job_title}</Text>
         </View>
     )
 }

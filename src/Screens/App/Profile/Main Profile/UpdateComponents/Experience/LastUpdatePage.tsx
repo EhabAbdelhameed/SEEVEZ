@@ -469,7 +469,7 @@ const UpdateOneExperience = () => {
                       fontSize: 14,
                       //  color: 'red'
                     }}
-                    placeholder={`description`}
+                    placeholder={`Description`}
                   />
 
                   <View

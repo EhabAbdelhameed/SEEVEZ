@@ -386,8 +386,6 @@ const UpdateExperience = () => {
                           `Experince[${index}]["industry_id"]`,
                           item?.id,
                         );
-                        // console.log(item)
-                        // setValue(item.name);
                       }}
                       renderRightIcon={() => (
                         <RenderSvgIcon
@@ -488,7 +486,7 @@ const UpdateExperience = () => {
                         fontSize: 14,
                         //  color: 'red'
                       }}
-                      placeholder={`description`}
+                      placeholder={`Description`}
                     />
 
                     <View

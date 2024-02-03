@@ -30,6 +30,13 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         columnGap: 10
     },
+    rowContainer1: {
+        flexDirection: "row",
+        width:'88%',
+        // alignItems: "center",
+        justifyContent: "space-between",
+        
+    },
     contentContainer: {
         width: "85%"
     },

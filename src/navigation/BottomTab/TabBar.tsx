@@ -10,11 +10,14 @@ import Calendar from '../../Screens/App/BottomTab/Calendar';
 import CameraScreen from '../../Screens/App/BottomTab/Camera';
 import { TabParamsList } from '../types';
 import Home from 'src/Screens/App/BottomTab/Home';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'src/redux/auth';
 const Tabs = createBottomTabNavigator<TabParamsList>();
 
 
 
 const TabBar = () => {
+  const CurrentUserData = useSelector(selectUser);
   return (
     <Tabs.Navigator
     tabBar={(props) => <MyTabBar {...props} />}
@@ -27,7 +30,7 @@ const TabBar = () => {
     <Tabs.Screen name="Home" component={Home} />
     <Tabs.Screen name="Connections" component={Connections} />
     <Tabs.Screen name="Camera" component={CameraScreen} />
-    <Tabs.Screen name="Bag" component={Bag} />
+    {CurrentUserData?.work_type?null:<Tabs.Screen name="Bag" component={Bag} />}
     <Tabs.Screen name="Calendar" component={Calendar} />
 
   </Tabs.Navigator>

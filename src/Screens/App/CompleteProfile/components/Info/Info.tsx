@@ -121,9 +121,7 @@ const InfoCard = (user_data: any) => {
             />
           </View>
           {user_data?.user_data?.job_title == null ? (
-            <Text style={styles.Description}>
-              Senior React native at O-Project
-            </Text>
+         null
           ) : (
             <Text style={styles.Description}>
               {user_data?.user_data?.job_title}

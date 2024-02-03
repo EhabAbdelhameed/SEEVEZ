@@ -10,7 +10,7 @@ const BoxContentTitle = ({
     onPress = () => { }
 }: {
     children: React.ReactNode;
-    title: string;
+    title?: string;
     onPress?: Function
 }) => {
     return (
@@ -27,7 +27,7 @@ const BoxContentTitle = ({
                 <View style={{ transform: [{ rotate: "180deg" }] }}>
                     <RenderSvgIcon
                         icon='ARROWBACK'
-                        color={appColors.primary}
+                        color={title=='My internship'?appColors.Orange:appColors.primary}
                     />
                 </View>
             </TouchableOpacity>
