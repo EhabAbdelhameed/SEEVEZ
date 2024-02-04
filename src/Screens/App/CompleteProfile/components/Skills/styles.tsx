@@ -3,18 +3,10 @@ import {appColors} from '../../../../../theme/appColors';
 import {appSizes} from '../../../../../theme/appSizes';
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: appColors.white,
-  },
-  logoContainer: {
-    flexBasis: 'auto',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    // alignItems: '',
-    marginVertical: appSizes.x,
-    marginBottom: appSizes.height * 0.07,
   },
   bottomSection: {
     backgroundColor: appColors.white,
@@ -27,186 +19,76 @@ const styles = StyleSheet.create({
     paddingHorizontal: appSizes.padding_x,
     // marginTop:-15
   },
-  circles: {
-    position: 'absolute',
-    top: 5,
-    marginTop: 10,
-    width: appSizes.width,
-    alignItems: 'center',
-    zIndex: -1,
+  CardContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    width: '100%',
+    backgroundColor: appColors.white,
+    borderRadius: 25,
+    marginTop: 15,
   },
-  blueCircle: {
-    position: 'absolute',
-    top: -15,
-    width: appSizes.width,
-    alignItems: 'center',
+  secContainer: {
+    width: '100%',
+    backgroundColor: appColors.lightGrey2,
+    borderRadius: 25,
+    padding: 5,
+    paddingTop: 10,
   },
-
-  btn: {
-    backgroundColor: appColors.secondary,
-    borderColor: appColors.primary,
-    borderWidth: 0.8,
-    marginBottom: 12,
-  },
-  loginTextContainer: {
-    marginTop: appSizes.spacing_xxxx,
+  Row: {
     flexDirection: 'row',
-    flexBasis: 'auto',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: appSizes.spacing_m,
-    fontFamily: 'Noto Sans',
+    marginBottom: 15,
   },
-  loginText: {
-    color: appColors.textColor,
-    fontSize: appSizes.font_xxxxxl - 2,
-    textAlign: 'center',
-    fontWeight: '700',
-    fontFamily: 'Noto Sans',
-  },
-  loginTextSub: {
-    color: appColors.textColor,
-    fontSize: appSizes.font_xs,
-    textAlign: 'center',
-    fontWeight: '400',
-    width: appSizes.width * 0.7,
-    lineHeight: 20,
-    marginTop: 5,
-    fontFamily: 'Noto Sans',
-  },
-  yellowIcon: {
-    // marginTop: 5,
-  },
-  textArea: {
-    borderRadius: 16,
-    borderColor: '#1D5EDD',
-    borderWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderBottomWidth: 0.5,
-    marginBottom: 40,
-    marginTop: 10,
-    backgroundColor:'#FFF',
-    
-  },
-  skipContainer: {
-    // paddingHorizontal: 20,
-    // paddingVertical: 8,
-    backgroundColor: appColors.primary,
-    borderRadius: appSizes.radius_m,
-    width: 82,
-    height: 38,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf:'center'
-  },
-  skipText: {
-    color: appColors.white,
-    fontSize: 18,
-    fontFamily: 'Noto Sans',
-  },
-  rowAgree: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    columnGap: 6,
-    width: "94%",
-    marginBottom: appSizes.spacing_l,
-    marginLeft:10
-    // marginTop:appSizes.spacing_s
-  },
-  Circle: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
-    backgroundColor: appColors.secondary,
-    borderWidth: 1,
-    borderColor: appColors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-    // marginTop:2,
-  },
-  innerCircle: {
-    width: 13,
-    height: 13,
-    borderRadius: 13 ,
-    backgroundColor: appColors.primary
-  },
-  agree: {
-    color: appColors.black,
-    fontSize: appSizes.font_m-1,
-    fontWeight: '400',
-    textAlign: 'left',
-    fontFamily: 'Noto Sans',
-  },
-  agreeLine:{
-    color:appColors.primary,
-    textDecorationLine:"underline",
-    fontFamily: 'Noto Sans',
-  },
-  InputStyleNoWidth:{
-    borderRadius: 16,
-    borderColor: '#1D5EDD',
-    borderWidth: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 4,
-    // borderBottomWidth: 0.5,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+  Row2: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
-  inputStyle:{
-    borderRadius: 16,
-    borderColor: '#1D5EDD',
-    borderWidth: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 4,
-    // borderBottomWidth: 0.5,
-    height: 50,
-    width: '48%',
-  },
-  uploadContainer:{
-    borderRadius: 16,
-    borderColor: '#1D5EDD',
-    borderWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 4,
-    
-    // borderBottomWidth: 0.5,
-    marginBottom: 10,
-    marginTop: 5,
-    height: 52,
-  
-  },
-  dropdown: {
-    margin: 16,
-    height: 50,
-    borderBottomColor: 'gray',
-    borderBottomWidth: 0.5,
-  },
-  icon: {
-    marginRight: 5,
-  },
-  placeholderStyle: {
-    fontSize: 14,
-    color:"#B9B9B9",
+  Title: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: appColors.black,
     fontFamily: 'Noto Sans',
-    
+  },
+  smallCardContainer: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderColor: '#00928E',
+    borderWidth: 0.5,
+    borderRadius: 50,
+    flexDirection: 'row',
+    backgroundColor: '#E6FAFA',
+    justifyContent: 'center',
+    alignItems: 'center',
 
+    marginRight: 10,
+    marginBottom: 10,
   },
-  selectedTextStyle: {
-    fontSize: 14,
+  con: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  smallCardText: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: '#00928E',
+    marginRight: 5,
     fontFamily: 'Noto Sans',
-    color:'#000',
-    opacity:.8
   },
-  iconStyle: {
-    width: 20,
-    height: 20,
+  devider: {
+    height: 1,
+    width: '95%',
+    backgroundColor: '#E8E8E8',
+    marginTop: 20,
+    marginBottom: 10,
+    alignSelf: 'center',
   },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
+  seeAll: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: appColors.primary,
+    textAlign: 'center',
     fontFamily: 'Noto Sans',
   },
 });

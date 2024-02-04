@@ -6,6 +6,7 @@ import {
   Alert,
   Image,
   FlatList,
+  Linking,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
@@ -14,7 +15,7 @@ import {RenderSvgIcon} from '../../../../../../Components/atoms/svg';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {appColors} from '../../../../../../theme/appColors';
 
-import {BigLogo, CALANDER, CompanyLogo, DELETE, PHOTO} from 'assets/Svgs';
+import {BigLogo, CALANDER, CompanyLogo, DELETE, PDF, PHOTO} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -29,7 +30,7 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 const UpdateAchievementCard = () => {
   const CurrentUserData = useSelector(selectUser);
   let data = CurrentUserData?.user_data?.achievement;
-//   console.log('11111111Ach ', data);
+  console.log('11111111Ach ', data);
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [refreshPage, setRefreshPage] = useState(false);
@@ -148,14 +149,42 @@ const UpdateAchievementCard = () => {
               }}>
               Achievements
             </Text>
-            <View style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
-              <TouchableOpacity onPress={() => handleDeleteAchievement(data?.id)}>
+           
+          </View>
+          {data?.map((item: any) => (
+             <View style={{marginBottom: 15,paddingHorizontal:10,flexDirection:'row'}}>
+             <View style={{width:'85%'}}>
+             <ReadMore
+               style={styles.PostText}
+               animate={true}
+               seeMoreStyle={{
+                 color: appColors.primary,
+                 textDecorationLine: 'underline',
+               }}
+               seeLessStyle={{
+                 color: appColors.primary,
+                 textDecorationLine: 'underline',
+               }}
+               seeLessText="less"
+               seeMoreText="Read more"
+               numberOfLines={3}>
+               {item?.text}
+             </ReadMore>
+             {item?.object_info?.extension == 'pdf' ?
+                <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
+                  <PDF height={70} width={70} />
+                </TouchableOpacity>
+                :
+                <Image style={styles.Certificate} source={{ uri: item?.certificate }} />}
+             </View>
+             <View style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
+              <TouchableOpacity onPress={() => handleDeleteAchievement(item?.id)}>
                 <DELETE />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('UpdateOneAchievements', {
-                    data: data,
+                    data: item,
                   })
                 }>
                 <RenderSvgIcon
@@ -166,33 +195,10 @@ const UpdateAchievementCard = () => {
                 />
               </TouchableOpacity>
             </View>
-          </View>
-          <View style={{marginBottom: 15,paddingHorizontal:10}}>
-            
-              <ReadMore
-                style={styles.PostText}
-                animate={true}
-                seeMoreStyle={{
-                  color: appColors.primary,
-                  textDecorationLine: 'underline',
-                }}
-                seeLessStyle={{
-                  color: appColors.primary,
-                  textDecorationLine: 'underline',
-                }}
-                seeLessText="less"
-                seeMoreText="Read more"
-                numberOfLines={3}>
-                {data?.text}
-              </ReadMore>
-              <Image
-                style={styles.Certificate}
-                source={{
-                  uri: data?.certificate,
-                }}
-              />
+        
+         </View>
+            ))}
          
-          </View>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

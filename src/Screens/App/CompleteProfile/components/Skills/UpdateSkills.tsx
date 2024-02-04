@@ -1,4 +1,11 @@
-import {View, Text, TouchableOpacity, TextInput, Alert, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  Image,
+} from 'react-native';
 import React, {useCallback, useEffect} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
@@ -17,27 +24,23 @@ import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
-import { useSelector } from 'react-redux';
-import { selectUser } from 'src/redux/auth';
-import { selectDone } from 'src/redux/app';
+import {useSelector} from 'react-redux';
+import {selectUser} from 'src/redux/auth';
+import {selectDone} from 'src/redux/app';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 
 const UpdateSkills = () => {
   const [loading, setLoading] = React.useState(false);
-  // const navigation = useNavigation<any>();
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
-  const changeDone=useSelector(selectDone)
-  // console.log(changeDone)
-useEffect(() => {
-changeDone?navigation.goBack():null
-}, [changeDone]);
-  const _handleNavigate = useCallback(() => {
-    navigation.goBack();
-  }, []);
+  const changeDone = useSelector(selectDone);
+
+  useEffect(() => {
+    changeDone ? navigation.goBack() : null;
+  }, [changeDone]);
   const dispatch = useAppDispatch();
-  const { title}: any = useRoute().params;
+  const {title}: any = useRoute().params;
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
@@ -51,7 +54,7 @@ changeDone?navigation.goBack():null
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-         <TopHeader />
+        <TopHeader />
         <View style={styles.bottomSection}>
           <BottomHeader />
           <Text
@@ -63,7 +66,7 @@ changeDone?navigation.goBack():null
               marginBottom: 10,
               fontFamily: 'Noto Sans',
             }}>
-           {title}
+            {title}
           </Text>
           <Formik
             initialValues={{Skills: ''}}
@@ -73,20 +76,17 @@ changeDone?navigation.goBack():null
               formdata.append('user_id', CurrentUserData.id);
 
               formdata.append('name', values.Skills);
-              if(title=='Skills'){
+              if (title == 'Skills') {
                 dispatch(AppThunks.doAddSkills(formdata)).then((res: any) => {
-                  dispatch(AppThunks.GetProfileInfo())
+                  dispatch(AppThunks.GetProfileInfo());
                   setLoading(false);
                 });
-              }else{
+              } else {
                 dispatch(AppThunks.doAddIntersts(formdata)).then((res: any) => {
-                  dispatch(AppThunks.GetProfileInfo())
+                  dispatch(AppThunks.GetProfileInfo());
                   setLoading(false);
                 });
               }
-              
-
-              // navigation.navigate("ResetPassword")
             }}>
             {(props: any) => (
               <View>

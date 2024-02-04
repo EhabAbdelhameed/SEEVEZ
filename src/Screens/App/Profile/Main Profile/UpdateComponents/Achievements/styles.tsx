@@ -16,6 +16,15 @@ const styles = StyleSheet.create({
       marginVertical: appSizes.x,
       marginBottom: appSizes.height * 0.07,
     },
+    PDFContainer: {
+      height: 100,
+      width: 100,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: appColors.lightGrey3,
+      borderRadius: 10,
+      marginTop: 10
+  },
     bottomSection: {  
       backgroundColor: appColors.white,
       flex: 1,

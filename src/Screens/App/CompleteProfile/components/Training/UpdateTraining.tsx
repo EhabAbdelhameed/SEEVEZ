@@ -146,14 +146,15 @@ const UpdateTraining = () => {
 
                 formdata.append(`array[${index}][grade]`, item.grade);
 
-                formdata.append(`array[${index}][start_date]`, item.start_date);
-                formdata.append(`array[${index}][end_date]`, item.end_date);
+                formdata.append(`array[${index}][start_date]`, Moment(item.start_date).format('yyyy/MM/DD'));
+                formdata.append(`array[${index}][end_date]`, Moment(item.end_date).format('yyyy/MM/DD'));
 
                 formdata.append(
                   `array[${index}][certificate_image]`,
                   item.certificate_image,
                 );
               });
+              console.log("Training Form Data ",formdata)
 
               dispatch(AppThunks.doAddTrainingCourse(formdata)).then(
                 (res: any) => {

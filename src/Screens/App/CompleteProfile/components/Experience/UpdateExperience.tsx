@@ -269,8 +269,8 @@ const UpdateExperience = () => {
                   `array[${index}][job_type_id]`,
                   item.job_type_id,
                 );
-                formdata.append(`array[${index}][start_date]`, item.start_date);
-                formdata.append(`array[${index}][end_date]`, item.end_date);
+                formdata.append(`array[${index}][start_date]`, Moment(item.start_date).format('yyyy/MM/DD'));
+                formdata.append(`array[${index}][end_date]`, Moment(item.end_date).format('yyyy/MM/DD'));
                 formdata.append(
                   `array[${index}][still_work_here]`,
                   item.still_work_here,

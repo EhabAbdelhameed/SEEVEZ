@@ -4,7 +4,7 @@ import { appColors, appSizes } from "theme";
 export const styles = StyleSheet.create({
     HeaderContainer: {
         width: "100%",
-        // backgroundColor:appColors.primary,
+        backgroundColor:appColors.bg,
         // height:100,
         paddingTop: 10,
         paddingHorizontal: 10,
@@ -124,7 +124,7 @@ export const styles = StyleSheet.create({
         // height: 200,
         // left: 0,
        
-        height:220,  
+        height:195,
         bottom: 10,
         elevation: 4,
         borderRadius: 10,
@@ -192,5 +192,19 @@ export const styles = StyleSheet.create({
         left: "0%",
         alignItems: "center",
         justifyContent: "center"
+    },
+    AddOptionContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+        marginVertical: 10,
+        marginBottom:30,
+        marginTop:20
+
+    },
+    text2: {
+        color: appColors.black,
+        fontSize: appSizes.font_m,
+        fontWeight: "500"
     },
 })

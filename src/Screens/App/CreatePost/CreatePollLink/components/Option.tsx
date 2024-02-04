@@ -72,7 +72,7 @@ const Option = () => {
   return (
     <View style={styles.optionsContainer}>
       <Item icon="AUDIENCE" title="Audience" navKey="Camera" />
-      <Item icon="TAG" title="Tag people" navKey="Camera" />
+      <TouchableOpacity onPress={()=>navigation.navigate("TagPeople")}><Item icon="TAG" title="Tag people" navKey="Camera" /></TouchableOpacity>
       <Item icon="ADDLOCATION" title="Add location" navKey="Camera" />
       <Item icon="SETTING" title="Advanced settings" navKey="Camera" />
     </View>

@@ -48,6 +48,7 @@ import UpdateSkillsCard from 'screens/App/Profile/Main Profile/UpdateComponents/
 import UpdateOneSkills from 'screens/App/Profile/Main Profile/UpdateComponents/Skills/lastUpdateSkills';
 import CV from 'screens/App/CreatePost/UploadCV';
 import CreatePollLink from 'screens/App/CreatePost/CreatePollLink';
+import TagPeople from 'screens/App/CreatePost/TagPeople';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -247,6 +248,10 @@ const AppStack = () => {
              <Stack.Screen
                 name='CreatePollLink'
                 component={CreatePollLink}
+            />
+               <Stack.Screen
+                name='TagPeople'
+                component={TagPeople}
             />
 
         </Stack.Navigator>

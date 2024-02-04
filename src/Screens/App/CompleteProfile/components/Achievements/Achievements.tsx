@@ -58,6 +58,7 @@ const AchievementsCard = (data: any) => {
             // paddingHorizontal: 20,
             // paddingVertical: 10,
             // borderRadius: 16,
+            overflow:"hidden"
           }}>
             <Text numberOfLines={4} style={styles.Des}>
               {item?.text}

@@ -7,8 +7,8 @@ import Poll from './Poll'
 const ContainerRecord = () => {
     return ( 
         <ImageBackground   
-            source={require('src/assets/images/Rectangle17.png')}
-            style={[styles.bgContainer,{width:320,height:300,alignSelf:'center',alignItems:'center'}]}
+            source={require('src/assets/images/ReelImage.png')}
+            style={[styles.bgContainer,{width:320,height:400,alignSelf:'center',alignItems:'center'}]}
             resizeMode='cover'
         >
         

@@ -312,7 +312,7 @@ const doAddTrainingCourse: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.TrainingCourse(data);
-            // alert(response?.data)
+            console.log(response)
             if (
                 response.status == null ||
                 response.status == 401 ||

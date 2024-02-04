@@ -23,7 +23,7 @@ const Achievements = (props: Props) => {
       <Text
         style={styles.textHeaderSection}
       >Achievements</Text>
-      {console.log(props.User?.user_data?.achievement[1])}
+      {/* {console.log(props.User?.user_data?.achievement[1])} */}
       <FlatList
         data={props.User?.user_data?.achievement}
         renderItem={({ item }) => (

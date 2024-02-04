@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const ReferenceCheckCard = (data: any) => {
   const navigation = useNavigation<any>();
- 
+   console.log("sdsdeerrtrr",data)
   const saveReferenceCheckSection = () => {
     navigation.navigate('UpdateRefernceCheck');
   };
@@ -33,7 +33,7 @@ const ReferenceCheckCard = (data: any) => {
           </TouchableOpacity>
         </View>
 
-        {data?.data == null ? (
+        {data?.data?.length == 0 ? (
           <View
             style={{
               borderWidth: 1,

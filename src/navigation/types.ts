@@ -50,6 +50,7 @@ export type AppParamsList = {
     UpdateRecordVideo:undefined;
     UpdateAbout:undefined;
     UpdateLanguages:undefined;
+    TagPeople:undefined;
     CreatePollLink:undefined;
     UpdateInfo:undefined;
     UpdateEducation:undefined;

@@ -1,13 +1,14 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {Image, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { useState } from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import {useNavigation} from '@react-navigation/native';
+import { PDF } from 'assets/Svgs';
 
 const AchievementsCard = (data: any) => {
   const navigation = useNavigation();
-
+  const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
@@ -38,7 +39,38 @@ const AchievementsCard = (data: any) => {
         </View>
         {data?.data?.length == 0
           ? null
-          : data?.data?.map((item: any) => (
+          : seeAllExperiences ?(data?.data?.map((item: any,index:any) => (
+          
+            <View style={{marginBottom: 15,paddingHorizontal:10,flexDirection:'row'}}>
+            <View style={{width:'85%'}}>
+            <ReadMore
+              style={styles.PostText}
+              animate={true}
+              seeMoreStyle={{
+                color: appColors.primary,
+                textDecorationLine: 'underline',
+              }}
+              seeLessStyle={{
+                color: appColors.primary,
+                textDecorationLine: 'underline',
+              }}
+              seeLessText="less"
+              seeMoreText="Read more"
+              numberOfLines={3}>
+              {item?.text}
+            </ReadMore>
+            {item?.object_info?.extension == 'pdf' ?
+               <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
+                 <PDF height={70} width={70} />
+               </TouchableOpacity>
+               :
+               <Image style={styles.Certificate} source={{ uri: item?.certificate }} />}
+            </View>
+            </View>
+            ))):(data?.data?.map((item: any,index:any) => (
+              index==0?
+              <View style={{marginBottom: 15,paddingHorizontal:10,flexDirection:'row'}}>
+              <View style={{width:'85%'}}>
               <ReadMore
                 style={styles.PostText}
                 animate={true}
@@ -55,8 +87,25 @@ const AchievementsCard = (data: any) => {
                 numberOfLines={3}>
                 {item?.text}
               </ReadMore>
-            ))}
+              {item?.object_info?.extension == 'pdf' ?
+                 <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
+                   <PDF height={70} width={70} />
+                 </TouchableOpacity>
+                 :
+                 <Image style={styles.Certificate} source={{ uri: item?.certificate }} />}
+              </View>
+              </View>:null)))}
       </View>
+      <View style={styles.devider} />
+      <TouchableOpacity
+        disabled={
+          data?.data?.length == 0 || data?.data?.length == 1 ? true : false
+        }
+        onPress={() => setSeeAllExperiences(!seeAllExperiences)}>
+        <Text style={styles.seeAll}>
+          See {seeAllExperiences ? 'Less' : 'All'}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -126,4 +175,34 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: appColors.black,
   },
+  devider: {
+    height: 1,
+    width: '95%',
+    backgroundColor: '#E8E8E8',
+    marginTop: 20,
+    marginBottom: 10,
+    alignSelf: 'center',
+  },
+  seeAll: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: appColors.primary,
+    textAlign: 'center',
+  },
+  PDFContainer: {
+    height: 100,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: appColors.lightGrey3,
+    borderRadius: 10,
+    marginTop: 10
+},
+Certificate: {
+  width: 100,
+  height: 150,
+  alignSelf: 'flex-start',
+  resizeMode: 'contain',
+  marginVertical: 10,
+},
 });
