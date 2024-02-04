@@ -230,7 +230,7 @@ const SignupTwo = () => {
                       style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
                         <PDF width={20} height={20} />
-                        <Text
+                        <Text numberOfLines={1}
                           style={{
                             marginLeft: 10,
                             fontSize: 17,
@@ -247,7 +247,7 @@ const SignupTwo = () => {
                       style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
                         <PDF height={20} width={20} />
-                        <Text
+                        <Text numberOfLines={1}
                           style={{
                             marginLeft: 10,
                             fontSize: 17,

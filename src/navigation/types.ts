@@ -35,6 +35,7 @@ export type AppParamsList = {
     UpdateOneLanguage:undefined;
     UpdateTrainingCard:undefined;
     UpdateOneTraining:undefined;
+    CV:undefined;
     SaveVideoCompany:undefined;
     ProfileCompanyScreen:undefined;
     UpdateAboutCard:undefined;
@@ -49,6 +50,7 @@ export type AppParamsList = {
     UpdateRecordVideo:undefined;
     UpdateAbout:undefined;
     UpdateLanguages:undefined;
+    CreatePollLink:undefined;
     UpdateInfo:undefined;
     UpdateEducation:undefined;
     UpdateAchievements:undefined;

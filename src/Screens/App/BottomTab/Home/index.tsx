@@ -102,7 +102,7 @@ const Home = () => {
               <DashboardSection />
             </BoxContentTitle>
           </View>
-          {CurrentUserData?.work_type == 'freelancer' ? null : (
+          {CurrentUserData?.work_type == 'freelancer'||CurrentUserData?.user_data?.user_type == 'company' ? null : (
             <View style={styles.rowContainer}>
               <BoxContentTitle
                 title="CV maker"

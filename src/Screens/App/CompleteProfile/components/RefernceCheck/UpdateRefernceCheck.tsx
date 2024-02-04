@@ -219,7 +219,7 @@ const UpdateRefernceCheck = () => {
                   style={styles.InputStyleNoWidth}
                   onPress={uploadFile}>
                   <PDF />
-                  <Text style={{fontSize: 19, color: appColors.primary}}>
+                  <Text numberOfLines={1} style={{fontSize: 19, color: appColors.primary}}>
                     {Source.length == 0
                       ? 'Upload background check'
                       : Source[0].name}

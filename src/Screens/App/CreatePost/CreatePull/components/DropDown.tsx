@@ -5,75 +5,45 @@ import { RenderSvgIcon } from 'components/atoms/svg';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { durations } from 'src/Dummy';
 import { appColors } from 'theme';
-
-const DropDown = () => {
-    const [open, setOpen] = useState(false);
-    const animation = useSharedValue({ height: 0, borderWidth: 0 });
-
-    useEffect(() => {
-        animation.value = open ? { height: 160, borderWidth: 1 } : { height: 0, borderWidth: 0 }
-    }, [open]);
-    const animationStyle = useAnimatedStyle(() => {
-        return {
-            height: withTiming(animation.value.height, {
-                duration: 500,
-            }),
-            borderWidth: withTiming(animation.value.borderWidth, {
-                duration: 500,
-            })
-        };
-    });
+import { Dropdown } from 'react-native-element-dropdown';
+const data = [
+    {label: '1 day', id: 1},
+    {label: '3 days', id: 2},
+    {label: '7 day', id: 3},
+    {label: '2 week', id: 4},
+  ];
+const DropDown = (props:any) => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [value, setValue] = useState(null);
 
     return (
-        <View>
-            <TouchableOpacity style={styles.DurationDropDown}
-                onPress={() => {
-                    setOpen(prev => !prev)
-                }}
-            >
-                <Text style={styles.titleDuration}>Duration</Text>
-                <View style={{
-                    transform: [
-                        {
-                            rotate: "-90deg"
-                        }
-                    ]
-                }}>
-                    <RenderSvgIcon
-                        icon='ARROWBACK'
-                        color={"#B9B9B9"}
-                    />
-                </View>
-            </TouchableOpacity>
-            <View>
-                <Animated.View
-                    style={[animationStyle, {
-                        width: "100%",
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        borderColor:appColors.primary
-                    }]}
-                >
-                    <ScrollView
-                        nestedScrollEnabled
-                    >
-                        {durations.map((item, index) => {
-                            return (
-                                <>
-                                    <View style={[styles.durationItem, {
-                                        borderTopWidth: index == 0 ? 0 : 1
-                                    }]}>
-                                        <Text style={styles.titleDuration}>
-                                            {item}
-                                        </Text>
-                                    </View>
-                                </>
-                            )
-                        })}
-                    </ScrollView>
-                </Animated.View>
-            </View>
-        </View>
+        <Dropdown
+        style={styles.uploadContainer}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={data}
+        search
+        // maxHeight={300}
+        labelField="label"
+        valueField="id"
+        placeholder="Duration"
+        searchPlaceholder="Search..."
+        value={value}
+        onChange={(item: any) => {
+          props?.setFieldValue(`duration`, item?.id);
+        }}
+        renderRightIcon={() => (
+          <RenderSvgIcon
+            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+            width={16}
+            height={16}
+          />
+        )}
+        onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
+        onBlur={() => setDropdownOpen(false)}
+      />
     )
 
 }

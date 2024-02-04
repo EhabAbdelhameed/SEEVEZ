@@ -158,7 +158,7 @@ const UpdateAchievements = () => {
                       onPress={() => openGallery(props, index)}
                       style={styles.uploadContainer}>
                       <PHOTO style={{marginRight: 20}} />
-                      <Text
+                      <Text numberOfLines={1}
                         style={{
                           fontSize: 20,
                           color: appColors.primary,

@@ -217,7 +217,7 @@ const UpdateExperience = () => {
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-         <TopHeader />
+        <TopHeader />
         <View style={styles.bottomSection}>
           <BottomHeader />
 
@@ -230,8 +230,8 @@ const UpdateExperience = () => {
                   industry_id: '',
                   years_of_experience_id: '',
                   job_type_id: '',
-                  start_date: '',
-                  end_date: '',
+                  start_date: new Date(),
+                  end_date: new Date(),
                   still_work_here: 0,
                   experience_letter: '',
                   description: '',
@@ -302,50 +302,80 @@ const UpdateExperience = () => {
                       }}>
                       Experience
                     </Text>
-                    <TextInput
-                      placeholder="Job title"
-                      onChangeText={value =>
-                        props?.setFieldValue(
-                          `Experince[${index}]["job_title"]`,
-                          value,
-                        )
-                      }
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        height: 50,
-                        fontSize: 14,
-                        marginBottom: 10,
-                      }}
-                    />
-                    <TextInput
-                      placeholder="Company name"
-                      value={selectedCompanyNames[index]}
-                      onChangeText={value => {
-                        setSearchQuery(value);
+                    <View style={{marginBottom:10}}>
+                      <Input
+                        {...props}
+                        name={`Experince[${index}]["job_title"]`}
+                        placeholderTextColor={'#B9B9B9'}
+                        inputContainerStyle={{
+                          borderRadius: 16,
+                          borderColor: '#1D5EDD',
+                          borderWidth: 1,
+                          paddingHorizontal: 15,
+                          paddingVertical: 4,
 
-                        props?.setFieldValue(
-                          `Experince[${index}]["company_name"]`,
-                          value,
-                        );
-                        setSelectedCompanyNames(prevNames => {
-                          const updatedNames = [...prevNames];
-                          updatedNames[index] = value;
-                          return updatedNames;
-                        });
-                      }}
-                      style={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        height: 50,
-                        fontSize: 14,
-                        marginBottom: 10,
-                      }}
-                    />
+                          height: Platform.OS == 'ios' ? 50 : null,
+                          // marginBottom:5
+                        }}
+                        onChangeText={e =>
+                          props?.setFieldValue(
+                            `Experince[${index}]["job_title"]`,
+                            value,
+                          )
+                        }
+                        containerStyle={{
+                          paddingHorizontal: 0,
+                          height: 50,
+                          marginVertical: 2,
+                        }}
+                        inputStyle={{
+                          fontSize: 14,
+                          //  color: 'red'
+                        }}
+                        placeholder={`Job title`}
+                      />
+                    </View>
+                    <View style={{marginBottom:5}}>
+                      <Input
+                        {...props}
+                        name={`Experince[${index}]["company_name"]`}
+                        value={selectedCompanyNames[index]}
+                        placeholderTextColor={'#B9B9B9'}
+                        inputContainerStyle={{
+                          borderRadius: 16,
+                          borderColor: '#1D5EDD',
+                          borderWidth: 1,
+                          paddingHorizontal: 15,
+                          paddingVertical: 4,
+
+                          height: Platform.OS == 'ios' ? 50 : null,
+                          // marginBottom:5
+                        }}
+                        onChangeText={value => {
+                          setSearchQuery(value);
+
+                          props?.setFieldValue(
+                            `Experince[${index}]["company_name"]`,
+                            value,
+                          );
+                          setSelectedCompanyNames(prevNames => {
+                            const updatedNames = [...prevNames];
+                            updatedNames[index] = value;
+                            return updatedNames;
+                          });
+                        }}
+                        containerStyle={{
+                          paddingHorizontal: 0,
+                          height: 50,
+                          marginVertical: 2,
+                        }}
+                        inputStyle={{
+                          fontSize: 14,
+                          //  color: 'red'
+                        }}
+                        placeholder={`Company name`}
+                      />
+                    </View>
 
                     {searchQuery.length > 0 && (
                       <View
@@ -701,7 +731,11 @@ const UpdateExperience = () => {
                             updatedArray[index] = !prev[index];
                             return updatedArray;
                           });
-                           console.log("still Work Here",index,stillWorkHere[index])
+                          console.log(
+                            'still Work Here',
+                            index,
+                            stillWorkHere[index],
+                          );
                           props?.setFieldValue(
                             `Experince[${index}]["still_work_here"]`,
                             stillWorkHere[index] ? 0 : 1,
@@ -721,6 +755,7 @@ const UpdateExperience = () => {
                       style={styles.uploadContainer}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text
+                        numberOfLines={1}
                         style={{
                           fontSize: 18,
                           color: appColors.primary,

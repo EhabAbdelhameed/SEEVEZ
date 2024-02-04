@@ -128,8 +128,8 @@ const UpdateTraining = () => {
                   institute: '',
                   field_of_study: '',
                   grade: '',
-                  start_date: '',
-                  end_date: '',
+                  start_date:new Date(),
+                  end_date: new Date(),
                   certificate_image: '',
                 },
               ],
@@ -206,32 +206,84 @@ const UpdateTraining = () => {
                       }}
                       placeholder={`Institute`}
                     />
+                 
                     <View
                       style={{
                         flexDirection: 'row',
-                        // justifyContent: 'space-around',
-                        columnGap: 15,
+                        justifyContent: 'space-between',
+                        alignItems:'center',
+                        marginBottom: 10,
+                        // backgroundColor:'red'
+                        // width:'100%',
+                        // columnGap: 15,
                       }}>
-                      <TextInput
-                        placeholder="Field of study"
-                        style={styles.inputStyle}
+                        <View style={{width:'48%'}}>
+                      <Input
+                        {...props}
+                        name={`TrainingCourse[${index}]["field_of_study"]`}
+                        placeholderTextColor={'#B9B9B9'}
+                        inputContainerStyle={{
+                          borderRadius: 16,
+                          borderColor: '#1D5EDD',
+                          borderWidth: 1,
+                          paddingHorizontal: 15,
+                          paddingVertical: 4,
+
+                          height: Platform.OS == 'ios' ? 50 : null,
+                          // marginBottom:5
+                        }}
                         onChangeText={e =>
                           props?.setFieldValue(
                             `TrainingCourse[${index}]["field_of_study"]`,
                             e,
                           )
                         }
+                        containerStyle={{
+                          paddingHorizontal: 0,
+                          height: 50,
+                          marginVertical: 2,
+                        }}
+                        inputStyle={{
+                          fontSize: 14,
+                          //  color: 'red'
+                        }}
+                        placeholder={`Field of study`}
                       />
-                      <TextInput
-                        placeholder="Grade"
-                        style={styles.inputStyle}
+                      </View>
+                      <View style={{width:'48%'}}>
+                      <Input
+                        {...props}
+                        name={`TrainingCourse[${index}]["grade"]`}
+                        placeholderTextColor={'#B9B9B9'}
+                        inputContainerStyle={{
+                          borderRadius: 16,
+                          borderColor: '#1D5EDD',
+                          borderWidth: 1,
+                          paddingHorizontal: 15,
+                          paddingVertical: 4,
+
+                          
+                          height: Platform.OS == 'ios' ? 50 : null,
+                          // marginBottom:5
+                        }}
                         onChangeText={e =>
                           props?.setFieldValue(
                             `TrainingCourse[${index}]["grade"]`,
                             e,
                           )
                         }
+                        containerStyle={{
+                          paddingHorizontal: 0,
+                          height: 50,
+                          // marginVertical: 2,
+                        }}
+                        inputStyle={{
+                          fontSize: 14,
+                          //  color: 'red'
+                        }}
+                        placeholder={`Grade`}
                       />
+                      </View>
                     </View>
                     <View
                       style={{
@@ -440,7 +492,7 @@ const UpdateTraining = () => {
                       onPress={() =>Platform.OS=="ios"?pick(props, index): openGallery(props, index)}
                       style={styles.uploadContainer}>
                       <PHOTO style={{marginRight: 20}} />
-                      <Text style={{fontSize: 20, color: appColors.primary}}>
+                      <Text numberOfLines={1} style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
                           ? 'Upload certificate image'
                           : Source[index]}

@@ -146,8 +146,8 @@ const UpdateEducation = () => {
                   level_id: '',
                   field_of_study: '',
                   grade: '',
-                  start_date: '',
-                  end_date: '',
+                  start_date: new Date(),
+                  end_date: new Date(),
                   degree_certificate: '',
                 },
               ],
@@ -259,33 +259,80 @@ const UpdateEducation = () => {
                     <View
                       style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-around',
+                        justifyContent: 'space-between',
+                        alignItems:'center',
                         marginBottom: 10,
-                        columnGap: 15,
+                        // backgroundColor:'red'
+                        // width:'100%',
+                        // columnGap: 15,
                       }}>
-                      <TextInput
-                        placeholder="Field of study"
-                        // placeholderTextColor={'#B9B9B9'}
-                        style={styles.inputStyle}
+                        <View style={{width:'48%'}}>
+                      <Input
+                        {...props}
+                        name={`Education[${index}]["field_of_study"]`}
+                        placeholderTextColor={'#B9B9B9'}
+                        inputContainerStyle={{
+                          borderRadius: 16,
+                          borderColor: '#1D5EDD',
+                          borderWidth: 1,
+                          paddingHorizontal: 15,
+                          paddingVertical: 4,
+
+                          height: Platform.OS == 'ios' ? 50 : null,
+                          // marginBottom:5
+                        }}
                         onChangeText={e =>
                           props?.setFieldValue(
                             `Education[${index}]["field_of_study"]`,
                             e,
                           )
                         }
+                        containerStyle={{
+                          paddingHorizontal: 0,
+                          height: 50,
+                          marginVertical: 2,
+                        }}
+                        inputStyle={{
+                          fontSize: 14,
+                          //  color: 'red'
+                        }}
+                        placeholder={`Field of study`}
                       />
+                      </View>
+                      <View style={{width:'48%'}}>
+                      <Input
+                        {...props}
+                        name={`Education[${index}]["grade"]`}
+                        placeholderTextColor={'#B9B9B9'}
+                        inputContainerStyle={{
+                          borderRadius: 16,
+                          borderColor: '#1D5EDD',
+                          borderWidth: 1,
+                          paddingHorizontal: 15,
+                          paddingVertical: 4,
 
-                      <TextInput
-                        placeholder="Grade"
-                        // placeholderTextColor={'#B9B9B9'}
-                        style={styles.inputStyle}
+                          
+                          height: Platform.OS == 'ios' ? 50 : null,
+                          // marginBottom:5
+                        }}
                         onChangeText={e =>
                           props?.setFieldValue(
                             `Education[${index}]["grade"]`,
                             e,
                           )
                         }
+                        containerStyle={{
+                          paddingHorizontal: 0,
+                          height: 50,
+                          // marginVertical: 2,
+                        }}
+                        inputStyle={{
+                          fontSize: 14,
+                          //  color: 'red'
+                        }}
+                        placeholder={`Grade`}
                       />
+                      </View>
                     </View>
 
                     <View
@@ -489,7 +536,9 @@ const UpdateEducation = () => {
                       }
                       style={styles.InputStyleNoWidth1}>
                       <PHOTO style={{marginRight: 20}} />
-                      <Text style={{fontSize: 20, color: appColors.primary}}>
+                      <Text
+                        numberOfLines={1}
+                        style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
                           ? 'Upload degree certificate'
                           : Source[index]}

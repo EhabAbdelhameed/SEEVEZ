@@ -150,7 +150,7 @@ const CreateVoice = () => {
         />
         <Wave milliseconds={milliseconds} isRecording={audioData} />
         <Footer
-          Press={isRecording ? stopRecording : startRecording}
+          Press={isRecording ? stopRecording : startRecording} 
           Remove={resetTimer}
           Done={() => {
             // Alert.alert("Done")

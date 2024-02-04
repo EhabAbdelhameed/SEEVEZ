@@ -13,6 +13,7 @@ const InputView = ({
   secure = false,
   touched,
   errors,
+
   value,
   ...props
 }: {

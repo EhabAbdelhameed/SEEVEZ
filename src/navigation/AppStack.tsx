@@ -46,6 +46,8 @@ import UpdateReferenceCheckCard from 'screens/App/Profile/Main Profile/UpdateCom
 import UpdateOneRefernceCheck from 'screens/App/Profile/Main Profile/UpdateComponents/ReferenceCheck/lastUpdateReferenceCheck';
 import UpdateSkillsCard from 'screens/App/Profile/Main Profile/UpdateComponents/Skills/UpdateSkillsCard';
 import UpdateOneSkills from 'screens/App/Profile/Main Profile/UpdateComponents/Skills/lastUpdateSkills';
+import CV from 'screens/App/CreatePost/UploadCV';
+import CreatePollLink from 'screens/App/CreatePost/CreatePollLink';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -237,6 +239,14 @@ const AppStack = () => {
             <Stack.Screen
                 name='CreatePull'
                 component={CreatePull}
+            />
+              <Stack.Screen
+                name='CV'
+                component={CV}
+            />
+             <Stack.Screen
+                name='CreatePollLink'
+                component={CreatePollLink}
             />
 
         </Stack.Navigator>

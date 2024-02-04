@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         // borderTopRightRadius:appSizes.radius_m,
         borderRadius: appSizes.radius_l,
         width: "100%",
-        height: "95%",
+        height: "100%",
         alignSelf: "center",
         backgroundColor: appColors.bg,
         // marginTop:10

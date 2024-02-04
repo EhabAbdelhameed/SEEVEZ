@@ -7,7 +7,7 @@ import {
   Pressable,
   Linking,
 } from 'react-native';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {globalStyles} from 'src/globalStyle';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -35,11 +35,22 @@ const CreateVideo = () => {
     navigation.goBack();
   }, []);
   const [isRecording, setIsRecording] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [shouldNavigate, setShouldNavigate] = useState(false);
   const [videoPath, setVideoPath] = useState('');
   const cameraRef: Camera | any = useRef<Camera>();
   const [cameraPosition, setCameraPosition] = React.useState<'front' | 'back'>(
     'back',
   );
+  useEffect(() => {
+    if (shouldNavigate && videoPath) {
+      navigation.navigate('CreateVideo2', {
+        videoPath: videoPath,
+        key: 1,
+      });
+      setShouldNavigate(false); // Reset the flag
+    }
+  }, [shouldNavigate, videoPath, navigation]);
   const [torch, setTorch] = React.useState<'on' | 'off'>('off');
   const requestMicrophonePermission = useCallback(async () => {
     console.log('Requesting microphone permission...')
@@ -49,6 +60,7 @@ const CreateVideo = () => {
     if (permission === 'denied') await Linking.openSettings()
 
   }, [])
+
   requestMicrophonePermission()
   const startRecording = async () => {
     setVideoPath('');
@@ -105,7 +117,7 @@ const CreateVideo = () => {
       setSourceVideo(res?.assets);
       setVideoPath(res?.assets[0].uri)
       setTimeout(() => {
-        navigation.navigate("SaveVideo", {
+        navigation.navigate("CreateVideo2", {
           videoPath: res?.assets[0].uri,
           source: res,
           key: 2
@@ -120,12 +132,10 @@ const CreateVideo = () => {
 
   const stopRecording = async () => {
     setIsRecording(false);
+    setIsPlaying(true);
     await cameraRef.current.stopRecording();
-    setTimeout(() => {
-      navigation.navigate('CreateVideo2', {
-        video: videoPath,
-      });
-    },10);
+
+    setShouldNavigate(true);
   };
 
   const device = useCameraDevice(cameraPosition);
@@ -194,7 +204,7 @@ const CreateVideo = () => {
         </Pressable>
       </View>
       <View style={styles.bottomContainer}>
-        <ImagePicker />
+      <ImagePicker onPress={pick} />
         <TouchableOpacity
           onPress={() => {
             isRecording ? stopRecording() : startRecording();

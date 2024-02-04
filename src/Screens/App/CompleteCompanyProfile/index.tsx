@@ -41,7 +41,7 @@ const CompleteCompanyProfileScreen = () => {
     <SafeAreaView edges={['top']} style={styles.Container}>
       <Header Title="My profile" onPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <RecordVideoCompany user_data={CurrentUserData} />
+        <RecordVideoCompany user_data={CurrentUserData?.user_data?.cv_media} />
         <View style={styles.PaddingContainer}>
           <InfoCompanyCard user_data={CurrentUserData} />
           <AboutCompanyCard About={CurrentUserData} />
