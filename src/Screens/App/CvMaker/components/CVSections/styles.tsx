@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     bigContainer: {
         width: '100%',
         // alignItems: "center",
-     
+
     },
     container: {
         width: "90%",
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         backgroundColor: appColors.lightGrey,
         borderRadius: 20,
         marginTop: 20,
-        alignSelf:"center"
+        alignSelf: "center"
     },
     container2: {
         width: "90%",
@@ -26,9 +26,9 @@ export const styles = StyleSheet.create({
         backgroundColor: appColors.lightGrey,
         borderRadius: 20,
         marginTop: 20,
-        alignSelf:"center"
+        alignSelf: "center"
     },
-    AvatarContainer:{
+    AvatarContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         width: 86,
@@ -37,13 +37,13 @@ export const styles = StyleSheet.create({
         backgroundColor: '#E8EFFC',
         borderWidth: 1,
         borderColor: '#B9CDF4',
-        marginBottom:10
+        marginBottom: 10
     },
     avatar: {
         width: 86,
         height: 86,
         borderRadius: 50,
-        marginBottom:10
+        marginBottom: 10
     },
     userName: {
         color: appColors.black,
@@ -82,31 +82,46 @@ export const styles = StyleSheet.create({
     textContentSection: {
         color: appColors.black,
         fontSize: appSizes.font_xs,
-        fontWeight: "400",
+        fontWeight: "500",
         marginTop: 10,
     },
-    rowContainer:{
-        width:"100%",
-        flexDirection:"row",
-        alignItems:"flex-start",
-        justifyContent:"space-between",
+    PDFContainer: {
+        height: 100,
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: appColors.lightGrey3,
+        borderRadius: 10,
+        marginTop: 10
+    },
+    Certificate:{
+        height: 100,
+        width: 100,
+        marginTop: 10,
+        borderRadius: 10
+      },
+    rowContainer: {
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
         // paddingHorizontal:18,
-        paddingVertical:7,
+        paddingVertical: 7,
         // backgroundColor:appColors.secondary
     },
-    label:{
+    label: {
         color: appColors.black,
         fontSize: appSizes.font_m,
         fontWeight: "500",
         marginTop: 5,
     },
-    absIconsContainer:{
+    absIconsContainer: {
         position: "absolute",
         top: 17,
         right: 15,
         // backgroundColor:appColors.primary,
         zIndex: 1,
-        columnGap:8,
+        columnGap: 8,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",

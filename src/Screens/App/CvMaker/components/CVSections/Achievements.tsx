@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Linking, Image } from 'react-native';
 import { styles } from './styles';
 import { appColors } from '../../../../../theme/appColors';
 import EditDragIcons from './EditDragIcons';
@@ -23,21 +23,20 @@ const Achievements = (props: Props) => {
       <Text
         style={styles.textHeaderSection}
       >Achievements</Text>
-      {console.log(props.User?.user_data?.achievement)}
-      <View style={{
-        height: 100,
-        width: 100,
-        alignContent: 'center',
-        justifyContent: 'center',
-        backgroundColor:appColors.lightGrey3
-      }}>
-        <PDF height={70} width={70} style={{backgroundColor:'#f00'}} />
-      </View>
+      {console.log(props.User?.user_data?.achievement[1])}
       <FlatList
         data={props.User?.user_data?.achievement}
         renderItem={({ item }) => (
           <>
-            <Text style={styles.textContentSection}>{item?.text}</Text>
+            <Text style={styles.textContentSection}>- {item?.text}</Text>
+            {
+              item?.type == 'pdf' ?
+                <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
+                  <PDF height={70} width={70} />
+                </TouchableOpacity>
+                :
+                <Image style={styles.Certificate} source={{ uri: item?.certificate }} />
+            }
           </>
         )}
       />
