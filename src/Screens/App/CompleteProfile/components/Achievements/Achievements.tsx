@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const AchievementsCard = (data: any) => {
   const navigation = useNavigation<any>();
-
+   console.log("Achiev",data)
   const saveAachievementSection = () => {
     navigation.navigate('UpdateAchievements');
     // setAchievementsSection(SaveAachievementsSection);
@@ -37,7 +37,7 @@ const AchievementsCard = (data: any) => {
             <RenderSvgIcon icon="HEART" width={20} height={20} color={appColors.black} />
           </TouchableOpacity> */}
         </View>
-        {data?.data == null ? (
+        {data?.data?.length == 0 ? (
           <View
             style={{
               borderWidth: 1,
@@ -49,21 +49,23 @@ const AchievementsCard = (data: any) => {
             }}>
             <Text style={{color: '#B9B9B9', fontFamily: 'Noto Sans'}}>Bio</Text>
           </View>
-        ) : (
+        ) :data?.data?.map((item: any) => (
           <View
-            style={{
-              borderWidth: 1,
-              borderColor: '#E8E8E8',
-              height: 100,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              borderRadius: 16,
-            }}>
+          style={{
+            // borderWidth: 1,
+            // borderColor: '#E8E8E8',
+            // height: 100,
+            // paddingHorizontal: 20,
+            // paddingVertical: 10,
+            // borderRadius: 16,
+          }}>
             <Text numberOfLines={4} style={styles.Des}>
-              {data?.data?.text}
+              {item?.text}
             </Text>
-          </View>
-        )}
+            </View>
+
+        ))}
+        
       </View>
     </View>
   );

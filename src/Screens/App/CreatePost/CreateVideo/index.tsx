@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Alert,
   Pressable,
+  Linking,
 } from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
 import {globalStyles} from 'src/globalStyle';
@@ -24,9 +25,12 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import {CreateVideoIcon, ImagePicker, PauseVideoIcon} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 import {appColors} from 'theme';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const CreateVideo = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
+  const [videoSource, setSourceVideo] = useState<any>([])
+ 
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
@@ -37,6 +41,15 @@ const CreateVideo = () => {
     'back',
   );
   const [torch, setTorch] = React.useState<'on' | 'off'>('off');
+  const requestMicrophonePermission = useCallback(async () => {
+    console.log('Requesting microphone permission...')
+    const permission = await Camera.requestMicrophonePermission()
+    console.log(`Microphone permission status: ${permission}`)
+
+    if (permission === 'denied') await Linking.openSettings()
+
+  }, [])
+  requestMicrophonePermission()
   const startRecording = async () => {
     setVideoPath('');
     const checkMicrophonePermission = async () => {
@@ -59,7 +72,7 @@ const CreateVideo = () => {
         setIsRecording(true);
         cameraRef.current.startRecording({
           quality: '720p',
-        
+
           // videoBitrate: 2000000,
           maxDuration: 10, // Set the maximum duration in seconds (optional)
           // maxFileSize: 100 * 1024 * 1024, // Set the maximum file size in bytes (optional)
@@ -68,13 +81,14 @@ const CreateVideo = () => {
           },
           // outputPath: videoPath,
           onRecordingFinished: async (video: any) => {
-            setVideoPath(video?.path);
-           
-              navigation.navigate('CreateVideo2', {
-                video: videoPath,
-              });
-       
-            // console.log(video)
+            let pathVideo = video?.path
+            setVideoPath(pathVideo);
+            // setPath(video?.path);
+
+
+            // console.log(video?.path)
+            // console.log("22222",pathVideo)
+
           },
         });
       } else {
@@ -86,11 +100,32 @@ const CreateVideo = () => {
     checkMicrophonePermission();
   };
 
+  const pick = () => {
+    launchImageLibrary({ quality: 0.5, mediaType: 'video' }).then((res: any) => {
+      setSourceVideo(res?.assets);
+      setVideoPath(res?.assets[0].uri)
+      setTimeout(() => {
+        navigation.navigate("SaveVideo", {
+          videoPath: res?.assets[0].uri,
+          source: res,
+          key: 2
+        })
+      }, 1000);
+      // setSource(res)
+      // console.log("sdasdas "+JSON.stringify(res?.assets[0].uri))
+    }
 
+    );
+  };
 
   const stopRecording = async () => {
     setIsRecording(false);
     await cameraRef.current.stopRecording();
+    setTimeout(() => {
+      navigation.navigate('CreateVideo2', {
+        video: videoPath,
+      });
+    },10);
   };
 
   const device = useCameraDevice(cameraPosition);
@@ -107,7 +142,7 @@ const CreateVideo = () => {
                 video: videoPath,
               });
             }}>
-            <Text style={styles.skipText}>Hello</Text>
+            <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
         </SafeAreaView>
       </>

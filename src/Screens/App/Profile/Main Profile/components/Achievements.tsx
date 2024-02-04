@@ -3,57 +3,59 @@ import React from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const AchievementsCard = (data: any) => {
-  const navigation = useNavigation()
- 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Achievements</Text>
           <View style={styles.Row2}>
-          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAchievements')} >
-            <RenderSvgIcon
-              icon="PLUSFOLLOW"
-              style={{marginRight: 10}}
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateAchievements')}>
+              <RenderSvgIcon
+                icon="PLUSFOLLOW"
+                style={{marginRight: 10}}
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
             </TouchableOpacity>
-            <TouchableOpacity disabled={data?.data == null ?true:false}
+            <TouchableOpacity
+              disabled={data?.data == null ? true : false}
               onPress={() => navigation.navigate('UpdateAchievementCard')}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
             </TouchableOpacity>
           </View>
         </View>
-        {data?.data == null ? null : (
-          <ReadMore
-            style={styles.PostText}
-            animate={true}
-            seeMoreStyle={{
-              color: appColors.primary,
-              textDecorationLine: 'underline',
-            }}
-            seeLessStyle={{
-              color: appColors.primary,
-              textDecorationLine: 'underline',
-            }}
-            seeLessText="less"
-            seeMoreText="Read more"
-            numberOfLines={3}>
-            {
-             data?.data?.text
-            }
-          </ReadMore>
-        )}
+        {data?.data?.length == 0
+          ? null
+          : data?.data?.map((item: any) => (
+              <ReadMore
+                style={styles.PostText}
+                animate={true}
+                seeMoreStyle={{
+                  color: appColors.primary,
+                  textDecorationLine: 'underline',
+                }}
+                seeLessStyle={{
+                  color: appColors.primary,
+                  textDecorationLine: 'underline',
+                }}
+                seeLessText="less"
+                seeMoreText="Read more"
+                numberOfLines={3}>
+                {item?.text}
+              </ReadMore>
+            ))}
       </View>
     </View>
   );
