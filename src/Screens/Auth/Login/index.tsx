@@ -25,7 +25,7 @@ import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import {useSelector} from 'react-redux';
 import {useLoadingSelector} from 'src/redux/selectors';
-import AuthSlice, {selectReseted, selectVerified} from 'src/redux/auth';
+import AuthSlice, {selectIsSignedUp, selectReseted, selectVerified} from 'src/redux/auth';
 import {LoginSchema} from 'src/Formik/schema';
 const Login = () => {
   const navigation = useNavigation<any>();
@@ -34,6 +34,7 @@ const Login = () => {
   const Reseted = useSelector(selectReseted);
   const dispatch = useAppDispatch();
   const Verified = useSelector(selectVerified);
+  const signedUp = useSelector(selectIsSignedUp);
   useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AuthSlice.chnageReseted(false));
@@ -81,7 +82,8 @@ const Login = () => {
 
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false);
-                  if (!Verified) {
+                  console.log("Verified ",Verified)
+                  if (!Verified&&signedUp) {
                     navigation.navigate('Verification', {
                       email: values.email,
                       type: 'register',

@@ -38,7 +38,7 @@ const Verification = () => {
 
   const Verified = useSelector(selectVerified);
   useEffect(() => {
-    dispatch(AuthSlice.chnageIsSignedUp(false));
+   
     dispatch(AuthSlice.chnageReseted(false));
     const interval = setInterval(() => {
       if (seconds > 0) {
