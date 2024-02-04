@@ -163,7 +163,7 @@ style="border-radius: 50%; width: 160px; height: 160px;" />`
 <img src=${User?.avatar}
                                     style="border-radius: 50%; width: 160px; height: 160px;" />`
         }    
-                            
+        <p>Click <a href=https://example.com">here</a> to visit Example</p>
                                 <div style="display: flex;flex-direction: column;
                         margin-left: 10px;
                         ">
@@ -261,8 +261,8 @@ style="border-radius: 50%; width: 160px; height: 160px;" />`
                             <h1 class="sectionType">Achievements</h1>
                             ${User?.user_data?.achievement?.map((item: any) => (
             ` <h1 class="text2">- ${item?.text}</h1>
-            <img style="border-radius: 10;margin-top: 10; width: 100px; height: 100px;"  src=${item?.Certificate} />
-            <a href="${item?.Certificate}">
+            <img style="border-radius: 10;margin-top: 10; width: 100px; height: 100px;"  src=${item?.certificate} />
+            <a href="${item?.certificate}" targer="_blank">
             <img src="https://cdn-icons-png.freepik.com/512/9207/9207510.png"  style="width: 70px;background-size: cover; height: 70px;margin-top: 20;" />
             </a>
                                                     <div style="height: 10px;"></div>
