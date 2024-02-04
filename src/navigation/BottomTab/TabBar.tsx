@@ -30,7 +30,7 @@ const TabBar = () => {
     <Tabs.Screen name="Home" component={Home} />
     <Tabs.Screen name="Connections" component={Connections} />
     <Tabs.Screen name="Camera" component={CameraScreen} />
-    {CurrentUserData?.work_type?null:<Tabs.Screen name="Bag" component={Bag} />}
+    {CurrentUserData?.work_type=='freelancer'?null:<Tabs.Screen name="Bag" component={Bag} />}
     <Tabs.Screen name="Calendar" component={Calendar} />
 
   </Tabs.Navigator>
