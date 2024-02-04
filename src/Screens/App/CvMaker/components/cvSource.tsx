@@ -155,15 +155,14 @@ export const source = (User: any) => {
                         <div
                             style="display: flex;flex: 1; flex-direction: row;justify-content: space-around; padding-left: 40px;">
                             <div style="display: flex; flex-direction: row;align-items: center; flex: 1;">
-                            ${
-                                User?.avatar==null?
-`<img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                            ${User?.avatar == null ?
+            `<img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
 style="border-radius: 50%; width: 160px; height: 160px;" />`
-:
-`
+            :
+            `
 <img src=${User?.avatar}
                                     style="border-radius: 50%; width: 160px; height: 160px;" />`
-                            }    
+        }    
                             
                                 <div style="display: flex;flex-direction: column;
                         margin-left: 10px;
@@ -260,6 +259,15 @@ style="border-radius: 50%; width: 160px; height: 160px;" />`
         align-self: stretch;
                     ">
                             <h1 class="sectionType">Achievements</h1>
+                            ${User?.user_data?.achievement?.map((item: any) => (
+            ` <h1 class="text2">- ${item?.text}</h1>
+            <img style="border-radius: 10;margin-top: 10; width: 100px; height: 100px;"  src=${item?.Certificate} />
+            <a href="${item?.Certificate}">
+            <img src="https://cdn-icons-png.freepik.com/512/9207/9207510.png"  style="width: 70px;background-size: cover; height: 70px;margin-top: 20;" />
+            </a>
+                                                    <div style="height: 10px;"></div>
+                                                      `
+        ))}
                             <h1 class="text2">- Employee of the month at O-Projects on 20/11/2023</h1>
                             <h1 class="text2">- Getting the first place in a sport on 20</h1>
                         </div>
@@ -275,13 +283,13 @@ style="border-radius: 50%; width: 160px; height: 160px;" />`
                     ">
                             <h1 class="textExp">Training Courses</h1>
                             ${User?.user_data?.training_courses?.map((item: any) => (
-                                ` <h1 class="text3" style="font-weight: normal;">${item?.field_of_study}</h1>
+            ` <h1 class="text3" style="font-weight: normal;">${item?.field_of_study}</h1>
                                 <h1 class="text3" style="font-size: 20px; font-weight: normal;">at ${item?.institute}</h1>
                                 <h1 class="text3" style="font-size: 20px; font-weight: normal;">accredited by Ain-Shams University and HRCI</h1>
                                 <b class="text4">${moment(item?.start_date).format('MM-YYYY')}  ${(getDateDistanceInMonthsAndYears(item?.start_date, item?.end_date)?.years) > 0 ? `${(getDateDistanceInMonthsAndYears(item?.start_date, item?.end_date)?.years)} years` : `${(getDateDistanceInMonthsAndYears(item?.start_date, item?.end_date)?.months)} Mos `} - (35 Hours)   Cairo,Egypt</b>
                                 <div style="height: 7px;"></div>
                                  `
-                            ))}
+        ))}
                         </div>
                         <div style="flex: 1; padding: 10px 0px; margin: 0px; background-color: #B0F0EE; border-radius: 20px;
                         padding: 20px;
@@ -300,22 +308,22 @@ style="border-radius: 50%; width: 160px; height: 160px;" />`
                             <div style="display: flex; flex-direction: row;justify-content: space-between;flex-wrap: wrap;">
                                 <div style="display: flex;width: 50%;flex-direction: column;">
                                 ${User?.user_data?.skills?.map((item: any) => (
-                                    ` <h1 class="text4" style="color: var(--foundation-grey-grey-300, #676767);
+            ` <h1 class="text4" style="color: var(--foundation-grey-grey-300, #676767);
                                     font-size: 15px;
                                     margin: 5px 0px 5px 10px;
                                     ">. ${item?.name}</h1>
                                      `
-                                ))}
+        ))}
                                 </div>
         
                                 <div style="display: flex;width: 50%;flex-direction: column;">
                                 ${User?.user_data?.languages?.map((item: any) => (
-                                    ` <h1 class="text4" style="color: var(--foundation-grey-grey-300, #676767);
+            ` <h1 class="text4" style="color: var(--foundation-grey-grey-300, #676767);
                                     font-size: 15px;
                                     margin: 5px 0px 5px 10px;
                                     ">. ${item?.name}</h1>
                                      `
-                                ))}
+        ))}
                                 </div>
         
                                
@@ -358,12 +366,12 @@ style="border-radius: 50%; width: 160px; height: 160px;" />`
         
                                     <h1 class="text4" style="font-size: 16px; margin: 5px 0px;">Nationality</h1>
                                     ${User?.user_data?.nationality?.map((item: any) => (
-                                        ` <h1 class="text4" style="color: var(--foundation-grey-grey-300, #676767);
+            ` <h1 class="text4" style="color: var(--foundation-grey-grey-300, #676767);
                                         font-size: 15px;
                                         margin: 5px 0px 5px 10px;
                                         ">. ${item?.name}</h1>
                                          `
-                                    ))}
+        ))}
         
                                 </div>
                             </div>
