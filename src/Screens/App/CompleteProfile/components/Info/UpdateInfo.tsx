@@ -316,10 +316,10 @@ const UpdateInfo = () => {
               values.area != '' ? formdata.append('area', values.area) : null;
               console.log('SOURCE ', source?.length);
               source?.length != 0
-                ? formdata.append('avatar', {
+                ?formdata.append('avatar', {
                     uri: source[0]?.uri,
                     type: source[0]?.type,
-                    name: source[0]?.name,
+                    name:Platform.OS=="ios"?source[0]?.fileName:  source[0]?.name,
                   })
                 : null;
               console.log(formdata);

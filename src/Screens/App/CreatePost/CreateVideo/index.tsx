@@ -69,7 +69,12 @@ const CreateVideo = () => {
           // outputPath: videoPath,
           onRecordingFinished: async (video: any) => {
             setVideoPath(video?.path);
-            console.log(video)
+           
+              navigation.navigate('CreateVideo2', {
+                video: videoPath,
+              });
+       
+            // console.log(video)
           },
         });
       } else {
@@ -93,7 +98,7 @@ const CreateVideo = () => {
   if (device == null)
     return (
       <>
-        {console.log('jfhhdsfh')}
+       
         <SafeAreaView edges={['top']} style={globalStyles.screen}>
           <TouchableOpacity
             style={styles.skipContainer}
@@ -102,7 +107,7 @@ const CreateVideo = () => {
                 video: videoPath,
               });
             }}>
-            <Text style={styles.skipText}>Skip</Text>
+            <Text style={styles.skipText}>Hello</Text>
           </TouchableOpacity>
         </SafeAreaView>
       </>

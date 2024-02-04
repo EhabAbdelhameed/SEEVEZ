@@ -40,7 +40,7 @@ const CompanySection = (title?:any) => {
             ]}>
             Senior ui ux designer
           </Text>
-          <Text
+         {CurrentUserData?.user_data?.user_type=='company'? <Text
             style={[
               styles.text1,
               {
@@ -49,7 +49,7 @@ const CompanySection = (title?:any) => {
               },
             ]}>
             25
-          </Text>
+          </Text>:null}
         </View>
         <View
           style={[
@@ -76,7 +76,7 @@ const CompanySection = (title?:any) => {
             numberOfLines={2}>
             3 hours ago
           </Text>
-          <Text style={[styles.text3]}>Applied</Text>
+         {CurrentUserData?.user_data?.user_type=='company'?<Text style={[styles.text3]}>Applied</Text>:null}
         </View>
       </View>
     </View>
