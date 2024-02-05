@@ -269,18 +269,21 @@ const UpdateExperience = () => {
                   `array[${index}][job_type_id]`,
                   item.job_type_id,
                 );
-                formdata.append(`array[${index}][start_date]`,item.start_date==''? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
-                formdata.append(`array[${index}][end_date]`,item.end_date==''? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
-                formdata.append(
+                formdata.append(`array[${index}][start_date]`,item.start_date==''||!item.start_date? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
+                formdata.append(`array[${index}][end_date]`,item.end_date==''||!item.end_date? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
+                item.still_work_here==0||!item.still_work_here?formdata.append(
+                  `array[${index}][still_work_here]`,
+                  0,
+                ):formdata.append(
                   `array[${index}][still_work_here]`,
                   item.still_work_here,
-                );
-                experienceLetter.length!=0!?formdata.append(
+                )
+                item.experience_letter==''||!item.experience_letter?null:formdata.append(
                   `array[${index}][experience_letter]`,
                   item.experience_letter,
-                ):null
+                )
               });
-              console.log('FormData f ', formdata);
+              console.log('FormData f ', formdata, "ffffff");
 
               dispatch(AppThunks.doAddExperience(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());
