@@ -5,7 +5,7 @@ import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import { useNavigation } from '@react-navigation/native'
 
 const ReferenceProfileCheck = ( data:any) => {
-    console.log("ReferenceCheckDATO",data)
+   
     const navigation = useNavigation()
  
     return (

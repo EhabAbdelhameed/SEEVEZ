@@ -25,6 +25,30 @@ const doSignUpCompany: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//doSignUpCompanyAdmin
+const doSignUpCompanyAdmin: any = createAsyncThunk<any, any, any>(
+  'auth/doSignUpCompanyAdmin',
+  async (data: any, thunkApi: any) => {
+    try {
+      const response = await AuthAPI.registerCompanyAdmin(data);
+       console.log(JSON.stringify(response.data))
+      if (
+        response.status == 400 ||
+        response.status == 401 ||
+        response.status == 403 ||
+        response.status == 404 ||
+        response.status == 422 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 
 const doSignUpRecruiter: any = createAsyncThunk<any, any, any>(
   'auth/signUpRecruiter',
@@ -320,6 +344,7 @@ const doResetPassword: any = createAsyncThunk<any, any, any>(
 
 const AuthThunks = {
   doSignUpCompany,
+  doSignUpCompanyAdmin,
   doSignUpRecruiter,
   doSignUpJobSeeker,
 

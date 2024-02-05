@@ -21,7 +21,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import moment from 'moment';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import AppSlice, { selectDone } from 'src/redux/app';
+import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 
@@ -32,19 +32,19 @@ const UpdateExperienceCard = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [refreshPage, setRefreshPage] = useState(false);
-    const changeDone = useSelector(selectDone);
-    useEffect(() => {
-      if (data?.length === 0 && changeDone) {
-        setRefreshPage(true);
-      }
-    }, [data, changeDone]);
-  
-    useEffect(() => {
-      if (refreshPage) {
-        navigation.goBack();
-        setRefreshPage(false);
-      }
-    }, [refreshPage, navigation]);
+  const changeDone = useSelector(selectDone);
+  useEffect(() => {
+    if (data?.length === 0 && changeDone) {
+      setRefreshPage(true);
+    }
+  }, [data, changeDone]);
+
+  useEffect(() => {
+    if (refreshPage) {
+      navigation.goBack();
+      setRefreshPage(false);
+    }
+  }, [refreshPage, navigation]);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
@@ -71,7 +71,7 @@ const UpdateExperienceCard = () => {
 
     return years + months;
   };
-  const handleDeleteExperience = (experienceId:any) => {
+  const handleDeleteExperience = (experienceId: any) => {
     // Show confirmation dialog
     Alert.alert(
       'Seevez',
@@ -85,14 +85,15 @@ const UpdateExperienceCard = () => {
           text: 'OK',
           onPress: () => {
             // Dispatch the action to delete the experience
-            dispatch(AppThunks.doDeleteExperience(experienceId)).then((res: any) => {
-              dispatch(AppThunks.GetProfileInfo());
-            
-            });
+            dispatch(AppThunks.doDeleteExperience(experienceId)).then(
+              (res: any) => {
+                dispatch(AppThunks.GetProfileInfo());
+              },
+            );
           },
         },
       ],
-      { cancelable: false },
+      {cancelable: false},
     );
   };
   return (
@@ -149,10 +150,18 @@ const UpdateExperienceCard = () => {
             <View style={{marginBottom: 15, flexDirection: 'row'}}>
               <View>
                 <View style={styles.Row2}>
-                  <Image
-                    source={require('../../../../../../assets/images/CompanyLogo.png')}
-                    style={styles.Image}
-                  />
+                  <View
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 64,
+
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: appColors.bg,
+                    }}>
+                    <CompanyLogo height={32} width={32} />
+                  </View>
                   <View style={{marginLeft: 10}}>
                     <Text style={styles.Title2}>{item.job_title}</Text>
                     <Text style={styles.CompanyName}>

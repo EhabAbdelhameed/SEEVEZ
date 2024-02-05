@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const ReferenceCheckCard = (data: any) => {
   const navigation = useNavigation<any>();
-   console.log("sdsdeerrtrr",data)
+  //  console.log("sdsdeerrtrr",data)
   const saveReferenceCheckSection = () => {
     navigation.navigate('UpdateRefernceCheck');
   };

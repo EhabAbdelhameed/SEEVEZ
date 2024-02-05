@@ -78,7 +78,7 @@ const UpdateAbout = () => {
               formdata.append('about',values.About);
              
 
-              console.log(formdata);
+              // console.log(formdata);
               dispatch(AppThunks.doAddAbout(formdata)).then(
                 (res: any) => {
                   dispatch(AppThunks.GetProfileInfo())

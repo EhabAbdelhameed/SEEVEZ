@@ -50,9 +50,10 @@ const ProfileScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <RecordVideoCard data={CurrentUserData?.user_data?.cv_media} />
         <View style={styles.PaddingContainer}>
+          {parseInt(CurrentUserData?.user_data?.complete_progress)==100?null:
           <Complete
             pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
-          />
+          />}
           <InfoProfileCard data={CurrentUserData} />
           <AboutProfileCard data={CurrentUserData?.about} />
           <ExperienceProfileCard data={CurrentUserData?.user_data?.experiences} />

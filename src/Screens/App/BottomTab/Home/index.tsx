@@ -54,10 +54,12 @@ const Home = () => {
           keyboardShouldPersistTaps={'handled'}
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}>
-           {parseInt(CurrentUserData?.user_data?.complete_progress)==100?null:
-          <CompleteProfile
-            pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
-          />}
+          {parseInt(CurrentUserData?.user_data?.complete_progress) ==
+          100 ? null : (
+            <CompleteProfile
+              pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
+            />
+          )}
           <View style={styles.rowContainer}>
             <BoxContentTitle
               title="My reels"
@@ -88,7 +90,11 @@ const Home = () => {
                 <View style={{height: 8}} />
               </BoxContentTitle>
             ) : (
-              <BoxContentTitle title="My video CV">
+              <BoxContentTitle
+                title="My video CV"
+                onPress={() => {
+                  navigation.navigate('MyVideoCV');
+                }}>
                 <ImageBackground
                   source={require('src/assets/images/Rectangle17.png')}
                   style={styles.imgBg}
@@ -103,7 +109,8 @@ const Home = () => {
               <DashboardSection />
             </BoxContentTitle>
           </View>
-          {CurrentUserData?.work_type == 'freelancer'||CurrentUserData?.user_data?.user_type == 'company' ? null : (
+          {CurrentUserData?.work_type == 'freelancer' ||
+          CurrentUserData?.user_data?.user_type == 'company' ? null : (
             <View style={styles.rowContainer}>
               <BoxContentTitle
                 title="CV maker"

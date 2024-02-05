@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
     Row2: {
       flexDirection: 'row',
       alignItems: 'center',
+      width:'90%'
     },
     Title: {
       fontSize: 20,

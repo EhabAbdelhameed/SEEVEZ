@@ -6,16 +6,32 @@ import { dummyAvatar } from '../../../../../Dummy'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'src/redux/auth'
+import { AVATAR } from 'assets/Svgs'
 
 const Profile = () => {
     const CurrentUserData = useSelector(selectUser);
     return (
         <View style={styles.containerProfile}>
             <View style={{ marginBottom: 10 }}>
+
+            {CurrentUserData?.avatar==null?
+          <View
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 38,
+              // borderWidth: 1,
+              // borderColor: '#DDD',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#E8EFFC',
+            }}>
+            <AVATAR height={32} width={32} />
+          </View>:
                 <AvatarIcon
-                    imgUrl={CurrentUserData?.avatar==null?dummyAvatar:CurrentUserData?.avatar}
+                    imgUrl={CurrentUserData?.avatar}
                     noActive
-                />
+                />}
                 <View
                     style={styles.absIconProfile}
                 >

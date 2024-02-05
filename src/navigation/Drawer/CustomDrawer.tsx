@@ -57,7 +57,7 @@ const CustomSidebarMenu = (props: any) => {
             height: 120,
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
-            marginTop: Platform.OS == 'ios' ? -10 : -10,
+            marginTop: Platform.OS == 'ios' ? -30 : -10,
             // position: 'absolute',
             // top: 0,
           }}></LinearGradient>

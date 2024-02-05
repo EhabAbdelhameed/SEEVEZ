@@ -5,8 +5,9 @@ import {
   Alert,
   TouchableOpacity,
   Platform,
+  FlatList,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../Components/atoms/svg';
 import {Formik} from 'formik';
@@ -17,7 +18,7 @@ import AuthTopSection from '../../../Components/molecules/AuthTopSection';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {appColors} from '../../../theme/appColors';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {BigLogo, PDF} from 'assets/Svgs';
+import {BigLogo, CompanyLogo, PDF} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import DocumentPicker from 'react-native-document-picker';
 import {RegistSchema, RegistSchemaCompany} from '../../../Formik/schema';
@@ -27,8 +28,12 @@ import AuthThunks from 'src/redux/auth/thunks';
 import DeviceInfo from 'react-native-device-info';
 import {useSelector} from 'react-redux';
 import {selectIsSignedUp} from 'src/redux/auth';
+import {Input} from 'react-native-elements';
+import {selectCompanies} from 'src/redux/app';
+import AppThunks from 'src/redux/app/thunks';
 const SignupTwo = () => {
   const signedUp = useSelector(selectIsSignedUp);
+  const CompaniesData = useSelector(selectCompanies);
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
   const [deviceId, setDeviceId] = React.useState('');
@@ -38,8 +43,73 @@ const SignupTwo = () => {
   const [tax_card_document, setTaxCardDocument] = React.useState<any>([]);
   const [commercial_registration_document, setCommercialRegistrationDocument] =
     React.useState<any>([]);
+  const [selectedCompanyName, setSelectedCompanyName] = useState('');
   const [loading, setLoading] = React.useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedItem, setSelectedItem] = useState<any>([]);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(AppThunks?.GetCompaniesName(searchQuery)).then(() => {
+        // setLoad(false)
+      });
+    });
+    return RenderFunction;
+  }, []);
+  const filteredData = (data: any) =>
+    data?.name?.toLowerCase().includes(searchQuery?.toLowerCase());
+  const renderListItem = (item: any, props: any, index: any) => (
+    <TouchableOpacity
+      style={{}}
+      onPress={() => handleItemSelected(item, props, index)}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 5,
+          borderBottomWidth: 1,
+          borderColor: '#CCC',
+        }}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: 20,
+            height: 20,
+            borderRadius: 20,
+            backgroundColor: '#E8EFFC',
+            borderWidth: 1,
+            borderColor: '#B9CDF4',
+          }}>
+          {item?.avatar == null ? (
+            <CompanyLogo width={25} height={25} />
+          ) : (
+            <Image
+              source={{uri: item?.avatar}}
+              style={{width: 25, height: 25, borderRadius: 25}}
+              resizeMode="cover"
+            />
+          )}
+        </View>
 
+        <Text style={{padding: 10, borderColor: '#ccc', fontSize: 14}}>
+          {item.name}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+  const handleItemSelected = (selectedItem: any, props: any, index: any) => {
+    // Handle the selected item, for example, update the state or perform other actions.
+    console.log('Selected Item:', selectedItem);
+    setSelectedItem(selectedItem);
+
+    setSelectedCompanyName(selectedItem.name);
+    // setSelectedCompanyName(selectedItem.name);
+
+    props?.setFieldValue(`company_id`, selectedItem?.id);
+    // You may want to close the dropdown or clear the search query here.
+    setSearchQuery('');
+  };
   const UineqId = async () => {
     const ff = await DeviceInfo.getUniqueId();
     setDeviceId(ff);
@@ -68,7 +138,6 @@ const SignupTwo = () => {
   }, []);
   const Dispatch = useAppDispatch();
   const uploadFile = async (type: any) => {
-    
     try {
       const res: any = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
@@ -145,10 +214,12 @@ const SignupTwo = () => {
               code: '',
               phone: '',
               taxID: '',
+              company_name: '',
+              company_id: '',
             }}
-            validationSchema={
-              work_type == 'Company' ? RegistSchemaCompany : RegistSchema
-            }
+            // validationSchema={
+            //   work_type == 'Company' ? RegistSchemaCompany : RegistSchema
+            // }
             // validationSchema={work_type === 'Company' ? RegistSchemaCompany : RegistSchema}
             onSubmit={values => {
               setLoading(true);
@@ -156,12 +227,15 @@ const SignupTwo = () => {
               console.log(work_type?.toLowerCase());
               const formdata = new FormData();
 
-              formdata.append('name', values.fullName);
+              work_type == 'Company'
+                ? null
+                : formdata.append('name', values.fullName);
               formdata.append(
                 'country_code',
                 values.code == '' ? '+20' : values.code.dial_code,
               );
-              formdata.append('phone_number', values.phone);
+              work_type == 'Company'
+              ? null:formdata.append('phone_number', values.phone);
               formdata.append('email', values.email);
               formdata.append('password', values.password);
               formdata.append('password_confirmation', values.confirmPassword);
@@ -178,21 +252,35 @@ const SignupTwo = () => {
                   setLoading(false),
                 );
               } else if (work_type == 'Company') {
-                console.log(tax_card_document);
-                formdata.append('tax_id', values.taxID);
-                formdata.append('tax_card_document', {
-                  uri: tax_card_document[0]?.uri,
-                  type: tax_card_document[0]?.type,
-                  name: tax_card_document[0]?.name,
-                });
-                formdata.append('commercial_registration_document', {
-                  uri: commercial_registration_document[0]?.uri,
-                  type: commercial_registration_document[0]?.type,
-                  name: commercial_registration_document[0]?.name,
-                });
-                Dispatch(AuthThunks.doSignUpCompany(formdata)).then(() =>
-                  setLoading(false),
-                );
+                // console.log('eee', selectedItem?.length);
+
+                if (selectedItem?.length == 0||!selectedItem) {
+              
+                  formdata.append('company_name', values.company_name);
+                  formdata.append('tax_id', values.taxID);
+                  formdata.append('tax_card_document', {
+                    uri: tax_card_document[0]?.uri,
+                    type: tax_card_document[0]?.type,
+                    name: tax_card_document[0]?.name,
+                  });
+                  formdata.append('commercial_registration_document', {
+                    uri: commercial_registration_document[0]?.uri,
+                    type: commercial_registration_document[0]?.type,
+                    name: commercial_registration_document[0]?.name,
+                  });
+                  Dispatch(AuthThunks.doSignUpCompany(formdata)).then(() =>
+                    setLoading(false),
+                  );
+                } else {
+                  
+                  formdata.append('company_id', values.company_id);
+                  formdata.append('name', values.fullName);
+                  formdata.append('phone', values.phone)
+                  Dispatch(AuthThunks.doSignUpCompanyAdmin(formdata)).then(() =>
+                    setLoading(false),
+                  );
+                  console.log("Company",formdata)
+                }
               } else {
                 Dispatch(AuthThunks.doSignUpRecruiter(formdata)).then(() =>
                   setLoading(false),
@@ -201,11 +289,71 @@ const SignupTwo = () => {
             }}>
             {(props: any) => (
               <View>
-                <InputView
-                  {...props}
-                  name="fullName"
-                  placeholder="Enter your full name"
-                />
+                {work_type == 'Company' ? (
+                  <View>
+                    <View style={{marginBottom: 5}}>
+                      <Input
+                        {...props}
+                        name={`company_name`}
+                        value={selectedCompanyName}
+                        placeholderTextColor={'#B9B9B9'}
+                        inputContainerStyle={{
+                          borderRadius: 16,
+                          borderColor: '#1D5EDD',
+                          borderWidth: 1,
+                          paddingHorizontal: 15,
+                          paddingVertical: 4,
+
+                          height: Platform.OS == 'ios' ? 50 : null,
+                          // marginBottom:5
+                        }}
+                        onChangeText={value => {
+                          setSearchQuery(value);
+
+                          props?.setFieldValue(`company_name`, value);
+                          setSelectedCompanyName(value);
+                        }}
+                        containerStyle={{
+                          paddingHorizontal: 0,
+                          height: 50,
+                          marginVertical: 2,
+                        }}
+                        inputStyle={{
+                          fontSize: 14,
+                          //  color: 'red'
+                        }}
+                        placeholder={`Company name`}
+                      />
+                    </View>
+                    {searchQuery.length > 0 && (
+                      <View
+                        style={{
+                          borderWidth: 1,
+                          borderColor: appColors.bg,
+                          borderRadius: 16,
+                          backgroundColor: '#FFF',
+                          paddingHorizontal: 15,
+                        }}>
+                        <FlatList
+                          scrollEnabled={false}
+                          data={CompaniesData?.filter(filteredData)}
+                          renderItem={({item}) =>
+                            renderListItem(item, props, index)
+                          }
+                          keyExtractor={(item, index) => index.toString()}
+                        />
+                      </View>
+                    )}
+                  </View>
+                ) : null}
+
+                {work_type == 'Company' && selectedItem?.length == 0 ? null : (
+                  <InputView
+                    {...props}
+                    name="fullName"
+                    placeholder="Enter your full name"
+                  />
+                )}
                 <InputView
                   {...props}
                   name="phone"
@@ -217,7 +365,7 @@ const SignupTwo = () => {
                   iconName={'RIGIHTININPUT'}
                   {...props}
                 />
-                {work_type == 'Company' ? (
+                {work_type == 'Company' && selectedItem?.length == 0 ? (
                   <View>
                     <InputView
                       name="taxID"
@@ -230,7 +378,8 @@ const SignupTwo = () => {
                       style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
                         <PDF width={20} height={20} />
-                        <Text numberOfLines={1}
+                        <Text
+                          numberOfLines={1}
                           style={{
                             marginLeft: 10,
                             fontSize: 17,
@@ -238,7 +387,7 @@ const SignupTwo = () => {
                           }}>
                           {tax_card_document.length == 0
                             ? 'Upload Tax card'
-                            : `${tax_card_document[0]?.name.slice(0,20)}...`}
+                            : `${tax_card_document[0]?.name.slice(0, 20)}...`}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -247,7 +396,8 @@ const SignupTwo = () => {
                       style={styles.DocStyle}>
                       <View style={{flexDirection: 'row'}}>
                         <PDF height={20} width={20} />
-                        <Text numberOfLines={1}
+                        <Text
+                          numberOfLines={1}
                           style={{
                             marginLeft: 10,
                             fontSize: 17,
@@ -255,7 +405,10 @@ const SignupTwo = () => {
                           }}>
                           {commercial_registration_document.length == 0
                             ? 'Upload commercial registration'
-                            : `${commercial_registration_document[0]?.name.slice(0,20)}...`}
+                            : `${commercial_registration_document[0]?.name.slice(
+                                0,
+                                20,
+                              )}...`}
                         </Text>
                       </View>
                     </TouchableOpacity>

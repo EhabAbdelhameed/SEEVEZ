@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
-  console.log("data?.data?.length",data?.length)
+ 
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>

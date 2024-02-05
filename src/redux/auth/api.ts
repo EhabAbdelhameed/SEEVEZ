@@ -2,6 +2,8 @@ import {api} from '../_axios';
 import {headers} from '../headers';
 
 const registerCompany = (body: any) => api.post('company/register', body);
+const registerCompanyAdmin = (body: any) => api.post('company-admin/register', body);
+
 // const registerRecruiter = (body: any) => api.post('register', body)
 const registerRecruiter = (body: any) => {
   const v = api.post('recruiter/register', body);
@@ -30,6 +32,7 @@ const resendCode = (body: any) => api.post('api/resend-code', body);
 
 const AuthAPI = {
   registerCompany,
+  registerCompanyAdmin,
   registerRecruiter,
   registerJobSeeker,
   login,

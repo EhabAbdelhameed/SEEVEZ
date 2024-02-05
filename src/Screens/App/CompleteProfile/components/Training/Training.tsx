@@ -6,7 +6,7 @@ import {AVATAR} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 
 const TrainingCard = (data: any) => {
-  console.log(data);
+  // console.log(data);
   const navigation = useNavigation<any>();
 
   return (

@@ -23,12 +23,13 @@ import Video from 'react-native-fast-video';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { RenderSvgIcon } from 'components/atoms/svg';
 import { CreateVideoIcon, ImagePicker, PauseVideoIcon } from 'assets/Svgs';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import DocumentPicker from 'react-native-document-picker';
 import { appColors } from 'theme';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const UpdateRecordVideo = () => {
+  const { key}: any = useRoute().params;
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -80,7 +81,7 @@ const UpdateRecordVideo = () => {
         navigation.navigate("SaveVideo", {
           videoPath: res?.assets[0].uri,
           source: res,
-          key: 2
+          key:key==5?3: 2
         })
       }, 1000);
       // setSource(res)

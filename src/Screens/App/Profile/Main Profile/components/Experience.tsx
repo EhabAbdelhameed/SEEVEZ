@@ -8,7 +8,7 @@ import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 
 const ExperienceProfileCard = (data: any) => {
-  console.log(JSON.stringify(data));
+ 
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
   const differenceInMonths = (date1: any, date2: any) => {

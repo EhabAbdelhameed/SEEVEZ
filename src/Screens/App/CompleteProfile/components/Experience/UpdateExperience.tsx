@@ -171,7 +171,7 @@ const UpdateExperience = () => {
           // setLoad(false)
         });
     }, 500);
-    console.log(CompaniesData);
+    
     return () => clearTimeout(timer);
   }, [searchQuery]);
   const uploadFile = async (props: any, index: any) => {
@@ -180,11 +180,11 @@ const UpdateExperience = () => {
         type: [DocumentPicker.types.pdf],
       });
 
-      setExperienceLetter([
-        ...experienceLetter.slice(0, index),
-        res[0].name,
-        ...experienceLetter.slice(index + 1),
-      ]);
+      setExperienceLetter((prevExperienceLetter) => {
+        const updatedExperienceLetter = [...prevExperienceLetter];
+        updatedExperienceLetter[index] = res[0].name;
+        return updatedExperienceLetter;
+      });
       props?.setFieldValue(`Experince[${index}]["experience_letter"]`, {
         uri: res[0]?.uri,
         type: res[0]?.type,
@@ -211,7 +211,7 @@ const UpdateExperience = () => {
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
-          backgroundColor: appColors.bg,
+       
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
@@ -244,7 +244,7 @@ const UpdateExperience = () => {
               const formdata = new FormData();
               values.Experince.map((item: any, index: any) => {
                 formdata.append(`array[${index}][job_title]`, item.job_title);
-                values.Experince[index].company_id == ''
+                values.Experince[index].company_id == ''||!values.Experince[index].company_id
                   ? formdata.append(
                       `array[${index}][company_name]`,
                       item.company_name,

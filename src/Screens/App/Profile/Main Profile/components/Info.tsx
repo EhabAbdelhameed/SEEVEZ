@@ -16,11 +16,7 @@ const InfoProfileCard = (data: any) => {
   const [loading, setLoading] = useState<any>(false);
   const dispatch = useAppDispatch();
 
-  console.log(
-    'CurrentUser ',
-    CurrentUserData?.user_data?.user_type,
-    CurrentUserData?.work_type,
-  );
+
 
   const uploadFile = async (type: any) => {
     try {

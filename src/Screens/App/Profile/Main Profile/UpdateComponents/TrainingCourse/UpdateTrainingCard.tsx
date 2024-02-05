@@ -6,6 +6,7 @@ import {
     Alert,
     Image,
     FlatList,
+    Linking,
   } from 'react-native';
   import React, {useCallback, useEffect, useState} from 'react';
   import styles from './styles';
@@ -14,7 +15,7 @@ import {
   import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
   import {appColors} from '../../../../../../theme/appColors';
   
-  import {AVATAR, BigLogo, CALANDER, CompanyLogo, DELETE, PHOTO} from 'assets/Svgs';
+  import {AVATAR, BigLogo, CALANDER, CompanyLogo, DELETE, PDF, PHOTO} from 'assets/Svgs';
   import {SafeAreaView} from 'react-native-safe-area-context';
   import {StatusBar} from 'react-native';
   import {useNavigation, useRoute} from '@react-navigation/native';
@@ -95,7 +96,7 @@ import {
         <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
-            backgroundColor: appColors.bg,
+            // backgroundColor: appColors.bg,
           }}
           enableOnAndroid={true}
           keyboardShouldPersistTaps={'handled'}
@@ -171,12 +172,21 @@ import {
                 </View>
               </View>
             </View>
-            <Image
-              style={styles.Certificate}
-              source={{
-                uri: item?.certificate_image,
-              }}
-            />
+            {item?.object_info?.extension == 'pdf' ? (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => Linking.openURL(item?.certificate_image)}
+                  style={styles.PDFContainer}>
+                  <PDF height={70} width={70} />
+                </TouchableOpacity>
+              ) : (
+                <Image
+                  style={styles.Certificate}
+                  source={{
+                    uri: item?.certificate_image,
+                  }}
+                />
+              )}
           </View>
           <View
               style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>

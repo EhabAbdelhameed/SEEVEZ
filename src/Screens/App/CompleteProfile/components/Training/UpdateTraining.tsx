@@ -128,8 +128,8 @@ const UpdateTraining = () => {
                   institute: '',
                   field_of_study: '',
                   grade: '',
-                  start_date:new Date(),
-                  end_date: new Date(),
+                  start_date: '',
+                  end_date:'',
                   certificate_image: '',
                 },
               ],
@@ -145,7 +145,7 @@ const UpdateTraining = () => {
                 );
 
                 formdata.append(`array[${index}][grade]`, item.grade);
-
+                 console.log("Dates: ",item.start_date,item.end_date)
                 formdata.append(`array[${index}][start_date]`,item.start_date==''||!item.start_date? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
                 formdata.append(`array[${index}][end_date]`,item.end_date==''||!item.end_date? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
 
@@ -446,8 +446,7 @@ const UpdateTraining = () => {
                               if (selectedDate !== undefined) {
                                 console.log('Index: ', index);
                                 if (type == '1') {
-                                  // updatedStartDates[index] = selectedDate;
-                                  // setStartDates(updatedStartDates);
+                           
                                   if (index == 0) {
                                     setStartDates([
                                       ...startDates.slice(0, index),
@@ -465,7 +464,9 @@ const UpdateTraining = () => {
                                     Moment(selectedDate).format('yyyy/MM/DD'),
                                   );
                                 } else {
+                               
                                   if (index == 0) {
+                                 
                                     setEndDates([
                                       ...endDates.slice(0, index),
                                       selectedDate,

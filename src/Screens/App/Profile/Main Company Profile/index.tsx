@@ -36,9 +36,10 @@ const ProfileCompanyScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <RecordVideoCardCompany data={CurrentUserData?.user_data?.cv_media} />
         <View style={styles.PaddingContainer}>
+        {parseInt(CurrentUserData?.user_data?.complete_progress)==100?null:
           <Complete
             pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
-          />
+          />}
           <InfoCardCompany data={CurrentUserData} />
           <AboutCardCompany data={CurrentUserData?.about} />
         </View>

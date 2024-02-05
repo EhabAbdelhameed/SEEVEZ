@@ -7,7 +7,7 @@ import {AVATAR, PDF} from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
 
 const EducationProfileCard = (data: any) => {
-  console.log("DHDHGGADSgdjgasdv",JSON.stringify(data))
+
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation()
   const differenceInYears = (date1: any, date2: any) => {

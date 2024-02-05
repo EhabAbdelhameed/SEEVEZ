@@ -5,6 +5,7 @@ import AvatarIcon from '../../../../../Components/molecules/Avatar'
 import { dummyAvatar } from '../../../../../Dummy'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import { appSizes } from '../../../../../theme/appSizes'
+import { AVATAR } from 'assets/Svgs'
 
 const User = () => {
     return (
@@ -13,9 +14,19 @@ const User = () => {
             justifyContent: "flex-start",
             marginBottom: 3
         }]}>
-            <AvatarIcon style={styles.avatar} imgUrl={dummyAvatar}
-                // noActive={true}
-            />
+          <View
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: 38,
+                // borderWidth: 1,
+                // borderColor: '#DDD',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#E8EFFC',
+              }}>
+              <AVATAR height={32} width={32} />
+            </View>
             <View style={styles.textSection2}>
                 <View style={styles.rowContainer}>
                     <Text style={[styles.text1, {

@@ -128,7 +128,7 @@ const UpdateEducation = () => {
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
-          backgroundColor: appColors.bg,
+          
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
@@ -146,8 +146,8 @@ const UpdateEducation = () => {
                   level_id: '',
                   field_of_study: '',
                   grade: '',
-                  start_date: new Date(),
-                  end_date: new Date(),
+                  start_date: '',
+                  end_date: '',
                   degree_certificate: '',
                 },
               ],
@@ -175,7 +175,7 @@ const UpdateEducation = () => {
                   item.degree_certificate,
                 );
               });
-              console.log(formdata);
+              // console.log(formdata);
 
               dispatch(AppThunks.doAddEducation(formdata)).then((res: any) => {
                 setLoading(false);

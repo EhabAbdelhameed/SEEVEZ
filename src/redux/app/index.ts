@@ -321,7 +321,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: 'Hey! Your TrainingCourse has been added successfully',
       });
     });
     builder.addCase(
@@ -762,7 +762,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: 'Hey! Your Data has been added successfully',
       });
     });
     builder.addCase(thunks.doAddAbout.rejected, (state, action: any) => {

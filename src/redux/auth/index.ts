@@ -198,6 +198,32 @@ const slice = createSlice({
         });
       }
     });
+      //doSignUpCompanyAdmin
+      builder.addCase(thunks.doSignUpCompanyAdmin.fulfilled, (state, action) => {
+     
+        AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.data?.accessToken)
+  
+        state.currentUser=action?.payload?.data
+        state.signedUp = true;
+        Toast.show({
+          type: 'success',
+          text1: 'Check code in your e-mail',
+        });
+      });
+      builder.addCase(thunks.doSignUpCompanyAdmin.rejected, (state, action: any) => {
+        console.log(action.payload.data);
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      });
     //doSignUpRecruiter
     builder.addCase(thunks.doSignUpRecruiter.fulfilled, (state, action) => {
       state.signedUp = true;

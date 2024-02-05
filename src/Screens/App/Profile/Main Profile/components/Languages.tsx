@@ -6,7 +6,7 @@ import {Star} from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
 
 const LanguagesProfileCard = (data: any) => {
-  console.log('This is Languages Data15148', data);
+ 
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation()
   return (

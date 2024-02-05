@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     marginVertical: appSizes.x,
     marginBottom: appSizes.height * 0.07,
   },
+
   bottomSection: {
     backgroundColor: appColors.white,
     flex: 1,
@@ -310,11 +311,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   Certificate: {
-    width: 200,
+    width: 100,
     height: 150,
     alignSelf: 'center',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     marginVertical: 10,
+  },
+  PDFContainer: {
+    height: 100,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: appColors.lightGrey3,
+    borderRadius: 10,
+    marginTop: 10,
+    alignSelf: 'center',
   },
 });
 

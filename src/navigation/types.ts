@@ -49,6 +49,7 @@ export type AppParamsList = {
     UpdateCompanyInfo:undefined;
     UpdateRecordVideo:undefined;
     UpdateAbout:undefined;
+    MyVideoCV:undefined;
     UpdateLanguages:undefined;
     SearchPeople:undefined;
     TagPeople:undefined;

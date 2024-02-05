@@ -44,7 +44,7 @@ const SaveVideo = () => {
   useEffect(() => {
     console.log('0000', videoPath);
     // console.log(source[0]?.uri)
-    changeDone ? navigation.navigate('CompleteProfileScreen') : null;
+    changeDone&&key==3 ? navigation.navigate('MyVideoCV'):changeDone?navigation.navigate('CompleteProfileScreen') : null;
   }, [changeDone]);
   const saveVideoFun = () => {
     if (key == 1) {

@@ -181,7 +181,7 @@ const UpdateInfo = () => {
               ) : Platform.OS == 'ios' ? (
                 <Image
                   source={{
-                    uri: source ? source[0]?.uri : CurrentUserData?.avatar,
+                    uri: source||source?.length != 0 ? source[0]?.uri : CurrentUserData?.avatar,
                   }}
                   style={{width: 86, height: 86, borderRadius: 86}}
                   resizeMode="cover"
@@ -224,7 +224,7 @@ const UpdateInfo = () => {
               Location: CurrentUserData?.country || '',
               phone: CurrentUserData?.phone_number || '',
               city: CurrentUserData?.city || '',
-              area: CurrentUserData?.area || '',
+              area: CurrentUserData?.area  ||'',
               facebook: CurrentUserData?.facebook || '',
               linkedin: CurrentUserData?.linkedin || '',
               instagram: CurrentUserData?.instagram || '',
@@ -251,63 +251,63 @@ const UpdateInfo = () => {
 
               values.FullName != ''
                 ? formdata.append('name', values.FullName)
-                : formdata.append('name', null);
+                : null;
               formdata.append('country_code', code == '' ? '+20' : code);
 
               values.JobTitle != ''
                 ? formdata.append('job_title', values.JobTitle)
-                : formdata.append('job_title', null);
-              values.phone != ''
+                :null;
+              values.phone != '' 
                 ? formdata.append('phone_number', values.phone)
-                : formdata.append('phone_number', null);
+                :  null;
               values.currentSalary != ''
                 ? formdata.append('current_salary', values.currentSalary)
-                : formdata.append('current_salary', null);
+                : null
               values.expectedSalary != ''
                 ? formdata.append('expected_salary', values.expectedSalary)
-                : formdata.append('expected_salary', null);
+                :null;
               formdata.append('show_salary', isShowSalary == false ? 0 : 1);
               gender != ''
                 ? formdata.append('gender', gender.toLocaleLowerCase())
-                : formdata.append('gender', null);
+                : null
               values.birthdate != new Date()
                 ? formdata.append(
                     'birthdate',
                     Moment(date).format('yyyy/MM/DD'),
                   )
-                : formdata.append('birthdate', null);
+                : null;
 
               disabilityData != ''
                 ? formdata.append('disabilities', disabilityData)
-                : formdata.append('disabilities', null);
+                : null
               specialNeedsData != ''
                 ? formdata.append('special_needs', specialNeedsData)
-                : formdata.append('special_needs', null);
+                : null
               values.heights != ''
                 ? formdata.append('height', values.heights)
-                : formdata.append('height', values.heights);
+                : null
               formdata.append('smoker', smoker == false ? 0 : 1);
               values.weight != ''
                 ? formdata.append('weight', values.weight)
-                : formdata.append('weight', null);
+                : null
               values.other != ''
                 ? formdata.append('other', values.other)
-                : formdata.append('other', null);
+                : null
               values.github != ''
                 ? formdata.append('github', values.github)
-                : formdata.append('github', null);
+                : null
               values.website != ''
                 ? formdata.append('website', values.website)
-                : formdata.append('website', null);
+                : null
               values.facebook != ''
                 ? formdata.append('facebook', values.facebook)
-                : formdata.append('facebook', null);
+                :null
               values.linkedin != ''
                 ? formdata.append('linkedin', values.linkedin)
-                : formdata.append('linkedin', null);
+                : null
               values.instagram != ''
                 ? formdata.append('instagram', values.instagram)
-                : formdata.append('instagram', null);
+                : null
               if (Nationality[0] != '') {
                 for (var i = 0; i < Nationality.length; i++) {
                   formdata.append(`array[${i}][nationality]`, Nationality[i]);
@@ -319,7 +319,7 @@ const UpdateInfo = () => {
                 : null;
               values.city != '' ? formdata.append('city', values.city) : null;
               values.area != '' ? formdata.append('area', values.area) : null;
-              console.log('SOURCE ', source?.length);
+             
               source?.length != 0
                 ? formdata.append('avatar', {
                     uri: source[0]?.uri,

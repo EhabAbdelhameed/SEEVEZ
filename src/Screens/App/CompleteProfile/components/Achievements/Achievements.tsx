@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const AchievementsCard = (data: any) => {
   const navigation = useNavigation<any>();
-   console.log("Achiev",data)
+  
   const saveAachievementSection = () => {
     navigation.navigate('UpdateAchievements');
     // setAchievementsSection(SaveAachievementsSection);
