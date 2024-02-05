@@ -5,7 +5,7 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {Close} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 
-const SkillsCard = ({title, data}: {title?: any; data?: any}) => {
+const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
   console.log("data?.data?.length",data?.length)
@@ -81,7 +81,7 @@ const SkillsCard = ({title, data}: {title?: any; data?: any}) => {
   );
 };
 
-export default SkillsCard;
+export default SkillsProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {

@@ -14,7 +14,7 @@ import {
   import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
   import {appColors} from '../../../../../../theme/appColors';
   
-  import {BigLogo, CALANDER, CompanyLogo, DELETE, PHOTO} from 'assets/Svgs';
+  import {AVATAR, BigLogo, CALANDER, CompanyLogo, DELETE, PHOTO} from 'assets/Svgs';
   import {SafeAreaView} from 'react-native-safe-area-context';
   import {StatusBar} from 'react-native';
   import {useNavigation, useRoute} from '@react-navigation/native';
@@ -145,12 +145,17 @@ import {
             <View style={{marginBottom: 15, flexDirection: 'row'}}>
             <View>
             <View style={styles.Row2}>
-              <Image
-                source={{
-                  uri: 'https://s.tmimgcdn.com/scr/1200x750/243100/unique-and-creative-education-logo-design-concept-for-book-and-hat_243161-original.jpg',
-                }}
-                style={styles.Image}
-              />
+            <View
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 64,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: appColors.bg,
+              }}>
+              <AVATAR height={32} width={32} />
+            </View>
               <View style={{marginLeft: 10}}>
                 <Text style={styles.Title2}>{item?.institute}</Text>
                 <Text style={styles.CompanyName}>{item?.field_of_study}</Text>

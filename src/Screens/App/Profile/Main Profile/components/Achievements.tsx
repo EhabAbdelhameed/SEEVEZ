@@ -6,7 +6,7 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import {useNavigation} from '@react-navigation/native';
 import { PDF } from 'assets/Svgs';
 
-const AchievementsCard = (data: any) => {
+const AchievementsProfileCard = (data: any) => {
   const navigation = useNavigation();
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   return (
@@ -110,7 +110,7 @@ const AchievementsCard = (data: any) => {
   );
 };
 
-export default AchievementsCard;
+export default AchievementsProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {

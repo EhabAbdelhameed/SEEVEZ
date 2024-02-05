@@ -6,6 +6,7 @@ import {
     Alert,
     Image,
     FlatList,
+    Linking,
   } from 'react-native';
   import React, {useCallback, useEffect, useState} from 'react';
   import styles from './styles';
@@ -14,7 +15,7 @@ import {
   import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
   import {appColors} from '../../../../../../theme/appColors';
   
-  import {BigLogo, CALANDER, CompanyLogo, DELETE, PHOTO} from 'assets/Svgs';
+  import {AVATAR, BigLogo, CALANDER, CompanyLogo, DELETE, PDF, PHOTO} from 'assets/Svgs';
   import {SafeAreaView} from 'react-native-safe-area-context';
   import {StatusBar} from 'react-native';
   import {useNavigation, useRoute} from '@react-navigation/native';
@@ -142,28 +143,35 @@ import {
   
             
          {data?.map((item: any, index: any) =>
-           <View style={{marginBottom: 15, flexDirection: 'row'}}>
+         <View style={{marginBottom: 15}}>
+           <View style={{marginBottom: 10, flexDirection: 'row'}}>
+               <View style={styles.Row2}>
+           <View
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 64,
+
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: appColors.bg,
+              }}>
+              <AVATAR height={32} width={32} />
+            </View>
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.Title2}>{item?.university_name}</Text>
+                <Text style={styles.CompanyName}>
+                 {item?.level_id?.name}
+                </Text>
+                <Text style={styles.des}>
+                {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} ·{differenceInYears(item.start_date,item.end_date)} years · Cairo, Egypt
+                </Text>
                 <View style={styles.Row2}>
-                <Image
-                  source={{
-                    uri: 'https://s.tmimgcdn.com/scr/1200x750/243100/unique-and-creative-education-logo-design-concept-for-book-and-hat_243161-original.jpg',
-                  }}
-                  style={styles.Image}
-                />
-                <View style={{marginLeft: 10}}>
-                  <Text style={styles.Title2}>{item?.university_name}</Text>
-                  <Text style={styles.CompanyName}>
-                   {item?.level_id?.name}
-                  </Text>
-                  <Text style={styles.des}>
-                  {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} ·{differenceInYears(item.start_date,item.end_date)} years · Cairo, Egypt
-                  </Text>
-                  <View style={styles.Row2}>
-                    <Text style={styles.Title3}>Grade : </Text>
-                    <Text style={styles.Title4}>{item.grade}</Text>
-                  </View>
+                  <Text style={styles.Title3}>Grade : </Text>
+                  <Text style={styles.Title4}>{item.grade}</Text>
                 </View>
               </View>
+            </View>
               <View
               style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
               <TouchableOpacity
@@ -184,6 +192,22 @@ import {
                 />
               </TouchableOpacity>
             </View>
+            </View>
+            {item?.object_info?.extension == 'pdf' ? (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => Linking.openURL(item?.degree_certificate)}
+                  style={styles.PDFContainer}>
+                  <PDF height={70} width={70} />
+                </TouchableOpacity>
+              ) : (
+                <Image
+                  style={styles.Certificate}
+                  source={{
+                    uri: item?.degree_certificate,
+                  }}
+                />
+              )}
             </View>
           )}
           </View>

@@ -1,14 +1,21 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import moment from 'moment';
-import {AVATAR} from 'assets/Svgs';
-import { useNavigation } from '@react-navigation/native';
+import {AVATAR, PDF} from 'assets/Svgs';
+import {useNavigation} from '@react-navigation/native';
 
-const TrainingCard = (data: any) => {
-  
-  const navigation = useNavigation()
+const TrainingProfileCard = (data: any) => {
+  console.log('Your Data', JSON.stringify(data));
+  const navigation = useNavigation();
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const differenceInYears = (date1: any, date2: any) => {
     let start_date = moment(date1).format('yyyy-MM-DD');
@@ -26,23 +33,25 @@ const TrainingCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>Training courses</Text>
           <View style={styles.Row2}>
-          <TouchableOpacity onPress={()=>navigation.navigate('UpdateTraining')} >
-            <RenderSvgIcon
-              icon="PLUSFOLLOW"
-              style={{marginRight: 10}}
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateTraining')}>
+              <RenderSvgIcon
+                icon="PLUSFOLLOW"
+                style={{marginRight: 10}}
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
             </TouchableOpacity>
-            <TouchableOpacity disabled={data?.data?.length == 0?true:false}
+            <TouchableOpacity
+              disabled={data?.data?.length == 0 ? true : false}
               onPress={() => navigation.navigate('UpdateTrainingCard')}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -84,12 +93,17 @@ const TrainingCard = (data: any) => {
           data?.data?.map((item: any) => (
             <View>
               <View style={styles.Row2}>
-                <Image
-                  source={{
-                    uri: 'https://s.tmimgcdn.com/scr/1200x750/243100/unique-and-creative-education-logo-design-concept-for-book-and-hat_243161-original.jpg',
-                  }}
-                  style={styles.Image}
-                />
+                <View
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: 64,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: appColors.bg,
+                  }}>
+                  <AVATAR height={32} width={32} />
+                </View>
                 <View style={{marginLeft: 10}}>
                   <Text style={styles.Title2}>{item?.institute}</Text>
                   <Text style={styles.CompanyName}>{item?.field_of_study}</Text>
@@ -105,12 +119,21 @@ const TrainingCard = (data: any) => {
                   </View>
                 </View>
               </View>
-              <Image
-                style={styles.Certificate}
-                source={{
-                  uri: item?.certificate_image,
-                }}
-              />
+              {item?.object_info?.extension == 'pdf' ? (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => Linking.openURL(item?.certificate_image)}
+                  style={styles.PDFContainer}>
+                  <PDF height={70} width={70} />
+                </TouchableOpacity>
+              ) : (
+                <Image
+                  style={styles.Certificate}
+                  source={{
+                    uri: item?.certificate_image,
+                  }}
+                />
+              )}
             </View>
           ))
         ) : (
@@ -118,12 +141,17 @@ const TrainingCard = (data: any) => {
             index == 0 ? (
               <View>
                 <View style={styles.Row2}>
-                  <Image
-                    source={{
-                      uri: 'https://s.tmimgcdn.com/scr/1200x750/243100/unique-and-creative-education-logo-design-concept-for-book-and-hat_243161-original.jpg',
-                    }}
-                    style={styles.Image}
-                  />
+                  <View
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 64,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: appColors.bg,
+                    }}>
+                    <AVATAR height={32} width={32} />
+                  </View>
                   <View style={{marginLeft: 10}}>
                     <Text style={styles.Title2}>{item?.institute}</Text>
                     <Text style={styles.CompanyName}>
@@ -141,12 +169,21 @@ const TrainingCard = (data: any) => {
                     </View>
                   </View>
                 </View>
-                <Image
-                  style={styles.Certificate}
-                  source={{
-                    uri: item?.certificate_image,
-                  }}
-                />
+                {item?.object_info?.extension == 'pdf' ? (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => Linking.openURL(item?.certificate_image)}
+                    style={styles.PDFContainer}>
+                    <PDF height={70} width={70} />
+                  </TouchableOpacity>
+                ) : (
+                  <Image
+                    style={styles.Certificate}
+                    source={{
+                      uri: item?.certificate_image,
+                    }}
+                  />
+                )}
               </View>
             ) : null,
           )
@@ -167,7 +204,7 @@ const TrainingCard = (data: any) => {
   );
 };
 
-export default TrainingCard;
+export default TrainingProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {
@@ -177,6 +214,16 @@ const styles = StyleSheet.create({
     backgroundColor: appColors.white,
     borderRadius: 25,
     marginTop: 15,
+  },
+  PDFContainer: {
+    height: 100,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: appColors.lightGrey3,
+    borderRadius: 10,
+    marginTop: 10,
+    alignSelf: 'center',
   },
   secContainer: {
     width: '100%',

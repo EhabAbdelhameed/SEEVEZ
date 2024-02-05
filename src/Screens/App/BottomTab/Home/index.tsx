@@ -54,9 +54,10 @@ const Home = () => {
           keyboardShouldPersistTaps={'handled'}
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}>
+           {parseInt(CurrentUserData?.user_data?.complete_progress)==100?null:
           <CompleteProfile
             pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
-          />
+          />}
           <View style={styles.rowContainer}>
             <BoxContentTitle
               title="My reels"

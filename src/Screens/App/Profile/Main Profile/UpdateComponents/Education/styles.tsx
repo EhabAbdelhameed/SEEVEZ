@@ -244,6 +244,7 @@ const styles = StyleSheet.create({
     Row2: {
       flexDirection: 'row',
       alignItems: 'center',
+      width:'85%'
      
     },
     Title: {
@@ -312,6 +313,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+      },
+      PDFContainer: {
+        height: 100,
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: appColors.lightGrey3,
+        borderRadius: 10,
+        marginTop: 10,
+        alignSelf: 'center',
+      },
+      Certificate: {
+        width: 200,
+        height: 150,
+        alignSelf: 'center',
+        resizeMode: 'contain',
+        marginVertical: 10,
       },
   });
   

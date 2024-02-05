@@ -4,7 +4,7 @@ import { appColors } from '../../../../../theme/appColors'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import { useNavigation } from '@react-navigation/native'
 
-const ReferenceCheck = ( data:any) => {
+const ReferenceProfileCheck = ( data:any) => {
     console.log("ReferenceCheckDATO",data)
     const navigation = useNavigation()
  
@@ -60,7 +60,7 @@ const ReferenceCheck = ( data:any) => {
     )
 }
 
-export default ReferenceCheck
+export default ReferenceProfileCheck
 
 const styles = StyleSheet.create({
     CardContainer: {

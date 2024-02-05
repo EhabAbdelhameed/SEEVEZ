@@ -1,13 +1,13 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import moment from 'moment';
-import {AVATAR} from 'assets/Svgs';
+import {AVATAR, PDF} from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
 
-const EducationCard = (data: any) => {
-  
+const EducationProfileCard = (data: any) => {
+  console.log("DHDHGGADSgdjgasdv",JSON.stringify(data))
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation()
   const differenceInYears = (date1: any, date2: any) => {
@@ -68,13 +68,20 @@ const EducationCard = (data: any) => {
           </View>
         ) : seeAllExperiences ? (
           data?.data?.map((item: any) => (
+            <View>
             <View style={styles.Row2}>
-              <Image
-                source={{
-                  uri: 'https://s.tmimgcdn.com/scr/1200x750/243100/unique-and-creative-education-logo-design-concept-for-book-and-hat_243161-original.jpg',
-                }}
-                style={styles.Image}
-              />
+           <View
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 64,
+
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: appColors.bg,
+              }}>
+              <AVATAR height={32} width={32} />
+            </View>
               <View style={{marginLeft: 10}}>
                 <Text style={styles.Title2}>{item?.university_name}</Text>
                 <Text style={styles.CompanyName}>
@@ -89,17 +96,40 @@ const EducationCard = (data: any) => {
                 </View>
               </View>
             </View>
+            {item?.object_info?.extension == 'pdf' ? (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => Linking.openURL(item?.degree_certificate)}
+                  style={styles.PDFContainer}>
+                  <PDF height={70} width={70} />
+                </TouchableOpacity>
+              ) : (
+                <Image
+                  style={styles.Certificate}
+                  source={{
+                    uri: item?.degree_certificate,
+                  }}
+                />
+              )}
+            </View>
           ))
         ) : (
           data?.data?.map((item: any, index: any) =>
             index == 0 ? (
+              <View>
                 <View style={styles.Row2}>
-                <Image
-                  source={{
-                    uri: 'https://s.tmimgcdn.com/scr/1200x750/243100/unique-and-creative-education-logo-design-concept-for-book-and-hat_243161-original.jpg',
-                  }}
-                  style={styles.Image}
-                />
+              <View
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 64,
+
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: appColors.bg,
+              }}>    
+              <AVATAR height={32} width={32} />
+            </View>
                 <View style={{marginLeft: 10}}>
                   <Text style={styles.Title2}>{item?.university_name}</Text>
                   <Text style={styles.CompanyName}>
@@ -114,9 +144,28 @@ const EducationCard = (data: any) => {
                   </View>
                 </View>
               </View>
+              {item?.object_info?.extension == 'pdf' ? (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => Linking.openURL(item?.degree_certificate)}
+                  style={styles.PDFContainer}>
+                  <PDF height={70} width={70} />
+                </TouchableOpacity>
+              ) : (
+                <Image
+                  style={styles.Certificate}
+                  source={{
+                    uri: item?.degree_certificate,
+                  }}
+                />
+              )}
+              </View>
             ) : null,
+            
           )
+         
         )}
+
       </View>
 
       <View style={styles.devider} />
@@ -133,7 +182,7 @@ const EducationCard = (data: any) => {
   );
 };
 
-export default EducationCard;
+export default EducationProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {
@@ -144,12 +193,29 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginTop: 15,
   },
+  Certificate: {
+    width: 200,
+    height: 150,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    marginVertical: 10,
+  },
   secContainer: {
     width: '100%',
     backgroundColor: appColors.lightGrey2,
     borderRadius: 25,
     padding: 5,
     paddingTop: 10,
+  },
+  PDFContainer: {
+    height: 100,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: appColors.lightGrey3,
+    borderRadius: 10,
+    marginTop: 10,
+    alignSelf: 'center',
   },
   Row: {
     flexDirection: 'row',

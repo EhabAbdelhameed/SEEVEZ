@@ -1,20 +1,58 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {ActivityIndicator, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {ImageBackground} from 'react-native';
-import {Analytic, Analytics, ReviewCV} from '../../../../../assets/Svgs';
+import {Analytic, Analytics, PDF, ReviewCV} from '../../../../../assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
-
-const InfoCard = (data: any) => {
+import AppThunks from 'src/redux/app/thunks';
+import {useAppDispatch} from 'src/redux/store';
+import DocumentPicker from 'react-native-document-picker';
+const InfoProfileCard = (data: any) => {
   const CurrentUserData = useSelector(selectUser);
+  const [name, setName] = useState<any>('');
+  const [loading, setLoading] = useState<any>(false);
+  const dispatch = useAppDispatch();
+
   console.log(
     'CurrentUser ',
     CurrentUserData?.user_data?.user_type,
     CurrentUserData?.work_type,
   );
+
+  const uploadFile = async (type: any) => {
+    try {
+      const res: any = await DocumentPicker.pick({
+        type: [DocumentPicker.types.pdf],
+      });
+
+      setLoading(true);
+      const formdata = new FormData();
+
+      formdata.append('cv_pdf', {
+        uri: res[0]?.uri,
+        type: res[0]?.type,
+        name: res[0]?.name,
+      });
+
+      dispatch(AppThunks.doAddPersonalInfo(formdata)).then((response: any) => {
+        
+        setLoading(false);
+        dispatch(AppThunks.GetProfileInfo());
+        setName(res[0].name);
+      });
+    } catch (err) {
+      // setFieldValue(name.replace(/\s/g, ''), '');
+      if (DocumentPicker.isCancel(err)) {
+        console.log('Canceled');
+      } else {
+        console.log('Unknown Error: ' + JSON.stringify(err));
+        throw err;
+      }
+    }
+  };
   const navigation = useNavigation();
   return (
     <View style={styles.CardContainer}>
@@ -35,6 +73,7 @@ const InfoCard = (data: any) => {
             style={styles.PENIcon}
           />
         </TouchableOpacity>
+
         <ImageBackground
           source={{uri: data?.data?.avatar}}
           style={styles.ImageBackground}
@@ -58,7 +97,9 @@ const InfoCard = (data: any) => {
             color={appColors.white}
           />
         </View>
-        <Text style={styles.Description}>{data?.data?.job_title}</Text>
+        {data?.data?.job_title == null ? null : (
+          <Text style={styles.Description}>{data?.data?.job_title}</Text>
+        )}
         <View style={[styles.Row, {marginTop: 10}]}>
           <View style={styles.subContainer}>
             <Text style={styles.subText}>Premium</Text>
@@ -105,37 +146,56 @@ const InfoCard = (data: any) => {
           />
           <Text style={styles.InfoText}>{data?.data?.phone_number}</Text>
         </View>
+        {CurrentUserData?.website == null ? null : (
+          <TouchableOpacity
+            onPress={() => Linking.openURL(CurrentUserData?.website)}
+            style={styles.Row}>
+            <RenderSvgIcon
+              icon="WEBSITE"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
+            <Text style={styles.InfoText}>Http/www.exa.com</Text>
+          </TouchableOpacity>
+        )}
         <View style={styles.Row}>
-          <RenderSvgIcon
-            icon="WEBSITE"
-            width={20}
-            height={20}
-            color={appColors.white}
-          />
-          <Text style={styles.InfoText}>Http/www.exa.com</Text>
-        </View>
-        <View style={styles.Row}>
-          <RenderSvgIcon
-            icon="INSTA"
-            width={20}
-            height={20}
-            color={appColors.white}
-            style={{marginRight: 20}}
-          />
-          <RenderSvgIcon
-            icon="FACE"
-            width={20}
-            height={20}
-            color={appColors.white}
-            style={{marginRight: 20}}
-          />
-          <RenderSvgIcon
-            icon="LINKED"
-            width={20}
-            height={20}
-            color={appColors.white}
-            style={{marginRight: 20}}
-          />
+          {CurrentUserData?.instagram == null ? null : (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(CurrentUserData?.instagram)}>
+              <RenderSvgIcon
+                icon="INSTA"
+                width={20}
+                height={20}
+                color={appColors.white}
+                style={{marginRight: 20}}
+              />
+            </TouchableOpacity>
+          )}
+          {CurrentUserData?.facebook == null ? null : (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(CurrentUserData?.facebook)}>
+              <RenderSvgIcon
+                icon="FACE"
+                width={20}
+                height={20}
+                color={appColors.white}
+                style={{marginRight: 20}}
+              />
+            </TouchableOpacity>
+          )}
+          {CurrentUserData?.linkedin == null ? null : (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(CurrentUserData?.linkedin)}>
+              <RenderSvgIcon
+                icon="LINKED"
+                width={20}
+                height={20}
+                color={appColors.white}
+                style={{marginRight: 20}}
+              />
+            </TouchableOpacity>
+          )}
         </View>
         {CurrentUserData?.work_type == 'freelancer' ||
         CurrentUserData?.user_data?.user_type == 'recruiter' ? (
@@ -160,7 +220,34 @@ const InfoCard = (data: any) => {
           </View>
         ) : (
           <View style={[styles.Row, {marginTop: 15}]}>
-            <ReviewCV width={140} />
+            {CurrentUserData?.cv_pdf == null ? (
+             
+              <TouchableOpacity
+                onPress={uploadFile}
+                style={{
+                  // width: 140,
+                  height: 40,
+                  backgroundColor: appColors.bg,
+                  paddingHorizontal: 10,
+                  borderRadius: 50,
+                  width:130,
+                  borderWidth: 1,
+                  borderColor: appColors.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  columnGap: 10,
+                }}>
+                <PDF width={20} height={20} />
+                <Text style={{color: appColors.primary}}>
+                  {name == '' ? loading?<ActivityIndicator size={'small'} color={appColors.primary}/> : 'Upload CV' : name.slice(9)}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => Linking.openURL(CurrentUserData?.cv_pdf)}>
+                <ReviewCV width={140} />
+              </TouchableOpacity>
+            )}
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
@@ -175,7 +262,7 @@ const InfoCard = (data: any) => {
   );
 };
 
-export default InfoCard;
+export default InfoProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {

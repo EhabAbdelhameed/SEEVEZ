@@ -3,11 +3,11 @@ import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import {AVATAR} from 'assets/Svgs';
+import {AVATAR, CompanyLogo} from 'assets/Svgs';
 import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 
-const ExperienceCard = (data: any) => {
+const ExperienceProfileCard = (data: any) => {
   console.log(JSON.stringify(data));
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
@@ -44,7 +44,8 @@ const ExperienceCard = (data: any) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity disabled={data?.data?.length == 0?true:false}
+            <TouchableOpacity
+              disabled={data?.data?.length == 0 ? true : false}
               onPress={() => navigation.navigate('UpdateExperienceCard')}>
               <RenderSvgIcon
                 icon="PEN"
@@ -67,7 +68,7 @@ const ExperienceCard = (data: any) => {
                 alignItems: 'center',
                 backgroundColor: appColors.bg,
               }}>
-              <AVATAR height={32} width={32} />
+              <CompanyLogo height={32} width={32} />
             </View>
 
             <View style={{marginLeft: 10}}>
@@ -79,10 +80,18 @@ const ExperienceCard = (data: any) => {
           data?.data?.map((item: any, index: any) => (
             <View style={{marginBottom: 15}}>
               <View style={styles.Row2}>
-                <Image
-                  source={require('../../../../../assets/images/CompanyLogo.png')}
-                  style={styles.Image}
-                />
+                <View
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: 64,
+
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: appColors.bg,
+                  }}>
+                  <CompanyLogo height={32} width={32} />
+                </View>
                 <View style={{marginLeft: 10}}>
                   <Text style={styles.Title2}>{item.job_title}</Text>
                   <Text style={styles.CompanyName}>
@@ -131,10 +140,18 @@ const ExperienceCard = (data: any) => {
             index == 0 ? (
               <View>
                 <View style={styles.Row2}>
-                  <Image
-                    source={require('../../../../../assets/images/CompanyLogo.png')}
-                    style={styles.Image}
-                  />
+                <View
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: 64,
+
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: appColors.bg,
+                  }}>
+                  <CompanyLogo height={32} width={32} />
+                </View>
                   <View style={{marginLeft: 10}}>
                     <Text style={styles.Title2}>{item.job_title}</Text>
                     <Text style={styles.CompanyName}>
@@ -196,7 +213,7 @@ const ExperienceCard = (data: any) => {
   );
 };
 
-export default ExperienceCard;
+export default ExperienceProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {

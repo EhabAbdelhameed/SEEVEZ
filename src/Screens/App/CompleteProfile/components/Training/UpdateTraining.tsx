@@ -146,8 +146,8 @@ const UpdateTraining = () => {
 
                 formdata.append(`array[${index}][grade]`, item.grade);
 
-                formdata.append(`array[${index}][start_date]`, Moment(item.start_date).format('yyyy/MM/DD'));
-                formdata.append(`array[${index}][end_date]`, Moment(item.end_date).format('yyyy/MM/DD'));
+                formdata.append(`array[${index}][start_date]`,item.start_date==new Date()? Moment(item.start_date).format('yyyy/MM/DD'):item.start_date);
+                formdata.append(`array[${index}][end_date]`,item.end_date==new Date()? Moment(item.end_date).format('yyyy/MM/DD'):item.end_date);
 
                 formdata.append(
                   `array[${index}][certificate_image]`,
@@ -496,7 +496,7 @@ const UpdateTraining = () => {
                       <Text numberOfLines={1} style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
                           ? 'Upload certificate image'
-                          : Source[index]}
+                          :  `${Source[index].slice(0,20)}...`}
                       </Text>
                     </TouchableOpacity>
                   </View>

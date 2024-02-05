@@ -21,6 +21,15 @@ import AppSlice from 'src/redux/app';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import ReferenceCheck from './components/ReferenceCheck';
+import InfoProfileCard from './components/Info';
+import AboutProfileCard from './components/About';
+import ReferenceProfileCheck from './components/ReferenceCheck';
+import AchievementsProfileCard from './components/Achievements';
+import LanguagesProfileCard from './components/Languages';
+import SkillsProfileCard from './components/Skills';
+import TrainingProfileCard from './components/Training';
+import EducationProfileCard from './components/Education';
+import ExperienceProfileCard from './components/Experience';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -44,23 +53,23 @@ const ProfileScreen = () => {
           <Complete
             pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
           />
-          <InfoCard data={CurrentUserData} />
-          <AboutCard data={CurrentUserData?.about} />
-          <ExperienceCard data={CurrentUserData?.user_data?.experiences} />
-          <EducationCard data={CurrentUserData?.user_data?.educations} />
-          <TrainingCard data={CurrentUserData?.user_data?.training_courses} />
-          <SkillsCard
+          <InfoProfileCard data={CurrentUserData} />
+          <AboutProfileCard data={CurrentUserData?.about} />
+          <ExperienceProfileCard data={CurrentUserData?.user_data?.experiences} />
+          <EducationProfileCard data={CurrentUserData?.user_data?.educations} />
+          <TrainingProfileCard data={CurrentUserData?.user_data?.training_courses} />
+          <SkillsProfileCard
             title={'Skills and tools'}
             data={CurrentUserData?.user_data?.skills}
           />
-          <SkillsCard
+          <SkillsProfileCard
             title={'Interests'}
             data={CurrentUserData?.user_data?.interests}
           />
-          <LanguagesCard data={CurrentUserData?.user_data?.languages} />
-          <AchievementsCard data={CurrentUserData?.user_data?.achievement} />
+          <LanguagesProfileCard data={CurrentUserData?.user_data?.languages} />
+          <AchievementsProfileCard data={CurrentUserData?.user_data?.achievement} />
           {/* <RecommendationsCard /> */}
-          <ReferenceCheck data={CurrentUserData?.user_data?.reference_check}/>
+          <ReferenceProfileCheck data={CurrentUserData?.user_data?.reference_check}/>
           <View style={{height: 20}} />
         </View>
       </ScrollView>

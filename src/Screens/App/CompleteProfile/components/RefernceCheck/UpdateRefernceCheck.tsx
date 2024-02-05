@@ -222,7 +222,7 @@ const UpdateRefernceCheck = () => {
                   <Text numberOfLines={1} style={{fontSize: 19, color: appColors.primary}}>
                     {Source.length == 0
                       ? 'Upload background check'
-                      : Source[0].name}
+                      : `${Source[0].name.slice(0,20)}...`}
                   </Text>
                 </TouchableOpacity>
                 <View style={{height: appSizes.height * 0.07}} />

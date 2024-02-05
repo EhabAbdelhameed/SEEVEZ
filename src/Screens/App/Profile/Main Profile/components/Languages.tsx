@@ -5,7 +5,7 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {Star} from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
 
-const LanguagesCard = (data: any) => {
+const LanguagesProfileCard = (data: any) => {
   console.log('This is Languages Data15148', data);
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation()
@@ -94,7 +94,7 @@ const LanguagesCard = (data: any) => {
   );
 };
 
-export default LanguagesCard;
+export default LanguagesProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {

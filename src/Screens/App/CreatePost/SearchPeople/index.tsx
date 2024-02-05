@@ -13,10 +13,12 @@ import Button from 'components/molecules/Button';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import Header from './Header';
-import { appColors } from 'theme';
+import Header from './components/Header';
+import {appColors} from 'theme';
+import {FlatList} from 'react-native-gesture-handler';
+import Flatlist from './components/FlatList';
 
-const TagPeople = () => {
+const SearchPeople = () => {
   const navigation = useNavigation();
   const _handleNavigation = useCallback(() => {
     navigation.navigate('CreatePollLink');
@@ -33,36 +35,36 @@ const TagPeople = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <Header />
-        <View style={{paddingHorizontal:20,width:'100%',justifyContent:'center',alignItems:'center'}}>
-        <ImageBackground
-          source={require('src/assets/images/ReelImage.png')}
-          style={[
-            styles.bgContainer,
-            {
-              width: '100%',
-              height: 480,
-              alignSelf: 'center',
-              alignItems: 'center',
-              borderRadius: 50,
-              borderWidth:2,borderColor:appColors.primary
-            },
-          ]}
-          resizeMode="cover"
-        />
+        <View style={{ marginTop: 20}}>
+          <Text
+            style={{
+              color: '#000',
+              fontFamily: 'Noto Sans',
+              fontSize: 23,
+              fontWeight: '700',
+            }}>
+            Search for people
+          </Text>
+          <Text
+            style={{
+              color: '#000',
+              fontFamily: 'Noto Sans',
+              fontSize: 18,
+              fontWeight: '500',
+            }}>
+            Only people on your list can see this reel
+          </Text>
+        </View>
 
-        <TouchableOpacity onPress={()=>navigation.navigate("SearchPeople")} style={styles.AddOptionContainer}>
-          <ADDONTHEROPTION />
-          <Text style={styles.text2}>Tap to tag people</Text>
-        </TouchableOpacity>
+        <Flatlist />
         <Button
           text="Done"
           onPress={_handleNavigation}
-          style={{width: '100%'}}
+          style={{width: '90%'}}
         />
-        </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
 
-export default TagPeople;
+export default SearchPeople;

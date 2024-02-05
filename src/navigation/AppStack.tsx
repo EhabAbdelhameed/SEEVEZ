@@ -49,6 +49,7 @@ import UpdateOneSkills from 'screens/App/Profile/Main Profile/UpdateComponents/S
 import CV from 'screens/App/CreatePost/UploadCV';
 import CreatePollLink from 'screens/App/CreatePost/CreatePollLink';
 import TagPeople from 'screens/App/CreatePost/TagPeople';
+import SearchPeople from 'screens/App/CreatePost/SearchPeople';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -252,6 +253,10 @@ const AppStack = () => {
                <Stack.Screen
                 name='TagPeople'
                 component={TagPeople}
+            />
+              <Stack.Screen
+                name='SearchPeople'
+                component={SearchPeople}
             />
 
         </Stack.Navigator>

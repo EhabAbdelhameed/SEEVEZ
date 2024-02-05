@@ -238,7 +238,7 @@ const SignupTwo = () => {
                           }}>
                           {tax_card_document.length == 0
                             ? 'Upload Tax card'
-                            : tax_card_document[0]?.name}
+                            : `${tax_card_document[0]?.name.slice(0,20)}...`}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -255,7 +255,7 @@ const SignupTwo = () => {
                           }}>
                           {commercial_registration_document.length == 0
                             ? 'Upload commercial registration'
-                            : commercial_registration_document[0]?.name}
+                            : `${commercial_registration_document[0]?.name.slice(0,20)}...`}
                         </Text>
                       </View>
                     </TouchableOpacity>

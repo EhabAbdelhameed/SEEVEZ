@@ -251,58 +251,63 @@ const UpdateInfo = () => {
 
               values.FullName != ''
                 ? formdata.append('name', values.FullName)
-                : null;
+                : formdata.append('name', null);
               formdata.append('country_code', code == '' ? '+20' : code);
 
               values.JobTitle != ''
                 ? formdata.append('job_title', values.JobTitle)
-                : null;
+                : formdata.append('job_title', null);
               values.phone != ''
                 ? formdata.append('phone_number', values.phone)
-                : null;
+                : formdata.append('phone_number', null);
               values.currentSalary != ''
                 ? formdata.append('current_salary', values.currentSalary)
-                : null;
+                : formdata.append('current_salary', null);
               values.expectedSalary != ''
                 ? formdata.append('expected_salary', values.expectedSalary)
-                : null;
+                : formdata.append('expected_salary', null);
               formdata.append('show_salary', isShowSalary == false ? 0 : 1);
               gender != ''
                 ? formdata.append('gender', gender.toLocaleLowerCase())
-                : null;
-              formdata.append('birthdate', Moment(date).format('yyyy/MM/DD'));
+                : formdata.append('gender', null);
+              values.birthdate != new Date()
+                ? formdata.append(
+                    'birthdate',
+                    Moment(date).format('yyyy/MM/DD'),
+                  )
+                : formdata.append('birthdate', null);
 
               disabilityData != ''
                 ? formdata.append('disabilities', disabilityData)
-                : null;
+                : formdata.append('disabilities', null);
               specialNeedsData != ''
                 ? formdata.append('special_needs', specialNeedsData)
-                : null;
+                : formdata.append('special_needs', null);
               values.heights != ''
                 ? formdata.append('height', values.heights)
-                : null;
+                : formdata.append('height', values.heights);
               formdata.append('smoker', smoker == false ? 0 : 1);
               values.weight != ''
                 ? formdata.append('weight', values.weight)
-                : null;
+                : formdata.append('weight', null);
               values.other != ''
                 ? formdata.append('other', values.other)
-                : null;
+                : formdata.append('other', null);
               values.github != ''
                 ? formdata.append('github', values.github)
-                : null;
+                : formdata.append('github', null);
               values.website != ''
                 ? formdata.append('website', values.website)
-                : null;
+                : formdata.append('website', null);
               values.facebook != ''
                 ? formdata.append('facebook', values.facebook)
-                : null;
+                : formdata.append('facebook', null);
               values.linkedin != ''
                 ? formdata.append('linkedin', values.linkedin)
-                : null;
+                : formdata.append('linkedin', null);
               values.instagram != ''
                 ? formdata.append('instagram', values.instagram)
-                : null;
+                : formdata.append('instagram', null);
               if (Nationality[0] != '') {
                 for (var i = 0; i < Nationality.length; i++) {
                   formdata.append(`array[${i}][nationality]`, Nationality[i]);
@@ -316,10 +321,13 @@ const UpdateInfo = () => {
               values.area != '' ? formdata.append('area', values.area) : null;
               console.log('SOURCE ', source?.length);
               source?.length != 0
-                ?formdata.append('avatar', {
+                ? formdata.append('avatar', {
                     uri: source[0]?.uri,
                     type: source[0]?.type,
-                    name:Platform.OS=="ios"?source[0]?.fileName:source[0]?.name,
+                    name:
+                      Platform.OS == 'ios'
+                        ? source[0]?.fileName
+                        : source[0]?.name,
                   })
                 : null;
               console.log(formdata);
@@ -358,6 +366,7 @@ const UpdateInfo = () => {
                   onChangeText={value =>
                     props?.setFieldValue(`JobTitle`, value)
                   }
+                  placeholderTextColor={'#B9B9B9'}
                   value={props.values.JobTitle}
                   style={{
                     borderRadius: 16,
@@ -373,6 +382,7 @@ const UpdateInfo = () => {
 
                 <TextInput
                   placeholder="Your country"
+                  placeholderTextColor={'#B9B9B9'}
                   onChangeText={value =>
                     props?.setFieldValue(`Location`, value)
                   }
@@ -664,8 +674,7 @@ const UpdateInfo = () => {
                             placeholder={`Enter your Nationality`}
                             placeholderTextColor={'#B9B9B9'}
                             value={
-                              CurrentUserData?.user_data?.nationality[index]
-                                ?.name
+                              CurrentUserData?.user_data?.nationality[index]?.name
                             }
                             style={styles.InputStyleWithOutWidth}
                             onChangeText={e => {

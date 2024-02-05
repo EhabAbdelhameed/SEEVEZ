@@ -9,7 +9,7 @@ import DELETE from './DeleteIcon.svg'
 import ReviewCV from './ReviewCV.svg'
 import Analytics from './Analytics.svg'
 import Analytic from './analytic.svg'
-
+import FlatListImage from './FlatListimage.svg'
 import CreateVideoIcon from './CreateVideo.svg'
 import PauseVideoIcon from './PauseVideoReocrd.svg'
 import ImagePicker from './ImagePicker.svg'
@@ -43,6 +43,7 @@ export {
     ImageInfo,
     CompanyLogo,
     Packages,
+    FlatListImage,
     DELETE,
     Setting,
     LogOut,

@@ -76,7 +76,7 @@ const UpdateEducation = () => {
   const openGallery = async (props: any, index: any) => {
     try {
       const result = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images],
+        type: [DocumentPicker.types.allFiles],
       });
 
       // The selected media is available in the result.uri
@@ -167,8 +167,8 @@ const UpdateEducation = () => {
                 formdata.append(`array[${index}][level_id]`, item.level_id);
                 formdata.append(`array[${index}][grade]`, item.grade);
 
-                formdata.append(`array[${index}][start_date]`, Moment(item.start_date).format('yyyy/MM/DD'));
-                formdata.append(`array[${index}][end_date]`, Moment(item.end_date).format('yyyy/MM/DD'));
+                formdata.append(`array[${index}][start_date]`,item.start_date==new Date()? Moment(item.start_date).format('yyyy/MM/DD'):item.start_date);
+                formdata.append(`array[${index}][end_date]`,item.end_date==new Date()? Moment(item.end_date).format('yyyy/MM/DD'):item.end_date);
 
                 formdata.append(
                   `array[${index}][degree_certificate]`,
@@ -530,9 +530,7 @@ const UpdateEducation = () => {
 
                     <TouchableOpacity
                       onPress={() =>
-                        Platform.OS == 'ios'
-                          ? pick(props, index)
-                          : openGallery(props, index)
+                       openGallery(props, index)
                       }
                       style={styles.InputStyleNoWidth1}>
                       <PHOTO style={{marginRight: 20}} />
@@ -541,7 +539,7 @@ const UpdateEducation = () => {
                         style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
                           ? 'Upload degree certificate'
-                          : Source[index]}
+                          : `${Source[index].slice(0,20)}...`}
                       </Text>
                     </TouchableOpacity>
                   </View>

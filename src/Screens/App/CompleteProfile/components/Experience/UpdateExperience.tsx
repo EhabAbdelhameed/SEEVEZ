@@ -230,8 +230,8 @@ const UpdateExperience = () => {
                   industry_id: '',
                   years_of_experience_id: '',
                   job_type_id: '',
-                  start_date: new Date(),
-                  end_date: new Date(),
+                  start_date: '',
+                  end_date:'',
                   still_work_here: 0,
                   experience_letter: '',
                   description: '',
@@ -269,16 +269,16 @@ const UpdateExperience = () => {
                   `array[${index}][job_type_id]`,
                   item.job_type_id,
                 );
-                formdata.append(`array[${index}][start_date]`, Moment(item.start_date).format('yyyy/MM/DD'));
-                formdata.append(`array[${index}][end_date]`, Moment(item.end_date).format('yyyy/MM/DD'));
+                formdata.append(`array[${index}][start_date]`,item.start_date==''? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
+                formdata.append(`array[${index}][end_date]`,item.end_date==''? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
                 formdata.append(
                   `array[${index}][still_work_here]`,
                   item.still_work_here,
                 );
-                formdata.append(
+                experienceLetter.length!=0!?formdata.append(
                   `array[${index}][experience_letter]`,
                   item.experience_letter,
-                );
+                ):null
               });
               console.log('FormData f ', formdata);
 
@@ -320,7 +320,7 @@ const UpdateExperience = () => {
                         onChangeText={e =>
                           props?.setFieldValue(
                             `Experince[${index}]["job_title"]`,
-                            value,
+                            e,
                           )
                         }
                         containerStyle={{
@@ -763,7 +763,8 @@ const UpdateExperience = () => {
                         }}>
                         {experienceLetter[index] == null
                           ? 'Upload degree certificate'
-                          : experienceLetter[index]}
+                          : `${experienceLetter[index].slice(0,20)}...`}
+                         
                       </Text>
                     </TouchableOpacity>
                   </View>

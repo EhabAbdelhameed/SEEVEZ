@@ -166,7 +166,7 @@ const UpdateAchievements = () => {
                         }}>
                              {Source[index] == null
                           ? 'Upload certificate image'
-                          : Source[index]}
+                          :  `${Source[index].slice(0,20)}...`}
                    
                       </Text>
                     </TouchableOpacity>

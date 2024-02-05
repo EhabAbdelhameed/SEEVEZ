@@ -25,6 +25,14 @@ import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
 import LoadingAnimation from '../../../assets/images/Loading.json'
+import InfoProfileCard from '../Profile/Main Profile/components/Info';
+import ExperienceProfileCard from '../Profile/Main Profile/components/Experience';
+import EducationProfileCard from '../Profile/Main Profile/components/Education';
+import TrainingProfileCard from '../Profile/Main Profile/components/Training';
+import SkillsProfileCard from '../Profile/Main Profile/components/Skills';
+import LanguagesProfileCard from '../Profile/Main Profile/components/Languages';
+import AchievementsProfileCard from '../Profile/Main Profile/components/Achievements';
+import ReferenceProfileCheck from '../Profile/Main Profile/components/ReferenceCheck';
 const CompleteProfileScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -62,22 +70,22 @@ const CompleteProfileScreen = () => {
             <Complete
               pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
             />
-            <InfoCard user_data={CurrentUserData} />
+            <InfoProfileCard data={CurrentUserData} />
             <AboutCard About={CurrentUserData} />
-            <ExperienceCard data={CurrentUserData?.user_data?.experiences} />
-            <EducationCard data={CurrentUserData?.user_data?.educations} />
-            <TrainingCard data={CurrentUserData?.user_data?.training_courses} />
-            <SkillsCard
+            <ExperienceProfileCard data={CurrentUserData?.user_data?.experiences} />
+            <EducationProfileCard data={CurrentUserData?.user_data?.educations} />
+            <TrainingProfileCard data={CurrentUserData?.user_data?.training_courses} />
+            <SkillsProfileCard
               title={'Skills'}
               data={CurrentUserData?.user_data?.skills}
             />
-            <SkillsCard
+            <SkillsProfileCard
               title={'Interests'}
               data={CurrentUserData?.user_data?.interests}
             />
-            <LanguagesCard data={CurrentUserData?.user_data?.languages} />
-            <AchievementsCard data={CurrentUserData?.user_data?.achievement} />
-            <ReferenceCheckCard
+            <LanguagesProfileCard data={CurrentUserData?.user_data?.languages} />
+            <AchievementsProfileCard data={CurrentUserData?.user_data?.achievement} />
+            <ReferenceProfileCheck
               data={CurrentUserData?.user_data?.reference_check}
             />
           </View>

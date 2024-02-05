@@ -10,7 +10,7 @@ import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import { useNavigation } from '@react-navigation/native';
 
-const AboutCard = (data: any) => {
+const AboutProfileCard = (data: any) => {
   const [aboutSection, setAboutSection] = useState('Bio'); // Added state to track edited content
   const navigation = useNavigation<any>();
 
@@ -40,7 +40,7 @@ const AboutCard = (data: any) => {
   );
 };
 
-export default AboutCard;
+export default AboutProfileCard;
 
 const styles = StyleSheet.create({
   CardContainer: {

@@ -458,7 +458,7 @@ const UpdateOneEducation = () => {
                     style={styles.InputStyleNoWidth1}>
                     <PHOTO style={{marginRight: 20}} />
                     <Text style={{fontSize: 20, color: appColors.primary}}>
-                      {Source ? 'Upload degree certificate' : Source}
+                      {Source ? 'Update degree certificate' : Source}
                     </Text>
                   </TouchableOpacity>
                 </View>

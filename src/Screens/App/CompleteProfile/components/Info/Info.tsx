@@ -66,6 +66,7 @@ const InfoCard = (user_data: any) => {
             </TouchableOpacity>
           </View>
         </View>
+
         <View
           style={{
             width: 96,
@@ -157,7 +158,7 @@ const InfoCard = (user_data: any) => {
               }}>
               <PDF width={20} height={20} />
               <Text style={{color: appColors.primary}}>
-                {name == '' ? 'Upload CV' : name}
+                {name == '' ? 'Upload CV' : name.slice(0,9)}
               </Text>
             </TouchableOpacity>
             {/* <TouchableOpacity
