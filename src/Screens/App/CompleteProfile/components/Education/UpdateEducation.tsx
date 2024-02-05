@@ -167,8 +167,8 @@ const UpdateEducation = () => {
                 formdata.append(`array[${index}][level_id]`, item.level_id);
                 formdata.append(`array[${index}][grade]`, item.grade);
 
-                formdata.append(`array[${index}][start_date]`,item.start_date==new Date()? Moment(item.start_date).format('yyyy/MM/DD'):item.start_date);
-                formdata.append(`array[${index}][end_date]`,item.end_date==new Date()? Moment(item.end_date).format('yyyy/MM/DD'):item.end_date);
+                formdata.append(`array[${index}][start_date]`,item.start_date==''||!item.start_date? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
+                formdata.append(`array[${index}][end_date]`,item.end_date==''||!item.end_date? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
 
                 formdata.append(
                   `array[${index}][degree_certificate]`,
