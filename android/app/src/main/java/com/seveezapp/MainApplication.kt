@@ -22,10 +22,10 @@ class MainApplication : Application(), ReactApplication {
           // packages.add(new MyReactNativePackage());
           return PackageList(this).packages
         }
-        @Override
-        protected String getJSBundleFile() {
-            return CodePush.getJSBundleFile();
+        override fun getJSBundleFile(): String {
+          return CodePush.getJSBundleFile()
         }
+
         override fun getJSMainModuleName(): String = "index"
 
         override fun getUseDeveloperSupport(): Boolean = BuildConfig.DEBUG
