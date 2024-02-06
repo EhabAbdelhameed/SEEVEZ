@@ -8,6 +8,11 @@ export const styles = StyleSheet.create({
         // alignItems: "center",
 
     },
+    Row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%'
+    },
     container: {
         width: "90%",
         alignItems: "center",
@@ -22,7 +27,7 @@ export const styles = StyleSheet.create({
         width: "90%",
         alignItems: "flex-start",
         paddingHorizontal: 18,
-        paddingVertical: 20,
+        paddingVertical: 15,
         backgroundColor: appColors.lightGrey,
         borderRadius: 20,
         marginTop: 20,
@@ -76,7 +81,7 @@ export const styles = StyleSheet.create({
     },
     textHeaderSection: {
         color: appColors.black,
-        fontSize: appSizes.font_l,
+        fontSize: 19,
         fontWeight: "600",
     },
     textContentSection: {
@@ -94,19 +99,19 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 10
     },
-    Certificate:{
+    Certificate: {
         height: 100,
         width: 100,
         marginTop: 10,
         borderRadius: 10
-      },
+    },
     rowContainer: {
         width: "100%",
         flexDirection: "row",
         alignItems: "flex-start",
         justifyContent: "space-between",
         // paddingHorizontal:18,
-        paddingVertical: 7,
+        // paddingVertical: 0,
         // backgroundColor:appColors.secondary
     },
     label: {

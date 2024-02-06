@@ -21,10 +21,14 @@ const Skills = (props: Props) => {
             disabled={props.isActive}
         >
             <EditDragIcons color={appColors.green} />
-            <Text style={styles.textHeaderSection}>Skills</Text>
+            {/* <View style={styles.Row}>
+                <Text style={styles.textHeaderSection}>Skills</Text>
+                <Text style={styles.textHeaderSection}>Languages</Text>
+            </View> */}
 
-            <View style={styles.rowContainer}>
+            <View style={[styles.rowContainer, { paddingRight: 10 }]}>
                 <View style={{ flex: 1.5 }}>
+                    <Text style={styles.textHeaderSection}>Skills</Text>
                     <FlatList
                         data={props.User?.user_data?.skills}
                         renderItem={({ item }) => (
@@ -39,6 +43,7 @@ const Skills = (props: Props) => {
                         }]}> . {item}</Text>)}*/}
                 </View>
                 <View style={{ flex: 1 }}>
+                    <Text style={styles.textHeaderSection}>Languages</Text>
                     <FlatList
                         data={props.User?.user_data?.languages}
                         renderItem={({ item }) => (

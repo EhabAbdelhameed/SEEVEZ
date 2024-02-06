@@ -23,14 +23,13 @@ const Achievements = (props: Props) => {
       <Text
         style={styles.textHeaderSection}
       >Achievements</Text>
-      {/* {console.log(props.User?.user_data?.achievement[1])} */}
       <FlatList
         data={props.User?.user_data?.achievement}
         renderItem={({ item }) => (
           <>
             <Text style={styles.textContentSection}>- {item?.text}</Text>
             {
-              item?.type == 'pdf' ?
+              item?.object_info?.extension == 'pdf' ?
                 <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
                   <PDF height={70} width={70} />
                 </TouchableOpacity>

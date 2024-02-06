@@ -46,7 +46,7 @@ const Cv = () => {
             setCount(count + 1);
             setIsLoading(false);
         } catch (error: any) {
-            Alert.alert('Error', error.message);
+            // Alert.alert('Error', error.message);
         }
     };
 

@@ -15,7 +15,7 @@ const FooterSection = (props: Props) => {
     return (
         <View style={[styles.container2, {
             backgroundColor: appColors.transparent,
-            paddingHorizontal:10
+            paddingHorizontal: 10
         }]}>
             <Text style={styles.label}>. References are ready upon request</Text>
             <View style={[styles.rowContainer, {
@@ -35,10 +35,10 @@ const FooterSection = (props: Props) => {
                 <Text style={[styles.textHeaderSection, {
                     fontWeight: "700",
                     marginTop: 7
-                }]}> SEEVES</Text>
+                }]}> SEEVEZ</Text>
             </View>
 
-
+            <View style={{ height: 30 }} />
         </View>
     );
 }
