@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>AppSecret</key>
+    <string>1c0f37ec-5ace-4227-9174-a3349b523b49</string>
 	<key>CFBundleDisplayName</key>
 	<string>SEEVEZ</string>
 	<key>CFBundleExecutable</key>

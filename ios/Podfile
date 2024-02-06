@@ -31,7 +31,7 @@ target 'seveezapp' do
   config = use_native_modules!
 permissions_path = '../node_modules/react-native-permissions/ios'
 pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
-
+pod 'CodePush', :path => '../node_modules/react-native-code-push'
   use_react_native!(
     :path => config[:reactNativePath],
     # Enables Flipper.
