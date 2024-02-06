@@ -14,19 +14,27 @@ import {useSelector} from 'react-redux';
 import AuthSlice, {selectIsAuth} from 'src/redux/auth';
 import { useAppDispatch } from 'src/redux/store';
 import AppDrawer from './Drawer/Drawer';
+import AppThunks from 'src/redux/app/thunks';
 
 
 const Root = createNativeStackNavigator<RootParamsList>();
 
 const Navigation = () => {
   const isAuth = useSelector(selectIsAuth);
-  // const dispatch=useAppDispatch()
+  const dispatch=useAppDispatch()
   // dispatch(AuthSlice.chnageisAuth(false))
   const [splash,setSplash]=React.useState(true)
   React. useEffect(() => {
+
+    
     setTimeout(() => {
       setSplash(false)
-    }, 2000);
+    }, 300000);
+
+   const interval= setInterval(() => {
+      dispatch(AppThunks.GetAccessToken());
+    }, 10000);
+    return () => clearInterval(interval);  
   }, []);
     // console.log(isAuth)
   return (

@@ -4,6 +4,8 @@ import {EntityKeys} from 'src/redux/keys';
 import {RootState} from '../store';
 import {initialState} from './types';
 import thunks from './thunks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const slice = createSlice({
   name: EntityKeys.APP,
@@ -665,6 +667,24 @@ const slice = createSlice({
       state.IndsturyData = action.payload?.data;
     });
     builder.addCase(thunks.GetIndustry.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+     //GetAccessToken
+     builder.addCase(thunks.GetAccessToken.fulfilled, (state, action) => {
+      // console.log('USER_ACCESS_TOKEN',action?.payload?.accessToken)
+      AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.accessToken)
+    });
+    builder.addCase(thunks.GetAccessToken.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',

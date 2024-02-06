@@ -64,7 +64,7 @@ const UpdateInfo = () => {
       : 2,
   );
   const [buttonIndexHealth, setButtonIndexHealth] = React.useState(2);
-  const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(2);
+  const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(CurrentUserData?.smoker==null?2:CurrentUserData?.smoker==0?1:0);
   const [isShowSalary, setIsShowSalary] = useState(false);
   const [isVisiable, setIsVisiable] = useState(false);
   const changeDone = useSelector(selectDone);
@@ -249,76 +249,79 @@ const UpdateInfo = () => {
 
               const formdata = new FormData();
 
-              values.FullName != ''
-                ? formdata.append('name', values.FullName)
-                : null;
+             
+             formdata.append('name', values.FullName)
+             
               formdata.append('country_code', code == '' ? '+20' : code);
 
-              values.JobTitle != ''
+              values.JobTitle != ''||!values.JobTitle 
                 ? formdata.append('job_title', values.JobTitle)
-                :null;
-              values.phone != '' 
+                :formdata.append('job_title', '');
+              values.phone != ''||!values.phone
                 ? formdata.append('phone_number', values.phone)
-                :  null;
+                :  formdata.append('phone_number', '');
               values.currentSalary != ''
                 ? formdata.append('current_salary', values.currentSalary)
-                : null
-              values.expectedSalary != ''
+                : formdata.append('current_salary', '')
+              values.expectedSalary != ''||!values.expectedSalary
                 ? formdata.append('expected_salary', values.expectedSalary)
-                :null;
+                :formdata.append('expected_salary', '');
               formdata.append('show_salary', isShowSalary == false ? 0 : 1);
               gender != ''
                 ? formdata.append('gender', gender.toLocaleLowerCase())
                 : null
-              values.birthdate != new Date()
+              values.birthdate != new Date()||! values.birthdate
                 ? formdata.append(
                     'birthdate',
                     Moment(date).format('yyyy/MM/DD'),
                   )
-                : null;
+                :  formdata.append(
+                  'birthdate',
+                  '',
+                );
 
-              disabilityData != ''
+              disabilityData != ''||!disabilityData
                 ? formdata.append('disabilities', disabilityData)
-                : null
+                : formdata.append('disabilities', '')
               specialNeedsData != ''
                 ? formdata.append('special_needs', specialNeedsData)
-                : null
-              values.heights != ''
+                : formdata.append('special_needs', '')
+              values.heights != ''||!values.heights
                 ? formdata.append('height', values.heights)
-                : null
+                : formdata.append('height', '')
               formdata.append('smoker', smoker == false ? 0 : 1);
-              values.weight != ''
+              values.weight != ''||!values.weight
                 ? formdata.append('weight', values.weight)
-                : null
-              values.other != ''
+                : formdata.append('weight','')
+              values.other != ''||!values.other
                 ? formdata.append('other', values.other)
-                : null
-              values.github != ''
+                : formdata.append('other','')
+              values.github != ''||!values.github
                 ? formdata.append('github', values.github)
-                : null
-              values.website != ''
+                : formdata.append('github', values.github)
+              values.website != ''||!values.website
                 ? formdata.append('website', values.website)
-                : null
-              values.facebook != ''
+                : formdata.append('website', values.website)
+              values.facebook != ''||!values.facebook
                 ? formdata.append('facebook', values.facebook)
-                :null
-              values.linkedin != ''
+                :formdata.append('facebook', values.facebook)
+              values.linkedin != ''||!values.linkedin
                 ? formdata.append('linkedin', values.linkedin)
-                : null
-              values.instagram != ''
+                : formdata.append('linkedin', values.linkedin)
+              values.instagram != ''||!values.instagram
                 ? formdata.append('instagram', values.instagram)
-                : null
+                : formdata.append('instagram', values.instagram)
               if (Nationality[0] != '') {
                 for (var i = 0; i < Nationality.length; i++) {
                   formdata.append(`array[${i}][nationality]`, Nationality[i]);
                 }
               }
 
-              values.Location != ''
+              values.Location != ''||!values.Location
                 ? formdata.append('country', values.Location)
-                : null;
-              values.city != '' ? formdata.append('city', values.city) : null;
-              values.area != '' ? formdata.append('area', values.area) : null;
+                : formdata.append('country', values.Location);
+              values.city != ''||!values.city ? formdata.append('city', values.city) : formdata.append('city', '');
+              values.area != ''||!values.area ? formdata.append('area', values.area) : formdata.append('area', '');
              
               source?.length != 0
                 ? formdata.append('avatar', {
@@ -329,7 +332,7 @@ const UpdateInfo = () => {
                         ? source[0]?.fileName
                         : source[0]?.name,
                   })
-                : null;
+                : formdata.append('avatar','');
               console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
                 (res: any) => {
@@ -546,6 +549,7 @@ const UpdateInfo = () => {
                       placeholder="Write here.."
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
+                      keyboardType='number-pad'
                       onChangeText={value =>
                         props?.setFieldValue(`currentSalary`, value)
                       }
@@ -558,6 +562,7 @@ const UpdateInfo = () => {
                       placeholder="Write here.."
                       style={styles.InputStyleWithOutWidth}
                       placeholderTextColor={'#B9B9B9'}
+                      keyboardType='number-pad'
                       onChangeText={value =>
                         props?.setFieldValue(`expectedSalary`, value)
                       }
@@ -780,6 +785,7 @@ const UpdateInfo = () => {
                     columnGap: 25,
                   }}>
                   {HealthProfile?.map((item, index) => (
+                    <View>
                     <TouchableOpacity
                       onPress={() => {
                         setButtonIndexHealth(index), setIsVisiable(true);
@@ -795,6 +801,10 @@ const UpdateInfo = () => {
 
                       <Text style={{color: '#000', marginLeft: 5}}>{item}</Text>
                     </TouchableOpacity>
+                    {index==0&&CurrentUserData?.disabilities!=null?<Text>{disabilityData}</Text>:null}
+                    {index==1&&CurrentUserData?.special_needs!=null?<Text>{specialNeedsData}</Text>:null}
+
+                    </View>
                   ))}
                 </View>
                 <View
@@ -810,6 +820,7 @@ const UpdateInfo = () => {
                       placeholder="Write here.."
                       placeholderTextColor={'#B9B9B9'}
                       style={styles.InputStyleWithOutWidth}
+                      keyboardType='number-pad'
                       onChangeText={value =>
                         props?.setFieldValue(`heights`, value)
                       }
@@ -821,6 +832,7 @@ const UpdateInfo = () => {
                     <TextInput
                       placeholder="Write here.."
                       placeholderTextColor={'#B9B9B9'}
+                      keyboardType='number-pad'
                       style={styles.InputStyleWithOutWidth}
                       onChangeText={value =>
                         props?.setFieldValue(`weight`, value)

@@ -638,6 +638,32 @@ const doAddPersonalInfo: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+
+//GetAccessToken
+const GetAccessToken: any = createAsyncThunk<any, any, any>(
+    'app/AccessToken',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.AccessToken();
+            console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //GetIndustry
 const GetIndustry: any = createAsyncThunk<any, any, any>(
     'app/Industry',
@@ -920,6 +946,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
 
 const AppThunks = {
     doAddSkills,
+    GetAccessToken,
     doUpdateSkills,
     doDeleteSkills,
     doAddEducation,

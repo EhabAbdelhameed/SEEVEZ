@@ -30,6 +30,7 @@ const updateAchievement = (data: any) => api.post(`api/edit-achievement`, data);
 const DeleteAchievement = (id: number) => api.delete(`api/delete-achievement/${id}`) 
 const Info = (data: any) => api.post(`api/edit-main-profile`, data);
 const About = (data: any) => api.post(`api/edit-main-profile`, data);
+const AccessToken = () => api.post(`api/amity-data-access-token`);
 
 const CompanyInfo = (data: any) => api.post(`api/complete-profile-company`, data);
 const CompanyAbout = (data: any) => api.post(`api/complete-profile-company`, data);
@@ -57,6 +58,7 @@ const AppAPI = {
   updateSkills,
   DeleteSkills,
   Education,
+  AccessToken,
   updateEducation,
   DeleteEducation,
   CompanyAbout,
