@@ -29,11 +29,11 @@ const Navigation = () => {
     
     setTimeout(() => {
       setSplash(false)
-    }, 300000);
+    }, 4000);
 
    const interval= setInterval(() => {
       dispatch(AppThunks.GetAccessToken());
-    }, 10000);
+    }, 300000);
     return () => clearInterval(interval);  
   }, []);
     // console.log(isAuth)
