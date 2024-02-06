@@ -50,7 +50,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Your skills has been added successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddSkills.rejected, (state, action: any) => {
@@ -72,7 +72,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Skills has been updated successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doUpdateSkills.rejected, (state, action: any) => {
@@ -94,7 +94,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Skills has been successfully deleted!',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doDeleteSkills.rejected, (state, action: any) => {
@@ -117,7 +117,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Your intersts has been added successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddIntersts.rejected, (state, action: any) => {
@@ -139,7 +139,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Interests has been updated successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doUpdateIntersts.rejected, (state, action: any) => {
@@ -161,7 +161,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Interests has been successfully deleted!',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doDeleteIntersts.rejected, (state, action: any) => {
@@ -184,7 +184,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Education has been added successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddEducation.rejected, (state, action: any) => {
@@ -206,7 +206,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Education has been updated successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doUpdateEducation.rejected, (state, action: any) => {
@@ -228,7 +228,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Education has been successfully deleted!',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doDeleteEducation.rejected, (state, action: any) => {
@@ -251,7 +251,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Experience has been added successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddExperience.rejected, (state, action: any) => {
@@ -273,7 +273,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Experience has been updated successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(
@@ -298,7 +298,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Experience has been successfully deleted!',
+        text1:action?.payload?.message,
       });
     });
     builder.addCase(
@@ -323,7 +323,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your TrainingCourse has been added successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(
@@ -350,7 +350,7 @@ const slice = createSlice({
         Toast.show({
           type: 'success',
 
-          text1: 'Hey! Your Training course has been updated successfully',
+          text1: action?.payload?.message,
         });
       },
     );
@@ -378,7 +378,7 @@ const slice = createSlice({
         Toast.show({
           type: 'success',
 
-          text1: 'Hey! Your Training course has been successfully deleted!',
+          text1: action?.payload?.message,
         });
       },
     );
@@ -432,7 +432,7 @@ const slice = createSlice({
         Toast.show({
           type: 'success',
 
-          text1: 'Hey! Your Reference Check has been updated successfully',
+          text1: action?.payload?.message,
         });
       },
     );
@@ -461,7 +461,7 @@ const slice = createSlice({
         Toast.show({
           type: 'success',
 
-          text1: 'Hey! Your Reference Check has been successfully deleted!',
+          text1: action?.payload?.message,
         });
       },
     );
@@ -488,7 +488,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Achievement has been added successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddAchievement.rejected, (state, action: any) => {
@@ -510,7 +510,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Achievement has been updated successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(
@@ -535,7 +535,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Achievement has been successfully deleted!',
+        text1:action?.payload?.message,
       });
     });
     builder.addCase(
@@ -579,7 +579,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Your Language has been added successfully',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddLanguages.rejected, (state, action: any) => {
@@ -601,7 +601,7 @@ const slice = createSlice({
               Toast.show({
                 type: 'success',
         
-                text1: 'Hey! Your Language has been updated successfully',
+                text1: action?.payload?.message,
               });
             });
             builder.addCase(thunks.doUpdateLanguages.rejected, (state, action: any) => {
@@ -623,7 +623,7 @@ const slice = createSlice({
           Toast.show({
             type: 'success',
     
-            text1: 'Hey! Your Language has been successfully deleted!',
+            text1: action?.payload?.message,
           });
         });
         builder.addCase(thunks.doDeleteLanguages.rejected, (state, action: any) => {
@@ -646,7 +646,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Profile updated successfully',
+        text1:action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddPersonalInfo.rejected, (state, action: any) => {
@@ -759,7 +759,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Media has been added successfully',
+        text1:action?.payload?.message
       });
     });
     builder.addCase(thunks.doUploadCV.rejected, (state, action: any) => {
@@ -775,6 +775,29 @@ const slice = createSlice({
         });
       }
     });
+        //doUploadVideoReel
+        builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
+          state.done = true;
+    
+          Toast.show({
+            type: 'success',
+    
+            text1: action?.payload?.message,
+          });
+        });
+        builder.addCase(thunks.doUploadVideoReel.rejected, (state, action: any) => {
+          if (action.payload.data.message == 'Validation error.') {
+            Toast.show({
+              type: 'error',
+              text1: action.payload.data.error,
+            });
+          } else {
+            Toast.show({
+              type: 'error',
+              text1: action.payload.data.message,
+            });
+          }
+        });
     //doGetLatestOrder
     //doAddAbout
     builder.addCase(thunks.doAddAbout.fulfilled, (state, action) => {
@@ -782,7 +805,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'Hey! Your Data has been added successfully',
+        text1: action?.payload?.message
       });
     });
     builder.addCase(thunks.doAddAbout.rejected, (state, action: any) => {
@@ -801,9 +824,11 @@ const slice = createSlice({
     // doAddCompanyInfo
     builder.addCase(thunks.doAddCompanyInfo.fulfilled, (state, action) => {
       state.done = true;
+      console.log(JSON.stringify(action?.payload))
+      
       Toast.show({
         type: 'success',
-        text1: 'Hey! Your about section has been added successfully',
+        text1:action?.payload?.message ,
       });
     });
     builder.addCase(thunks.doAddCompanyInfo.rejected, (state, action: any) => {

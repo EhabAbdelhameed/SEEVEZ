@@ -25,19 +25,22 @@ import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import {useSelector} from 'react-redux';
 import {useLoadingSelector} from 'src/redux/selectors';
-import AuthSlice, {selectIsSignedUp, selectReseted, selectVerified} from 'src/redux/auth';
+import AuthSlice, {selectIsSignUpCompany, selectIsSignedUp, selectReseted, selectVerified} from 'src/redux/auth';
 import {LoginSchema} from 'src/Formik/schema';
 const Login = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const Reseted = useSelector(selectReseted);
+  // const signUpCompany=useSelector(selectIsSignUpCompany)
   const dispatch = useAppDispatch();
   const Verified = useSelector(selectVerified);
   const signedUp = useSelector(selectIsSignedUp);
   useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AuthSlice.chnageReseted(false));
+      dispatch(AuthSlice.chnageIsCompanyAdmin(false));
+
     });
     return RenderFunction;
   }, []);

@@ -36,6 +36,7 @@ const CompanyInfo = (data: any) => api.post(`api/complete-profile-company`, data
 const CompanyAbout = (data: any) => api.post(`api/complete-profile-company`, data);
 const CVCompany = (data: any) => api.post(`api/complete-profile-company`, data);
 const CV = (data: any) => api.post(`api/media-cv`, data);
+const VideoReel = (data: any) => api.post(`api/post-video`, data);
 const profileInfo = () => api.get(`api/get-info`)
 const Industry = () => api.get(`api/drop-down/industry`)
 
@@ -57,6 +58,7 @@ const AppAPI = {
   Skills,
   updateSkills,
   DeleteSkills,
+  VideoReel,
   Education,
   AccessToken,
   updateEducation,

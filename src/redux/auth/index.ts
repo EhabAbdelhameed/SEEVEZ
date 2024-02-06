@@ -16,6 +16,9 @@ const slice = createSlice({
     chnageIsSignedUp: (state, action) => {
       state.signedUp = action.payload;
     },
+    chnageIsCompanyAdmin: (state, action) => {
+      state.signedCompanyAdmin = action.payload;
+    },
     chnageReseted: (state, action) => {
       state.reset = action.payload;
     },
@@ -92,16 +95,45 @@ const slice = createSlice({
       });
     });
     builder.addCase(thunks.doVerifyOTP.rejected, (state, action: any) => {
-      if (action.payload.data.message == 'Validation error.') {
+      console.log("ehab",action?.payload?.status)
+      if(action?.payload?.status==201){
+        state.signedCompanyAdmin=true
+        state.verified = true;
         Toast.show({
-          type: 'error',
-          text1: action.payload.data.error,
-        });
-      } else {
-        Toast.show({
-          type: 'error',
+          type: 'success',
           text1: action.payload.data.message,
         });
+      }
+      if (action.payload.data.message == 'Validation error.') {
+        if(action?.payload?.status==201){
+          state.signedCompanyAdmin=true
+          state.verified = true;
+          Toast.show({
+            type: 'success',
+            text1: action.payload.data.message,
+          });
+        }else{
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        }
+       
+      } else {
+        if(action?.payload?.status==201){
+       
+          Toast.show({
+            type: 'success',
+            text1: action.payload.data.message,
+          });
+        }else{
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+
+       
       }
     });
     //doResendCode
@@ -213,6 +245,7 @@ const slice = createSlice({
       builder.addCase(thunks.doSignUpCompanyAdmin.rejected, (state, action: any) => {
         console.log(action.payload.data);
         if (action.payload.data.message == 'Validation error.') {
+       
           Toast.show({
             type: 'error',
             text1: action.payload.data.error,
@@ -323,6 +356,9 @@ export const selectIsSignedUp = (state: RootState) => state.auth.signedUp;
 export const selectReseted = (state: RootState) => state.auth.reset;
 export const selectVerified = (state: RootState) => state.auth.verified;
 export const selectToken = (state: RootState) => state.auth.Token;
+export const selectIsSignUpCompany = (state: RootState) => state.auth.signedCompanyAdmin;
+
+
 // export const selectSigned = (state: RootState) => state.auth.signUp
 // export const selectChanged = (state: RootState) => state.auth.changed
 // export const selectCountries = (state: RootState) => state.auth.countries
@@ -333,6 +369,7 @@ const AuthSlice = {
   logout: slice.actions.logout,
   chnageisAuth: slice.actions.chnageisAuth,
   chnageIsSignedUp: slice.actions.chnageIsSignedUp,
+  chnageIsCompanyAdmin:slice.actions.chnageIsCompanyAdmin,
   chnageReseted: slice.actions.chnageReseted,
   chnageVerified: slice.actions.chnageVerified,
   chnageToken: slice.actions.chnageToken,

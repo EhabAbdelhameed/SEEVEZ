@@ -23,7 +23,7 @@ const CompleteCompanyProfileScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
-  console.log("ccccc",CurrentUserData)
+
 
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {

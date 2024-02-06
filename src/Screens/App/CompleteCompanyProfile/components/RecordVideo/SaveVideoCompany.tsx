@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, TextInput, Alert, Image} from 'react-native';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {styles} from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
@@ -9,7 +9,7 @@ import {appColors} from '../../../../../theme/appColors';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
 
-import {BigLogo} from 'assets/Svgs';
+import {BigLogo, VIDEOICON} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Formik} from 'formik';
@@ -23,80 +23,98 @@ import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
 
 const SaveVideoCompany = () => {
-  // const navigation = useNavigation<any>();
-  const navigation = useNavigation()
-  const {videoPath,key,source}: any = useRoute().params;
+  const navigation = useNavigation();
+  const {videoPath, key, source}: any = useRoute().params;
   const [loading, setLoading] = React.useState(false);
+  const [isPaused, setPaused] = useState(false);
   const dispatch = useAppDispatch();
-  const _handleNavigate = useCallback(
-      () => {
-          navigation.goBack();
-      },
-      [],
-  )
+
+  const _handleNavigate = useCallback(() => {
+    navigation.goBack();
+  }, []);
   const changeDone = useSelector(selectDone);
   useEffect(() => {
-    changeDone ? navigation.navigate('CompleteCompanyProfileScreen'): null;
+    console.log('0000', videoPath);
+    // console.log(source[0]?.uri)
+    changeDone?navigation.navigate('CompleteCompanyProfileScreen') : null;
   }, [changeDone]);
-  const saveVideoFun =()=>{
-
-    if (key==1){
-      setLoading(true)
+  const saveVideoFun = () => {
+    if (key == 1) {
+      setLoading(true);
       const formdata = new FormData();
-
       formdata.append('media', {
-        uri: videoPath,
+        uri: 'file://' + videoPath,
         type: 'video/mp4',
-        name:" VID-20240121-WA0052.mp4",
-      })
-      dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
-        dispatch(AppThunks.GetProfileInfo())
-        setLoading(false);
-        
+        name: 'video.mp4',
       });
-    
-    }else{
-      setLoading(true)
-      const formdata = new FormData();
-
-      formdata.append('media', {
-        uri: source[0]?.uri,
-        type: source[0]?.type,
-        name: source[0]?.name,
-      })
       dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
-        dispatch(AppThunks.GetProfileInfo())
+        dispatch(AppThunks.GetProfileInfo());
         setLoading(false);
-      
+      });
+    } else {
+      setLoading(true);
+      const formdata = new FormData();
+      //  console.log(source)
+      formdata.append('media', {
+        uri: source?.assets[0]?.uri,
+        type: source?.assets[0]?.type,
+        name: source?.assets[0]?.fileName,
+      });
+      console.log('2222', JSON.stringify(formdata));
+      dispatch(AppThunks.doUploadCV(formdata)).then((res: any) => {
+        dispatch(AppThunks.GetProfileInfo());
+        setLoading(false);
       });
     }
-    // console.log(source)
-
-  }
+  };
+  const handleVideoLoad = () => {
+    setTimeout(() => {
+      setPaused(true);
+    }, 100);
+  };
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
           backgroundColor: appColors.bg,
-          marginTop:40,
-          
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-         <TopHeader />
+        <TopHeader />
         <View style={styles.bottomSection}>
           <BottomHeader />
-          <Video
+
+          <View style={styles.CardContainer1}>
+            <Video
               resizeMode="cover"
-            //   controls={true}
+              //   controls={true}
+              paused={isPaused}
               source={{uri: videoPath}}
-              style={{width:'100%',height:320,borderRadius:16,marginBottom:20}}
-            
+              style={{
+                width: '100%',
+                height: 420,
+                borderRadius: 16,
+                marginBottom: 20,
+              }}
+              onLoad={handleVideoLoad}
             />
-            <Button loading={loading}  text={'Done'} onPress={saveVideoFun} />
+            <View style={styles.topContainer2}>
+              <TouchableOpacity
+                onPress={() => setPaused(!isPaused)}
+                style={[
+                  styles.secContainer,
+                  {
+                    backgroundColor: appColors.white,
+                  },
+                ]}>
+                <VIDEOICON />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <Button loading={loading} text={'Done'} onPress={saveVideoFun} />
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

@@ -11,14 +11,17 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import { useSelector } from 'react-redux';
 import { selectDone } from 'src/redux/app';
+import { selectUser } from 'src/redux/auth';
 
 const InfoCard = (user_data: any) => {
   const [name, setName] = useState<any>('');
   const [loading, setLoading] = useState<any>(false);
   const dispatch = useAppDispatch();
 
-
+  const CurrentUserData = useSelector(selectUser);
+  console.log("fffff "+CurrentUserData?.name)
   const uploadFile = async (type: any) => {
+   
     try {
       const res: any = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
@@ -27,7 +30,7 @@ const InfoCard = (user_data: any) => {
     
       setLoading(true);
       const formdata = new FormData();
-
+      formdata.append('name',CurrentUserData?.name);
       formdata.append('cv_pdf', {
         uri: res[0]?.uri,
         type: res[0]?.type,

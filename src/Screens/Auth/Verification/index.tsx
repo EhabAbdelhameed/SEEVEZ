@@ -15,7 +15,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {useLoadingSelector} from 'src/redux/selectors';
 import AuthThunks from 'src/redux/auth/thunks';
 import {useAppDispatch} from 'src/redux/store';
-import AuthSlice, {selectVerified} from 'src/redux/auth';
+import AuthSlice, {selectIsSignUpCompany, selectVerified} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import {OtpSchema} from 'src/Formik/schema';
@@ -37,6 +37,8 @@ const Verification = () => {
   const [loading, setLoading] = React.useState(false);
 
   const Verified = useSelector(selectVerified);
+  const ChangeCompanyAdmin = useSelector(selectIsSignUpCompany);
+
   useEffect(() => {
    
     dispatch(AuthSlice.chnageReseted(false));
@@ -64,9 +66,11 @@ const Verification = () => {
     if (type == 'forget') {
       Verified && navigation.navigate('ResetPassword', {email, otpValue});
     } else {
-      Verified && dispatch(AuthSlice.chnageisAuth(true));
+
+      Verified&&!ChangeCompanyAdmin&& dispatch(AuthSlice.chnageisAuth(true))
+      Verified&&ChangeCompanyAdmin&&navigation.navigate('login')
     }
-  }, [Verified]);
+  }, [Verified,]);
 
   const ActiveAccount = () => {
    

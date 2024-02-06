@@ -39,6 +39,7 @@ const doSignUpCompanyAdmin: any = createAsyncThunk<any, any, any>(
         response.status == 404 ||
         response.status == 422 ||
         response.status == 500 ||
+        response.status == 201 ||
         response.status == 503
       ) {
         throw response;
@@ -155,13 +156,14 @@ const doVerifyOTP: any = createAsyncThunk<any, any, any>(
   async (data: any, thunkApi: any) => {
     try {
       const response = await AuthAPI.verifyOTP(data);
-      console.log(JSON.stringify(response.data))
+      console.log(JSON.stringify(response.status))
       if (
         response.status == 400 ||
         response.status == 401 ||
         response.status == 403 ||
         response.status == 404 ||
         response.status == 422 ||
+        response.status == 201 ||
         response.status == 500 ||
         response.status == 503
       ) {

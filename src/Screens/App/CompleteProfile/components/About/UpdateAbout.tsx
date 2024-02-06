@@ -74,7 +74,7 @@ const UpdateAbout = () => {
             onSubmit={values => {
               setLoading(true);
               const formdata = new FormData();
-
+              formdata.append('name',CurrentUserData?.name);
               formdata.append('about',values.About);
              
 

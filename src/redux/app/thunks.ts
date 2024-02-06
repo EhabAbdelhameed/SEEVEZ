@@ -814,13 +814,38 @@ const doUploadCV: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//UploadVideoReel
+const doUploadVideoReel: any = createAsyncThunk<any, any, any>(
+    'app/VideoReel',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.VideoReel(data);
+            console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //doAddAbout
 const doAddAbout: any = createAsyncThunk<any, any, any>(
     'app/AddAbout',
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.About(data);
-          console.log(("0000000 "+JSON.stringify(response)+" 1111111111"))
+         
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -948,6 +973,7 @@ const AppThunks = {
     doAddSkills,
     GetAccessToken,
     doUpdateSkills,
+    doUploadVideoReel,
     doDeleteSkills,
     doAddEducation,
     doUpdateEducation,

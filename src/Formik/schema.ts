@@ -31,7 +31,7 @@ export const RegistSchema = Yup.object().shape({
 export const RegistSchemaCompany = Yup.object().shape({
   email: Yup.string().email('E-mail must be valid').trim().min(8, 'Enter a valid e-mail').required('Please Enter your E-mail').matches(EmailReg, 'Invalid e-mail'),
   password: Yup.string().required('Please enter your Password').min(8, 'Password must be at least 8 numbers'),
-  fullName: Yup.string().required('Please enter your Full name'),
+ 
   phone: Yup.string().required('Please enter your Mobile number').matches(phoneRegExp, 'Invalid mobile number'),
   confirmPassword: Yup.string().required('Please enter your Confirm password').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('password'), null], 'Passwords do not match'),
   taxID: Yup.string().required('Please Enter your taxID'),

@@ -29,6 +29,7 @@ const Home = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
+  console.log("Currr",CurrentUserData)
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
@@ -74,10 +75,10 @@ const Home = () => {
               </ImageBackground>
             </BoxContentTitle>
             {CurrentUserData?.work_type == 'freelancer' ||
-            CurrentUserData?.user_data?.user_type == 'company' ? (
+            CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
               <BoxContentTitle
                 title={
-                  CurrentUserData?.user_data?.user_type == 'company'
+                  CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin'
                     ? 'My Applicants'
                     : 'My connections'
                 }
@@ -110,7 +111,7 @@ const Home = () => {
             </BoxContentTitle>
           </View>
           {CurrentUserData?.work_type == 'freelancer' ||
-          CurrentUserData?.user_data?.user_type == 'company' ? null : (
+          CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? null : (
             <View style={styles.rowContainer}>
               <BoxContentTitle
                 title="CV maker"
@@ -148,7 +149,7 @@ const Home = () => {
             </View>
           )}
           {CurrentUserData?.user_data?.user_type == 'recruiter' ||
-          CurrentUserData?.user_data?.user_type == 'company' ? (
+          CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <View
                 style={{
@@ -192,7 +193,7 @@ const Home = () => {
               </View>
             </View>
           ) : null}
-          {CurrentUserData?.user_data?.user_type == 'company' ? (
+          {CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <BoxContentTitle title={'My internship'}>
                 <CompanySection title={'My internship'} />
@@ -258,7 +259,7 @@ const Home = () => {
               <Communities />
             </BoxContentTitle>
           </View>
-          {CurrentUserData?.user_data?.user_type == 'company' ? (
+          {CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <BoxContentTitle title="Pending requests">
                 <Pending />

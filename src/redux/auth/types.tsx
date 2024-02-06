@@ -1,5 +1,6 @@
 interface userState {
   signedUp: boolean;
+  signedCompanyAdmin:boolean;
   reset: boolean;
   changed: boolean;
   rememberMe: boolean;
@@ -61,6 +62,7 @@ interface userState {
 
 export const initialState: userState = {
   signedUp: false,
+  signedCompanyAdmin:false,
   reset: false,
   changed: false,
   rememberMe: true,

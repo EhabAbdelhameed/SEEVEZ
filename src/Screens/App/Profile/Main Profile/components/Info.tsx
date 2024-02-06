@@ -26,7 +26,7 @@ const InfoProfileCard = (data: any) => {
 
       setLoading(true);
       const formdata = new FormData();
-
+      formdata.append('name',CurrentUserData?.name);
       formdata.append('cv_pdf', {
         uri: res[0]?.uri,
         type: res[0]?.type,
@@ -40,7 +40,7 @@ const InfoProfileCard = (data: any) => {
         setName(res[0].name);
       });
     } catch (err) {
-      // setFieldValue(name.replace(/\s/g, ''), '');
+      
       if (DocumentPicker.isCancel(err)) {
         console.log('Canceled');
       } else {

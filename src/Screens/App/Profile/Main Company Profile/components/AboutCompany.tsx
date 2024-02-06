@@ -19,7 +19,7 @@ const AboutCardCompany = (data: any) => {
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>Overview</Text>
+          <Text style={styles.Title}>About</Text>
 
           <TouchableOpacity onPress={()=>navigation.navigate('UpdateCompanyAbout')}>
             <RenderSvgIcon

@@ -234,7 +234,7 @@ const UpdateCompanyInfo = () => {
                 : null;
               values.github != ''
                 ? formdata.append('github', values.github)
-                : null;
+                : null; 
               values.website != ''
                 ? formdata.append('website', values.website)
                 : null;

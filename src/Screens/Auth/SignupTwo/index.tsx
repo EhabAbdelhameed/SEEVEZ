@@ -50,7 +50,7 @@ const SignupTwo = () => {
   const [selectedCompanyName, setSelectedCompanyName] = useState('');
   const [loading, setLoading] = React.useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedItem, setSelectedItem] = useState<any>([]);
+  const [selectedItem, setSelectedItem] = useState([]);
   const dispatch = useAppDispatch();
   useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
@@ -225,8 +225,7 @@ const SignupTwo = () => {
             //   work_type == 'Company' ? RegistSchemaCompany : RegistSchema
             // }
             validationSchema={
-              work_type === 'Company' &&
-              (selectedItem?.length == 0 || !selectedItem)
+              work_type === 'Company' &&selectedItem?.length == 0
                 ? RegistSchemaCompany
                 : work_type === 'Company' && selectedItem?.length != 0
                 ? RegistSchemaCompanySelected
@@ -263,11 +262,13 @@ const SignupTwo = () => {
                 Dispatch(AuthThunks.doSignUpJobSeeker(formdata)).then(() =>
                   setLoading(false),
                 );
-              } else if (work_type == 'Company') {
-                // console.log('eee', selectedItem?.length);
+              } else if (work_type?.toLowerCase() == 'company') {
+                console.log('eee', selectedItem?.length);
 
-                if (selectedItem?.length == 0 || !selectedItem) {
-                  formdata.append('company_name', values.company_name);
+                if (selectedItem?.length == 0 ) {
+                  console.log("hello")
+                  formdata.append('name', values.company_name);
+                  formdata.append('phone_number', values.phone)
                   formdata.append('tax_id', values.taxID);
                   formdata.append('tax_card_document', {
                     uri: tax_card_document[0]?.uri,

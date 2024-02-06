@@ -18,98 +18,95 @@ import { useAppDispatch } from 'src/redux/store';
 const RecordVideoCompany = (data: any) => {
   const navigation = useNavigation<any>();
   const [isPaused, setPaused] = useState(false);
-   console.log("dd",JSON.stringify(data))
-
- 
 
   return (
     <View
-    style={[
-      styles.CardContainer,
-      {borderWidth: data?.user_data !== null ? 0 : 1},
-    ]}>
-    {data?.user_data === null ? (
-      <View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('UpdateRecordVideoCompany')}
-          style={styles.secContainer}>
-          <VIDEOICON />
-        </TouchableOpacity>
-      </View>
-    ) : (
-      // <TouchableOpacity onPress={handleVideoPress}>
-      <Video
-        resizeMode="cover"
-        paused={isPaused}
-        repeat
-        source={{uri: data?.user_data?.media}}
-        style={styles.videoContainer}
-      />
-      // </TouchableOpacity>
-    )}
-    {data?.user_data !== null ? (
-      <View style={styles.topContainer1}>
-        <TouchableOpacity
-          style={[
-            styles.secContainer,
-            {
-              backgroundColor: appColors.white,
-              width: 40,
-              height: 40,
-              borderRadius: 40,
-            },
-          ]}>
-          <DELETE />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('UpdateRecordVideoCompany')}
-          style={[
-            styles.secContainer,
-            {
-              backgroundColor:
-                data?.user_data === null ? appColors.bg : appColors.white,
-              width: 40,
-              height: 40,
-              borderRadius: 40,
-            },
-          ]}>
-          <RenderSvgIcon
-            icon="PEN"
-            width={20}
-            height={20}
-            color={appColors.white}
-          />
-        </TouchableOpacity>
-      </View>
-    ) : null}
-    {data?.user_data !== null ? (
-      <View style={styles.topContainer2}>
-        {isPaused==true ? (
+      style={[
+        styles.CardContainer,
+        {borderWidth: data?.user_data !== null ? 0 : 1},
+      ]}>
+      {data?.user_data === null ? (
+        <View>
           <TouchableOpacity
-            onPress={() => setPaused(!isPaused)}
+            onPress={() => navigation.navigate('UpdateRecordVideoCompany')}
+            style={styles.secContainer}>
+            <VIDEOICON />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        // <TouchableOpacity onPress={handleVideoPress}>
+        <Video
+          resizeMode="cover"
+          paused={isPaused}
+          repeat
+          source={{uri: data?.user_data?.media}}
+          style={styles.videoContainer}
+        />
+        // </TouchableOpacity>
+      )}
+      {data?.user_data !== null ? (
+        <View style={styles.topContainer1}>
+          <TouchableOpacity
+            style={[
+              styles.secContainer,
+              {
+                backgroundColor: appColors.white,
+                width: 40,
+                height: 40,
+                borderRadius: 40,
+              },
+            ]}>
+            <DELETE />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('UpdateRecordVideoCompany')}
             style={[
               styles.secContainer,
               {
                 backgroundColor:
                   data?.user_data === null ? appColors.bg : appColors.white,
-                width: 96,
-                height: 96,
-                borderRadius: 96,
+                width: 40,
+                height: 40,
+                borderRadius: 40,
               },
             ]}>
-            <VIDEOICON />
+            <RenderSvgIcon
+              icon="PEN"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
           </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setPaused(!isPaused)}
-            style={{
-              width: '100%',
-              height: 600,
-            }}/>
-        )}
-      </View>
-    ) : null}
-  </View>
+        </View>
+      ) : null}
+      {data?.user_data !== null ? (
+        <View style={styles.topContainer2}>
+          {isPaused==true ? (
+            <TouchableOpacity
+              onPress={() => setPaused(!isPaused)}
+              style={[
+                styles.secContainer,
+                {
+                  backgroundColor:
+                    data?.user_data === null ? appColors.bg : appColors.white,
+                  width: 96,
+                  height: 96,
+                  borderRadius: 96,
+                },
+              ]}>
+              <VIDEOICON />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => setPaused(!isPaused)}
+              style={{
+                width: '100%',
+                height:600,
+              }}/>
+          )}
+        </View>
+      ) : null}
+    </View>
   );
 };
 

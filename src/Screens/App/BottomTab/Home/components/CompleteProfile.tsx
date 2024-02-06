@@ -54,7 +54,7 @@ const CompleteProfile = ({pers = 0}: {pers: number}) => {
     <>
       <TouchableOpacity
         onPress={() =>
-          CurrentUserData?.user_data?.user_type == 'company'
+          CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin'
             ? navigation.navigate('CompleteCompanyProfileScreen')
             : navigation.navigate('CompleteProfileScreen')
         }
