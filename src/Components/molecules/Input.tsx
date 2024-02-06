@@ -15,6 +15,8 @@ const InputView = ({
   errors,
 
   value,
+  setSearchQuery,
+  setSelectedCompanyName,
   ...props
 }: {
   name: string;
@@ -25,6 +27,8 @@ const InputView = ({
   touched?: any;
   errors?: any;
   value?:any;
+  setSearchQuery?:any;
+  setSelectedCompanyName?:any;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 

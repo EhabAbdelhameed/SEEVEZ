@@ -21,7 +21,11 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {BigLogo, CompanyLogo, PDF} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import DocumentPicker from 'react-native-document-picker';
-import {RegistSchema, RegistSchemaCompany} from '../../../Formik/schema';
+import {
+  RegistSchema,
+  RegistSchemaCompany,
+  RegistSchemaCompanySelected,
+} from '../../../Formik/schema';
 
 import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
@@ -220,7 +224,14 @@ const SignupTwo = () => {
             // validationSchema={
             //   work_type == 'Company' ? RegistSchemaCompany : RegistSchema
             // }
-            // validationSchema={work_type === 'Company' ? RegistSchemaCompany : RegistSchema}
+            validationSchema={
+              work_type === 'Company' &&
+              (selectedItem?.length == 0 || !selectedItem)
+                ? RegistSchemaCompany
+                : work_type === 'Company' && selectedItem?.length != 0
+                ? RegistSchemaCompanySelected
+                : RegistSchema
+            }
             onSubmit={values => {
               setLoading(true);
               setEmail(values.email);
@@ -235,7 +246,8 @@ const SignupTwo = () => {
                 values.code == '' ? '+20' : values.code.dial_code,
               );
               work_type == 'Company'
-              ? null:formdata.append('phone_number', values.phone);
+                ? null
+                : formdata.append('phone_number', values.phone);
               formdata.append('email', values.email);
               formdata.append('password', values.password);
               formdata.append('password_confirmation', values.confirmPassword);
@@ -254,8 +266,7 @@ const SignupTwo = () => {
               } else if (work_type == 'Company') {
                 // console.log('eee', selectedItem?.length);
 
-                if (selectedItem?.length == 0||!selectedItem) {
-              
+                if (selectedItem?.length == 0 || !selectedItem) {
                   formdata.append('company_name', values.company_name);
                   formdata.append('tax_id', values.taxID);
                   formdata.append('tax_card_document', {
@@ -272,14 +283,13 @@ const SignupTwo = () => {
                     setLoading(false),
                   );
                 } else {
-                  
                   formdata.append('company_id', values.company_id);
                   formdata.append('name', values.fullName);
-                  formdata.append('phone', values.phone)
+                  formdata.append('phone', values.phone);
                   Dispatch(AuthThunks.doSignUpCompanyAdmin(formdata)).then(() =>
                     setLoading(false),
                   );
-                  console.log("Company",formdata)
+                  console.log('Company', formdata);
                 }
               } else {
                 Dispatch(AuthThunks.doSignUpRecruiter(formdata)).then(() =>
