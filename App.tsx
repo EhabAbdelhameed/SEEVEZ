@@ -18,11 +18,11 @@ let CodePushOptions = {
 const App = () => {
   React.useEffect(() => {
     if (Platform.OS == "ios") {
-      if (!__DEV__) {
+      if (__DEV__) {
         CodePush.sync({
           updateDialog: { title: 'A new update is Available' },
           installMode: CodePush.InstallMode.IMMEDIATE,
-        }).catch(e => Toast.show({ type: 'error', text2: e }));
+        }).catch(e => console.log(e));
       }
     }
   }, []);
