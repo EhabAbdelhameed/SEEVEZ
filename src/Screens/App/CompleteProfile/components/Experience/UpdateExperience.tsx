@@ -281,7 +281,7 @@ const UpdateExperience = () => {
                 item.experience_letter==''||!item.experience_letter?null:formdata.append(
                   `array[${index}][experience_letter]`,
                   item.experience_letter,
-                )
+                ) 
               });
               console.log('FormData f ', formdata, "ffffff");
 

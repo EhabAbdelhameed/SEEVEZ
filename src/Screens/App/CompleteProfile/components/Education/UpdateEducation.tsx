@@ -81,11 +81,12 @@ const UpdateEducation = () => {
 
       // The selected media is available in the result.uri
       // dispatch(setImageURL(result[0].uri));
-      setSource([
-        ...Source.slice(0, index),
-        result[0].name,
-        ...Source.slice(index + 1),
-      ]);
+ 
+      setSource((prevSource) => {
+        const updatedSource = [...prevSource];
+        updatedSource[index] =result[0].name;
+        return updatedSource;
+      });
 
       props?.setFieldValue(`Education[${index}]["degree_certificate"]`, {
         uri: result[0]?.uri,
@@ -170,7 +171,7 @@ const UpdateEducation = () => {
                 formdata.append(`array[${index}][start_date]`,item.start_date==''||!item.start_date? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
                 formdata.append(`array[${index}][end_date]`,item.end_date==''||!item.end_date? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
 
-                formdata.append(
+                item.degree_certificate==''||!item.degree_certificate?null:formdata.append(
                   `array[${index}][degree_certificate]`,
                   item.degree_certificate,
                 );

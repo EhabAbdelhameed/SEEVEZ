@@ -15,9 +15,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useAppDispatch} from 'src/redux/store';
 import {useLoadingSelector} from 'src/redux/selectors';
 import AuthThunks from 'src/redux/auth/thunks';
-import AuthSlice, { selectReseted } from 'src/redux/auth';
-import { ResetSchema } from 'src/Formik/schema';
-import { useSelector } from 'react-redux';
+import AuthSlice, {selectReseted} from 'src/redux/auth';
+import {ResetSchema} from 'src/Formik/schema';
+import {useSelector} from 'react-redux';
+import CustomInput from 'components/molecules/Input/CustomInput';
 
 const ResetPassword = () => {
   const navigation = useNavigation();
@@ -26,13 +27,11 @@ const ResetPassword = () => {
   // const loading = useLoadingSelector(AuthThunks.doResetPassword());
   const [Token, setToken] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-   const reseted=useSelector(selectReseted)
+  const reseted = useSelector(selectReseted);
   useEffect(() => {
     dispatch(AuthSlice.chnageVerified(false));
 
     reseted ? navigation.navigate('login') : null;
-
-
   }, [reseted]);
   return (
     // <View style={styles.container}>
@@ -49,10 +48,10 @@ const ResetPassword = () => {
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
-        <Image
-              source={require('../../../assets/images/seevezlogo.png')}
-              style={{width: 148, height: 47}}
-            />
+          <Image
+            source={require('../../../assets/images/seevezlogo.png')}
+            style={{width: 148, height: 47}}
+          />
         </View>
         <View style={styles.circles}>
           <RenderSvgIcon icon="CIRCLELOGIN" width={270} height={237} />
@@ -72,10 +71,10 @@ const ResetPassword = () => {
             subtitle="Lorem ipsum dolor sit amet consectetur. Posuere pellentesque morbi placerat orci"
           />
           <Formik
-          validationSchema={ResetSchema}
+            validationSchema={ResetSchema}
             initialValues={{password: '', confirmPassword: ''}}
             onSubmit={values => {
-              setLoading(true)
+              setLoading(true);
               const formData = new FormData();
 
               formData.append('email', email?.toLowerCase());
@@ -84,29 +83,27 @@ const ResetPassword = () => {
               formData.append('password', values.password);
               formData.append('password_confirmation', values.confirmPassword);
 
-              dispatch(AuthThunks.doResetPassword(formData)).then(() => 
-                setLoading(false));
-
+              dispatch(AuthThunks.doResetPassword(formData)).then(() =>
+                setLoading(false),
+              );
             }}>
             {(props: any) => (
               <View>
-                <InputView
-                  name="password"
+                <CustomInput
+                  {...props}
+                  Label={'password'}
                   placeholder="Enter your password"
-                  iconName={'EYE'}
-                  secure={true}
-                  // props={props}
-                  {...props}
+                  secureTextEntry={true}
                 />
-                <InputView
-                  name="confirmPassword"
-                  placeholder="Confirm your password"
-                  iconName={'EYE'}
-                  secure={true}
+
+                <CustomInput
                   {...props}
+                  Label={'confirmPassword'}
+                  placeholder="Confirm your password"
+                  secureTextEntry={true}
                 />
                 <View style={{height: 50}} />
-  
+
                 <Button
                   text="Get started"
                   loading={loading}

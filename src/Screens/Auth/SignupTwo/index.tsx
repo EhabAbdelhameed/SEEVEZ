@@ -35,6 +35,7 @@ import { selectIsSignedUp } from 'src/redux/auth';
 import { Input } from 'react-native-elements';
 import { selectCompanies } from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
+import CustomInput from 'components/molecules/Input/CustomInput';
 const SignupTwo = () => {
   const signedUp = useSelector(selectIsSignedUp);
   const CompaniesData = useSelector(selectCompanies);
@@ -425,25 +426,31 @@ const SignupTwo = () => {
                     </TouchableOpacity>
                   </View>
                 ) : null}
-                <InputView
+                {/* <InputView
                   name="password"
                   placeholder="Enter your password"
                   iconName={'EYE'}
                   secure={true}
                   {...props}
-                />
-                {/* <CustomInput
+                /> */}
+                <CustomInput
                   {...props}
                   Label={'password'}
                   placeholder="Enter your password"
                   secureTextEntry={true}
-                /> */}
-                <InputView
+                />
+                {/* <InputView
                   name="confirmPassword"
                   placeholder="Confirm your password"
                   iconName={'EYE'}
                   secure={true}
                   {...props}
+                /> */}
+                   <CustomInput
+                  {...props}
+                  Label={'confirmPassword'}
+                  placeholder="Confirm your password"
+                  secureTextEntry={true}
                 />
                 <View style={styles.rowAgree}>
                   <TouchableOpacity

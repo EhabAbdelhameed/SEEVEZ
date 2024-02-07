@@ -27,6 +27,7 @@ import {useSelector} from 'react-redux';
 import {useLoadingSelector} from 'src/redux/selectors';
 import AuthSlice, {selectIsSignUpCompany, selectIsSignedUp, selectReseted, selectVerified} from 'src/redux/auth';
 import {LoginSchema} from 'src/Formik/schema';
+import CustomInput from 'components/molecules/Input/CustomInput';
 const Login = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
@@ -104,13 +105,19 @@ const Login = () => {
                     placeholder="Write your email"
                     iconName={'RIGIHTININPUT'}
                   />
-                  <InputView
+                  {/* <InputView
                     {...props}
                     name="password"
                     placeholder="Write your password"
                     iconName={'EYE'}
                     secure={true}
-                  />
+                  /> */}
+                    <CustomInput
+                  {...props}
+                  Label={'password'}
+                  placeholder="Write your password"
+                  secureTextEntry={true}
+                />
                   <Text style={styles.forgotPassword} onPress={_handleNavigate}>
                     Forgot password ?
                   </Text>

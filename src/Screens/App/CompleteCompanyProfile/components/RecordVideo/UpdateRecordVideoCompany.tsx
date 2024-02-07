@@ -112,8 +112,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
   
         //
         if (
-          (cameraPermission === RESULTS.GRANTED &&
-            microphonePermission === RESULTS.GRANTED) ||
+          cameraPermission === RESULTS.GRANTED  ||
           (cameraPermission1 === 'granted' && microphonePermission1 === 'granted')
         ) {
           // Microphone permission granted, proceed with camera setup
