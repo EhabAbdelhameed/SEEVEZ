@@ -18,12 +18,10 @@ let CodePushOptions = {
 const App = () => {
   React.useEffect(() => {
     if (Platform.OS == "ios") {
-      if (__DEV__) {
-        CodePush.sync({
-          updateDialog: { title: 'A new update is Available' },
-          installMode: CodePush.InstallMode.IMMEDIATE,
-        }).catch(e => console.log(e));
-      }
+      CodePush.sync({
+        updateDialog: { title: 'A new update is Available' },
+        installMode: CodePush.InstallMode.IMMEDIATE,
+      }).catch(e => console.log(e));
     }
   }, []);
   return (
