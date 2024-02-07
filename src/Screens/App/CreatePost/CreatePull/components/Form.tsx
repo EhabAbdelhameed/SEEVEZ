@@ -36,14 +36,14 @@ const Form = (source: any) => {
       <Formik
         initialValues={{question: '', duration: '', options: [{answer: ''}]}}
         onSubmit={values => {
-          if(values.question!=''&&values.duration!=''&&values.options?.length==2){
+          if(values.question!=''&&values.duration!=''&&values.options?.length>=2){
             navigation.navigate('CreatePollLink', {
               data: {source, values},
             });
           }else{
             Toast.show({
               type: 'error',
-              text1: 'You must fill the all data',
+              text1: 'Please fill all the data',
             });
           }
         
