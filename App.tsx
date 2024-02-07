@@ -25,29 +25,19 @@ const App = () => {
     }
   }, []);
   return (
-    <>
-    <Text>Hiiiiiiiiiiiiiiiiiiiiiii</Text>
-    <Text>Hiiiiiiiiiiiiiiiiiiiiiii</Text>
-    <Text>Hiiiiiiiiiiiiiiiiiiiiiii</Text>
-    <Text>Hiiiiiiiiiiiiiiiiiiiiiii</Text>
-    <Text>Hiiiiiiiiiiiiiiiiiiiiiii</Text>
-    <Text>Hiiiiiiiiiiiiiiiiiiiiiii</Text>
-    <Text>Hiiiiiiiiiiiiiiiiiiiiiii</Text>
-    
-    </>
-    // <Provider store={Store().store}>
-    //   <GestureHandlerRootView style={{ flex: 1 }}>
-    //     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-    //       {/* <CommonStatusBar /> */}
+    <Provider store={Store().store}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          {/* <CommonStatusBar /> */}
 
-    //       <PortalProvider>
+          <PortalProvider>
 
-    //         <Navigation />
-    //       </PortalProvider>
-    //     </SafeAreaProvider>
-    //     <Toast topOffset={50} />
-    //   </GestureHandlerRootView>
-    // </Provider>
+            <Navigation />
+          </PortalProvider>
+        </SafeAreaProvider>
+        <Toast topOffset={50} />
+      </GestureHandlerRootView>
+    </Provider>
   )
 }
 
