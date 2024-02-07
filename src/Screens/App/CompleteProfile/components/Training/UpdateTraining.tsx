@@ -64,11 +64,11 @@ const UpdateTraining = () => {
 
       // The selected media is available in the result.uri
       // dispatch(setImageURL(result[0].uri));
-      setSource([
-        ...Source.slice(0, index),
-        result[0].name,
-        ...Source.slice(index + 1),
-      ]);
+      setSource((prevSource) => {
+        const updatedSource = [...prevSource];
+        updatedSource[index] =result[0].name;
+        return updatedSource;
+      });
       props?.setFieldValue(`TrainingCourse[${index}]["certificate_image"]`, {
         uri: result[0]?.uri,
         type: result[0]?.type,
@@ -84,12 +84,12 @@ const UpdateTraining = () => {
   };
   const pick = (props: any, index: any) => {
     launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+      setSource((prevSource) => {
+        const updatedSource = [...prevSource];
+        updatedSource[index] =res?.assets[0]?.fileName;
+        return updatedSource;
+      });
 
-      setSource([
-        ...Source.slice(0, index),
-        res?.assets[0]?.fileName,
-        ...Source.slice(index + 1),
-      ]);
       props?.setFieldValue(`TrainingCourse[${index}]["certificate_image"]`, {
         uri: res?.assets[0]?.uri,
         type: res?.assets[0]?.type,
@@ -149,7 +149,7 @@ const UpdateTraining = () => {
                 formdata.append(`array[${index}][start_date]`,item.start_date==''||!item.start_date? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
                 formdata.append(`array[${index}][end_date]`,item.end_date==''||!item.end_date? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
 
-                formdata.append(
+                item.certificate_image==''||!item.certificate_image?null:formdata.append(
                   `array[${index}][certificate_image]`,
                   item.certificate_image,
                 );
@@ -491,7 +491,7 @@ const UpdateTraining = () => {
                         )}
 
                     <TouchableOpacity
-                      onPress={() =>Platform.OS=="ios"?pick(props, index): openGallery(props, index)}
+                      onPress={() =>openGallery(props, index)}
                       style={styles.uploadContainer}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text numberOfLines={1} style={{fontSize: 20, color: appColors.primary}}>
