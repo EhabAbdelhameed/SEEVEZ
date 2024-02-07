@@ -8,39 +8,39 @@ import {
   Platform,
   KeyboardAvoidingView,
 } from 'react-native';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Moment from 'moment';
 import styles from './styles';
 
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../../../Components/molecules/AuthTopSection';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {appColors} from '../../../../../theme/appColors';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { appColors } from '../../../../../theme/appColors';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
 
-import {BigLogo, CALANDER, PHOTO, PERSON, ImageInfo, DELETE} from 'assets/Svgs';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {StatusBar} from 'react-native';
-import {Formik} from 'formik';
+import { BigLogo, CALANDER, PHOTO, PERSON, ImageInfo, DELETE } from 'assets/Svgs';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'react-native';
+import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
-import {appSizes} from 'theme/appSizes';
+import { appSizes } from 'theme/appSizes';
 import DatePicker from 'react-native-date-picker';
-import Modal, {ReactNativeModal} from 'react-native-modal';
+import Modal, { ReactNativeModal } from 'react-native-modal';
 import DocumentPicker from 'react-native-document-picker';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import {Modalize} from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize';
 import AppThunks from 'src/redux/app/thunks';
-import {useAppDispatch} from 'src/redux/store';
-import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
-import {selectUser} from 'src/redux/auth';
+import { useAppDispatch } from 'src/redux/store';
+import { useSelector } from 'react-redux';
+import { selectDone } from 'src/redux/app';
+import { selectUser } from 'src/redux/auth';
 import NewPicker from 'components/molecules/PhonePicker';
-import {Input} from 'react-native-elements';
-import {RenderSvgIcon} from 'components/atoms/svg';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { Input } from 'react-native-elements';
+import { RenderSvgIcon } from 'components/atoms/svg';
+import { launchImageLibrary } from 'react-native-image-picker';
 import BottomModal from './BottomModal';
 import BottomModalIos from './BottomModalIos';
 import TopHeader from '../Header/TopHeader';
@@ -58,13 +58,13 @@ const UpdateInfo = () => {
     CurrentUserData?.gender == 'male'
       ? 0
       : CurrentUserData?.gender == 'female'
-      ? 1
-      : CurrentUserData?.gender == null
-      ? 3
-      : 2,
+        ? 1
+        : CurrentUserData?.gender == null
+          ? 3
+          : 2,
   );
   const [buttonIndexHealth, setButtonIndexHealth] = React.useState(2);
-  const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(CurrentUserData?.smoker==null?2:CurrentUserData?.smoker==0?1:0);
+  const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(CurrentUserData?.smoker == null ? 2 : CurrentUserData?.smoker == 0 ? 1 : 0);
   const [isShowSalary, setIsShowSalary] = useState(false);
   const [isVisiable, setIsVisiable] = useState(false);
   const changeDone = useSelector(selectDone);
@@ -103,7 +103,7 @@ const UpdateInfo = () => {
     }
   };
   const pick = () => {
-    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res: any) => {
       setSource(res?.assets);
       // console.log("sdasdas "+JSON.stringify(res))
     });
@@ -176,25 +176,14 @@ const UpdateInfo = () => {
                 borderWidth: 1,
                 borderColor: '#B9CDF4',
               }}>
-              {CurrentUserData?.avatar == null && source?.length == 0 ? (
+              {CurrentUserData?.avatar == null && source == undefined ? (
                 <PERSON />
-              ) : Platform.OS == 'ios' ? (
-                <Image
-                  source={{
-                    uri: source||source?.length != 0 ? source[0]?.uri : CurrentUserData?.avatar,
-                  }}
-                  style={{width: 86, height: 86, borderRadius: 86}}
-                  resizeMode="cover"
-                />
               ) : (
                 <Image
                   source={{
-                    uri:
-                      source?.length != 0
-                        ? source[0]?.uri
-                        : CurrentUserData?.avatar,
+                    uri: source != undefined ? source[0]?.uri : CurrentUserData?.avatar,
                   }}
-                  style={{width: 86, height: 86, borderRadius: 86}}
+                  style={{ width: 86, height: 86, borderRadius: 86 }}
                   resizeMode="cover"
                 />
               )}
@@ -224,7 +213,7 @@ const UpdateInfo = () => {
               Location: CurrentUserData?.country || '',
               phone: CurrentUserData?.phone_number || '',
               city: CurrentUserData?.city || '',
-              area: CurrentUserData?.area  ||'',
+              area: CurrentUserData?.area || '',
               facebook: CurrentUserData?.facebook || '',
               linkedin: CurrentUserData?.linkedin || '',
               instagram: CurrentUserData?.instagram || '',
@@ -249,66 +238,66 @@ const UpdateInfo = () => {
 
               const formdata = new FormData();
 
-             
-             formdata.append('name', values.FullName)
-             
+
+              formdata.append('name', values.FullName)
+
               formdata.append('country_code', code == '' ? '+20' : code);
 
-              values.JobTitle != ''||!values.JobTitle 
+              values.JobTitle != '' || !values.JobTitle
                 ? formdata.append('job_title', values.JobTitle)
-                :formdata.append('job_title', '');
-              values.phone != ''||!values.phone
+                : formdata.append('job_title', '');
+              values.phone != '' || !values.phone
                 ? formdata.append('phone_number', values.phone)
-                :  formdata.append('phone_number', '');
+                : formdata.append('phone_number', '');
               values.currentSalary != ''
                 ? formdata.append('current_salary', values.currentSalary)
                 : formdata.append('current_salary', '')
-              values.expectedSalary != ''||!values.expectedSalary
+              values.expectedSalary != '' || !values.expectedSalary
                 ? formdata.append('expected_salary', values.expectedSalary)
-                :formdata.append('expected_salary', '');
+                : formdata.append('expected_salary', '');
               formdata.append('show_salary', isShowSalary == false ? 0 : 1);
               gender != ''
                 ? formdata.append('gender', gender.toLocaleLowerCase())
                 : null
-              values.birthdate != new Date()||! values.birthdate
+              values.birthdate != new Date() || !values.birthdate
                 ? formdata.append(
-                    'birthdate',
-                    Moment(date).format('yyyy/MM/DD'),
-                  )
-                :  formdata.append(
+                  'birthdate',
+                  Moment(date).format('yyyy/MM/DD'),
+                )
+                : formdata.append(
                   'birthdate',
                   '',
                 );
 
-              disabilityData != ''||!disabilityData
+              disabilityData != '' || !disabilityData
                 ? formdata.append('disabilities', disabilityData)
                 : formdata.append('disabilities', '')
               specialNeedsData != ''
                 ? formdata.append('special_needs', specialNeedsData)
                 : formdata.append('special_needs', '')
-              values.heights != ''||!values.heights
+              values.heights != '' || !values.heights
                 ? formdata.append('height', values.heights)
                 : formdata.append('height', '')
               formdata.append('smoker', smoker == false ? 0 : 1);
-              values.weight != ''||!values.weight
+              values.weight != '' || !values.weight
                 ? formdata.append('weight', values.weight)
-                : formdata.append('weight','')
-              values.other != ''||!values.other
+                : formdata.append('weight', '')
+              values.other != '' || !values.other
                 ? formdata.append('other', values.other)
-                : formdata.append('other','')
-              values.github != ''||!values.github
+                : formdata.append('other', '')
+              values.github != '' || !values.github
                 ? formdata.append('github', values.github)
                 : formdata.append('github', values.github)
-              values.website != ''||!values.website
+              values.website != '' || !values.website
                 ? formdata.append('website', values.website)
                 : formdata.append('website', values.website)
-              values.facebook != ''||!values.facebook
+              values.facebook != '' || !values.facebook
                 ? formdata.append('facebook', values.facebook)
-                :formdata.append('facebook', values.facebook)
-              values.linkedin != ''||!values.linkedin
+                : formdata.append('facebook', values.facebook)
+              values.linkedin != '' || !values.linkedin
                 ? formdata.append('linkedin', values.linkedin)
                 : formdata.append('linkedin', values.linkedin)
-              values.instagram != ''||!values.instagram
+              values.instagram != '' || !values.instagram
                 ? formdata.append('instagram', values.instagram)
                 : formdata.append('instagram', values.instagram)
               if (Nationality[0] != '') {
@@ -317,22 +306,22 @@ const UpdateInfo = () => {
                 }
               }
 
-              values.Location != ''||!values.Location
+              values.Location != '' || !values.Location
                 ? formdata.append('country', values.Location)
                 : formdata.append('country', values.Location);
-              values.city != ''||!values.city ? formdata.append('city', values.city) : formdata.append('city', '');
-              values.area != ''||!values.area ? formdata.append('area', values.area) : formdata.append('area', '');
-             
+              values.city != '' || !values.city ? formdata.append('city', values.city) : formdata.append('city', '');
+              values.area != '' || !values.area ? formdata.append('area', values.area) : formdata.append('area', '');
+
               source?.length != 0
                 ? formdata.append('avatar', {
-                    uri: source[0]?.uri,
-                    type: source[0]?.type,
-                    name:
-                      Platform.OS == 'ios'
-                        ? source[0]?.fileName
-                        : source[0]?.name,
-                  })
-                : formdata.append('avatar','');
+                  uri: source[0]?.uri,
+                  type: source[0]?.type,
+                  name:
+                    Platform.OS == 'ios'
+                      ? source[0]?.fileName
+                      : source[0]?.name,
+                })
+                : formdata.append('avatar', '');
               console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
                 (res: any) => {
@@ -407,7 +396,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <TextInput
                       placeholder="Your city"
                       placeholderTextColor={'#B9B9B9'}
@@ -418,7 +407,7 @@ const UpdateInfo = () => {
                       value={props.values.city}
                     />
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <TextInput
                       placeholder="Your area"
                       placeholderTextColor={'#B9B9B9'}
@@ -543,7 +532,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Current salary</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -556,7 +545,7 @@ const UpdateInfo = () => {
                       value={props.values.currentSalary}
                     />
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Expected Salary</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -580,20 +569,20 @@ const UpdateInfo = () => {
                   <View
                     style={[
                       styles.Circle,
-                      {width: 15, height: 15, borderRadius: 15},
+                      { width: 15, height: 15, borderRadius: 15 },
                     ]}>
                     <View
                       style={
                         index
                           ? [
-                              styles.innerCircle,
-                              {width: 15, height: 15, borderRadius: 15},
-                            ]
+                            styles.innerCircle,
+                            { width: 15, height: 15, borderRadius: 15 },
+                          ]
                           : null
                       }
                     />
                   </View>
-                  <Text style={[styles.agree, {fontSize: 12}]}>
+                  <Text style={[styles.agree, { fontSize: 12 }]}>
                     Don’t show my salary
                   </Text>
                 </TouchableOpacity>
@@ -646,7 +635,7 @@ const UpdateInfo = () => {
                     marginBottom: 20,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Birthdate</Text>
                     <TouchableOpacity
                       onPress={() => {
@@ -666,14 +655,14 @@ const UpdateInfo = () => {
                       </View>
                     </TouchableOpacity>
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     {Nationality.map((na: any, index: any) =>
                       index == 0 ? (
                         <View key={index}>
                           <Text
                             style={[
                               styles.labelStyle,
-                              {marginTop: index >= 1 ? 10 : 0},
+                              { marginTop: index >= 1 ? 10 : 0 },
                             ]}>{`Nationality`}</Text>
                           <TextInput
                             placeholder={`Enter your Nationality`}
@@ -716,7 +705,7 @@ const UpdateInfo = () => {
                             }
                             style={[
                               styles.InputStyleWithOutWidth,
-                              {width: '90%'},
+                              { width: '90%' },
                             ]}
                             onChangeText={e => {
                               let data = [...Nationality];
@@ -762,7 +751,7 @@ const UpdateInfo = () => {
                     />
                   </View>
                   <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
+                    style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <Text
                       style={{
                         fontSize: 20,
@@ -786,23 +775,23 @@ const UpdateInfo = () => {
                   }}>
                   {HealthProfile?.map((item, index) => (
                     <View>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setButtonIndexHealth(index), setIsVisiable(true);
-                      }}
-                      style={{
-                        flexDirection: 'row',
-                      }}>
-                      <View style={styles.Circle}>
-                        {buttonIndexHealth == index ? (
-                          <View style={styles?.innerCircle} />
-                        ) : null}
-                      </View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setButtonIndexHealth(index), setIsVisiable(true);
+                        }}
+                        style={{
+                          flexDirection: 'row',
+                        }}>
+                        <View style={styles.Circle}>
+                          {buttonIndexHealth == index ? (
+                            <View style={styles?.innerCircle} />
+                          ) : null}
+                        </View>
 
-                      <Text style={{color: '#000', marginLeft: 5}}>{item}</Text>
-                    </TouchableOpacity>
-                    {index==0&&CurrentUserData?.disabilities!=null?<Text>{disabilityData}</Text>:null}
-                    {index==1&&CurrentUserData?.special_needs!=null?<Text>{specialNeedsData}</Text>:null}
+                        <Text style={{ color: '#000', marginLeft: 5 }}>{item}</Text>
+                      </TouchableOpacity>
+                      {index == 0 && CurrentUserData?.disabilities != null ? <Text>{disabilityData}</Text> : null}
+                      {index == 1 && CurrentUserData?.special_needs != null ? <Text>{specialNeedsData}</Text> : null}
 
                     </View>
                   ))}
@@ -814,7 +803,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Height</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -827,7 +816,7 @@ const UpdateInfo = () => {
                       value={props.values.heights}
                     />
                   </View>
-                  <View style={{width: '49%'}}>
+                  <View style={{ width: '49%' }}>
                     <Text style={styles.labelStyle}>Weight</Text>
                     <TextInput
                       placeholder="Write here.."
@@ -884,48 +873,48 @@ const UpdateInfo = () => {
                 />
                 {Platform.OS == 'ios'
                   ? isVisible && (
-                      <ReactNativeModal isVisible={isVisible}>
-                        <View
-                          style={{
-                            width: '100%',
-                            paddingVertical: 20,
-                            borderRadius: 10,
-                            backgroundColor: '#fff',
-                            alignItems: 'center',
-                          }}>
-                          <DateTimePicker
-                            testID="dateTimePicker"
-                            textColor="#000"
-                            value={date}
-                            mode="date"
-                            is24Hour={true}
-                            display="spinner"
-                            onChange={(event: any, selectedDate: any) => {
-                              // props?.setFieldValue(`birthdate`, selectedDate);
-                              setDate(selectedDate);
-                              // setVisible(false);
-                            }}
-                          />
-                          <Button
-                            text="Choose"
-                            onPress={() => setVisible(false)}
-                            style={{width: '90%', marginTop: 20}}
-                          />
-                        </View>
-                      </ReactNativeModal>
-                    )
+                    <ReactNativeModal isVisible={isVisible}>
+                      <View
+                        style={{
+                          width: '100%',
+                          paddingVertical: 20,
+                          borderRadius: 10,
+                          backgroundColor: '#fff',
+                          alignItems: 'center',
+                        }}>
+                        <DateTimePicker
+                          testID="dateTimePicker"
+                          textColor="#000"
+                          value={date}
+                          mode="date"
+                          is24Hour={true}
+                          display="spinner"
+                          onChange={(event: any, selectedDate: any) => {
+                            // props?.setFieldValue(`birthdate`, selectedDate);
+                            setDate(selectedDate);
+                            // setVisible(false);
+                          }}
+                        />
+                        <Button
+                          text="Choose"
+                          onPress={() => setVisible(false)}
+                          style={{ width: '90%', marginTop: 20 }}
+                        />
+                      </View>
+                    </ReactNativeModal>
+                  )
                   : isVisible && (
-                      <DateTimePicker
-                        mode="date"
-                        value={date}
-                        // display="spinner"
-                        onChange={(event: any, selectedDate: any) => {
-                          // props?.setFieldValue(`birthdate`, selectedDate);
-                          setDate(selectedDate);
-                          setVisible(false);
-                        }}
-                      />
-                    )}
+                    <DateTimePicker
+                      mode="date"
+                      value={date}
+                      // display="spinner"
+                      onChange={(event: any, selectedDate: any) => {
+                        // props?.setFieldValue(`birthdate`, selectedDate);
+                        setDate(selectedDate);
+                        setVisible(false);
+                      }}
+                    />
+                  )}
               </View>
             )}
           </Formik>

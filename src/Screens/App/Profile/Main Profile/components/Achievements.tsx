@@ -1,9 +1,9 @@
-import {Image, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { PDF } from 'assets/Svgs';
 
 const AchievementsProfileCard = (data: any) => {
@@ -19,13 +19,13 @@ const AchievementsProfileCard = (data: any) => {
               onPress={() => navigation.navigate('UpdateAchievements')}>
               <RenderSvgIcon
                 icon="PLUSFOLLOW"
-                style={{marginRight: 10}}
+                style={{ marginRight: 10 }}
                 width={20}
                 height={20}
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}
               disabled={data?.data == null ? true : false}
               onPress={() => navigation.navigate('UpdateAchievementCard')}>
               <RenderSvgIcon
@@ -39,62 +39,62 @@ const AchievementsProfileCard = (data: any) => {
         </View>
         {data?.data?.length == 0
           ? null
-          : seeAllExperiences ?(data?.data?.map((item: any,index:any) => (
-          
-            <View style={{marginBottom: 15,paddingHorizontal:10,flexDirection:'row'}}>
-            <View style={{width:'85%'}}>
-            <ReadMore
-              style={styles.PostText}
-              animate={true}
-              seeMoreStyle={{
-                color: appColors.primary,
-                textDecorationLine: 'underline',
-              }}
-              seeLessStyle={{
-                color: appColors.primary,
-                textDecorationLine: 'underline',
-              }}
-              seeLessText="less"
-              seeMoreText="Read more"
-              numberOfLines={3}>
-              {item?.text}
-            </ReadMore>
-            {item?.object_info?.extension == 'pdf' ?
-               <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
-                 <PDF height={70} width={70} />
-               </TouchableOpacity>
-               :
-               <Image style={styles.Certificate} source={{ uri: item?.certificate }} />}
-            </View>
-            </View>
-            ))):(data?.data?.map((item: any,index:any) => (
-              index==0?
-              <View style={{marginBottom: 15,paddingHorizontal:10,flexDirection:'row'}}>
-              <View style={{width:'85%'}}>
-              <ReadMore
-                style={styles.PostText}
-                animate={true}
-                seeMoreStyle={{
-                  color: appColors.primary,
-                  textDecorationLine: 'underline',
-                }}
-                seeLessStyle={{
-                  color: appColors.primary,
-                  textDecorationLine: 'underline',
-                }}
-                seeLessText="less"
-                seeMoreText="Read more"
-                numberOfLines={3}>
-                {item?.text}
-              </ReadMore>
-              {item?.object_info?.extension == 'pdf' ?
-                 <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
-                   <PDF height={70} width={70} />
-                 </TouchableOpacity>
-                 :
-                 <Image style={styles.Certificate} source={{ uri: item?.certificate }} />}
+          : seeAllExperiences ? (data?.data?.map((item: any, index: any) => (
+
+            <View style={{ marginBottom: 15, paddingHorizontal: 10, flexDirection: 'row' }}>
+              <View style={{ width: '85%' }}>
+                <ReadMore
+                  style={styles.PostText}
+                  animate={true}
+                  seeMoreStyle={{
+                    color: appColors.primary,
+                    textDecorationLine: 'underline',
+                  }}
+                  seeLessStyle={{
+                    color: appColors.primary,
+                    textDecorationLine: 'underline',
+                  }}
+                  seeLessText="less"
+                  seeMoreText="Read more"
+                  numberOfLines={3}>
+                  {item?.text}
+                </ReadMore>
+                {item?.object_info?.extension == 'pdf' ?
+                  <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
+                    <PDF height={70} width={70} />
+                  </TouchableOpacity>
+                  :
+                  <Image style={styles.Certificate} source={{ uri: item?.certificate }} />}
               </View>
-              </View>:null)))}
+            </View>
+          ))) : (data?.data?.map((item: any, index: any) => (
+            index == 0 ?
+              <View style={{ marginBottom: 15, paddingHorizontal: 10, flexDirection: 'row' }}>
+                <View style={{ width: '85%' }}>
+                  <ReadMore
+                    style={styles.PostText}
+                    animate={true}
+                    seeMoreStyle={{
+                      color: appColors.primary,
+                      textDecorationLine: 'underline',
+                    }}
+                    seeLessStyle={{
+                      color: appColors.primary,
+                      textDecorationLine: 'underline',
+                    }}
+                    seeLessText="less"
+                    seeMoreText="Read more"
+                    numberOfLines={3}>
+                    {item?.text}
+                  </ReadMore>
+                  {item?.object_info?.extension == 'pdf' ?
+                    <TouchableOpacity activeOpacity={.8} onPress={() => Linking.openURL(item?.certificate)} style={styles.PDFContainer}>
+                      <PDF height={70} width={70} />
+                    </TouchableOpacity>
+                    :
+                    <Image style={styles.Certificate} source={{ uri: item?.certificate }} />}
+                </View>
+              </View> : null)))}
       </View>
       <View style={styles.devider} />
       <TouchableOpacity
@@ -197,12 +197,12 @@ const styles = StyleSheet.create({
     backgroundColor: appColors.lightGrey3,
     borderRadius: 10,
     marginTop: 10
-},
-Certificate: {
-  width: 100,
-  height: 150,
-  alignSelf: 'flex-start',
-  resizeMode: 'contain',
-  marginVertical: 10,
-},
+  },
+  Certificate: {
+    width: 100,
+    height: 150,
+    alignSelf: 'flex-start',
+    resizeMode: 'contain',
+    marginVertical: 10,
+  },
 });

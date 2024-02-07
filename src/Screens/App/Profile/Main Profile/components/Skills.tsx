@@ -29,7 +29,7 @@ const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity disabled={data?.length == 0?true:false}
+            <TouchableOpacity  style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}  disabled={data?.length == 0?true:false}
               onPress={() =>
                 navigation.navigate('UpdateSkillsCard', {
                   title: title == 'Interests' ? 'Interests' : 'Skills',

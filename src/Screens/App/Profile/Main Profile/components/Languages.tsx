@@ -24,7 +24,7 @@ const LanguagesProfileCard = (data: any) => {
               color={appColors.primary}
             />
             </TouchableOpacity>
-            <TouchableOpacity disabled={data?.data?.length == 0?true:false}
+            <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}  disabled={data?.data?.length == 0?true:false}
               onPress={() => navigation.navigate('UpdateLanguageCard')}>
             <RenderSvgIcon
               icon="PEN"

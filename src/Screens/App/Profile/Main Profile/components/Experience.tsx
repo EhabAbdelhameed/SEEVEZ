@@ -44,7 +44,7 @@ const ExperienceProfileCard = (data: any) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }} 
               disabled={data?.data?.length == 0 ? true : false}
               onPress={() => navigation.navigate('UpdateExperienceCard')}>
               <RenderSvgIcon

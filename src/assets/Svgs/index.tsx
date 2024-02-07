@@ -1,3 +1,8 @@
+import Right from './Right.svg'
+import Eye from './Eye.svg'
+import EyeSlash from './EyeSlash.svg'
+
+
 import LogoWithName from './LogoWithName.svg'
 import PlayVideo from './PlayVideo.svg'
 import LayerDashboard from './LayerDashboard.svg'
@@ -39,6 +44,10 @@ import Upload from './Upload.svg'
 
 
 export {
+    Right,
+    Eye,
+    EyeSlash,
+
     LogoWithName,
     ImageInfo,
     CompanyLogo,

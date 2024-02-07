@@ -30,7 +30,7 @@ const AboutCard = (About: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>About</Text>
 
-          <TouchableOpacity onPress={saveAboutSection}>
+          <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}  onPress={saveAboutSection}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
