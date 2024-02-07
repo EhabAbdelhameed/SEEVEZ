@@ -21,7 +21,7 @@ const AboutProfileCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>About</Text>
 
-          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAboutCard')}>
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAbout')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}

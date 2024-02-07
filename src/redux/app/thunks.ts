@@ -645,7 +645,7 @@ const GetAccessToken: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.AccessToken();
-            console.log(response)
+            console.error(response)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -820,9 +820,34 @@ const doUploadVideoReel: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.VideoReel(data);
-            console.log(response)
+            console.warn("jjjjj",response)
             if (
                 response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//UploadVideoPoll
+const doUploadpoll: any = createAsyncThunk<any, any, any>(
+    'app/doUploadpoll',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.VideoReel(data);
+            console.warn("mmmmm",response)
+            if (
+                response.status == null||
                 response.status == 401 ||
                 response.status == 400 ||
                 response.status == 422 ||
@@ -974,6 +999,7 @@ const AppThunks = {
     GetAccessToken,
     doUpdateSkills,
     doUploadVideoReel,
+    doUploadpoll,
     doDeleteSkills,
     doAddEducation,
     doUpdateEducation,

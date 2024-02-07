@@ -23,7 +23,7 @@ const CreatePull = () => {
                 enableResetScrollToCoords={false}
                 showsVerticalScrollIndicator={false}
             >
-                <Content />
+                <Content  />
             </KeyboardAwareScrollView>
         </SafeAreaView>
     )

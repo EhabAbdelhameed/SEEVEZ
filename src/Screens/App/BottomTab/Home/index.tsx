@@ -24,15 +24,27 @@ import {useSelector} from 'react-redux';
 import AppThunks from 'src/redux/app/thunks';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import Pending from './components/pending';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppSlice from 'src/redux/app';
 
 const Home = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
-  console.log("Currr",CurrentUserData)
+  // const accessTocken=async()=>{
+  //   const token: any = await AsyncStorage.getItem('USER_TOKEN');
+  //   const accesstoken: any = await AsyncStorage.getItem('USER_ACCESS_TOKEN');
+  //   console.log("AccessToken",accesstoken)
+  //   // console.log("Token ",token)
+  //    return token
+  // }
+ 
   React.useEffect(() => {
+    // accessTocken();
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
+      dispatch(AppSlice.changeDone(false));
+
     });
     return RenderFunction;
   }, [navigation]);

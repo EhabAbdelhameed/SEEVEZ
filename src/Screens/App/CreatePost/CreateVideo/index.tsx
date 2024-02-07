@@ -42,6 +42,7 @@ const CreateVideo = () => {
   const [cameraPosition, setCameraPosition] = React.useState<'front' | 'back'>(
     'back',
   );
+ 
   useEffect(() => {
     if (shouldNavigate && videoPath) {
       navigation.navigate('CreateVideo2', {
@@ -75,8 +76,7 @@ const CreateVideo = () => {
 
       //
       if (
-        (cameraPermission === RESULTS.GRANTED &&
-          microphonePermission === RESULTS.GRANTED) ||
+        cameraPermission === RESULTS.GRANTED  ||
         (cameraPermission1 === 'granted' && microphonePermission1 === 'granted')
       ) {
         // Microphone permission granted, proceed with camera setup

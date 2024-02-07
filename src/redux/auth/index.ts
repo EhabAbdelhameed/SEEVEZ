@@ -91,11 +91,11 @@ const slice = createSlice({
    
       Toast.show({
         type: 'success',
-        text1: 'Your Otp is Vaild',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doVerifyOTP.rejected, (state, action: any) => {
-      console.log("ehab",action?.payload?.status)
+      
       if(action?.payload?.status==201){
         state.signedCompanyAdmin=true
         state.verified = true;
@@ -141,7 +141,7 @@ const slice = createSlice({
       // state.verified = true;
       Toast.show({
         type: 'success',
-        text1: 'Check code in your email',
+        text1:action?.payload?.message,
       });
     });
     builder.addCase(thunks.doResendCode.rejected, (state, action: any) => {
@@ -163,7 +163,7 @@ const slice = createSlice({
       state.reset = true;
       Toast.show({
         type: 'success',
-        text1: 'Your password Reseted successfully',
+        text1: action?.payload?.message,
       });
      
     });
@@ -187,7 +187,7 @@ const slice = createSlice({
       state.reset = true;
       Toast.show({
         type: 'success',
-        text1: 'Check code in your e-mail',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doForgetPassword.rejected, (state, action: any) => {
@@ -213,7 +213,7 @@ const slice = createSlice({
       state.signedUp = true;
       Toast.show({
         type: 'success',
-        text1: 'Check code in your e-mail',
+        text1:action?.payload?.message,
       });
     });
     builder.addCase(thunks.doSignUpCompany.rejected, (state, action: any) => {
@@ -239,7 +239,7 @@ const slice = createSlice({
         state.signedUp = true;
         Toast.show({
           type: 'success',
-          text1: 'Check code in your e-mail',
+          text1: action?.payload?.message,
         });
       });
       builder.addCase(thunks.doSignUpCompanyAdmin.rejected, (state, action: any) => {
@@ -263,7 +263,7 @@ const slice = createSlice({
       AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.data?.accessToken)
       Toast.show({
         type: 'success',
-        text1: 'Check code in your e-mail',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doSignUpRecruiter.rejected, (state, action: any) => {
@@ -288,7 +288,7 @@ const slice = createSlice({
         AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.data?.accessToken)
       Toast.show({
         type: 'success',
-        text1: 'Check code in your e-mail',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doSignUpJobSeeker.rejected, (state, action: any) => {

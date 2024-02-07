@@ -10,7 +10,7 @@ import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 
 const CompanySection = (title?:any) => {
-    console.log(title)
+  
   const CurrentUserData = useSelector(selectUser);
   return (
     <View

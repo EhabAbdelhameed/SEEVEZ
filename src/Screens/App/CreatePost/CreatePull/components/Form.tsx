@@ -9,31 +9,45 @@ import DropDown from './DropDown';
 import {Input} from 'react-native-elements';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {Dropdown} from 'react-native-element-dropdown';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+import { duration } from 'moment';
+import Toast from 'react-native-toast-message';
 const data = [
   {label: '1 day', id: 1},
   {label: '3 days', id: 2},
   {label: '7 day', id: 3},
   {label: '2 week', id: 4},
 ];
-const Form = () => {
-    const navigation=useNavigation();
-    const _handleNavigation = useCallback(
-        () => {
-          navigation.navigate("CreatePollLink")
-        },
-        [],
-      );
+const Form = (source: any) => {
+  const navigation = useNavigation<any>();
+  const _handleNavigation = useCallback(() => {
+    navigation.navigate('CreatePollLink');
+  }, []);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [options, setOptions] = useState<any>([1]);
+  // const [options, setOptions] = useState<any>([1]);
+  const [options, setOptions] = useState<any>([
+    { answer: '' },{ answer: '' } // Initial single input field for one option
+  ]);
   return (
     <View style={styles.formContainer}>
       <Text style={styles.textHeaderForm}>Create a poll</Text>
       <Formik
-        initialValues={{question: '', duration: '',options:[]}}
-        onSubmit={values => Alert.alert(JSON.stringify(values))}>
+        initialValues={{question: '', duration: '', options: [{answer: ''}]}}
+        onSubmit={values => {
+          if(values.question!=''&&values.duration!=''&&values.options?.length==2){
+            navigation.navigate('CreatePollLink', {
+              data: {source, values},
+            });
+          }else{
+            Toast.show({
+              type: 'error',
+              text1: 'You must fill the all data',
+            });
+          }
+        
+        }}>
         {(props: any) => (
           <View>
             <View>
@@ -69,44 +83,31 @@ const Form = () => {
                             /> */}
             </View>
             {options.map((Exp: any, index: any) => (
-            <View key={index}>
-              <Text style={styles.label}>{`option${index+1}`}</Text>
-              <Input
-                {...props}
-                name={`option${index+1}`}
-                inputContainerStyle={{
-                  borderRadius: 16,
-                  borderColor: '#1D5EDD',
-                  borderWidth: 1,
-                  paddingHorizontal: 15,
-                  height: Platform.OS == 'android' ? null : 50,
-                }}
-                onChangeText={e => props?.setFieldValue(`options[${index}]`, e)}
-                placeholderTextColor={'#B9B9B9'}
-                containerStyle={{
-                  paddingHorizontal: 0,
-                  marginVertical: 1,
-                  height: 50,
-                  marginBottom: 15,
-                }}
-                inputStyle={{
-                  fontSize: 14,
-                  //  color: 'red'
-                }}
-                placeholder={`Write here..`}
-              />
-            </View>))}
-           
-            <TouchableOpacity   onPress={() => {
-                    setOptions((prev: any) => {
-                      return [...prev, 1];
-                    });
-                  }} style={styles.AddOptionContainer}>
+              <View key={index}>
+                <Text style={styles.label}>{`option${index + 1}`}</Text>
+                <Input
+                  {...props}
+                  name={`options[${index}][answer]`}
+                  inputContainerStyle={styles.inputContainer}
+                  onChangeText={e => props?.setFieldValue(`options[${index}][answer]`, e)}
+                  placeholderTextColor={'#B9B9B9'}
+                  containerStyle={styles.containerStyle}
+                  inputStyle={styles.inputStyle}
+                  placeholder={`Write here..`}
+                />
+              </View>
+            ))}
+
+            <TouchableOpacity
+            onPress={() => {
+              setOptions((prevOptions:any) => [...prevOptions, { answer: '' }]);
+            }}
+              style={styles.AddOptionContainer}>
               <ADDONTHEROPTION />
               <Text style={styles.text2}>Add another option</Text>
             </TouchableOpacity>
             <View>
-              <Text style={styles.label}>Poll duration</Text>
+              <Text style={styles.label}>Poll duration</Text>  
               <Dropdown
                 style={styles.uploadContainer}
                 placeholderStyle={styles.placeholderStyle}
@@ -142,7 +143,7 @@ const Form = () => {
                 vulputate auctor.
               </Text>
             </View>
-            <Button text="Done" onPress={_handleNavigation} />
+            <Button text="Done" onPress={props.handleSubmit} />
           </View>
         )}
       </Formik>

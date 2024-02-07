@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { appColors, appSizes } from "theme";
 
 
@@ -163,5 +163,20 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'Noto Sans',
       },
-    
+      inputContainer:{
+        borderRadius: 16,
+        borderColor: '#1D5EDD',
+        borderWidth: 1,
+        paddingHorizontal: 15,
+        height: Platform.OS == 'android' ? null : 50,
+      },
+      containerStyle:{
+        paddingHorizontal: 0,
+        marginVertical: 1,
+        height: 50,
+        marginBottom: 15,
+      },
+      inputStyle:{
+        fontSize:14
+      }
 })
