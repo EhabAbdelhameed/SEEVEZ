@@ -7,19 +7,19 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles';
-import {RenderSvgIcon} from '../../../Components/atoms/svg';
-import {Formik} from 'formik';
+import { RenderSvgIcon } from '../../../Components/atoms/svg';
+import { Formik } from 'formik';
 import InputView from '../../../Components/molecules/Input';
 import Button from '../../../Components/molecules/Button';
 import DonotHaveAccountSection from '../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../Components/molecules/AuthTopSection';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {appColors} from '../../../theme/appColors';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {BigLogo, CompanyLogo, PDF} from 'assets/Svgs';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { appColors } from '../../../theme/appColors';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { BigLogo, CompanyLogo, PDF } from 'assets/Svgs';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import DocumentPicker from 'react-native-document-picker';
 import {
   RegistSchema,
@@ -27,13 +27,13 @@ import {
   RegistSchemaCompanySelected,
 } from '../../../Formik/schema';
 
-import {useAppDispatch} from 'src/redux/store';
+import { useAppDispatch } from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import DeviceInfo from 'react-native-device-info';
-import {useSelector} from 'react-redux';
-import {selectIsSignedUp} from 'src/redux/auth';
-import {Input} from 'react-native-elements';
-import {selectCompanies} from 'src/redux/app';
+import { useSelector } from 'react-redux';
+import { selectIsSignedUp } from 'src/redux/auth';
+import { Input } from 'react-native-elements';
+import { selectCompanies } from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 const SignupTwo = () => {
   const signedUp = useSelector(selectIsSignedUp);
@@ -89,14 +89,14 @@ const SignupTwo = () => {
             <CompanyLogo width={25} height={25} />
           ) : (
             <Image
-              source={{uri: item?.avatar}}
-              style={{width: 25, height: 25, borderRadius: 25}}
+              source={{ uri: item?.avatar }}
+              style={{ width: 25, height: 25, borderRadius: 25 }}
               resizeMode="cover"
             />
           )}
         </View>
 
-        <Text style={{padding: 10, borderColor: '#ccc', fontSize: 14}}>
+        <Text style={{ padding: 10, borderColor: '#ccc', fontSize: 14 }}>
           {item.name}
         </Text>
       </View>
@@ -132,7 +132,7 @@ const SignupTwo = () => {
   };
 
   useEffect(() => {
-    signedUp && navigation.navigate('Verification', {email, type: 'register'});
+    signedUp && navigation.navigate('Verification', { email, type: 'register' });
   }, [signedUp]);
 
   useEffect(() => {
@@ -167,7 +167,7 @@ const SignupTwo = () => {
       }
     }
   };
-  const {work_type, title}: any = useRoute().params;
+  const { work_type, title }: any = useRoute().params;
   console.log(work_type);
   return (
     // <View style={styles.container}>
@@ -187,7 +187,7 @@ const SignupTwo = () => {
           {/* <Image source={require('../../../assets/images/logoWithName.png')} /> */}
           <Image
             source={require('../../../assets/images/seevezlogo.png')}
-            style={{width: 148, height: 47}}
+            style={{ width: 148, height: 47 }}
           />
         </View>
         <View style={styles.circles}>
@@ -203,10 +203,10 @@ const SignupTwo = () => {
               title == 'Sign up as a job seeker'
                 ? 'as a job seeker'
                 : title == 'Sign up as a recruiter' && work_type !== 'Company'
-                ? 'as a Freelancer recruiter'
-                : work_type == 'Company'
-                ? 'Company'
-                : ''
+                  ? 'as a Freelancer recruiter'
+                  : work_type == 'Company'
+                    ? 'Company'
+                    : ''
             }
           />
           <Formik
@@ -225,11 +225,11 @@ const SignupTwo = () => {
             //   work_type == 'Company' ? RegistSchemaCompany : RegistSchema
             // }
             validationSchema={
-              work_type === 'Company' &&selectedItem?.length == 0
+              work_type === 'Company' && selectedItem?.length == 0
                 ? RegistSchemaCompany
                 : work_type === 'Company' && selectedItem?.length != 0
-                ? RegistSchemaCompanySelected
-                : RegistSchema
+                  ? RegistSchemaCompanySelected
+                  : RegistSchema
             }
             onSubmit={values => {
               setLoading(true);
@@ -265,7 +265,7 @@ const SignupTwo = () => {
               } else if (work_type?.toLowerCase() == 'company') {
                 console.log('eee', selectedItem?.length);
 
-                if (selectedItem?.length == 0 ) {
+                if (selectedItem?.length == 0) {
                   console.log("hello")
                   formdata.append('name', values.company_name);
                   formdata.append('phone_number', values.phone)
@@ -302,7 +302,7 @@ const SignupTwo = () => {
               <View>
                 {work_type == 'Company' ? (
                   <View>
-                    <View style={{marginBottom: 5}}>
+                    <View style={{ marginBottom: 5 }}>
                       <Input
                         {...props}
                         name={`company_name`}
@@ -348,7 +348,7 @@ const SignupTwo = () => {
                         <FlatList
                           scrollEnabled={false}
                           data={CompaniesData?.filter(filteredData)}
-                          renderItem={({item}) =>
+                          renderItem={({ item }) =>
                             renderListItem(item, props, index)
                           }
                           keyExtractor={(item, index) => index.toString()}
@@ -387,7 +387,7 @@ const SignupTwo = () => {
                     <TouchableOpacity
                       onPress={() => uploadFile('1')}
                       style={styles.DocStyle}>
-                      <View style={{flexDirection: 'row'}}>
+                      <View style={{ flexDirection: 'row' }}>
                         <PDF width={20} height={20} />
                         <Text
                           numberOfLines={1}
@@ -405,7 +405,7 @@ const SignupTwo = () => {
                     <TouchableOpacity
                       onPress={() => uploadFile('2')}
                       style={styles.DocStyle}>
-                      <View style={{flexDirection: 'row'}}>
+                      <View style={{ flexDirection: 'row' }}>
                         <PDF height={20} width={20} />
                         <Text
                           numberOfLines={1}
@@ -417,9 +417,9 @@ const SignupTwo = () => {
                           {commercial_registration_document.length == 0
                             ? 'Upload commercial registration'
                             : `${commercial_registration_document[0]?.name.slice(
-                                0,
-                                20,
-                              )}...`}
+                              0,
+                              20,
+                            )}...`}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -432,6 +432,12 @@ const SignupTwo = () => {
                   secure={true}
                   {...props}
                 />
+                {/* <CustomInput
+                  {...props}
+                  Label={'password'}
+                  placeholder="Enter your password"
+                  secureTextEntry={true}
+                /> */}
                 <InputView
                   name="confirmPassword"
                   placeholder="Confirm your password"
@@ -461,7 +467,7 @@ const SignupTwo = () => {
             )}
           </Formik>
           <DonotHaveAccountSection noLang type="Log in" />
-          <View style={{height: 50}} />
+          <View style={{ height: 50 }} />
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

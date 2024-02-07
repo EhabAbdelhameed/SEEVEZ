@@ -29,7 +29,7 @@ import { appColors } from 'theme';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const UpdateRecordVideo = () => {
-  const { key}: any = useRoute().params;
+  const { key }: any = useRoute().params;
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -81,7 +81,7 @@ const UpdateRecordVideo = () => {
         navigation.navigate("SaveVideo", {
           videoPath: res?.assets[0].uri,
           source: res,
-          key:key==5?3: 2
+          key: key == 5 ? 3 : 2
         })
       }, 1000);
       // setSource(res)
@@ -112,8 +112,7 @@ const UpdateRecordVideo = () => {
 
       //
       if (
-        (cameraPermission === RESULTS.GRANTED &&
-          microphonePermission === RESULTS.GRANTED) ||
+        cameraPermission === RESULTS.GRANTED ||
         (cameraPermission1 === 'granted' && microphonePermission1 === 'granted')
       ) {
         // Microphone permission granted, proceed with camera setup
