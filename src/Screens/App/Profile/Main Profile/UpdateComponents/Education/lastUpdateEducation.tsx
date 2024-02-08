@@ -43,8 +43,8 @@ import ReactNativeModal from 'react-native-modal';
 const UpdateOneEducation = () => {
   const {data}: any = useRoute().params;
   console.log('Education', data);
-  const [startDates, setStartDates] = useState(data?.start_date);
-  const [endDates, setEndDates] = useState(data?.end_date);
+  const [startDates, setStartDates] = useState(new Date(data?.start_date));
+  const [endDates, setEndDates] = useState(new Date(data?.end_date));
 
   const [isVisible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -283,7 +283,7 @@ const UpdateOneEducation = () => {
                     }}>
                     <TextInput
                       placeholder="Field of study"
-                      // placeholderTextColor={'#B9B9B9'}
+                      placeholderTextColor={'#B9B9B9'}
                       style={styles.inputStyle}
                       onChangeText={e =>
                         props?.setFieldValue(`field_of_study`, e)
@@ -293,7 +293,7 @@ const UpdateOneEducation = () => {
 
                     <TextInput
                       placeholder="Grade"
-                      // placeholderTextColor={'#B9B9B9'}
+                      placeholderTextColor={'#B9B9B9'}
                       style={styles.inputStyle}
                       onChangeText={e => props?.setFieldValue(`grade`, e)}
                       value={props.values.grade}
@@ -454,7 +454,7 @@ const UpdateOneEducation = () => {
                       )}
 
                   <TouchableOpacity
-                    onPress={() => openGallery}
+                    onPress={openGallery}
                     style={styles.InputStyleNoWidth1}>
                     <PHOTO style={{marginRight: 20}} />
                     <Text style={{fontSize: 20, color: appColors.primary}}>

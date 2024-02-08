@@ -30,10 +30,10 @@ const Navigation = () => {
       setSplash(false);
     }, 4000);
 
-    const interval = setInterval(() => {
-      isAuth && dispatch(AppThunks.GetAccessToken())
-    }, 150000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   isAuth && dispatch(AppThunks.GetAccessToken())
+    // }, 150000);
+    // return () => clearInterval(interval);
   }, []);
   // console.log(isAuth)
   return (

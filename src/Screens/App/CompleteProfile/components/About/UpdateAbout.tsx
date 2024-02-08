@@ -76,7 +76,7 @@ const UpdateAbout = () => {
               setLoading(true);
               const formdata = new FormData();
               formdata.append('name',CurrentUserData?.name);
-              formdata.append('about',values.About);
+              values.About==''||!values.About?formdata.append('about',''):formdata.append('about',values.About);
              
 
               // console.log(formdata);

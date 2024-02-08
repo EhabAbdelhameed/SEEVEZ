@@ -1,9 +1,16 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import {AVATAR, CompanyLogo} from 'assets/Svgs';
+import {AVATAR, CompanyLogo, PDF} from 'assets/Svgs';
 import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 
@@ -44,7 +51,14 @@ const ExperienceProfileCard = (data: any) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }} 
+            {data?.data?.length == 0 ?null:
+            <TouchableOpacity
+              style={{
+                height: 30,
+                width: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
               disabled={data?.data?.length == 0 ? true : false}
               onPress={() => navigation.navigate('UpdateExperienceCard')}>
               <RenderSvgIcon
@@ -53,7 +67,7 @@ const ExperienceProfileCard = (data: any) => {
                 height={20}
                 color={appColors.primary}
               />
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </View>
         {data?.data?.length == 0 ? (
@@ -133,6 +147,22 @@ const ExperienceProfileCard = (data: any) => {
                 numberOfLines={3}>
                 {item.description}
               </ReadMore>
+              {item?.experience_letter==null?null:
+                item?.object_info?.extension == 'pdf' ? (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => Linking.openURL(item?.experience_letter)}
+                    style={styles.PDFContainer}>
+                    <PDF height={70} width={70} />
+                  </TouchableOpacity>
+                ) : (
+                  <Image
+                    style={styles.Certificate}
+                    source={{
+                      uri: item?.experience_letter,
+                    }}
+                  />
+                )}
             </View>
           ))
         ) : (
@@ -140,18 +170,18 @@ const ExperienceProfileCard = (data: any) => {
             index == 0 ? (
               <View>
                 <View style={styles.Row2}>
-                <View
-                  style={{
-                    width: 64,
-                    height: 64,
-                    borderRadius: 64,
+                  <View
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 64,
 
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: appColors.bg,
-                  }}>
-                  <CompanyLogo height={32} width={32} />
-                </View>
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: appColors.bg,
+                    }}>
+                    <CompanyLogo height={32} width={32} />
+                  </View>
                   <View style={{marginLeft: 10}}>
                     <Text style={styles.Title2}>{item.job_title}</Text>
                     <Text style={styles.CompanyName}>
@@ -193,6 +223,22 @@ const ExperienceProfileCard = (data: any) => {
                   numberOfLines={3}>
                   {item.description}
                 </ReadMore>
+                {item?.experience_letter==null?null:
+                item?.object_info?.extension == 'pdf' ? (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => Linking.openURL(item?.experience_letter)}
+                    style={styles.PDFContainer}>
+                    <PDF height={70} width={70} />
+                  </TouchableOpacity>
+                ) : (
+                  <Image
+                    style={styles.Certificate}
+                    source={{
+                      uri: item?.experience_letter,
+                    }}
+                  />
+                )}
               </View>
             ) : null,
           )
@@ -324,5 +370,22 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
+  },
+  PDFContainer: {
+    height: 100,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: appColors.lightGrey3,
+    borderRadius: 10,
+    marginTop: 10,
+    alignSelf: 'center',
+  },
+  Certificate: {
+    width: 200,
+    height: 150,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    marginVertical: 10,
   },
 });

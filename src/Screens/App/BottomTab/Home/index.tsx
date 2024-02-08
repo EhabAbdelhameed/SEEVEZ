@@ -38,13 +38,12 @@ const Home = () => {
   //   // console.log("Token ",token)
   //    return token
   // }
- 
+
   React.useEffect(() => {
     // accessTocken();
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
       dispatch(AppSlice.changeDone(false));
-
     });
     return RenderFunction;
   }, [navigation]);
@@ -87,10 +86,12 @@ const Home = () => {
               </ImageBackground>
             </BoxContentTitle>
             {CurrentUserData?.work_type == 'freelancer' ||
-            CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+            CurrentUserData?.user_data?.user_type == 'company' ||
+            CurrentUserData?.user_data?.user_type == 'company_admin' ? (
               <BoxContentTitle
                 title={
-                  CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin'
+                  CurrentUserData?.user_data?.user_type == 'company' ||
+                  CurrentUserData?.user_data?.user_type == 'company_admin'
                     ? 'My Applicants'
                     : 'My connections'
                 }
@@ -123,7 +124,8 @@ const Home = () => {
             </BoxContentTitle>
           </View>
           {CurrentUserData?.work_type == 'freelancer' ||
-          CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? null : (
+          CurrentUserData?.user_data?.user_type == 'company' ||
+          CurrentUserData?.user_data?.user_type == 'company_admin' ? null : (
             <View style={styles.rowContainer}>
               <BoxContentTitle
                 title="CV maker"
@@ -161,7 +163,8 @@ const Home = () => {
             </View>
           )}
           {CurrentUserData?.user_data?.user_type == 'recruiter' ||
-          CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+          CurrentUserData?.user_data?.user_type == 'company' ||
+          CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <View
                 style={{
@@ -205,7 +208,8 @@ const Home = () => {
               </View>
             </View>
           ) : null}
-          {CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+          {CurrentUserData?.user_data?.user_type == 'company' ||
+          CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <BoxContentTitle title={'My internship'}>
                 <CompanySection title={'My internship'} />
@@ -220,7 +224,12 @@ const Home = () => {
             </BoxContentTitle>
             <BoxContentTitle
               title="My profile"
-              onPress={() => navigation.navigate('ProfileScreen')}>
+              onPress={() =>
+                CurrentUserData?.user_data?.user_type == 'company' ||
+                CurrentUserData?.user_data?.user_type == 'company_admin'
+                  ? navigation.navigate('ProfileCompanyScreen')
+                  : navigation.navigate('ProfileScreen')
+              }>
               <Profile />
             </BoxContentTitle>
           </View>
@@ -271,7 +280,8 @@ const Home = () => {
               <Communities />
             </BoxContentTitle>
           </View>
-          {CurrentUserData?.user_data?.user_type == 'company'||CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+          {CurrentUserData?.user_data?.user_type == 'company' ||
+          CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <BoxContentTitle title="Pending requests">
                 <Pending />

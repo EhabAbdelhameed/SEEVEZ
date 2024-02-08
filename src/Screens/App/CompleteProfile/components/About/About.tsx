@@ -10,8 +10,8 @@ import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {useNavigation} from '@react-navigation/native';
 
-const AboutCard = (About: any) => {
-  const [aboutSection, setAboutSection] = useState('');
+const AboutCard = (data: any) => {
+  const [aboutSection, setAboutSection] = useState('Bio');
   const [editMode, setEditMode] = useState(true); // Added state to track edit mode
   const [SaveAboutSection, setSavedAboutSection] = useState(aboutSection); // Added state to track edited content
   const navigation = useNavigation<any>();
@@ -19,18 +19,14 @@ const AboutCard = (About: any) => {
   //   setEditMode(true);
   // };
 
-  const saveAboutSection = () => {
-    navigation.navigate('UpdateAbout');
-    // setAboutSection(SaveAboutSection);
-    // setEditMode(false);
-  };
+ 
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>About</Text>
 
-          <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}  onPress={saveAboutSection}>
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAbout')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
@@ -38,38 +34,19 @@ const AboutCard = (About: any) => {
               color={appColors.white}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity onPress={saveAboutSection}>
-              <RenderSvgIcon icon="HEART" width={20} height={20} color={appColors.black} />
-            </TouchableOpacity> */}
         </View>
-        {/*         
-          <TextInput
-            style={styles.EditDes}
-            placeholder='Bio'
-            multiline
-            value={SaveAboutSection}
-            onChangeText={(text) => setSavedAboutSection(text)}
-          /> */}
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: '#E8E8E8',
-            height: 100,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            borderRadius: 16,
-          }}>
-          {About?.About?.about == null ? (
-            <Text
-              numberOfLines={4}
-              style={{color: '#B9B9B9', fontFamily: 'Noto Sans'}}>
-              Bio
-            </Text>
-          ) : (
-            <Text style={{fontWeight: '400', color: appColors.black}}>
-              {About?.About?.about}
-            </Text>
-          )}
+        <View style={{paddingHorizontal:10,paddingBottom:10}}>
+        {data?.data == null ? (  
+          <View style={{height:100}}>
+          <Text style={[styles.Des,{color:'#B9B9B9'}]}>{aboutSection}</Text>
+          </View>
+        ) : (   
+          data?.data?.split('\n').length<=6?<View style={{height:100}}>
+          <Text style={styles.Des}>{data?.data}</Text>
+          </View>:
+          <Text style={styles.Des}>{data?.data}</Text>
+       
+        )}
         </View>
       </View>
     </View>

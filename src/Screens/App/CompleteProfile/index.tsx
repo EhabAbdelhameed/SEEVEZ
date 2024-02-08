@@ -33,6 +33,7 @@ import SkillsProfileCard from '../Profile/Main Profile/components/Skills';
 import LanguagesProfileCard from '../Profile/Main Profile/components/Languages';
 import AchievementsProfileCard from '../Profile/Main Profile/components/Achievements';
 import ReferenceProfileCheck from '../Profile/Main Profile/components/ReferenceCheck';
+import AboutProfileCard from '../Profile/Main Profile/components/About';
 const CompleteProfileScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -70,8 +71,8 @@ const CompleteProfileScreen = () => {
             <Complete
               pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
             />
-            <InfoProfileCard data={CurrentUserData} />
-            <AboutCard About={CurrentUserData} />
+            <InfoProfileCard data={CurrentUserData} />   
+            <AboutProfileCard data={CurrentUserData?.about} />
             <ExperienceProfileCard data={CurrentUserData?.user_data?.experiences} />
             <EducationProfileCard data={CurrentUserData?.user_data?.educations} />
             <TrainingProfileCard data={CurrentUserData?.user_data?.training_courses} />

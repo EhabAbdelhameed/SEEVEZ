@@ -97,7 +97,7 @@ const UpdateCompanyInfo = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
- 
+
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -131,21 +131,14 @@ const UpdateCompanyInfo = () => {
                   borderWidth: 1,
                   borderColor: '#B9CDF4',
                 }}>
-                {CurrentUserData?.avatar == null && source?.length == 0 ? (
+                {CurrentUserData?.avatar == null &&
+                (source == undefined || source?.length == 0) ? (
                   <CompanyLogo />
-                ) : Platform.OS == 'ios' ? (
-                  <Image
-                    source={{
-                      uri: source ? source[0]?.uri : CurrentUserData?.avatar,
-                    }}
-                    style={{width: 86, height: 86, borderRadius: 86}}
-                    resizeMode="cover"
-                  />
                 ) : (
                   <Image
                     source={{
                       uri:
-                        source?.length != 0
+                        source?.length != 0 || !source
                           ? source[0]?.uri
                           : CurrentUserData?.avatar,
                     }}
@@ -229,37 +222,45 @@ const UpdateCompanyInfo = () => {
               setLoading(true);
               const formdata = new FormData();
 
-              values.other != ''
+              values.other != '' || !values.other
                 ? formdata.append('other', values.other)
-                : null;
-              values.github != ''
+                : formdata.append('other', '');
+              values.github != '' || !values.github
                 ? formdata.append('github', values.github)
-                : null; 
-              values.website != ''
+                : formdata.append('github', '');
+              values.website != '' || !values.website
                 ? formdata.append('website', values.website)
-                : null;
-              values.facebook != ''
+                : formdata.append('website', '');
+              values.facebook != '' || !values.facebook
                 ? formdata.append('facebook', values.facebook)
-                : null;
-              values.linkedin != ''
+                : formdata.append('facebook', '');
+              values.linkedin != '' || !values.linkedin
                 ? formdata.append('linkedin', values.linkedin)
-                : null;
-              values.instagram != ''
+                : formdata.append('linkedin', '');
+              values.instagram != '' || !values.instagram
                 ? formdata.append('instagram', values.instagram)
-                : null;
+                : formdata.append('instagram', '');
 
-              values.Location != ''
+              values.Location != '' || !values.Location
                 ? formdata.append('country', values.Location)
-                : null;
-              values.city != '' ? formdata.append('city', values.city) : null;
-              values.area != '' ? formdata.append('area', values.area) : null;
-              source?.length != 0
+                : formdata.append('country', '');
+              values.city != '' || !values.city
+                ? formdata.append('city', values.city)
+                : formdata.append('city', '');
+              values.area != '' || !values.area
+                ? formdata.append('area', values.area)
+                : formdata.append('area', '');
+            
+                source?.length != 0
                 ? formdata.append('avatar', {
-                    uri: source[0]?.uri,
-                    type: source[0]?.type,
-                    name: source[0]?.name,
-                  })
-                : null;
+                  uri: source[0]?.uri,
+                  type: source[0]?.type,
+                  name:
+                    Platform.OS == 'ios'
+                      ? source[0]?.fileName
+                      : source[0]?.name,
+                })
+                : formdata.append('avatar', '');
 
               console.log(formdata);
               dispatch(AppThunks.doAddCompanyInfo(formdata)).then(
@@ -274,6 +275,7 @@ const UpdateCompanyInfo = () => {
                 <Text style={styles.labelStyle1}>Location</Text>
                 <TextInput
                   placeholder="Your country"
+                  placeholderTextColor={'#B9B9B9'}
                   onChangeText={value =>
                     props?.setFieldValue(`Location`, value)
                   }
@@ -297,24 +299,24 @@ const UpdateCompanyInfo = () => {
                   }}>
                   <View style={{width: '49%'}}>
                     <TextInput
-                          placeholder="Your city"
-                          placeholderTextColor={'#B9B9B9'}
-                          style={styles.InputStyleWithOutWidth}
-                          onChangeText={value =>
-                            props?.setFieldValue(`city`, value)
-                          }
-                          value={props.values.city}
+                      placeholder="Your city"
+                      placeholderTextColor={'#B9B9B9'}
+                      style={styles.InputStyleWithOutWidth}
+                      onChangeText={value =>
+                        props?.setFieldValue(`city`, value)
+                      }
+                      value={props.values.city}
                     />
                   </View>
                   <View style={{width: '49%'}}>
                     <TextInput
-                  placeholder="Your area"
-                  placeholderTextColor={'#B9B9B9'}
-                  style={styles.InputStyleWithOutWidth}
-                  onChangeText={value =>
-                    props?.setFieldValue(`area`, value)
-                  }
-                  value={props.values.area}
+                      placeholder="Your area"
+                      placeholderTextColor={'#B9B9B9'}
+                      style={styles.InputStyleWithOutWidth}
+                      onChangeText={value =>
+                        props?.setFieldValue(`area`, value)
+                      }
+                      value={props.values.area}
                     />
                   </View>
                 </View>
@@ -396,7 +398,6 @@ const UpdateCompanyInfo = () => {
                     value={props.values.other}
                   />
                 </View>
-
 
                 <Button
                   loading={loading}

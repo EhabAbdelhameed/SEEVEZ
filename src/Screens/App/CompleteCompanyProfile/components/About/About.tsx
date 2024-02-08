@@ -10,52 +10,40 @@ import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {useNavigation} from '@react-navigation/native';
 
-const AboutCompanyCard = (About: any) => {
+const AboutCompanyCard = (data: any) => {
+  const [aboutSection, setAboutSection] = useState('Bio');
   const navigation = useNavigation<any>();
 
-  const saveAboutSection = () => {
-    navigation.navigate('UpdateCompanyAbout');
-  };
   return (
     <View style={styles.CardContainer}>
-      <View style={styles.secContainer}>
-        <View style={styles.Row}>
-          <Text style={styles.Title}>About</Text>
+    <View style={styles.secContainer}>
+      <View style={styles.Row}>
+        <Text style={styles.Title}>About</Text>
 
-          <TouchableOpacity onPress={saveAboutSection}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.white}
-            />
-          </TouchableOpacity>
-    
+        <TouchableOpacity onPress={()=>navigation.navigate('UpdateCompanyAbout')}>
+          <RenderSvgIcon
+            icon="PEN"
+            width={20}
+            height={20}
+            color={appColors.white}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={{paddingHorizontal:10,paddingBottom:10}}>
+      {data?.data == null ? (  
+        <View style={{height:100}}>
+        <Text style={[styles.Des,{color:'#B9B9B9'}]}>{aboutSection}</Text>
         </View>
-   
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: '#E8E8E8',
-            height: 100,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            borderRadius: 16,
-          }}>
-          {About?.About?.about == null ? (
-            <Text
-              numberOfLines={4}
-              style={{color: '#B9B9B9', fontFamily: 'Noto Sans'}}>
-              Bio
-            </Text>
-          ) : (
-            <Text style={{fontWeight: '400', color: appColors.black}}>
-              {About?.About?.about}
-            </Text>
-          )}
-        </View>
+      ) : (   
+        data?.data?.split('\n').length<=6?<View style={{height:100}}>
+        <Text style={styles.Des}>{data?.data}</Text>
+        </View>:
+        <Text style={styles.Des}>{data?.data}</Text>
+     
+      )}
       </View>
     </View>
+  </View>
   );
 };
 

@@ -8,6 +8,8 @@ const DeleteLanguages = (id: number) => api.delete(`api/delete-languages/${id}`)
 const Skills = (data: any) => api.post(`api/skills`, data);
 const updateSkills = (data: any) => api.post(`api/edit-skills`, data);
 const DeleteSkills = (id: number) => api.delete(`api/delete-skills/${id}`) 
+const DeleteVideoCV = (id: number) => api.delete(`api/delete-media-cv/${id}`) 
+
 const Interests = (data: any) => api.post(`api/interests`, data);
 const updateInterests = (data: any) => api.post(`api/edit-interests`, data);
 const DeleteInterests = (id: number) => api.delete(`api/delete-interests/${id}`) 
@@ -57,6 +59,7 @@ const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?n
 const AppAPI = {
   Skills,
   updateSkills,
+  DeleteVideoCV,
   DeleteSkills,
   VideoReel,
   Education,

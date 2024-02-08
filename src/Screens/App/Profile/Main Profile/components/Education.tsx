@@ -7,7 +7,7 @@ import {AVATAR, PDF} from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
 
 const EducationProfileCard = (data: any) => {
-
+  
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation()
   const differenceInYears = (date1: any, date2: any) => {
@@ -17,8 +17,8 @@ const EducationProfileCard = (data: any) => {
       parseInt(end_date.substring(0, 4)) - parseInt(start_date.substring(0, 4));
 
     Math.abs(years);
-
-    return years;
+    //  console.log("Hello", Math.abs(years))
+    return Math.abs(years);
   };
   return (
     <View style={styles.CardContainer}>
@@ -35,6 +35,7 @@ const EducationProfileCard = (data: any) => {
               color={appColors.primary}
             />
             </TouchableOpacity>
+            {data?.data?.length == 0?null:
             <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}  disabled={data?.data?.length == 0?true:false}
               onPress={() => navigation.navigate('UpdateEducationCard')}>
             <RenderSvgIcon
@@ -43,7 +44,7 @@ const EducationProfileCard = (data: any) => {
               height={20}
               color={appColors.primary}
             />
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </View>
 
@@ -88,7 +89,7 @@ const EducationProfileCard = (data: any) => {
                  {item?.level_id?.name}
                 </Text>
                 <Text style={styles.des}>
-                {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} ·{differenceInYears(item.start_date,item.end_date)} years · Cairo, Egypt
+                {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} · {differenceInYears(item.start_date,item.end_date)} years · Cairo, Egypt
                 </Text>
                 <View style={styles.Row2}>
                   <Text style={styles.Title3}>Grade : </Text>
@@ -96,7 +97,8 @@ const EducationProfileCard = (data: any) => {
                 </View>
               </View>
             </View>
-            {item?.object_info?.extension == 'pdf' ? (
+            {item?.degree_certificate==null?null:
+              item?.object_info?.extension == 'pdf'||item?.object_info?.extension == 'zip' ? (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => Linking.openURL(item?.degree_certificate)}
@@ -136,7 +138,7 @@ const EducationProfileCard = (data: any) => {
                    {item?.level_id?.name}
                   </Text>
                   <Text style={styles.des}>
-                  {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} ·{differenceInYears(item.start_date,item.end_date)} years · Cairo, Egypt
+                  {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} · {differenceInYears(item.start_date,item.end_date)} years · Cairo, Egypt
                   </Text>
                   <View style={styles.Row2}>
                     <Text style={styles.Title3}>Grade : </Text>
@@ -144,7 +146,8 @@ const EducationProfileCard = (data: any) => {
                   </View>
                 </View>
               </View>
-              {item?.object_info?.extension == 'pdf' ? (
+              {item?.degree_certificate==null?null:
+              item?.object_info?.extension == 'pdf'||item?.object_info?.extension == 'zip' ? (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => Linking.openURL(item?.degree_certificate)}

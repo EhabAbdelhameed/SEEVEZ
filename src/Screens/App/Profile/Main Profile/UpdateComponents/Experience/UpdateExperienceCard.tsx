@@ -6,6 +6,7 @@ import {
   Alert,
   Image,
   FlatList,
+  Linking,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
@@ -14,7 +15,7 @@ import {RenderSvgIcon} from '../../../../../../Components/atoms/svg';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {appColors} from '../../../../../../theme/appColors';
 
-import {BigLogo, CALANDER, CompanyLogo, DELETE, PHOTO} from 'assets/Svgs';
+import {BigLogo, CALANDER, CompanyLogo, DELETE, PDF, PHOTO} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -24,6 +25,7 @@ import AppThunks from 'src/redux/app/thunks';
 import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
+import ReadMore from '@fawazahmed/react-native-read-more';
 
 const UpdateExperienceCard = () => {
   const CurrentUserData = useSelector(selectUser);
@@ -147,7 +149,8 @@ const UpdateExperienceCard = () => {
           </View>
 
           {data?.map((item: any) => (
-            <View style={{marginBottom: 15, flexDirection: 'row'}}>
+            <View style={{marginBottom: 15}}>
+              <View style={{flexDirection: 'row'}}>
               <View>
                 <View style={styles.Row2}>
                   <View
@@ -183,6 +186,7 @@ const UpdateExperienceCard = () => {
                     </Text>
                   </View>
                 </View>
+              
               </View>
               <View
                 style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
@@ -204,6 +208,42 @@ const UpdateExperienceCard = () => {
                   />
                 </TouchableOpacity>
               </View>
+              </View>
+              <View style={{}}>
+                <Text style={styles.Title3}>Description</Text>
+              <ReadMore
+                style={styles.PostText}
+                animate={true}
+                seeMoreStyle={{
+                  color: appColors.primary,
+                  textDecorationLine: 'underline',
+                }}
+                seeLessStyle={{
+                  color: appColors.primary,
+                  textDecorationLine: 'underline',
+                }}
+                seeLessText="less"
+                seeMoreText="Read more"
+                numberOfLines={3}>
+                {item.description}
+              </ReadMore>
+              {item?.experience_letter==null?null:
+                item?.object_info?.extension == 'pdf' ? (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => Linking.openURL(item?.experience_letter)}
+                    style={styles.PDFContainer}>
+                    <PDF height={70} width={70} />
+                  </TouchableOpacity>
+                ) : (
+                  <Image
+                    style={styles.Certificate}
+                    source={{
+                      uri: item?.experience_letter,
+                    }}
+                  />
+                )}
+                </View>
             </View>
           ))}
         </View>

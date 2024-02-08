@@ -129,7 +129,7 @@ const CustomSidebarMenu = (props: any) => {
           </View>
           <TouchableOpacity
             onPress={() =>
-              USER?.user_data?.user_type == 'company'
+              USER?.user_data?.user_type == 'company'||USER?.user_data?.user_type == 'company_admin'
                 ? navigation.navigate('ProfileCompanyScreen')
                 : navigation.navigate('ProfileScreen')
             }

@@ -109,7 +109,28 @@ const slice = createSlice({
         });
       }
     });
+  //doDeleteVideoCV
+  builder.addCase(thunks.doDeleteVideoCV.fulfilled, (state, action) => {
+    state.done = true;
+    Toast.show({
+      type: 'success',
 
+      text1: action?.payload?.message,
+    });
+  });
+  builder.addCase(thunks.doDeleteVideoCV.rejected, (state, action: any) => {
+    if (action.payload.data.message == 'Validation error.') {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.error,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.message,
+      });
+    }
+  });
     //doAddIntersts
     builder.addCase(thunks.doAddIntersts.fulfilled, (state, action) => {
       state.done = true;

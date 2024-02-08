@@ -48,6 +48,7 @@ interface userState {
       nationality:any;
       online_status: any;
       reference_check: any;
+      background_check:any;
       skills: any;
       interests:any;
       training_courses:any;
@@ -104,6 +105,7 @@ export const initialState: userState = {
       cv_media: null,
       educations: [],
       experiences: [],
+      background_check:null,
       complete_progress:null,
       id: null,
       languages: [],

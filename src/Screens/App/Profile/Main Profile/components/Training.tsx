@@ -43,6 +43,7 @@ const TrainingProfileCard = (data: any) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
+            {data?.data?.length == 0 ? null:
             <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }} 
               disabled={data?.data?.length == 0 ? true : false}
               onPress={() => navigation.navigate('UpdateTrainingCard')}>
@@ -52,7 +53,7 @@ const TrainingProfileCard = (data: any) => {
                 height={20}
                 color={appColors.primary}
               />
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </View>
 
@@ -119,7 +120,8 @@ const TrainingProfileCard = (data: any) => {
                   </View>
                 </View>
               </View>
-              {item?.object_info?.extension == 'pdf' ? (
+              {item?.certificate_image==null?null:
+              item?.object_info?.extension == 'pdf' ? (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => Linking.openURL(item?.certificate_image)}
@@ -169,7 +171,8 @@ const TrainingProfileCard = (data: any) => {
                     </View>
                   </View>
                 </View>
-                {item?.object_info?.extension == 'pdf' ? (
+                {item?.certificate_image==null?null:
+                item?.object_info?.extension == 'pdf'||item?.object_info?.extension == 'zip' ? (
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => Linking.openURL(item?.certificate_image)}

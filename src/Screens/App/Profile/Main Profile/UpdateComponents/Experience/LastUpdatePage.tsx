@@ -45,8 +45,8 @@ const UpdateOneExperience = () => {
   const {data}: any = useRoute().params;
 
   console.log('sdasdsadedreew', data);
-  const [startDates, setStartDates] = useState(data?.start_date);
-  const [endDates, setEndDates] = useState(data?.end_date);
+  const [startDates, setStartDates] = useState(new Date(data?.start_date));
+  const [endDates, setEndDates] = useState(new Date(data?.end_date));
 
   const [isVisible, setVisible] = useState(false);
   const [type, setType] = useState('0');
@@ -499,7 +499,7 @@ const UpdateOneExperience = () => {
                           <Text
                             style={{
                               marginRight: 20,
-                              color: '#B9B9B9',
+                              color: '#000',
                               fontSize: 16,
                             }}>
                             {Moment(startDates).format('DD/MM/yyyy')}
@@ -527,7 +527,7 @@ const UpdateOneExperience = () => {
                           <Text
                             style={{
                               marginRight: 20,
-                              color: '#B9B9B9',
+                              color: '#000',
                               fontSize: 16,
                             }}>
                             {Moment(endDates).format('DD/MM/yyyy')}

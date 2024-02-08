@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
- 
+
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
@@ -29,19 +29,27 @@ const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity  style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}  disabled={data?.length == 0?true:false}
+            {data?.length == 0 ?null:
+            <TouchableOpacity
+              style={{
+                height: 30,
+                width: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              disabled={data?.length == 0 ? true : false}
               onPress={() =>
                 navigation.navigate('UpdateSkillsCard', {
                   title: title == 'Interests' ? 'Interests' : 'Skills',
                 })
               }>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
-            </TouchableOpacity>
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
+            </TouchableOpacity>}
           </View>
         </View>
         {data?.length == 0 ? null : (
@@ -62,14 +70,12 @@ const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
           </View>
         )}
       </View>
-              
+
       <View style={styles.devider} />
       <TouchableOpacity
         disabled={
-          data?.length == 0 ||
-          data?.length == 1 ||
-          data?.length == 2
-             ? true
+          data?.length == 0 || data?.length == 1 || data?.length == 2
+            ? true
             : false
         }
         onPress={() => setSeeAllExperiences(!seeAllExperiences)}>

@@ -119,7 +119,7 @@ const UpdateInfo = () => {
   const HealthProfile = ['Disabilities', 'Special Needs'];
   const Smoker = ['Yes', 'No'];
   const [code, setCode] = React.useState('');
-
+console.log(source)
   const data = {
     title: 'Disabilities',
     subTitle: 'What is your disability?',
@@ -181,7 +181,7 @@ const UpdateInfo = () => {
               ) : (
                 <Image
                   source={{
-                    uri: source != undefined ? source[0]?.uri : CurrentUserData?.avatar,
+                    uri: source?.length!=0||!source ? source[0]?.uri : CurrentUserData?.avatar,
                   }}
                   style={{ width: 86, height: 86, borderRadius: 86 }}
                   resizeMode="cover"
@@ -287,19 +287,19 @@ const UpdateInfo = () => {
                 : formdata.append('other', '')
               values.github != '' || !values.github
                 ? formdata.append('github', values.github)
-                : formdata.append('github', values.github)
+                : formdata.append('github','')
               values.website != '' || !values.website
                 ? formdata.append('website', values.website)
-                : formdata.append('website', values.website)
+                : formdata.append('website', '')
               values.facebook != '' || !values.facebook
                 ? formdata.append('facebook', values.facebook)
-                : formdata.append('facebook', values.facebook)
+                : formdata.append('facebook', '')
               values.linkedin != '' || !values.linkedin
                 ? formdata.append('linkedin', values.linkedin)
-                : formdata.append('linkedin', values.linkedin)
+                : formdata.append('linkedin', '')
               values.instagram != '' || !values.instagram
                 ? formdata.append('instagram', values.instagram)
-                : formdata.append('instagram', values.instagram)
+                : formdata.append('instagram', '')
               if (Nationality[0] != '') {
                 for (var i = 0; i < Nationality.length; i++) {
                   formdata.append(`array[${i}][nationality]`, Nationality[i]);
@@ -308,7 +308,7 @@ const UpdateInfo = () => {
 
               values.Location != '' || !values.Location
                 ? formdata.append('country', values.Location)
-                : formdata.append('country', values.Location);
+                : formdata.append('country', '');
               values.city != '' || !values.city ? formdata.append('city', values.city) : formdata.append('city', '');
               values.area != '' || !values.area ? formdata.append('area', values.area) : formdata.append('area', '');
 
