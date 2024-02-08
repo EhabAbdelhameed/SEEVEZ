@@ -10,11 +10,11 @@ import Footer from './Footer'
 
 const Content = () => {
   const [caption,setCaption]=useState('')
-
+  const [key,setKey]=useState('')
   return (
     <View style={styles.ContentCotainer}>
-      <ContainerRecord />
-      <Templetes />
+      <ContainerRecord key={key}  />
+      <Templetes setKey={setKey} />
       <AddCaption caption={caption} setCaption={setCaption}/>
       <Option />
       <Footer/>

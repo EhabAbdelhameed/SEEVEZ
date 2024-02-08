@@ -260,7 +260,7 @@ const UpdateCompanyInfo = () => {
                       ? source[0]?.fileName
                       : source[0]?.name,
                 })
-                : formdata.append('avatar', '');
+                : null;
 
               console.log(formdata);
               dispatch(AppThunks.doAddCompanyInfo(formdata)).then(
