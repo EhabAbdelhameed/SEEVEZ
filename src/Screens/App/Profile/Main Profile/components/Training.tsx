@@ -92,7 +92,7 @@ const TrainingProfileCard = (data: any) => {
           </View>
         ) : seeAllExperiences ? (
           data?.data?.map((item: any) => (
-            <View>
+            <View style={{paddingVertical:10}}>
               <View style={styles.Row2}>
                 <View
                   style={{
@@ -111,7 +111,7 @@ const TrainingProfileCard = (data: any) => {
                   <Text style={styles.des}>
                     {moment(item.start_date).format('yyyy')} -{' '}
                     {moment(item.end_date).format('yyyy')} ·
-                    {differenceInYears(item.start_date, item.end_date)} years ·
+                    {' '}{differenceInYears(item.start_date, item.end_date)} years ·
                     Cairo, Egypt
                   </Text>
                   <View style={styles.Row2}>
@@ -141,7 +141,7 @@ const TrainingProfileCard = (data: any) => {
         ) : (
           data?.data?.map((item: any, index: any) =>
             index == 0 ? (
-              <View>
+              <View style={{paddingVertical:10}}>
                 <View style={styles.Row2}>
                   <View
                     style={{
@@ -162,7 +162,7 @@ const TrainingProfileCard = (data: any) => {
                     <Text style={styles.des}>
                       {moment(item.start_date).format('yyyy')} -{' '}
                       {moment(item.end_date).format('yyyy')} ·
-                      {differenceInYears(item.start_date, item.end_date)} years
+                     {' '}{differenceInYears(item.start_date, item.end_date)} years
                       · Cairo, Egypt
                     </Text>
                     <View style={styles.Row2}>

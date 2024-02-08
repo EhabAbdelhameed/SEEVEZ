@@ -100,7 +100,7 @@ const UpdateRefernceCheck = () => {
               setLoading(true);
               const formdata = new FormData();
               values.phones.map((item: any, index: any) => {
-                console.log("this IS CODE",code)
+                
                 // formdata.append(
                 //   `array[${index}][country_code]`,
                 //   code == '' ? '+20' : code,
@@ -110,7 +110,8 @@ const UpdateRefernceCheck = () => {
                 formdata.append(`array[${index}][phone]`, item.phone);
               });
 
-              formdata.append('background_check', {
+              Source?.length == 0 || !Source
+              ? null:formdata.append('background_check', {
                 uri: Source[0]?.uri,
                 type: Source[0]?.type,
                 name: Source[0]?.name,

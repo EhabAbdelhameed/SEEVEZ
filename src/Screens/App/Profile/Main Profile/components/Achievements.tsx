@@ -15,6 +15,7 @@ import {PDF} from 'assets/Svgs';
 
 const AchievementsProfileCard = (data: any) => {
   const navigation = useNavigation();
+  console.log('HELLO FROM ACHIEV', data);
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   return (
     <View style={styles.CardContainer}>
@@ -32,23 +33,24 @@ const AchievementsProfileCard = (data: any) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            {data?.data?.length == 0?null:
-            <TouchableOpacity
-              style={{
-                height: 30,
-                width: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              disabled={data?.data == null ? true : false}
-              onPress={() => navigation.navigate('UpdateAchievementCard')}>
-              <RenderSvgIcon
-                icon="PEN"
-                width={20}
-                height={20}
-                color={appColors.primary}
-              />
-            </TouchableOpacity>}
+            {data?.data?.length == 0 ? null : (
+              <TouchableOpacity
+                style={{
+                  height: 30,
+                  width: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                disabled={data?.data == null ? true : false}
+                onPress={() => navigation.navigate('UpdateAchievementCard')}>
+                <RenderSvgIcon
+                  icon="PEN"
+                  width={20}
+                  height={20}
+                  color={appColors.primary}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         {data?.data?.length == 0
@@ -82,12 +84,11 @@ const AchievementsProfileCard = (data: any) => {
                     style={{
                       justifyContent: 'center',
                       alignItems: 'center',
-                      width: '100%',
-                      backgroundColor: 'red',
+                      width: '120%',
                     }}>
-                    {item?.certificate==null?null:
-                    item?.object_info?.extension == 'pdf' ||
-                    item?.object_info?.extension == 'zip' ? (
+                    {item?.certificate == null ? null : item?.object_info
+                        ?.extension == 'pdf' ||
+                      item?.object_info?.extension == 'zip' ? (
                       <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={() => Linking.openURL(item?.certificate)}
@@ -134,10 +135,10 @@ const AchievementsProfileCard = (data: any) => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         width: '120%',
-                      
                       }}>
-                      {item?.object_info?.extension == 'pdf' ||
-                      item?.object_info?.extension == 'zip' ? (
+                      {item?.certificate == null ? null : item?.object_info
+                          ?.extension == 'pdf' ||
+                        item?.object_info?.extension == 'zip' ? (
                         <TouchableOpacity
                           activeOpacity={0.8}
                           onPress={() => Linking.openURL(item?.certificate)}

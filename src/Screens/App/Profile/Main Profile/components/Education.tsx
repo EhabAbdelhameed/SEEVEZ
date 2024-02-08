@@ -69,7 +69,7 @@ const EducationProfileCard = (data: any) => {
           </View>
         ) : seeAllExperiences ? (
           data?.data?.map((item: any) => (
-            <View>
+            <View style={{paddingVertical:10}}>
             <View style={styles.Row2}>
            <View
               style={{
@@ -118,7 +118,7 @@ const EducationProfileCard = (data: any) => {
         ) : (
           data?.data?.map((item: any, index: any) =>
             index == 0 ? (
-              <View>
+              <View style={{paddingVertical:10}}>
                 <View style={styles.Row2}>
               <View
               style={{

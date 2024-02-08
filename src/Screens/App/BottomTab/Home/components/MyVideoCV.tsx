@@ -78,7 +78,7 @@ const MyVideoCV = () => {
           <View>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('UpdateRecordVideo', {key: '5'})
+                navigation.navigate('UpdateRecordVideo', {keys: '5'})
               }
               style={styles.secContainer}>
               <VIDEOICON />
@@ -130,7 +130,7 @@ const MyVideoCV = () => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('UpdateRecordVideo', {key: '5'})
+                navigation.navigate('UpdateRecordVideo', {keys: '5'})
               }
               style={[
                 styles.secContainer,

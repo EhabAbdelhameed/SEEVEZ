@@ -54,7 +54,7 @@ const RecordVideo = (data: any) => {
       {data?.user_data === null ? (
         <View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateRecordVideo', {key: 1})}
+            onPress={() => navigation.navigate('UpdateRecordVideo', {keys: 1})}
             style={styles.secContainer}>
             <VIDEOICON />
           </TouchableOpacity>
@@ -86,7 +86,7 @@ const RecordVideo = (data: any) => {
             <DELETE />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateRecordVideo', {key: 1})}
+            onPress={() => navigation.navigate('UpdateRecordVideo', {keys: 1})}
             style={[
               styles.secContainer,
               {

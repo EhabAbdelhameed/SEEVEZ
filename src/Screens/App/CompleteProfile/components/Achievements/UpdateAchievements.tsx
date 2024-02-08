@@ -53,11 +53,12 @@ const UpdateAchievements = () => {
       });
 
       // The selected media is available in the result.uri
-      setSource([
-        ...Source.slice(0, index),
-        result[0].name,
-        ...Source.slice(index + 1),
-      ]);
+   
+      setSource(prevSource => {
+        const updatedSource = [...prevSource];
+        updatedSource[index] = result[0].name;
+        return updatedSource;
+      });
       props?.setFieldValue(`Achievements[${index}]["degree_certificate"]`, {
         uri: result[0]?.uri,
         type: result[0]?.type,
@@ -118,7 +119,8 @@ const UpdateAchievements = () => {
               const formdata = new FormData();
               values.Achievements.map((item: any, index: any) => {
               formdata.append(`array[${index}][text]`, item.achievement);
-             
+              item.degree_certificate == '' || !item.degree_certificate
+              ? null:
               formdata.append(
                 `array[${index}][certificate]`,
                 item.degree_certificate,

@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Image,
   Linking,
   StyleSheet,
   Text,
@@ -10,7 +11,7 @@ import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {ImageBackground} from 'react-native';
-import {Analytic, Analytics, PDF, ReviewCV} from '../../../../../assets/Svgs';
+import {AVATAR, Analytic, Analytics, PDF, ReviewCV} from '../../../../../assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
@@ -93,19 +94,49 @@ const InfoProfileCard = (data: any) => {
           </TouchableOpacity>
         </View>
 
-        <ImageBackground
-          source={{uri: data?.data?.avatar}}
-          style={styles.ImageBackground}
-          imageStyle={styles.imageStyle}>
-          <View style={styles.PlusContainer}>
+        <View
+          style={{
+            width: 96,
+            height: 96,
+            borderRadius: 96,
+            // borderWidth: 1,
+            // borderColor: '#DDD',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: appColors.bg,
+          }}>
+          {CurrentUserData?.avatar == null ? (
+            <AVATAR height={48} width={48} />
+          ) : (
+            <Image
+              source={{uri: CurrentUserData?.avatar}}
+              style={{width: 96, height: 96, borderRadius: 96}}
+              resizeMode="cover"
+            />
+          )}
+          <View
+            style={{
+              width: 15,
+              height: 15,
+              borderRadius: 15,
+              // borderWidth: 1,
+              // borderColor: '#DDD',
+              justifyContent: 'center',
+              position: 'absolute',
+              bottom: 2,
+              right: 12,
+              alignItems: 'center',
+              backgroundColor: appColors.primary,
+            }}>
             <RenderSvgIcon
               icon="PLUSFOLLOW"
-              width={20}
-              height={20}
+              // style={{marginRight: 10}}
+              width={10}
+              height={10}
               color={appColors.white}
             />
           </View>
-        </ImageBackground>
+        </View>
 
         <View style={styles.Row}>
           <Text style={styles.Name}>{data?.data?.name}</Text>

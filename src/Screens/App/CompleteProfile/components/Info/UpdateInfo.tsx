@@ -176,7 +176,7 @@ console.log(source)
                 borderWidth: 1,
                 borderColor: '#B9CDF4',
               }}>
-              {CurrentUserData?.avatar == null && source == undefined ? (
+              {CurrentUserData?.avatar == null &&  (source == undefined || source?.length == 0) ? (
                 <PERSON />
               ) : (
                 <Image
@@ -230,7 +230,7 @@ console.log(source)
               heights: CurrentUserData?.height || '',
               weight: CurrentUserData?.weight || '',
               isSmoke: CurrentUserData?.smoker || '',
-
+              avatar:CurrentUserData?.avatar||'',
               code: CurrentUserData?.country_code || '',
             }}
             onSubmit={values => {
@@ -321,7 +321,7 @@ console.log(source)
                       ? source[0]?.fileName
                       : source[0]?.name,
                 })
-                : formdata.append('avatar', '');
+                : null
               console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
                 (res: any) => {
