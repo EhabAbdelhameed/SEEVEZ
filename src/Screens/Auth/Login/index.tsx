@@ -86,7 +86,6 @@ const Login = () => {
 
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false);
-                  console.log("Verified ",Verified)
                   if (!Verified&&signedUp) {
                     navigation.navigate('Verification', {
                       email: values.email,

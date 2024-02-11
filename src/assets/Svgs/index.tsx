@@ -1,6 +1,10 @@
 import Right from './Right.svg'
 import Eye from './Eye.svg'
 import EyeSlash from './EyeSlash.svg'
+import FaceBook from './FaceBook.svg'
+import Linkedin from './Linkedin.svg'
+import Google from './Google.svg'
+import Apple from './Apple.svg'
 
 
 import LogoWithName from './LogoWithName.svg'
@@ -33,7 +37,7 @@ import CALANDER from './Calunder.svg'
 import VIDEOICON from './VideoIcon.svg'
 import DropDownIcon from './DropDownIcon.svg'
 import ImageDrawer from './Ellipse 8.svg'
-import ArrowDown    from './arrwoDown.svg'
+import ArrowDown from './arrwoDown.svg'
 import Packages from './Packages.svg'
 import Setting from './Settings.svg'
 import LogOut from './LogOut.svg'
@@ -47,6 +51,11 @@ export {
     Right,
     Eye,
     EyeSlash,
+    FaceBook,
+    Linkedin,
+    Google,
+    Apple,
+
 
     LogoWithName,
     ImageInfo,

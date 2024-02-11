@@ -1,31 +1,35 @@
 interface appState {
-    IndsturyData:[{
+    FollowingList: any[]
+    listUsers: any[]
+
+
+    IndsturyData: [{
         deleted_at: any;
-         id: any;
-         name:any
+        id: any;
+        name: any
     }]
-    YearsOfExperience:[{
+    YearsOfExperience: [{
         deleted_at: any;
-         id: any;
-         name:any
+        id: any;
+        name: any
     }]
-    JobType:[{
+    JobType: [{
         deleted_at: any;
-         id: any;
-         name:any
+        id: any;
+        name: any
     }]
-    EducationLevel:[{
+    EducationLevel: [{
         deleted_at: any;
-         id: any;
-         name:any
+        id: any;
+        name: any
     }]
-    CompaniesData:[{
+    CompaniesData: [{
         avatar: any;
-         id: any;
-         name:any
+        id: any;
+        name: any
     }]
 
-    
+
     HomeData: {
         branch: {
             id: any;
@@ -295,8 +299,8 @@ interface appState {
         items: [
             {
                 category_id: any;
-                category_name:any;
-                description:any;
+                category_name: any;
+                description: any;
                 id: any;
                 image: any;
                 name: any;
@@ -317,33 +321,36 @@ interface appState {
 }
 
 export const initialState: appState = {
+    FollowingList:[],
+    listUsers:[],
+
     done: false,
     Nav: "",
     HomeData: [],
-    IndsturyData:[{
+    IndsturyData: [{
         deleted_at: null,
-         id:null,
-         name:null
+        id: null,
+        name: null
     }],
-    YearsOfExperience:[{
+    YearsOfExperience: [{
         deleted_at: null,
-         id:null,
-         name:null
+        id: null,
+        name: null
     }],
-    JobType:[{
+    JobType: [{
         deleted_at: null,
-         id:null,
-         name:null
+        id: null,
+        name: null
     }],
-    EducationLevel:[{
+    EducationLevel: [{
         deleted_at: null,
-         id:null,
-         name:null
+        id: null,
+        name: null
     }],
-    CompaniesData:[{
+    CompaniesData: [{
         avatar: null,
-         id: null,
-         name:null,
+        id: null,
+        name: null,
     }],
 
     placeOrderData: {},

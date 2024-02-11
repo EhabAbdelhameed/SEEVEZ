@@ -101,7 +101,6 @@ const AddNewExperience = () => {
   );
   const handleItemSelected = (selectedItem: any) => {
     // Handle the selected item, for example, update the state or perform other actions.
-    console.log('Selected Item:', selectedItem);
     // You may want to close the dropdown or clear the search query here.
     setSearchQuery('');
   };

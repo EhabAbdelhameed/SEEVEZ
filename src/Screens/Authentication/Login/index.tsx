@@ -3,7 +3,6 @@ import { View, Text, Image, } from 'react-native';
 import React, { useEffect } from 'react';
 import styles from './styles';
 import { RenderSvgIcon } from '../../../Components/atoms/svg';
-import SocialCard from '../../../Components/molecules/SocialCard';
 import DonotHaveAccountSection from '../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../Components/molecules/AuthTopSection';
 import { useNavigation } from '@react-navigation/native';
@@ -13,15 +12,16 @@ import { useAppDispatch } from 'src/redux/store';
 import AuthSlice from 'src/redux/auth';
 import Form from './Components/form';
 import { Logo } from 'assets/images';
+import SocialCard from 'components/molecules/Social Card';
+import { Apple, FaceBook, Google, Linkedin } from 'assets/Svgs';
 
-const Login = () => {
+const LoginScreen = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AuthSlice.chnageReseted(false));
       dispatch(AuthSlice.chnageIsCompanyAdmin(false));
-
     });
     return RenderFunction;
   }, []);
@@ -41,12 +41,12 @@ const Login = () => {
           </View>
           <View>
             <View style={styles.socialContainer}>
-              <SocialCard iconName="FACEBOOK" text="Facebook" />
-              <SocialCard iconName="LINKEDIN" text="Linkedin" />
+              <SocialCard Icon={<FaceBook />} text="Facebook" />
+              <SocialCard Icon={<Linkedin />} text="Linkedin" />
             </View>
             <View style={styles.socialContainer}>
-              <SocialCard iconName="GOOGLE" text="Google" />
-              <SocialCard iconName="APPLE" text="Apple" />
+              <SocialCard Icon={<Google />} text="Google" />
+              <SocialCard Icon={<Apple />} text="Apple" />
             </View>
           </View>
           <DonotHaveAccountSection />
@@ -56,4 +56,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginScreen;

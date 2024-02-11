@@ -30,7 +30,6 @@ import {Input} from 'react-native-elements';
 
 const UpdateOneLanguage = () => {
   const {data1}: any = useRoute().params;
-  console.log('LANGUAGE ', data1);
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
@@ -142,7 +141,6 @@ const UpdateOneLanguage = () => {
               formdata.append(`name`, values.name);
               formdata.append(`rate`, values.rate);
 
-              console.log(formdata);
               dispatch(AppThunks.doUpdateLanguages(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());
                 setLoading(false);
@@ -223,7 +221,6 @@ const UpdateOneLanguage = () => {
                       key={rateIndex}
                       style={[styles.rowAnswer, {marginBottom: 10}]}
                       onPress={() => {
-                        console.log(buttonIndex, rateIndex);
                         setButtonIndex(rateIndex);
                         props?.setFieldValue(`rate`, item.Rate);
                       }}>

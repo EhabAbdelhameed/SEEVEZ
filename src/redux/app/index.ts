@@ -1,8 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import Toast from 'react-native-toast-message';
-import {EntityKeys} from 'src/redux/keys';
-import {RootState} from '../store';
-import {initialState} from './types';
+import { EntityKeys } from 'src/redux/keys';
+import { RootState } from '../store';
+import { initialState } from './types';
 import thunks from './thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -44,6 +44,17 @@ const slice = createSlice({
     },
   },
   extraReducers(builder) {
+    //doGetFollowingList  
+    builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
+      state.FollowingList = action.payload.data?.follows
+    });
+
+    //doGetListUsers  
+    builder.addCase(thunks.doGetListUsers.fulfilled, (state, action) => {
+      state.listUsers = action.payload.data?.data
+    });
+
+
     //doAddSkills  Your Skills has been added successfully.
     builder.addCase(thunks.doAddSkills.fulfilled, (state, action) => {
       state.done = true;
@@ -298,7 +309,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1:action?.payload?.message,
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(
@@ -456,7 +467,7 @@ const slice = createSlice({
     builder.addCase(
       thunks.doDeleteReferenceCheck.fulfilled,
       (state, action) => {
-        
+
         state.done = true;
         Toast.show({
           type: 'success',
@@ -535,7 +546,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1:action?.payload?.message,
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(
@@ -557,7 +568,7 @@ const slice = createSlice({
 
     //doGetCompaniesName
     builder.addCase(thunks.GetCompaniesName.fulfilled, (state, action) => {
-      console.log(action.payload?.data);
+      // console.log(action.payload?.data);
       state.CompaniesData = action.payload?.data;
     });
     builder.addCase(thunks.GetCompaniesName.rejected, (state, action: any) => {
@@ -595,58 +606,58 @@ const slice = createSlice({
         });
       }
     });
-            //doUpdateLanguages
-            builder.addCase(thunks.doUpdateLanguages.fulfilled, (state, action) => {
-              state.done = true;
-              Toast.show({
-                type: 'success',
-        
-                text1: action?.payload?.message,
-              });
-            });
-            builder.addCase(thunks.doUpdateLanguages.rejected, (state, action: any) => {
-              if (action.payload.data.message == 'Validation error.') {
-                Toast.show({
-                  type: 'error',
-                  text1: action.payload.data.error,
-                });
-              } else {
-                Toast.show({
-                  type: 'error',
-                  text1: action.payload.data.message,
-                });
-              }
-            });
-                //doDeleteLanguages
-        builder.addCase(thunks.doDeleteLanguages.fulfilled, (state, action) => {
-          state.done = true;
-          Toast.show({
-            type: 'success',
-    
-            text1: action?.payload?.message,
-          });
+    //doUpdateLanguages
+    builder.addCase(thunks.doUpdateLanguages.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: action?.payload?.message,
+      });
+    });
+    builder.addCase(thunks.doUpdateLanguages.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
         });
-        builder.addCase(thunks.doDeleteLanguages.rejected, (state, action: any) => {
-          if (action.payload.data.message == 'Validation error.') {
-            Toast.show({
-              type: 'error',
-              text1: action.payload.data.error,
-            });
-          } else {
-            Toast.show({
-              type: 'error',
-              text1: action.payload.data.message,
-            });
-          }
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
         });
-    
+      }
+    });
+    //doDeleteLanguages
+    builder.addCase(thunks.doDeleteLanguages.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
+
+        text1: action?.payload?.message,
+      });
+    });
+    builder.addCase(thunks.doDeleteLanguages.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+
     //doAddPersonalInfo
     builder.addCase(thunks.doAddPersonalInfo.fulfilled, (state, action) => {
       state.done = true;
       Toast.show({
         type: 'success',
 
-        text1:action?.payload?.message,
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddPersonalInfo.rejected, (state, action: any) => {
@@ -679,8 +690,8 @@ const slice = createSlice({
         });
       }
     });
-     //GetAccessToken
-     builder.addCase(thunks.GetAccessToken.fulfilled, (state, action) => {
+    //GetAccessToken
+    builder.addCase(thunks.GetAccessToken.fulfilled, (state, action) => {
       // console.log('USER_ACCESS_TOKEN',action?.payload?.accessToken)
       AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.accessToken)
     });
@@ -759,7 +770,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1:action?.payload?.message
+        text1: action?.payload?.message
       });
     });
     builder.addCase(thunks.doUploadCV.rejected, (state, action: any) => {
@@ -775,29 +786,29 @@ const slice = createSlice({
         });
       }
     });
-        //doUploadVideoReel
-        builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
-          state.done = true;
-    
-          Toast.show({
-            type: 'success',
-    
-            text1: action?.payload?.message,
-          });
+    //doUploadVideoReel
+    builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
+      state.done = true;
+
+      Toast.show({
+        type: 'success',
+
+        text1: action?.payload?.message,
+      });
+    });
+    builder.addCase(thunks.doUploadVideoReel.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
         });
-        builder.addCase(thunks.doUploadVideoReel.rejected, (state, action: any) => {
-          if (action.payload.data.message == 'Validation error.') {
-            Toast.show({
-              type: 'error',
-              text1: action.payload.data.error,
-            });
-          } else {
-            Toast.show({
-              type: 'error',
-              text1: action.payload.data.message,
-            });
-          }
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
         });
+      }
+    });
     //doGetLatestOrder
     //doAddAbout
     builder.addCase(thunks.doAddAbout.fulfilled, (state, action) => {
@@ -824,11 +835,11 @@ const slice = createSlice({
     // doAddCompanyInfo
     builder.addCase(thunks.doAddCompanyInfo.fulfilled, (state, action) => {
       state.done = true;
-      console.log(JSON.stringify(action?.payload))
-      
+      // console.log(JSON.stringify(action?.payload))
+
       Toast.show({
         type: 'success',
-        text1:action?.payload?.message ,
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddCompanyInfo.rejected, (state, action: any) => {
@@ -893,6 +904,11 @@ const slice = createSlice({
     );
   },
 });
+
+export const selectFollowingList = (state: RootState) => state.app.FollowingList;
+export const selectListUsers= (state: RootState) => state.app.listUsers;
+
+
 
 export const selectBranches = (state: RootState) => state.app.Branches;
 export const selectCategories = (state: RootState) => state.app.categories;

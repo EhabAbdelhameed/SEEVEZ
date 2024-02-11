@@ -37,7 +37,6 @@ import {launchImageLibrary} from 'react-native-image-picker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateOneTraining = () => {
   const {data}: any = useRoute().params;
-  console.log('Tranoing', data);
   const navigation = useNavigation();
   const [Source, setSource] = useState<any>('');
   const [loading, setLoading] = React.useState(false);
@@ -351,7 +350,7 @@ const UpdateOneTraining = () => {
                               : new Date() // Provide a default date if the specified date is invalid
                           }
                           onChange={(event: any, selectedDate: any) => {
-                            console.log(selectedDate);
+                            // console.log(selectedDate);
                             if (selectedDate !== undefined) {
                               if (type == '1') {
                                 setStartDates(selectedDate);
@@ -369,7 +368,6 @@ const UpdateOneTraining = () => {
                                 );
                               }
                             }
-                            console.log(startDates);
                             setVisible(false);
                           }}
                         />

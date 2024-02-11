@@ -37,7 +37,7 @@ const initAxios = (store: TStore) => {
   const unautherizedHandling = (error: AxiosError) => {
     const {status, data} = (error?.response as any) || {};
     console.log('====================================');
-    console.log(status);
+    // console.log(status);
     console.log('====================================');
     //error handling
   };

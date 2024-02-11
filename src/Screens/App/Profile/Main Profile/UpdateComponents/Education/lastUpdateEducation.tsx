@@ -42,7 +42,6 @@ import ReactNativeModal from 'react-native-modal';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateOneEducation = () => {
   const {data}: any = useRoute().params;
-  console.log('Education', data);
   const [startDates, setStartDates] = useState(data?.start_date);
   const [endDates, setEndDates] = useState(data?.end_date);
 
@@ -197,7 +196,6 @@ const UpdateOneEducation = () => {
                   })
                 : null;
 
-              console.log(formdata);
 
               dispatch(AppThunks.doUpdateEducation(formdata)).then(
                 (res: any) => {

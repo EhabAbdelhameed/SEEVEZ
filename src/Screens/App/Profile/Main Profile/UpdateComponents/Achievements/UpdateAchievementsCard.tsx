@@ -30,7 +30,6 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 const UpdateAchievementCard = () => {
   const CurrentUserData = useSelector(selectUser);
   let data = CurrentUserData?.user_data?.achievement;
-  console.log('11111111Ach ', data);
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [refreshPage, setRefreshPage] = useState(false);

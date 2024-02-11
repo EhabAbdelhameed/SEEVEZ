@@ -29,7 +29,6 @@ import {
     const CurrentUserData = useSelector(selectUser);
     
     let data = CurrentUserData?.user_data?.reference_check;
-    console.log('11111111 ', data);
     const navigation = useNavigation<any>();
     const dispatch = useAppDispatch();
     const [refreshPage, setRefreshPage] = useState(false);

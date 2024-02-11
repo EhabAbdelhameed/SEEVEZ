@@ -105,7 +105,6 @@ const SignupTwo = () => {
   );
   const handleItemSelected = (selectedItem: any, props: any, index: any) => {
     // Handle the selected item, for example, update the state or perform other actions.
-    console.log('Selected Item:', selectedItem);
     setSelectedItem(selectedItem);
 
     setSelectedCompanyName(selectedItem.name);
@@ -147,7 +146,6 @@ const SignupTwo = () => {
       const res: any = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
       });
-      console.log(res);
       if (type == '1') {
         setTaxCardDocument(res);
       } else {
@@ -169,7 +167,6 @@ const SignupTwo = () => {
     }
   };
   const { work_type, title }: any = useRoute().params;
-  console.log(work_type);
   return (
     // <View style={styles.container}>
     <SafeAreaView edges={['top']} style={styles.container}>
@@ -235,7 +232,6 @@ const SignupTwo = () => {
             onSubmit={values => {
               setLoading(true);
               setEmail(values.email);
-              console.log(work_type?.toLowerCase());
               const formdata = new FormData();
 
               work_type == 'Company'
@@ -264,10 +260,9 @@ const SignupTwo = () => {
                   setLoading(false),
                 );
               } else if (work_type?.toLowerCase() == 'company') {
-                console.log('eee', selectedItem?.length);
 
+                
                 if (selectedItem?.length == 0) {
-                  console.log("hello")
                   formdata.append('name', values.company_name);
                   formdata.append('phone_number', values.phone)
                   formdata.append('tax_id', values.taxID);
@@ -291,7 +286,6 @@ const SignupTwo = () => {
                   Dispatch(AuthThunks.doSignUpCompanyAdmin(formdata)).then(() =>
                     setLoading(false),
                   );
-                  console.log('Company', formdata);
                 }
               } else {
                 Dispatch(AuthThunks.doSignUpRecruiter(formdata)).then(() =>

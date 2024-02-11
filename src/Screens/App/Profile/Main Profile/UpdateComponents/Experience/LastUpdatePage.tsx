@@ -44,7 +44,6 @@ import Pdf from 'react-native-pdf';
 const UpdateOneExperience = () => {
   const {data}: any = useRoute().params;
 
-  console.log('sdasdsadedreew', data);
   const [startDates, setStartDates] = useState(data?.start_date);
   const [endDates, setEndDates] = useState(data?.end_date);
 
@@ -142,7 +141,6 @@ const UpdateOneExperience = () => {
   );
   const handleItemSelected = (selectedItem: any, props: any) => {
     // Handle the selected item, for example, update the state or perform other actions.
-    console.log('Selected Item:', selectedItem);
     setSelectedItem(selectedItem);
 
     // setSelectedCompanyName(selectedItem.name);
@@ -284,7 +282,6 @@ const UpdateOneExperience = () => {
               formdata.append(`still_work_here`, values.still_work_here);
               experienceLetter?.length != 0 ?formdata.append(`experience_letter`, values.experience_letter):null;
 
-              console.log('FormData', formdata);
 
               dispatch(AppThunks.doUpdateExperience(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());

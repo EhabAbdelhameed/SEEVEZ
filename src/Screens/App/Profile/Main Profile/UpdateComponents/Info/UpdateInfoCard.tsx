@@ -298,7 +298,6 @@ const UpdateInfoCard = () => {
                 type: source[0]?.type,
                 name: source[0]?.name,
               });
-              console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
                 (res: any) => {
                   dispatch(AppThunks.GetProfileInfo());

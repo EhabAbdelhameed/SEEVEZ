@@ -15,13 +15,23 @@ export const styles = StyleSheet.create({
         borderRadius: 25,
         borderColor: appColors.primary
     },
+    UserName: {
+        fontSize: 16,
+        color: appColors.dark,
+        fontWeight: '500'
+    },
+    work: {
+        fontSize: 12,
+        fontWeight: "400",
+        color: appColors.dark
+    },
     text2: {
         fontSize: appSizes.font_l - 3,
         fontWeight: "600",
         color: appColors.dark
     },
     text3: {
-        fontSize: appSizes.font_xs - 2,
+        fontSize: 11,
         fontWeight: "400",
         color: appColors.dark
     },
@@ -65,11 +75,11 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         // paddingHorizontal:18,
-        paddingVertical: appSizes.s,
-        paddingHorizontal: appSizes.padding_l,
+        paddingVertical: 5,
+        paddingHorizontal:15,
         backgroundColor: appColors.lightPurple2,
         borderRadius: appSizes.l,
-        marginTop: 2,
+        marginTop: 5,
         borderWidth: 1,
         borderColor: appColors.lightPurple
     },

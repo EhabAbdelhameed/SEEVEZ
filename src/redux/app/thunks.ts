@@ -1,6 +1,102 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import AppAPI from "./api";
 
+const doFollowUser: any = createAsyncThunk<any, any, any>(
+    'app/followUser',
+    async (id, thunkApi: any) => {
+        try {
+            const response = await AppAPI.followUser(id);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+const doUnFollowUser: any = createAsyncThunk<any, any, any>(
+    'app/unfollowUser',
+    async (id, thunkApi: any) => {
+        try {
+            const response = await AppAPI.unfollowUser(id);
+            // console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+const doGetFollowingList: any = createAsyncThunk<any, any, any>(
+    'app/followingList',
+    async (_, thunkApi: any) => {
+        try {
+            const response = await AppAPI.followingList();
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+const doGetListUsers: any = createAsyncThunk<any, any, any>(
+    'app/listUsers',
+    async (_, thunkApi: any) => {
+        try {
+            const response = await AppAPI.listUsers();
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+
+
 
 
 //doAddSkills
@@ -9,7 +105,7 @@ const doAddSkills: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.Skills(data);
-            console.log(response?.data)
+            // console.log(response?.data)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -34,7 +130,7 @@ const doUpdateSkills: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.updateSkills(data);
-            console.log(response?.data)
+            // console.log(response?.data)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -59,7 +155,7 @@ const doDeleteSkills: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.DeleteSkills(data);
-            console.log(response?.data)
+            // console.log(response?.data)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -84,7 +180,7 @@ const doAddIntersts: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.Interests(data);
-            console.log(response?.data)
+            // console.log(response?.data)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -109,7 +205,7 @@ const doUpdateIntersts: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.updateInterests(data);
-            console.log(response?.data)
+            // console.log(response?.data)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -134,7 +230,7 @@ const doDeleteIntersts: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.DeleteInterests(data);
-            console.log(response?.data)
+            // console.log(response?.data)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -261,7 +357,7 @@ const doUpdateExperience: any = createAsyncThunk<any, any, any>(
         // console.log(data)
         try {
             const response = await AppAPI.updateExperience(data);
-            console.log("Update",response)
+            console.log("Update", response)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -337,7 +433,7 @@ const doUpdateTrainingCourse: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.updateTrainingCourse(data);
-              console.log(response?.data)
+            console.log(response?.data)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -384,12 +480,12 @@ const doDeleteTrainingCourse: any = createAsyncThunk<any, any, any>(
 //doAddReferenceCheck
 const doAddReferenceCheck: any = createAsyncThunk<any, any, any>(
     'app/ReferenceCheck',
-    
+
     async (data, thunkApi: any) => {
         // console.log(data)
         try {
             const response = await AppAPI.ReferenceCheck(data);
-               console.log(response)
+            console.log(response)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -411,12 +507,12 @@ const doAddReferenceCheck: any = createAsyncThunk<any, any, any>(
 //doUpdateReferenceCheck
 const doUpdateReferenceCheck: any = createAsyncThunk<any, any, any>(
     'app/UpdateReferenceCheck',
-    
+
     async (data, thunkApi: any) => {
         // console.log(data)
         try {
             const response = await AppAPI.updateReferenceCheck(data);
-               console.log(response)
+            console.log(response)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -438,12 +534,12 @@ const doUpdateReferenceCheck: any = createAsyncThunk<any, any, any>(
 //doDeleteReferenceCheck
 const doDeleteReferenceCheck: any = createAsyncThunk<any, any, any>(
     'app/DeleteReferenceCheck',
-    
+
     async (data, thunkApi: any) => {
         // console.log(data)
         try {
             const response = await AppAPI.DeleteReferenceCheck(data);
-               console.log(response)
+            console.log(response)
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -845,7 +941,7 @@ const doAddAbout: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.About(data);
-         
+
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -871,7 +967,7 @@ const doAddCompanyInfo: any = createAsyncThunk<any, any, any>(
     async (data, thunkApi: any) => {
         try {
             const response = await AppAPI.CompanyInfo(data);
-            console.log("0000000000"+JSON.stringify(response))
+            console.log("0000000000" + JSON.stringify(response))
             if (
                 response.status == null ||
                 response.status == 401 ||
@@ -970,6 +1066,11 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
 
 
 const AppThunks = {
+    doFollowUser,
+    doUnFollowUser,
+    doGetFollowingList,
+    doGetListUsers,
+
     doAddSkills,
     GetAccessToken,
     doUpdateSkills,
@@ -1008,7 +1109,7 @@ const AppThunks = {
     doDeleteIntersts,
     GetJobType,
     GetCompaniesName
-   
+
 };
 
 export default AppThunks;

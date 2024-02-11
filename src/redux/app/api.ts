@@ -1,33 +1,33 @@
-import {api} from '../_axios';
+import { api } from '../_axios';
 
 
 //////////////////////////API Complete profile ////////////////////////////////////////
 const Languages = (data: any) => api.post(`api/languages`, data);
 const updateLanguages = (data: any) => api.post(`api/edit-languages`, data);
-const DeleteLanguages = (id: number) => api.delete(`api/delete-languages/${id}`) 
+const DeleteLanguages = (id: number) => api.delete(`api/delete-languages/${id}`)
 const Skills = (data: any) => api.post(`api/skills`, data);
 const updateSkills = (data: any) => api.post(`api/edit-skills`, data);
-const DeleteSkills = (id: number) => api.delete(`api/delete-skills/${id}`) 
+const DeleteSkills = (id: number) => api.delete(`api/delete-skills/${id}`)
 const Interests = (data: any) => api.post(`api/interests`, data);
 const updateInterests = (data: any) => api.post(`api/edit-interests`, data);
-const DeleteInterests = (id: number) => api.delete(`api/delete-interests/${id}`) 
+const DeleteInterests = (id: number) => api.delete(`api/delete-interests/${id}`)
 
 const Education = (data: any) => api.post(`api/education`, data);
 const updateEducation = (data: any) => api.post(`api/edit-education`, data);
-const DeleteEducation = (id: number) => api.delete(`api/delete-education/${id}`)  
+const DeleteEducation = (id: number) => api.delete(`api/delete-education/${id}`)
 const Experience = (data: any) => api.post(`api/experience`, data);
 const updateExperience = (data: any) => api.post(`api/edit-experience`, data);
 const DeleteExperience = (id: number) => api.delete(`api/delete-experience/${id}`)
 
 const TrainingCourse = (data: any) => api.post(`api/training-course`, data);
 const updateTrainingCourse = (data: any) => api.post(`api/edit-training-course`, data);
-const DeleteTrainingCourse = (id: number) => api.delete(`api/delete-training-course/${id}`) 
+const DeleteTrainingCourse = (id: number) => api.delete(`api/delete-training-course/${id}`)
 const ReferenceCheck = (data: any) => api.post(`api/reference-check`, data);
 const updateReferenceCheck = (data: any) => api.post(`api/edit-reference-check`, data);
-const DeleteReferenceCheck = (id: number) => api.delete(`api/delete-reference-check/${id}`) 
+const DeleteReferenceCheck = (id: number) => api.delete(`api/delete-reference-check/${id}`)
 const Achievement = (data: any) => api.post(`api/achievement`, data);
 const updateAchievement = (data: any) => api.post(`api/edit-achievement`, data);
-const DeleteAchievement = (id: number) => api.delete(`api/delete-achievement/${id}`) 
+const DeleteAchievement = (id: number) => api.delete(`api/delete-achievement/${id}`)
 const Info = (data: any) => api.post(`api/edit-main-profile`, data);
 const About = (data: any) => api.post(`api/edit-main-profile`, data);
 const AccessToken = () => api.post(`api/amity-data-access-token`);
@@ -46,13 +46,12 @@ const EducationLevel = () => api.get(`api/drop-down/education-level`)
 const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?name=${data}`)
 
 
+const listUsers = () => api.get(`dashboard/recruiter/20`)
+const followUser = (id: number) => api.post(`api/follow`, { id })
+const unfollowUser = (id: number) => api.post(`api/unfollow`, { id })
+const followingList = () => api.get(`api/get-following-list`)
 
 
-
-/////////////////////////////////end////////////////////////////////////////
-// const home = (data: any) => api.get(`home?${data}`)
-
-// const favoritesDelete = (id: number) => api.delete(`favorites/${id}`)
 
 const AppAPI = {
   Skills,
@@ -92,7 +91,13 @@ const AppAPI = {
   profileInfo,
   Interests,
   updateInterests,
-  DeleteInterests
+  DeleteInterests,
+
+  
+  listUsers,
+  followUser,
+  unfollowUser,
+  followingList
 };
 
 export default AppAPI;

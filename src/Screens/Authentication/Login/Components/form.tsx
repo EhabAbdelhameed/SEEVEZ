@@ -8,14 +8,11 @@ import styles from '../styles'
 import { useNavigation } from '@react-navigation/native'
 import CustomButton from 'components/molecules/Button/CustomButton'
 import AuthThunks from 'src/redux/auth/thunks'
-import { useAppDispatch, useAppSelector } from 'src/redux/store'
-import { selectIsSignedUp, selectVerified } from 'src/redux/auth'
+import { useAppDispatch, } from 'src/redux/store'
 
 const Form = () => {
     const dispatch = useAppDispatch()
     const navigation = useNavigation<any>();
-    const Verified = useAppSelector(selectVerified);
-    const signedUp = useAppSelector(selectIsSignedUp);
     const [loading, setLoading] = React.useState(false);
     return (
         <Formik

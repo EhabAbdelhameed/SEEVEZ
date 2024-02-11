@@ -10,6 +10,7 @@ import ForgetPassword from '../Screens/Auth/ForgetPassword';
 import SignupWithSocail from '../Screens/Auth/SignupWithSocail';
 import { AuthParamsList } from './types';
 import ResetPassword from 'screens/Auth/ResetPassword';
+import LoginScreen from 'screens/Authentication/Login';
 
 
 
@@ -47,8 +48,8 @@ const AuthStack = () => {
         component={SignupWithSocail}
       />
       <Stack.Screen
-      name='ResetPassword'
-      component={ResetPassword}
+        name='ResetPassword'
+        component={ResetPassword}
       />
     </Stack.Navigator>
   );

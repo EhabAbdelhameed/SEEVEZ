@@ -31,7 +31,6 @@ import {
   const UpdateOneRefernceCheck = () => {
     // const navigation = useNavigation<any>();
     const {data}: any = useRoute().params;
-    console.log('Refesdd', data);
     const defaultCode={
         code: '',
         dial_code:data?.country_code,
@@ -83,7 +82,6 @@ import {
         const res: any = await DocumentPicker.pick({
           type: [DocumentPicker.types.pdf],
         });
-        console.log(res);
         setSource(res);
       } catch (err) {
         // setFieldValue(name.replace(/\s/g, ''), '');
@@ -181,7 +179,6 @@ import {
                   type: Source[0]?.type,
                   name: Source[0]?.name,
                 }):null
-                console.log(formdata);
                 dispatch(AppThunks.doUpdateReferenceCheck(formdata)).then(
                   (res: any) => {
                     dispatch(AppThunks.GetProfileInfo());

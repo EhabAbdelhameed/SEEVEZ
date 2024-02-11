@@ -29,7 +29,6 @@ import {
   const UpdateTrainingCard = () => {
     const CurrentUserData = useSelector(selectUser);
     let data = CurrentUserData?.user_data?.training_courses;
-    // console.log('11111111 ', data);
     const navigation = useNavigation<any>();
     const dispatch = useAppDispatch();
     const [refreshPage, setRefreshPage] = useState(false);
@@ -53,7 +52,6 @@ import {
       });
       return RenderFunction;
     }, [navigation]);
-    // console.log('FromUpdated ', data);
     const _handleNavigate = useCallback(() => {
       navigation.goBack();
     }, []);

@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import styles from '../styles';
-import {Modalize} from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize';
 import JumpModal from './JumpModal';
-import {appColors} from 'theme/appColors';
+import { appColors } from 'theme/appColors';
 
 const jobSeeker = {
   title: 'Sign up as a job seeker',
@@ -39,7 +39,7 @@ const creator = {
   question: 'Are you a company or a freelance recruiter ?',
   answers: [
     {
-      answer: 'Company', 
+      answer: 'Company',
       selected: false,
     },
     {
@@ -60,7 +60,7 @@ const RectangleBtn = ({
   title2: string;
   nav?: any;
 }) => {
-  const {width, height} = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
 
   const ModalRef = useRef<Modalize>(null);
   const [data, setData] = useState(creator);
@@ -76,16 +76,15 @@ const RectangleBtn = ({
             ModalRef.current?.open();
           }, 100);
         }}>
-            {/* <View style={styles.imgRectangle}></View> */}
         <Image source={img} style={styles.imgRectangle} resizeMode="cover" />
         <View
           style={{
-        
-            
+
+
           }}>
           <Text style={styles.rectangleText}>{title1}</Text>
           <Text style={[styles.rectangleText1]}>{title2}</Text>
-        </View>    
+        </View>
       </TouchableOpacity>
       <JumpModal ModalRef={ModalRef} setData={setData} data={data} />
     </>

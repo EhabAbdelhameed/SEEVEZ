@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexBasis: 'auto',
     justifyContent: 'space-between',
-    marginBottom: appSizes.spacing_s,
+    marginBottom: 5,
   },
   loginText: {
     color: appColors.textColor,
@@ -68,16 +68,17 @@ const styles = StyleSheet.create({
   },
   signup: {
     color: appColors.textColor,
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: '500',
     textAlign: 'center',
   },
   letsJumpIn: {
     color: appColors.black,
-    fontSize: 38,  
-    fontWeight: '700',
+    fontSize: 30,  
+    fontWeight: '600',
     textAlign: 'center',
-    fontFamily:'Noto Sans'
+    fontFamily:'Noto Sans',
+    marginBottom:10
   },
   rowRectangles: {
     width: "100%",
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
-    marginTop: -7,
+    marginTop: -3,
     fontFamily:'Noto Sans',
     marginBottom:10
   },
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: "center",
     paddingHorizontal: appSizes.padding_m,
-    marginTop: 2
+    marginTop: 2,
   },
   questionText:{
     color: appColors.dark,
@@ -146,7 +147,8 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 10,
     alignSelf:"flex-start",
-    fontFamily:'Noto Sans'
+    fontFamily:'Noto Sans',
+    // marginBottom:15
   },
   rowAnswer:{
     flexDirection:"row",
