@@ -38,7 +38,7 @@ const Home = () => {
   //   // console.log("Token ",token)
   //    return token
   // }
-
+   console.log("Current",CurrentUserData)
   React.useEffect(() => {
     // accessTocken();
     const RenderFunction = navigation.addListener('focus', () => {

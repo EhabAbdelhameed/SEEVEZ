@@ -305,7 +305,7 @@ const InfoProfileCard = (data: any) => {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-                onPress={() => Linking.openURL(CurrentUserData?.cv_pdf)}>
+                onPress={() => Linking.openURL(CurrentUserData?.cv_pdf?.fileUrl)}>
                 <ReviewCV width={140} />
               </TouchableOpacity>
             )}
