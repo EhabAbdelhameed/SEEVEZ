@@ -172,7 +172,7 @@ const InfoProfileCard = (data: any) => {
               color={appColors.white}
             />
             <Text style={styles.InfoText}>{`${
-              data?.data?.area == null ? null : `${data?.data?.area} `
+              data?.data?.area == null ? ' ' : `${data?.data?.area} `
             } ${data?.data?.city == null ? ' ' : '، ' + data?.data?.city}${
               data?.data?.country == null ? ' ' : '  ' + data?.data?.country
             }`}</Text>

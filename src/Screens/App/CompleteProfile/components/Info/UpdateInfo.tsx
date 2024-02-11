@@ -48,8 +48,9 @@ import BottomHeader from '../Header/BottomHeader';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
-  const [date, setDate] = useState(new Date());
   const CurrentUserData = useSelector(selectUser);
+  const [date, setDate] = useState(new Date(CurrentUserData?.birthdate));
+
   const dispatch = useAppDispatch();
   const [index, setIndex] = React.useState(false);
   const [isVisible, setVisible] = useState(false);

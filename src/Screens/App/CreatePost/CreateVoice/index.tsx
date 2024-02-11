@@ -28,12 +28,16 @@ const CreateVoice = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStoped, setIsStoped] = useState(false);
-  const [audioData, setAudioData] = useState(null);
+  const [audioData, setAudioData] = useState<any>(null);
   const [milliseconds, setMilliseconds] = useState(0);
 
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
+  //setWaveformPoints
+  const [waveformPoints, setWaveformPoints] = useState<any>([]);
+
+
 
   useEffect(() => {
     let timerInterval: any;
@@ -73,7 +77,8 @@ const CreateVoice = () => {
       setIsStoped(true);
       // Ensure that the result is an array before setting it as audioData
       const audioDataArray:any = Array.isArray(result) ? result : Array.from(result);
-      setAudioData(audioDataArray);
+      setAudioData(result);
+     
 
       // Generate waveform points from the recorded audio data
       // const waveformPoints = await generateWaveformPoints(audioDataArray);
@@ -130,12 +135,11 @@ const CreateVoice = () => {
       return { x, y };
     });
   };
-  const _handleNavigation = useCallback(
-    () => {
-      navigation.navigate("CreateShareLink")
-    },
-    [],
-  );
+  const _handleNavigation = useCallback(() => {
+    navigation.navigate('CreateShareLink', {
+      audioData: audioData,
+    });
+  }, [audioData, navigation]);
   return (
     <SafeAreaView edges={['top']} style={[globalStyles.screen,]}>
       <ImageBackground style={styles.bg}
@@ -158,7 +162,7 @@ const CreateVoice = () => {
           }}
           isStoped={isStoped}
         />
-        {/* {isRecording ? (
+        {isRecording ? (
         <>
           <Text style={{ marginBottom: 10 }}>Recording...</Text>
         </>
@@ -176,22 +180,12 @@ const CreateVoice = () => {
           )}
         </>
       )}
-      {waveformPoints.length > 0 && (
-        <Svg height="100" width="300">
-          <Path
-            d={`M${waveformPoints.map((point) => `${point.x},${point.y}`).join(' ')}`}
-            fill="transparent"
-            stroke="#a00"
-            strokeWidth="1"
-          />
-        </Svg>
-
-      )}
+  
       {isPlaying && (
         <Text style={{ marginTop: 10 }}>Playing...</Text>
       )}
 
-      <Button title="Stop" onPress={isRecording ? stopRecording : stopPlayback} /> */}
+      <Button title="Stop" onPress={isRecording ? stopRecording : stopPlayback} />
 
       </ImageBackground>
 

@@ -7,16 +7,17 @@ import AddCaption from './AddCaption'
 import Option from './Option'
 import { SaveCircle } from 'assets/Svgs'
 import Footer from './Footer'
-
-const Content = () => {
+const Content = (data:any) => {
   const [caption,setCaption]=useState('')
-  const [key,setKey]=useState('')
+  const [key,setKey]=useState<any>(0)
+  const [imgUrl,setImageURL]=useState<any>([])
+     console.log("33333"+JSON.stringify(imgUrl))
   return (
     <View style={styles.ContentCotainer}>
-      <ContainerRecord key={key}  />
-      <Templetes setKey={setKey} />
+      <ContainerRecord data={[key,imgUrl]} audioData={data}   />
+      <Templetes onPress={setKey} onPressImg={setImageURL} />
       <AddCaption caption={caption} setCaption={setCaption}/>
-      <Option />
+      <Option onPress={setImageURL} />
       <Footer/>
     </View>
   )

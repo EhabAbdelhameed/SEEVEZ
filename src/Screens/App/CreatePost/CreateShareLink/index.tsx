@@ -7,8 +7,11 @@ import Header from './components/Header'
 import Content from './components/Content'
 import Templetes from './components/Templetes'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useRoute } from '@react-navigation/native'
 
 const CreateShareLink = () => {
+    const {audioData}: any = useRoute().params;
+    console.log("123,",audioData)
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
 
@@ -24,7 +27,7 @@ const CreateShareLink = () => {
                 enableResetScrollToCoords={false}
                 showsVerticalScrollIndicator={false}
             >
-                <Content />
+                <Content data={audioData} />
             </KeyboardAwareScrollView>
         </SafeAreaView>
     )
