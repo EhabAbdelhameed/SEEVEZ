@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import { appColors } from '../../../../../theme/appColors';
@@ -14,10 +15,38 @@ import Video from 'react-native-fast-video';
 import { styles } from './styles';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
+import AppSlice from 'src/redux/app';
 
 const RecordVideoCompany = (data: any) => {
   const navigation = useNavigation<any>();
   const [isPaused, setPaused] = useState(false);
+  
+  const dispatch = useAppDispatch();
+  const handleDeleteVideo = (VideoId:any) => {
+    // Show confirmation dialog
+    Alert.alert(
+      'Seevez',
+      'Are you sure you want to delete this video?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            // Dispatch the action to delete the experience
+            dispatch(AppThunks.doDeleteVideoCV(VideoId)).then((res: any) => {
+              dispatch(AppThunks.GetProfileInfo());
+              dispatch(AppSlice.changeDone(false));
+           
+            });
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  };
 
   return (
     <View
@@ -46,7 +75,8 @@ const RecordVideoCompany = (data: any) => {
       )}
       {data?.user_data !== null ? (
         <View style={styles.topContainer1}>
-          <TouchableOpacity
+          <TouchableOpacity 
+          onPress={() => handleDeleteVideo(data?.user_data?.id)} 
             style={[
               styles.secContainer,
               {
@@ -101,7 +131,7 @@ const RecordVideoCompany = (data: any) => {
               onPress={() => setPaused(!isPaused)}
               style={{
                 width: '100%',
-                height:600,
+                height:300,
               }}/>
           )}
         </View>

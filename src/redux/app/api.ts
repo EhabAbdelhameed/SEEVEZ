@@ -7,7 +7,13 @@ const updateLanguages = (data: any) => api.post(`api/edit-languages`, data);
 const DeleteLanguages = (id: number) => api.delete(`api/delete-languages/${id}`)
 const Skills = (data: any) => api.post(`api/skills`, data);
 const updateSkills = (data: any) => api.post(`api/edit-skills`, data);
+<<<<<<< HEAD
 const DeleteSkills = (id: number) => api.delete(`api/delete-skills/${id}`)
+=======
+const DeleteSkills = (id: number) => api.delete(`api/delete-skills/${id}`) 
+const DeleteVideoCV = (id: number) => api.delete(`api/delete-media-cv/${id}`) 
+
+>>>>>>> refs/remotes/origin/main
 const Interests = (data: any) => api.post(`api/interests`, data);
 const updateInterests = (data: any) => api.post(`api/edit-interests`, data);
 const DeleteInterests = (id: number) => api.delete(`api/delete-interests/${id}`)
@@ -56,6 +62,7 @@ const followingList = () => api.get(`api/get-following-list`)
 const AppAPI = {
   Skills,
   updateSkills,
+  DeleteVideoCV,
   DeleteSkills,
   VideoReel,
   Education,

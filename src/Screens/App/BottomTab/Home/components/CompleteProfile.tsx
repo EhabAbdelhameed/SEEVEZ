@@ -9,7 +9,7 @@ import {selectUser} from 'src/redux/auth';
 
 const CompleteProfile = ({pers = 0}: {pers: number}) => {
   const CurrentUserData = useSelector(selectUser);
-  console.log("WORK_TYPE ",CurrentUserData)
+
   const navigation = useNavigation();
   const Slider = () => {
     return (

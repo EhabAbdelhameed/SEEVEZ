@@ -295,6 +295,23 @@ const styles = StyleSheet.create({
       borderColor: '#15439D',
       borderWidth: 0.3,
     },
+    PDFContainer: {
+      height: 100,
+      width: 100,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: appColors.lightGrey3,
+      borderRadius: 10,
+      marginTop: 10,
+      alignSelf: 'center',
+    },
+    Certificate: {
+      width: 200,
+      height: 150,
+      alignSelf: 'center',
+      resizeMode: 'contain',
+      marginVertical: 10,
+    },
   });
   
   export default styles;

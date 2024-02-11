@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {globalStyles} from 'src/globalStyle';
@@ -11,6 +11,9 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import {DELETE, VIDEOICON} from 'assets/Svgs';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
+import AppThunks from 'src/redux/app/thunks';
+import AppSlice from 'src/redux/app';
+import { useAppDispatch } from 'src/redux/store';
 
 const MyVideoCV = () => {
   const _handleNavigate = useCallback(() => {
@@ -19,6 +22,31 @@ const MyVideoCV = () => {
   const CurrentUserData = useSelector(selectUser);
   const navigation = useNavigation<any>();
   const [isPaused, setPaused] = useState(false);
+  const dispatch = useAppDispatch();
+  const handleDeleteVideo = (VideoId: any) => {
+    // Show confirmation dialog
+    Alert.alert(
+      'Seevez',
+      'Are you sure you want to delete this video?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            // Dispatch the action to delete the experience
+            dispatch(AppThunks.doDeleteVideoCV(VideoId)).then((res: any) => {
+              dispatch(AppThunks.GetProfileInfo());
+              dispatch(AppSlice.changeDone(false));
+            });
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
   return (
     <SafeAreaView
       edges={['top']}
@@ -50,7 +78,7 @@ const MyVideoCV = () => {
           <View>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('UpdateRecordVideo', {key: '5'})
+                navigation.navigate('UpdateRecordVideo', {keys: '5'})
               }
               style={styles.secContainer}>
               <VIDEOICON />
@@ -88,7 +116,7 @@ const MyVideoCV = () => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity  onPress={() => handleDeleteVideo(CurrentUserData?.user_data?.cv_media?.id)} 
               style={[
                 styles.secContainer,
                 {
@@ -102,7 +130,7 @@ const MyVideoCV = () => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('UpdateRecordVideo', {key: '5'})
+                navigation.navigate('UpdateRecordVideo', {keys: '5'})
               }
               style={[
                 styles.secContainer,

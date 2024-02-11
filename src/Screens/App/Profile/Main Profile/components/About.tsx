@@ -21,7 +21,7 @@ const AboutProfileCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>About</Text>
 
-          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAboutCard')}>
+          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAbout')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
@@ -30,11 +30,19 @@ const AboutProfileCard = (data: any) => {
             />
           </TouchableOpacity>
         </View>
-        {data?.data == null ? (
-          <Text style={styles.Des}>{aboutSection}</Text>
-        ) : (
+        <View style={{paddingHorizontal:10,paddingBottom:10}}>
+        {data?.data == null ? (  
+          <View style={{height:100}}>
+          <Text style={[styles.Des,{color:'#B9B9B9'}]}>{aboutSection}</Text>
+          </View>
+        ) : (   
+          data?.data?.split('\n').length<=6?<View style={{height:100}}>
           <Text style={styles.Des}>{data?.data}</Text>
+          </View>:
+          <Text style={styles.Des}>{data?.data}</Text>
+       
         )}
+        </View>
       </View>
     </View>
   );
@@ -62,6 +70,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    // backgroundColor:'red',
+    // paddingHorizontal:10,
     marginBottom: 15,
   },
   Title: {

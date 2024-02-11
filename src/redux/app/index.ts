@@ -6,7 +6,6 @@ import { initialState } from './types';
 import thunks from './thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const slice = createSlice({
   name: EntityKeys.APP,
   initialState: initialState,
@@ -121,7 +120,28 @@ const slice = createSlice({
         });
       }
     });
+  //doDeleteVideoCV
+  builder.addCase(thunks.doDeleteVideoCV.fulfilled, (state, action) => {
+    state.done = true;
+    Toast.show({
+      type: 'success',
 
+      text1: action?.payload?.message,
+    });
+  });
+  builder.addCase(thunks.doDeleteVideoCV.rejected, (state, action: any) => {
+    if (action.payload.data.message == 'Validation error.') {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.error,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.message,
+      });
+    }
+  });
     //doAddIntersts
     builder.addCase(thunks.doAddIntersts.fulfilled, (state, action) => {
       state.done = true;
@@ -416,7 +436,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(
@@ -467,7 +487,10 @@ const slice = createSlice({
     builder.addCase(
       thunks.doDeleteReferenceCheck.fulfilled,
       (state, action) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/main
         state.done = true;
         Toast.show({
           type: 'success',
@@ -692,8 +715,13 @@ const slice = createSlice({
     });
     //GetAccessToken
     builder.addCase(thunks.GetAccessToken.fulfilled, (state, action) => {
+<<<<<<< HEAD
       // console.log('USER_ACCESS_TOKEN',action?.payload?.accessToken)
       AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.accessToken)
+=======
+      // console.log('USER_ACCESS_TOKEN', action?.payload?.accessToken);
+      AsyncStorage.setItem('USER_ACCESS_TOKEN', action?.payload?.accessToken);
+>>>>>>> refs/remotes/origin/main
     });
     builder.addCase(thunks.GetAccessToken.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -770,25 +798,30 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
+<<<<<<< HEAD
         text1: action?.payload?.message
+=======
+        text1: action?.payload?.message,
+>>>>>>> refs/remotes/origin/main
       });
     });
     builder.addCase(thunks.doUploadCV.rejected, (state, action: any) => {
-      if (action.payload.data.message == 'Validation error.') {
+      if (action?.payload?.data?.message == 'Validation error.') {
         Toast.show({
           type: 'error',
-          text1: action.payload.data.error,
+          text1: action?.payload?.data?.error,
         });
       } else {
         Toast.show({
           type: 'error',
-          text1: action.payload.data.message,
+          text1: action?.payload?.data?.message,
         });
       }
     });
     //doUploadVideoReel
     builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
       state.done = true;
+<<<<<<< HEAD
 
       Toast.show({
         type: 'success',
@@ -801,14 +834,58 @@ const slice = createSlice({
         Toast.show({
           type: 'error',
           text1: action.payload.data.error,
+=======
+    
+      Toast.show({
+        type: 'success',
+
+        text1: 'Your Reels added Successfully !',
+      });
+    });
+    builder.addCase(thunks.doUploadVideoReel.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.error,
+>>>>>>> refs/remotes/origin/main
         });
       } else {
         Toast.show({
           type: 'error',
+<<<<<<< HEAD
           text1: action.payload.data.message,
         });
       }
     });
+=======
+          text1: action?.payload?.data?.message,
+        });
+      }
+    });
+      //doUploadVideoReelPoll
+      builder.addCase(thunks.doUploadpoll.fulfilled, (state, action) => {
+        state.done = true;
+      
+        Toast.show({
+          type: 'success',
+  
+          text1: 'Your Reels added Successfully !',
+        });
+      });
+      builder.addCase(thunks.doUploadpoll.rejected, (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      });
+>>>>>>> refs/remotes/origin/main
     //doGetLatestOrder
     //doAddAbout
     builder.addCase(thunks.doAddAbout.fulfilled, (state, action) => {
@@ -816,7 +893,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: action?.payload?.message
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddAbout.rejected, (state, action: any) => {
@@ -835,7 +912,11 @@ const slice = createSlice({
     // doAddCompanyInfo
     builder.addCase(thunks.doAddCompanyInfo.fulfilled, (state, action) => {
       state.done = true;
+<<<<<<< HEAD
       // console.log(JSON.stringify(action?.payload))
+=======
+      console.log(JSON.stringify(action?.payload));
+>>>>>>> refs/remotes/origin/main
 
       Toast.show({
         type: 'success',
@@ -861,7 +942,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(thunks.doAddCompanyAbout.rejected, (state, action: any) => {
@@ -883,7 +964,7 @@ const slice = createSlice({
       Toast.show({
         type: 'success',
 
-        text1: 'success added',
+        text1: action?.payload?.message,
       });
     });
     builder.addCase(

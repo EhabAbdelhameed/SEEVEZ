@@ -3,36 +3,44 @@ import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {Star} from 'assets/Svgs';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const LanguagesProfileCard = (data: any) => {
- 
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Languages</Text>
           <View style={styles.Row2}>
-          <TouchableOpacity onPress={()=>navigation.navigate('UpdateLanguages')} >
-            <RenderSvgIcon
-              icon="PLUSFOLLOW"
-              style={{marginRight: 10}}
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateLanguages')}>
+              <RenderSvgIcon
+                icon="PLUSFOLLOW"
+                style={{marginRight: 10}}
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
             </TouchableOpacity>
-            <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}  disabled={data?.data?.length == 0?true:false}
+            {data?.data?.length == 0 ?null:
+            <TouchableOpacity
+              style={{
+                height: 30,
+                width: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              disabled={data?.data?.length == 0 ? true : false}
               onPress={() => navigation.navigate('UpdateLanguageCard')}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.primary}
-            />
-            </TouchableOpacity>
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.primary}
+              />
+            </TouchableOpacity>}
           </View>
         </View>
         {data?.data?.length == 0
@@ -43,13 +51,13 @@ const LanguagesProfileCard = (data: any) => {
                   <View>
                     <Text style={styles.Head}>{item?.name}</Text>
                     <Text style={styles.Des}>
-                    {item.rate == 5
-                    ? 'Native or bilingual proficiency'
-                    : item.rate == 3
-                    ? 'Advanced'
-                    : item.rate == 2
-                    ? 'Intermediate'
-                    : 'Beginner'}
+                      {item.rate == 5
+                        ? 'Native or bilingual proficiency'
+                        : item.rate == 3
+                        ? 'Advanced'
+                        : item.rate == 2
+                        ? 'Intermediate'
+                        : 'Beginner'}
                     </Text>
                   </View>
                   <View style={styles.Row2}>
@@ -62,13 +70,13 @@ const LanguagesProfileCard = (data: any) => {
                   <View>
                     <Text style={styles.Head}>{item?.name}</Text>
                     <Text style={styles.Des}>
-                    {item.rate == 5
-                    ? 'Native or bilingual proficiency'
-                    : item.rate == 3
-                    ? 'Advanced'
-                    : item.rate == 2
-                    ? 'Intermediate'
-                    : 'Beginner'}
+                      {item.rate == 5
+                        ? 'Native or bilingual proficiency'
+                        : item.rate == 3
+                        ? 'Advanced'
+                        : item.rate == 2
+                        ? 'Intermediate'
+                        : 'Beginner'}
                     </Text>
                   </View>
                   <View style={styles.Row2}>

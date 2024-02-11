@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image ,TouchableOpacity} from 'react-native';
 import { styles } from '../styles';
 import { CameraRoll, PhotoIdentifiersPage } from '@react-native-camera-roll/camera-roll';
 import ContainerHeader from './ContainerHeader';
@@ -28,23 +28,23 @@ const ContainerImgs = ({
         CameraRoll.getAlbums({
             assetType: "Photos"
         }).then((res) => {
-
+          
         }).catch((error) => {
-
+       
         })
         CameraRoll.getPhotos({
             first: 100000,
             groupTypes: "All",
         }).then((res: PhotoIdentifiersPage) => {
-            console.log('res', res);
+            // console.log('res', res);
             setImageData(res.edges)
         })
     };
 
     const renderImageItem = ({ item }: any) => (
-        <View style={styles.imageContainer}>
+        <TouchableOpacity onPress={()=>console.log(item)} style={styles.imageContainer}>
             <Image source={{ uri: item?.node?.image?.uri }} style={styles.image} />
-        </View>
+        </TouchableOpacity>
     );
     return (
         <View style={styles.containerContent}>

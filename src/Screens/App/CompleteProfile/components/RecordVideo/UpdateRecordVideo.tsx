@@ -29,7 +29,8 @@ import { appColors } from 'theme';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const UpdateRecordVideo = () => {
-  const { key }: any = useRoute().params;
+  const { keys }: any = useRoute().params;
+  console.log("This KEYS",keys)
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -81,7 +82,7 @@ const UpdateRecordVideo = () => {
         navigation.navigate("SaveVideo", {
           videoPath: res?.assets[0].uri,
           source: res,
-          key: key == 5 ? 3 : 2
+          key: keys == 5 ? 3 : 2
         })
       }, 1000);
       // setSource(res)

@@ -65,7 +65,7 @@ import {
     
         Math.abs(years);
     
-        return years;
+        return years; 
       };
     const handleDeleteEducation = (experienceId:any) => {
       // Show confirmation dialog
@@ -193,7 +193,8 @@ import {
               </TouchableOpacity>
             </View>
             </View>
-            {item?.object_info?.extension == 'pdf' ? (
+            {item?.degree_certificate==null?null:
+              item?.object_info?.extension == 'pdf'||item?.object_info?.extension == 'zip' ? (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => Linking.openURL(item?.degree_certificate)}

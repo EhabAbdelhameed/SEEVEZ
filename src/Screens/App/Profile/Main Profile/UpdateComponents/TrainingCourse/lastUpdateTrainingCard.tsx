@@ -44,8 +44,8 @@ const UpdateOneTraining = () => {
   const [type, setType] = useState('0');
   const dispatch = useAppDispatch();
   const changeDone = useSelector(selectDone);
-  const [startDates, setStartDates] = useState(data?.start_date);
-  const [endDates, setEndDates] = useState(data?.end_date);
+  const [startDates, setStartDates] = useState(new Date(data?.start_date));
+  const [endDates, setEndDates] = useState(new Date(data?.end_date));
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);

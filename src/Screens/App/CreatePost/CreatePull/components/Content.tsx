@@ -5,7 +5,7 @@ import { styles } from '../styles'
 import Form from './Form'
 
 
-const Content = () => {
+const Content = (source:any) => {
     return (
         <View style={styles.ContentCotainer}>
             <Form />

@@ -40,6 +40,7 @@ import {isDate} from 'lodash';
 import ReactNativeModal from 'react-native-modal';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import CustomInput from 'components/molecules/Input/CustomInput';
 
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -51,12 +52,26 @@ const UpdateEducation = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const [type, setType] = useState('0');
+  const [indexToUpdateStart, setIndexToUpdateStart] = useState(0);
+  const [indexToUpdateEnd, setIndexToUpdateEnd] = useState(0);
+
   const [value, setValue] = useState(null);
   const [Source, setSource] = useState<Array<any>>([]);
   const [loading, setLoading] = React.useState(false);
 
   const dispatch = useAppDispatch();
   const [Education, setEducation] = useState<any>([1]);
+  const [Educations, setEducations] = useState<any>([
+    {
+      university_name: '',
+      level_id: '',
+      field_of_study: '',
+      grade: '',
+      start_date: new Date(),
+      end_date: new Date(),
+      degree_certificate: '',
+    },
+  ]);
 
   const changeDone = useSelector(selectDone);
   // const UserData = useSelector(selectUser);
@@ -76,15 +91,15 @@ const UpdateEducation = () => {
   const openGallery = async (props: any, index: any) => {
     try {
       const result = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles],
+        type: [DocumentPicker.types.pdf],
       });
 
       // The selected media is available in the result.uri
       // dispatch(setImageURL(result[0].uri));
- 
-      setSource((prevSource) => {
+
+      setSource(prevSource => {
         const updatedSource = [...prevSource];
-        updatedSource[index] =result[0].name;
+        updatedSource[index] = result[0].name;
         return updatedSource;
       });
 
@@ -105,11 +120,11 @@ const UpdateEducation = () => {
   // const navigation = useNavigation<any>();
   const pick = (props: any, index: any) => {
     launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
-      setSource([
-        ...Source.slice(0, index),
-        res?.assets[0]?.fileName,
-        ...Source.slice(index + 1),
-      ]);
+      setSource(prevSource => {
+        const updatedSource = [...prevSource];
+        updatedSource[index] = res?.assets[0]?.fileName;
+        return updatedSource;
+      });
       props?.setFieldValue(`Education[${index}]["degree_certificate"]`, {
         uri: res?.assets[0]?.uri,
         type: res?.assets[0]?.type,
@@ -128,9 +143,7 @@ const UpdateEducation = () => {
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
-        contentContainerStyle={{
-          
-        }}
+        contentContainerStyle={{}}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
@@ -168,13 +181,25 @@ const UpdateEducation = () => {
                 formdata.append(`array[${index}][level_id]`, item.level_id);
                 formdata.append(`array[${index}][grade]`, item.grade);
 
-                formdata.append(`array[${index}][start_date]`,item.start_date==''||!item.start_date? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
-                formdata.append(`array[${index}][end_date]`,item.end_date==''||!item.end_date? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
-
-                item.degree_certificate==''||!item.degree_certificate?null:formdata.append(
-                  `array[${index}][degree_certificate]`,
-                  item.degree_certificate,
+                formdata.append(
+                  `array[${index}][start_date]`,
+                  item.start_date == '' || !item.start_date
+                    ? Moment(new Date()).format('yyyy/MM/DD')
+                    : item.start_date,
                 );
+                formdata.append(
+                  `array[${index}][end_date]`,
+                  item.end_date == '' || !item.end_date
+                    ? Moment(new Date()).format('yyyy/MM/DD')
+                    : item.end_date,
+                );
+
+                item.degree_certificate == '' || !item.degree_certificate
+                  ? null
+                  : formdata.append(
+                      `array[${index}][degree_certificate]`,
+                      item.degree_certificate,
+                    );
               });
               // console.log(formdata);
 
@@ -225,6 +250,12 @@ const UpdateEducation = () => {
                       }}
                       placeholder={`School / university name`}
                     />
+                    {/* <CustomInput
+                      {...props}
+                      Label={`Education[${index}][university_name]`}
+                      placeholder="School / university name"
+                     
+                    /> */}
 
                     <Dropdown
                       style={styles.uploadContainer}
@@ -261,78 +292,77 @@ const UpdateEducation = () => {
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        alignItems:'center',
+                        alignItems: 'center',
                         marginBottom: 10,
                         // backgroundColor:'red'
                         // width:'100%',
                         // columnGap: 15,
                       }}>
-                        <View style={{width:'48%'}}>
-                      <Input
-                        {...props}
-                        name={`Education[${index}]["field_of_study"]`}
-                        placeholderTextColor={'#B9B9B9'}
-                        inputContainerStyle={{
-                          borderRadius: 16,
-                          borderColor: '#1D5EDD',
-                          borderWidth: 1,
-                          paddingHorizontal: 15,
-                          paddingVertical: 4,
+                      <View style={{width: '48%'}}>
+                        <Input
+                          {...props}
+                          name={`Education[${index}]["field_of_study"]`}
+                          placeholderTextColor={'#B9B9B9'}
+                          inputContainerStyle={{
+                            borderRadius: 16,
+                            borderColor: '#1D5EDD',
+                            borderWidth: 1,
+                            paddingHorizontal: 15,
+                            paddingVertical: 4,
 
-                          height: Platform.OS == 'ios' ? 50 : null,
-                          // marginBottom:5
-                        }}
-                        onChangeText={e =>
-                          props?.setFieldValue(
-                            `Education[${index}]["field_of_study"]`,
-                            e,
-                          )
-                        }
-                        containerStyle={{
-                          paddingHorizontal: 0,
-                          height: 50,
-                          marginVertical: 2,
-                        }}
-                        inputStyle={{
-                          fontSize: 14,
-                          //  color: 'red'
-                        }}
-                        placeholder={`Field of study`}
-                      />
+                            height: Platform.OS == 'ios' ? 50 : null,
+                            // marginBottom:5
+                          }}
+                          onChangeText={e =>
+                            props?.setFieldValue(
+                              `Education[${index}]["field_of_study"]`,
+                              e,
+                            )
+                          }
+                          containerStyle={{
+                            paddingHorizontal: 0,
+                            height: 50,
+                            marginVertical: 2,
+                          }}
+                          inputStyle={{
+                            fontSize: 14,
+                            //  color: 'red'
+                          }}
+                          placeholder={`Field of study`}
+                        />
                       </View>
-                      <View style={{width:'48%'}}>
-                      <Input
-                        {...props}
-                        name={`Education[${index}]["grade"]`}
-                        placeholderTextColor={'#B9B9B9'}
-                        inputContainerStyle={{
-                          borderRadius: 16,
-                          borderColor: '#1D5EDD',
-                          borderWidth: 1,
-                          paddingHorizontal: 15,
-                          paddingVertical: 4,
+                      <View style={{width: '48%'}}>
+                        <Input
+                          {...props}
+                          name={`Education[${index}]["grade"]`}
+                          placeholderTextColor={'#B9B9B9'}
+                          inputContainerStyle={{
+                            borderRadius: 16,
+                            borderColor: '#1D5EDD',
+                            borderWidth: 1,
+                            paddingHorizontal: 15,
+                            paddingVertical: 4,
 
-                          
-                          height: Platform.OS == 'ios' ? 50 : null,
-                          // marginBottom:5
-                        }}
-                        onChangeText={e =>
-                          props?.setFieldValue(
-                            `Education[${index}]["grade"]`,
-                            e,
-                          )
-                        }
-                        containerStyle={{
-                          paddingHorizontal: 0,
-                          height: 50,
-                          // marginVertical: 2,
-                        }}
-                        inputStyle={{
-                          fontSize: 14,
-                          //  color: 'red'
-                        }}
-                        placeholder={`Grade`}
-                      />
+                            height: Platform.OS == 'ios' ? 50 : null,
+                            // marginBottom:5
+                          }}
+                          onChangeText={e =>
+                            props?.setFieldValue(
+                              `Education[${index}]["grade"]`,
+                              e,
+                            )
+                          }
+                          containerStyle={{
+                            paddingHorizontal: 0,
+                            height: 50,
+                            // marginVertical: 2,
+                          }}
+                          inputStyle={{
+                            fontSize: 14,
+                            //  color: 'red'
+                          }}
+                          placeholder={`Grade`}
+                        />
                       </View>
                     </View>
 
@@ -358,13 +388,15 @@ const UpdateEducation = () => {
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
-                            setVisible(true), setType('1');
+                            setVisible(true),
+                              setType('1'),
+                              setIndexToUpdateStart(index);
                           }}>
                           <View style={styles.InputStyleNoWidth}>
                             <Text
                               style={{
                                 marginRight: 20,
-                                color: '#DDD',
+                                color:'#B9B9B9',
                                 fontSize: 16,
                               }}>
                               {Moment(startDates[index]).format('DD/MM/yyyy')}
@@ -386,13 +418,15 @@ const UpdateEducation = () => {
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
-                            setVisible(true), setType('2');
+                            setVisible(true),
+                              setType('2'),
+                              setIndexToUpdateEnd(index);
                           }}>
                           <View style={styles.InputStyleNoWidth}>
                             <Text
                               style={{
                                 marginRight: 20,
-                                color: '#DDD',
+                                color: '#B9B9B9',
                                 fontSize: 16,
                               }}>
                               {Moment(endDates[index]).format('DD/MM/yyyy')}
@@ -429,17 +463,12 @@ const UpdateEducation = () => {
                                 onChange={(event: any, selectedDate: any) => {
                                   if (selectedDate !== undefined) {
                                     if (type == '1') {
-                                      if (index == 0) {
-                                        setStartDates([
-                                          ...startDates.slice(0, index),
-                                          selectedDate,
-                                          ...startDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = startDates;
-                                        array.push(selectedDate);
-                                        setStartDates(array);
-                                      }
+                                      setStartDates(prevSource => {
+                                        const updatedStartsDate = [...prevSource];
+                                        updatedStartsDate[index] =
+                                          selectedDate;
+                                        return updatedStartsDate;
+                                      });
                                       props?.setFieldValue(
                                         `Education[${index}]["start_date"]`,
                                         Moment(selectedDate).format(
@@ -447,17 +476,12 @@ const UpdateEducation = () => {
                                         ),
                                       );
                                     } else {
-                                      if (index == 0) {
-                                        setEndDates([
-                                          ...endDates.slice(0, index),
-                                          selectedDate,
-                                          ...endDates.slice(index + 1),
-                                        ]);
-                                      } else {
-                                        let array = endDates;
-                                        array.push(selectedDate);
-                                        setEndDates(array);
-                                      }
+                                      setEndDates(prevSource => {
+                                        const updatedEndDates = [...prevSource];
+                                        updatedEndDates[index] =
+                                          selectedDate;
+                                        return updatedEndDates;
+                                      });
                                       props?.setFieldValue(
                                         `Education[${index}]["end_date"]`,
                                         Moment(selectedDate).format(
@@ -489,35 +513,35 @@ const UpdateEducation = () => {
                                 : new Date() // Provide a default date if the specified date is invalid
                             }
                             onChange={(event: any, selectedDate: any) => {
+                          
+
                               if (selectedDate !== undefined) {
                                 if (type == '1') {
-                                  if (index == 0) {
-                                    setStartDates([
-                                      ...startDates.slice(0, index),
-                                      selectedDate,
-                                      ...startDates.slice(index + 1),
-                                    ]);
-                                  } else {
-                                    let array = startDates;
-                                    array.push(selectedDate);
-                                    setStartDates(array);
-                                  }
+                            
+                                  setStartDates(prevSource => {
+                                    const updatedStartsDate = [...prevSource];
+                                    updatedStartsDate[index] =
+                                      selectedDate;
+                                    return updatedStartsDate;
+                                  });
+                               
                                   props?.setFieldValue(
                                     `Education[${index}]["start_date"]`,
                                     Moment(selectedDate).format('yyyy/MM/DD'),
                                   );
                                 } else {
-                                  if (index == 0) {
-                                    setEndDates([
-                                      ...endDates.slice(0, index),
-                                      selectedDate,
-                                      ...endDates.slice(index + 1),
-                                    ]);
-                                  } else {
-                                    let array = endDates;
-                                    array.push(selectedDate);
-                                    setEndDates(array);
-                                  }
+                                  setEndDates(prevSource => {
+                                    const updatedEndDates = [...prevSource];
+                                    updatedEndDates[index] =
+                                      selectedDate;
+                                    return updatedEndDates;
+                                  });
+                                  // setEndDates([
+                                  //   ...endDates.slice(0, updatedIndexEnd),
+                                  //   selectedDate,
+                                  //   ...endDates.slice(updatedIndexEnd + 1),
+                                  // ]);
+
                                   props?.setFieldValue(
                                     `Education[${index}]["end_date"]`,
                                     Moment(selectedDate).format('yyyy/MM/DD'),
@@ -530,9 +554,7 @@ const UpdateEducation = () => {
                         )}
 
                     <TouchableOpacity
-                      onPress={() =>
-                       openGallery(props, index)
-                      }
+                      onPress={() => openGallery(props, index)}
                       style={styles.InputStyleNoWidth1}>
                       <PHOTO style={{marginRight: 20}} />
                       <Text
@@ -540,7 +562,7 @@ const UpdateEducation = () => {
                         style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
                           ? 'Upload degree certificate'
-                          : `${Source[index].slice(0,20)}...`}
+                          : `${Source[index].slice(0, 20)}...`}
                       </Text>
                     </TouchableOpacity>
                   </View>

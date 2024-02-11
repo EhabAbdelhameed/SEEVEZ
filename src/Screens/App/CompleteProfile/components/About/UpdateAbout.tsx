@@ -22,6 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { selectUser } from 'src/redux/auth';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import CustomButton from 'components/molecules/Button/CustomButton';
 
 const UpdateAbout = () => {
   // const navigation = useNavigation<any>();
@@ -75,7 +76,7 @@ const UpdateAbout = () => {
               setLoading(true);
               const formdata = new FormData();
               formdata.append('name',CurrentUserData?.name);
-              formdata.append('about',values.About);
+              values.About==''||!values.About?formdata.append('about',''):formdata.append('about',values.About);
              
 
               // console.log(formdata);
@@ -107,7 +108,8 @@ const UpdateAbout = () => {
                   textAlignVertical="top"
                 />
                 <View style={{height:appSizes.height * 0.09}}/>
-                <Button loading={loading} text={'Done'} onPress={props.handleSubmit} />
+                <CustomButton loading={loading} text={'Done'} onPress={props.handleSubmit} />
+                {/* <Button loading={loading} text={'Done'} onPress={props.handleSubmit} /> */}
               </View>
             )}
           </Formik>

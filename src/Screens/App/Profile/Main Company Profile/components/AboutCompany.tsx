@@ -17,26 +17,34 @@ const AboutCardCompany = (data: any) => {
 
   return (
     <View style={styles.CardContainer}>
-      <View style={styles.secContainer}>
-        <View style={styles.Row}>
-          <Text style={styles.Title}>About</Text>
+    <View style={styles.secContainer}>
+      <View style={styles.Row}>
+        <Text style={styles.Title}>About</Text>
 
-          <TouchableOpacity onPress={()=>navigation.navigate('UpdateCompanyAbout')}>
-            <RenderSvgIcon
-              icon="PEN"
-              width={20}
-              height={20}
-              color={appColors.white}
-            />
-          </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('UpdateCompanyAbout')}>
+          <RenderSvgIcon
+            icon="PEN"
+            width={20}
+            height={20}
+            color={appColors.white}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={{paddingHorizontal:10,paddingBottom:10}}>
+      {data?.data == null ? (  
+        <View style={{height:100}}>
+        <Text style={[styles.Des,{color:'#B9B9B9'}]}>{aboutSection}</Text>
         </View>
-        {data?.data == null ? (
-          <Text style={styles.Des}>{aboutSection}</Text>
-        ) : (
-          <Text style={styles.Des}>{data?.data}</Text>
-        )}
+      ) : (   
+        data?.data?.split('\n').length<=6?<View style={{height:100}}>
+        <Text style={styles.Des}>{data?.data}</Text>
+        </View>:
+        <Text style={styles.Des}>{data?.data}</Text>
+     
+      )}
       </View>
     </View>
+  </View>
   );
 };
 

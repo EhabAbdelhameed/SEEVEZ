@@ -9,9 +9,21 @@ import { appColors } from 'theme/appColors';
 import { appSizes } from 'theme/appSizes';
 
 import { globalStyles } from 'src/globalStyle';
+import { useAppDispatch } from 'src/redux/store';
+import { useNavigation } from '@react-navigation/native';
+import AppSlice from 'src/redux/app';
 
 
 const ReelsScreen = () => {
+    const dispatch=useAppDispatch()
+    const navigation=useNavigation()
+    React.useEffect(() => {
+        const RenderFunction = navigation.addListener('focus', () => {
+        
+          dispatch(AppSlice.changeDone(false));
+        });
+        return RenderFunction;
+      }, [navigation]);
     const [currentVideoIndex, setCurrentVideoIndex] = useState<any>(0);
     const videoRef: any = useRef(null);
     const flatListRef: any = useRef(null);

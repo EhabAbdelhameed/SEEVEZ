@@ -18,12 +18,15 @@ import AppThunks from 'src/redux/app/thunks';
 import RecordVideoCompany from './components/RecordVideo/RecordVideoCompany';
 import AboutCompanyCard from './components/About/About';
 import InfoCompanyCard from './components/Info/Info';
+import InfoCardCompany from '../Profile/Main Company Profile/components/InfoCompany';
+import Complete from './components/Complete/Complete';
+
 
 const CompleteCompanyProfileScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
-
+  console.log(JSON.stringify(CurrentUserData))
 
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
@@ -43,9 +46,15 @@ const CompleteCompanyProfileScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <RecordVideoCompany user_data={CurrentUserData?.user_data?.cv_media} />
         <View style={styles.PaddingContainer}>
-          <InfoCompanyCard user_data={CurrentUserData} />
-          <AboutCompanyCard About={CurrentUserData} />
+        {parseInt(CurrentUserData?.user_data?.complete_progress)==100?null:
+          <Complete
+            pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
+          />}
+        
+          <InfoCardCompany data={CurrentUserData} />
+          <AboutCompanyCard data={CurrentUserData?.about} />
         </View>
+       
 
         {/* <View style={{ height: 20 }} /> */}
       </ScrollView>

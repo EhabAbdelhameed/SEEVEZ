@@ -48,8 +48,9 @@ import BottomHeader from '../Header/BottomHeader';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
-  const [date, setDate] = useState(new Date());
   const CurrentUserData = useSelector(selectUser);
+  const [date, setDate] = useState(new Date(CurrentUserData?.birthdate));
+
   const dispatch = useAppDispatch();
   const [index, setIndex] = React.useState(false);
   const [isVisible, setVisible] = useState(false);
@@ -119,7 +120,7 @@ const UpdateInfo = () => {
   const HealthProfile = ['Disabilities', 'Special Needs'];
   const Smoker = ['Yes', 'No'];
   const [code, setCode] = React.useState('');
-
+console.log(source)
   const data = {
     title: 'Disabilities',
     subTitle: 'What is your disability?',
@@ -176,12 +177,12 @@ const UpdateInfo = () => {
                 borderWidth: 1,
                 borderColor: '#B9CDF4',
               }}>
-              {CurrentUserData?.avatar == null && source == undefined ? (
+              {CurrentUserData?.avatar == null &&  (source == undefined || source?.length == 0) ? (
                 <PERSON />
               ) : (
                 <Image
                   source={{
-                    uri: source != undefined ? source[0]?.uri : CurrentUserData?.avatar,
+                    uri: source?.length!=0||!source ? source[0]?.uri : CurrentUserData?.avatar,
                   }}
                   style={{ width: 86, height: 86, borderRadius: 86 }}
                   resizeMode="cover"
@@ -230,7 +231,7 @@ const UpdateInfo = () => {
               heights: CurrentUserData?.height || '',
               weight: CurrentUserData?.weight || '',
               isSmoke: CurrentUserData?.smoker || '',
-
+              avatar:CurrentUserData?.avatar||'',
               code: CurrentUserData?.country_code || '',
             }}
             onSubmit={values => {
@@ -287,19 +288,19 @@ const UpdateInfo = () => {
                 : formdata.append('other', '')
               values.github != '' || !values.github
                 ? formdata.append('github', values.github)
-                : formdata.append('github', values.github)
+                : formdata.append('github','')
               values.website != '' || !values.website
                 ? formdata.append('website', values.website)
-                : formdata.append('website', values.website)
+                : formdata.append('website', '')
               values.facebook != '' || !values.facebook
                 ? formdata.append('facebook', values.facebook)
-                : formdata.append('facebook', values.facebook)
+                : formdata.append('facebook', '')
               values.linkedin != '' || !values.linkedin
                 ? formdata.append('linkedin', values.linkedin)
-                : formdata.append('linkedin', values.linkedin)
+                : formdata.append('linkedin', '')
               values.instagram != '' || !values.instagram
                 ? formdata.append('instagram', values.instagram)
-                : formdata.append('instagram', values.instagram)
+                : formdata.append('instagram', '')
               if (Nationality[0] != '') {
                 for (var i = 0; i < Nationality.length; i++) {
                   formdata.append(`array[${i}][nationality]`, Nationality[i]);
@@ -308,7 +309,7 @@ const UpdateInfo = () => {
 
               values.Location != '' || !values.Location
                 ? formdata.append('country', values.Location)
-                : formdata.append('country', values.Location);
+                : formdata.append('country', '');
               values.city != '' || !values.city ? formdata.append('city', values.city) : formdata.append('city', '');
               values.area != '' || !values.area ? formdata.append('area', values.area) : formdata.append('area', '');
 
@@ -321,7 +322,7 @@ const UpdateInfo = () => {
                       ? source[0]?.fileName
                       : source[0]?.name,
                 })
-                : formdata.append('avatar', '');
+                : null
               console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
                 (res: any) => {

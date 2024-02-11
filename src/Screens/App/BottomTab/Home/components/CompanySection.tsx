@@ -9,8 +9,7 @@ import {appColors} from '../../../../../theme/appColors';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 
-const CompanySection = (title?:any) => {
-    console.log(title)
+const CompanySection = (title?: any) => {
   const CurrentUserData = useSelector(selectUser);
   return (
     <View
@@ -26,7 +25,8 @@ const CompanySection = (title?:any) => {
       <View style={styles.textSection2}>
         <View
           style={
-            CurrentUserData?.user_data?.user_type == 'company'
+            CurrentUserData?.user_data?.user_type == 'company' ||
+            CurrentUserData?.user_data?.user_type == 'company_admin'
               ? styles.rowContainer1
               : styles.rowContainer
           }>
@@ -40,16 +40,6 @@ const CompanySection = (title?:any) => {
             ]}>
             Senior ui ux designer
           </Text>
-         {CurrentUserData?.user_data?.user_type=='company'? <Text
-            style={[
-              styles.text1,
-              {
-                marginBottom: 0,
-                fontSize: appSizes.font_m,
-              },
-            ]}>
-            25
-          </Text>:null}
         </View>
         <View
           style={[
@@ -64,7 +54,8 @@ const CompanySection = (title?:any) => {
           <Text style={[styles.text3]} numberOfLines={2}>
             cairo, egypt
           </Text>
-          {CurrentUserData?.user_data?.user_type == 'company' ? null : (
+          {CurrentUserData?.user_data?.user_type == 'company' ||
+          CurrentUserData?.user_data?.user_type == 'company_admin' ? null : (
             <Text
               style={[styles.text3, {color: appColors.Orange}]}
               numberOfLines={2}>
@@ -72,13 +63,38 @@ const CompanySection = (title?:any) => {
             </Text>
           )}
           <Text
-            style={[styles.text3, {color:CurrentUserData?.user_data?.user_type=='company'&&title?.title!='My internship'?appColors.primary: appColors.Orange}]}
+            style={[
+              styles.text3,
+              {
+                color:
+                  (CurrentUserData?.user_data?.user_type == 'company' ||
+                    CurrentUserData?.user_data?.user_type == 'company_admin') &&
+                  title?.title != 'My internship'
+                    ? appColors.primary
+                    : appColors.Orange,
+              },
+            ]}
             numberOfLines={2}>
             3 hours ago
           </Text>
-         {CurrentUserData?.user_data?.user_type=='company'?<Text style={[styles.text3]}>Applied</Text>:null}
         </View>
       </View>
+      {CurrentUserData?.user_data?.user_type == 'company' ||
+      CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <Text
+            style={[
+              styles.text1,
+              {
+                marginBottom: 0,
+                fontSize: appSizes.font_m,
+              },
+            ]}>
+            25
+          </Text>
+          <Text style={[styles.text3]}>Applied</Text>
+        </View>
+      ) : null}
     </View>
   );
 };

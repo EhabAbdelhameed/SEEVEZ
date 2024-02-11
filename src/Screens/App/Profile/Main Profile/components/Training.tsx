@@ -43,6 +43,7 @@ const TrainingProfileCard = (data: any) => {
                 color={appColors.primary}
               />
             </TouchableOpacity>
+            {data?.data?.length == 0 ? null:
             <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }} 
               disabled={data?.data?.length == 0 ? true : false}
               onPress={() => navigation.navigate('UpdateTrainingCard')}>
@@ -52,7 +53,7 @@ const TrainingProfileCard = (data: any) => {
                 height={20}
                 color={appColors.primary}
               />
-            </TouchableOpacity>
+            </TouchableOpacity>}
           </View>
         </View>
 
@@ -91,7 +92,7 @@ const TrainingProfileCard = (data: any) => {
           </View>
         ) : seeAllExperiences ? (
           data?.data?.map((item: any) => (
-            <View>
+            <View style={{paddingVertical:10}}>
               <View style={styles.Row2}>
                 <View
                   style={{
@@ -110,7 +111,7 @@ const TrainingProfileCard = (data: any) => {
                   <Text style={styles.des}>
                     {moment(item.start_date).format('yyyy')} -{' '}
                     {moment(item.end_date).format('yyyy')} ·
-                    {differenceInYears(item.start_date, item.end_date)} years ·
+                    {' '}{differenceInYears(item.start_date, item.end_date)} years ·
                     Cairo, Egypt
                   </Text>
                   <View style={styles.Row2}>
@@ -119,7 +120,8 @@ const TrainingProfileCard = (data: any) => {
                   </View>
                 </View>
               </View>
-              {item?.object_info?.extension == 'pdf' ? (
+              {item?.certificate_image==null?null:
+              item?.object_info?.extension == 'pdf' ? (
                 <TouchableOpacity
                   activeOpacity={0.8}
                   onPress={() => Linking.openURL(item?.certificate_image)}
@@ -139,7 +141,7 @@ const TrainingProfileCard = (data: any) => {
         ) : (
           data?.data?.map((item: any, index: any) =>
             index == 0 ? (
-              <View>
+              <View style={{paddingVertical:10}}>
                 <View style={styles.Row2}>
                   <View
                     style={{
@@ -160,7 +162,7 @@ const TrainingProfileCard = (data: any) => {
                     <Text style={styles.des}>
                       {moment(item.start_date).format('yyyy')} -{' '}
                       {moment(item.end_date).format('yyyy')} ·
-                      {differenceInYears(item.start_date, item.end_date)} years
+                     {' '}{differenceInYears(item.start_date, item.end_date)} years
                       · Cairo, Egypt
                     </Text>
                     <View style={styles.Row2}>
@@ -169,7 +171,8 @@ const TrainingProfileCard = (data: any) => {
                     </View>
                   </View>
                 </View>
-                {item?.object_info?.extension == 'pdf' ? (
+                {item?.certificate_image==null?null:
+                item?.object_info?.extension == 'pdf'||item?.object_info?.extension == 'zip' ? (
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => Linking.openURL(item?.certificate_image)}
