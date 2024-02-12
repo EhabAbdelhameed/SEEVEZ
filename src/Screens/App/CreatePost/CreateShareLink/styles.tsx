@@ -115,5 +115,24 @@ export const styles = StyleSheet.create({
         paddingVertical: 13,
         paddingHorizontal: 35,
         borderRadius: 10
-    }
+    },
+    button: {
+        backgroundColor: '#007bff',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 6,
+      },
+      buttonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+      },
+      timeText: {
+        fontSize: 12,
+       
+      },
+      slider: {
+        width: '90%',
+        marginBottom: 2,
+      },
 })

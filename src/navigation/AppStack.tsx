@@ -51,6 +51,7 @@ import CreatePollLink from 'screens/App/CreatePost/CreatePollLink';
 import TagPeople from 'screens/App/CreatePost/TagPeople';
 import SearchPeople from 'screens/App/CreatePost/SearchPeople';
 import MyVideoCV from 'screens/App/BottomTab/Home/components/MyVideoCV';
+import CreatePhoto2 from 'screens/App/CreatePost/AddPhoto2';
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -238,6 +239,10 @@ const AppStack = () => {
             <Stack.Screen
                 name='CreateVideo2'
                 component={CreateVideo2}
+            />
+              <Stack.Screen
+                name="CreatePhoto2"
+                component={CreatePhoto2}
             />
             <Stack.Screen
                 name='CreatePull'

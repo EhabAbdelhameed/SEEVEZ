@@ -11,14 +11,14 @@ const Content = (data:any) => {
   const [caption,setCaption]=useState('')
   const [key,setKey]=useState<any>(0)
   const [imgUrl,setImageURL]=useState<any>([])
-     console.log("33333"+JSON.stringify(imgUrl))
+    console.log(data)
   return (
     <View style={styles.ContentCotainer}>
       <ContainerRecord data={[key,imgUrl]} audioData={data}   />
       <Templetes onPress={setKey} onPressImg={setImageURL} />
       <AddCaption caption={caption} setCaption={setCaption}/>
       <Option onPress={setImageURL} />
-      <Footer/>
+      <Footer data={imgUrl} audioData={data} />
     </View>
   )
 }

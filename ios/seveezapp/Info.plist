@@ -47,14 +47,14 @@
 		<string>$(PRODUCT_NAME) need access to your media library to enhance your experience with
 			music.</string>
 		<key>NSCameraUsageDescription</key>
-		<string>Your app needs access to the camera to use the datetime picker.</string>
+		<string>$(PRODUCT_NAME) needs access to the camera </string>
 		<key>NSLocalNetworkUsageDescription</key>
 		<string>$(PRODUCT_NAME) use local network access to send and receive notifications for
 			important updates.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string></string>
 		<key>NSMicrophoneUsageDescription</key>
-		<string>Your app needs access to the microphone for the datetime picker.</string>
+		<string>$(PRODUCT_NAME) needs access to the microphone </string>
 		<key>NSPhotoLibraryAddUsageDescription</key>
 		<string>$(PRODUCT_NAME) need permission to add photos to your library.</string>
 		<key>NSPhotoLibraryUsageDescription</key>

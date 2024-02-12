@@ -9,6 +9,7 @@ const Skills = (data: any) => api.post(`api/skills`, data);
 const updateSkills = (data: any) => api.post(`api/edit-skills`, data);
 const DeleteSkills = (id: number) => api.delete(`api/delete-skills/${id}`) 
 const DeleteVideoCV = (id: number) => api.delete(`api/delete-media-cv/${id}`) 
+const AddAudio = (data: any) => api.post(`api/post-audio`, data)
 
 const Interests = (data: any) => api.post(`api/interests`, data);
 const updateInterests = (data: any) => api.post(`api/edit-interests`, data);
@@ -39,9 +40,15 @@ const CompanyAbout = (data: any) => api.post(`api/complete-profile-company`, dat
 const CVCompany = (data: any) => api.post(`api/complete-profile-company`, data);
 const CV = (data: any) => api.post(`api/media-cv`, data);
 const VideoReel = (data: any) => api.post(`api/post-video`, data);
+const PhotoReel = (data: any) => api.post(`api/post-photo`, data);
+
 const profileInfo = () => api.get(`api/get-info`)
 const Industry = () => api.get(`api/drop-down/industry`)
-
+const GetMyReel = () => api.get(`api/get-reels-on-feed?showOnlyMyFeed=true`)
+const listUsers = () => api.get(`dashboard/recruiter/20`)
+const followUser = (id: number) => api.post(`api/follow`, { id })
+const unfollowUser = (id: number) => api.post(`api/unfollow`, { id })
+const followingList = () => api.get(`api/get-following-list`)
 const YearsOfExperience = () => api.get(`api/drop-down/year-of-experience`)
 const JobType = () => api.get(`api/drop-down/job-type`)
 const EducationLevel = () => api.get(`api/drop-down/education-level`)
@@ -61,12 +68,14 @@ const AppAPI = {
   updateSkills,
   DeleteVideoCV,
   DeleteSkills,
+  GetMyReel,
   VideoReel,
   Education,
   AccessToken,
   updateEducation,
   DeleteEducation,
   CompanyAbout,
+  PhotoReel,
   CVCompany,
   Experience,
   updateExperience,
@@ -88,6 +97,7 @@ const AppAPI = {
   JobType,
   EducationLevel,
   Info,
+  AddAudio,
   About,
   YearsOfExperience,
   CV,
@@ -95,7 +105,11 @@ const AppAPI = {
   profileInfo,
   Interests,
   updateInterests,
-  DeleteInterests
+  DeleteInterests,
+  listUsers,
+  followUser,
+  unfollowUser,
+  followingList
 };
 
 export default AppAPI;

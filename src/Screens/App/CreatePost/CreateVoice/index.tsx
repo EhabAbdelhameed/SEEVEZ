@@ -29,6 +29,7 @@ const CreateVoice = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStoped, setIsStoped] = useState(false);
   const [audioData, setAudioData] = useState<any>(null);
+  const [recordData,setRecordData]=useState<any>('')
   const [milliseconds, setMilliseconds] = useState(0);
 
   const [seconds, setSeconds] = useState(0);
@@ -78,7 +79,9 @@ const CreateVoice = () => {
       // Ensure that the result is an array before setting it as audioData
       const audioDataArray:any = Array.isArray(result) ? result : Array.from(result);
       setAudioData(result);
-     
+      setRecordData(result)
+      console.log("result",result)
+     console.log("record Data: : : ",recordData)
 
       // Generate waveform points from the recorded audio data
       // const waveformPoints = await generateWaveformPoints(audioDataArray);
@@ -99,23 +102,23 @@ const CreateVoice = () => {
     setIsRecording(false);
     setAudioData(null);
   };
-  const startPlayback = async () => {
-    try {
-      await audioRecorderPlayer.startPlayer();
-      setIsPlaying(true);
-    } catch (error) {
-      console.error('Error starting playback: ', error);
-    }
-  };
+  // const startPlayback = async () => {
+  //   try {
+  //     await audioRecorderPlayer.startPlayer();
+  //     setIsPlaying(true);
+  //   } catch (error) {
+  //     console.error('Error starting playback: ', error);
+  //   }
+  // };
 
-  const stopPlayback = async () => {
-    try {
-      await audioRecorderPlayer.stopPlayer();
-      setIsPlaying(false);
-    } catch (error) {
-      console.error('Error stopping playback: ', error);
-    }
-  };
+  // const stopPlayback = async () => {
+  //   try {
+  //     await audioRecorderPlayer.stopPlayer();
+  //     setIsPlaying(false);
+  //   } catch (error) {
+  //     console.error('Error stopping playback: ', error);
+  //   }
+  // };
 
   const generateWaveformPoints = (audioData:any) => {
     // Ensure that audioData is an array
@@ -136,10 +139,11 @@ const CreateVoice = () => {
     });
   };
   const _handleNavigation = useCallback(() => {
+    console.log("RECORD AUDIO: : : ....:......",audioData)
     navigation.navigate('CreateShareLink', {
-      audioData: audioData,
+      audioData:audioData,
     });
-  }, [audioData, navigation]);
+  }, [audioData]);
   return (
     <SafeAreaView edges={['top']} style={[globalStyles.screen,]}>
       <ImageBackground style={styles.bg}
@@ -168,24 +172,24 @@ const CreateVoice = () => {
         </>
       ) : (
         <>
-          <Button
+          {/* <Button
             title="Start Recording"
             onPress={startRecording}
             disabled={isPlaying}
-          />
-          {audioData && (
+          /> */}
+          {/* {audioData && (
             <View style={{ marginTop: 20 }}>
               <Button title="Start Playback" onPress={startPlayback} disabled={isRecording} />
             </View>
-          )}
+          )} */}
         </>
       )}
   
-      {isPlaying && (
+      {/* {isPlaying && (
         <Text style={{ marginTop: 10 }}>Playing...</Text>
-      )}
+      )} */}
 
-      <Button title="Stop" onPress={isRecording ? stopRecording : stopPlayback} />
+      {/* <Button title="Stop" onPress={isRecording ? stopRecording : stopPlayback} /> */}
 
       </ImageBackground>
 

@@ -4,6 +4,8 @@ interface appState {
          id: any;
          name:any
     }]
+    FollowingList: any[]
+    listUsers: any[]
     YearsOfExperience:[{
         deleted_at: any;
          id: any;
@@ -319,7 +321,9 @@ interface appState {
 export const initialState: appState = {
     done: false,
     Nav: "",
-    HomeData: [],
+
+    FollowingList:[],
+    listUsers:[],
     IndsturyData:[{
         deleted_at: null,
          id:null,

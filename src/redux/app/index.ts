@@ -131,6 +131,51 @@ const slice = createSlice({
       });
     }
   });
+  //doUploadPhotoReel
+  builder.addCase(thunks.doUploadPhotoReel.fulfilled, (state, action) => {
+    state.done = true;
+    Toast.show({
+      type: 'success',
+
+      text1: action?.payload?.message,
+    });
+  });
+  builder.addCase(thunks.doUploadPhotoReel.rejected, (state, action: any) => {
+    if (action.payload.data.message == 'Validation error.') {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.error,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.message,
+      });
+    }
+  });
+
+  //doAddAudio
+  builder.addCase(thunks.doAddAudio.fulfilled, (state, action) => {
+    state.done = true;
+    Toast.show({
+      type: 'success',
+
+      text1: action?.payload?.message,
+    });
+  });
+  builder.addCase(thunks.doAddAudio.rejected, (state, action: any) => {
+    if (action.payload.data.message == 'Validation error.') {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.error,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: action.payload.data.message,
+      });
+    }
+  });
     //doAddIntersts
     builder.addCase(thunks.doAddIntersts.fulfilled, (state, action) => {
       state.done = true;
@@ -592,6 +637,33 @@ const slice = createSlice({
         });
       }
     });
+       //GetMyReels
+       builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
+        console.log("GET MY REELS ",action.payload);
+       
+      });
+      builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      });
+      //doGetFollowingList  
+    builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
+      state.FollowingList = action.payload.data?.follows
+    });
+
+    //doGetListUsers  
+    builder.addCase(thunks.doGetListUsers.fulfilled, (state, action) => {
+      state.listUsers = action.payload.data?.data
+    });
     //doAddLanguages
     builder.addCase(thunks.doAddLanguages.fulfilled, (state, action) => {
       state.done = true;
@@ -966,6 +1038,8 @@ export const selectPromoValue = (state: RootState) => state.app.PromoValue;
 export const selectDeals = (state: RootState) => state.app.deals;
 export const selectPoints = (state: RootState) => state.app.points;
 export const selectSearch = (state: RootState) => state.app.Search;
+export const selectFollowingList = (state: RootState) => state.app.FollowingList;
+export const selectListUsers= (state: RootState) => state.app.listUsers;
 export const selectBranchId = (state: RootState) =>
   state.app.HomeData?.branch?.id;
 

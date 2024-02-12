@@ -41,13 +41,17 @@ import ImageInfo from './imageInfo.svg'
 
 import CompanyLogo from './CompanyLogo.svg'
 import Upload from './Upload.svg'
-
+import PAUSE from './Puse.svg'
+import VOICE from './Voice.svg'
+import WAVE from './WAVE.svg'
 
 export {
     Right,
+    WAVE,
     Eye,
     EyeSlash,
-
+    PAUSE,
+    VOICE,
     LogoWithName,
     ImageInfo,
     CompanyLogo,

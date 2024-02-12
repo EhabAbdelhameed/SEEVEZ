@@ -103,6 +103,30 @@ const doDeleteVideoCV: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+const doAddAudio: any = createAsyncThunk<any, any, any>(
+    'app/doAddAudio',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.AddAudio(data);
+            console.log(response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //doAddIntersts
 const doAddIntersts: any = createAsyncThunk<any, any, any>(
     'app/Intersts',
@@ -864,6 +888,152 @@ const doUploadVideoReel: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//UploadPhotoReel
+const doUploadPhotoReel: any = createAsyncThunk<any, any, any>(
+    'app/PhotoReel',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.PhotoReel(data);
+            console.warn("jjjjj",response)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+//GetMyReels
+const GetMyReels: any = createAsyncThunk<any, any, any>(
+    'app/GetMyReels',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.GetMyReel();
+            // alert(JSON.stringify(response?.data))
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+
+//////////////////////follow///////////////
+const doUnFollowUser: any = createAsyncThunk<any, any, any>(
+    'app/unfollowUser',
+    async (id, thunkApi: any) => {
+        try {
+            const response = await AppAPI.unfollowUser(id);
+            // console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+const doGetFollowingList: any = createAsyncThunk<any, any, any>(
+    'app/followingList',
+    async (_, thunkApi: any) => {
+        try {
+            const response = await AppAPI.followingList();
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+const doGetListUsers: any = createAsyncThunk<any, any, any>(
+    'app/listUsers',
+    async (_, thunkApi: any) => {
+        try {
+            const response = await AppAPI.listUsers();
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+const doFollowUser: any = createAsyncThunk<any, any, any>(
+    'app/followUser',
+    async (id, thunkApi: any) => {
+        try {
+            const response = await AppAPI.followUser(id);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 //UploadVideoPoll
 const doUploadpoll: any = createAsyncThunk<any, any, any>(
     'app/doUploadpoll',
@@ -1025,6 +1195,7 @@ const AppThunks = {
     doDeleteVideoCV,
     doUpdateSkills,
     doUploadVideoReel,
+    doUploadPhotoReel,
     doUploadpoll,
     doDeleteSkills,
     doAddEducation,
@@ -1059,7 +1230,13 @@ const AppThunks = {
     doUpdateIntersts,
     doDeleteIntersts,
     GetJobType,
-    GetCompaniesName
+    GetCompaniesName,
+    doAddAudio,
+    GetMyReels,
+    doFollowUser,
+    doUnFollowUser,
+    doGetFollowingList,
+    doGetListUsers,
    
 };
 

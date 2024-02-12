@@ -109,5 +109,16 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     borderColor: appColors.primary
-  }
+  },
+  camera: {
+    width: "100%",
+    height: appSizes.height,
+    marginTop:-20
+},
+selectedImageContainer: {
+  // Your selected image container styles
+  // For example:
+  borderColor: 'blue',
+  borderWidth: 2,
+},
 });
