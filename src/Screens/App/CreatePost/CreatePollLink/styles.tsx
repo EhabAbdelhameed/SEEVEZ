@@ -137,6 +137,28 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
     },
+    CVContainer: {
+        width: "80%",
+        backgroundColor: appColors.white,
+        position: "absolute",
+        alignSelf:'center',
+        justifyContent:'center',
+        alignItems:'center',
+        // height: 200,
+        // left: 0,
+       
+        bottom: 40,
+        elevation: 4,
+        borderRadius: 16,
+        padding: 16,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+    },
     text11: {
         fontSize: appSizes.x-1,
         fontWeight: "600",

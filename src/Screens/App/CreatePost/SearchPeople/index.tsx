@@ -20,6 +20,7 @@ import Flatlist from './components/FlatList';
 
 const SearchPeople = () => {
   const navigation = useNavigation();
+  
   const _handleNavigation = useCallback(() => {
     navigation.navigate('CreatePollLink');
   }, []);

@@ -12,7 +12,7 @@ import {CV, PULL} from 'assets/Svgs';
 import Footer from './components/Footer';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import {selectDone} from 'src/redux/app';
+import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import Swiper from 'react-native-swiper';
 const CreatePhoto2 = () => {
@@ -25,9 +25,18 @@ const CreatePhoto2 = () => {
   const [loading, setLoading] = React.useState(false);
   
   const dispatch = useAppDispatch();
-  const changeDone = useSelector(selectDone);
+ 
 
+  React.useEffect(() => {
+    // accessTocken();
+    const RenderFunction = navigation.addListener('focus', () => {
+     
+      dispatch(AppSlice.changeImage(item));
+      dispatch(AppSlice.changeKey(key));
 
+    });
+    return RenderFunction;
+  }, [navigation]);
   const saveVideoFun = () => {
     if (key == 1) {
       setLoading(true);

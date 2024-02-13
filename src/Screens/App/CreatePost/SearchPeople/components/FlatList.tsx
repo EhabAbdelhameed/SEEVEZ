@@ -6,72 +6,49 @@ import {
   FlatList,
   TouchableOpacity,
   Platform,
+  Image,
 } from 'react-native';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {styles} from '../styles';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {appColors} from 'theme';
 import {useNavigation} from '@react-navigation/native';
-import {FlatListImage} from 'assets/Svgs';
+import {AVATAR, FlatListImage} from 'assets/Svgs';
 import {Input} from 'react-native-elements';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useAppDispatch} from 'src/redux/store';
+import AppThunks from 'src/redux/app/thunks';
+import {useSelector} from 'react-redux';
+import AppSlice, {selectSearch, selectSearchData} from 'src/redux/app';
 
 const Flatlist = () => {
   const [choicePeople, setChoicePeople] = useState(false);
-  const [data, setData] = useState([
-    {
-      image: '',
-      text: 'Hanna Siphron',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Kaiya George',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Erin Herwitz',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Jaylon Donin',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Alfonso Dorwart',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Roger George',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Carter Kenter',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Tatiana Rosser',
-      choice: false,
-    },
-    {
-      image: '',
-      text: 'Tiana Ekstrom Bothman',
-      choice: false,
-    },
-  ]);
+  const searchData = useSelector(selectSearchData);
 
+  // const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const filteredData = useMemo(() => {
-    return data.filter(item =>
-      item.text.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+  const [selectedIndices, setSelectedIndices] = useState<any>([]);
+  const [selectedIds, setSelectedIds] = useState<any>([]);
+  const [searchIndex, setSearchIndex] = useState<any>('');
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    
+    dispatch(AppSlice.changeTagPeopel(selectedIds))
+  
+  }, [selectedIds]);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      searchTerm &&
+        dispatch(AppThunks?.searchForTagPeopel(searchTerm)).then(() => {
+          // setLoad(false)
+        });
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [searchTerm]);
+  const filteredData = (data: any) =>
+    data?.name?.toLowerCase().includes(searchTerm?.toLowerCase());
   return (
     <SafeAreaView edges={['top']} style={{flex: 1, marginTop: 20}}>
       <Input
@@ -100,7 +77,7 @@ const Flatlist = () => {
       <View style={{marginTop: 20}}>
         <FlatList
           scrollEnabled={false}
-          data={filteredData}
+          data={searchData?.data?.filter(filteredData)}
           renderItem={({item, index}) => (
             <View
               style={{
@@ -116,7 +93,28 @@ const Flatlist = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <FlatListImage />
+                <View
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 48,
+                    // borderWidth: 1,
+                    // borderColor: '#DDD',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: appColors.bg,
+                  }}>
+                  {item?.avatar == null ? (
+                    <AVATAR height={32} width={32} />
+                  ) : (
+                    <Image
+                      source={{uri: item?.avatar}}
+                      style={{width: 48, height: 48, borderRadius: 48}}
+                      resizeMode="cover"
+                    />
+                  )}
+                </View>
+
                 <Text
                   style={{
                     color: '#000',
@@ -126,20 +124,27 @@ const Flatlist = () => {
 
                     fontWeight: '500',
                   }}>
-                  {item?.text}
+                  {item?.name}
                 </Text>
               </View>
               <TouchableOpacity
-                onPress={() => {
-                  let data1 = data;
-                  data1[index].choice == true;
-                  console.log(data1[index].choice)
-                   setData(data1)
+               onPress={() => {
+                const itemId = searchData?.data[index]?.id; // Assuming you have an 'id' field in your data
+                if (selectedIndices.includes(index)) {
+                  setSelectedIndices(selectedIndices.filter((idx:any) => idx !== index));
+                  setSelectedIds(selectedIds.filter((id:any) => id !== itemId));
+        
+                  // dispatch(AppSlice.changeTagPeopel(selectedIds))
+                } else {
+                  setSelectedIndices([...selectedIndices, index]);
+                  setSelectedIds([...selectedIds, itemId]);
+                  // dispatch(AppSlice.changeTagPeopel(selectedIds))
+           
 
-                  //   props?.setFieldValue(`still_work_here`, choicePeople ? 0 : 1);
-                }}
-                style={styles.Circle}>
-                <View style={item.choice == true ? styles.innerCircle : null} />
+                }
+              }}
+              style={styles.Circle}>
+              <View style={selectedIndices.includes(index) ? styles.innerCircle : null} />
               </TouchableOpacity>
             </View>
           )}

@@ -17,6 +17,27 @@ const slice = createSlice({
     changeNav: (state, action) => {
       state.Nav = action.payload;
     },
+    changeImage: (state, action) => {
+      state.photoData.image = action.payload;
+    },
+    changeAddonesCaption: (state, action) => {
+      state.photoData.addonesCaption = action.payload;
+    },
+    changelocation: (state, action) => {
+      state.photoData.location = action.payload;
+    },
+    changePDF: (state, action) => {
+      state.photoData.pdf = action.payload;
+    },
+    changeTagPeopel: (state, action) => {
+      state.photoData.tagPepoles = action.payload;
+    },
+    changeSearchPeopelData: (state, action) => {
+      state.searchPeopelData = action.payload;
+    },
+    changeKey: (state, action) => {
+      state.photoData.key = action.payload;
+    },
     changePlaceOrderData: (state, action) => {
       state.placeOrderData = action.payload;
     },
@@ -109,73 +130,73 @@ const slice = createSlice({
         });
       }
     });
-  //doDeleteVideoCV
-  builder.addCase(thunks.doDeleteVideoCV.fulfilled, (state, action) => {
-    state.done = true;
-    Toast.show({
-      type: 'success',
+    //doDeleteVideoCV
+    builder.addCase(thunks.doDeleteVideoCV.fulfilled, (state, action) => {
+      state.done = true;
+      Toast.show({
+        type: 'success',
 
-      text1: action?.payload?.message,
+        text1: action?.payload?.message,
+      });
     });
-  });
-  builder.addCase(thunks.doDeleteVideoCV.rejected, (state, action: any) => {
-    if (action.payload.data.message == 'Validation error.') {
-      Toast.show({
-        type: 'error',
-        text1: action.payload.data.error,
-      });
-    } else {
-      Toast.show({
-        type: 'error',
-        text1: action.payload.data.message,
-      });
-    }
-  });
-  //doUploadPhotoReel
-  builder.addCase(thunks.doUploadPhotoReel.fulfilled, (state, action) => {
-    state.done = true;
-    Toast.show({
-      type: 'success',
-
-      text1: action?.payload?.message,
+    builder.addCase(thunks.doDeleteVideoCV.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
     });
-  });
-  builder.addCase(thunks.doUploadPhotoReel.rejected, (state, action: any) => {
-    if (action.payload.data.message == 'Validation error.') {
+    //doUploadPhotoReel
+    builder.addCase(thunks.doUploadPhotoReel.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
-        type: 'error',
-        text1: action.payload.data.error,
-      });
-    } else {
-      Toast.show({
-        type: 'error',
-        text1: action.payload.data.message,
-      });
-    }
-  });
+        type: 'success',
 
-  //doAddAudio
-  builder.addCase(thunks.doAddAudio.fulfilled, (state, action) => {
-    state.done = true;
-    Toast.show({
-      type: 'success',
-
-      text1: action?.payload?.message,
+        text1: action?.payload?.message,
+      });
     });
-  });
-  builder.addCase(thunks.doAddAudio.rejected, (state, action: any) => {
-    if (action.payload.data.message == 'Validation error.') {
+    builder.addCase(thunks.doUploadPhotoReel.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+
+    //doAddAudio
+    builder.addCase(thunks.doAddAudio.fulfilled, (state, action) => {
+      state.done = true;
       Toast.show({
-        type: 'error',
-        text1: action.payload.data.error,
+        type: 'success',
+
+        text1: action?.payload?.message,
       });
-    } else {
-      Toast.show({
-        type: 'error',
-        text1: action.payload.data.message,
-      });
-    }
-  });
+    });
+    builder.addCase(thunks.doAddAudio.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
     //doAddIntersts
     builder.addCase(thunks.doAddIntersts.fulfilled, (state, action) => {
       state.done = true;
@@ -568,6 +589,19 @@ const slice = createSlice({
         });
       }
     });
+
+    //searchForTagPeopel
+    builder.addCase(thunks.searchForTagPeopel.fulfilled, (state, action) => {
+      state.searchPeopelData = action?.payload?.data;
+    });
+    builder.addCase(
+      thunks.searchForTagPeopel.rejected,
+      (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+        } else {
+        }
+      },
+    );
     //doUpdateAchievement
     builder.addCase(thunks.doUpdateAchievement.fulfilled, (state, action) => {
       state.done = true;
@@ -637,33 +671,32 @@ const slice = createSlice({
         });
       }
     });
-       //GetMyReels
-       builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
-        console.log("GET MY REELS ",action.payload);
-       
-      });
-      builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
-        if (action.payload.data.message == 'Validation error.') {
-          Toast.show({
-            type: 'error',
-            text1: action.payload.data.error,
-          });
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: action.payload.data.message,
-          });
-        }
-      });
-      //doGetFollowingList  
+    //GetMyReels
+    builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
+      // console.log("GET MY REELS ",JSON.stringify(action.payload));
+    });
+    builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
+    //doGetFollowingList
     builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
-      state.FollowingList = action.payload.data?.follows
+      state.FollowingList = action.payload.data?.follows;
     });
 
-    //doGetListUsers  
+    //doGetListUsers
     builder.addCase(thunks.doGetListUsers.fulfilled, (state, action) => {
-      state.listUsers = action.payload.data?.data
-    });
+      state.listUsers = action.payload.data?.data;
+    });
     //doAddLanguages
     builder.addCase(thunks.doAddLanguages.fulfilled, (state, action) => {
       state.done = true;
@@ -869,7 +902,7 @@ const slice = createSlice({
     //doUploadVideoReel
     builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
       state.done = true;
-    
+
       Toast.show({
         type: 'success',
 
@@ -889,29 +922,29 @@ const slice = createSlice({
         });
       }
     });
-      //doUploadVideoReelPoll
-      builder.addCase(thunks.doUploadpoll.fulfilled, (state, action) => {
-        state.done = true;
-      
+    //doUploadVideoReelPoll
+    builder.addCase(thunks.doUploadpoll.fulfilled, (state, action) => {
+      state.done = true;
+
+      Toast.show({
+        type: 'success',
+
+        text1: 'Your Reels added Successfully !',
+      });
+    });
+    builder.addCase(thunks.doUploadpoll.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
         Toast.show({
-          type: 'success',
-  
-          text1: 'Your Reels added Successfully !',
+          type: 'error',
+          text1: action?.payload?.data?.error,
         });
-      });
-      builder.addCase(thunks.doUploadpoll.rejected, (state, action: any) => {
-        if (action?.payload?.data?.message == 'Validation error.') {
-          Toast.show({
-            type: 'error',
-            text1: action?.payload?.data?.error,
-          });
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: action?.payload?.data?.message,
-          });
-        }
-      });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
+        });
+      }
+    });
     //doGetLatestOrder
     //doAddAbout
     builder.addCase(thunks.doAddAbout.fulfilled, (state, action) => {
@@ -1038,8 +1071,13 @@ export const selectPromoValue = (state: RootState) => state.app.PromoValue;
 export const selectDeals = (state: RootState) => state.app.deals;
 export const selectPoints = (state: RootState) => state.app.points;
 export const selectSearch = (state: RootState) => state.app.Search;
-export const selectFollowingList = (state: RootState) => state.app.FollowingList;
-export const selectListUsers= (state: RootState) => state.app.listUsers;
+export const selectPhotoData = (state: RootState) => state.app.photoData;
+export const selectSearchData = (state: RootState) =>
+  state.app.searchPeopelData;
+
+export const selectFollowingList = (state: RootState) =>
+  state.app.FollowingList;
+export const selectListUsers = (state: RootState) => state.app.listUsers;
 export const selectBranchId = (state: RootState) =>
   state.app.HomeData?.branch?.id;
 
@@ -1050,11 +1088,18 @@ const AppSlice = {
   changeNav: slice.actions.changeNav,
   changePlaceOrderData: slice.actions.changePlaceOrderData,
   changePromoValue: slice.actions.changePromoValue,
+  changeImage: slice.actions.changeImage,
+  changeAddonesCaption: slice.actions.changeAddonesCaption,
+  changeLocation: slice.actions.changelocation,
+  changePDF: slice.actions.changePDF,
+  changeTagPeopel: slice.actions.changeTagPeopel,
+  changeKey: slice.actions.changeKey,
   changeSearch: slice.actions.changeSearch,
   changeIndsturyData: slice.actions.chnageIndsturyData,
   changeCompainesData: slice.actions.chnageCompaniesData,
   changeYearsOfExperience: slice.actions.changeYearsOfExperience,
   changeJobType: slice.actions.changeJobType,
   changeEducationLevel: slice.actions.changeEducationLevel,
+  changeSearchPeopelData: slice.actions.changeSearchPeopelData,
 };
 export default AppSlice;

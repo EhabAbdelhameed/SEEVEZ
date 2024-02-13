@@ -9,7 +9,7 @@ const Header = () => {
 
     const _handleNavigation = useCallback(
         () => {
-            navigation.navigate("CreateShareLink")
+            navigation.goBack();
         },
         [],
     );

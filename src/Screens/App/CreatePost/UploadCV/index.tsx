@@ -6,17 +6,20 @@ import { appColors } from 'theme'
 import Header from './components/Header'
 import Content from './components/Content'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useRoute } from '@react-navigation/native'
 
 const CV = () => {
+    //use param
+   
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
 
             <Header />
             <KeyboardAwareScrollView
                 contentContainerStyle={{
-                    alignItems: "center",
-                    paddingBottom: 20,
-                    height:'100%'
+                    // alignItems: "center",
+                    // paddingBottom: 20,
+                    // height:'100%'
 
                 }}
                 enableOnAndroid={true}

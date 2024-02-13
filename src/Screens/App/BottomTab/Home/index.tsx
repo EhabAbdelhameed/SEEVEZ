@@ -31,6 +31,7 @@ const Home = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
+  // console.log("HI",JSON.stringify(CurrentUserData))
   // const accessTocken=async()=>{
   //   const token: any = await AsyncStorage.getItem('USER_TOKEN');
   //   const accesstoken: any = await AsyncStorage.getItem('USER_ACCESS_TOKEN');

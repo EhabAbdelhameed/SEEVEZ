@@ -29,10 +29,11 @@ const Option = ({ onPress }: { onPress: (key: any) => void }) => {
           }
         }
       };
+     
       const pick = () => {
         launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res: any) => {
             onPress(res?.assets);
-          // console.log("sdasdas "+JSON.stringify(res))
+      
         });
       };
 
@@ -80,7 +81,7 @@ const Option = ({ onPress }: { onPress: (key: any) => void }) => {
     }
     return (
         <View style={styles.optionsContainer}>
-            <TouchableOpacity onPress={Platform.OS=='ios'?pick:UploadImageProfile}>
+            <TouchableOpacity onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}>
             <Item icon='PIC' title='Add photo' navKey='AddPhoto' />
             </TouchableOpacity>
             

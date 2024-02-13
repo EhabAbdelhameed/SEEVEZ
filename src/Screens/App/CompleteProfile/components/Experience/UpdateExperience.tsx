@@ -98,7 +98,7 @@ const UpdateExperience = () => {
   // const filteredData = data.filter(item =>
   //   item.toLowerCase().includes(searchQuery.toLowerCase()),
   // );
-  const filteredData = (data: any) =>
+  const filteredData = (data: any) => 
     data?.name?.toLowerCase().includes(searchQuery?.toLowerCase());
   const renderListItem = (item: any, props: any, index: any) => (
     <TouchableOpacity

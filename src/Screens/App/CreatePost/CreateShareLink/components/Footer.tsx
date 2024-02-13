@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from '../styles';
 import {SaveCircle} from 'assets/Svgs';
@@ -18,7 +18,7 @@ const Footer = (data: any) => {
     formdata.append('template', {
       uri: data?.data[0]?.uri,
       type: data?.data[0]?.type,
-      name: data?.data[0]?.name,
+      name:Platform.OS=="ios"?data?.data[0]?.fileName:data?.data[0]?.name,
     });
 
     formdata.append('files', {

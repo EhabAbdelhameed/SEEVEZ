@@ -106,7 +106,7 @@ const UpdateInfo = () => {
   const pick = () => {
     launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res: any) => {
       setSource(res?.assets);
-      // console.log("sdasdas "+JSON.stringify(res))
+  
     });
   };
 

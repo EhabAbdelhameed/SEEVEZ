@@ -918,7 +918,7 @@ const GetMyReels: any = createAsyncThunk<any, any, any>(
     'app/GetMyReels',
     async (data, thunkApi: any) => {
         try {
-            const response = await AppAPI.GetMyReel();
+            const response = await AppAPI.GetMyReel(data);
             // alert(JSON.stringify(response?.data))
             if (
                 response.status == null ||
@@ -1135,6 +1135,31 @@ const doAddCompanyAbout: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//searchForTagPeopel
+const searchForTagPeopel: any = createAsyncThunk<any, any, any>(
+    'app/tagPeopel',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.SearchToTagPeople(data);
+            console.log(response?.data)
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
 
 // doAddUploadPortfolio
 const doAddUploadPortfolio: any = createAsyncThunk<any, any, any>(
@@ -1237,6 +1262,7 @@ const AppThunks = {
     doUnFollowUser,
     doGetFollowingList,
     doGetListUsers,
+    searchForTagPeopel
    
 };
 

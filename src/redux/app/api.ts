@@ -37,6 +37,8 @@ const AccessToken = () => api.post(`api/amity-data-access-token`);
 
 const CompanyInfo = (data: any) => api.post(`api/complete-profile-company`, data);
 const CompanyAbout = (data: any) => api.post(`api/complete-profile-company`, data);
+const SearchToTagPeople = (data: any) => api.post(`api/search-for-users/10/?name=${data}`);
+
 const CVCompany = (data: any) => api.post(`api/complete-profile-company`, data);
 const CV = (data: any) => api.post(`api/media-cv`, data);
 const VideoReel = (data: any) => api.post(`api/post-video`, data);
@@ -44,7 +46,7 @@ const PhotoReel = (data: any) => api.post(`api/post-photo`, data);
 
 const profileInfo = () => api.get(`api/get-info`)
 const Industry = () => api.get(`api/drop-down/industry`)
-const GetMyReel = () => api.get(`api/get-reels-on-feed?showOnlyMyFeed=true`)
+const GetMyReel = (id:number) => api.get(`api/get-my-reels?user_id=${id}`)
 const listUsers = () => api.get(`dashboard/recruiter/20`)
 const followUser = (id: number) => api.post(`api/follow`, { id })
 const unfollowUser = (id: number) => api.post(`api/unfollow`, { id })
@@ -75,6 +77,7 @@ const AppAPI = {
   updateEducation,
   DeleteEducation,
   CompanyAbout,
+  SearchToTagPeople,
   PhotoReel,
   CVCompany,
   Experience,

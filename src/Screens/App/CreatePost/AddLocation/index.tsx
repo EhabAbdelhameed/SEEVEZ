@@ -4,26 +4,20 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { globalStyles } from 'src/globalStyle'
 import { appColors } from 'theme'
 import Header from './components/Header'
-import Content from './components/Content'
-import Templetes from './components/Templetes'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useRoute } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
-import { selectPhotoData } from 'src/redux/app'
 
-const CreatePollLink = () => {
-    
-    
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Content from './components/Content'
+
+
+const Location = () => {
+    //use param
+   
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
 
             <Header />
             <KeyboardAwareScrollView
-                contentContainerStyle={{
-                    // alignItems: "center",
-                    // paddingBottom: 20,
-
-                }}
+            
                 enableOnAndroid={true}
                 keyboardShouldPersistTaps={"handled"}
                 enableResetScrollToCoords={false}
@@ -35,4 +29,4 @@ const CreatePollLink = () => {
     )
 }
 
-export default CreatePollLink
+export default Location

@@ -16,6 +16,15 @@ interface appState {
          id: any;
          name:any
     }]
+    photoData:{
+        image:any;
+        addonesCaption:any;
+        location:any;
+        pdf:any;
+        tagPepoles:any;
+        key:any;
+    }
+    
     EducationLevel:[{
         deleted_at: any;
          id: any;
@@ -26,7 +35,23 @@ interface appState {
          id: any;
          name:any
     }]
-
+   searchPeopelData:{
+ 
+        current_page:any;
+        data:any;
+        first_page_url:any;
+        from:any;
+        last_page:any;
+        last_page_url:any;
+        links:any;
+        next_page_url:any;
+        path:any;
+        per_page:any;
+        prev_page_url:any;
+        to:any;
+        total:any
+   
+   }
     
     HomeData: {
         branch: {
@@ -329,6 +354,31 @@ export const initialState: appState = {
          id:null,
          name:null
     }],
+    photoData:{
+        image:null,
+        addonesCaption:null,
+        location:null,
+        pdf:null,
+        tagPepoles:null,
+        key:null,
+    },
+    searchPeopelData:{
+ 
+        current_page:null,
+        data:null,
+        first_page_url:null,
+        from:null,
+        last_page:null,
+        last_page_url:null,
+        links:null,
+        next_page_url:null,
+        path:null,
+        per_page:null,
+        prev_page_url:null,
+        to:null,
+        total:null,
+   
+   },
     YearsOfExperience:[{
         deleted_at: null,
          id:null,

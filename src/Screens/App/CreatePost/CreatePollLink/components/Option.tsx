@@ -42,18 +42,18 @@ const Option = () => {
             </Text>
           ) : null}
           {title == 'Audience' ? (
-            <TouchableOpacity style={{flexDirection:'row',columnGap:5}}>
+            <TouchableOpacity style={{flexDirection: 'row', columnGap: 5}}>
               <Text
                 style={{
                   fontFamily: 'Noto Sans',
                   fontSize: 16,
-                  color:'#979797',
+                  color: '#979797',
                   fontWeight: '400',
                 }}>
                 Followers
               </Text>
-              <View style={{ transform: [{rotate: '180deg'}]}}>
-              <RenderSvgIcon icon="ARROWBACK" color={appColors.primary} />
+              <View style={{transform: [{rotate: '180deg'}]}}>
+                <RenderSvgIcon icon="ARROWBACK" color={appColors.primary} />
               </View>
             </TouchableOpacity>
           ) : (
@@ -71,9 +71,12 @@ const Option = () => {
   };
   return (
     <View style={styles.optionsContainer}>
-      <Item icon="AUDIENCE" title="Audience" navKey="Camera" />
-      <TouchableOpacity onPress={()=>navigation.navigate("TagPeople")}><Item icon="TAG" title="Tag people" navKey="Camera" /></TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('TagPeople')}>
+        <Item icon="TAG" title="Tag people" navKey="Camera" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Location')}>
       <Item icon="ADDLOCATION" title="Add location" navKey="Camera" />
+      </TouchableOpacity>
       <Item icon="SETTING" title="Advanced settings" navKey="Camera" />
     </View>
   );

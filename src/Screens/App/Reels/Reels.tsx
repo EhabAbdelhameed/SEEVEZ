@@ -25,13 +25,16 @@ import {useAppDispatch} from 'src/redux/store';
 import {useNavigation} from '@react-navigation/native';
 import AppSlice from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'src/redux/auth';
 
 const ReelsScreen = () => {
+  const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
-      dispatch(AppThunks.GetMyReels()).then((res: any) => {});
+      dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id)).then((res: any) => {});
       dispatch(AppSlice.changeDone(false));
     });
     return RenderFunction;

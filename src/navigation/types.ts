@@ -26,7 +26,8 @@ export type AppParamsList = {
     UpdateAchievementCard:undefined;
     UpdateOneAchievements:undefined;
     UpdateSkillsCard:undefined;
-    CreatePhoto2:undefined;
+    CreatePhoto2:undefined;  
+    Location:undefined;
     UpdateOneSkills:undefined;
     UpdateOneRefernceCheck:undefined;
     UpdateReferenceCheckCard:undefined;

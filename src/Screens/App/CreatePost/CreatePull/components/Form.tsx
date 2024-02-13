@@ -13,6 +13,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import { duration } from 'moment';
 import Toast from 'react-native-toast-message';
+import CustomInput from 'components/molecules/Input/CustomInput';
 const data = [
   {label: '1 day', id: 1},
   {label: '3 days', id: 2},
@@ -52,35 +53,13 @@ const Form = (source: any) => {
           <View>
             <View>
               <Text style={styles.label}>Your question</Text>
-              <Input
-                {...props}
-                name={`question`}
-                inputContainerStyle={{
-                  borderRadius: 16,
-                  borderColor: '#1D5EDD',
-                  borderWidth: 1,
-                  paddingHorizontal: 15,
-                  height: Platform.OS == 'android' ? null : 50,
-                }}
-                onChangeText={e => props?.setFieldValue(`question`, e)}
-                placeholderTextColor={'#B9B9B9'}
-                containerStyle={{
-                  paddingHorizontal: 0,
-                  marginVertical: 1,
-                  height: 50,
-                  marginBottom: 15,
-                }}
-                inputStyle={{
-                  fontSize: 14,
-                  //  color: 'red'
-                }}
-                placeholder={`Write here..`}
+              <CustomInput
+              {...props}
+              Label={'question'}
+              placeholder='Write here..'
               />
-              {/* <InputView
-                                name="question"
-                                placeholder="Write here.."
-                                props={props}
-                            /> */}
+            
+       
             </View>
             {options.map((Exp: any, index: any) => (
               <View key={index}>
