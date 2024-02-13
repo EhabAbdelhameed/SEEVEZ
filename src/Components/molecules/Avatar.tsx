@@ -22,7 +22,7 @@ const AvatarIcon = (
       <ImageBackground
         imageStyle={[styles.avatar, { ...imgStyle }]}
         style={[styles.avatar, { ...imgStyle }]}
-        source={imgUrl.includes('http') ? { uri: imgUrl } : imgUrl}
+        source={imgUrl?.includes('http') ? { uri: imgUrl } : imgUrl}
       >
         {noActive ? null : <View style={styles.activeContainer}>
           <RenderSvgIcon
