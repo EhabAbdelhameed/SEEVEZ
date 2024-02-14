@@ -9,9 +9,9 @@ import DeviceInfo from 'react-native-device-info'
 
 const ContentVideo = ({ overlay = false, type = 'bolls' }: { overlay: boolean; type: string }) => {
     const navigation = useNavigation()
-    const hasNotch = DeviceInfo.hasNotch()
+    // const hasNotch = DeviceInfo.hasNotch()
     return (
-        <View style={[styles.container, { marginTop: hasNotch ? 50 : 20 }]}>
+        <View style={[styles.container]}>
             <View style={styles.header}>
                 <TouchableOpacity style={styles.leftHeader}
                     onPress={() => {

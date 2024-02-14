@@ -17,13 +17,18 @@ import Header from './components/Header';
 import {appColors} from 'theme';
 import {FlatList} from 'react-native-gesture-handler';
 import Flatlist from './components/FlatList';
+import { useSelector } from 'react-redux';
+import { selectPhotoData } from 'src/redux/app';
 
 const SearchPeople = () => {
   const navigation = useNavigation();
-  
+  const photoData = useSelector(selectPhotoData);
+
   const _handleNavigation = useCallback(() => {
+    photoData?.key=="6"?navigation.navigate('CreateShareLink'):
     navigation.navigate('CreatePollLink');
   }, []);
+
   return (
     <SafeAreaView edges={['top']} style={{flex: 1}}>
       <KeyboardAwareScrollView

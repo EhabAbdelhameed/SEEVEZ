@@ -139,69 +139,7 @@ const ReelsScreen = () => {
               ]}>
               <ContentVideo overlay={video.overlay} type={item?.type} />
 
-              {/* {!video.overlay ? (
-                                <View
-                                    style={[
-                                        styles.overlaySet,
-                                        { marginTop: appSizes.with },
-                                    ]}>
-                                    <Icon
-                                        name={video.paused ? 'play' : 'pause'}
-                                        style={styles.icon}
-                                        onPress={togglePlay}
-                                        size={45}
-                                        color={appColors.white}
-                                    />
-
-                                </View>
-                            ) : (
-                                <View style={styles.overlaySet}>
-                                    <TouchableNativeFeedback onPress={youTubeSeekLeft}>
-                                        <View style={{ flex: 1, backgroundColor: "#890" }}></View>
-                                    </TouchableNativeFeedback>
-                                    <TouchableNativeFeedback onPress={youTubeSeekRight}>
-                                        <View style={{ flex: 1, backgroundColor: "#890" }}></View>
-
-                                    </TouchableNativeFeedback>
-                                </View>
-                            )} */}
-              {/* {!video.overlay ? (
-                                <>
-                                    <View style={styles.timer}>
-                                        <View style={styles.containerTimeText}>
-                                            <Text style={styles.timeText}>
-                                                {getTime(video.currentTime)}
-                                            </Text>
-                                            <View style={{ flexDirection: 'row' }}>
-                                                <Text style={[styles.timeText]}>
-                                                    {getTime(video.duration)}
-                                                    {'   '}
-                                                </Text>
-
-                                                <Icon
-                                                    name={isMuted ? 'volume-mute' : 'volume-down'}
-                                                    style={{ marginLeft: 10 }}
-                                                    onPress={onMute}
-                                                    color={appColors.white}
-                                                    size={20}
-                                                />
-                                            </View>
-                                        </View>
-
-                                        <Slider
-                                            style={{ width: '100%', height: 20, marginTop: 10 }}
-                                            thumbTintColor={appColors.blue}
-                                            thumbStyle={{ width: 15, height: 15 }}
-                                            maximumTrackTintColor={appColors.placeholder}
-                                            minimumTrackTintColor={appColors.whiteBlue}
-                                            value={video.currentTime / video.duration}
-                                            onValueChange={setSlide}
-                                        />
-                                    </View>
-                                </>
-                            ) : (
-                                <></>
-                            )} */}
+       
             </View>
           </>
         </TouchableOpacity>

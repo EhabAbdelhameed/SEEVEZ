@@ -29,14 +29,15 @@ const Flatlist = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndices, setSelectedIndices] = useState<any>([]);
   const [selectedIds, setSelectedIds] = useState<any>([]);
+  const [selectedNames, setSelectedNames] = useState<any>([]);
+
   const [searchIndex, setSearchIndex] = useState<any>('');
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    
-    dispatch(AppSlice.changeTagPeopel(selectedIds))
-  
-  }, [selectedIds]);
+    dispatch(AppSlice.changeTagPeopel(selectedIds));
+    dispatch(AppSlice.changeTagNames(selectedNames));
+  }, [selectedIds, selectedNames]);
   React.useEffect(() => {
     const timer = setTimeout(() => {
       searchTerm &&
@@ -79,7 +80,30 @@ const Flatlist = () => {
           scrollEnabled={false}
           data={searchData?.data?.filter(filteredData)}
           renderItem={({item, index}) => (
-            <View
+            <TouchableOpacity
+              onPress={() => {
+                const itemId = searchData?.data[index]?.id; // Assuming you have an 'id' field in your data
+                const Name = searchData?.data[index]?.name;
+                if (selectedIndices.includes(index)) {
+                  setSelectedIndices(
+                    selectedIndices.filter((idx: any) => idx !== index),
+                  );
+                  setSelectedIds(
+                    selectedIds.filter((id: any) => id !== itemId),
+                  );
+                  setSelectedNames(
+                    selectedNames.filter((name: any) => name !== Name),
+                  );
+
+                  // dispatch(AppSlice.changeTagPeopel(selectedIds))
+                } else {
+                  setSelectedIndices([...selectedIndices, index]);
+                  setSelectedIds([...selectedIds, itemId]);
+                  setSelectedNames([...selectedNames, Name]);
+
+                  // dispatch(AppSlice.changeTagPeopel(selectedIds))
+                }
+              }}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -128,25 +152,37 @@ const Flatlist = () => {
                 </Text>
               </View>
               <TouchableOpacity
-               onPress={() => {
-                const itemId = searchData?.data[index]?.id; // Assuming you have an 'id' field in your data
-                if (selectedIndices.includes(index)) {
-                  setSelectedIndices(selectedIndices.filter((idx:any) => idx !== index));
-                  setSelectedIds(selectedIds.filter((id:any) => id !== itemId));
-        
-                  // dispatch(AppSlice.changeTagPeopel(selectedIds))
-                } else {
-                  setSelectedIndices([...selectedIndices, index]);
-                  setSelectedIds([...selectedIds, itemId]);
-                  // dispatch(AppSlice.changeTagPeopel(selectedIds))
-           
+                onPress={() => {
+                  const itemId = searchData?.data[index]?.id; // Assuming you have an 'id' field in your data
+                  const Name = searchData?.data[index]?.name;
+                  if (selectedIndices.includes(index)) {
+                    setSelectedIndices(
+                      selectedIndices.filter((idx: any) => idx !== index),
+                    );
+                    setSelectedIds(
+                      selectedIds.filter((id: any) => id !== itemId),
+                    );
+                    setSelectedNames(
+                      selectedNames.filter((name: any) => name !== Name),
+                    );
 
-                }
-              }}
-              style={styles.Circle}>
-              <View style={selectedIndices.includes(index) ? styles.innerCircle : null} />
+                    // dispatch(AppSlice.changeTagPeopel(selectedIds))
+                  } else {
+                    setSelectedIndices([...selectedIndices, index]);
+                    setSelectedIds([...selectedIds, itemId]);
+                    setSelectedNames([...selectedNames, Name]);
+
+                    // dispatch(AppSlice.changeTagPeopel(selectedIds))
+                  }
+                }}
+                style={styles.Circle}>
+                <View
+                  style={
+                    selectedIndices.includes(index) ? styles.innerCircle : null
+                  }
+                />
               </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index.toString()}
         />

@@ -22,6 +22,8 @@ import {AVATAR, PAUSE, VOICE, WAVE} from 'assets/Svgs';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
+import { useAppDispatch } from 'src/redux/store';
+import AppSlice, { selectPhotoData } from 'src/redux/app';
 const audioRecorderPlayer = new AudioRecorderPlayer();
 const ContainerRecord = (key: any) => {
   const CurrentUserData = useSelector(selectUser);
@@ -31,8 +33,10 @@ const ContainerRecord = (key: any) => {
   // const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const audioData=useSelector(selectPhotoData)
 
-  const sound = new Sound(key?.audioData?.data, Sound.MAIN_BUNDLE, error => {
+   const dispatch =useAppDispatch();
+  const sound = new Sound(audioData?.pdf, Sound.MAIN_BUNDLE, error => {
     if (error) {
       console.log('Failed to load sound:', error);
     } else {
@@ -89,6 +93,7 @@ const ContainerRecord = (key: any) => {
       remainingSeconds < 10 ? '0' : ''
     }${remainingSeconds}`;
   };
+  dispatch(AppSlice.changeImage(key?.data[0] == 0&&key?.data[1]?.length == 0 ?require('assets/images/bgGrediant.png'):{uri: key?.data[1][0]?.uri}))
   return key?.data[0] == 0 || key?.data[1]?.length != 0 ? (
     <ImageBackground
       source={

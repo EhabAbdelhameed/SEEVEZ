@@ -12,13 +12,14 @@ import DocumentPicker from 'react-native-document-picker';
 import AppThunks from 'src/redux/app/thunks';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
-import AppSlice from 'src/redux/app';
+import AppSlice, { selectPhotoData } from 'src/redux/app';
+import { useSelector } from 'react-redux';
 const Form = () => {
   const[source,setSource]=useState<any>([])
   const dispatch = useAppDispatch();
   const navigation=useNavigation<any>()
 
- 
+  const photoData = useSelector(selectPhotoData);
 
   return (
     <View style={styles.formContainer}>
@@ -28,7 +29,7 @@ const Form = () => {
         onSubmit={values => {
           if(values.description!=''){
             dispatch(AppSlice.changeLocation(values.description));
-
+             photoData?.key=="6"?navigation.navigate("CreateShareLink"):
             navigation.goBack()
           }else{
             Toast.show({

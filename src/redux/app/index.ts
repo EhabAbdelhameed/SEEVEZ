@@ -17,6 +17,9 @@ const slice = createSlice({
     changeNav: (state, action) => {
       state.Nav = action.payload;
     },
+    changePhotoData: (state, action) => {
+      state.photoData = action.payload;
+    },
     changeImage: (state, action) => {
       state.photoData.image = action.payload;
     },
@@ -38,12 +41,10 @@ const slice = createSlice({
     changeKey: (state, action) => {
       state.photoData.key = action.payload;
     },
-    changePlaceOrderData: (state, action) => {
-      state.placeOrderData = action.payload;
+    changeTagNames: (state, action) => {
+      state.photoData.names = action.payload;
     },
-    changePromoValue: (state, action) => {
-      state.PromoValue = action.payload;
-    },
+
     changeSearch: (state, action) => {
       state.Search = action.payload;
     },
@@ -155,6 +156,16 @@ const slice = createSlice({
     //doUploadPhotoReel
     builder.addCase(thunks.doUploadPhotoReel.fulfilled, (state, action) => {
       state.done = true;
+      
+      // state.photoData = {
+      //   image: null,
+      //   addonesCaption: null,
+      //   location: null,
+      //   pdf: null,
+      //   tagPepoles: null,
+      //   key: null,
+      //   names: null,
+      // };
       Toast.show({
         type: 'success',
 
@@ -673,7 +684,7 @@ const slice = createSlice({
     });
     //GetMyReels
     builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
-      // console.log("GET MY REELS ",JSON.stringify(action.payload));
+      console.log("GET MY REELS ",JSON.stringify(action.payload));
     });
     builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -1086,14 +1097,13 @@ const AppSlice = {
   logout: slice.actions.logout,
   changeDone: slice.actions.changeDone,
   changeNav: slice.actions.changeNav,
-  changePlaceOrderData: slice.actions.changePlaceOrderData,
-  changePromoValue: slice.actions.changePromoValue,
   changeImage: slice.actions.changeImage,
   changeAddonesCaption: slice.actions.changeAddonesCaption,
   changeLocation: slice.actions.changelocation,
   changePDF: slice.actions.changePDF,
   changeTagPeopel: slice.actions.changeTagPeopel,
   changeKey: slice.actions.changeKey,
+  changeTagNames: slice.actions.changeTagNames,
   changeSearch: slice.actions.changeSearch,
   changeIndsturyData: slice.actions.chnageIndsturyData,
   changeCompainesData: slice.actions.chnageCompaniesData,
@@ -1101,5 +1111,6 @@ const AppSlice = {
   changeJobType: slice.actions.changeJobType,
   changeEducationLevel: slice.actions.changeEducationLevel,
   changeSearchPeopelData: slice.actions.changeSearchPeopelData,
+  changePhotoData:slice.actions.changePhotoData,
 };
 export default AppSlice;

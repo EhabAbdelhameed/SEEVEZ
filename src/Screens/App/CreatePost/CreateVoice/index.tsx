@@ -1,7 +1,7 @@
-import { View, Text, Button, ImageBackground, Alert } from 'react-native'
-import React, { useCallback, useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { globalStyles } from 'src/globalStyle'
+import {View, Text, Button, ImageBackground, Alert} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {globalStyles} from 'src/globalStyle';
 import AudioRecorderPlayer, {
   AVEncoderAudioQualityIOSType,
   AVEncodingOption,
@@ -14,22 +14,24 @@ import type {
   PlayBackType,
   RecordBackType,
 } from 'react-native-audio-recorder-player';
-import Svg, { Path } from 'react-native-svg';
-import { styles } from './styles';
+import Svg, {Path} from 'react-native-svg';
+import {styles} from './styles';
 import Header from './components/Header';
 import Content from './components/Content';
 import Footer from './components/Footer';
 import Wave from './components/Wave';
-import { useNavigation } from '@react-navigation/native';
-import { appColors } from 'theme';
+import {useNavigation} from '@react-navigation/native';
+import {appColors} from 'theme';
+import {useAppDispatch} from 'src/redux/store';
+import AppSlice from 'src/redux/app';
 const audioRecorderPlayer = new AudioRecorderPlayer();
 const CreateVoice = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStoped, setIsStoped] = useState(false);
   const [audioData, setAudioData] = useState<any>(null);
-  const [recordData,setRecordData]=useState<any>('')
+  const [recordData, setRecordData] = useState<any>('');
   const [milliseconds, setMilliseconds] = useState(0);
 
   const [seconds, setSeconds] = useState(0);
@@ -38,17 +40,23 @@ const CreateVoice = () => {
   //setWaveformPoints
   const [waveformPoints, setWaveformPoints] = useState<any>([]);
 
-
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     let timerInterval: any;
 
     if (isRecording) {
       timerInterval = setInterval(() => {
-        setMilliseconds((prevMilliseconds) => (prevMilliseconds + 100) % 1000);
-        setSeconds((prevSeconds) => Math.floor((prevSeconds + (milliseconds + 100) / 1000) % 60));
-        setMinutes((prevMinutes) => Math.floor((prevMinutes + (seconds + 1) / 60) % 60));
-        setHours((prevHours) => Math.floor((prevHours + (minutes + 1) / 60) % 24));
+        setMilliseconds(prevMilliseconds => (prevMilliseconds + 100) % 1000);
+        setSeconds(prevSeconds =>
+          Math.floor((prevSeconds + (milliseconds + 100) / 1000) % 60),
+        );
+        setMinutes(prevMinutes =>
+          Math.floor((prevMinutes + (seconds + 1) / 60) % 60),
+        );
+        setHours(prevHours =>
+          Math.floor((prevHours + (minutes + 1) / 60) % 24),
+        );
       }, 100);
     }
 
@@ -77,11 +85,13 @@ const CreateVoice = () => {
       setIsRecording(false);
       setIsStoped(true);
       // Ensure that the result is an array before setting it as audioData
-      const audioDataArray:any = Array.isArray(result) ? result : Array.from(result);
+      const audioDataArray: any = Array.isArray(result)
+        ? result
+        : Array.from(result);
       setAudioData(result);
-      setRecordData(result)
-      console.log("result",result)
-     console.log("record Data: : : ",recordData)
+      setRecordData(result);
+      console.log('result', result);
+      console.log('record Data: : : ', recordData);
 
       // Generate waveform points from the recorded audio data
       // const waveformPoints = await generateWaveformPoints(audioDataArray);
@@ -120,7 +130,7 @@ const CreateVoice = () => {
   //   }
   // };
 
-  const generateWaveformPoints = (audioData:any) => {
+  const generateWaveformPoints = (audioData: any) => {
     // Ensure that audioData is an array
     if (!Array.isArray(audioData)) {
       console.error('Invalid audioData format. Expected an array.');
@@ -129,26 +139,25 @@ const CreateVoice = () => {
 
     // Convert the audio data to waveform points
     // Adjust the scale and other parameters based on your requirements
-    const scale = .1;
+    const scale = 0.1;
     const spacing = 4;
 
     return audioData.map((char, index) => {
       const x = index * spacing;
       const y = char.charCodeAt(0) * scale + 50; // Convert char to ASCII value
-      return { x, y };
+      return {x, y};
     });
   };
   const _handleNavigation = useCallback(() => {
-    console.log("RECORD AUDIO: : : ....:......",audioData)
     navigation.navigate('CreateShareLink', {
-      audioData:audioData,
+      audioData: audioData,
     });
   }, [audioData]);
   return (
-    <SafeAreaView edges={['top']} style={[globalStyles.screen,]}>
-      <ImageBackground style={styles.bg}
-        source={require("assets/images/bgGrediant.png")}
-      >
+    <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
+      <ImageBackground
+        style={styles.bg}
+        source={require('assets/images/bgGrediant.png')}>
         <Header />
         <Content
           hours={hours}
@@ -158,44 +167,42 @@ const CreateVoice = () => {
         />
         <Wave milliseconds={milliseconds} isRecording={audioData} />
         <Footer
-          Press={isRecording ? stopRecording : startRecording} 
+          Press={isRecording ? stopRecording : startRecording}
           Remove={resetTimer}
           Done={() => {
-            // Alert.alert("Done")
-            _handleNavigation()
+            dispatch(AppSlice.changePDF(audioData));
+
+            navigation.navigate('CreateShareLink');
           }}
           isStoped={isStoped}
         />
         {isRecording ? (
-        <>
-          <Text style={{ marginBottom: 10 }}>Recording...</Text>
-        </>
-      ) : (
-        <>
-          {/* <Button
+          <>
+            <Text style={{marginBottom: 10}}>Recording...</Text>
+          </>
+        ) : (
+          <>
+            {/* <Button
             title="Start Recording"
             onPress={startRecording}
             disabled={isPlaying}
           /> */}
-          {/* {audioData && (
+            {/* {audioData && (
             <View style={{ marginTop: 20 }}>
               <Button title="Start Playback" onPress={startPlayback} disabled={isRecording} />
             </View>
           )} */}
-        </>
-      )}
-  
-      {/* {isPlaying && (
+          </>
+        )}
+
+        {/* {isPlaying && (
         <Text style={{ marginTop: 10 }}>Playing...</Text>
       )} */}
 
-      {/* <Button title="Stop" onPress={isRecording ? stopRecording : stopPlayback} /> */}
-
+        {/* <Button title="Stop" onPress={isRecording ? stopRecording : stopPlayback} /> */}
       </ImageBackground>
-
-
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default CreateVoice
+export default CreateVoice;

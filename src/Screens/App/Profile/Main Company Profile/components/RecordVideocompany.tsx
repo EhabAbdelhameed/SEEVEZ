@@ -1,16 +1,43 @@
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {DELETE, VIDEOICON} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 import Video from 'react-native-fast-video';
+import { useAppDispatch } from 'src/redux/store';
+import AppThunks from 'src/redux/app/thunks';
+import AppSlice from 'src/redux/app';
 
 const RecordVideoCardCompany = (data: any) => {
   const navigation = useNavigation<any>();
   const [isPaused, setPaused] = useState(false);
-
-  
+  const dispatch=useAppDispatch()
+  const handleDeleteVideo = (VideoId:any) => {
+    // Show confirmation dialog
+    Alert.alert(
+      'Seevez',
+      'Are you sure you want to delete this video?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            // Dispatch the action to delete the experience
+            dispatch(AppThunks.doDeleteVideoCV(VideoId)).then((res: any) => {
+              dispatch(AppThunks.GetProfileInfo());
+              dispatch(AppSlice.changeDone(false));
+           
+            });
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  };
 
   return (
     <View
@@ -39,7 +66,7 @@ const RecordVideoCardCompany = (data: any) => {
       )}
       {data?.data !== null ? (
         <View style={styles.topContainer1}>
-          <TouchableOpacity
+          <TouchableOpacity onPress={() => handleDeleteVideo(data?.data?.id)} 
             style={[
               styles.secContainer,
               {

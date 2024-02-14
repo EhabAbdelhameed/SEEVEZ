@@ -47,7 +47,7 @@ const CreateVideo = () => {
     if (shouldNavigate && videoPath) {
       navigation.navigate('CreateVideo2', {
         videoPath: videoPath,
-        key: 1,
+        key: 4,
       });
       setShouldNavigate(false); // Reset the flag
     }
@@ -120,7 +120,7 @@ const CreateVideo = () => {
         navigation.navigate("CreateVideo2", {
           videoPath: res?.assets[0].uri,
           source: res,
-          key: 2
+          key: 5
         })
       }, 1000);
       // setSource(res)

@@ -12,22 +12,25 @@ import {CV, PULL} from 'assets/Svgs';
 import Footer from './components/Footer';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import {selectDone} from 'src/redux/app';
+import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 
 const CreateVideo2 = () => {
   const {videoPath, key, source}: any = useRoute().params;
 
-
+ 
   const navigation = useNavigation<any>();
   console.log('Ehab', JSON.stringify(useRoute().params));
 
   const [loading, setLoading] = React.useState(false);
   const [isPaused, setPaused] = useState(false);
   const dispatch = useAppDispatch();
+  dispatch(AppSlice.changeKey(key))
+  dispatch(AppSlice.changeImage(key=='4'?videoPath:source))
+
   const changeDone = useSelector(selectDone);
   const saveVideoFun = () => {
-    if (key == 1) {
+    if (key == 4) {
       setLoading(true);
       const formdata = new FormData();
       formdata.append('files', {
@@ -57,9 +60,9 @@ const CreateVideo2 = () => {
       });
     }
   };
-  useEffect(() => {
-    changeDone ? navigation.replace('app') : null;
-  }, [changeDone]);
+  // useEffect(() => {
+  //   changeDone ? navigation.replace('app') : null;
+  // }, [changeDone]);
   return (
     <SafeAreaView
       edges={['top']}
@@ -107,7 +110,7 @@ const CreateVideo2 = () => {
 
         <View style={styles.bottomContainer}>
           <View style={styles.bottomStartContainer}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={[
                 styles.leftBtn,
                 {
@@ -119,7 +122,7 @@ const CreateVideo2 = () => {
               }}>
               <PULL />
               <Text style={styles.text1}>Poll</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('CV');
