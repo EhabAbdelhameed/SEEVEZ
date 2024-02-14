@@ -1,6 +1,7 @@
 interface userState {
+  UserProfile: {};
   signedUp: boolean;
-  signedCompanyAdmin:boolean;
+  signedCompanyAdmin: boolean;
   reset: boolean;
   changed: boolean;
   rememberMe: boolean;
@@ -9,7 +10,7 @@ interface userState {
   isGuest: boolean;
   Token: any;
   currentUser: {
-    about:any;
+    about: any;
     area: any;
     avatar: any;
     birthdate: any;
@@ -42,28 +43,29 @@ interface userState {
       cv_media: any;
       educations: any;
       experiences: any;
-      complete_progress:any;
-      id:any;
+      complete_progress: any;
+      id: any;
       languages: any;
-      nationality:any;
+      nationality: any;
       online_status: any;
       reference_check: any;
-      background_check:any;
+      background_check: any;
       skills: any;
-      interests:any;
-      training_courses:any;
+      interests: any;
+      training_courses: any;
       user_type: any;
     };
     user_id: any;
     website: any;
     weight: any;
-    work_type:any;
+    work_type: any;
   };
 }
 
 export const initialState: userState = {
+  UserProfile:{},
   signedUp: false,
-  signedCompanyAdmin:false,
+  signedCompanyAdmin: false,
   reset: false,
   changed: false,
   rememberMe: true,
@@ -72,7 +74,7 @@ export const initialState: userState = {
   verified: false,
   Token: '',
   currentUser: {
-    about:null,
+    about: null,
     area: null,
     avatar: null,
     birthdate: null,
@@ -105,22 +107,22 @@ export const initialState: userState = {
       cv_media: null,
       educations: [],
       experiences: [],
-      background_check:null,
-      complete_progress:null,
+      background_check: null,
+      complete_progress: null,
       id: null,
       languages: [],
       nationality: [],
       online_status: null,
       reference_check: null,
       skills: [],
-      interests:[],
+      interests: [],
       training_courses: [],
 
       user_type: null,
     },
-    user_id:null,
+    user_id: null,
     website: null,
     weight: null,
-    work_type:null,
+    work_type: null,
   },
 };

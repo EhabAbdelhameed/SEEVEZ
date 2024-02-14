@@ -6,15 +6,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import React, { useState } from 'react';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import moment from 'moment';
-import {AVATAR, PDF} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import { AVATAR, PDF } from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
 
 const TrainingProfileCard = (data: any) => {
- 
+
   const navigation = useNavigation();
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const differenceInYears = (date1: any, date2: any) => {
@@ -32,29 +32,29 @@ const TrainingProfileCard = (data: any) => {
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Training courses</Text>
-          <View style={styles.Row2}>
+          {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateTraining')}>
               <RenderSvgIcon
                 icon="PLUSFOLLOW"
-                style={{marginRight: 10}}
+                style={{ marginRight: 10 }}
                 width={20}
                 height={20}
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            {data?.data?.length == 0 ? null:
-            <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }} 
-              disabled={data?.data?.length == 0 ? true : false}
-              onPress={() => navigation.navigate('UpdateTrainingCard')}>
-              <RenderSvgIcon
-                icon="PEN"
-                width={20}
-                height={20}
-                color={appColors.primary}
-              />
-            </TouchableOpacity>}
-          </View>
+            {data?.data?.length == 0 ? null :
+              <TouchableOpacity style={{ height: 30, width: 30, alignItems: 'center', justifyContent: 'center' }}
+                disabled={data?.data?.length == 0 ? true : false}
+                onPress={() => navigation.navigate('UpdateTrainingCard')}>
+                <RenderSvgIcon
+                  icon="PEN"
+                  width={20}
+                  height={20}
+                  color={appColors.primary}
+                />
+              </TouchableOpacity>}
+          </View>}
         </View>
 
         {data?.data?.length == 0 ? (
@@ -70,7 +70,7 @@ const TrainingProfileCard = (data: any) => {
               }}>
               <AVATAR height={32} width={32} />
             </View>
-            <View style={{marginLeft: 10}}>
+            <View style={{ marginLeft: 10 }}>
               <Text
                 style={{
                   fontSize: 19,
@@ -92,7 +92,7 @@ const TrainingProfileCard = (data: any) => {
           </View>
         ) : seeAllExperiences ? (
           data?.data?.map((item: any) => (
-            <View style={{paddingVertical:10}}>
+            <View style={{ paddingVertical: 10 }}>
               <View style={styles.Row2}>
                 <View
                   style={{
@@ -105,7 +105,7 @@ const TrainingProfileCard = (data: any) => {
                   }}>
                   <AVATAR height={32} width={32} />
                 </View>
-                <View style={{marginLeft: 10}}>
+                <View style={{ marginLeft: 10 }}>
                   <Text style={styles.Title2}>{item?.institute}</Text>
                   <Text style={styles.CompanyName}>{item?.field_of_study}</Text>
                   <Text style={styles.des}>
@@ -120,59 +120,8 @@ const TrainingProfileCard = (data: any) => {
                   </View>
                 </View>
               </View>
-              {item?.certificate_image==null?null:
-              item?.object_info?.extension == 'pdf' ? (
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => Linking.openURL(item?.certificate_image)}
-                  style={styles.PDFContainer}>
-                  <PDF height={70} width={70} />
-                </TouchableOpacity>
-              ) : (
-                <Image
-                  style={styles.Certificate}
-                  source={{
-                    uri: item?.certificate_image,
-                  }}
-                />
-              )}
-            </View>
-          ))
-        ) : (
-          data?.data?.map((item: any, index: any) =>
-            index == 0 ? (
-              <View style={{paddingVertical:10}}>
-                <View style={styles.Row2}>
-                  <View
-                    style={{
-                      width: 64,
-                      height: 64,
-                      borderRadius: 64,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: appColors.bg,
-                    }}>
-                    <AVATAR height={32} width={32} />
-                  </View>
-                  <View style={{marginLeft: 10}}>
-                    <Text style={styles.Title2}>{item?.institute}</Text>
-                    <Text style={styles.CompanyName}>
-                      {item?.field_of_study}
-                    </Text>
-                    <Text style={styles.des}>
-                      {moment(item.start_date).format('yyyy')} -{' '}
-                      {moment(item.end_date).format('yyyy')} ·
-                     {' '}{differenceInYears(item.start_date, item.end_date)} years
-                      · Cairo, Egypt
-                    </Text>
-                    <View style={styles.Row2}>
-                      <Text style={styles.Title3}>Grade : </Text>
-                      <Text style={styles.Title4}>{item.grade}</Text>
-                    </View>
-                  </View>
-                </View>
-                {item?.certificate_image==null?null:
-                item?.object_info?.extension == 'pdf'||item?.object_info?.extension == 'zip' ? (
+              {item?.certificate_image == null ? null :
+                item?.object_info?.extension == 'pdf' ? (
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => Linking.openURL(item?.certificate_image)}
@@ -187,6 +136,57 @@ const TrainingProfileCard = (data: any) => {
                     }}
                   />
                 )}
+            </View>
+          ))
+        ) : (
+          data?.data?.map((item: any, index: any) =>
+            index == 0 ? (
+              <View style={{ paddingVertical: 10 }}>
+                <View style={styles.Row2}>
+                  <View
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 64,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: appColors.bg,
+                    }}>
+                    <AVATAR height={32} width={32} />
+                  </View>
+                  <View style={{ marginLeft: 10 }}>
+                    <Text style={styles.Title2}>{item?.institute}</Text>
+                    <Text style={styles.CompanyName}>
+                      {item?.field_of_study}
+                    </Text>
+                    <Text style={styles.des}>
+                      {moment(item.start_date).format('yyyy')} -{' '}
+                      {moment(item.end_date).format('yyyy')} ·
+                      {' '}{differenceInYears(item.start_date, item.end_date)} years
+                      · Cairo, Egypt
+                    </Text>
+                    <View style={styles.Row2}>
+                      <Text style={styles.Title3}>Grade : </Text>
+                      <Text style={styles.Title4}>{item.grade}</Text>
+                    </View>
+                  </View>
+                </View>
+                {item?.certificate_image == null ? null :
+                  item?.object_info?.extension == 'pdf' || item?.object_info?.extension == 'zip' ? (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => Linking.openURL(item?.certificate_image)}
+                      style={styles.PDFContainer}>
+                      <PDF height={70} width={70} />
+                    </TouchableOpacity>
+                  ) : (
+                    <Image
+                      style={styles.Certificate}
+                      source={{
+                        uri: item?.certificate_image,
+                      }}
+                    />
+                  )}
               </View>
             ) : null,
           )

@@ -267,7 +267,6 @@ const slice = createSlice({
       });
     });
     builder.addCase(thunks.doSignUpRecruiter.rejected, (state, action: any) => {
-    
       if (action.payload.data.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -280,6 +279,7 @@ const slice = createSlice({
         });
       }
     });
+    
     //doSignUpJobSeeker
 
     builder.addCase(thunks.doSignUpJobSeeker.fulfilled, (state, action) => {
@@ -306,6 +306,11 @@ const slice = createSlice({
       }
     });
 
+    builder.addCase(thunks.doGetUserProfile.fulfilled, (state, action) => {
+      // console.log(action.payload.data,'sdsdds')
+      state.UserProfile = action.payload.data;
+     
+    });
     //doGetMyProfile
     // builder.addCase(thunks.doGetMyProfile.fulfilled, (state, action) => {
     //   AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
@@ -357,6 +362,7 @@ export const selectReseted = (state: RootState) => state.auth.reset;
 export const selectVerified = (state: RootState) => state.auth.verified;
 export const selectToken = (state: RootState) => state.auth.Token;
 export const selectIsSignUpCompany = (state: RootState) => state.auth.signedCompanyAdmin;
+export const selectUserProfile = (state: RootState) => state.auth.UserProfile;
 
 
 // export const selectSigned = (state: RootState) => state.auth.signUp

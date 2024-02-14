@@ -19,6 +19,7 @@ export type AppParamsList = {
     Cv: undefined;
     Connections: undefined;
     Reels: undefined;
+    UserProfile: undefined;
     TabBar: undefined;
     ProfileScreen: undefined;
     CompleteProfileScreen:undefined;
@@ -69,6 +70,7 @@ export type AppParamsList = {
     AddPhoto:any;
     CreateVideo2:any;
     CreatePull:any;
+    MyConnection:undefined;
 }
 export type RootParamsList = {
     auth: any;

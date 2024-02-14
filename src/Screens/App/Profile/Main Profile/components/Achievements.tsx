@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import React, { useState } from 'react';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import {useNavigation} from '@react-navigation/native';
-import {PDF} from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
+import { PDF } from 'assets/Svgs';
 
 const AchievementsProfileCard = (data: any) => {
   const navigation = useNavigation();
@@ -22,12 +22,12 @@ const AchievementsProfileCard = (data: any) => {
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Achievements</Text>
-          <View style={styles.Row2}>
+          {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateAchievements')}>
               <RenderSvgIcon
                 icon="PLUSFOLLOW"
-                style={{marginRight: 10}}
+                style={{ marginRight: 10 }}
                 width={20}
                 height={20}
                 color={appColors.primary}
@@ -51,19 +51,19 @@ const AchievementsProfileCard = (data: any) => {
                 />
               </TouchableOpacity>
             )}
-          </View>
+          </View>}
         </View>
         {data?.data?.length == 0
           ? null
           : seeAllExperiences
-          ? data?.data?.map((item: any, index: any) => (
+            ? data?.data?.map((item: any, index: any) => (
               <View
                 style={{
                   marginBottom: 15,
                   paddingHorizontal: 10,
                   flexDirection: 'row',
                 }}>
-                <View style={{width: '85%'}}>
+                <View style={{ width: '85%' }}>
                   <ReadMore
                     style={styles.PostText}
                     animate={true}
@@ -87,7 +87,7 @@ const AchievementsProfileCard = (data: any) => {
                       width: '120%',
                     }}>
                     {item?.certificate == null ? null : item?.object_info
-                        ?.extension == 'pdf' ||
+                      ?.extension == 'pdf' ||
                       item?.object_info?.extension == 'zip' ? (
                       <TouchableOpacity
                         activeOpacity={0.8}
@@ -98,14 +98,14 @@ const AchievementsProfileCard = (data: any) => {
                     ) : (
                       <Image
                         style={styles.Certificate}
-                        source={{uri: item?.certificate}}
+                        source={{ uri: item?.certificate }}
                       />
                     )}
                   </View>
                 </View>
               </View>
             ))
-          : data?.data?.map((item: any, index: any) =>
+            : data?.data?.map((item: any, index: any) =>
               index == 0 ? (
                 <View
                   style={{
@@ -113,7 +113,7 @@ const AchievementsProfileCard = (data: any) => {
                     paddingHorizontal: 10,
                     flexDirection: 'row',
                   }}>
-                  <View style={{width: '85%'}}>
+                  <View style={{ width: '85%' }}>
                     <ReadMore
                       style={styles.PostText}
                       animate={true}
@@ -137,7 +137,7 @@ const AchievementsProfileCard = (data: any) => {
                         width: '120%',
                       }}>
                       {item?.certificate == null ? null : item?.object_info
-                          ?.extension == 'pdf' ||
+                        ?.extension == 'pdf' ||
                         item?.object_info?.extension == 'zip' ? (
                         <TouchableOpacity
                           activeOpacity={0.8}
@@ -148,7 +148,7 @@ const AchievementsProfileCard = (data: any) => {
                       ) : (
                         <Image
                           style={styles.Certificate}
-                          source={{uri: item?.certificate}}
+                          source={{ uri: item?.certificate }}
                         />
                       )}
                     </View>

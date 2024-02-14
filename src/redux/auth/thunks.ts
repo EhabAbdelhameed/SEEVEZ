@@ -2,6 +2,29 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import AuthAPI from './api';
 // import AppAPI from "store/app/api";
 
+const doGetUserProfile: any = createAsyncThunk<any, any, any>(
+  'auth/getUserProfile',
+  async (data: any, thunkApi: any) => {
+    try {
+      const response = await AuthAPI.getUserProfile(data);
+      if (
+        response.status == 400 ||
+        response.status == 401 ||
+        response.status == 403 ||
+        response.status == 404 ||
+        response.status == 422 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+
 const doSignUpCompany: any = createAsyncThunk<any, any, any>(
   'auth/signUpCompany',
   async (data: any, thunkApi: any) => {
@@ -354,7 +377,8 @@ const AuthThunks = {
   doForgetPassword,
   doVerifyOTP,
   doResetPassword,
-  doResendCode
+  doResendCode,
+  doGetUserProfile
 //   doChangeProfile,
 
 //   doGetMyProfile,

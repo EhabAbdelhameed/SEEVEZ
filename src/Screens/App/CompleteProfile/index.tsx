@@ -1,13 +1,13 @@
-import {ScrollView, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { ScrollView, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from 'components/molecules/Header';
-import {styles} from './styles';
+import { styles } from './styles';
 import Complete from './components/Complete/Complete';
 import InfoCard from './components/Info/Info';
 import AboutCard from './components/About/About';
 import ExperienceCard from './components/Experience/Experience';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import EducationCard from './components/Education/Education';
 import TrainingCard from './components/Training/Training';
 import SkillsCard from './components/Skills/Skills';
@@ -17,9 +17,9 @@ import LanguagesCard from './components/Languages/Languages';
 import ReferenceCheckCard from './components/RefernceCheck/RefernceCheck';
 
 import AchievementsCard from './components/Achievements/Achievements';
-import {useAppDispatch} from 'src/redux/store';
-import {useSelector} from 'react-redux';
-import {selectUser} from 'src/redux/auth';
+import { useAppDispatch } from 'src/redux/store';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'src/redux/auth';
 import AppSlice from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -45,7 +45,7 @@ const CompleteProfileScreen = () => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo()).then(
         (res: any) => {
-            setIsLoading(false);
+          setIsLoading(false);
         },
       );;
       dispatch(AppSlice.changeDone(false));
@@ -68,27 +68,17 @@ const CompleteProfileScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <RecordVideo user_data={CurrentUserData?.user_data?.cv_media} />
           <View style={styles.PaddingContainer}>
-            <Complete
-              pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
-            />
-            <InfoProfileCard data={CurrentUserData} />   
+            <Complete pers={parseInt(CurrentUserData?.user_data?.complete_progress)} />
+            <InfoProfileCard data={CurrentUserData} />
             <AboutProfileCard data={CurrentUserData?.about} />
             <ExperienceProfileCard data={CurrentUserData?.user_data?.experiences} />
             <EducationProfileCard data={CurrentUserData?.user_data?.educations} />
             <TrainingProfileCard data={CurrentUserData?.user_data?.training_courses} />
-            <SkillsProfileCard
-              title={'Skills'}
-              data={CurrentUserData?.user_data?.skills}
-            />
-            <SkillsProfileCard
-              title={'Interests'}
-              data={CurrentUserData?.user_data?.interests}
-            />
+            <SkillsProfileCard title={'Skills'} data={CurrentUserData?.user_data?.skills} />
+            <SkillsProfileCard title={'Interests'} data={CurrentUserData?.user_data?.interests} />
             <LanguagesProfileCard data={CurrentUserData?.user_data?.languages} />
             <AchievementsProfileCard data={CurrentUserData?.user_data?.achievement} />
-            <ReferenceProfileCheck
-              data={CurrentUserData?.user_data?.reference_check}
-            />
+            <ReferenceProfileCheck data={CurrentUserData?.user_data?.reference_check} />
           </View>
 
           {/* <View style={{ height: 20 }} /> */}
