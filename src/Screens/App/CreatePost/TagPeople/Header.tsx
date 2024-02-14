@@ -4,19 +4,20 @@ import { styles } from './styles'
 import { RenderSvgIcon } from 'components/atoms/svg'
 import { appColors } from 'theme'
 import { useNavigation } from '@react-navigation/native'
+import { selectPhotoData } from 'src/redux/app'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
   const navigation = useNavigation()
-  const _handleNavigate = useCallback(
-    () => {
-      navigation.goBack();
-    },
-    [],
-  )
+  const photoData = useSelector(selectPhotoData);
+  const _handleNavigation = useCallback(() => {
+    photoData?.key=="6"?navigation.navigate('CreateShareLink'):
+    navigation.navigate('CreatePollLink');
+  }, []);
 
   return (
     <View style={styles.HeaderContainer}>
-      <Pressable onPress={_handleNavigate}>
+      <Pressable onPress={_handleNavigation}>
         <RenderSvgIcon
           icon='ARROWBACK'
           color={appColors.primary}

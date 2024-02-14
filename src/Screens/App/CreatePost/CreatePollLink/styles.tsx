@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
         // backgroundColor:appColors.primary,
         // height:100,
         paddingTop: 10,
+        // height:54,
         paddingHorizontal: 10,
         flexDirection: "row",
         alignItems: "center",
@@ -215,4 +216,27 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    taggedPeopleContainer: {
+        marginTop: 20,
+        paddingHorizontal: 10,
+      },
+      removeTagButton: {
+        marginLeft: 5,
+        padding: 5,
+        backgroundColor: 'red',
+        borderRadius: 5,
+      },
+      taggedPerson: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+      },
+      taggedPeopleList: {
+        marginTop: 10,
+      },
+      taggedPeopleTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+      },
 })

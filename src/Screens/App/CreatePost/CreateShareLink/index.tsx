@@ -8,10 +8,16 @@ import Content from './components/Content'
 import Templetes from './components/Templetes'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useRoute } from '@react-navigation/native'
+import { useAppDispatch } from 'src/redux/store'
+import AppSlice, { selectPhotoData } from 'src/redux/app'
+import { useSelector } from 'react-redux'
 
 const CreateShareLink = () => {
-    const {audioData}: any = useRoute().params;
-    console.log("123,",audioData)
+  
+    const dispatch=useAppDispatch()
+    dispatch(AppSlice.changeKey("6"))
+    const audioData=useSelector(selectPhotoData)
+    console.log(audioData?.pdf)
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
 
@@ -27,7 +33,7 @@ const CreateShareLink = () => {
                 enableResetScrollToCoords={false}
                 showsVerticalScrollIndicator={false}
             >
-                <Content data={audioData} />
+                <Content />
             </KeyboardAwareScrollView>
         </SafeAreaView>
     )

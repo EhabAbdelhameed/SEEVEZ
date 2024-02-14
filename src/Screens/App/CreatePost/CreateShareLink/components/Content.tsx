@@ -7,18 +7,43 @@ import AddCaption from './AddCaption'
 import Option from './Option'
 import { SaveCircle } from 'assets/Svgs'
 import Footer from './Footer'
-const Content = (data:any) => {
+import { useSelector } from 'react-redux'
+import { selectPhotoData } from 'src/redux/app'
+import { RenderSvgIcon } from 'components/atoms/svg'
+import { appColors } from 'theme/appColors'
+const Content = () => {
   const [caption,setCaption]=useState('')
   const [key,setKey]=useState<any>(0)
   const [imgUrl,setImageURL]=useState<any>([])
-    console.log(data)
+  const searchPeople = useSelector(selectPhotoData);
   return (
     <View style={styles.ContentCotainer}>
-      <ContainerRecord data={[key,imgUrl]} audioData={data}   />
+       {searchPeople?.location==null||searchPeople?.location==''?null:
+        <View style={{position:'absolute',top:20,left:20,flexDirection:'row',columnGap:5}} >
+            <RenderSvgIcon
+              icon="LOCATION"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
+            <Text>{searchPeople?.location}</Text>
+          </View>}
+      <ContainerRecord data={[key,imgUrl]}   />
       <Templetes onPress={setKey} onPressImg={setImageURL} />
+      {searchPeople?.names==null||searchPeople?.names?.length==0?null:
+      <View style={styles.taggedPeopleContainer}>
+        <Text style={styles.taggedPeopleTitle}>Tagged People:</Text>
+        <View style={styles.taggedPeopleList}>
+          {searchPeople?.names.map((person: any, index: any) => (
+            <View key={index} style={styles.taggedPerson}>
+              <Text>{person}</Text>
+            </View>
+          ))}
+        </View>
+      </View>}
       <AddCaption caption={caption} setCaption={setCaption}/>
       <Option onPress={setImageURL} />
-      <Footer data={imgUrl} audioData={data} />
+      <Footer data={imgUrl} caption={caption}/>
     </View>
   )
 }

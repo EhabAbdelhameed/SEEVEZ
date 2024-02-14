@@ -6,15 +6,27 @@ import {appColors} from 'theme';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import {ActivityIndicator} from 'react-native';
+import { useSelector } from 'react-redux';
+import { selectPhotoData } from 'src/redux/app';
 
 const Footer = (data: any) => {
-  //  console.log("Footer Data",data)
+   console.log("Footer Data",data)
   const dispatch = useAppDispatch();
+
   const [isLoading, setIsLoading] = useState(false);
+  const photoData = useSelector(selectPhotoData);
   const sendAudioData = () => {
     setIsLoading(true);
     const formdata = new FormData();
-
+    photoData.location != null && photoData.location !=''
+    ? formdata.append('location', photoData.location)
+    : null;
+  if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
+    for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
+      formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
+    }
+  }
+  data?.caption != '' ? formdata.append('caption', data?.caption) : null;
     formdata.append('template', {
       uri: data?.data[0]?.uri,
       type: data?.data[0]?.type,
@@ -22,7 +34,7 @@ const Footer = (data: any) => {
     });
 
     formdata.append('files', {
-      uri: data?.audioData?.data, // URI of the audio file
+      uri: photoData?.pdf, // URI of the audio file
       type: 'audio/mp3', // Mime type of the audio file
       name: 'audio.mp3', // Name of the audio file
     });

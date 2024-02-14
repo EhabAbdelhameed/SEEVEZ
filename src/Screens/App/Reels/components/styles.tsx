@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get("window")
 export const styles = StyleSheet.create({
     container: {
         width: width,
-        height: height / 1.14,
+        height: height / 1.1,
         paddingHorizontal: 16,
         justifyContent: "space-between",
         // backgroundColor:appColors.fourth

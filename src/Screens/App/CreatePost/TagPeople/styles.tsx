@@ -6,10 +6,12 @@ export const styles = StyleSheet.create({
         width: "100%",
         backgroundColor:appColors.bg,
         // height:100,
-        paddingTop: 10,
+        // paddingTop: 10,
+        height:54,
         paddingHorizontal: 10,
         flexDirection: "row",
         alignItems: "center",
+        // justifyContent:'center'
     },
     TitleHeader: {
         color: appColors.primary,

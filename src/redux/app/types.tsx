@@ -23,6 +23,7 @@ interface appState {
         pdf:any;
         tagPepoles:any;
         key:any;
+        names:any;
     }
     
     EducationLevel:[{
@@ -361,6 +362,7 @@ export const initialState: appState = {
         pdf:null,
         tagPepoles:null,
         key:null,
+        names:null,
     },
     searchPeopelData:{
  

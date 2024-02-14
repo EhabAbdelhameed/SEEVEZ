@@ -5,9 +5,9 @@ export const styles = StyleSheet.create({
     HeaderContainer: {
         width: "100%",
         backgroundColor:appColors.bg,
-        height:80,
+        height:54,
 
-        paddingTop: 10,
+        // paddingTop: 10,
         paddingHorizontal: 10,
         flexDirection: "row",
         alignItems: "center",
