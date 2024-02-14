@@ -684,7 +684,7 @@ const slice = createSlice({
     });
     //GetMyReels
     builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
-      console.log("GET MY REELS ",JSON.stringify(action.payload));
+      console.log("GET MY ALL REELS ",JSON.stringify(action.payload))
     });
     builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -699,6 +699,23 @@ const slice = createSlice({
         });
       }
     });
+      //GetOnePost
+      builder.addCase(thunks.GetOnePost.fulfilled, (state, action) => {
+        console.log("GET One REEL ",JSON.stringify(action.payload));
+      });
+      builder.addCase(thunks.GetOnePost.rejected, (state, action: any) => {
+        if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+        }
+      });
     //doGetFollowingList
     builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
       state.FollowingList = action.payload.data?.follows;

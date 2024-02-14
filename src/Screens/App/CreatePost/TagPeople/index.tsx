@@ -26,10 +26,11 @@ const TagPeople = () => {
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
   const _handleNavigation = useCallback(() => {
-    photoData?.key=="6"?navigation.navigate('CreateShareLink'):
+    photoData?.key=="6"?navigation.navigate('CreateShareLink',{audioData:photoData?.pdf}):
     navigation.navigate('CreatePollLink');
   }, []);
   const photoData = useSelector(selectPhotoData);
+  console.log("EHAB",photoData?.image)
   return (
     <SafeAreaView edges={['top']} style={{flex: 1}}>
       <KeyboardAwareScrollView

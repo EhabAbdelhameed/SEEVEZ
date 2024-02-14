@@ -172,7 +172,7 @@ const CreateVoice = () => {
           Done={() => {
             dispatch(AppSlice.changePDF(audioData));
 
-            navigation.navigate('CreateShareLink');
+            navigation.navigate('CreateShareLink',{audioData:audioData});
           }}
           isStoped={isStoped}
         />

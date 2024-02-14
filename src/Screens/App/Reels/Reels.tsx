@@ -35,6 +35,8 @@ const ReelsScreen = () => {
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id)).then((res: any) => {});
+      dispatch(AppThunks.GetOnePost(CurrentUserData?.user_data?.id)).then((res: any) => {});
+
       dispatch(AppSlice.changeDone(false));
     });
     return RenderFunction;
@@ -89,7 +91,7 @@ const ReelsScreen = () => {
   };
   const renderVideoItem = ({item, index}: any) => {
     return (
-      <>
+      < View >  
         <TouchableOpacity
           onPress={toggleOverLay}
           activeOpacity={1}
@@ -143,7 +145,7 @@ const ReelsScreen = () => {
             </View>
           </>
         </TouchableOpacity>
-      </>
+      </View>
     );
   };
 

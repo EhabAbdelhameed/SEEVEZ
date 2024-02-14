@@ -47,6 +47,8 @@ const PhotoReel = (data: any) => api.post(`api/post-photo`, data);
 const profileInfo = () => api.get(`api/get-info`)
 const Industry = () => api.get(`api/drop-down/industry`)
 const GetMyReel = (id:number) => api.get(`api/get-my-reels?user_id=${id}`)
+const GetOneReel = (id:number) => api.get(`api/get-post-by-id?postId=770d8527-27fe-417b-a938-a3a90a9677b4`)
+
 const listUsers = () => api.get(`dashboard/recruiter/20`)
 const followUser = (id: number) => api.post(`api/follow`, { id })
 const unfollowUser = (id: number) => api.post(`api/unfollow`, { id })
@@ -71,6 +73,7 @@ const AppAPI = {
   DeleteVideoCV,
   DeleteSkills,
   GetMyReel,
+  GetOneReel,
   VideoReel,
   Education,
   AccessToken,

@@ -938,6 +938,32 @@ const GetMyReels: any = createAsyncThunk<any, any, any>(
         }
     }
 )
+//GetOnePost
+const GetOnePost: any = createAsyncThunk<any, any, any>(
+    'app/GetOnePost',
+    async (data, thunkApi: any) => {
+        try {
+            const response = await AppAPI.GetOneReel(data);
+            // alert(JSON.stringify(response?.data))
+            if (
+                response.status == null ||
+                response.status == 401 ||
+                response.status == 400 ||
+                response.status == 422 ||
+                response.status == 404 ||
+                response.status == 403 ||
+                response.status == 500 ||
+                response.status == 503
+            ) {
+                throw response;
+            }
+            return response.data
+        } catch (error) {
+            return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+
 
 //////////////////////follow///////////////
 const doUnFollowUser: any = createAsyncThunk<any, any, any>(
@@ -1262,7 +1288,8 @@ const AppThunks = {
     doUnFollowUser,
     doGetFollowingList,
     doGetListUsers,
-    searchForTagPeopel
+    searchForTagPeopel,
+    GetOnePost
    
 };
 
