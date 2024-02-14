@@ -6,16 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import React, { useState } from 'react';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import {AVATAR, CompanyLogo, PDF} from 'assets/Svgs';
+import { AVATAR, CompanyLogo, PDF } from 'assets/Svgs';
 import moment from 'moment';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const ExperienceProfileCard = (data: any) => {
- 
+
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
   const differenceInMonths = (date1: any, date2: any) => {
@@ -40,35 +40,35 @@ const ExperienceProfileCard = (data: any) => {
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Experience</Text>
-          <View style={styles.Row2}>
+          {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateExperience')}>
               <RenderSvgIcon
                 icon="PLUSFOLLOW"
-                style={{marginRight: 10}}
+                style={{ marginRight: 10 }}
                 width={20}
                 height={20}
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            {data?.data?.length == 0 ?null:
-            <TouchableOpacity
-              style={{
-                height: 30,
-                width: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              disabled={data?.data?.length == 0 ? true : false}
-              onPress={() => navigation.navigate('UpdateExperienceCard')}>
-              <RenderSvgIcon
-                icon="PEN"
-                width={20}
-                height={20}
-                color={appColors.primary}
-              />
-            </TouchableOpacity>}
-          </View>
+            {data?.data?.length == 0 ? null :
+              <TouchableOpacity
+                style={{
+                  height: 30,
+                  width: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                disabled={data?.data?.length == 0 ? true : false}
+                onPress={() => navigation.navigate('UpdateExperienceCard')}>
+                <RenderSvgIcon
+                  icon="PEN"
+                  width={20}
+                  height={20}
+                  color={appColors.primary}
+                />
+              </TouchableOpacity>}
+          </View>}
         </View>
         {data?.data?.length == 0 ? (
           <View style={styles.Row2}>
@@ -85,14 +85,14 @@ const ExperienceProfileCard = (data: any) => {
               <CompanyLogo height={32} width={32} />
             </View>
 
-            <View style={{marginLeft: 10}}>
+            <View style={{ marginLeft: 10 }}>
               <Text style={styles.Title2}>Job Title</Text>
               <Text style={styles.CompanyName}>Company Name</Text>
             </View>
           </View>
         ) : seeAllExperiences ? (
           data?.data?.map((item: any, index: any) => (
-            <View style={{marginBottom: 15}}>
+            <View style={{ marginBottom: 15 }}>
               <View style={styles.Row2}>
                 <View
                   style={{
@@ -106,7 +106,7 @@ const ExperienceProfileCard = (data: any) => {
                   }}>
                   <CompanyLogo height={32} width={32} />
                 </View>
-                <View style={{marginLeft: 10}}>
+                <View style={{ marginLeft: 10 }}>
                   <Text style={styles.Title2}>{item.job_title}</Text>
                   <Text style={styles.CompanyName}>
                     {item?.company_name == null
@@ -147,7 +147,7 @@ const ExperienceProfileCard = (data: any) => {
                 numberOfLines={3}>
                 {item.description}
               </ReadMore>
-              {item?.experience_letter==null?null:
+              {item?.experience_letter == null ? null :
                 item?.object_info?.extension == 'pdf' ? (
                   <TouchableOpacity
                     activeOpacity={0.8}
@@ -182,7 +182,7 @@ const ExperienceProfileCard = (data: any) => {
                     }}>
                     <CompanyLogo height={32} width={32} />
                   </View>
-                  <View style={{marginLeft: 10}}>
+                  <View style={{ marginLeft: 10 }}>
                     <Text style={styles.Title2}>{item.job_title}</Text>
                     <Text style={styles.CompanyName}>
                       {item?.company_name == null
@@ -223,22 +223,22 @@ const ExperienceProfileCard = (data: any) => {
                   numberOfLines={3}>
                   {item.description}
                 </ReadMore>
-                {item?.experience_letter==null?null:
-                item?.object_info?.extension == 'pdf' ? (
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => Linking.openURL(item?.experience_letter)}
-                    style={styles.PDFContainer}>
-                    <PDF height={70} width={70} />
-                  </TouchableOpacity>
-                ) : (
-                  <Image
-                    style={styles.Certificate}
-                    source={{
-                      uri: item?.experience_letter,
-                    }}
-                  />
-                )}
+                {item?.experience_letter == null ? null :
+                  item?.object_info?.extension == 'pdf' ? (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => Linking.openURL(item?.experience_letter)}
+                      style={styles.PDFContainer}>
+                      <PDF height={70} width={70} />
+                    </TouchableOpacity>
+                  ) : (
+                    <Image
+                      style={styles.Certificate}
+                      source={{
+                        uri: item?.experience_letter,
+                      }}
+                    />
+                  )}
               </View>
             ) : null,
           )

@@ -1,11 +1,11 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import {Close} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
+import { Close } from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
 
-const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
+const SkillsProfileCard = ({ title, data, current }: { title?: any; data?: any; current?: boolean }) => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
 
@@ -14,7 +14,7 @@ const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>{title}</Text>
-          <View style={styles.Row2}>
+          {!current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('UpdateSkills', {
@@ -23,34 +23,34 @@ const SkillsProfileCard = ({title, data}: {title?: any; data?: any}) => {
               }>
               <RenderSvgIcon
                 icon="PLUSFOLLOW"
-                style={{marginRight: 10}}
+                style={{ marginRight: 10 }}
                 width={20}
                 height={20}
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            {data?.length == 0 ?null:
-            <TouchableOpacity
-              style={{
-                height: 30,
-                width: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              disabled={data?.length == 0 ? true : false}
-              onPress={() =>
-                navigation.navigate('UpdateSkillsCard', {
-                  title: title == 'Interests' ? 'Interests' : 'Skills',
-                })
-              }>
-              <RenderSvgIcon
-                icon="PEN"
-                width={20}
-                height={20}
-                color={appColors.primary}
-              />
-            </TouchableOpacity>}
-          </View>
+            {data?.length == 0 ? null :
+              <TouchableOpacity
+                style={{
+                  height: 30,
+                  width: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                disabled={data?.length == 0 ? true : false}
+                onPress={() =>
+                  navigation.navigate('UpdateSkillsCard', {
+                    title: title == 'Interests' ? 'Interests' : 'Skills',
+                  })
+                }>
+                <RenderSvgIcon
+                  icon="PEN"
+                  width={20}
+                  height={20}
+                  color={appColors.primary}
+                />
+              </TouchableOpacity>}
+          </View>}
         </View>
         {data?.length == 0 ? null : (
           <View style={styles.con}>

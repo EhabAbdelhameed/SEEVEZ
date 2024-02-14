@@ -9,6 +9,7 @@ import AvatarIcon from '../../../../../Components/molecules/Avatar';
 import { useAppDispatch, useAppSelector } from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import { selectFollowingList } from 'src/redux/app';
+import { useNavigation } from '@react-navigation/native';
 
 const UserSection = ({
     item,
@@ -19,6 +20,7 @@ const UserSection = ({
 }) => {
     const [count, setCount] = React.useState(0)
     const dispatch = useAppDispatch()
+    const { navigate } = useNavigation<any>()
     const FollowingList = useAppSelector(selectFollowingList)
     let exist = FollowingList?.some((ele: any) => ele?.toUserPublicId == item?.user_id)
     const doFollowingOperation = () => {
@@ -38,7 +40,7 @@ const UserSection = ({
         })
     }, [])
     return (
-        <TouchableOpacity activeOpacity={.8} onPress={() => { }} style={styles.containerUserSection}>
+        <TouchableOpacity activeOpacity={.8} onPress={() => { navigate('UserProfile', { id: item?.userId }) }} style={styles.containerUserSection}>
             <View style={globalStyles.leftHeaderContainer}>
                 <AvatarIcon imgUrl={item?.avatarCustomUrl} style={{ height: 65, width: 65 }} />
                 <View style={{ rowGap: 3 }}>

@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import React, { useState } from 'react';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import { useNavigation } from '@react-navigation/native';
 
 const AboutProfileCard = (data: any) => {
@@ -21,27 +21,27 @@ const AboutProfileCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>About</Text>
 
-          <TouchableOpacity onPress={()=>navigation.navigate('UpdateAbout')}>
+          {!data?.current && <TouchableOpacity onPress={() => navigation.navigate('UpdateAbout')}>
             <RenderSvgIcon
               icon="PEN"
               width={20}
               height={20}
               color={appColors.white}
             />
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
-        <View style={{paddingHorizontal:10,paddingBottom:10}}>
-        {data?.data == null ? (  
-          <View style={{height:100}}>
-          <Text style={[styles.Des,{color:'#B9B9B9'}]}>{aboutSection}</Text>
-          </View>
-        ) : (   
-          data?.data?.split('\n').length<=6?<View style={{height:100}}>
-          <Text style={styles.Des}>{data?.data}</Text>
-          </View>:
-          <Text style={styles.Des}>{data?.data}</Text>
-       
-        )}
+        <View style={{ paddingHorizontal: 10, paddingBottom: 10 }}>
+          {data?.data == null ? (
+            <View style={{ height: 100 }}>
+              <Text style={[styles.Des, { color: '#B9B9B9' }]}>{aboutSection}</Text>
+            </View>
+          ) : (
+            data?.data?.split('\n').length <= 6 ? <View style={{ height: 100 }}>
+              <Text style={styles.Des}>{data?.data}</Text>
+            </View> :
+              <Text style={styles.Des}>{data?.data}</Text>
+
+          )}
         </View>
       </View>
     </View>

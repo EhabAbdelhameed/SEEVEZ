@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
         borderRadius: appSizes.m
     },
     followersContainer: {
-        width: 100,
+        width: "100%",
         alignItems: "center",
         justifyContent: "center",
         // paddingHorizontal:18,

@@ -54,6 +54,7 @@ import MyVideoCV from 'screens/App/BottomTab/Home/components/MyVideoCV';
 import CreatePhoto2 from 'screens/App/CreatePost/AddPhoto2';
 import Location from 'screens/App/CreatePost/AddLocation';
 import MyConnection from 'screens/App/BottomTab/My connection';
+import UserProfile from 'screens/App/BottomTab/User profile';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -71,27 +72,27 @@ const AppStack = () => {
                 name="MyConnection"
                 component={MyConnection}
             />
-               <Stack.Screen
+            <Stack.Screen
                 name="CompleteProfileScreen"
                 component={CompleteProfileScreen}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="CompleteCompanyProfileScreen"
                 component={CompleteCompanyProfileScreen}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateAbout"
                 component={UpdateAbout}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="SaveVideo"
                 component={SaveVideo}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="SaveVideoCompany"
                 component={SaveVideoCompany}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateRecordVideo"
                 component={UpdateRecordVideo}
             />
@@ -99,63 +100,67 @@ const AppStack = () => {
                 name="UpdateRecordVideoCompany"
                 component={UpdateRecordVideoCompany}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateCompanyAbout"
                 component={UpdateCompanyAbout}
             />
-                <Stack.Screen
+            <Stack.Screen
                 name="UpdateLanguages"
                 component={UpdateLanguages}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateAchievements"
                 component={UpdateAchievements}
             />
-             <Stack.Screen
+            <Stack.Screen
+                name="UserProfile"
+                component={UserProfile}
+            />
+            <Stack.Screen
                 name="UpdateRefernceCheck"
                 component={UpdateRefernceCheck}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="UpdateSkills"
                 component={UpdateSkills}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateTraining"
                 component={UpdateTraining}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateExperience"
                 component={UpdateExperience}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="UpdateEducation"
                 component={UpdateEducation}
             />
-               <Stack.Screen
+            <Stack.Screen
                 name="UpdateInfo"
                 component={UpdateInfo}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateCompanyInfo"
                 component={UpdateCompanyInfo}
             />
-                <Stack.Screen
+            <Stack.Screen
                 name="UpdateAboutCard"
                 component={UpdateAboutCard}
             />
-                <Stack.Screen
+            <Stack.Screen
                 name="UpdateInfoCard"
                 component={UpdateInfoCard}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="AddNewExperience"
                 component={AddNewExperience}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="UpdateExperienceCard"
                 component={UpdateExperienceCard}
             />
-                <Stack.Screen
+            <Stack.Screen
                 name="UpdateOneExperience"
                 component={UpdateOneExperience}
             />
@@ -167,7 +172,7 @@ const AppStack = () => {
                 name="UpdateOneEducation"
                 component={UpdateOneEducation}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateLanguageCard"
                 component={UpdateLanguageCard}
             />
@@ -175,7 +180,7 @@ const AppStack = () => {
                 name="UpdateOneAchievements"
                 component={UpdateOneAchievements}
             />
-                <Stack.Screen
+            <Stack.Screen
                 name="UpdateAchievementCard"
                 component={UpdateAchievementCard}
             />
@@ -183,7 +188,7 @@ const AppStack = () => {
                 name="UpdateOneLanguage"
                 component={UpdateOneLanguage}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateTrainingCard"
                 component={UpdateTrainingCard}
             />
@@ -191,7 +196,7 @@ const AppStack = () => {
                 name="UpdateOneTraining"
                 component={UpdateOneTraining}
             />
-               <Stack.Screen
+            <Stack.Screen
                 name="UpdateReferenceCheckCard"
                 component={UpdateReferenceCheckCard}
             />
@@ -199,7 +204,7 @@ const AppStack = () => {
                 name="UpdateOneRefernceCheck"
                 component={UpdateOneRefernceCheck}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="UpdateSkillsCard"
                 component={UpdateSkillsCard}
             />
@@ -211,11 +216,11 @@ const AppStack = () => {
                 name="ProfileScreen"
                 component={ProfileScreen}
             />
-                  <Stack.Screen
+            <Stack.Screen
                 name="ProfileCompanyScreen"
                 component={ProfileCompanyScreen}
             />
-           
+
             <Stack.Screen
                 name="Analytics"
                 component={AnalyticsScreen}
@@ -248,7 +253,7 @@ const AppStack = () => {
                 name='CreateVideo2'
                 component={CreateVideo2}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name="CreatePhoto2"
                 component={CreatePhoto2}
             />
@@ -256,27 +261,27 @@ const AppStack = () => {
                 name='CreatePull'
                 component={CreatePull}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name='CV'
                 component={CV}
             />
-                <Stack.Screen
+            <Stack.Screen
                 name='Location'
                 component={Location}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name='CreatePollLink'
                 component={CreatePollLink}
             />
-               <Stack.Screen
+            <Stack.Screen
                 name='TagPeople'
                 component={TagPeople}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name='SearchPeople'
                 component={SearchPeople}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name='MyVideoCV'
                 component={MyVideoCV}
             />

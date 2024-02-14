@@ -6,15 +6,15 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import {DELETE, VIDEOICON} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
+import { DELETE, VIDEOICON } from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
 import Video from 'react-native-fast-video';
-import {styles} from './styles';
+import { styles } from './styles';
 import AppThunks from 'src/redux/app/thunks';
-import {useAppDispatch} from 'src/redux/store';
+import { useAppDispatch } from 'src/redux/store';
 import AppSlice from 'src/redux/app';
 
 const RecordVideo = (data: any) => {
@@ -42,19 +42,19 @@ const RecordVideo = (data: any) => {
           },
         },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   };
   return (
     <View
       style={[
         styles.CardContainer,
-        {borderWidth: data?.user_data !== null ? 0 : 1},
+        { borderWidth: data?.user_data !== null ? 0 : 1 },
       ]}>
       {data?.user_data === null ? (
         <View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateRecordVideo', {keys: 1})}
+            onPress={() => navigation.navigate('UpdateRecordVideo', { keys: 1 })}
             style={styles.secContainer}>
             <VIDEOICON />
           </TouchableOpacity>
@@ -65,12 +65,12 @@ const RecordVideo = (data: any) => {
           resizeMode="cover"
           paused={isPaused}
           repeat
-          source={{uri: data?.user_data?.media}}
+          source={{ uri: data?.user_data?.media }}
           style={styles.videoContainer}
         />
         // </TouchableOpacity>
       )}
-      {data?.user_data !== null ? (
+      {((!data?.current) && data?.user_data !== null) ? (
         <View style={styles.topContainer1}>
           <TouchableOpacity
             onPress={() => handleDeleteVideo(data?.user_data?.id)}
@@ -86,7 +86,7 @@ const RecordVideo = (data: any) => {
             <DELETE />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('UpdateRecordVideo', {keys: 1})}
+            onPress={() => navigation.navigate('UpdateRecordVideo', { keys: 1 })}
             style={[
               styles.secContainer,
               {

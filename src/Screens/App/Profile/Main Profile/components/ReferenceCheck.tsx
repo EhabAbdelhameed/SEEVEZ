@@ -8,16 +8,16 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {appColors} from '../../../../../theme/appColors';
-import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
-import {useNavigation} from '@react-navigation/native';
-import {PDF} from 'assets/Svgs';
-import {selectUser} from 'src/redux/auth';
-import {useSelector} from 'react-redux';
+import { appColors } from '../../../../../theme/appColors';
+import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
+import { useNavigation } from '@react-navigation/native';
+import { PDF } from 'assets/Svgs';
+import { selectUser } from 'src/redux/auth';
+import { useSelector } from 'react-redux';
 
 const ReferenceProfileCheck = (data: any) => {
   const CurrentUserData = useSelector(selectUser);
- 
+
   const navigation = useNavigation();
 
   return (
@@ -25,35 +25,35 @@ const ReferenceProfileCheck = (data: any) => {
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>Reference check</Text>
-          <View style={styles.Row2}>
+          {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateRefernceCheck')}>
               <RenderSvgIcon
                 icon="PLUSFOLLOW"
-                style={{marginRight: 10}}
+                style={{ marginRight: 10 }}
                 width={20}
                 height={20}
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            {data?.data?.length == 0 ? null:
-            <TouchableOpacity
-              style={{
-                height: 30,
-                width: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              disabled={data?.data?.length == 0 ? true : false}
-              onPress={() => navigation.navigate('UpdateReferenceCheckCard')}>
-              <RenderSvgIcon
-                icon="PEN"
-                width={20}
-                height={20}
-                color={appColors.primary}
-              />
-            </TouchableOpacity>}
-          </View>
+            {data?.data?.length == 0 ? null :
+              <TouchableOpacity
+                style={{
+                  height: 30,
+                  width: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                disabled={data?.data?.length == 0 ? true : false}
+                onPress={() => navigation.navigate('UpdateReferenceCheckCard')}>
+                <RenderSvgIcon
+                  icon="PEN"
+                  width={20}
+                  height={20}
+                  color={appColors.primary}
+                />
+              </TouchableOpacity>}
+          </View>}
         </View>
         {data?.data == null ? null : (
           <View>
@@ -61,9 +61,9 @@ const ReferenceProfileCheck = (data: any) => {
               scrollEnabled={false}
               data={data?.data}
               numColumns={2}
-              columnWrapperStyle={{columnGap: 40}}
-              renderItem={({item}) => (
-                <View style={{marginBottom: 10, height: 40, width: '40%'}}>
+              columnWrapperStyle={{ columnGap: 40 }}
+              renderItem={({ item }) => (
+                <View style={{ marginBottom: 10, height: 40, width: '40%' }}>
                   {/* Adjust the width value as needed */}
                   <View style={styles.Row1}>
                     <RenderSvgIcon
