@@ -53,6 +53,9 @@ import SearchPeople from 'screens/App/CreatePost/SearchPeople';
 import MyVideoCV from 'screens/App/BottomTab/Home/components/MyVideoCV';
 import CreatePhoto2 from 'screens/App/CreatePost/AddPhoto2';
 import Location from 'screens/App/CreatePost/AddLocation';
+import MyConnection from 'screens/App/BottomTab/My connection';
+
+
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
     return (
@@ -63,6 +66,10 @@ const AppStack = () => {
             <Stack.Screen
                 name="TabBar"
                 component={TabBar}
+            />
+            <Stack.Screen
+                name="MyConnection"
+                component={MyConnection}
             />
                <Stack.Screen
                 name="CompleteProfileScreen"

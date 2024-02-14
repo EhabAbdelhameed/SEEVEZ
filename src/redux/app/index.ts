@@ -690,7 +690,7 @@ const slice = createSlice({
     });
     //doGetFollowingList
     builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
-      state.FollowingList = action.payload.data?.follows;
+      state.FollowingList = action.payload.data?.users;
     });
 
     //doGetListUsers

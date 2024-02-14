@@ -141,7 +141,7 @@ const Home = () => {
               <BoxContentTitle
                 title="My connections"
                 onPress={() => {
-                  navigation.navigate('Connections');
+                  navigation.navigate('MyConnection');
                 }}>
                 <User />
                 <User />
