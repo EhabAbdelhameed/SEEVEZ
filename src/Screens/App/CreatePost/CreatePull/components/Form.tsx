@@ -14,16 +14,19 @@ import {useNavigation} from '@react-navigation/native';
 import { duration } from 'moment';
 import Toast from 'react-native-toast-message';
 import CustomInput from 'components/molecules/Input/CustomInput';
+import AppSlice from 'src/redux/app';
+import { useAppDispatch } from 'src/redux/store';
 const data = [
   {label: '1 day', id: 1},
   {label: '3 days', id: 2},
   {label: '7 day', id: 3},
   {label: '2 week', id: 4},
 ];
-const Form = (source: any) => {
+const Form = () => {
   const navigation = useNavigation<any>();
+  const dispatch=useAppDispatch()
   const _handleNavigation = useCallback(() => {
-    navigation.navigate('CreatePollLink');
+    // navigation.navigate('cre');
   }, []);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -38,9 +41,11 @@ const Form = (source: any) => {
         initialValues={{question: '', duration: '', options: [{answer: ''}]}}
         onSubmit={values => {
           if(values.question!=''&&values.duration!=''&&values.options?.length>=2){
-            navigation.navigate('CreatePollLink', {
-              data: {source, values},
-            });
+            dispatch(AppSlice.changeKey("7"))
+            dispatch(AppSlice.changePDF(values));
+            navigation.navigate('CreateShareLink');
+   
+
           }else{
             Toast.show({
               type: 'error',

@@ -8,11 +8,10 @@ import { selectPhotoData } from 'src/redux/app'
 import { useSelector } from 'react-redux'
 
 const Header = () => {
-  const navigation = useNavigation()
-  const photoData = useSelector(selectPhotoData);
+  const navigation = useNavigation<any>()
+
   const _handleNavigation = useCallback(() => {
-    photoData?.key=="6"?navigation.navigate('CreateShareLink',{audioData:photoData?.pdf}):
-    navigation.navigate('CreatePollLink');
+    navigation.goBack()
   }, []);
 
   return (

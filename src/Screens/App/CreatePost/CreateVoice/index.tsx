@@ -41,6 +41,7 @@ const CreateVoice = () => {
   const [waveformPoints, setWaveformPoints] = useState<any>([]);
 
   const dispatch = useAppDispatch();
+  dispatch(AppSlice.changeKey("6"))
 
   useEffect(() => {
     let timerInterval: any;
@@ -172,7 +173,7 @@ const CreateVoice = () => {
           Done={() => {
             dispatch(AppSlice.changePDF(audioData));
 
-            navigation.navigate('CreateShareLink',{audioData:audioData});
+            navigation.navigate('CreateShareLink');
           }}
           isStoped={isStoped}
         />

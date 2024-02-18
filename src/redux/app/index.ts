@@ -45,9 +45,9 @@ const slice = createSlice({
       state.photoData.names = action.payload;
     },
 
-    changeSearch: (state, action) => {
-      state.Search = action.payload;
-    },
+    // changeSearch: (state, action) => {
+    //   state.Search = action.payload;
+    // },
     chnageIndsturyData: (state, action) => {
       state.IndsturyData = action.payload;
     },
@@ -62,6 +62,9 @@ const slice = createSlice({
     },
     changeEducationLevel: (state, action) => {
       state.EducationLevel = action.payload;
+    },
+    changePostsData:(state,action)=>{
+    state.postsData=action.payload
     },
   },
   extraReducers(builder) {
@@ -157,15 +160,15 @@ const slice = createSlice({
     builder.addCase(thunks.doUploadPhotoReel.fulfilled, (state, action) => {
       state.done = true;
       
-      // state.photoData = {
-      //   image: null,
-      //   addonesCaption: null,
-      //   location: null,
-      //   pdf: null,
-      //   tagPepoles: null,
-      //   key: null,
-      //   names: null,
-      // };
+      state.photoData = {
+        image: {},
+        addonesCaption: '',
+        location: '',
+        pdf: [],
+        tagPepoles: [],
+        key: '',
+        names: [],
+      };
       Toast.show({
         type: 'success',
 
@@ -684,7 +687,8 @@ const slice = createSlice({
     });
     //GetMyReels
     builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
-      console.log("GET MY ALL REELS ",JSON.stringify(action.payload))
+      // console.log("GET MY ALL REELS ",JSON.stringify(action.payload?.posts))
+      state.postsData=action.payload?.posts;
     });
     builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -930,7 +934,15 @@ const slice = createSlice({
     //doUploadVideoReel
     builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
       state.done = true;
-
+        state.photoData={
+          image: {},
+          addonesCaption: '',
+          location: '',
+          pdf: [],
+          tagPepoles: [],
+          key: '',
+          names: [],
+        };
       Toast.show({
         type: 'success',
 
@@ -1069,16 +1081,7 @@ const slice = createSlice({
   },
 });
 
-export const selectBranches = (state: RootState) => state.app.Branches;
-export const selectCategories = (state: RootState) => state.app.categories;
-export const selectMenu = (state: RootState) => state.app.Menu;
-export const selectHomeData = (state: RootState) => state.app.HomeData;
-export const selectLatestOrder = (state: RootState) => state.app.order;
-export const selectCartItems = (state: RootState) => state.app.CartItems;
-export const selectProductDetail = (state: RootState) =>
-  state.app.ProductDetail;
-export const selectFavourites = (state: RootState) => state.app.Favourites;
-export const selectFAQS = (state: RootState) => state.app.FAQS;
+
 export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
 export const selectCompanies = (state: RootState) => state.app.CompaniesData;
 
@@ -1086,19 +1089,13 @@ export const selectYears = (state: RootState) => state.app.YearsOfExperience;
 export const selectJobtype = (state: RootState) => state.app.JobType;
 export const selectEducation = (state: RootState) => state.app.EducationLevel;
 
-export const selectAddresses = (state: RootState) => state.app.Addresses;
-export const selectAreas = (state: RootState) => state.app.Areas;
-export const selectOrders = (state: RootState) => state.app.orders;
-export const selectRewards = (state: RootState) => state.app.Rewards;
-export const selectWheelNumbers = (state: RootState) => state.app.wheelNumbers;
+
 export const selectDone = (state: RootState) => state.app.done;
 export const selectNav = (state: RootState) => state.app.Nav;
 export const selectplaceOrderData = (state: RootState) =>
   state.app.placeOrderData;
-export const selectPromoValue = (state: RootState) => state.app.PromoValue;
-export const selectDeals = (state: RootState) => state.app.deals;
-export const selectPoints = (state: RootState) => state.app.points;
-export const selectSearch = (state: RootState) => state.app.Search;
+
+// export const selectSearch = (state: RootState) => state.app.Search;
 export const selectPhotoData = (state: RootState) => state.app.photoData;
 export const selectSearchData = (state: RootState) =>
   state.app.searchPeopelData;
@@ -1106,8 +1103,7 @@ export const selectSearchData = (state: RootState) =>
 export const selectFollowingList = (state: RootState) =>
   state.app.FollowingList;
 export const selectListUsers = (state: RootState) => state.app.listUsers;
-export const selectBranchId = (state: RootState) =>
-  state.app.HomeData?.branch?.id;
+export const selectPosts=(state: RootState) => state.app.postsData;
 
 const AppSlice = {
   slice,
@@ -1121,7 +1117,7 @@ const AppSlice = {
   changeTagPeopel: slice.actions.changeTagPeopel,
   changeKey: slice.actions.changeKey,
   changeTagNames: slice.actions.changeTagNames,
-  changeSearch: slice.actions.changeSearch,
+  // changeSearch: slice.actions.changeSearch,
   changeIndsturyData: slice.actions.chnageIndsturyData,
   changeCompainesData: slice.actions.chnageCompaniesData,
   changeYearsOfExperience: slice.actions.changeYearsOfExperience,
@@ -1129,5 +1125,6 @@ const AppSlice = {
   changeEducationLevel: slice.actions.changeEducationLevel,
   changeSearchPeopelData: slice.actions.changeSearchPeopelData,
   changePhotoData:slice.actions.changePhotoData,
+  changePostsData:slice.actions.changePostsData,
 };
 export default AppSlice;

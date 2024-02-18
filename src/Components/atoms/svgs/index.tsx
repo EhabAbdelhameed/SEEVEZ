@@ -60,7 +60,8 @@ import {
   TAG,
   WHO,
   ArrowDown,
-  ArrowUp
+  ArrowUp,
+  POLL,
 } from './Svgs';
 
 export const svgmap = {
@@ -125,6 +126,7 @@ export const svgmap = {
   ADDLOCATION,
   AUDIENCE,
   TAG,
-  WHO
+  WHO,
+  POLL
 
 };

@@ -44,17 +44,7 @@ const Footer = (data: any) => {
 
       console.log('Photo123 ', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
-        dispatch(
-          AppSlice.changePhotoData({
-            image: {},
-            addonesCaption: '',
-            location: '',
-            pdf: [],
-            tagPepoles: [],
-            key: '',
-            names: [],
-          }),
-        );
+    
         setLoading(false);
       });
     } else if (photoData.key == '2') {
@@ -87,17 +77,7 @@ const Footer = (data: any) => {
 
       console.log('Photo123 ', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
-        dispatch(
-          AppSlice.changePhotoData({
-            image: {},
-            addonesCaption: '',
-            location: '',
-            pdf: [],
-            tagPepoles: [],
-            key: '',
-            names: [],
-          }),
-        );
+      
         setLoading(false);
       });
     } else if(photoData.key == '3') {
@@ -127,23 +107,13 @@ const Footer = (data: any) => {
         formdata.append(`photo[${i}][files]`, {
           uri: photoData?.image[i]?.node?.image?.uri,
           type: photoData?.image[i]?.node?.type,
-          name: `image.${photoData?.image[i]?.type?.slice(6)}`,
+          name: `image.jpeg`,
         });
       }
 
       console.log('Photo123 ', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
-        dispatch(
-          AppSlice.changePhotoData({
-            image: {},
-            addonesCaption: '',
-            location: '',
-            pdf: [],
-            tagPepoles: [],
-            key: '',
-            names: [],
-          }),
-        );
+  
         setLoading(false);
       });
     }else if(photoData.key == '4'){
@@ -177,17 +147,7 @@ const Footer = (data: any) => {
 
       console.log('Video123 ', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadVideoReel(formdata)).then((res: any) => {
-        dispatch(
-          AppSlice.changePhotoData({
-            image: {},
-            addonesCaption: '',
-            location: '',
-            pdf: [],
-            tagPepoles: [],
-            key: '',
-            names: [],
-          }),
-        );
+    
         setLoading(false);
       });
 
@@ -223,17 +183,7 @@ const Footer = (data: any) => {
 
       console.log('Video123 ', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadVideoReel(formdata)).then((res: any) => {
-        dispatch(
-          AppSlice.changePhotoData({
-            image: {},
-            addonesCaption: '',
-            location: '',
-            pdf: [],
-            tagPepoles: [],
-            key: '',
-            names: [],
-          }),
-        );
+      
         setLoading(false);
       });
     }else{

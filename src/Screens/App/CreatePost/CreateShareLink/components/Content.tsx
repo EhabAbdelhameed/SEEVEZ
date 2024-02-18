@@ -11,11 +11,12 @@ import { selectPhotoData } from 'src/redux/app'
 import { useSelector } from 'react-redux'
 import { RenderSvgIcon } from 'components/atoms/svg'
 import { appColors } from 'theme'
-const Content = (data:any) => {
+const Content = () => {
   const [caption,setCaption]=useState('')
-  const [key,setKey]=useState<any>(0)
   const [imgUrl,setImageURL]=useState<any>([])
   const searchPeople = useSelector(selectPhotoData);
+  const [key,setKey]=useState<any>(searchPeople?.image==null?0:searchPeople?.image)
+   console.log("KEY : ",key)
   return (
     <View style={styles.ContentCotainer}>
         {searchPeople?.location==null||searchPeople?.location==''?null:
@@ -28,7 +29,7 @@ const Content = (data:any) => {
             />
             <Text>{searchPeople?.location}</Text>
           </View>}
-      <ContainerRecord data={[key,imgUrl]} audioData={data}   />
+      <ContainerRecord data={[key,imgUrl]}    />
       <Templetes onPress={setKey} onPressImg={setImageURL} />
       {searchPeople?.names==null||searchPeople?.names?.length==0?null:
       <View style={styles.taggedPeopleContainer}>
@@ -42,8 +43,8 @@ const Content = (data:any) => {
         </View>
       </View>}
       <AddCaption caption={caption} setCaption={setCaption}/>
-      <Option onPress={setImageURL} />
-      <Footer data={imgUrl}  />
+      <Option onPress={setImageURL} imgUrl={imgUrl} />
+      <Footer data={[key,imgUrl,caption]}  />
     </View>
   )
 }

@@ -8,6 +8,7 @@ import Content from './components/Content'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const CreatePull = () => {
+    
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
 

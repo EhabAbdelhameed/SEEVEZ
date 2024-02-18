@@ -45,9 +45,11 @@ import PAUSE from './Puse.svg'
 import VOICE from './Voice.svg'
 import WAVE from './WAVE.svg'
 import UploadYourCv from './UploadYourCv.svg';
+import POLL from './POLL.svg'
 export {
     Right,
     WAVE,
+    POLL,
     UploadYourCv,
     Eye,
     EyeSlash,

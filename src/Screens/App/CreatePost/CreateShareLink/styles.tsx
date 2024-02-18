@@ -158,4 +158,104 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
       },
+      bollsContainer: {
+        width: "80%",
+        backgroundColor: appColors.white,
+        position: "absolute",
+        alignSelf:'center',
+        // height: 200,
+        // left: 0,
+       
+        height:220,  
+        bottom: 10,
+        elevation: 4,
+        borderRadius: 10,
+        padding: 16,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+    },
+    CVContainer: {
+        width: "80%",
+        backgroundColor: appColors.white,
+        position: "absolute",
+        alignSelf:'center',
+        justifyContent:'center',
+        alignItems:'center',
+        // height: 200,
+        // left: 0,
+       
+        bottom: 40,
+        elevation: 4,
+        borderRadius: 16,
+        padding: 16,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+    },
+    text11: {
+        fontSize: 18,
+        fontWeight: "600",
+        color: appColors.black,
+    },
+    text12: {
+        fontSize: appSizes.m,
+        fontWeight: "400",
+        color: "#1C1C1C",
+        marginVertical: 5,
+    },
+    text13: {
+        fontSize: appSizes.m,
+        fontWeight: "500",
+        color: appColors.black,
+    },
+    circle11: {
+        borderColor: "rgba(29, 94, 221, 1)",
+        backgroundColor: "rgba(232, 239, 252, 1)",
+        width: 20,
+        height: 20,
+        padding: 3,
+        borderWidth: 1,
+        borderRadius: 10
+    },
+    filledInnerCircle: {
+        backgroundColor: "rgba(29, 94, 221, 1)",
+        width: "100%",
+        height: "100%",
+        borderRadius: 10
+    },
+    rowItemSlide: {
+        flexDirection: "row",
+        alignItems: "center",
+        columnGap: 5,
+    },
+ 
+    circleSlider: {
+        borderColor: "rgba(29, 94, 221, 1)",
+        backgroundColor: "rgba(232, 239, 252, 1)",
+        width: 20,
+        height: 20,
+        padding: 3,
+        borderWidth: 1,
+        borderRadius: 10,
+        position: "absolute",
+        left: "0%",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    slider1: {
+      width: "100%",
+      height: 8,
+      borderRadius: 5,
+      backgroundColor: "#a62",
+      justifyContent: "center"
+  },
 })

@@ -20,7 +20,7 @@ const CreateVideo2 = () => {
 
  
   const navigation = useNavigation<any>();
-  console.log('Ehab', JSON.stringify(useRoute().params));
+ 
 
   const [loading, setLoading] = React.useState(false);
   const [isPaused, setPaused] = useState(false);
@@ -29,6 +29,11 @@ const CreateVideo2 = () => {
   dispatch(AppSlice.changeImage(key=='4'?videoPath:source))
 
   const changeDone = useSelector(selectDone);
+  useEffect(() => {
+
+    changeDone ? navigation.navigate('Reels') : null;
+  }, [changeDone]);
+
   const saveVideoFun = () => {
     if (key == 4) {
       setLoading(true);

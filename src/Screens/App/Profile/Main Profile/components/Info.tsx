@@ -7,24 +7,37 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
-import { appColors } from '../../../../../theme/appColors';
-import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
-import { ImageBackground } from 'react-native';
-import { AVATAR, Analytic, Analytics, PDF, ReviewCV } from '../../../../../assets/Svgs';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { selectUser } from 'src/redux/auth';
+import React, {useState} from 'react';
+import {appColors} from '../../../../../theme/appColors';
+import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import {ImageBackground} from 'react-native';
+import {
+  AVATAR,
+  Analytic,
+  Analytics,
+  PDF,
+  ReviewCV,
+} from '../../../../../assets/Svgs';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {selectUser} from 'src/redux/auth';
 import AppThunks from 'src/redux/app/thunks';
-import { useAppDispatch } from 'src/redux/store';
+import {useAppDispatch} from 'src/redux/store';
 import DocumentPicker from 'react-native-document-picker';
 import AppSlice from 'src/redux/app';
 const InfoProfileCard = (data: any) => {
-  const CurrentUserData = useSelector(selectUser);
   const [name, setName] = useState<any>('');
+  const [count, setCount] = React.useState(0)
   const [loading, setLoading] = useState<any>(false);
   const dispatch = useAppDispatch();
-
+  console.log('====================================');
+  console.log(data?.data);
+  console.log('====================================');
+  React.useEffect(() => {
+    dispatch(AppThunks.doGetFollowers(data?.current? data?.data?.id:data?.data?.user_id)).then((res: any) => {
+        setCount(res?.payload?.data?.followCounts[0]?.followerCount)
+    })
+}, [])
   const uploadFile = async (type: any) => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -33,7 +46,7 @@ const InfoProfileCard = (data: any) => {
 
       setLoading(true);
       const formdata = new FormData();
-      formdata.append('name', CurrentUserData?.name);
+      formdata.append('name', data?.data?.name);
       formdata.append('cv_pdf', {
         uri: res[0]?.uri,
         type: res[0]?.type,
@@ -60,39 +73,41 @@ const InfoProfileCard = (data: any) => {
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
-        {!data?.current && <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            position: 'absolute',
-            right: 10,
-            top: 10,
-          }}>
-          <RenderSvgIcon
-            icon="SEND"
-            width={20}
-            height={20}
-            color={appColors.white}
-          // style={styles.SENDIcon}
-          />
-          <TouchableOpacity
+        {!data?.current && (
+          <View
             style={{
-              marginLeft: 15,
-              height: 30,
-              width: 30,
+              flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => navigation.navigate('UpdateInfo')}>
+              position: 'absolute',
+              right: 10,
+              top: 10,
+            }}>
             <RenderSvgIcon
-              icon="PEN"
+              icon="SEND"
               width={20}
               height={20}
               color={appColors.white}
-            // style={styles.PENIcon}
+              // style={styles.SENDIcon}
             />
-          </TouchableOpacity>
-        </View>}
+            <TouchableOpacity
+              style={{
+                marginLeft: 15,
+                height: 30,
+                width: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => navigation.navigate('UpdateInfo')}>
+              <RenderSvgIcon
+                icon="PEN"
+                width={20}
+                height={20}
+                color={appColors.white}
+                // style={styles.PENIcon}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View
           style={{
@@ -105,12 +120,12 @@ const InfoProfileCard = (data: any) => {
             alignItems: 'center',
             backgroundColor: appColors.bg,
           }}>
-          {CurrentUserData?.avatar == null ? (
+          {data?.data?.avatar == null ? (
             <AVATAR height={48} width={48} />
           ) : (
             <Image
-              source={{ uri: CurrentUserData?.avatar }}
-              style={{ width: 96, height: 96, borderRadius: 96 }}
+              source={{uri: data?.data?.avatar}}
+              style={{width: 96, height: 96, borderRadius: 96}}
               resizeMode="cover"
             />
           )}
@@ -150,7 +165,7 @@ const InfoProfileCard = (data: any) => {
         {data?.data?.job_title == null ? null : (
           <Text style={styles.Description}>{data?.data?.job_title}</Text>
         )}
-        <View style={[styles.Row, { marginTop: 10 }]}>
+        <View style={[styles.Row, {marginTop: 10}]}>
           <View style={styles.subContainer}>
             <Text style={styles.subText}>Premium</Text>
           </View>
@@ -158,12 +173,12 @@ const InfoProfileCard = (data: any) => {
             <Text style={styles.statuesText}>Online</Text>
           </View>
           <View style={styles.FollowersContainer}>
-            <Text style={styles.FollowersText}>1.500 Followers</Text>
+            <Text style={styles.FollowersText}>{count >= 1000 ? `${count / 1000}k` : count} Followers</Text>
           </View>
         </View>
         {data?.data?.area == null &&
-          data?.data?.city == null &&
-          data?.data?.country == null ? null : (
+        data?.data?.city == null &&
+        data?.data?.country == null ? null : (
           <View style={styles.Row}>
             <RenderSvgIcon
               icon="LOCATION"
@@ -171,9 +186,11 @@ const InfoProfileCard = (data: any) => {
               height={20}
               color={appColors.white}
             />
-            <Text style={styles.InfoText}>{`${data?.data?.area == null ? ' ' : `${data?.data?.area} `
-              } ${data?.data?.city == null ? ' ' : '، ' + data?.data?.city}${data?.data?.country == null ? ' ' : '  ' + data?.data?.country
-              }`}</Text>
+            <Text style={styles.InfoText}>{`${
+              data?.data?.area == null ? ' ' : `${data?.data?.area} `
+            } ${data?.data?.city == null ? ' ' : '، ' + data?.data?.city}${
+              data?.data?.country == null ? ' ' : '  ' + data?.data?.country
+            }`}</Text>
           </View>
         )}
         <View style={styles.Row}>
@@ -185,7 +202,8 @@ const InfoProfileCard = (data: any) => {
           />
           <Text style={styles.InfoText}>{data?.data?.email}</Text>
         </View>
-        <View style={styles.Row}>
+        {data.current?
+        null:<View style={styles.Row}>
           <RenderSvgIcon
             icon="PHONE"
             width={20}
@@ -193,10 +211,10 @@ const InfoProfileCard = (data: any) => {
             color={appColors.white}
           />
           <Text style={styles.InfoText}>{data?.data?.phone_number}</Text>
-        </View>
-        {CurrentUserData?.website == null ? null : (
+        </View>}
+        {data?.data?.website == null ? null : (
           <TouchableOpacity
-            onPress={() => Linking.openURL(CurrentUserData?.website)}
+            onPress={() => Linking.openURL(data?.data?.website)}
             style={styles.Row}>
             <RenderSvgIcon
               icon="WEBSITE"
@@ -208,46 +226,46 @@ const InfoProfileCard = (data: any) => {
           </TouchableOpacity>
         )}
         <View style={styles.Row}>
-          {CurrentUserData?.instagram == null ? null : (
+          {data?.data?.instagram == null ? null : (
             <TouchableOpacity
-              onPress={() => Linking.openURL(CurrentUserData?.instagram)}>
+              onPress={() => Linking.openURL(data?.data?.instagram)}>
               <RenderSvgIcon
                 icon="INSTA"
                 width={20}
                 height={20}
                 color={appColors.white}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
             </TouchableOpacity>
           )}
-          {CurrentUserData?.facebook == null ? null : (
+          {data?.data?.facebook == null ? null : (
             <TouchableOpacity
-              onPress={() => Linking.openURL(CurrentUserData?.facebook)}>
+              onPress={() => Linking.openURL(data?.data?.facebook)}>
               <RenderSvgIcon
                 icon="FACE"
                 width={20}
                 height={20}
                 color={appColors.white}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
             </TouchableOpacity>
           )}
-          {CurrentUserData?.linkedin == null ? null : (
+          {data?.data?.linkedin == null ? null : (
             <TouchableOpacity
-              onPress={() => Linking.openURL(CurrentUserData?.linkedin)}>
+              onPress={() => Linking.openURL(data?.data?.linkedin)}>
               <RenderSvgIcon
                 icon="LINKED"
                 width={20}
                 height={20}
                 color={appColors.white}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
             </TouchableOpacity>
           )}
         </View>
-        {CurrentUserData?.work_type == 'freelancer' ||
-          CurrentUserData?.user_data?.user_type == 'recruiter' ? (
-          <View style={[styles.Row, { marginTop: 15 }]}>
+        {data?.data?.work_type == 'freelancer' ||
+        data?.data?.user_data?.user_type == 'recruiter' ? (
+          <View style={[styles.Row, {marginTop: 15}]}>
             <TouchableOpacity
               style={{
                 // width: 140,
@@ -263,12 +281,12 @@ const InfoProfileCard = (data: any) => {
                 columnGap: 10,
               }}>
               <Analytic width={20} height={20} />
-              <Text style={{ color: appColors.white }}>My analytics</Text>
+              <Text style={{color: appColors.white}}>My analytics</Text>
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={[styles.Row, { marginTop: 15 }]}>
-            {CurrentUserData?.cv_pdf == null ? (
+          <View style={[styles.Row, {marginTop: 15}]}>
+            {(data?.data?.cv_pdf == null&&!data.current) ? (
               <TouchableOpacity
                 onPress={uploadFile}
                 style={{
@@ -286,7 +304,7 @@ const InfoProfileCard = (data: any) => {
                   columnGap: 10,
                 }}>
                 <PDF width={20} height={20} />
-                <Text style={{ color: appColors.primary }}>
+                <Text style={{color: appColors.primary}}>
                   {name == '' ? (
                     loading ? (
                       <ActivityIndicator
@@ -302,18 +320,20 @@ const InfoProfileCard = (data: any) => {
                 </Text>
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity
-                onPress={() => Linking.openURL(CurrentUserData?.cv_pdf?.fileUrl)}>
-                <ReviewCV width={140} />
-              </TouchableOpacity>
+              !data?.current && (
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(data?.data?.cv_pdf?.fileUrl)}>
+                  <ReviewCV width={140} />
+                </TouchableOpacity>
+              )
             )}
-            <TouchableOpacity
+            { !data?.current && <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
                 navigation.navigate('Analytics');
               }}>
-              <Analytics width={140} style={{ marginLeft: 10 }} />
-            </TouchableOpacity>
+              <Analytics width={140} style={{marginLeft: 10}} />
+            </TouchableOpacity>}
           </View>
         )}
       </View>

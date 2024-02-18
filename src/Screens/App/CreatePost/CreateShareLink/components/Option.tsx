@@ -7,10 +7,12 @@ import {PrimaryParamListKeys} from 'src/navigation/types';
 import {useNavigation} from '@react-navigation/native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
+import AppSlice from 'src/redux/app';
+import { useAppDispatch } from 'src/redux/store';
 
-const Option = ({onPress}: {onPress: (key: any) => void}) => {
+const Option = ({onPress,imgUrl}: {onPress: (key: any) => void,imgUrl:any}) => {
   const navigation = useNavigation<any>();
-
+  const dispatch=useAppDispatch();
   const UploadImageProfile = async () => {
     try {
       const result = await DocumentPicker.pick({
@@ -18,9 +20,10 @@ const Option = ({onPress}: {onPress: (key: any) => void}) => {
       });
 
       // The selected media is available in the result.uri
-      // dispatch(setImageURL(result[0].uri));
+      // dispatch(AppSlice.changeImage(result[0].uri));
       console.log(result);
       onPress(result);
+    
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('User cancelled document picker');
@@ -45,7 +48,7 @@ const Option = ({onPress}: {onPress: (key: any) => void}) => {
     icon: TName;
     title: string;
     title2?: string;
-    navKey: PrimaryParamListKeys;
+    navKey?: PrimaryParamListKeys;
   }) => {
     const _handleNav = () => {
       navigation.navigate(navKey);
@@ -83,16 +86,16 @@ const Option = ({onPress}: {onPress: (key: any) => void}) => {
     <View style={styles.optionsContainer}>
       <TouchableOpacity
         onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}>
-        <Item icon="PIC" title="Add photo" navKey="AddPhoto" />
+        <Item icon="PIC" title="Add photo"  />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('TagPeople')}>
-        <Item icon="TAG" title="Tag people" navKey="Camera" />
+        <Item icon="TAG" title="Tag people"  />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Location')}>
-        <Item icon="ADDLOCATION" title="Add location" navKey="Camera" />
+        <Item icon="ADDLOCATION" title="Add location"  />
       </TouchableOpacity>
-      <Item icon="SETTING" title="Advanced settings" navKey="Camera" />
+      {/* <Item icon="SETTING" title="Advanced settings" navKey="Camera" /> */}
     </View>
   );
 };

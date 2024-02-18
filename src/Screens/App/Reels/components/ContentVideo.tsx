@@ -6,24 +6,29 @@ import Bolls from './Bolls'
 import TextLinks from './TextLinks'
 import { useNavigation } from '@react-navigation/native'
 import DeviceInfo from 'react-native-device-info'
+import { useSelector } from 'react-redux'
+import { selectUser } from 'src/redux/auth'
+import { AVATAR } from 'assets/Svgs'
+import { appColors } from 'theme/appColors'
 
 const ContentVideo = ({ overlay = false, type = 'bolls' }: { overlay: boolean; type: string }) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<any>()
+    const CurrentUserData=useSelector(selectUser)
     // const hasNotch = DeviceInfo.hasNotch()
     return (
         <View style={[styles.container]}>
             <View style={styles.header}>
                 <TouchableOpacity style={styles.leftHeader}
                     onPress={() => {
-                        navigation.goBack()
+                        navigation.popToTop()
                     }}
                 >
                     <RenderSvgIcon
                         icon='ARROWBACK'
                     />
                     <Text style={styles.textLeftHeader}>My reels</Text>
-                </TouchableOpacity>
-                <View style={styles.rightHeader}>
+                </TouchableOpacity> 
+              <View style={styles.rightHeader}>
                     <RenderSvgIcon
                         icon='SEARCH'
                     />
@@ -38,25 +43,38 @@ const ContentVideo = ({ overlay = false, type = 'bolls' }: { overlay: boolean; t
             <View style={styles.footer}>
                 {!overlay ? type == "bolls" ? <Bolls /> : <TextLinks /> : null}
                 <View style={styles.leftFooter}>
-                    <View>
-                        <Image
-                            source={{ uri: `https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D` }}
-                            style={styles.avatar}
-                        />
-                        <View style={styles.dotAvatar} />
-                    </View>
+                <View
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: 56,
+            // borderWidth: 1,
+            // borderColor: '#DDD',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: appColors.bg,
+          }}>
+          {CurrentUserData?.avatar == null ? (
+            <AVATAR height={48} width={48} />
+          ) : (
+            <Image
+              source={{uri: CurrentUserData?.avatar}}
+              style={{width: 56, height: 56, borderRadius: 56}}
+              resizeMode="cover"
+            />
+          )}</View>
                     <View style={{
                         marginLeft: 5,
                         rowGap: 4
                     }}>
                         <View style={styles.nameIcon}>
-                            <Text style={styles.name}>Carter Rosser</Text>
+                            <Text style={styles.name}>{CurrentUserData?.name}</Text>
                             <RenderSvgIcon
                                 icon='RIGHTACCOUNT'
                             />
                             <Text style={styles.text2}>-2 nd</Text>
                         </View>
-                        <Text style={styles.text2}>Ui Ux designer at microssoft</Text>
+                        <Text style={styles.text2}>{CurrentUserData?.job_title}</Text>
                         <View style={styles.containerType}>
                             <Text style={styles.text3}>Premium</Text>
                         </View>

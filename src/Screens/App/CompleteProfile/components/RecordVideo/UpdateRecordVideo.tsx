@@ -43,7 +43,7 @@ const UpdateRecordVideo = () => {
   const cameraRef: Camera | any = useRef<Camera>();
   const [isPlaying, setIsPlaying] = useState(false);
   const [cameraPosition, setCameraPosition] = React.useState<'front' | 'back'>(
-    'back',
+    'front',
   );
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const [torch, setTorch] = React.useState<'on' | 'off'>('off');
@@ -74,6 +74,7 @@ const UpdateRecordVideo = () => {
       }
     }
   };
+
   const pick = () => {
     launchImageLibrary({ quality: 0.5, mediaType: 'video' }).then((res: any) => {
       setSourceVideo(res?.assets);
@@ -91,6 +92,11 @@ const UpdateRecordVideo = () => {
 
     );
   };
+  useEffect(() => {
+    requestMicrophonePermission();
+  }, []);
+
+
   const requestMicrophonePermission = useCallback(async () => {
     console.log('Requesting microphone permission...')
     const permission = await Camera.requestMicrophonePermission()
@@ -99,7 +105,7 @@ const UpdateRecordVideo = () => {
     if (permission === 'denied') await Linking.openSettings()
 
   }, [])
-  requestMicrophonePermission()
+
   const startRecording = async () => {
     setVideoPath('');
     const checkMicrophonePermission = async () => {

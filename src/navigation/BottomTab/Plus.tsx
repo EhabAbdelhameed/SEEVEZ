@@ -9,7 +9,7 @@ import {  PrimaryParamListKeys } from '../types'
 
 const PlusAbs = () => {
   const [isOpened, setIsOpened] = useState(false)
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>()
   const Item = ({ icon, title, nav = 'CreateVideo' }: { icon: TName; title: string; nav?: PrimaryParamListKeys }) => {
     return (
       <TouchableOpacity
@@ -38,7 +38,8 @@ const PlusAbs = () => {
             <Item title='Video' icon='VIDEO' nav='CreateVideo'/>
             <Item title='Voice' icon='RECORD' nav='CreateVoice'/>
             <Item title='Photo' icon='PIC' nav="AddPhoto"/>
-            <Item title='Go live' icon='GOLIVE' />
+            <Item title='Live' icon='GOLIVE' />   
+            <Item title='Poll' icon='POLL' nav="CreatePull"/>
           </View>
 
         </Animated.View>

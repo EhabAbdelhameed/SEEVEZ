@@ -26,7 +26,7 @@ const UserProfile = (props: any) => {
     const dispatch = useAppDispatch()
     const navigation = useNavigation()
     const CurrentUserData: any = useSelector(selectUserProfile);
-
+console.log("123",CurrentUserData)
     React.useEffect(() => {
         dispatch(AuthThunks.doGetUserProfile(id))
     }, [id])

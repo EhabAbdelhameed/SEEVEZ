@@ -23,11 +23,11 @@ import Video from 'react-native-fast-video';
 import { selectUser } from 'src/redux/auth';
 
 const TagPeople = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const CurrentUserData = useSelector(selectUser);
   const _handleNavigation = useCallback(() => {
-    photoData?.key=="6"?navigation.navigate('CreateShareLink',{audioData:photoData?.pdf}):
-    navigation.navigate('CreatePollLink');
+ navigation.goBack()
+;
   }, []);
   const photoData = useSelector(selectPhotoData);
   console.log("EHAB",photoData?.image)

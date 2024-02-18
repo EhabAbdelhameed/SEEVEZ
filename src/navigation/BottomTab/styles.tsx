@@ -38,7 +38,8 @@ export const styles = StyleSheet.create({
         bottom: 80,
         zIndex: 100000,
         alignSelf: "center",
-        alignItems: "center"
+        alignItems: "center",
+     
     },
     contianerItems: {
         // marginBottom: -4,

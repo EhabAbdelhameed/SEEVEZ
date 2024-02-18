@@ -19,7 +19,7 @@ const Option = () => {
     icon: TName;
     title: string;
     title2?: string;
-    navKey: PrimaryParamListKeys;
+    navKey?: PrimaryParamListKeys;
   }) => {
     const _handleNav = () => {
       navigation.navigate(navKey);
@@ -72,12 +72,12 @@ const Option = () => {
   return (
     <View style={styles.optionsContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('TagPeople')}>
-        <Item icon="TAG" title="Tag people" navKey="Camera" />
+        <Item icon="TAG" title="Tag people"  />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Location')}>
-      <Item icon="ADDLOCATION" title="Add location" navKey="Camera" />
+      <Item icon="ADDLOCATION" title="Add location"  />
       </TouchableOpacity>
-      <Item icon="SETTING" title="Advanced settings" navKey="Camera" />
+      {/* <Item icon="SETTING" title="Advanced settings" /> */}
     </View>
   );
 };

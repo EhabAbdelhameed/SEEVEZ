@@ -12,10 +12,9 @@ import { useAppDispatch } from 'src/redux/store'
 import AppSlice from 'src/redux/app'
 
 const CreateShareLink = () => {
-    const {audioData}: any = useRoute().params;
-    console.log("123,",audioData)
+    // const {audioData}: any = useRoute().params;
+    // console.log("123,",audioData)
     const dispatch=useAppDispatch()
-    dispatch(AppSlice.changeKey("6"))
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
 
@@ -31,7 +30,7 @@ const CreateShareLink = () => {
                 enableResetScrollToCoords={false}
                 showsVerticalScrollIndicator={false}
             >
-                <Content data={audioData} />
+                <Content  />
             </KeyboardAwareScrollView>
         </SafeAreaView>
     )

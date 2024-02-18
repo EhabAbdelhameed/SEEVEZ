@@ -25,7 +25,13 @@ const CreatePhoto2 = () => {
   const [loading, setLoading] = React.useState(false);
   
   const dispatch = useAppDispatch();
+  const changeDone = useSelector(selectDone);
  
+  // console.log(changeDone)
+  useEffect(() => {
+
+    changeDone ? navigation.replace('Reels') : null;
+  }, [changeDone]);
 
   React.useEffect(() => {
     // accessTocken();

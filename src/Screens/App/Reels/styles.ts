@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     conatainer: {
       width: '100%',
       alignSelf: 'flex-start',
-      height: appSizes.with / 1.8,
+      height: appSizes.width / 1.8,
       backgroundColor: appColors.primary,
       borderRadius: 10,
       overflow: 'hidden',
@@ -14,17 +14,18 @@ export const styles = StyleSheet.create({
     },
     btnPuase: {
       position: 'absolute',
-      top: appSizes.with / 5,
-      left: appSizes.with / 2.55,
+      top: appSizes.width / 5,
+      left: appSizes.width / 2.55,
       zIndex: 1000,
     },
     overlay: {
-      ...StyleSheet.absoluteFillObject,
-      flex: 1,
+      // ...StyleSheet.absoluteFillObject,
+      // flex: 1,
+      position:'absolute',
       // backgroundColor: '#0006',
-      width: '100%',
-      height: '100%',
-      zIndex:1000
+      // width: '100%',
+      // height: '100%',
+      // zIndex:1000
     },
     overlaySet: {
       flexDirection: 'row',
@@ -32,7 +33,7 @@ export const styles = StyleSheet.create({
       width: '100%',
       justifyContent: 'space-around',
       alignItems: 'center',
-      marginTop: appSizes.with,
+      marginTop: appSizes.width,
       // backgroundColor:"#a00"
     },
     icon: {
@@ -59,4 +60,32 @@ export const styles = StyleSheet.create({
       color: appColors.white,
       fontSize: appSizes.m,
     },
+    header: {
+      width: "100%",
+      // backgroundColor: "#489",
+      flexDirection: "row",
+      alignItems: "center",
+      marginTop: 15
+      // height:100,
+  },
+  leftHeader: {
+      flex: 1,
+      alignItems: "center",
+      // backgroundColor: "#5659",
+      flexDirection: "row"
+  },
+  rightHeader: {
+      flex: 1,
+      alignItems: "center",
+      // backgroundColor: "#282",
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      columnGap: 25
+  },
+  textLeftHeader: {
+      color: "white",
+      fontSize: 20,
+      fontWeight: "600",
+      marginLeft: 10
+  },
   });
