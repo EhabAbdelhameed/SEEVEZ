@@ -43,6 +43,8 @@ const CVCompany = (data: any) => api.post(`api/complete-profile-company`, data);
 const CV = (data: any) => api.post(`api/media-cv`, data);
 const VideoReel = (data: any) => api.post(`api/post-video`, data);
 const PhotoReel = (data: any) => api.post(`api/post-photo`, data);
+const Poll = (data: any) => api.post(`api/post-poll`, data);
+
 
 const profileInfo = () => api.get(`api/get-info`)
 const Industry = () => api.get(`api/drop-down/industry`)
@@ -108,6 +110,7 @@ const AppAPI = {
   About,
   YearsOfExperience,
   CV,
+  Poll,
   CompanyInfo,
   profileInfo,
   Interests,

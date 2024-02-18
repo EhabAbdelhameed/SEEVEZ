@@ -33,6 +33,8 @@ import {useSelector} from 'react-redux';
 import {selectDone} from 'src/redux/app';
 import {Input} from 'react-native-elements';
 import {launchImageLibrary} from 'react-native-image-picker';
+import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
+import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateOneTraining = () => {
@@ -84,56 +86,17 @@ const UpdateOneTraining = () => {
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.logoContainer}>
-          <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
-            <RenderSvgIcon
-              icon="ARROWBACK"
-              width={30}
-              height={30}
-              color={appColors.primary}
-            />
-          </TouchableOpacity>
-          {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
-           */}
-          <Image
-            source={require('../../../../../../assets/images/seevezlogo.png')}
-            style={{width: 100, height: 30}}
-          />
-        </View>
-        <View style={styles.circles}>
-          <RenderSvgIcon icon="CIRCLELOGIN" width={220} height={160} />
-        </View>
+        <TopHeader />
         <View style={styles.bottomSection}>
-          <View style={styles.blueCircle}>
-            <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
-          </View>
-          <View style={styles.loginTextContainer}>
-            <View style={{width: 32}}></View>
-            <View style={[{alignItems: 'center'}]}>
-              <Text style={[styles.loginText, {fontSize: 24}]}>
-                Complete profile
-              </Text>
-              <Text style={[styles.loginTextSub, {fontSize: 13}]}>
-                Finish setting up your profile to get noticed by recruiters
-              </Text>
-            </View>
-            <View>
-              <RenderSvgIcon
-                icon="ICONCV"
-                width={40}
-                height={48}
-                style={styles.yellowIcon}
-              />
-            </View>
-          </View>
+          <BottomHeader />
 
           <Formik
             initialValues={{
-              institute: data?.institute||'',
-              field_of_study:data?.field_of_study|| '',
-              grade:data?.grade|| '',
-              start_date:data?.start_date|| new Date(),
-              end_date:data?.end_date||new Date(),
+              institute: data?.institute || '',
+              field_of_study: data?.field_of_study || '',
+              grade: data?.grade || '',
+              start_date: data?.start_date || new Date(),
+              end_date: data?.end_date || new Date(),
               certificate_image: '',
             }}
             onSubmit={values => {
@@ -148,7 +111,9 @@ const UpdateOneTraining = () => {
               formdata.append(`start_date`, values.start_date);
               formdata.append(`end_date`, values.end_date);
 
-             Source!=''? formdata.append(`certificate_image`, values.certificate_image):null
+              Source != ''
+                ? formdata.append(`certificate_image`, values.certificate_image)
+                : null;
 
               dispatch(AppThunks.doUpdateTrainingCourse(formdata)).then(
                 (res: any) => {

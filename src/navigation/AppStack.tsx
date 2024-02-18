@@ -55,6 +55,7 @@ import CreatePhoto2 from 'screens/App/CreatePost/AddPhoto2';
 import Location from 'screens/App/CreatePost/AddLocation';
 import MyConnection from 'screens/App/BottomTab/My connection';
 import UserProfile from 'screens/App/BottomTab/User profile';
+import CreateShareLink from 'screens/App/CreatePost/CreateShareLink';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -285,7 +286,10 @@ const AppStack = () => {
                 name='MyVideoCV'
                 component={MyVideoCV}
             />
-
+         <Stack.Screen
+                name='CreateShareLink'
+                component={CreateShareLink}
+            />
         </Stack.Navigator>
     );
 };

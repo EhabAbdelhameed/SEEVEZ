@@ -210,7 +210,8 @@ const styles = StyleSheet.create({
       fontSize: 14,
       fontFamily: 'Noto Sans',
       color:'#000',
-      opacity:.8
+      opacity:.8,
+      textAlign: 'left',
     },
     iconStyle: {
       width: 20,
@@ -220,6 +221,7 @@ const styles = StyleSheet.create({
       height: 40,
       fontSize: 16,
       fontFamily: 'Noto Sans',
+      textAlign: 'left',
     },
     Row3: {
       flexDirection: 'row',
@@ -230,6 +232,7 @@ const styles = StyleSheet.create({
       fontSize: 12,
       fontWeight: '400',
       color: '#15439D',
+      textAlign: 'left',
     },
     secContainer: {
       width: '100%',
@@ -253,11 +256,13 @@ const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: '700',
       color: appColors.black,
+      textAlign: 'left',
     },
     Title2: {
       fontSize: 19,
       fontWeight: '600',
       color: appColors.black,
+      textAlign: 'left',
     },
     Image: {
       height: 65,
@@ -269,23 +274,27 @@ const styles = StyleSheet.create({
       fontWeight: '400',
       color: appColors.black,
       marginTop: 3,
+      textAlign: 'left',
     },
     des: {
       fontSize: 11,
       fontWeight: '400',
       color: appColors.black,
       marginTop: 3,
+      textAlign: 'left',
     },
     Title3: {
       fontWeight: '600',
       color: appColors.black,
       marginTop: 15,
+      textAlign: 'left',
     },
     PostText: {
       fontSize: 12,
       fontWeight: '400',
       marginTop: 15,
       color: appColors.black,
+      textAlign: 'left',
     },
     FollowersContainer: {
       paddingHorizontal: 15,

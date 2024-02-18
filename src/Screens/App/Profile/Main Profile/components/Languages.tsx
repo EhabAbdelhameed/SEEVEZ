@@ -134,23 +134,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    textAlign:'left'
   },
   Head: {
     fontSize: 16,
     fontWeight: '700',
     color: appColors.black,
+    textAlign:'left'
   },
   Des: {
     fontSize: 14,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    textAlign:'left'
   },
   RatingText: {
     fontSize: 12,
     fontWeight: '700',
     color: appColors.black,
     marginRight: 3,
+    textAlign:'left'
   },
   devider: {
     height: 1,

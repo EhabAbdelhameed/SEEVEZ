@@ -83,7 +83,7 @@ const EducationProfileCard = (data: any) => {
                   }}>
                   <AVATAR height={32} width={32} />
                 </View>
-                <View style={{ marginLeft: 10 }}>
+                <View style={{ marginLeft: 10,width:'90%' }}>
                   <Text style={styles.Title2}>{item?.university_name}</Text>
                   <Text style={styles.CompanyName}>
                     {item?.level_id?.name}
@@ -132,7 +132,7 @@ const EducationProfileCard = (data: any) => {
                     }}>
                     <AVATAR height={32} width={32} />
                   </View>
-                  <View style={{ marginLeft: 10 }}>
+                  <View style={{ marginLeft: 10,width:'90%' }}>
                     <Text style={styles.Title2}>{item?.university_name}</Text>
                     <Text style={styles.CompanyName}>
                       {item?.level_id?.name}

@@ -153,8 +153,8 @@ const UpdateTrainingCard = () => {
           </View>
 
           {data?.map((item: any, index: any) => (
-            <View style={{marginBottom: 15, flexDirection: 'row'}}>
-              <View>
+            <View style={{marginBottom: 15}}>
+              <View style={{marginBottom: 10, flexDirection: 'row'}}>
                 <View style={styles.Row2}>
                   <View
                     style={{
@@ -167,7 +167,7 @@ const UpdateTrainingCard = () => {
                     }}>
                     <AVATAR height={32} width={32} />
                   </View>
-                  <View style={{marginLeft: 10}}>
+                  <View style={{marginLeft: 10,width:'70%'}}>
                     <Text style={styles.Title2}>{item?.institute}</Text>
                     <Text style={styles.CompanyName}>
                       {item?.field_of_study}
@@ -183,6 +183,46 @@ const UpdateTrainingCard = () => {
                       <Text style={styles.Title4}>{item.grade}</Text>
                     </View>
                   </View>
+                </View>
+                {/* <View
+                style={{flexDirection: 'row', columnGap: 15, marginLeft: 15}}>
+                <TouchableOpacity onPress={() => handleDeleteTraining(item.id)}>
+                  <DELETE />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('UpdateOneTraining', {
+                      data: item,
+                    })
+                  }>
+                  <RenderSvgIcon
+                    icon="PEN"
+                    width={20}
+                    height={20}
+                    color={appColors.primary}
+                  />
+                </TouchableOpacity>
+              </View> */}
+              <View
+              style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
+              <TouchableOpacity
+                onPress={() => handleDeleteTraining(item.id)}>
+                <DELETE />
+              </TouchableOpacity>
+              <TouchableOpacity
+                 onPress={() =>
+                  navigation.navigate('UpdateOneTraining', {
+                    data: item,
+                  })
+                }>
+                <RenderSvgIcon
+                  icon="PEN"
+                  width={20}
+                  height={20}
+                  color={appColors.primary}
+                />
+              </TouchableOpacity>
+            </View>
                 </View>
 
                 {item?.certificate_image == null ? null : item?.object_info
@@ -202,26 +242,8 @@ const UpdateTrainingCard = () => {
                     }}
                   />
                 )}
-              </View>
-              <View
-                style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
-                <TouchableOpacity onPress={() => handleDeleteTraining(item.id)}>
-                  <DELETE />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('UpdateOneTraining', {
-                      data: item,
-                    })
-                  }>
-                  <RenderSvgIcon
-                    icon="PEN"
-                    width={20}
-                    height={20}
-                    color={appColors.primary}
-                  />
-                </TouchableOpacity>
-              </View>
+             
+             
             </View>
           ))}
         </View>

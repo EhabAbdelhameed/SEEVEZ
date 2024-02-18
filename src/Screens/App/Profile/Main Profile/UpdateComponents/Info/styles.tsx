@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     fontFamily: 'Noto Sans',
+    
   },
   line: {
     width: 51,
@@ -214,6 +215,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginBottom: 5,
     fontFamily: 'Noto Sans',
+    textAlign: 'left',
   },
   dateStyle:{
     borderRadius: 16,
@@ -233,7 +235,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     marginTop: 10,
-    fontFamily:'Noto Sans'  
+    fontFamily:'Noto Sans'  ,
+    
   },
   rectangleText1: {
     color: appColors.primary,
@@ -263,7 +266,8 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 10,
     alignSelf:"flex-start",
-    fontFamily:'Noto Sans'
+    fontFamily:'Noto Sans',
+    
   },
 });
 

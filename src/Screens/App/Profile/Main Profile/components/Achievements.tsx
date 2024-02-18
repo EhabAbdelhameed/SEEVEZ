@@ -203,11 +203,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    textAlign:'left'
   },
   Title2: {
     fontSize: 19,
     fontWeight: '600',
     color: appColors.black,
+    textAlign:'left'
   },
   Image: {
     height: 65,
@@ -219,22 +221,26 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    textAlign:'left'
   },
   des: {
     fontSize: 11,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    textAlign:'left'
   },
   Title3: {
     fontWeight: '600',
     color: appColors.black,
     marginTop: 15,
+    textAlign:'left'
   },
   PostText: {
     fontSize: 12,
     fontWeight: '400',
     color: appColors.black,
+    textAlign:'left'
   },
   devider: {
     height: 1,

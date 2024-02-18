@@ -78,15 +78,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    textAlign:'left'
   },
   Des: {
     fontWeight: '400',
     color: appColors.black,
+    textAlign:'left'
   },
   EditDes: {
     fontWeight: '400',
     color: appColors.black,
     textAlignVertical: 'top',
     marginBottom: 10,
+    textAlign:'left'
   },
 });

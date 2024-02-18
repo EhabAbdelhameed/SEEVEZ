@@ -34,6 +34,7 @@ import Video from 'react-native-fast-video';
 import Swiper from 'react-native-swiper';
 import CVAddones from './components/CVAddones';
 import Audio from './components/Audio';
+import Boll from './components/Bolls';
 
 const ReelsScreen = () => {
   const CurrentUserData = useSelector(selectUser);
@@ -139,6 +140,28 @@ const ReelsScreen = () => {
       </ImageBackground>
     );
   };
+  const renderPoll = (item: any) => {
+    return (
+      <ImageBackground
+        source={{
+          uri: item?.metadata?.background_photo?.fileUrl + '?size=full',
+        }}
+        style={[
+          {
+            width: width,
+            height: height,
+            alignSelf: 'center',
+            alignContent: 'center',
+
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+        ]}
+        resizeMode="contain">
+        <Boll data={item?.metadata} />
+      </ImageBackground>
+    );
+  };
   const renderImage = (attach: any, item: any) => {
     return (
       <ImageBackground
@@ -225,7 +248,7 @@ const ReelsScreen = () => {
  
   const {height, width} = useWindowDimensions();
   const renderVideoItem = ({item, index}: any) => {
-    return item?.metadata?.attachments == null ? null : (
+    return item?.metadata?.attachments==null&&item?.metadata?.poll == null ? null : (
       <View
         style={{
           flex:1,
@@ -237,7 +260,7 @@ const ReelsScreen = () => {
         }}>
         <>
           {currentVideoIndex == index ? (
-            item?.metadata?.attachments == null ? null : Array.isArray(
+            item?.metadata?.attachments == null ? (renderPoll(item)) : Array.isArray(
                 item?.metadata?.attachments,
               ) ? (
               item?.metadata?.attachments?.length > 1 ? (

@@ -58,6 +58,7 @@ export type AppParamsList = {
     TagPeople:undefined;
     CreatePollLink:undefined;
     UpdateInfo:undefined;
+    CreateShareLink:any;
     UpdateEducation:undefined;
     UpdateAchievements:undefined;
     UpdateRefernceCheck:undefined;
@@ -77,7 +78,7 @@ export type RootParamsList = {
     app: any;
     Splash: any;
     Connections: any;
-    CreateShareLink:any;
+   
 }
 
 

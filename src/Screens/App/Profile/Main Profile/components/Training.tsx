@@ -105,7 +105,7 @@ const TrainingProfileCard = (data: any) => {
                   }}>
                   <AVATAR height={32} width={32} />
                 </View>
-                <View style={{ marginLeft: 10 }}>
+                <View style={{ marginLeft: 10,width:'90%' }}>
                   <Text style={styles.Title2}>{item?.institute}</Text>
                   <Text style={styles.CompanyName}>{item?.field_of_study}</Text>
                   <Text style={styles.des}>
@@ -154,7 +154,7 @@ const TrainingProfileCard = (data: any) => {
                     }}>
                     <AVATAR height={32} width={32} />
                   </View>
-                  <View style={{ marginLeft: 10 }}>
+                  <View style={{ marginLeft: 10,width:'90%' }}>
                     <Text style={styles.Title2}>{item?.institute}</Text>
                     <Text style={styles.CompanyName}>
                       {item?.field_of_study}
@@ -249,12 +249,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    textAlign:'left'
   },
   Title2: {
     fontSize: 19,
     fontWeight: '600',
     color: appColors.black,
     width: '90%',
+    textAlign:'left'
   },
   Image: {
     height: 50,
@@ -268,23 +270,27 @@ const styles = StyleSheet.create({
     color: appColors.black,
     marginTop: 3,
     width: '90%',
+    textAlign:'left'
   },
   des: {
     fontSize: 11,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    textAlign:'left'
   },
   Title3: {
     fontWeight: '600',
     color: appColors.black,
     marginTop: 3,
+    textAlign:'left'
   },
   Title4: {
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
     fontSize: 12,
+    textAlign:'left'
   },
   Certificate: {
     width: 200,
@@ -306,5 +312,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
+    
   },
 });

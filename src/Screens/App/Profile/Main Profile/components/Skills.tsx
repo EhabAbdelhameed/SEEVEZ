@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    textAlign:'left'
   },
   smallCardContainer: {
     paddingVertical: 10,
@@ -141,6 +142,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: appColors.blue2,
     marginRight: 5,
+    textAlign:'left'
   },
   devider: {
     height: 1,

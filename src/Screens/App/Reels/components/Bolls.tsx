@@ -1,9 +1,16 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { styles } from './styles'
-import { RenderSvgIcon } from '../../../../Components/atoms/svg'
+import { RenderSvgIcon } from 'components/atoms/svg'
+import { useSelector } from 'react-redux'
+import { selectPhotoData } from 'src/redux/app'
+import { selectUser } from 'src/redux/auth'
 
-const Bolls = () => {
+
+const Boll = (data:any) => {
+   console.log(data)
+    const CurrentUserData = useSelector(selectUser);
+    
     const Item = ({ pers, name, color ,selected}: { pers: number; name: string; color: string; selected:boolean;}) => {
         return (
             <>
@@ -17,7 +24,7 @@ const Bolls = () => {
                                 opacity: .4
                             }]} />
                             <View style={[styles.slider, {
-                                backgroundColor: color,
+                                backgroundColor:color,
                                 position: "absolute",
                                 left: 0,
                                 width: `${pers}%`
@@ -27,7 +34,7 @@ const Bolls = () => {
                                 borderColor: color,
                                 backgroundColor: color,
                                 bottom: -5
-                            }]} >
+                            }]} >  
                                 <RenderSvgIcon icon='RIGHTSLIDER' width={10} height={10} />
                             </View>
                         </View>
@@ -42,15 +49,16 @@ const Bolls = () => {
     }
     return (
         <View style={styles.bollsContainer}>
-            <Text style={styles.text11}>Which is better ?</Text>
+            <Text style={styles.text11}>{data?.data?.poll?.question}</Text>
             <Text style={styles.text12}>Lorem ipsum dolor sit amet consectetur.</Text>
+            {data?.data?.poll?.answers.map((Exp: any, index: any) => (
             <Item
-                pers={25}
-                name="Python"
-                color="rgba(0, 206, 200, 1)"
-                selected={true}
-            />
-            <Item 
+                pers={20}
+                name={Exp?.data}
+                color={index==0?"rgba(0, 206, 200, 1)":index==1?'#1D5EDD':'#E8AB00'}
+                selected={index==0?true:false}
+            />))}
+            {/* <Item 
             pers={35}
              name="Css"
                 color='#1D5EDD'
@@ -61,9 +69,9 @@ const Bolls = () => {
                 color="#E8AB00"
                 selected={false}
 
-            />
+            /> */}
         </View>
     )
 }
 
-export default Bolls
+export default Boll

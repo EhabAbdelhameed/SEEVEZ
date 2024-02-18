@@ -106,7 +106,7 @@ const ExperienceProfileCard = (data: any) => {
                   }}>
                   <CompanyLogo height={32} width={32} />
                 </View>
-                <View style={{ marginLeft: 10 }}>
+                <View style={{ marginLeft: 10 ,width:'85%'}}>
                   <Text style={styles.Title2}>{item.job_title}</Text>
                   <Text style={styles.CompanyName}>
                     {item?.company_name == null
@@ -182,7 +182,7 @@ const ExperienceProfileCard = (data: any) => {
                     }}>
                     <CompanyLogo height={32} width={32} />
                   </View>
-                  <View style={{ marginLeft: 10 }}>
+                  <View style={{ marginLeft: 10,width:'85%' }}>
                     <Text style={styles.Title2}>{item.job_title}</Text>
                     <Text style={styles.CompanyName}>
                       {item?.company_name == null
@@ -323,11 +323,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
+    textAlign:'left'
   },
   Title2: {
     fontSize: 19,
     fontWeight: '600',
     color: appColors.black,
+    textAlign:'left'
   },
   Image: {
     height: 65,
@@ -339,23 +341,28 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    textAlign:'left'
   },
   des: {
     fontSize: 11,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
+    textAlign:'left'
   },
+  
   Title3: {
     fontWeight: '600',
     color: appColors.black,
     marginTop: 15,
+    textAlign:'left'
   },
   PostText: {
     fontSize: 12,
     fontWeight: '400',
     marginTop: 15,
     color: appColors.black,
+    textAlign:'left'
   },
   devider: {
     height: 1,
@@ -370,6 +377,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: appColors.primary,
     textAlign: 'center',
+    
   },
   PDFContainer: {
     height: 100,

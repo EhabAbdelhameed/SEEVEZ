@@ -63,8 +63,8 @@ const slice = createSlice({
     changeEducationLevel: (state, action) => {
       state.EducationLevel = action.payload;
     },
-    changePostsData:(state,action)=>{
-    state.postsData=action.payload
+    changePostsData: (state, action) => {
+      state.postsData = action.payload;
     },
   },
   extraReducers(builder) {
@@ -159,7 +159,7 @@ const slice = createSlice({
     //doUploadPhotoReel
     builder.addCase(thunks.doUploadPhotoReel.fulfilled, (state, action) => {
       state.done = true;
-      
+
       state.photoData = {
         image: {},
         addonesCaption: '',
@@ -192,6 +192,15 @@ const slice = createSlice({
     //doAddAudio
     builder.addCase(thunks.doAddAudio.fulfilled, (state, action) => {
       state.done = true;
+      state.photoData = {
+        image: {},
+        addonesCaption: '',
+        location: '',
+        pdf: [],
+        tagPepoles: [],
+        key: '',
+        names: [],
+      };
       Toast.show({
         type: 'success',
 
@@ -688,7 +697,7 @@ const slice = createSlice({
     //GetMyReels
     builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
       // console.log("GET MY ALL REELS ",JSON.stringify(action.payload?.posts))
-      state.postsData=action.payload?.posts;
+      state.postsData = action.payload?.posts;
     });
     builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -703,23 +712,23 @@ const slice = createSlice({
         });
       }
     });
-      //GetOnePost
-      builder.addCase(thunks.GetOnePost.fulfilled, (state, action) => {
-        console.log("GET One REEL ",JSON.stringify(action.payload));
-      });
-      builder.addCase(thunks.GetOnePost.rejected, (state, action: any) => {
-        if (action.payload.data.message == 'Validation error.') {
-          Toast.show({
-            type: 'error',
-            text1: action.payload.data.error,
-          });
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: action.payload.data.message,
-          });
-        }
-      });
+    //GetOnePost
+    builder.addCase(thunks.GetOnePost.fulfilled, (state, action) => {
+      console.log('GET One REEL ', JSON.stringify(action.payload));
+    });
+    builder.addCase(thunks.GetOnePost.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+      }
+    });
     //doGetFollowingList
     builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
       state.FollowingList = action.payload.data?.users;
@@ -934,15 +943,15 @@ const slice = createSlice({
     //doUploadVideoReel
     builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
       state.done = true;
-        state.photoData={
-          image: {},
-          addonesCaption: '',
-          location: '',
-          pdf: [],
-          tagPepoles: [],
-          key: '',
-          names: [],
-        };
+      state.photoData = {
+        image: {},
+        addonesCaption: '',
+        location: '',
+        pdf: [],
+        tagPepoles: [],
+        key: '',
+        names: [],
+      };
       Toast.show({
         type: 'success',
 
@@ -950,6 +959,37 @@ const slice = createSlice({
       });
     });
     builder.addCase(thunks.doUploadVideoReel.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
+        });
+      }
+    });
+    //CreatePoll
+    builder.addCase(thunks.CreatePoll.fulfilled, (state, action) => {
+      state.done = true;
+      state.photoData = {
+        image: {},
+        addonesCaption: '',
+        location: '',
+        pdf: [],
+        tagPepoles: [],
+        key: '',
+        names: [],
+      };
+      Toast.show({
+        type: 'success',
+
+        text1: 'Your Reels added Successfully !',
+      });
+    });
+    builder.addCase(thunks.CreatePoll.rejected, (state, action: any) => {
       if (action?.payload?.data?.message == 'Validation error.') {
         Toast.show({
           type: 'error',
@@ -1081,14 +1121,12 @@ const slice = createSlice({
   },
 });
 
-
 export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
 export const selectCompanies = (state: RootState) => state.app.CompaniesData;
 
 export const selectYears = (state: RootState) => state.app.YearsOfExperience;
 export const selectJobtype = (state: RootState) => state.app.JobType;
 export const selectEducation = (state: RootState) => state.app.EducationLevel;
-
 
 export const selectDone = (state: RootState) => state.app.done;
 export const selectNav = (state: RootState) => state.app.Nav;
@@ -1103,7 +1141,7 @@ export const selectSearchData = (state: RootState) =>
 export const selectFollowingList = (state: RootState) =>
   state.app.FollowingList;
 export const selectListUsers = (state: RootState) => state.app.listUsers;
-export const selectPosts=(state: RootState) => state.app.postsData;
+export const selectPosts = (state: RootState) => state.app.postsData;
 
 const AppSlice = {
   slice,
@@ -1124,7 +1162,7 @@ const AppSlice = {
   changeJobType: slice.actions.changeJobType,
   changeEducationLevel: slice.actions.changeEducationLevel,
   changeSearchPeopelData: slice.actions.changeSearchPeopelData,
-  changePhotoData:slice.actions.changePhotoData,
-  changePostsData:slice.actions.changePostsData,
+  changePhotoData: slice.actions.changePhotoData,
+  changePostsData: slice.actions.changePostsData,
 };
 export default AppSlice;

@@ -287,6 +287,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: appColors.black,
     marginRight: 7,
+    textAlign: 'left',
   },
   Description: {
     fontSize: 14,
@@ -294,6 +295,7 @@ const styles = StyleSheet.create({
     color: appColors.black,
     marginRight: 7,
     marginTop: 2,
+    textAlign: 'left',
   },
   subContainer: {
     paddingHorizontal: 15,
@@ -308,6 +310,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: '#A57900',
+    textAlign: 'left',
   },
   statuesContainer: {
     paddingHorizontal: 15,
@@ -322,6 +325,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: '#00928E',
+    textAlign: 'left',
   },
   FollowersContainer: {
     paddingHorizontal: 15,
@@ -335,21 +339,25 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: '#15439D',
+    textAlign: 'left',
   },
   InfoText: {
     fontWeight: '600',
     color: appColors.black,
     marginLeft: 7,
+    textAlign: 'left',
   },
   Title: {
     fontSize: 16,
     fontWeight: '700',
     color: appColors.black,
+    textAlign: 'left',
   },
   Des: {
     fontSize: 12,
     fontWeight: '400',
     color: appColors.black,
+    textAlign: 'left',
   },
   PlusContainer: {
     position: 'absolute',

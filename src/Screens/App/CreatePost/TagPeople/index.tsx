@@ -21,6 +21,8 @@ import Swiper from 'react-native-swiper';
 import CV from '../CreatePollLink/components/CV';
 import Video from 'react-native-fast-video';
 import { selectUser } from 'src/redux/auth';
+import AudioComponent from '../CreateShareLink/components/Audio';
+import PollComponent from '../CreateShareLink/components/Poll';
 
 const TagPeople = () => {
   const navigation = useNavigation<any>();
@@ -124,82 +126,25 @@ const TagPeople = () => {
               },
             ]}
             resizeMode="stretch">
-            {/* <TouchableOpacity style={{width:'100%',justifyContent:'center',alignItems:'center'}} onPress={isPlaying ? startPlayback : stopPlayback}> */}
-      
-            <View
-              style={{
-                backgroundColor: '#FFF',
-                width: '80%',
-                paddingHorizontal: 20,
-                borderRadius: 20,
-                paddingVertical: 5,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  columnGap: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingHorizontal: 20,
-                }}>
-                <TouchableOpacity
-                >
-                  <PAUSE />
-                </TouchableOpacity>
-                {/* <Svg height="40" width="80%">
-                  <Path
-                    d={`M${waveformPoints
-                      .map((point: any) => `${point.x},${point.y}`)
-                      .join(' ')}`}
-                    fill="none"
-                    stroke="blue"
-                    strokeWidth="2"
-                  />
-                </Svg> */}
-                <WAVE/>
-                <View
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 40,
-                    // borderWidth: 1,
-                    // borderColor: '#DDD',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: appColors.bg,
-                  }}>
-                  {CurrentUserData?.avatar == null ? (
-                    <AVATAR height={32} width={32} />
-                  ) : (
-                    <Image
-                      source={{uri: CurrentUserData?.avatar}}
-                      style={{width: 40, height: 40, borderRadius: 40}}
-                      resizeMode="cover"
-                    />
-                  )}
-                  <View
-                    style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: 10,
-                      // borderWidth: 1,
-                      // borderColor: '#DDD',
-                      justifyContent: 'center',
-                      position: 'absolute',
-                      bottom: 2,
-                      right: 2,
-                      alignItems: 'center',
-                      backgroundColor: '#FFF',
-                    }}>
-                    <VOICE height={10} width={10} />
-                  </View>
-                </View>
-              </View>
-          
-            </View>
-            {/* </TouchableOpacity>  */}
+           <AudioComponent/>
           </ImageBackground> //'#1
-          ) : (
+          ) :  photoData.key == '7' ? (
+            <ImageBackground
+            source={photoData?.image}
+            
+            style={[
+              styles.bgContainer,
+              {
+                width: '100%',
+                height: 450,
+                alignSelf: 'center',
+                alignItems: 'center',
+              },
+            ]}
+            resizeMode="stretch">
+           <PollComponent/>
+          </ImageBackground> //'#1
+          ) :(
             <ImageBackground
               source={{
                 uri:
