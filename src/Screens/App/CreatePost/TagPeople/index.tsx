@@ -14,25 +14,27 @@ import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Header from './Header';
-import {appColors} from 'theme';
+import {appColors, appSizes} from 'theme';
 import {useSelector} from 'react-redux';
 import {selectPhotoData} from 'src/redux/app';
 import Swiper from 'react-native-swiper';
 import CV from '../CreatePollLink/components/CV';
 import Video from 'react-native-fast-video';
-import { selectUser } from 'src/redux/auth';
+import {selectUser} from 'src/redux/auth';
 import AudioComponent from '../CreateShareLink/components/Audio';
 import PollComponent from '../CreateShareLink/components/Poll';
+import LinearGradient from 'react-native-linear-gradient';
+import ExternalLinks from '../CreatePollLink/components/ExternalLink';
+import Market from '../CreatePollLink/components/Market';
 
 const TagPeople = () => {
   const navigation = useNavigation<any>();
   const CurrentUserData = useSelector(selectUser);
   const _handleNavigation = useCallback(() => {
- navigation.goBack()
-;
+    navigation.goBack();
   }, []);
   const photoData = useSelector(selectPhotoData);
-  console.log("EHAB",photoData?.image)
+  console.log('EHAB', photoData?.image);
   return (
     <SafeAreaView edges={['top']} style={{flex: 1}}>
       <KeyboardAwareScrollView
@@ -81,7 +83,17 @@ const TagPeople = () => {
                     resizeMode="cover"></ImageBackground>
                 ))}
               </Swiper>
-              <CV />
+              {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : (
+                <CV />
+              )}
+              {photoData?.exterinalLinks == null ||
+              photoData?.exterinalLinks?.length == 0 ? null : (
+                <ExternalLinks />
+              )}
+              {photoData?.market == null ||
+              photoData?.market?.length == 0 ? null : (
+                <Market />
+              )}
             </View>
           ) : photoData.key == '4' || photoData.key == '5' ? (
             <View
@@ -110,41 +122,83 @@ const TagPeople = () => {
                   borderRadius: 16,
                 }}
               />
-              <CV />
+              {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : (
+                <CV />
+              )}
+              {photoData?.exterinalLinks == null ||
+              photoData?.exterinalLinks?.length == 0 ? null : (
+                <ExternalLinks />
+              )}
+              {photoData?.market == null ||
+              photoData?.market?.length == 0 ? null : (
+                <Market />
+              )}
             </View>
           ) : photoData.key == '6' ? (
-            <ImageBackground
-            source={photoData?.image}
-            
-            style={[
-              styles.bgContainer,
-              {
-                width: '100%',
-                height: 450,
-                alignSelf: 'center',
-                alignItems: 'center',
-              },
-            ]}
-            resizeMode="stretch">
-           <AudioComponent/>
-          </ImageBackground> //'#1
-          ) :  photoData.key == '7' ? (
-            <ImageBackground
-            source={photoData?.image}
-            
-            style={[
-              styles.bgContainer,
-              {
-                width: '100%',
-                height: 450,
-                alignSelf: 'center',
-                alignItems: 'center',
-              },
-            ]}
-            resizeMode="stretch">
-           <PollComponent/>
-          </ImageBackground> //'#1
-          ) :(
+            photoData?.image == '#0f0' ? (
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 1}}
+                colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
+                style={[
+                  styles.bgContainer,
+                  {
+                    height: 420,
+                    // backgroundColor: audioData?.image,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                ]}>
+                <AudioComponent />
+              </LinearGradient>
+            ) : (
+              <View
+                style={[
+                  styles.bgContainer,
+                  {
+                    height: 420,
+                    backgroundColor:
+                      photoData?.image == '#0f0' ? null : photoData?.image,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                ]}>
+                <AudioComponent />
+              </View>
+            )
+          ) : photoData.key == '7' ? (
+            photoData?.image == '#0f0' ? (
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 1}}
+                colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
+                style={[
+                  styles.bgContainer,
+                  {
+                    height: 420,
+                    // backgroundColor: audioData?.image,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                ]}>
+                <PollComponent />
+              </LinearGradient>
+            ) : (
+              <View
+                style={[
+                  styles.bgContainer,
+                  {
+                    height: 420,
+                    backgroundColor:
+                      photoData?.image == '#0f0' ? null : photoData?.image,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  },
+                ]}>
+                <PollComponent />
+              </View>
+            )
+          ) : (
             <ImageBackground
               source={{
                 uri:
@@ -164,12 +218,20 @@ const TagPeople = () => {
                 },
               ]}
               resizeMode="cover">
-              {/*         
-             <Poll/> */}
-              <CV />
+              {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : (
+                <CV />
+              )}
+              {photoData?.exterinalLinks == null ||
+              photoData?.exterinalLinks?.length == 0 ? null : (
+                <ExternalLinks />
+              )}
+              {photoData?.market == null ||
+              photoData?.market?.length == 0 ? null : (
+                <Market />
+              )}
             </ImageBackground>
           )}
-
+          {/* <View style={{height:appSizes.height*}}/> */}
           <TouchableOpacity
             onPress={() => navigation.navigate('SearchPeople')}
             style={styles.AddOptionContainer}>

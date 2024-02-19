@@ -239,4 +239,21 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
       },
+      containerHire: {
+        backgroundColor: "#1D5EDD",
+        borderRadius: 20,
+        paddingHorizontal: 8,
+        paddingVertical: 5,
+        width: 130,
+        alignItems: "center",
+        flexDirection:"row",
+        columnGap:5,
+        justifyContent:"center",
+        marginTop:10
+    },
+    text3: {
+        color: "#A57900",
+        fontSize: 15,
+        fontWeight: "600"
+    },
 })

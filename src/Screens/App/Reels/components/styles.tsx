@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     },
     textLeftHeader: {
         color: "white",
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: "600",
         marginLeft: 10
     },
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
     },
     name: {
         color: appColors.white,
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: "700"
     },
     nameIcon: {
@@ -84,20 +84,20 @@ export const styles = StyleSheet.create({
     },
     text2: {
         color: appColors.white,
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: "600"
     },
     containerType: {
         backgroundColor: "#F8E5B0",
         borderRadius: 20,
-        paddingHorizontal: 8,
-        paddingVertical: 5,
-        width: 110,
+        paddingHorizontal: 3,
+        paddingVertical: 4,
+        width: 80,
         alignItems: "center"
     },
     text3: {
         color: "#A57900",
-        fontSize: 15,
+        fontSize: 12,
         fontWeight: "600"
     },
     dotAvatar: {
@@ -110,12 +110,13 @@ export const styles = StyleSheet.create({
         right: 5
     },
     bollsContainer: {
-        width: "85%",
+        width: "85%",  
         backgroundColor: appColors.white,
-        position: "absolute",
+        // position: "absolute",
         // height: 200,
-        left: 10,
-        bottom: 200,
+        // left: 10,
+        marginRight:20,
+        // bottom: 200,
         elevation: 4,
         borderRadius: 10,
         padding: 16,
@@ -127,6 +128,7 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
     },
+    
     text11: {
         fontSize: appSizes.x-1,
         fontWeight: "600",
@@ -199,11 +201,11 @@ export const styles = StyleSheet.create({
         width: "80%",
         backgroundColor: appColors.white,
         position: "absolute",
-        alignSelf:'center',
-        justifyContent:'center',
-        alignItems:'center',
+        // alignSelf:'center',
+        // justifyContent:'center',
+        // alignItems:'center',
         // height: 200,
-        // left: 0,
+        left: 10,
        
         bottom: 180,
         elevation: 4,

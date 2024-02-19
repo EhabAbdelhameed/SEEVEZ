@@ -15,8 +15,8 @@ const Content = () => {
   const [caption,setCaption]=useState('')
   const [imgUrl,setImageURL]=useState<any>([])
   const searchPeople = useSelector(selectPhotoData);
-  const [key,setKey]=useState<any>(searchPeople?.image==null?0:searchPeople?.image)
-   console.log("KEY : ",key)
+  const [key,setKey]=useState<any>(0)  
+
   return (
     <View style={styles.ContentCotainer}>
         {searchPeople?.location==null||searchPeople?.location==''?null:
@@ -29,7 +29,7 @@ const Content = () => {
             />
             <Text>{searchPeople?.location}</Text>
           </View>}
-      <ContainerRecord data={[key,imgUrl]}    />
+      <ContainerRecord data={key}    />
       <Templetes onPress={setKey} onPressImg={setImageURL} />
       {searchPeople?.names==null||searchPeople?.names?.length==0?null:
       <View style={styles.taggedPeopleContainer}>

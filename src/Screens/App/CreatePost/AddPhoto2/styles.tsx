@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: 18,
         // paddingVertical:20,
-        backgroundColor: appColors.transparentBlack50,
+        backgroundColor: 'rgba(151,151,151,.9)',
         position: "absolute",
         zIndex: 100,
         bottom: 0,

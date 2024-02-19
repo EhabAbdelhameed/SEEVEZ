@@ -35,13 +35,15 @@ import Swiper from 'react-native-swiper';
 import CVAddones from './components/CVAddones';
 import Audio from './components/Audio';
 import Boll from './components/Bolls';
-
+import LinearGradient from 'react-native-linear-gradient';
+import TextLinks from './components/TextLinks';
 const ReelsScreen = () => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const postsData = useSelector(selectPosts);
   console.log('posts', JSON.stringify(postsData));
+
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   // const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -77,7 +79,7 @@ const ReelsScreen = () => {
             height,
             alignSelf: 'center',
             alignItems: 'center',
-            justifyContent:'center'
+            justifyContent: 'center',
           },
         ]}>
         <Swiper
@@ -91,9 +93,12 @@ const ReelsScreen = () => {
             backgroundColor: 'rgba(255,255,255,.3)',
             width: 8,
             height: 8,
-           
           }}
-          activeDotStyle={{backgroundColor:appColors.primary, width: 10, height: 10}}>
+          activeDotStyle={{
+            backgroundColor: appColors.primary,
+            width: 10,
+            height: 10,
+          }}>
           {item?.metadata?.attachments?.map((asset: any, index: any) => (
             <View key={index}>
               {/* <TouchableOpacity onPress={() => console.log('Swiper item pressed')}> */}
@@ -111,55 +116,81 @@ const ReelsScreen = () => {
               {/* </TouchableOpacity> */}
             </View>
           ))}
-         
         </Swiper>
-         {item?.metadata?.pdfData == null ? null : <CVAddones data={item?.metadata} />}
+        {item?.metadata?.pdfData == null ? null : (
+          <CVAddones data={item?.metadata} />
+        )}
+         {item?.metadata?.externalLinks == null ? null : (
+          <TextLinks data={item?.metadata} />
+        )}
       </View>
     );
   };
 
   const renderAudio = (item: any) => {
-    return (
-      <ImageBackground
-        source={{
-          uri: item?.metadata?.background_photo?.fileUrl + '?size=full',
-        }}
+    return item?.metadata?.color == '#0f0' ? (
+      <LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 0, y: 1}}
+        colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
         style={[
           {
             width: width,
             height: height,
-            alignSelf: 'center',
-            alignContent: 'center',
 
             alignItems: 'center',
             justifyContent: 'center',
           },
-        ]}
-        resizeMode="contain">
+        ]}>
+         <Audio data={item?.metadata} />
+      </LinearGradient>
+    ) : (
+      <View
+        style={[
+          {
+            width: width,
+            height: height,
+            backgroundColor: item?.metadata?.color,
+
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+        ]}>
         <Audio data={item?.metadata} />
-      </ImageBackground>
+      </View>
     );
   };
   const renderPoll = (item: any) => {
-    return (
-      <ImageBackground
-        source={{
-          uri: item?.metadata?.background_photo?.fileUrl + '?size=full',
-        }}
+    return item?.metadata?.color == '#0f0' ? (
+      <LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 0, y: 1}}
+        colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
         style={[
           {
             width: width,
             height: height,
-            alignSelf: 'center',
-            alignContent: 'center',
 
             alignItems: 'center',
             justifyContent: 'center',
           },
-        ]}
-        resizeMode="contain">
+        ]}>
+         <Boll data={item?.metadata} />
+      </LinearGradient>
+    ) : (
+      <View
+      style={[
+        {
+          width: width,
+          height: height,
+          backgroundColor: item?.metadata?.color,
+
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+      ]}>
         <Boll data={item?.metadata} />
-      </ImageBackground>
+      </View>
     );
   };
   const renderImage = (attach: any, item: any) => {
@@ -181,15 +212,17 @@ const ReelsScreen = () => {
         ]}
         resizeMode="contain">
         {item?.metadata?.pdfData == null ? null : (
-         
-            <CVAddones data={item?.metadata} />
-     
+          <CVAddones data={item?.metadata} />
+        )}
+          {item?.metadata?.externalLinks == null ? null : (
+          <TextLinks data={item?.metadata} />
         )}
       </ImageBackground>
     );
   };
-  const renderVideo = (attach: any) => {
+  const renderVideo = (attach: any,item:any) => {
     return (
+      <View>
       <Video
         ref={player => {
           videoRef.current = player;
@@ -226,6 +259,13 @@ const ReelsScreen = () => {
           value: '180',
         }}
       />
+        {item?.metadata?.pdfData == null ? null : (
+          <CVAddones data={item?.metadata} />
+        )}
+          {item?.metadata?.externalLinks == null ? null : (
+          <TextLinks data={item?.metadata} />
+        )}
+      </View>
     );
   };
 
@@ -237,21 +277,18 @@ const ReelsScreen = () => {
     }
   };
 
-
- 
-
   const load = ({duration}: any) => {
     setVideo(prev => ({...prev, duration}));
     setLoading(false);
   };
 
- 
   const {height, width} = useWindowDimensions();
   const renderVideoItem = ({item, index}: any) => {
-    return item?.metadata?.attachments==null&&item?.metadata?.poll == null ? null : (
+    return item?.metadata?.attachments == null &&
+      item?.metadata?.poll == null ? null : (
       <View
         style={{
-          flex:1,
+          flex: 1,
           zIndex: 1000,
           width: width,
           height: height,
@@ -260,9 +297,9 @@ const ReelsScreen = () => {
         }}>
         <>
           {currentVideoIndex == index ? (
-            item?.metadata?.attachments == null ? (renderPoll(item)) : Array.isArray(
-                item?.metadata?.attachments,
-              ) ? (
+            item?.metadata?.attachments == null ? (
+              renderPoll(item)
+            ) : Array.isArray(item?.metadata?.attachments) ? (
               item?.metadata?.attachments?.length > 1 ? (
                 renderSwiper(item)
               ) : (
@@ -271,7 +308,7 @@ const ReelsScreen = () => {
                 )
               )
             ) : item?.metadata?.attachments?.type == 'video' ? (
-              renderVideo(item?.metadata?.attachments)
+              renderVideo(item?.metadata?.attachments,item)
             ) : (
               renderAudio(item)
             )
@@ -339,11 +376,10 @@ const ReelsScreen = () => {
           setLoading(true);
         }}
         keyExtractor={item => item._id}
-       
         // scrollEventThrottle={16} // Adjust this value for smoother scrolling events
         showsVerticalScrollIndicator={false}
         snapToInterval={height}
-        snapToAlignment='start'
+        snapToAlignment="start"
         decelerationRate={'fast'}
       />
     )

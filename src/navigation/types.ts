@@ -72,6 +72,8 @@ export type AppParamsList = {
     CreateVideo2:any;
     CreatePull:any;
     MyConnection:undefined;
+    Market:undefined;
+    ExterinalLinks:undefined;
 }
 export type RootParamsList = {
     auth: any;

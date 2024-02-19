@@ -56,6 +56,8 @@ import Location from 'screens/App/CreatePost/AddLocation';
 import MyConnection from 'screens/App/BottomTab/My connection';
 import UserProfile from 'screens/App/BottomTab/User profile';
 import CreateShareLink from 'screens/App/CreatePost/CreateShareLink';
+import Market from 'screens/App/CreatePost/Market';
+import ExterinalLinks from 'screens/App/CreatePost/ExteraLinks';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -289,6 +291,14 @@ const AppStack = () => {
          <Stack.Screen
                 name='CreateShareLink'
                 component={CreateShareLink}
+            />
+               <Stack.Screen
+                name='Market'
+                component={Market}
+            />
+              <Stack.Screen
+                name='ExterinalLinks'
+                component={ExterinalLinks}
             />
         </Stack.Navigator>
     );

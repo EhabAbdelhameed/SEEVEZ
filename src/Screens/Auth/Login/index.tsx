@@ -5,6 +5,7 @@ import {
   Alert,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import styles from './styles';
@@ -20,7 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {BigLogo, LogoWithName} from 'assets/Svgs';
-
+import DeviceInfo from 'react-native-device-info';
 import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import {useSelector} from 'react-redux';
@@ -33,6 +34,9 @@ const Login = () => {
   const [email, setEmail] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const Reseted = useSelector(selectReseted);
+  const [deviceId, setDeviceId] = React.useState('');
+  const [deviceVersion, setDeviceVersion] = React.useState('');
+  const [deviceModel, setDeviceModel] = React.useState('');
   // const signUpCompany=useSelector(selectIsSignUpCompany)
   const dispatch = useAppDispatch();
   const Verified = useSelector(selectVerified);
@@ -52,6 +56,30 @@ const Login = () => {
   const _handleNavigate = () => {
     navigation.navigate('ForgetPassword');
   };
+  const UineqId = async () => {
+    const ff = await DeviceInfo.getUniqueId();
+    setDeviceId(ff);
+
+    // return ff;
+  };
+
+  const DeviceVersion = async () => {
+    const ff = await DeviceInfo.getVersion();
+    setDeviceVersion(ff);
+  };
+
+  const DeviceModel = async () => {
+    const ff = await DeviceInfo.getModel();
+    setDeviceModel(ff);
+  };
+
+
+
+  useEffect(() => {
+    UineqId();
+    DeviceVersion();
+    DeviceModel();
+  }, []);
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
@@ -83,7 +111,10 @@ const Login = () => {
                 const formdata = new FormData();
                 formdata.append('email', values.email);
                 formdata.append('password', values.password);
-
+                // formdata.append('device_id', deviceId);
+                // formdata.append('device_kind', Platform.OS);
+                // formdata.append('device_model', deviceModel);
+                // formdata.append('device_version', deviceVersion);
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false);
                   console.log("Verified ",Verified)

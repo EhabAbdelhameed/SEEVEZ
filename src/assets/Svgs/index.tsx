@@ -46,9 +46,12 @@ import VOICE from './Voice.svg'
 import WAVE from './WAVE.svg'
 import UploadYourCv from './UploadYourCv.svg';
 import POLL from './POLL.svg'
+import ExterinalLinks from './ExternalLinks.svg'
+import MARKET from './Market.svg'
 export {
     Right,
     WAVE,
+    ExterinalLinks,
     POLL,
     UploadYourCv,
     Eye,
@@ -91,5 +94,6 @@ export {
     AVATAR,
     CALANDER,
     PERSON,
-    DropDownIcon
+    DropDownIcon,
+    MARKET
 }

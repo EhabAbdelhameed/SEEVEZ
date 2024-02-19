@@ -44,6 +44,12 @@ const slice = createSlice({
     changeTagNames: (state, action) => {
       state.photoData.names = action.payload;
     },
+    changeMarket:(state,action)=>{
+      state.photoData.market=action.payload;
+    },
+    changeExterinalLinks:(state,action)=>{
+      state.photoData.exterinalLinks=action.payload;
+    },
 
     // changeSearch: (state, action) => {
     //   state.Search = action.payload;
@@ -168,6 +174,8 @@ const slice = createSlice({
         tagPepoles: [],
         key: '',
         names: [],
+        market:[],
+        exterinalLinks:[]
       };
       Toast.show({
         type: 'success',
@@ -200,6 +208,8 @@ const slice = createSlice({
         tagPepoles: [],
         key: '',
         names: [],
+        market:[],
+        exterinalLinks:[]
       };
       Toast.show({
         type: 'success',
@@ -705,6 +715,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
+        // if(action.payload.data.error=='Access token is invalid.'){
+          
+        // }
       } else {
         Toast.show({
           type: 'error',
@@ -951,6 +964,8 @@ const slice = createSlice({
         tagPepoles: [],
         key: '',
         names: [],
+        market:[],
+        exterinalLinks:[]
       };
       Toast.show({
         type: 'success',
@@ -982,6 +997,8 @@ const slice = createSlice({
         tagPepoles: [],
         key: '',
         names: [],
+        market:[],
+        exterinalLinks:[]
       };
       Toast.show({
         type: 'success',
@@ -1164,5 +1181,7 @@ const AppSlice = {
   changeSearchPeopelData: slice.actions.changeSearchPeopelData,
   changePhotoData: slice.actions.changePhotoData,
   changePostsData: slice.actions.changePostsData,
+  changeMarket:slice.actions.changeMarket,
+  changeExterinalLinks:slice.actions.changeExterinalLinks,
 };
 export default AppSlice;

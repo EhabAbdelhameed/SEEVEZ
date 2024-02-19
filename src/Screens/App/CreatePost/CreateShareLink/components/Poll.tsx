@@ -51,7 +51,7 @@ const PollComponent = () => {
         <View style={styles.bollsContainer}>
             <Text style={styles.text11}>{PollData?.pdf?.question}</Text>
             <Text style={styles.text12}>Lorem ipsum dolor sit amet consectetur.</Text>
-            {PollData?.pdf?.options.map((Exp: any, index: any) => (
+            {PollData?.pdf?.options?.map((Exp: any, index: any) => (
             <Item
                 pers={20}
                 name={Exp?.answer}

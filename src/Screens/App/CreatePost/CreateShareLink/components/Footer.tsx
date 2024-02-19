@@ -15,6 +15,7 @@ const Footer = (data: any) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const photoData = useSelector(selectPhotoData);
+  console.log('KEY', photoData?.key);
   const sendAudioData = () => {
     if (photoData?.key == 6) {
       setIsLoading(true);
@@ -31,31 +32,13 @@ const Footer = (data: any) => {
         ? formdata.append('caption', data?.data[2])
         : null;
 
-      // {
-      // "uri": "file:///assets/images/Rectangle9.png",
-      // "type": "image/png",
-      // "name": "Rectangle9.png"
-      // }
-      formdata.append('template', {
-        uri:
-          data?.data[0] == 1
-            ? 'assets/images/Rectangle9.png'
-            : data?.data[0]?.uri,
-        type: data?.data[0] == 1 ? 'image/png' : data?.data[0]?.type,
-        name:
-          data?.data[0] == 1
-            ? 'Rectangle9.png'
-            : Platform.OS == 'ios'
-            ? data?.data[0]?.fileName
-            : data?.data[0]?.name,
-      });
-
+      formdata.append('color', photoData?.image);
       formdata.append('files', {
         uri: photoData?.pdf, // URI of the audio file
         type: 'audio/mp3', // Mime type of the audio file
         name: 'audio.mp3', // Name of the audio file
       });
-      console.log(JSON.stringify(formdata));
+      console.log('hhsh22', JSON.stringify(formdata));
       dispatch(AppThunks.doAddAudio(formdata)).then((response: any) => {
         setIsLoading(false);
       });
@@ -87,13 +70,8 @@ const Footer = (data: any) => {
       // "type": "image/png",
       // "name": "Rectangle9.png"
       // }
-      formdata.append('template', {
-        uri: data?.data[1][0]?.uri,
-        type: data?.data[1][0]?.type,
-        name:Platform.OS == 'ios' ? data?.data[1][0]?.fileName : data?.data[1][0]?.name,
-      });
-
-      console.log(JSON.stringify(formdata));
+      formdata.append('color', photoData?.image);
+          console.log(JSON.stringify(formdata));
       dispatch(AppThunks.CreatePoll(formdata)).then((response: any) => {
         setIsLoading(false);
       });

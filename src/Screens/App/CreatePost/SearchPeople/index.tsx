@@ -25,7 +25,7 @@ const SearchPeople = () => {
   const photoData = useSelector(selectPhotoData);
 
   const _handleNavigation = useCallback(() => {
-    photoData?.key=="6"?navigation.navigate('CreateShareLink',{audioData:photoData?.pdf}):
+    photoData?.key=="6"|| photoData?.key=="7"?navigation.navigate('CreateShareLink'):
     navigation.navigate('CreatePollLink');
   }, []);
 

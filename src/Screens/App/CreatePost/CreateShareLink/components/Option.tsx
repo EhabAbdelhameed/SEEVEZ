@@ -84,10 +84,10 @@ const Option = ({onPress,imgUrl}: {onPress: (key: any) => void,imgUrl:any}) => {
   };
   return (
     <View style={styles.optionsContainer}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}>
         <Item icon="PIC" title="Add photo"  />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity onPress={() => navigation.navigate('TagPeople')}>
         <Item icon="TAG" title="Tag people"  />

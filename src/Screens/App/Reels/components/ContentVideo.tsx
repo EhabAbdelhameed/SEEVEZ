@@ -25,18 +25,26 @@ const ContentVideo = ({ overlay = false, type = 'bolls' }: { overlay: boolean; t
                 >
                     <RenderSvgIcon
                         icon='ARROWBACK'
+                        width={25}
+                        height={25}
                     />
                     <Text style={styles.textLeftHeader}>My reels</Text>
                 </TouchableOpacity> 
               <View style={styles.rightHeader}>
                     <RenderSvgIcon
                         icon='SEARCH'
+                        width={25}
+                        height={25}
                     />
                     <RenderSvgIcon
                         icon='COMMENT'
+                        width={25}
+                        height={25}
                     />
                     <RenderSvgIcon
                         icon='NOTIFICATION'
+                        width={25}
+                        height={25}
                     />
                 </View>
             </View>
@@ -48,6 +56,7 @@ const ContentVideo = ({ overlay = false, type = 'bolls' }: { overlay: boolean; t
             width: 56,
             height: 56,
             borderRadius: 56,
+            marginTop:12,
             // borderWidth: 1,
             // borderColor: '#DDD',
             justifyContent: 'center',
@@ -64,7 +73,7 @@ const ContentVideo = ({ overlay = false, type = 'bolls' }: { overlay: boolean; t
             />
           )}</View>
                     <View style={{
-                        marginLeft: 5,
+                        marginLeft: 8,
                         rowGap: 4
                     }}>
                         <View style={styles.nameIcon}>
@@ -84,32 +93,32 @@ const ContentVideo = ({ overlay = false, type = 'bolls' }: { overlay: boolean; t
                     <View style={styles.containerIconText}>
                         <RenderSvgIcon
                             icon='HEART'
-                            width={30}
-                            height={30}
+                            width={20}
+                            height={20}
                         />
                         <Text style={styles.textIcon}>10k</Text>
                     </View>
                     <View style={styles.containerIconText}>
                         <RenderSvgIcon
                             icon='REPOST'
-                            width={30}
-                            height={30}
+                            width={20}
+                            height={20}
                         />
                         <Text style={styles.textIcon}>10k</Text>
                     </View>
                     <View style={styles.containerIconText}>
                         <RenderSvgIcon
                             icon='SHARE'
-                            width={30}
-                            height={30}
+                            width={20}
+                            height={20}
                         />
                         <Text style={styles.textIcon}>10k</Text>
                     </View>
                     <View style={styles.containerIconText}>
                         <RenderSvgIcon
                             icon='THREEDOTS'
-                            width={30}
-                            height={30}
+                            width={20}
+                            height={20}
                         />
                     </View>
                 </View>

@@ -161,13 +161,13 @@ export const styles = StyleSheet.create({
       bollsContainer: {
         width: "80%",
         backgroundColor: appColors.white,
-        position: "absolute",
+        // position: "absolute",
         alignSelf:'center',
         // height: 200,
         // left: 0,
        
         height:220,  
-        bottom: 10,
+        // bottom: 10,
         elevation: 4,
         borderRadius: 10,
         padding: 16,

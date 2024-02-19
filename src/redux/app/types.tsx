@@ -30,6 +30,8 @@ interface appState {
     tagPepoles: any;
     key: any;
     names: any;
+    market:any;
+    exterinalLinks:any;
   };
 
   EducationLevel: [
@@ -169,6 +171,8 @@ export const initialState: appState = {
     tagPepoles: null,
     key: null,
     names: null,
+    market:null,
+    exterinalLinks:null,
   },
   searchPeopelData: {
     current_page: null,

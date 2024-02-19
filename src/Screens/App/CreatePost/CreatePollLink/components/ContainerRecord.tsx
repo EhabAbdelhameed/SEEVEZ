@@ -8,6 +8,8 @@ import {selectPhotoData} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-fast-video';
+import ExternalLinks from './ExternalLink';
+import Market from './Market';
 
 const ContainerRecord = () => {
   const photoData = useSelector(selectPhotoData);
@@ -38,36 +40,55 @@ const ContainerRecord = () => {
                 alignItems: 'center',
               },
             ]}
-            resizeMode="cover">
-          
-          </ImageBackground>
+            resizeMode="cover"></ImageBackground>
         ))}
       </Swiper>
-      <CV />
+      {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : <CV />}
+      {photoData?.exterinalLinks == null ||
+      photoData?.exterinalLinks?.length == 0 ? null : (
+        <ExternalLinks />
+      )}
+      {photoData?.market == null || photoData?.market?.length == 0 ? null : (
+        <Market />
+      )}
     </View>
-  ) : photoData.key == '4'||photoData.key == '5'? <View
-  style={[
-    styles.bgContainer,
-    {
-      width: '100%',
-      height: 400,
-      alignSelf: 'center',
-      alignItems: 'center',
-    },
-  ]}>
- <Video
-          resizeMode="cover"
-          //   controls={true}
-          repeat
-          source={{uri:photoData.key == '4'?photoData?.image:photoData?.image?.assets[0].uri}}
-          style={{
-            width: '100%',
-            height: 400,
-            borderRadius: 16,
-          }}
-        />
-          <CV />
-  </View>:(
+  ) : photoData.key == '4' || photoData.key == '5' ? (
+    <View
+      style={[
+        styles.bgContainer,
+        {
+          width: '100%',
+          height: 400,
+          alignSelf: 'center',
+          alignItems: 'center',
+        },
+      ]}>
+      <Video
+        resizeMode="cover"
+        //   controls={true}
+        repeat
+        source={{
+          uri:
+            photoData.key == '4'
+              ? photoData?.image
+              : photoData?.image?.assets[0].uri,
+        }}
+        style={{
+          width: '100%',
+          height: 400,
+          borderRadius: 16,
+        }}
+      />
+      {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : <CV />}
+      {photoData?.exterinalLinks == null ||
+      photoData?.exterinalLinks?.length == 0 ? null : (
+        <ExternalLinks />
+      )}
+      {photoData?.market == null || photoData?.market?.length == 0 ? null : (
+        <Market />
+      )}
+    </View>
+  ) : (
     <ImageBackground
       source={{
         uri:
@@ -84,7 +105,14 @@ const ContainerRecord = () => {
       resizeMode="cover">
       {/*         
              <Poll/> */}
-      <CV />
+      {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : <CV />}
+      {photoData?.exterinalLinks == null ||
+      photoData?.exterinalLinks?.length == 0 ? null : (
+        <ExternalLinks />
+      )}
+      {photoData?.market == null || photoData?.market?.length == 0 ? null : (
+        <Market />
+      )}
     </ImageBackground>
   );
 };
