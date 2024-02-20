@@ -38,20 +38,28 @@ const CreateVideo = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const [videoPath, setVideoPath] = useState('');
+  const [isCameraInitialized, setIsCameraInitialized] = useState(false)
   const cameraRef: Camera | any = useRef<Camera>();
   const [cameraPosition, setCameraPosition] = React.useState<'front' | 'back'>(
     'back',
   );
- 
+  const device1 = useCameraDevice(cameraPosition);
+  const { hasPermission, requestPermission } = useCameraPermission()
   useEffect(() => {
-    if (shouldNavigate && videoPath) {
-      navigation.navigate('CreateVideo2', {
-        videoPath: videoPath,
-        key: 4,
-      });
-      setShouldNavigate(false); // Reset the flag
+    if (device1 == null) {
+      console.log('Camera device not available yet');
+    } else {
+      console.log('Camera device fetched:');
+      // Start recording if necessary
+      if (shouldNavigate && videoPath) {
+        navigation.navigate('CreateVideo2', {
+          videoPath: videoPath,
+          key: 4,
+        });
+        setShouldNavigate(false); // Reset the flag
+      }
     }
-  }, [shouldNavigate, videoPath, navigation]);
+  }, [device1, navigation, shouldNavigate, videoPath]);
   const [torch, setTorch] = React.useState<'on' | 'off'>('off');
   const requestMicrophonePermission = useCallback(async () => {
     console.log('Requesting microphone permission...')
@@ -137,26 +145,16 @@ const CreateVideo = () => {
 
     setShouldNavigate(true);
   };
+  const onInitialized = useCallback(() => {
+    console.log('Camera initialized!')
+    setIsCameraInitialized(true)
+  }, [])
 
   const device = useCameraDevice(cameraPosition);
 
-  if (device == null)
-    return (
-      <>
-       
-        <SafeAreaView edges={['top']} style={globalStyles.screen}>
-          <TouchableOpacity
-            style={styles.skipContainer}
-            onPress={() => {
-              navigation.navigate('CreateVideo2', {
-                video: videoPath,
-              });
-            }}>
-            <Text style={styles.skipText}>Skip</Text>
-          </TouchableOpacity>
-        </SafeAreaView>
-      </>
-    );
+
+  if (device == null) return console.log("hdhsdasas")
+   
   return (
     <SafeAreaView edges={['top']} style={[globalStyles.screen, {}]}>
       {
@@ -176,8 +174,9 @@ const CreateVideo = () => {
             audio={true}
             device={device}
             isActive={true}
+            onInitialized={onInitialized}
             torch={torch}
-            onError={error => {}}
+            onError={(error) => console.log("Camera error:", error)}
           />
         )
         // <Text>dfnfkseah</Text>
@@ -194,12 +193,7 @@ const CreateVideo = () => {
           }}>
           <RenderSvgIcon icon="FLASH" />
         </Pressable>
-        <Pressable
-          onPress={() => {
-            navigation.navigate('CreateVideo2', {
-              video: videoPath,
-            });
-          }}>
+        <Pressable>
           <RenderSvgIcon icon="SETTING" />
         </Pressable>
       </View>
@@ -214,15 +208,13 @@ const CreateVideo = () => {
           }}>
           {isRecording ? (
             <PauseVideoIcon
-              onPress={() => {
-                isRecording ? stopRecording() : startRecording();
-              }}
+              // onPress={() => {
+              //   isRecording ? stopRecording() : startRecording();
+              // }}
             />
           ) : (
             <CreateVideoIcon
-              onPress={() => {
-                isRecording ? stopRecording() : startRecording();
-              }}
+             
             />
           )}
         </TouchableOpacity>

@@ -41,7 +41,13 @@ export const HEART = ({ color = color2 }: { color?: string }) => `
     <path d="M0.5 -2H24.5V22H0.5V-2Z" fill="${color}"/>
   </g>
 </svg>`;
-
+export const DisLike = ({ color = color2 }: { color?: string }) => `
+<svg xmlns="http://www.w3.org/2000/svg" width="25" height="22" viewBox="0 0 25 22" fill="none">
+<mask id="mask0_1025_712" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="22">
+  <path d="M8 2C4.9625 2 2.5 4.4625 2.5 7.5C2.5 13 9 18 12.5 19.163C16 18 22.5 13 22.5 7.5C22.5 4.4625 20.0375 2 17 2C15.14 2 13.495 2.9235 12.5 4.337C11.9928 3.6146 11.3191 3.02505 10.5358 2.61824C9.75245 2.21144 8.88265 1.99938 8 2Z" fill="#B9CDF4" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </mask>
+  
+</svg>`;
 export const REPOST = ({
   color = color3,
 }: {

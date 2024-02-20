@@ -148,6 +148,7 @@ interface appState {
     reach:any;
     impression:any
  }]
+ like: boolean;
 }
 
 export const initialState: appState = {
@@ -298,8 +299,8 @@ export const initialState: appState = {
     tags:null,
     reach:null,
     impression:null
- }]
-
+ }],
+ like: false,
 
 //   Search: [],
  

@@ -1,5 +1,5 @@
 import {View, Text, ImageBackground} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {styles} from './styles';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Header from './components/Header';
@@ -18,19 +18,36 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {globalStyles} from 'src/globalStyle';
 import {appColors, appSizes} from 'theme';
 import {PlayVideo, Trending} from 'assets/Svgs';
-import {useAppDispatch} from 'src/redux/store';
+import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AuthSlice, {selectUser} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
 import AppThunks from 'src/redux/app/thunks';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import Pending from './components/pending';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppSlice from 'src/redux/app';
+import AppSlice, { selectFollowingList } from 'src/redux/app';
 
 const Home = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
+  // const Following = AsyncStorage.getItem('FollowingList')
+  const [followingList, setFollowingList] = useState<any[]>([]);
+  const loadFollowingList = async () => {
+    try {
+      const followingListData = await AsyncStorage.getItem('FollowingList');
+      console.log(followingListData)
+      if (followingListData !== null) {
+        const parsedFollowingList = JSON.parse(followingListData);
+        console.log(parsedFollowingList)
+        setFollowingList(parsedFollowingList);
+      }
+    } catch (error) {
+      console.error('Error loading following list', error);
+      // Handle error here, such as showing an alert to the user
+    }
+  };
+  // console.log("585",ListFollowing)
   // console.log("HI",JSON.stringify(CurrentUserData))
   // const accessTocken=async()=>{
   //   const token: any = await AsyncStorage.getItem('USER_TOKEN');
@@ -44,10 +61,17 @@ const Home = () => {
     // accessTocken();
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
+      
       dispatch(AppSlice.changeDone(false));
     });
     return RenderFunction;
   }, [navigation]);
+  React.useEffect(() => {
+
+  
+      loadFollowingList();
+   
+  }, [followingList]);
   useEffect(() => {
     dispatch(AuthSlice.chnageVerified(false));
     dispatch(AuthSlice.chnageIsSignedUp(false));
@@ -99,9 +123,9 @@ const Home = () => {
                 onPress={() => {
                   navigation.navigate('Connections');
                 }}>
-                <User />
-                <User />
-                <User />
+                <User data={followingList[0]} />
+             <User data={followingList[0]}/>
+                <User data={followingList[0]}/>
                 <View style={{height: 8}} />
               </BoxContentTitle>
             ) : (
@@ -143,9 +167,9 @@ const Home = () => {
                 onPress={() => {
                   navigation.navigate('MyConnection');
                 }}>
-                <User />
-                <User />
-                <User />
+                <User data={followingList[0]} />  
+                <User data={followingList[1]}/>
+                <User data={followingList[2]}/>
               </BoxContentTitle>
             </View>
           )}

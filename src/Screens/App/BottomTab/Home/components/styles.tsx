@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         columnGap: 10
+        
     },
     rowContainer1: {
         flexDirection: "row",

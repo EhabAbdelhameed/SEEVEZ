@@ -7,13 +7,16 @@ import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import { appSizes } from '../../../../../theme/appSizes'
 import { AVATAR } from 'assets/Svgs'
 
-const User = () => {
+const User = (data:any) => {
+    console.log("1",data)
     return (
         <View style={[styles.rowContainer, {
             width: "100%",
             justifyContent: "flex-start",
-            marginBottom: 3
+            marginBottom: 3,
+            paddingVertical:3,
         }]}>
+            {data?.data?.avatarCustomUrl==null||!data?.data?.avatarCustomUrl?
           <View
               style={{
                 width: 38,
@@ -26,22 +29,27 @@ const User = () => {
                 backgroundColor: '#E8EFFC',
               }}>
               <AVATAR height={32} width={32} />
-            </View>
+            </View>:
+           <AvatarIcon
+            imgUrl={data?.data?.avatarCustomUrl}
+            style={{height: 38, width: 38}}
+          /> }
             <View style={styles.textSection2}>
                 <View style={styles.rowContainer}>
                     <Text style={[styles.text1, {
                         marginBottom: 0,
                         fontSize: appSizes.font_m - 3
-                    }]}>User</Text>
+                    }]}>{data?.data?.displayName==null?"User":data?.data?.displayName}</Text>
                     <RenderSvgIcon
                         icon='RIGHTACCOUNT'
                         width={13}
                     />
                 </View>
                 <View style={{ width: "90%" }}>
+                    {data?.data?.metadata?.job_title==null?null:
                     <Text style={[styles.text4]}
                         numberOfLines={2}
-                    >Software engineer at google</Text>
+                    >{data?.data?.metadata?.job_title}</Text>}
                 </View>
             </View>
         </View>

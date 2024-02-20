@@ -61,7 +61,8 @@ const JobType = () => api.get(`api/drop-down/job-type`)
 const EducationLevel = () => api.get(`api/drop-down/education-level`)
 const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?name=${data}`)
 
-
+const like = (data: any) => api.post(`api/add-reaction`, data);
+const disLike = (data: any) => api.post(`api/remove-reaction`, data);
 
 
 
@@ -120,7 +121,9 @@ const AppAPI = {
   followUser,
   unfollowUser,
   followingList,
-  followers
+  followers,
+  like,
+  disLike
 };
 
 export default AppAPI;

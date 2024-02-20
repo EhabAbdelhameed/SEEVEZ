@@ -72,6 +72,13 @@ const slice = createSlice({
     changePostsData: (state, action) => {
       state.postsData = action.payload;
     },
+    changeLike: (state, action) => {
+      state.like = action.payload;
+    },
+    changeFollowingList: (state, action) => {
+      state.FollowingList = action.payload;
+    },
+    
   },
   extraReducers(builder) {
     //doAddSkills  Your Skills has been added successfully.
@@ -743,8 +750,24 @@ const slice = createSlice({
       }
     });
     //doGetFollowingList
-    builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
+      builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
       state.FollowingList = action.payload.data?.users;
+      const saveFollowingListToStorage = async (followingList:any) => {
+        try {
+          // Convert the followingList object to a JSON string
+          const followingListJSON = JSON.stringify(followingList);
+          // Save the JSON string to AsyncStorage under the key 'FollowingList'
+          await AsyncStorage.setItem('FollowingList', followingListJSON);
+          console.log(followingListJSON);
+
+        } catch (error) {
+          console.error('Error saving FollowingList to AsyncStorage:', error);
+          // Handle error here, such as showing an alert to the user
+        }
+      };
+      
+      // Call this function whenever you want to save the state to AsyncStorage
+      saveFollowingListToStorage(action.payload.data?.users);
     });
 
     //doGetListUsers
@@ -1135,8 +1158,53 @@ const slice = createSlice({
         }
       },
     );
+    //doAddLike
+builder.addCase(thunks.doAddLike.fulfilled, (state, action) => {
+//  state.like=true
+  // Toast.show({
+  //   type: 'success',
+
+  //   text1: 'Your Reels added Successfully !',
+  // });
+});
+builder.addCase(thunks.doAddLike.rejected, (state, action: any) => {
+  if (action?.payload?.data?.message == 'Validation error.') {
+    Toast.show({
+      type: 'error',
+      text1: action?.payload?.data?.error,
+    });
+  } else {
+    Toast.show({
+      type: 'error',
+      text1: action?.payload?.data?.message,
+    });
+  }
+});
+    //doRemoveLike
+    builder.addCase(thunks.doRemoveLike.fulfilled, (state, action) => {
+      //  state.like=true
+        // Toast.show({
+        //   type: 'success',
+      
+        //   text1: 'Your Reels added Successfully !',
+        // });
+      });
+      builder.addCase(thunks.doRemoveLike.rejected, (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      });
   },
 });
+
 
 export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
 export const selectCompanies = (state: RootState) => state.app.CompaniesData;
@@ -1155,10 +1223,12 @@ export const selectPhotoData = (state: RootState) => state.app.photoData;
 export const selectSearchData = (state: RootState) =>
   state.app.searchPeopelData;
 
-export const selectFollowingList = (state: RootState) =>
-  state.app.FollowingList;
+export const selectFollowingList = (state: RootState) => state.app.FollowingList;
 export const selectListUsers = (state: RootState) => state.app.listUsers;
 export const selectPosts = (state: RootState) => state.app.postsData;
+export const selectLike = (state: RootState) => state.app.like;
+
+
 
 const AppSlice = {
   slice,
@@ -1183,5 +1253,7 @@ const AppSlice = {
   changePostsData: slice.actions.changePostsData,
   changeMarket:slice.actions.changeMarket,
   changeExterinalLinks:slice.actions.changeExterinalLinks,
+  changeLike:slice.actions.changeLike,
+  changeFollowingList:slice.actions.changeFollowingList
 };
 export default AppSlice;

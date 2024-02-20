@@ -16,6 +16,7 @@ import Toast from 'react-native-toast-message';
 import CustomInput from 'components/molecules/Input/CustomInput';
 import AppSlice from 'src/redux/app';
 import { useAppDispatch } from 'src/redux/store';
+import { appSizes } from 'theme';
 const data = [
   {label: '1 day', id: 1},
   {label: '3 days', id: 2},
@@ -120,13 +121,14 @@ const Form = () => {
                 onBlur={() => setDropdownOpen(false)}
               />
             </View>
-            <View style={{marginVertical: 10, marginBottom: 20}}>
+            {/* <View style={{marginVertical: 10, marginBottom: 20}}>
               <Text style={[styles.text1]}>
                 Lorem ipsum dolor sit amet consectetur. Ac orci congue a
                 sagittis nunc nibh. Vulputate id a posuere tortor tellus dis
                 vulputate auctor.
               </Text>
-            </View>
+            </View> */}
+            <View style={{height:appSizes.height*.05}} />
             <Button text="Done" onPress={props.handleSubmit} />
           </View>
         )}

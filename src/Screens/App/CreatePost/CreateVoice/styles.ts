@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
         color: appColors.white,
         fontSize: appSizes.font_l,
         fontWeight:"600",
+        marginRight:10
     },
     FooterContainer:{
         width: "100%",

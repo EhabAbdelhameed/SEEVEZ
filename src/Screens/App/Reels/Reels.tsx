@@ -329,7 +329,7 @@ const ReelsScreen = () => {
             </View>
           )}
 
-          <ContentVideo overlay={video.overlay} type={item?.type} />
+          <ContentVideo data={item} />
         </>
       </View>
     );
@@ -338,7 +338,7 @@ const ReelsScreen = () => {
   return (
     // <SafeAreaView style={globalStyles.screen} edges={['top']}>
     // <View style={globalStyles.screen}>
-    !postsData ? (
+    !postsData ||postsData[0]?.postId==null ? (
       <View
         style={{
           width: '100%',

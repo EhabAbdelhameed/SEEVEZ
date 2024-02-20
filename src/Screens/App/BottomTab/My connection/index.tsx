@@ -18,6 +18,7 @@ const MyConnection = (props: any) => {
     const ListUsers = useAppSelector(selectListUsers)
     const [load, setLoad] = React.useState(false)
     const ListFollowing = useAppSelector(selectFollowingList)
+  
     React.useEffect(() => {
         setLoad(true)
         dispatch(AppThunks.doGetFollowingList()).then(() =>setLoad(false))

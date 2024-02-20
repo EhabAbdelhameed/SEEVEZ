@@ -23,6 +23,7 @@ export const RenderSvgIcon = ({
       width={width}
       height={height}
       xml={svgmap[`${icon}`]({color: color})}
+      fill={color}
       style={{
         ...style,
       }}
