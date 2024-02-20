@@ -15,6 +15,7 @@ import {
   ImageBackground,
   useWindowDimensions,
   Linking,
+  ActivityIndicator,
 } from 'react-native';
 import {styles} from './styles';
 import {data, getTime} from './fucntions/helper';
@@ -49,8 +50,11 @@ const ReelsScreen = () => {
   // const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
+      setLoader(true)
       dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id)).then(
-        (res: any) => {},
+        (res: any) => {
+          setLoader(false)
+        },
       );
 
       dispatch(AppSlice.changeDone(false));
@@ -60,7 +64,7 @@ const ReelsScreen = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState<any>(0);
   const videoRef: any = useRef(null);
   const flatListRef: any = useRef(null);
-
+  const [loader, setLoader] = React.useState(false)
   const [loading, setLoading] = useState(true);
 
   const [video, setVideo] = React.useState({
@@ -338,6 +342,8 @@ const ReelsScreen = () => {
   return (
     // <SafeAreaView style={globalStyles.screen} edges={['top']}>
     // <View style={globalStyles.screen}>
+    loader ?
+    <ActivityIndicator size={50} style={{marginTop:300}}/>:
     !postsData ||postsData[0]?.postId==null ? (
       <View
         style={{

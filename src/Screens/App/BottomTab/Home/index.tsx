@@ -25,7 +25,7 @@ import AppThunks from 'src/redux/app/thunks';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import Pending from './components/pending';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppSlice, { selectFollowingList } from 'src/redux/app';
+import AppSlice, {selectFollowingList} from 'src/redux/app';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -36,10 +36,10 @@ const Home = () => {
   const loadFollowingList = async () => {
     try {
       const followingListData = await AsyncStorage.getItem('FollowingList');
-      console.log(followingListData)
+      console.log(followingListData);
       if (followingListData !== null) {
         const parsedFollowingList = JSON.parse(followingListData);
-        console.log(parsedFollowingList)
+
         setFollowingList(parsedFollowingList);
       }
     } catch (error) {
@@ -61,16 +61,13 @@ const Home = () => {
     // accessTocken();
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppThunks.GetProfileInfo());
-      
+      loadFollowingList();
       dispatch(AppSlice.changeDone(false));
     });
     return RenderFunction;
   }, [navigation]);
   React.useEffect(() => {
-
-  
-      loadFollowingList();
-   
+    loadFollowingList();
   }, [followingList]);
   useEffect(() => {
     dispatch(AuthSlice.chnageVerified(false));
@@ -124,8 +121,8 @@ const Home = () => {
                   navigation.navigate('Connections');
                 }}>
                 <User data={followingList[0]} />
-             <User data={followingList[0]}/>
-                <User data={followingList[0]}/>
+                <User data={followingList[0]} />
+                <User data={followingList[0]} />
                 <View style={{height: 8}} />
               </BoxContentTitle>
             ) : (
@@ -167,9 +164,9 @@ const Home = () => {
                 onPress={() => {
                   navigation.navigate('MyConnection');
                 }}>
-                <User data={followingList[0]} />  
-                <User data={followingList[1]}/>
-                <User data={followingList[2]}/>
+                <User data={followingList[0]} />
+                <User data={followingList[1]} />
+                <User data={followingList[2]} />
               </BoxContentTitle>
             </View>
           )}

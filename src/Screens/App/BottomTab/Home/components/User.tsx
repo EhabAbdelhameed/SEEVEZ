@@ -8,7 +8,7 @@ import { appSizes } from '../../../../../theme/appSizes'
 import { AVATAR } from 'assets/Svgs'
 
 const User = (data:any) => {
-    console.log("1",data)
+    // console.log("1",data)
     return (
         <View style={[styles.rowContainer, {
             width: "100%",
