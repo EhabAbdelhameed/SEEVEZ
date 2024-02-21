@@ -35,8 +35,8 @@ import { Modalize } from 'react-native-modalize';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
 import { useSelector } from 'react-redux';
-import { selectDone } from 'src/redux/app';
-import { selectUser } from 'src/redux/auth';
+import { selectAccessToken, selectDone } from 'src/redux/app';
+import AuthSlice, { selectUser } from 'src/redux/auth';
 import NewPicker from 'components/molecules/PhonePicker';
 import { Input } from 'react-native-elements';
 import { RenderSvgIcon } from 'components/atoms/svg';
@@ -73,7 +73,10 @@ const UpdateInfo = () => {
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
-
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const [disabilityData, setDisabilityData] = useState('');
   const [specialNeedsData, setSpecialNeedsData] = useState('');
 

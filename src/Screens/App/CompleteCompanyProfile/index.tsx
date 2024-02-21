@@ -12,8 +12,8 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
-import {selectUser} from 'src/redux/auth';
-import AppSlice from 'src/redux/app';
+import AuthSlice, {selectUser} from 'src/redux/auth';
+import AppSlice, { selectAccessToken } from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import RecordVideoCompany from './components/RecordVideo/RecordVideoCompany';
 import AboutCompanyCard from './components/About/About';
@@ -39,6 +39,10 @@ const CompleteCompanyProfileScreen = () => {
     });
     return RenderFunction;
   }, [navigation]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
 
   return (
     <SafeAreaView edges={['top']} style={styles.Container}>

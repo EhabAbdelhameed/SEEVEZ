@@ -25,10 +25,11 @@ import Video from 'react-native-fast-video';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
+import {selectAccessToken, selectDone} from 'src/redux/app';
 import RNFS from 'react-native-fs';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 const SaveVideo = () => {
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
@@ -40,6 +41,10 @@ const SaveVideo = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const changeDone = useSelector(selectDone);
   useEffect(() => {
     console.log('0000', videoPath);

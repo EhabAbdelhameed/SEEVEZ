@@ -32,6 +32,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 import {useSelector} from 'react-redux';
 import ReactNativeModal from 'react-native-modal';
 import {
+  selectAccessToken,
   selectCompanies,
   selectDone,
   selectIndstruy,
@@ -43,6 +44,7 @@ import {Input} from 'react-native-elements';
 import Pdf from 'react-native-pdf';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 const UpdateOneExperience = () => {
   const {data}: any = useRoute().params;
 
@@ -80,6 +82,10 @@ const UpdateOneExperience = () => {
   const [selectedCompanyNames, setSelectedCompanyNames] = useState<string[]>(
     [],
   );
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
 
   useEffect(() => {
     changeDone ? navigation.goBack() : null;

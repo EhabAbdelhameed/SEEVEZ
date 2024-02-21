@@ -27,10 +27,10 @@ import {appSizes} from 'theme/appSizes';
 import {globalStyles} from 'src/globalStyle';
 import {useAppDispatch} from 'src/redux/store';
 import {useNavigation} from '@react-navigation/native';
-import AppSlice, {selectPosts} from 'src/redux/app';
+import AppSlice, {selectAccessToken, selectPosts} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import {useSelector} from 'react-redux';
-import {selectUser} from 'src/redux/auth';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import Video from 'react-native-fast-video';
 import Swiper from 'react-native-swiper';
 import CVAddones from './components/CVAddones';
@@ -61,6 +61,10 @@ const ReelsScreen = () => {
     });
     return RenderFunction;
   }, [navigation]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const [currentVideoIndex, setCurrentVideoIndex] = useState<any>(0);
   const videoRef: any = useRef(null);
   const flatListRef: any = useRef(null);

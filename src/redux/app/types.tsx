@@ -149,6 +149,7 @@ interface appState {
     impression:any
  }]
  like: boolean;
+ AccessToken:boolean;
 }
 
 export const initialState: appState = {
@@ -301,6 +302,7 @@ export const initialState: appState = {
     impression:null
  }],
  like: false,
+ AccessToken:false,
 
 //   Search: [],
  

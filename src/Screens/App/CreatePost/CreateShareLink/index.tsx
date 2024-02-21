@@ -9,18 +9,25 @@ import Templetes from './components/Templetes';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useAppDispatch} from 'src/redux/store';
-import AppSlice, {selectDone} from 'src/redux/app';
+import AppSlice, {selectAccessToken, selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
+import AuthSlice from 'src/redux/auth';
 
 const CreateShareLink = () => {
   // const {audioData}: any = useRoute().params;
   // console.log("123,",audioData)
   const dispatch = useAppDispatch();
   const changeDone = useSelector(selectDone);
+ 
+
   const navigation = useNavigation();
   useEffect(() => {
     changeDone ? navigation.navigate('Reels') : null;
   }, [changeDone]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   return (
     <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
       <Header />

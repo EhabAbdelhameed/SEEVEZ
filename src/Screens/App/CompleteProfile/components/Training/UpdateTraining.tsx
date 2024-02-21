@@ -31,11 +31,12 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
+import {selectAccessToken, selectDone} from 'src/redux/app';
 import {Input} from 'react-native-elements';
 import { launchImageLibrary } from 'react-native-image-picker';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateTraining = () => {
@@ -82,6 +83,10 @@ const UpdateTraining = () => {
       }
     }
   };
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const pick = (props: any, index: any) => {
     launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
       setSource((prevSource) => {

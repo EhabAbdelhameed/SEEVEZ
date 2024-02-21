@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { styles } from './styles';
 import CommonStatusBar from '../../../../ui/StatusBar';
@@ -8,9 +8,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { globalStyles } from '../../../../globalStyle';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch, useAppSelector } from 'src/redux/store';
-import { selectFollowingList, selectListUsers } from 'src/redux/app';
+import { selectAccessToken, selectFollowingList, selectListUsers } from 'src/redux/app';
 import Header from 'components/molecules/Header';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import AuthSlice from 'src/redux/auth';
 
 const MyConnection = (props: any) => {
     const dispatch = useAppDispatch()
@@ -24,6 +26,10 @@ const MyConnection = (props: any) => {
         dispatch(AppThunks.doGetFollowingList()).then(() =>setLoad(false))
         dispatch(AppThunks.doGetListUsers())
     }, [])
+    const AccessToken = useSelector(selectAccessToken);
+    useEffect(() => {
+      AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+    }, [AccessToken]);
     return (
         <SafeAreaView edges={['top']} style={globalStyles.screen}>
             <View style={styles.screen}>

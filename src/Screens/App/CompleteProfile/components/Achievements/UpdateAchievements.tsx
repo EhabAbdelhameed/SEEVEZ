@@ -25,10 +25,11 @@ import {appSizes} from 'theme/appSizes';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
+import {selectAccessToken, selectDone} from 'src/redux/app';
 import {launchImageLibrary} from 'react-native-image-picker';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 
 const UpdateAchievements = () => {
   const [loading, setLoading] = React.useState(false);
@@ -46,6 +47,10 @@ const UpdateAchievements = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const openGallery = async (props: any, index: any) => {
     try {
       const result = await DocumentPicker.pick({

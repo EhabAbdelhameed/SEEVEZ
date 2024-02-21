@@ -25,10 +25,11 @@ import {
   import AppThunks from 'src/redux/app/thunks';
   import {useAppDispatch} from 'src/redux/store';
   import {useSelector} from 'react-redux';
-  import {selectDone} from 'src/redux/app';
+  import {selectAccessToken, selectDone} from 'src/redux/app';
   import NewPicker from 'components/molecules/PhonePicker';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
   
   const UpdateOneRefernceCheck = () => {
     // const navigation = useNavigation<any>();
@@ -67,6 +68,10 @@ import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHe
     const changeDone = useSelector(selectDone);
     const [phoneNumbers, setPhoneNumbers] = useState<any>([1]);
     // console.log(changeDone)
+    const AccessToken = useSelector(selectAccessToken);
+    useEffect(() => {
+      AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+    }, [AccessToken]);
     useEffect(() => {
       changeDone ? navigation.goBack() : null;
     }, [changeDone]);

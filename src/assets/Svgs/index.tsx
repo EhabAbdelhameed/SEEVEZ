@@ -48,6 +48,10 @@ import UploadYourCv from './UploadYourCv.svg';
 import POLL from './POLL.svg'
 import ExterinalLinks from './ExternalLinks.svg'
 import MARKET from './Market.svg'
+import WOW from './WOW.svg'
+import SAD from './Sad.svg'
+import LOVE from './Love.svg'
+import LikeHand from './LikeHand.svg'
 export {
     Right,
     WAVE,
@@ -95,5 +99,9 @@ export {
     CALANDER,
     PERSON,
     DropDownIcon,
-    MARKET
+    MARKET,
+    WOW,
+    SAD,
+    LOVE,
+    LikeHand
 }

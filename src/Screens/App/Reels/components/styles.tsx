@@ -224,6 +224,17 @@ export const styles = StyleSheet.create({
         fontSize: 12,
        
       },
+      modalContainer: {
+        // backgroundColor: 'white',
+    
+        marginHorizontal: 20,
+        position:'absolute',
+        bottom:280,
+        right:5,
+        width: '60%',
+        flexDirection:'row'
+        // marginTop: 'auto', // This will make the modal appear at the bottom
+      },
    
 
 })

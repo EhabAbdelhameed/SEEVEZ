@@ -33,6 +33,7 @@ import Header from './Header';
 import {useSelector} from 'react-redux';
 import ReactNativeModal from 'react-native-modal';
 import {
+  selectAccessToken,
   selectCompanies,
   selectDone,
   selectIndstruy,
@@ -43,6 +44,7 @@ import {isDate, values} from 'lodash';
 import {Input} from 'react-native-elements';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateExperience = () => {
@@ -77,6 +79,10 @@ const UpdateExperience = () => {
   const [selectedCompanyNames, setSelectedCompanyNames] = useState<string[]>(
     [],
   );
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
 
   // console.log(changeDone)
   useEffect(() => {

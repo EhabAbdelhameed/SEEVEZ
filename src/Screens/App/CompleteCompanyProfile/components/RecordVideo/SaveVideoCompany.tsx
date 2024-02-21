@@ -18,9 +18,10 @@ import Video from 'react-native-fast-video';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
 import { useSelector } from 'react-redux';
-import { selectDone } from 'src/redux/app';
+import { selectAccessToken, selectDone } from 'src/redux/app';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 
 const SaveVideoCompany = () => {
   const navigation = useNavigation();
@@ -34,10 +35,14 @@ const SaveVideoCompany = () => {
   }, []);
   const changeDone = useSelector(selectDone);
   useEffect(() => {
-    console.log('0000', videoPath);
-    // console.log(source[0]?.uri)
+    
+   
     changeDone?navigation.navigate('CompleteCompanyProfileScreen') : null;
   }, [changeDone]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const saveVideoFun = () => {
     if (key == 1) {
       setLoading(true);

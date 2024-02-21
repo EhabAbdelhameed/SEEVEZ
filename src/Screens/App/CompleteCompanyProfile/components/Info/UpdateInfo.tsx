@@ -37,9 +37,9 @@ import DocumentPicker from 'react-native-document-picker';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
+import {selectAccessToken, selectDone} from 'src/redux/app';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {selectUser} from 'src/redux/auth';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
@@ -84,6 +84,10 @@ const UpdateCompanyInfo = () => {
       }
     }
   };
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
 
   const pick = () => {
     launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {

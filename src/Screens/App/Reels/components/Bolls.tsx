@@ -47,10 +47,10 @@ const Boll = (data:any) => {
             </>
         )
     }
-    return (
-        <View style={styles.bollsContainer}>
+    return (   
+        <View style={[styles.bollsContainer,{width:'65%',left:-20}]}>
             <Text style={styles.text11}>{data?.data?.poll?.question}</Text>
-            <Text style={styles.text12}>Lorem ipsum dolor sit amet consectetur.</Text>
+            {/* <Text style={styles.text12}>Lorem ipsum dolor sit amet consectetur.</Text> */}
             {data?.data?.poll?.answers.map((Exp: any, index: any) => (
             <Item
                 pers={20}

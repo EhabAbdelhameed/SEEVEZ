@@ -1,5 +1,5 @@
 import { View, Text, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styles } from './styles'
 import Header from './components/Header'
 import Toast from 'react-native-toast-message';
@@ -11,8 +11,10 @@ import { source } from './components/cvSource';
 import CVRN from './components/CVSections';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from 'src/redux/store';
-import { selectUser } from 'src/redux/auth';
+import AuthSlice, { selectUser } from 'src/redux/auth';
 import AppThunks from 'src/redux/app/thunks';
+import { useSelector } from 'react-redux';
+import { selectAccessToken } from 'src/redux/app';
 
 const Cv = () => {
     const dispatch = useAppDispatch()
@@ -22,6 +24,10 @@ const Cv = () => {
     React.useEffect(() => {
         dispatch(AppThunks.GetProfileInfo())
     }, [])
+    const AccessToken = useSelector(selectAccessToken);
+    useEffect(() => {
+      AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+    }, [AccessToken]);
     const onGenerate = async () => {
         try {
             // const options = {

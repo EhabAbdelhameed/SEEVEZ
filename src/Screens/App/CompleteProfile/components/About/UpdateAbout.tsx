@@ -16,10 +16,10 @@ import {Formik} from 'formik';
 import { appSizes } from 'theme/appSizes';
 import { useAppDispatch } from 'src/redux/store';
 import { useSelector } from 'react-redux';
-import { selectDone } from 'src/redux/app';
+import { selectAccessToken, selectDone } from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { selectUser } from 'src/redux/auth';
+import AuthSlice, { selectUser } from 'src/redux/auth';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import CustomButton from 'components/molecules/Button/CustomButton';
@@ -44,6 +44,10 @@ const UpdateAbout = () => {
 
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />

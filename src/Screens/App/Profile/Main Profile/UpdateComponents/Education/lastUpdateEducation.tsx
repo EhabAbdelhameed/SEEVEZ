@@ -31,9 +31,9 @@ import DocumentPicker from 'react-native-document-picker';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
-import {selectDone, selectEducation} from 'src/redux/app';
+import {selectAccessToken, selectDone, selectEducation} from 'src/redux/app';
 import axios from 'axios';
-import {selectUser} from 'src/redux/auth';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import {Input} from 'react-native-elements';
 import {isDate} from 'lodash';
 import ReactNativeModal from 'react-native-modal';
@@ -57,7 +57,10 @@ const UpdateOneEducation = () => {
   const [loading, setLoading] = React.useState(false);
 
   const dispatch = useAppDispatch();
-
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const changeDone = useSelector(selectDone);
   // const UserData = useSelector(selectUser);
   const EducationLevelData = useSelector(selectEducation);

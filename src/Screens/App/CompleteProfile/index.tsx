@@ -19,8 +19,8 @@ import ReferenceCheckCard from './components/RefernceCheck/RefernceCheck';
 import AchievementsCard from './components/Achievements/Achievements';
 import { useAppDispatch } from 'src/redux/store';
 import { useSelector } from 'react-redux';
-import { selectUser } from 'src/redux/auth';
-import AppSlice from 'src/redux/app';
+import AuthSlice, { selectUser } from 'src/redux/auth';
+import AppSlice, { selectAccessToken } from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
@@ -52,6 +52,10 @@ const CompleteProfileScreen = () => {
     });
     return RenderFunction;
   }, [navigation]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   return (
     <SafeAreaView edges={['top']} style={styles.Container}>
       <Header Title="My profile" onPress={() => navigation.goBack()} />

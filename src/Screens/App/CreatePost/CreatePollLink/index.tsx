@@ -9,10 +9,12 @@ import Templetes from './components/Templetes'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
-import { selectDone, selectPhotoData } from 'src/redux/app'
+import { selectAccessToken, selectDone, selectPhotoData } from 'src/redux/app'
+import AuthSlice from 'src/redux/auth'
+import { useAppDispatch } from 'src/redux/store'
 
 const CreatePollLink = () => {
-    
+const dispatch=useAppDispatch()
   const changeDone = useSelector(selectDone);
   const navigation=useNavigation()
   // console.log(changeDone)
@@ -20,6 +22,10 @@ const CreatePollLink = () => {
 
     changeDone ? navigation.navigate('Reels') : null;
   }, [changeDone]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
     
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen]}>

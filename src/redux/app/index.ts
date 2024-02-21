@@ -78,6 +78,9 @@ const slice = createSlice({
     changeFollowingList: (state, action) => {
       state.FollowingList = action.payload;
     },
+    changeAccessToken: (state, action) => {
+      state.AccessToken = action.payload;
+    },
     
   },
   extraReducers(builder) {
@@ -101,6 +104,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUpdateSkills
@@ -123,6 +129,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doDeleteSkills
@@ -145,6 +154,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doDeleteVideoCV
@@ -167,6 +179,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUploadPhotoReel
@@ -201,6 +216,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
 
@@ -235,6 +253,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doAddIntersts
@@ -257,6 +278,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUpdateIntersts
@@ -279,6 +303,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doDeleteIntersts
@@ -301,6 +328,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
 
@@ -324,6 +354,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUpdateEducation
@@ -346,6 +379,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doDeleteEducation
@@ -368,6 +404,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
 
@@ -391,6 +430,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUpdateExperience
@@ -415,6 +457,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -440,6 +485,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -465,6 +513,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -493,6 +544,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -521,6 +575,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -547,6 +604,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -560,6 +620,7 @@ const slice = createSlice({
 
           text1: action?.payload?.message,
         });
+        
       },
     );
     builder.addCase(
@@ -575,6 +636,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -588,6 +652,9 @@ const slice = createSlice({
 
           text1: action?.payload?.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       },
     );
     builder.addCase(
@@ -603,6 +670,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -627,6 +697,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
 
@@ -638,7 +711,18 @@ const slice = createSlice({
       thunks.searchForTagPeopel.rejected,
       (state, action: any) => {
         if (action.payload.data.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.error,
+          });
         } else {
+          Toast.show({
+            type: 'error',
+            text1: action.payload.data.message,
+          });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -664,6 +748,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -689,6 +776,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -709,6 +799,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //GetMyReels
@@ -730,6 +823,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //GetOnePost
@@ -747,6 +843,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doGetFollowingList
@@ -794,6 +893,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUpdateLanguages
@@ -816,6 +918,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doDeleteLanguages
@@ -826,6 +931,9 @@ const slice = createSlice({
 
         text1: action?.payload?.message,
       });
+      if(action?.payload?.data?.message=='Access token is invalid.'){
+        state.AccessToken=true;
+       }
     });
     builder.addCase(thunks.doDeleteLanguages.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -838,6 +946,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
 
@@ -861,6 +972,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //GetIndustry
@@ -878,6 +992,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //GetAccessToken
@@ -896,6 +1013,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //GetYearsOfExperience
@@ -915,6 +1035,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -933,6 +1056,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //GetEducationLevel
@@ -951,6 +1077,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUploadCV
@@ -974,6 +1103,9 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doUploadVideoReel
@@ -1007,6 +1139,9 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //CreatePoll
@@ -1035,11 +1170,17 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
+        console.log("12",action?.payload?.data?.error)
       } else {
         Toast.show({
           type: 'error',
           text1: action?.payload?.data?.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+         state.AccessToken=true;
+        }
+        
+
       }
     });
     //doUploadVideoReelPoll
@@ -1063,6 +1204,9 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     //doGetLatestOrder
@@ -1086,6 +1230,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     // doAddCompanyInfo
@@ -1109,6 +1256,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     // doAddCompanyAbout
@@ -1131,6 +1281,9 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.message,
         });
+        if(action?.payload?.data?.message=='Access token is invalid.'){
+          state.AccessToken=true;
+         }
       }
     });
     // doAddUploadPortfolio
@@ -1155,6 +1308,9 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       },
     );
@@ -1178,6 +1334,9 @@ builder.addCase(thunks.doAddLike.rejected, (state, action: any) => {
       type: 'error',
       text1: action?.payload?.data?.message,
     });
+    if(action?.payload?.data?.message=='Access token is invalid.'){
+      state.AccessToken=true;
+     }
   }
 });
     //doRemoveLike
@@ -1200,6 +1359,9 @@ builder.addCase(thunks.doAddLike.rejected, (state, action: any) => {
             type: 'error',
             text1: action?.payload?.data?.message,
           });
+          if(action?.payload?.data?.message=='Access token is invalid.'){
+            state.AccessToken=true;
+           }
         }
       });
   },
@@ -1227,6 +1389,8 @@ export const selectFollowingList = (state: RootState) => state.app.FollowingList
 export const selectListUsers = (state: RootState) => state.app.listUsers;
 export const selectPosts = (state: RootState) => state.app.postsData;
 export const selectLike = (state: RootState) => state.app.like;
+export const selectAccessToken = (state: RootState) => state.app.AccessToken;
+
 
 
 
@@ -1254,6 +1418,7 @@ const AppSlice = {
   changeMarket:slice.actions.changeMarket,
   changeExterinalLinks:slice.actions.changeExterinalLinks,
   changeLike:slice.actions.changeLike,
-  changeFollowingList:slice.actions.changeFollowingList
+  changeFollowingList:slice.actions.changeFollowingList,
+  changeAccessToken:slice.actions.changeAccessToken,
 };
 export default AppSlice;

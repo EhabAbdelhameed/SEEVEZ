@@ -26,10 +26,11 @@ import DocumentPicker from 'react-native-document-picker';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
+import {selectAccessToken, selectDone} from 'src/redux/app';
 import NewPicker from 'components/molecules/PhonePicker';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 
 const UpdateRefernceCheck = () => {
   // const navigation = useNavigation<any>();
@@ -44,6 +45,10 @@ const UpdateRefernceCheck = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const [Source, setSource] = useState<any>([]);
   const [loading, setLoading] = React.useState(false);
   const [code, setCode] = React.useState('');

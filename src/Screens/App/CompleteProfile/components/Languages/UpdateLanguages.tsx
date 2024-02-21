@@ -24,9 +24,9 @@ import InputView from 'components/molecules/Input';
 import {appSizes} from 'theme/appSizes';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
-import {selectUser} from 'src/redux/auth';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
-import {selectDone} from 'src/redux/app';
+import {selectAccessToken, selectDone} from 'src/redux/app';
 import {Input} from 'react-native-elements';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
@@ -42,6 +42,10 @@ const UpdateLanguages = () => {
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   // console.log(CurrentUserData)
   const [loading, setLoading] = React.useState(false);
   const [rate, setRate] = React.useState(0);

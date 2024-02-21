@@ -22,9 +22,9 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import moment from 'moment';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import AppSlice, { selectDone } from 'src/redux/app';
+import AppSlice, { selectAccessToken, selectDone } from 'src/redux/app';
 import {useSelector} from 'react-redux';
-import {selectUser} from 'src/redux/auth';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import ReadMore from '@fawazahmed/react-native-read-more';
 
 const UpdateAchievementCard = () => {
@@ -54,6 +54,10 @@ const UpdateAchievementCard = () => {
     });
     return RenderFunction;
   }, [navigation]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   // console.log('FromUpdated ', data);
   const _handleNavigate = useCallback(() => {
     navigation.goBack();

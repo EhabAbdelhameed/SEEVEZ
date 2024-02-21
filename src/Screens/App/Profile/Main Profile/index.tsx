@@ -1,5 +1,5 @@
 import {ScrollView, View} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from 'components/molecules/Header';
 import {styles} from './styles';
@@ -15,9 +15,9 @@ import LanguagesCard from './components/Languages';
 import AchievementsCard from './components/Achievements';
 import RecommendationsCard from './components/Recommendations';
 import RecordVideoCard from './components/RecordVideo';
-import {selectUser} from 'src/redux/auth';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
-import AppSlice from 'src/redux/app';
+import AppSlice, { selectAccessToken } from 'src/redux/app';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import ReferenceCheck from './components/ReferenceCheck';
@@ -43,6 +43,10 @@ const ProfileScreen = () => {
     return RenderFunction;
   }, [navigation]);
   const CurrentUserData = useSelector(selectUser);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   // console.log("This Data From Hossam ",JSON.stringify(CurrentUserData))
   return (
     <SafeAreaView edges={['top']} style={styles.Container}>

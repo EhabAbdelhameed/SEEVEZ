@@ -16,10 +16,11 @@ import {appSizes} from 'theme/appSizes';
 import { useAppDispatch } from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import { useSelector } from 'react-redux';
-import { selectDone } from 'src/redux/app';
+import { selectAccessToken, selectDone } from 'src/redux/app';
 import { launchImageLibrary } from 'react-native-image-picker';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import AuthSlice from 'src/redux/auth';
 
 
 const UpdateOneAchievements = () => {
@@ -36,6 +37,10 @@ const UpdateOneAchievements = () => {
     changeDone?navigation.goBack():null
   }, [changeDone]);
   const navigation = useNavigation();
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);

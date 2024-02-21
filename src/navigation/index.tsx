@@ -49,7 +49,7 @@ const Navigation = () => {
         ) : (
           <>
             <Root.Screen name="app" component={AppDrawer} />
-            <Root.Screen name="CreateShareLink" component={CreateShareLink} />
+            
           </>
         )}
       </Root.Navigator>

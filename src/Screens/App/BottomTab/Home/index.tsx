@@ -31,12 +31,14 @@ const Home = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
+
+  // dispatch(AuthSlice.chnageisAuth(false))
   // const Following = AsyncStorage.getItem('FollowingList')
   const [followingList, setFollowingList] = useState<any[]>([]);
   const loadFollowingList = async () => {
     try {
       const followingListData = await AsyncStorage.getItem('FollowingList');
-      console.log(followingListData);
+     
       if (followingListData !== null) {
         const parsedFollowingList = JSON.parse(followingListData);
 
@@ -73,6 +75,7 @@ const Home = () => {
     dispatch(AuthSlice.chnageVerified(false));
     dispatch(AuthSlice.chnageIsSignedUp(false));
     dispatch(AuthSlice.chnageReseted(false));
+    dispatch(AppSlice.changeAccessToken(false))
   }, []);
   return (
     <SafeAreaView edges={['top']} style={globalStyles.screen}>
