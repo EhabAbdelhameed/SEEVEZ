@@ -31,17 +31,7 @@ const Content = () => {
             <Text>{searchPeople?.location}</Text>
           </View>}
       <ContainerRecord />
-      {searchPeople?.names==null||searchPeople?.names?.length==0?null:
-      <View style={styles.taggedPeopleContainer}>
-        <Text style={styles.taggedPeopleTitle}>Tagged People:</Text>
-        <View style={styles.taggedPeopleList}>
-          {searchPeople?.names.map((person: any, index: any) => (
-            <View key={index} style={styles.taggedPerson}>
-              <Text>{person}</Text>
-            </View>
-          ))}
-        </View>
-      </View>}
+   
       <AddCaption caption={caption} setCaption={setCaption} />
       <Option />
       <Footer caption={caption} />

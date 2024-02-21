@@ -1333,6 +1333,31 @@ const doRemoveLike: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//doVotePoll
+const doVotePoll: any = createAsyncThunk<any, any, any>(
+  'app/VotePoll',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.votePoll(data);
+      console.warn('mmm', response);
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 
 const AppThunks = {
   doAddSkills,
@@ -1387,7 +1412,8 @@ const AppThunks = {
   CreatePoll,
    GetOnePost,
    doAddLike,
-   doRemoveLike
+   doRemoveLike,
+   doVotePoll
 };
 
 export default AppThunks;

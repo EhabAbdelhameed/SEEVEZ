@@ -24,7 +24,7 @@ const CV = () => {
             fontFamily: 'Noto Sans',
             color: appColors.primary,
           }}>
-     {photoData?.pdf[0]?.name}
+     {`${photoData?.pdf[0]?.name?.slice(0,16)}${photoData?.pdf[0]?.name?.length>=16?'...':''}`}  
         </Text>
         <View
           style={{

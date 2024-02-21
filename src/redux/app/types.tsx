@@ -150,6 +150,33 @@ interface appState {
  }]
  like: boolean;
  AccessToken:boolean;
+ polls:[
+  {
+    pollId:any;
+    userId:any;
+    userInternalId:any;
+    userPublicId:any;
+    question:any;
+    answers:[
+       {
+          dataType:any;
+          data:any;
+          isVotedByUser:boolean;
+          voteCount:any;
+          id:any;
+       },
+      
+    ];
+    answerType:any;
+    closedAt:any;
+    createdAt:any;
+    updatedAt:any;
+    isVoted:boolean;
+    status:any;
+    closedIn:any;
+    isDeleted:boolean;
+  }
+ ]
 }
 
 export const initialState: appState = {
@@ -303,6 +330,33 @@ export const initialState: appState = {
  }],
  like: false,
  AccessToken:false,
+ polls:[
+  {
+    pollId:null,
+    userId:null,
+    userInternalId:null,
+    userPublicId:null,
+    question:null,
+    answers:[
+       {
+          dataType:null,
+          data:null,
+          isVotedByUser:false,
+          voteCount:null,
+          id:null,
+       },
+      
+    ],
+    answerType:null,
+    closedAt:null,
+    createdAt:null,
+    updatedAt:null,
+    isVoted:false,
+    status:null,
+    closedIn:null,
+    isDeleted:false,
+  }
+ ]
 
 //   Search: [],
  

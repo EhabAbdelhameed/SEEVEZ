@@ -1,24 +1,29 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import { styles } from './styles'
 import { RenderSvgIcon } from 'components/atoms/svg'
 import { useSelector } from 'react-redux'
 import { selectPhotoData } from 'src/redux/app'
 import { selectUser } from 'src/redux/auth'
+import AppThunks from 'src/redux/app/thunks'
+import { useAppDispatch } from 'src/redux/store'
 
 
 const Boll = (data:any) => {
-   console.log(data)
+     const dispatch=useAppDispatch()
     const CurrentUserData = useSelector(selectUser);
-    
-    const Item = ({ pers, name, color ,selected}: { pers: number; name: string; color: string; selected:boolean;}) => {
+    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(-1);
+    const Item = ({ pers, name, color ,index,selected}: { pers: number; name: string; color: string; index:number;selected:boolean}) => {
         return (
             <>
+             <TouchableOpacity onPress={() => handleAnswerSelection(index)}>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text13}>{name}</Text>
-                    <View style={styles.rowItemSlide}>
-                        <Text style={styles.text12}>{pers}%</Text>
-                        <View style={{ width: "78%" }}>
+                    <View style={[styles.rowItemSlide,{columnGap:5}]}>
+                     
+                        <Text style={[styles.text12,{width:'14%'}]}>{pers}%</Text>
+                       
+                        <View style={{ width: "72%" }}>
                             <View style={[styles.slider, {
                                 backgroundColor: color,
                                 opacity: .4
@@ -33,43 +38,47 @@ const Boll = (data:any) => {
                                 left: `${pers-9}%`,
                                 borderColor: color,
                                 backgroundColor: color,
+                                width:15,
+                                height:15,
+
                                 bottom: -5
                             }]} >  
                                 <RenderSvgIcon icon='RIGHTSLIDER' width={10} height={10} />
                             </View>
                         </View>
-                        <View style={styles.circle11}>
-
-                            {selected?<View style={styles.filledInnerCircle} />:null}
-                        </View>
+                        <View style={[styles.circle11, { marginLeft: 5 }]}>
+                                {selected  ? <View style={styles.filledInnerCircle} /> : null}
+                            </View>
                     </View>
                 </View>
+                </TouchableOpacity>
             </>
         )
     }
+    const handleAnswerSelection = (index: number) => {
+       
+        const formdata = new FormData();
+        formdata.append('pollId', data?.data?.pollId);
+   
+        formdata.append('answerIds',data?.data?.answers[index]?.id );
+        console.log("ids",formdata);
+        dispatch(AppThunks.doVotePoll(formdata)).then((response: any) => {
+          dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
+        });
+    }
     return (   
-        <View style={[styles.bollsContainer,{width:'65%',left:-20}]}>
-            <Text style={styles.text11}>{data?.data?.poll?.question}</Text>
+        <View style={[styles.bollsContainer,{width:'65%',left:-20,paddingHorizontal:10}]}>
+            <Text style={styles.text11}>{data?.data?.question}</Text>
             {/* <Text style={styles.text12}>Lorem ipsum dolor sit amet consectetur.</Text> */}
-            {data?.data?.poll?.answers.map((Exp: any, index: any) => (
+            {data?.data?.answers?.map((Exp: any, index: any) => (
             <Item
-                pers={20}
+                pers={Exp?.voteCount}
                 name={Exp?.data}
                 color={index==0?"rgba(0, 206, 200, 1)":index==1?'#1D5EDD':'#E8AB00'}
-                selected={index==0?true:false}
+                index={index}
+                selected={Exp?.isVotedByUser}
             />))}
-            {/* <Item 
-            pers={35}
-             name="Css"
-                color='#1D5EDD'
-                selected={false}
-
-            />
-            <Item pers={40} name="JS"
-                color="#E8AB00"
-                selected={false}
-
-            /> */}
+          
         </View>
     )
 }

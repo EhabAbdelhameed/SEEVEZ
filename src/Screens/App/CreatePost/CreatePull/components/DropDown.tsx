@@ -8,9 +8,9 @@ import { appColors } from 'theme';
 import { Dropdown } from 'react-native-element-dropdown';
 const data = [
     {label: '1 day', id: 1},
-    {label: '3 days', id: 2},
-    {label: '7 day', id: 3},
-    {label: '2 week', id: 4},
+    {label: '3 day', id: 2},   
+    {label: '7 days', id: 3},
+    {label: '2 weeks', id: 4},
   ];
 const DropDown = (props:any) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);

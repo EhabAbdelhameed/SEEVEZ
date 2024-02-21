@@ -27,7 +27,7 @@ import {appSizes} from 'theme/appSizes';
 import {globalStyles} from 'src/globalStyle';
 import {useAppDispatch} from 'src/redux/store';
 import {useNavigation} from '@react-navigation/native';
-import AppSlice, {selectAccessToken, selectPosts} from 'src/redux/app';
+import AppSlice, {selectAccessToken, selectPolls, selectPosts} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import {useSelector} from 'react-redux';
 import AuthSlice, {selectUser} from 'src/redux/auth';
@@ -43,6 +43,10 @@ const ReelsScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const postsData = useSelector(selectPosts);
+  const polls = useSelector(selectPolls);
+
+
+
   console.log('posts', JSON.stringify(postsData));
 
   const swiperRef = useRef(null);
@@ -169,37 +173,43 @@ const ReelsScreen = () => {
     );
   };
   const renderPoll = (item: any) => {
-    return item?.metadata?.color == '#0f0' ? (
-      <LinearGradient
-        start={{x: 0, y: 0}}
-        end={{x: 0, y: 1}}
-        colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
-        style={[
-          {
-            width: width,
-            height: height,
 
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-        ]}>
-         <Boll data={item?.metadata} />
-      </LinearGradient>
-    ) : (
-      <View
-      style={[
-        {
-          width: width,
-          height: height,
-          backgroundColor: item?.metadata?.color,
+    return polls?.map((attach: any)=>(
+      attach?.pollId==item?.metadata?.poll?
+      item?.metadata?.color == '#0f0' ? (
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 0, y: 1}}
+          colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
+          style={[
+            {
+              width: width,
+              height: height,
+  
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}>
+           <Boll data={attach} />
+        </LinearGradient>
+         ) : (
+          <View
+          style={[
+            {
+              width: width,
+              height: height,
+              backgroundColor: item?.metadata?.color,
+    
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}>
+            <Boll data={attach} />
+          </View>
+        ):null
 
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-      ]}>
-        <Boll data={item?.metadata} />
-      </View>
-    );
+    )) 
+   
   };
   const renderImage = (attach: any, item: any) => {
     return (

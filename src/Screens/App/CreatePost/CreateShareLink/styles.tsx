@@ -73,9 +73,9 @@ export const styles = StyleSheet.create({
         height: 70
     },
     temp: {
-        width: 70,
-        height: 70,
-        borderRadius: 40
+        width: 60,
+        height: 60,
+        borderRadius: 60
     },
     optionsContainer: {
         width: "100%",
@@ -166,7 +166,7 @@ export const styles = StyleSheet.create({
         // height: 200,
         // left: 0,
        
-        height:220,  
+        // height:220,  
         // bottom: 10,
         elevation: 4,
         borderRadius: 10,
@@ -202,34 +202,39 @@ export const styles = StyleSheet.create({
         shadowRadius: 4.65,
     },
     text11: {
-        fontSize: 18,
-        fontWeight: "600",
+        fontSize: 14,
+        fontWeight: "700",
         color: appColors.black,
+        fontFamily:'Noto Sans'
     },
     text12: {
-        fontSize: appSizes.m,
+        fontSize:10,
         fontWeight: "400",
         color: "#1C1C1C",
         marginVertical: 5,
+        fontFamily:'Noto Sans'
     },
     text13: {
-        fontSize: appSizes.m,
-        fontWeight: "500",
+        fontSize: 10,
+        fontWeight: "700",
         color: appColors.black,
+        fontFamily:'Noto Sans'
     },
     circle11: {
         borderColor: "rgba(29, 94, 221, 1)",
         backgroundColor: "rgba(232, 239, 252, 1)",
-        width: 20,
-        height: 20,
+        width: 16,
+        height: 16,
+        justifyContent:'center',
+        alignItems:'center',
         padding: 3,
         borderWidth: 1,
-        borderRadius: 10
+        borderRadius: 16
     },
     filledInnerCircle: {
         backgroundColor: "rgba(29, 94, 221, 1)",
-        width: "100%",
-        height: "100%",
+        width: 11,
+        height: 11,
         borderRadius: 10
     },
     rowItemSlide: {
@@ -253,7 +258,7 @@ export const styles = StyleSheet.create({
     },
     slider1: {
       width: "100%",
-      height: 8,
+      height: 4,
       borderRadius: 5,
       backgroundColor: "#a62",
       justifyContent: "center"

@@ -1,4 +1,4 @@
-import {View, Text, ImageBackground, Image} from 'react-native';
+import {View, Text, ImageBackground, Image, FlatList} from 'react-native';
 import React from 'react';
 import {styles} from '../styles';
 import Polls from 'screens/App/BottomTab/Home/components/Polls';
@@ -13,6 +13,7 @@ import Market from './Market';
 
 const ContainerRecord = () => {
   const photoData = useSelector(selectPhotoData);
+console.log(photoData?.names)
 
   return photoData.key == '3' ? (
     <View
@@ -20,7 +21,7 @@ const ContainerRecord = () => {
         styles.bgContainer,
         {
           width: 320,
-          height: 400,
+          height: 350,
           alignSelf: 'center',
           alignItems: 'center',
         },
@@ -51,6 +52,29 @@ const ContainerRecord = () => {
       {photoData?.market == null || photoData?.market?.length == 0 ? null : (
         <Market />
       )}
+     {photoData?.names == null ||
+      photoData?.names?.length == 0 ? null : (
+        <View style={styles.taggedPeopleContainer}>
+          <FlatList
+            scrollEnabled={false}
+            data={photoData?.names}
+            numColumns={2}
+            
+            renderItem={({item, index}) => (
+              <View key={index} style={styles.taggedPerson}>
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 8,
+                    fontWeight: '400',
+                  }}>{`@${item}`}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      )}
     </View>
   ) : photoData.key == '4' || photoData.key == '5' ? (
     <View
@@ -58,7 +82,7 @@ const ContainerRecord = () => {
         styles.bgContainer,
         {
           width: '100%',
-          height: 400,
+          height: 350,
           alignSelf: 'center',
           alignItems: 'center',
         },
@@ -75,7 +99,7 @@ const ContainerRecord = () => {
         }}
         style={{
           width: '100%',
-          height: 400,
+          height: 350,
           borderRadius: 16,
         }}
       />
@@ -86,6 +110,29 @@ const ContainerRecord = () => {
       )}
       {photoData?.market == null || photoData?.market?.length == 0 ? null : (
         <Market />
+      )}
+       {photoData?.names == null ||
+      photoData?.names?.length == 0 ? null : (
+        <View style={styles.taggedPeopleContainer}>
+          <FlatList
+            scrollEnabled={false}
+            data={photoData?.names}
+            numColumns={2}
+            
+            renderItem={({item, index}) => (
+              <View key={index} style={styles.taggedPerson}>
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 8,
+                    fontWeight: '400',
+                  }}>{`@${item}`}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
       )}
     </View>
   ) : (
@@ -100,7 +147,7 @@ const ContainerRecord = () => {
       }}
       style={[
         styles.bgContainer,
-        {width: 320, height: 400, alignSelf: 'center', alignItems: 'center'},
+        {width: 320, height: 350, alignSelf: 'center', alignItems: 'center'},
       ]}
       resizeMode="cover">
       {/*         
@@ -112,6 +159,29 @@ const ContainerRecord = () => {
       )}
       {photoData?.market == null || photoData?.market?.length == 0 ? null : (
         <Market />
+      )}
+        {photoData?.names == null ||
+      photoData?.names?.length == 0 ? null : (
+        <View style={styles.taggedPeopleContainer}>
+          <FlatList
+            scrollEnabled={false}
+            data={photoData?.names}
+            numColumns={2}
+            
+            renderItem={({item, index}) => (
+              <View key={index} style={styles.taggedPerson}>
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 8,
+                    fontWeight: '400',
+                  }}>{`@${item}`}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
       )}
     </ImageBackground>
   );

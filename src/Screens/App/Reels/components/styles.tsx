@@ -118,7 +118,7 @@ export const styles = StyleSheet.create({
         marginRight:20,
         // bottom: 200,
         elevation: 4,
-        borderRadius: 10,
+        borderRadius: 16,
         padding: 16,
         shadowColor: "#000",
         shadowOffset: {
@@ -130,34 +130,37 @@ export const styles = StyleSheet.create({
     },
     
     text11: {
-        fontSize: appSizes.x-1,
-        fontWeight: "600",
+        fontSize: 14,
+        fontWeight: "700",
         color: appColors.black,
     },
     text12: {
-        fontSize: appSizes.m,
+        fontSize: 10,
         fontWeight: "400",
         color: "#1C1C1C",
         marginVertical: 5,
+        // marginRight:6,
     },
     text13: {
-        fontSize: appSizes.m,
-        fontWeight: "500",
+        fontSize: 10,
+        fontWeight: "700",
         color: appColors.black,
     },
     circle11: {
         borderColor: "rgba(29, 94, 221, 1)",
         backgroundColor: "rgba(232, 239, 252, 1)",
-        width: 20,
-        height: 20,
+        width: 16,
+        height: 16,
+        justifyContent:'center',
+        alignItems:'center',
         padding: 3,
         borderWidth: 1,
-        borderRadius: 10
+        borderRadius: 16
     },
     filledInnerCircle: {
         backgroundColor: "rgba(29, 94, 221, 1)",
-        width: "100%",
-        height: "100%",
+        width: 11,
+        height: 11,
         borderRadius: 10
     },
     rowItemSlide: {
@@ -167,7 +170,7 @@ export const styles = StyleSheet.create({
     },
     slider: {
         width: "100%",
-        height: 8,
+        height: 4,
         borderRadius: 5,
         backgroundColor: "#a62",
         justifyContent: "center"

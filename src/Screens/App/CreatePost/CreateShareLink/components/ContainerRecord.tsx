@@ -65,7 +65,7 @@ const ContainerRecord = (key: any) => {
       style={[
         styles.bgContainer,
         {
-          height: audioData?.key == 6 ? 220 : 420,
+          height: audioData?.key == 6 ? 220 : 350,
           // backgroundColor: audioData?.image,
           justifyContent: 'center',
           alignItems: 'center',
@@ -78,7 +78,7 @@ const ContainerRecord = (key: any) => {
       style={[
         styles.bgContainer,
         {
-          height: audioData?.key == 6 ? 220 : 420,
+          height: audioData?.key == 6 ? 220 : 350,
           backgroundColor: audioData?.image == '#0f0'?null:audioData?.image,
           justifyContent: 'center',
           alignItems: 'center',

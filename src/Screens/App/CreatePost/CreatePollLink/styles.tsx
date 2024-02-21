@@ -148,7 +148,7 @@ export const styles = StyleSheet.create({
         // height: 200,
         // left: 0,
        
-        bottom: 40,
+        bottom: 20,
         elevation: 4,
         borderRadius: 16,
         padding: 16,
@@ -217,8 +217,12 @@ export const styles = StyleSheet.create({
         justifyContent: "center"
     },
     taggedPeopleContainer: {
-        marginTop: 20,
-        paddingHorizontal: 10,
+        // marginTop: 20,
+        // paddingHorizontal: 10,
+        position:'absolute',
+        left:10,
+        top:80,
+
       },
       removeTagButton: {
         marginLeft: 5,
@@ -229,7 +233,15 @@ export const styles = StyleSheet.create({
       taggedPerson: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent:'center',
         marginBottom: 10,
+        width:84,
+        paddingHorizontal:10,
+        paddingVertical:6,
+        backgroundColor:'#FFF',
+        marginRight:10,
+        borderRadius:16,
+        
       },
       taggedPeopleList: {
         marginTop: 10,

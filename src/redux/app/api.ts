@@ -63,6 +63,8 @@ const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?n
 
 const like = (data: any) => api.post(`api/add-reaction`, data);
 const disLike = (data: any) => api.post(`api/remove-reaction`, data);
+const votePoll = (data: any) => api.post(`api/vote-poll`, data);
+
 
 
 
@@ -123,7 +125,8 @@ const AppAPI = {
   followingList,
   followers,
   like,
-  disLike
+  disLike,
+  votePoll
 };
 
 export default AppAPI;
