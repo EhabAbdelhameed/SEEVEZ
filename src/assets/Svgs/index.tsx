@@ -52,6 +52,9 @@ import WOW from './WOW.svg'
 import SAD from './Sad.svg'
 import LOVE from './Love.svg'
 import LikeHand from './LikeHand.svg'
+import LOCATION from './Location.svg'
+import Time from './Time.svg'
+import ThreeDots from './ThreeDots.svg'
 export {
     Right,
     WAVE,
@@ -103,5 +106,8 @@ export {
     WOW,
     SAD,
     LOVE,
-    LikeHand
+    LikeHand,
+    LOCATION,
+    Time,
+    ThreeDots
 }

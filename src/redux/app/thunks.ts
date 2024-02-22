@@ -1264,7 +1264,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.profileInfo();
-      // alert(JSON.stringify(response?.data))
+      console.log(JSON.stringify(response?.data))
       if (
         response.status == null ||
         response.status == 401 ||

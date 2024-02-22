@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  FlatList,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from '../styles';
@@ -19,7 +20,7 @@ import Sound from 'react-native-sound';
 import {Slider} from 'react-native-elements';
 import {appColors} from 'theme';
 import Svg, {Path} from 'react-native-svg';
-import {AVATAR, PAUSE, VOICE, WAVE} from 'assets/Svgs';
+import {AVATAR, LOCATION, PAUSE, VOICE, WAVE} from 'assets/Svgs';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
@@ -72,6 +73,54 @@ const ContainerRecord = (key: any) => {
         },
       ]}>
       {audioData?.key == 6 ? <AudioComponent /> : <PollComponent />}
+      {audioData?.names == null || audioData?.names?.length == 0 ? null : (
+        <View style={styles.taggedPeopleContainer}>
+          <FlatList
+            scrollEnabled={false}
+            data={audioData?.names}
+            numColumns={2}
+            renderItem={({item, index}) => (
+              <View key={index} style={styles.taggedPerson}>
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 8,
+                    fontWeight: '400',
+                  }}>{`@${item}`}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      )}
+       {audioData?.location == null || audioData?.location == '' ? null : (
+        <View
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 10,
+            flexDirection: 'row',
+            columnGap: 10,
+            backgroundColor:'#FFF',
+            borderRadius:16,
+            width:180,
+            paddingHorizontal:10,
+            paddingVertical:6
+
+          }}>
+            <LOCATION/>
+          <Text
+            style={{
+              color: '#10347A',
+              fontFamily: 'Noto Sans',
+              fontSize: 12,
+              fontWeight: '400',
+            }}>
+            {audioData?.location}
+          </Text>
+        </View>
+      )}
     </LinearGradient>
   ) : (
     <View
@@ -85,6 +134,54 @@ const ContainerRecord = (key: any) => {
         },
       ]}>
       {audioData?.key == 6 ? <AudioComponent /> : <PollComponent />}
+      {audioData?.names == null || audioData?.names?.length == 0 ? null : (
+        <View style={styles.taggedPeopleContainer}>
+          <FlatList
+            scrollEnabled={false}
+            data={audioData?.names}
+            numColumns={2}
+            renderItem={({item, index}) => (
+              <View key={index} style={styles.taggedPerson}>
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 8,
+                    fontWeight: '400',
+                  }}>{`@${item}`}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      )}
+       {audioData?.location == null || audioData?.location == '' ? null : (
+        <View
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 10,
+            flexDirection: 'row',
+            columnGap: 10,
+            backgroundColor:'#FFF',
+            borderRadius:16,
+            width:180,
+            paddingHorizontal:10,
+            paddingVertical:6
+
+          }}>
+            <LOCATION/>
+          <Text
+            style={{
+              color: '#10347A',
+              fontFamily: 'Noto Sans',
+              fontSize: 12,
+              fontWeight: '400',
+            }}>
+            {audioData?.location}
+          </Text>
+        </View>
+      )}
     </View>
   ); //'#1D5EDD', '#00CEC8', '#EDBC33', '#ED3C3C'
 };

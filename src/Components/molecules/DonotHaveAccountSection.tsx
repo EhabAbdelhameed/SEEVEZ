@@ -1,29 +1,43 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 import { appSizes } from '../../theme/appSizes';
 import { appColors } from '../../theme/appColors';
+import { useTranslation } from 'react-i18next';
 import { RenderSvgIcon } from '../atoms/svg';
 import { useNavigation } from '@react-navigation/native';
 
 const DonotHaveAccountSection = ({ type = "Sign up", noLang = false }: { type?: "Sign up" | "Log in"; noLang?: boolean }) => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
   const _handleNavigation = () => {
     navigation.navigate(type == "Sign up" ? 'signup' : 'login')
   }
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const toggleLanguage = () => {
+    if(i18n.language==='en'){
+      i18n.changeLanguage('ar')
+    }else{
+      i18n.changeLanguage('en')
+
+    }
+  
+  };
   return (
     <View>
-      <View style={styles.signUpContainer}>
-        <Text style={styles.donot}>{type == "Log in" ? "Already have an account ?" : "Don‘t have an account ?"} </Text>
-        <Text style={styles.signUp}
-          onPress={_handleNavigation}
-        >{type}</Text>
-      </View>
-      {!noLang ? <><Text style={styles.language}>Change language</Text>
-        <View style={styles.languageContainer}>
-          <RenderSvgIcon icon="EGYPTFLAG" />
-          <Text style={styles.languageText}>العربية</Text>
-        </View></> : null}
+    <View style={styles.signUpContainer}>
+      <Text style={styles.donot}>{type == "Log in" ? t('alreadyHaveAccount') : t('dontHaveAccount')}</Text>
+      <Text style={styles.signUp} onPress={_handleNavigation}>{type}</Text>
     </View>
+    {!noLang ? (
+      <>
+        <TouchableOpacity onPress={toggleLanguage} style={styles.languageContainer}>
+          <RenderSvgIcon icon={"EGYPTFLAG"} />
+          <Text style={styles.languageText}>{currentLanguage === 'en' ? "العربية" : "English"}</Text> 
+        </TouchableOpacity>
+      </>
+    ) : null}
+  </View>
+
   );
 };
 

@@ -14,7 +14,8 @@ export const globalStyles=StyleSheet.create({
     leftHeaderContainer:{
         width:"50%",
         flexDirection:"row",
-        alignItems:"center",
+        marginTop:7,
+        // alignItems:"center",
         columnGap:10,
     },
     rightHeaderContainer:{

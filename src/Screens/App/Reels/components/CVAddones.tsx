@@ -12,7 +12,7 @@ const CVAddones = (data: any) => {
   return (
     <TouchableOpacity
       onPress={() => Linking.openURL(data?.data?.pdfData?.fileUrl)}
-      style={styles.CVContainer}>
+      style={[styles.CVContainer,{width:'65%',left:30}]}>
       <Text
         style={{
           fontSize: 14,

@@ -208,7 +208,7 @@ export const styles = StyleSheet.create({
         // justifyContent:'center',
         // alignItems:'center',
         // height: 200,
-        left: 10,
+        left: 20,
        
         bottom: 180,
         elevation: 4,

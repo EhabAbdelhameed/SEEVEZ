@@ -221,7 +221,7 @@ export const styles = StyleSheet.create({
         // paddingHorizontal: 10,
         position:'absolute',
         left:10,
-        top:80,
+        top:50,
 
       },
       removeTagButton: {

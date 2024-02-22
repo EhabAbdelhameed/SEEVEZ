@@ -47,7 +47,7 @@ const ReelsScreen = () => {
 
 
 
-  console.log('posts', JSON.stringify(postsData));
+  // console.log('posts', JSON.stringify(postsData));
 
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);

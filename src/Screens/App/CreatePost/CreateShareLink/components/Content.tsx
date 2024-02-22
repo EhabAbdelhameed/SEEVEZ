@@ -19,29 +19,10 @@ const Content = () => {
 
   return (
     <View style={styles.ContentCotainer}>
-        {searchPeople?.location==null||searchPeople?.location==''?null:
-        <View style={{position:'absolute',top:20,left:20,flexDirection:'row',columnGap:5}} >
-            <RenderSvgIcon
-              icon="LOCATION"
-              width={20}
-              height={20}
-              color={appColors.white}
-            />
-            <Text>{searchPeople?.location}</Text>
-          </View>}
+      
       <ContainerRecord data={key}    />
       <Templetes onPress={setKey} onPressImg={setImageURL} />
-      {searchPeople?.names==null||searchPeople?.names?.length==0?null:
-      <View style={styles.taggedPeopleContainer}>
-        <Text style={styles.taggedPeopleTitle}>Tagged People:</Text>
-        <View style={styles.taggedPeopleList}>
-          {searchPeople?.names.map((person: any, index: any) => (
-            <View key={index} style={styles.taggedPerson}>
-              <Text>{person}</Text>
-            </View>
-          ))}
-        </View>
-      </View>}
+   
       <AddCaption caption={caption} setCaption={setCaption}/>
       <Option onPress={setImageURL} imgUrl={imgUrl} />
       <Footer data={[key,imgUrl,caption]}  />

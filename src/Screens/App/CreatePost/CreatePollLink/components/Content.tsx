@@ -20,16 +20,7 @@ const Content = () => {
 
   return (
     <View style={styles.ContentCotainer}>
-      {searchPeople?.location==null||searchPeople?.location==''?null:
-        <View style={{position:'absolute',top:20,left:20,flexDirection:'row',columnGap:5}} >
-            <RenderSvgIcon
-              icon="LOCATION"
-              width={20}
-              height={20}
-              color={appColors.white}
-            />
-            <Text>{searchPeople?.location}</Text>
-          </View>}
+
       <ContainerRecord />
    
       <AddCaption caption={caption} setCaption={setCaption} />

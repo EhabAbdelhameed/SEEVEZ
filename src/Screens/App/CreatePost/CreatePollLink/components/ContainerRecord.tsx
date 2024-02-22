@@ -10,10 +10,13 @@ import Swiper from 'react-native-swiper';
 import Video from 'react-native-fast-video';
 import ExternalLinks from './ExternalLink';
 import Market from './Market';
+import {RenderSvgIcon} from 'components/atoms/svg';
+import {appColors} from 'theme';
+import { LOCATION } from 'assets/Svgs';
 
 const ContainerRecord = () => {
   const photoData = useSelector(selectPhotoData);
-console.log(photoData?.names)
+  console.log(photoData?.names);
 
   return photoData.key == '3' ? (
     <View
@@ -52,14 +55,12 @@ console.log(photoData?.names)
       {photoData?.market == null || photoData?.market?.length == 0 ? null : (
         <Market />
       )}
-     {photoData?.names == null ||
-      photoData?.names?.length == 0 ? null : (
+      {photoData?.names == null || photoData?.names?.length == 0 ? null : (
         <View style={styles.taggedPeopleContainer}>
           <FlatList
             scrollEnabled={false}
             data={photoData?.names}
             numColumns={2}
-            
             renderItem={({item, index}) => (
               <View key={index} style={styles.taggedPerson}>
                 <Text
@@ -73,6 +74,33 @@ console.log(photoData?.names)
             )}
             keyExtractor={(item, index) => index.toString()}
           />
+        </View>
+      )}
+       {photoData?.location == null || photoData?.location == '' ? null : (
+        <View
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 10,
+            flexDirection: 'row',
+            columnGap: 10,
+            backgroundColor:'#FFF',
+            borderRadius:16,
+            width:180,
+            paddingHorizontal:10,
+            paddingVertical:6
+
+          }}>
+            <LOCATION/>
+          <Text
+            style={{
+              color: '#10347A',
+              fontFamily: 'Noto Sans',
+              fontSize: 12,
+              fontWeight: '400',
+            }}>
+            {photoData?.location}
+          </Text>
         </View>
       )}
     </View>
@@ -111,14 +139,12 @@ console.log(photoData?.names)
       {photoData?.market == null || photoData?.market?.length == 0 ? null : (
         <Market />
       )}
-       {photoData?.names == null ||
-      photoData?.names?.length == 0 ? null : (
+      {photoData?.names == null || photoData?.names?.length == 0 ? null : (
         <View style={styles.taggedPeopleContainer}>
           <FlatList
             scrollEnabled={false}
             data={photoData?.names}
             numColumns={2}
-            
             renderItem={({item, index}) => (
               <View key={index} style={styles.taggedPerson}>
                 <Text
@@ -132,6 +158,33 @@ console.log(photoData?.names)
             )}
             keyExtractor={(item, index) => index.toString()}
           />
+        </View>
+      )}
+       {photoData?.location == null || photoData?.location == '' ? null : (
+        <View
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 10,
+            flexDirection: 'row',
+            columnGap: 10,
+            backgroundColor:'#FFF',
+            borderRadius:16,
+            width:180,
+            paddingHorizontal:10,
+            paddingVertical:6
+
+          }}>
+            <LOCATION/>
+          <Text
+            style={{
+              color: '#10347A',
+              fontFamily: 'Noto Sans',
+              fontSize: 12,
+              fontWeight: '400',
+            }}>
+            {photoData?.location}
+          </Text>
         </View>
       )}
     </View>
@@ -160,14 +213,12 @@ console.log(photoData?.names)
       {photoData?.market == null || photoData?.market?.length == 0 ? null : (
         <Market />
       )}
-        {photoData?.names == null ||
-      photoData?.names?.length == 0 ? null : (
+      {photoData?.names == null || photoData?.names?.length == 0 ? null : (
         <View style={styles.taggedPeopleContainer}>
           <FlatList
             scrollEnabled={false}
             data={photoData?.names}
             numColumns={2}
-            
             renderItem={({item, index}) => (
               <View key={index} style={styles.taggedPerson}>
                 <Text
@@ -181,6 +232,33 @@ console.log(photoData?.names)
             )}
             keyExtractor={(item, index) => index.toString()}
           />
+        </View>
+      )}
+      {photoData?.location == null || photoData?.location == '' ? null : (
+        <View
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 10,
+            flexDirection: 'row',
+            columnGap: 10,
+            backgroundColor:'#FFF',
+            borderRadius:16,
+            width:180,
+            paddingHorizontal:10,
+            paddingVertical:6
+
+          }}>
+            <LOCATION/>
+          <Text
+            style={{
+              color: '#10347A',
+              fontFamily: 'Noto Sans',
+              fontSize: 12,
+              fontWeight: '400',
+            }}>
+            {photoData?.location}
+          </Text>
         </View>
       )}
     </ImageBackground>

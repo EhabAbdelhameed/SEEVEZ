@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
@@ -26,6 +25,10 @@ const ContentVideo = (item: any) => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
   const [showReactionsModal, setShowReactionsModal] = useState(false);
+  console.log(CurrentUserData?.user_data?.reactions);
+  console.log(item?.data?.postId);
+  let count = 0;
+
   const Like = () => {
     const formdata = new FormData();
     formdata.append('referenceId', item?.data?.postId);
@@ -37,16 +40,17 @@ const ContentVideo = (item: any) => {
     });
   };
 
-  const disLike = () => {
+  const disLike = (data: any) => {
     const formdata = new FormData();
     formdata.append('referenceId', item?.data?.postId);
     formdata.append('referenceType', 'post');
-    formdata.append('reactionName', 'like');
+    formdata.append('reactionName', data);
     console.log(formdata);
     dispatch(AppThunks.doRemoveLike(formdata)).then((response: any) => {
       dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
     });
   };
+
   const toggleReactionsModal = () => {
     setShowReactionsModal(!showReactionsModal);
   };
@@ -71,21 +75,22 @@ const ContentVideo = (item: any) => {
   };
   const handleShare = async () => {
     //item?.data?.metadata?.attachments?.file?.fileUrl
-    console.log(item?.data?.metadata?.attachments[0]?.file?.fileUrl)
+    console.log(item?.data?.metadata?.attachments[0]?.file?.fileUrl);
     const shareOptions = {
-        title: 'Share file',
-        message: item?.data?.metadata?.attachments[0]?.file?.fileUrl+ '?size=full',
-        // url: 'https://google.com',
-      };
-  
-      try {
-        const ShareResponse = await Share.open(shareOptions);
-        console.log('Result =>', ShareResponse);
-        // setResult(JSON.stringify(ShareResponse, null, 2));
-      } catch (error) {
-        console.log('Error =>', error);
-        // setResult('error: '.concat(getErrorString(error)));
-      }
+      title: 'Share file',
+      message:
+        item?.data?.metadata?.attachments[0]?.file?.fileUrl + '?size=full',
+      // url: 'https://google.com',
+    };
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log('Result =>', ShareResponse);
+      // setResult(JSON.stringify(ShareResponse, null, 2));
+    } catch (error) {
+      console.log('Error =>', error);
+      // setResult('error: '.concat(getErrorString(error)));
+    }
   };
   // const hasNotch = DeviceInfo.hasNotch()
   return (
@@ -147,13 +152,54 @@ const ContentVideo = (item: any) => {
         </View>
         <View style={styles.rightFooter}>
           <View style={styles.containerIconText}>
-            {item?.data?.reactions?.like != 1 ? (
-              <TouchableOpacity
-                onLongPress={toggleReactionsModal}
-                onPress={disLike}>
-                <RenderSvgIcon icon="HEART" width={20} height={20} />
-              </TouchableOpacity>
-            ) : (
+            {CurrentUserData?.user_data?.reactions?.map(
+              (asst: any, index: any) => {
+                if (asst?.post_id === item?.data?.postId) {
+                  switch (asst?.react) {
+                    case 'like':
+                      return (
+                        <TouchableOpacity
+                          onPress={() => disLike('like')}
+                          key={index}>
+                          <LikeHand width={20} height={20} />
+                        </TouchableOpacity>
+                      );
+                    case 'love':
+                      return (
+                        <TouchableOpacity
+                          onPress={() => disLike('love')}
+                          key={index}>
+                          <LOVE width={20} height={20} />
+                        </TouchableOpacity>
+                      );
+                    case 'wow':
+                      return (
+                        <TouchableOpacity
+                          onPress={() => disLike('wow')}
+                          key={index}>
+                          <WOW width={20} height={20} />
+                        </TouchableOpacity>
+                      );
+                    case 'sad':
+                      return (
+                        <TouchableOpacity
+                          onPress={() => disLike('sad')}
+                          key={index}>
+                          <SAD width={20} height={20} />
+                        </TouchableOpacity>
+                      );
+                    default:
+                      return null; // No reaction found
+                  }
+                } else {
+                  return null; // Post not reacted, skip rendering reactions
+                }
+              },
+            )}
+            {/* Render the default reaction icon only if no reaction is found */}
+            {!CurrentUserData?.user_data?.reactions?.some(
+              (asst: any) => asst?.post_id === item?.data?.postId,
+            ) && (
               <TouchableOpacity
                 onLongPress={toggleReactionsModal}
                 onPress={Like}>

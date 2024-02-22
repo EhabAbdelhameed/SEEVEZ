@@ -47,6 +47,7 @@ interface userState {
       id: any;
       languages: any;
       nationality: any;
+      reactions:any;
       online_status: any;
       reference_check: any;
       background_check: any;
@@ -109,6 +110,7 @@ export const initialState: userState = {
       experiences: [],
       background_check: null,
       complete_progress: null,
+      reactions:[],
       id: null,
       languages: [],
       nationality: [],

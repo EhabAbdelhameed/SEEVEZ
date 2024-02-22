@@ -74,6 +74,7 @@ export type AppParamsList = {
     MyConnection:undefined;
     Market:undefined;
     ExterinalLinks:undefined;
+    MYPolls:undefined;
 }
 export type RootParamsList = {
     auth: any;

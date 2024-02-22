@@ -38,7 +38,7 @@ const Home = () => {
   const loadFollowingList = async () => {
     try {
       const followingListData = await AsyncStorage.getItem('FollowingList');
-     
+
       if (followingListData !== null) {
         const parsedFollowingList = JSON.parse(followingListData);
 
@@ -70,12 +70,38 @@ const Home = () => {
   }, [navigation]);
   React.useEffect(() => {
     loadFollowingList();
+    dispatch(
+      AppSlice.changePhotoData({
+        image: null,
+        addonesCaption: null,
+        location: null,
+        pdf: null,
+        tagPepoles: null,
+        key: null,
+        names: null,
+        market: null,
+        exterinalLinks: null,
+      }),
+    );
   }, [followingList]);
   useEffect(() => {
     dispatch(AuthSlice.chnageVerified(false));
     dispatch(AuthSlice.chnageIsSignedUp(false));
     dispatch(AuthSlice.chnageReseted(false));
-    dispatch(AppSlice.changeAccessToken(false))
+    dispatch(AppSlice.changeAccessToken(false));
+    dispatch(
+      AppSlice.changePhotoData({
+        image: null,
+        addonesCaption: null,
+        location: null,
+        pdf: null,
+        tagPepoles: null,
+        key: null,
+        names: null,
+        market: null,
+        exterinalLinks: null,
+      }),
+    );
   }, []);
   return (
     <SafeAreaView edges={['top']} style={globalStyles.screen}>
@@ -244,7 +270,9 @@ const Home = () => {
             </View>
           ) : null}
           <View style={styles.rowContainer}>
-            <BoxContentTitle title="My polls">
+            <BoxContentTitle title="My polls" onPress={() => {
+                  navigation.navigate('MYPolls');
+                }}>
               <Polls />
             </BoxContentTitle>
             <BoxContentTitle
