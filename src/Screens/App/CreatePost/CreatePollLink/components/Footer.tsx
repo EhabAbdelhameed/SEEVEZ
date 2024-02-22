@@ -181,7 +181,7 @@ const Footer = (data: any) => {
       }
       //  console.log(source) item?.node?.image?.uri
       formdata.append('files', {
-        uri: 'file://' + photoData?.image,
+        uri: photoData?.image,
         type: 'video/mp4',
         name: 'video.mp4',
       });

@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: appSizes.height,
     marginTop: -20,
+    backgroundColor:'#000'
   },
   recordButton: {
     position: 'absolute',

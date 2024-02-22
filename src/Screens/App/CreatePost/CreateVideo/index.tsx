@@ -26,7 +26,7 @@ import {CreateVideoIcon, ImagePicker, PauseVideoIcon} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 import {appColors} from 'theme';
 import { launchImageLibrary } from 'react-native-image-picker';
-
+import Imagepicker from 'react-native-image-crop-picker';
 const CreateVideo = () => {
   const navigation = useNavigation<any>();
   const [videoSource, setSourceVideo] = useState<any>([])
@@ -46,10 +46,7 @@ const CreateVideo = () => {
   const device1 = useCameraDevice(cameraPosition);
   const { hasPermission, requestPermission } = useCameraPermission()
   useEffect(() => {
-    if (device1 == null) {
-      console.log('Camera device not available yet');
-    } else {
-      console.log('Camera device fetched:');
+ 
       // Start recording if necessary
       if (shouldNavigate && videoPath) {
         navigation.navigate('CreateVideo2', {
@@ -58,8 +55,8 @@ const CreateVideo = () => {
         });
         setShouldNavigate(false); // Reset the flag
       }
-    }
-  }, [device1, navigation, shouldNavigate, videoPath]);
+  
+  }, [navigation, shouldNavigate, videoPath]);
   const [torch, setTorch] = React.useState<'on' | 'off'>('off');
   const requestMicrophonePermission = useCallback(async () => {
     console.log('Requesting microphone permission...')
@@ -72,52 +69,13 @@ const CreateVideo = () => {
 
   requestMicrophonePermission()
   const startRecording = async () => {
-    setVideoPath('');
-    const checkMicrophonePermission = async () => {
-      const microphonePermission = await request(PERMISSIONS.IOS.MICROPHONE);
-      const cameraPermission = await request(PERMISSIONS.IOS.CAMERA);
-      const cameraPermission1 = await request(PERMISSIONS.ANDROID.CAMERA);
-
-      const microphonePermission1 = await request(
-        PERMISSIONS.ANDROID.RECORD_AUDIO,
-      ); //
-
-      //
-      if (
-        cameraPermission === RESULTS.GRANTED  ||
-        (cameraPermission1 === 'granted' && microphonePermission1 === 'granted')
-      ) {
-        // Microphone permission granted, proceed with camera setup
-
-        setIsRecording(true);
-        cameraRef.current.startRecording({
-          quality: '720p',
-
-          // videoBitrate: 2000000,
-          maxDuration: 10, // Set the maximum duration in seconds (optional)
-          // maxFileSize: 100 * 1024 * 1024, // Set the maximum file size in bytes (optional)
-          onRecordingError: () => {
-            // alert("error")
-          },
-          // outputPath: videoPath,
-          onRecordingFinished: async (video: any) => {
-            let pathVideo = video?.path
-            setVideoPath(pathVideo);
-            // setPath(video?.path);
-
-
-            // console.log(video?.path)
-            // console.log("22222",pathVideo)
-
-          },
-        });
-      } else {
-        // Microphone permission denied, handle accordingly
-        console.warn('Microphone permission denied');
-        Alert.alert('Microphone permission denied');
-      }
-    };
-    checkMicrophonePermission();
+    Imagepicker.openCamera({
+      mediaType: 'video',
+    }).then(image => {
+      console.log(image);
+      setVideoPath(image?.path);
+      setShouldNavigate(true);
+    });
   };
 
   const pick = () => {
@@ -166,17 +124,9 @@ const CreateVideo = () => {
             style={styles.video}
           />
         ) : (
-          <Camera
+          <View
             style={styles.camera}
-            ref={cameraRef}
-            video={true}
-            // style={StyleSheet.absoluteFill}
-            audio={true}
-            device={device}
-            isActive={true}
-            onInitialized={onInitialized}
-            torch={torch}
-            onError={(error) => console.log("Camera error:", error)}
+       
           />
         )
         // <Text>dfnfkseah</Text>

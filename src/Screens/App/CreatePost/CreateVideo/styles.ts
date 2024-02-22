@@ -5,7 +5,8 @@ export const styles = StyleSheet.create({
     camera: {
         width: "100%",
         height: appSizes.height,
-        marginTop:-20
+        marginTop:-20,
+        backgroundColor:'#000'
     },
     recordButton: {
         position: 'absolute',

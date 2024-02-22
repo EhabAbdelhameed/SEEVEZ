@@ -5,6 +5,8 @@ import { appColors } from '../../theme/appColors';
 import { useTranslation } from 'react-i18next';
 import { RenderSvgIcon } from '../atoms/svg';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const DonotHaveAccountSection = ({ type = "Sign up", noLang = false }: { type?: "Sign up" | "Log in"; noLang?: boolean }) => {
   const navigation = useNavigation()
@@ -12,13 +14,18 @@ const DonotHaveAccountSection = ({ type = "Sign up", noLang = false }: { type?: 
   const _handleNavigation = () => {
     navigation.navigate(type == "Sign up" ? 'signup' : 'login')
   }
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
-  const toggleLanguage = () => {
-    if(i18n.language==='en'){
-      i18n.changeLanguage('ar')
-    }else{
-      i18n.changeLanguage('en')
 
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const STORE_LANGUAGE_KEY = "settings.lang";
+
+  const toggleLanguage = async() => {
+    try {
+      const newLanguage = currentLanguage === 'en' ? 'ar' : 'en';
+      await AsyncStorage.setItem(STORE_LANGUAGE_KEY, newLanguage);
+      setCurrentLanguage(newLanguage);
+      i18n.changeLanguage(newLanguage); // Optionally, you can update the language immediately in the app
+    } catch (error) {
+      console.error('Error setting language:', error);
     }
   
   };
@@ -26,9 +33,9 @@ const DonotHaveAccountSection = ({ type = "Sign up", noLang = false }: { type?: 
     <View>
     <View style={styles.signUpContainer}>
       <Text style={styles.donot}>{type == "Log in" ? t('alreadyHaveAccount') : t('dontHaveAccount')}</Text>
-      <Text style={styles.signUp} onPress={_handleNavigation}>{type}</Text>
+      <Text style={styles.signUp} onPress={_handleNavigation}>{t(type)}</Text>
     </View>
-    {!noLang ? (
+    {!noLang ? (  
       <>
         <TouchableOpacity onPress={toggleLanguage} style={styles.languageContainer}>
           <RenderSvgIcon icon={"EGYPTFLAG"} />

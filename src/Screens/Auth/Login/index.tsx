@@ -29,6 +29,7 @@ import {useLoadingSelector} from 'src/redux/selectors';
 import AuthSlice, {selectIsSignUpCompany, selectIsSignedUp, selectReseted, selectVerified} from 'src/redux/auth';
 import {LoginSchema} from 'src/Formik/schema';
 import CustomInput from 'components/molecules/Input/CustomInput';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
@@ -80,6 +81,12 @@ const Login = () => {
     DeviceVersion();
     DeviceModel();
   }, []);
+  const getLang= async()=>{
+    const lang= await AsyncStorage.getItem("settings.lang")
+    return lang
+  }
+  console.log(getLang())
+
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>

@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Share
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
@@ -19,14 +20,13 @@ import {AVATAR, LOVE, LikeHand, SAD, WOW} from 'assets/Svgs';
 import {appColors} from 'theme/appColors';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
-import Share from 'react-native-share';
+// import Share from 'react-native-share';
 const ContentVideo = (item: any) => {
   const navigation = useNavigation<any>();
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
   const [showReactionsModal, setShowReactionsModal] = useState(false);
-  console.log(CurrentUserData?.user_data?.reactions);
-  console.log(item?.data?.postId);
+
   let count = 0;
 
   const Like = () => {
@@ -73,25 +73,35 @@ const ContentVideo = (item: any) => {
     console.log('Repost icon pressed');
     // Dispatch an action, navigate to a screen, etc.
   };
-  const handleShare = async () => {
-    //item?.data?.metadata?.attachments?.file?.fileUrl
-    console.log(item?.data?.metadata?.attachments[0]?.file?.fileUrl);
-    const shareOptions = {
-      title: 'Share file',
-      message:
-        item?.data?.metadata?.attachments[0]?.file?.fileUrl + '?size=full',
-      // url: 'https://google.com',
-    };
-
-    try {
-      const ShareResponse = await Share.open(shareOptions);
-      console.log('Result =>', ShareResponse);
-      // setResult(JSON.stringify(ShareResponse, null, 2));
-    } catch (error) {
-      console.log('Error =>', error);
-      // setResult('error: '.concat(getErrorString(error)));
-    }
+  const shareReel = (reelId:any) => {
+    // Replace `reelLink` with the actual link to the reel
+    const reelLink = `app://seveezapp/${reelId}`;
+    Share.share({
+      message: `${reelLink}`,
+    })
+    .then(result => console.log(result))
+    .catch(errorMsg => console.error(errorMsg));
   };
+
+  // const handleShare = async () => {
+  //   //item?.data?.metadata?.attachments?.file?.fileUrl
+  //   // console.log(item?.data?.metadata?.attachments[0]?.file?.fileUrl);
+  //   const shareOptions = {
+  //     title: 'Share file',
+  //     message:
+  //       item?.data?.metadata?.attachments[0]?.file?.fileUrl + '?size=full',
+  //     // url: 'https://google.com',
+  //   };
+
+  //   try {
+  //     const ShareResponse = await Share.open(shareOptions);
+  //     console.log('Result =>', ShareResponse);
+  //     // setResult(JSON.stringify(ShareResponse, null, 2));
+  //   } catch (error) {
+  //     console.log('Error =>', error);
+  //     // setResult('error: '.concat(getErrorString(error)));
+  //   }
+  // };
   // const hasNotch = DeviceInfo.hasNotch()
   return (
     <View style={[styles.container]}>
@@ -220,7 +230,7 @@ const ContentVideo = (item: any) => {
             <Text style={styles.textIcon}>10k</Text>
           </View>
           <View style={styles.containerIconText}>
-            <TouchableOpacity onPress={handleShare}>
+            <TouchableOpacity onPress={()=>shareReel(item?.data?.postId)}>
               <RenderSvgIcon icon="SHARE" width={20} height={20} />
             </TouchableOpacity>
             <Text style={styles.textIcon}>10k</Text>

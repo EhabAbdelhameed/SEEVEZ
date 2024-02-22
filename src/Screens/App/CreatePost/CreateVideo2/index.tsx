@@ -37,7 +37,7 @@ const CreateVideo2 = () => {
       setLoading(true);
       const formdata = new FormData();
       formdata.append('files', {
-        uri: 'file://' + videoPath,
+        uri:  videoPath,
         type: 'video/mp4',
         name: 'video.mp4',
       });

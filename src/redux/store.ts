@@ -16,7 +16,7 @@ import { EntityKeys } from "./keys";
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: [EntityKeys.AUTH],
+  whitelist: [EntityKeys.AUTH,EntityKeys.LANG],
 }
 
 let persistedReducer = persistReducer(persistConfig, reducer)

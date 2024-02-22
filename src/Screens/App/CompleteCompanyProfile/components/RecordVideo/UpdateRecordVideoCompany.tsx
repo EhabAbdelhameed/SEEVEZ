@@ -27,7 +27,7 @@ import {
 import DocumentPicker from 'react-native-document-picker';
 import {appColors} from 'theme';
 import { launchImageLibrary } from 'react-native-image-picker';
-  
+import Imagepicker from 'react-native-image-crop-picker';
   const UpdateRecordVideoCompany = () => {
   
     const navigation = useNavigation<any>();
@@ -100,52 +100,13 @@ import { launchImageLibrary } from 'react-native-image-picker';
     }, [])
     requestMicrophonePermission()
     const startRecording = async () => {
-      setVideoPath('');
-      const checkMicrophonePermission = async () => {
-        const microphonePermission = await request(PERMISSIONS.IOS.MICROPHONE);
-        const cameraPermission = await request(PERMISSIONS.IOS.CAMERA);
-        const cameraPermission1 = await request(PERMISSIONS.ANDROID.CAMERA);
-  
-        const microphonePermission1 = await request(
-          PERMISSIONS.ANDROID.RECORD_AUDIO,
-        ); //
-  
-        //
-        if (
-          cameraPermission === RESULTS.GRANTED  ||
-          (cameraPermission1 === 'granted' && microphonePermission1 === 'granted')
-        ) {
-          // Microphone permission granted, proceed with camera setup
-  
-          setIsRecording(true);
-          cameraRef.current.startRecording({
-            quality: '720p',
-  
-            // videoBitrate: 2000000,
-            maxDuration: 10, // Set the maximum duration in seconds (optional)
-            // maxFileSize: 100 * 1024 * 1024, // Set the maximum file size in bytes (optional)
-            onRecordingError: () => {
-              // alert("error")
-            },
-            // outputPath: videoPath,
-            onRecordingFinished: async (video: any) => {
-              let pathVideo = video?.path
-              setVideoPath(pathVideo);
-              // setPath(video?.path);
-  
-  
-              // console.log(video?.path)
-              // console.log("22222",pathVideo)
-  
-            },
-          });
-        } else {
-          // Microphone permission denied, handle accordingly
-          console.warn('Microphone permission denied');
-          Alert.alert('Microphone permission denied');
-        }
-      };
-      checkMicrophonePermission();
+      Imagepicker.openCamera({
+        mediaType: 'video',
+      }).then(image => {
+        console.log(image);
+        setVideoPath(image?.path);
+        setShouldNavigate(true);
+      });
     };
   
   
@@ -201,17 +162,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
   
             />
           ) : (
-            <Camera
-              style={styles.camera}
-              ref={cameraRef}
-              video={true}
-              // style={StyleSheet.absoluteFill}
-              audio={true}
-              device={device}
-              isActive={true}
-              torch={torch}
-              onError={error => { }}
-            />
+            <View style={styles.camera} />
           )
           // <Text>dfnfkseah</Text>
         }

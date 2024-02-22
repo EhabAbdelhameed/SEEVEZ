@@ -16,6 +16,7 @@ import {
   useWindowDimensions,
   Linking,
   ActivityIndicator,
+  NativeModules,
 } from 'react-native';
 import {styles} from './styles';
 import {data, getTime} from './fucntions/helper';
@@ -51,6 +52,9 @@ const ReelsScreen = () => {
 
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  
+
   // const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {

@@ -7,9 +7,9 @@ import {
   Pressable,
   Linking,
 } from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { globalStyles } from 'src/globalStyle';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {globalStyles} from 'src/globalStyle';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   Camera,
   CameraProps,
@@ -18,25 +18,26 @@ import {
   useCameraDevice,
   useCameraPermission,
 } from 'react-native-vision-camera';
-import { styles } from './styles';
+import {styles} from './styles';
 import Video from 'react-native-fast-video';
-import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import { RenderSvgIcon } from 'components/atoms/svg';
-import { CreateVideoIcon, ImagePicker, PauseVideoIcon } from 'assets/Svgs';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {RenderSvgIcon} from 'components/atoms/svg';
+import {CreateVideoIcon, ImagePicker, PauseVideoIcon} from 'assets/Svgs';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import DocumentPicker from 'react-native-document-picker';
-import { appColors } from 'theme';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {appColors} from 'theme';
+import {launchImageLibrary} from 'react-native-image-picker';
+import Imagepicker from 'react-native-image-crop-picker';
 
 const UpdateRecordVideo = () => {
-  const { keys }: any = useRoute().params;
-  console.log("This KEYS",keys)
+  const {keys}: any = useRoute().params;
+  console.log('This KEYS', keys);
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
   const [isRecording, setIsRecording] = useState(false);
-  const [videoSource, setSourceVideo] = useState<any>([])
+  const [videoSource, setSourceVideo] = useState<any>([]);
   const [videoPath, setVideoPath] = useState('');
   const [path, setPath] = useState('');
 
@@ -58,13 +59,13 @@ const UpdateRecordVideo = () => {
       // dispatch(setImageURL(result[0].uri));
 
       setSourceVideo(result);
-      setVideoPath(result[0].uri)
+      setVideoPath(result[0].uri);
       setTimeout(() => {
-        navigation.navigate("SaveVideo", {
+        navigation.navigate('SaveVideo', {
           videoPath: result[0].uri,
           source: result,
-          key: 2
-        })
+          key: 2,
+        });
       }, 1000);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -76,85 +77,41 @@ const UpdateRecordVideo = () => {
   };
 
   const pick = () => {
-    launchImageLibrary({ quality: 0.5, mediaType: 'video' }).then((res: any) => {
+    launchImageLibrary({quality: 0.5, mediaType: 'video'}).then((res: any) => {
       setSourceVideo(res?.assets);
-      setVideoPath(res?.assets[0].uri)
+      setVideoPath(res?.assets[0].uri);
       setTimeout(() => {
-        navigation.navigate("SaveVideo", {
+        navigation.navigate('SaveVideo', {
           videoPath: res?.assets[0].uri,
           source: res,
-          key: keys == 5 ? 3 : 2
-        })
+          key: keys == 5 ? 3 : 2,
+        });
       }, 1000);
       // setSource(res)
       // console.log("sdasdas "+JSON.stringify(res?.assets[0].uri))
-    }
-
-    );
+    });
   };
   useEffect(() => {
     requestMicrophonePermission();
   }, []);
 
-
   const requestMicrophonePermission = useCallback(async () => {
-    console.log('Requesting microphone permission...')
-    const permission = await Camera.requestMicrophonePermission()
-    console.log(`Microphone permission status: ${permission}`)
+    console.log('Requesting microphone permission...');
+    const permission = await Camera.requestMicrophonePermission();
+    console.log(`Microphone permission status: ${permission}`);
 
-    if (permission === 'denied') await Linking.openSettings()
-
-  }, [])
+    if (permission === 'denied') await Linking.openSettings();
+  }, []);
 
   const startRecording = async () => {
-    setVideoPath('');
-    const checkMicrophonePermission = async () => {
-      const microphonePermission = await request(PERMISSIONS.IOS.MICROPHONE);
-      const cameraPermission = await request(PERMISSIONS.IOS.CAMERA);
-      const cameraPermission1 = await request(PERMISSIONS.ANDROID.CAMERA);
-
-      const microphonePermission1 = await request(
-        PERMISSIONS.ANDROID.RECORD_AUDIO,
-      ); //
-
-      //
-      if (
-        cameraPermission === RESULTS.GRANTED ||
-        (cameraPermission1 === 'granted' && microphonePermission1 === 'granted')
-      ) {
-        // Microphone permission granted, proceed with camera setup
-
-        setIsRecording(true);
-        cameraRef.current.startRecording({
-          quality: '720p',
-
-          // videoBitrate: 2000000,
-          maxDuration: 10, // Set the maximum duration in seconds (optional)
-          // maxFileSize: 100 * 1024 * 1024, // Set the maximum file size in bytes (optional)
-          onRecordingError: () => {
-            // alert("error")
-          },
-          // outputPath: videoPath,
-          onRecordingFinished: async (video: any) => {
-            let pathVideo = video?.path
-            setVideoPath(pathVideo);
-            // setPath(video?.path);
-
-
-            // console.log(video?.path)
-            // console.log("22222",pathVideo)
-
-          },
-        });
-      } else {
-        // Microphone permission denied, handle accordingly
-        console.warn('Microphone permission denied');
-        Alert.alert('Microphone permission denied');
-      }
-    };
-    checkMicrophonePermission();
+    Imagepicker.openCamera({
+      mediaType: 'video',
+    }).then(image => {
+      console.log(image);
+      setVideoPath(image?.path);
+      setShouldNavigate(true);
+    });
   };
-
 
   const stopRecording = async () => {
     setIsRecording(false);
@@ -162,7 +119,6 @@ const UpdateRecordVideo = () => {
     await cameraRef.current.stopRecording();
 
     setShouldNavigate(true);
-
   };
   useEffect(() => {
     if (shouldNavigate && videoPath) {
@@ -174,15 +130,11 @@ const UpdateRecordVideo = () => {
     }
   }, [shouldNavigate, videoPath, navigation]);
 
-
-
-
   const device = useCameraDevice(cameraPosition);
 
   if (device == null)
     return (
       <>
-
         <SafeAreaView edges={['top']} style={globalStyles.screen}>
           <TouchableOpacity
             style={styles.skipContainer}
@@ -203,22 +155,11 @@ const UpdateRecordVideo = () => {
           <Video
             resizeMode="cover"
             //   controls={true}
-            source={{ uri: videoPath }}
+            source={{uri: videoPath}}
             style={styles.video}
-
           />
         ) : (
-          <Camera
-            style={styles.camera}
-            ref={cameraRef}
-            video={true}
-            // style={StyleSheet.absoluteFill}
-            audio={true}
-            device={device}
-            isActive={true}
-            torch={torch}
-            onError={error => { }}
-          />
+          <View style={styles.camera} />
         )
         // <Text>dfnfkseah</Text>
       }

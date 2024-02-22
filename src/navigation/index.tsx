@@ -12,10 +12,12 @@ import {RootParamsList} from './types';
 import CreateShareLink from 'screens/App/CreatePost/CreateShareLink';
 import {useSelector} from 'react-redux';
 import AuthSlice, {selectIsAuth} from 'src/redux/auth';
-import {useAppDispatch} from 'src/redux/store';
+import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AppDrawer from './Drawer/Drawer';
 import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { selectLang } from 'src/redux/lang';
+import i18n from 'src/i18n/i18n';
 
 const Root = createNativeStackNavigator<RootParamsList>();
 
@@ -36,6 +38,19 @@ const Navigation = () => {
     // return () => clearInterval(interval);
   }, []);
   // console.log(isAuth)
+  const lang = useAppSelector(selectLang)
+
+    const AwaitFun = async () => {
+        await i18n.changeLanguage(i18n.language == undefined ? 'ar' : lang).then(() => {
+            setTimeout(() => {
+                setSplash(false)
+            }, 2500);
+        })
+    }
+
+    React.useEffect(() => {
+        AwaitFun()
+    }, [lang])
   return (
     <NavigationContainer>
       <Root.Navigator

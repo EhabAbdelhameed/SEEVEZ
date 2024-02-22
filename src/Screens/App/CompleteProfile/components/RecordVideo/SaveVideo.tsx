@@ -56,7 +56,7 @@ const SaveVideo = () => {
       setLoading(true);
       const formdata = new FormData();
       formdata.append('media', {
-        uri: 'file://' + videoPath,
+        uri: videoPath,
         type: 'video/mp4',
         name: 'video.mp4',
       });
