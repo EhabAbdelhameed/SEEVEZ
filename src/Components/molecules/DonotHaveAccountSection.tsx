@@ -14,9 +14,15 @@ const DonotHaveAccountSection = ({ type = "Sign up", noLang = false }: { type?: 
   const _handleNavigation = () => {
     navigation.navigate(type == "Sign up" ? 'signup' : 'login')
   }
+ 
 
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
   const STORE_LANGUAGE_KEY = "settings.lang";
+  const getLang=async()=>{
+    const storedLanguage = await AsyncStorage.getItem(STORE_LANGUAGE_KEY);
+    return storedLanguage
+  }
+
 
   const toggleLanguage = async() => {
     try {
@@ -31,9 +37,19 @@ const DonotHaveAccountSection = ({ type = "Sign up", noLang = false }: { type?: 
   };
   return (
     <View>
-    <View style={styles.signUpContainer}>
-      <Text style={styles.donot}>{type == "Log in" ? t('alreadyHaveAccount') : t('dontHaveAccount')}</Text>
+    <View style={[styles.signUpContainer]}>
+      {currentLanguage!=='en'?
+      <View style={{flexDirection:'row',columnGap:3}}>
       <Text style={styles.signUp} onPress={_handleNavigation}>{t(type)}</Text>
+      <Text style={styles.donot}>{type == "Log in" ? t('alreadyHaveAccount') : t('dontHaveAccount')}</Text>
+      </View>
+      :
+      <View style={{flexDirection:'row',columnGap:3}}>
+         <Text style={styles.donot}>{type == "Log in" ? t('alreadyHaveAccount') : t('dontHaveAccount')}</Text>
+      <Text style={styles.signUp} onPress={_handleNavigation}>{t(type)}</Text>
+     
+      </View>}
+
     </View>
     {!noLang ? (  
       <>
