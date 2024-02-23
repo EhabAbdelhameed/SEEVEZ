@@ -1,7 +1,7 @@
-import { View, Text, Button, ImageBackground, Alert } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { globalStyles } from 'src/globalStyle';
+import {View, Text, Button, ImageBackground, Alert} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {globalStyles} from 'src/globalStyle';
 import AudioRecorderPlayer, {
   AVEncoderAudioQualityIOSType,
   AVEncodingOption,
@@ -14,15 +14,15 @@ import type {
   PlayBackType,
   RecordBackType,
 } from 'react-native-audio-recorder-player';
-import Svg, { Path } from 'react-native-svg';
-import { styles } from './styles';
+import Svg, {Path} from 'react-native-svg';
+import {styles} from './styles';
 import Header from './components/Header';
 import Content from './components/Content';
 import Footer from './components/Footer';
 import Wave from './components/Wave';
-import { useNavigation } from '@react-navigation/native';
-import { appColors } from 'theme';
-import { useAppDispatch } from 'src/redux/store';
+import {useNavigation} from '@react-navigation/native';
+import {appColors} from 'theme';
+import {useAppDispatch} from 'src/redux/store';
 import AppSlice from 'src/redux/app';
 const audioRecorderPlayer = new AudioRecorderPlayer();
 const CreateVoice = () => {
@@ -42,7 +42,7 @@ const CreateVoice = () => {
 
   const dispatch = useAppDispatch();
   dispatch(AppSlice.changeKey("6"))
-  const audioRecorderPlayer = new AudioRecorderPlayer();
+
   useEffect(() => {
     let timerInterval: any;
 
@@ -70,82 +70,39 @@ const CreateVoice = () => {
     };
   }, []);
 
-  // const startRecording = async () => {
-  //   try {
-  //     setIsRecording(true);
-  //     await audioRecorderPlayer.startRecorder()
-  //   } catch (error) {
-  //     console.error('Error starting recording: ', error);
-  //   }
-  // };
-  const onStartRecord = async () => {
-    setIsRecording(true);
-    const result = await audioRecorderPlayer.startRecorder();
-    audioRecorderPlayer.addRecordBackListener((e) => {
-      console.warn(e)
-      // this.setState({
-      //   recordSecs: e.currentPosition,
-      //   recordTime: this.audioRecorderPlayer.mmssss(
-      //     Math.floor(e.currentPosition),
-      //   ),
-      // });
-      return;
-    });
-    // console.log(result);
-  };
-
-  const onStopRecord = async () => {
-    // setIsRecording(false);
-    const result = await audioRecorderPlayer.stopRecorder();
-    audioRecorderPlayer.removeRecordBackListener();
-    // this.setState({
-    //   recordSecs: 0,
-    // });
-    alert(result, 'aaa');
-  };
   const startRecording = async () => {
-    const path = 'audio.mp3';
     try {
-      await audioRecorderPlayer.startRecorder(path);
       setIsRecording(true);
-    } catch (err) {
-      console.error('Failed to start recording:', err);
+      await audioRecorderPlayer.startRecorder();
+    } catch (error) {
+      console.error('Error starting recording: ', error);
     }
   };
 
   const stopRecording = async () => {
+    // setWaveformPoints([])
     try {
       const result = await audioRecorderPlayer.stopRecorder();
-      console.log('Recording stopped, audio file saved at:', result);
       setIsRecording(false);
-    } catch (err) {
-      console.error('Failed to stop recording:', err);
+      setIsStoped(true);
+      // Ensure that the result is an array before setting it as audioData
+      const audioDataArray: any = Array.isArray(result)
+        ? result
+        : Array.from(result);
+      setAudioData(result);
+      setRecordData(result);
+      console.log('result', result);
+      console.log('record Data: : : ', recordData);
+
+      // Generate waveform points from the recorded audio data
+      // const waveformPoints = await generateWaveformPoints(audioDataArray);
+      // setWaveformPoints(waveformPoints);
+
+      console.log('Recording stopped. Audio data:', audioDataArray);
+    } catch (error) {
+      console.error('Error stopping recording: ', error);
     }
   };
-  // const stopRecording = async () => {
-  //   // setWaveformPoints([])
-  //   try {
-  //     const result = await audioRecorderPlayer.stopRecorder();
-  //     setIsRecording(false);
-  //     setIsStoped(true);
-  //     // Ensure that the result is an array before setting it as audioData
-  //     const audioDataArray: any = Array.isArray(result)
-  //       ? result
-  //       : Array.from(result);
-  //     setAudioData(result);
-  //     setRecordData(result);
-  //     console.log('result', result);
-  //     console.log('record Data: : : ', recordData);
-
-  //     // Generate waveform points from the recorded audio data
-  //     // const waveformPoints = await generateWaveformPoints(audioDataArray);
-  //     // setWaveformPoints(waveformPoints);
-
-  //     console.log('Recording stopped. Audio data:', audioDataArray);
-  //   } catch (error) {
-  //     console.error('Error stopping recording: ', error);
-  //   }
-  // };
 
   const resetTimer = () => {
     setMilliseconds(0);
@@ -189,7 +146,7 @@ const CreateVoice = () => {
     return audioData.map((char, index) => {
       const x = index * spacing;
       const y = char.charCodeAt(0) * scale + 50; // Convert char to ASCII value
-      return { x, y };
+      return {x, y};
     });
   };
   const _handleNavigation = useCallback(() => {
@@ -222,7 +179,7 @@ const CreateVoice = () => {
         />
         {isRecording ? (
           <>
-            <Text style={{ marginBottom: 10 }}>Recording...</Text>
+            <Text style={{marginBottom: 10}}>Recording...</Text>
           </>
         ) : (
           <>
