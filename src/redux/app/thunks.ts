@@ -1213,7 +1213,7 @@ const searchForTagPeopel: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.SearchToTagPeople(data);
-      console.log(response?.data);
+      console.log(JSON.stringify(response));
       if (
         response.status == null ||
         response.status == 401 ||

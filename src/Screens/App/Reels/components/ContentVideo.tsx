@@ -5,21 +5,22 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Share
+  Share,
+  Platform
 } from 'react-native';
-import React, {useState} from 'react';
-import {styles} from './styles';
-import {RenderSvgIcon} from '../../../../Components/atoms/svg';
+import React, { useState } from 'react';
+import { styles } from './styles';
+import { RenderSvgIcon } from '../../../../Components/atoms/svg';
 import Bolls from './Bolls';
 import TextLinks from './TextLinks';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-import {useSelector} from 'react-redux';
-import {selectUser} from 'src/redux/auth';
-import {AVATAR, LOVE, LikeHand, SAD, WOW} from 'assets/Svgs';
-import {appColors} from 'theme/appColors';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'src/redux/auth';
+import { AVATAR, LOVE, LikeHand, SAD, WOW } from 'assets/Svgs';
+import { appColors } from 'theme/appColors';
 import AppThunks from 'src/redux/app/thunks';
-import {useAppDispatch} from 'src/redux/store';
+import { useAppDispatch } from 'src/redux/store';
 // import Share from 'react-native-share';
 const ContentVideo = (item: any) => {
   const navigation = useNavigation<any>();
@@ -37,6 +38,7 @@ const ContentVideo = (item: any) => {
     console.log(formdata);
     dispatch(AppThunks.doAddLike(formdata)).then((response: any) => {
       dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
+      dispatch(AppThunks.GetProfileInfo());
     });
   };
 
@@ -45,9 +47,9 @@ const ContentVideo = (item: any) => {
     formdata.append('referenceId', item?.data?.postId);
     formdata.append('referenceType', 'post');
     formdata.append('reactionName', data);
-    console.log(formdata);
     dispatch(AppThunks.doRemoveLike(formdata)).then((response: any) => {
       dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
+      dispatch(AppThunks.GetProfileInfo());
     });
   };
 
@@ -65,6 +67,7 @@ const ContentVideo = (item: any) => {
     console.log(formdata);
     dispatch(AppThunks.doAddLike(formdata)).then((response: any) => {
       dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
+      dispatch(AppThunks.GetProfileInfo());
     });
     toggleReactionsModal();
   };
@@ -73,14 +76,14 @@ const ContentVideo = (item: any) => {
     console.log('Repost icon pressed');
     // Dispatch an action, navigate to a screen, etc.
   };
-  const shareReel = (reelId:any) => {
+  const shareReel = (reelId: any) => {
     // Replace `reelLink` with the actual link to the reel
     const reelLink = `app://seveezapp/${reelId}`;
     Share.share({
       message: `${reelLink}`,
     })
-    .then(result => console.log(result))
-    .catch(errorMsg => console.error(errorMsg));
+      .then(result => console.log(result))
+      .catch(errorMsg => console.error(errorMsg));
   };
 
   // const handleShare = async () => {
@@ -102,14 +105,14 @@ const ContentVideo = (item: any) => {
   //     // setResult('error: '.concat(getErrorString(error)));
   //   }
   // };
-  // const hasNotch = DeviceInfo.hasNotch()
+  const hasNotch = DeviceInfo.hasNotch()
   return (
     <View style={[styles.container]}>
-      <View style={styles.header}>
+      <View style={[styles.header, { marginTop: hasNotch ? 60 : 15 }]}>
         <TouchableOpacity
-          style={styles.leftHeader}
+          style={[styles.leftHeader,]}
           onPress={() => {
-            navigation.popToTop();
+            navigation.navigate('Home');
           }}>
           <RenderSvgIcon icon="ARROWBACK" width={25} height={25} />
           <Text style={styles.textLeftHeader}>My reels</Text>
@@ -138,8 +141,8 @@ const ContentVideo = (item: any) => {
               <AVATAR height={48} width={48} />
             ) : (
               <Image
-                source={{uri: CurrentUserData?.avatar}}
-                style={{width: 56, height: 56, borderRadius: 56}}
+                source={{ uri: CurrentUserData?.avatar }}
+                style={{ width: 56, height: 56, borderRadius: 56 }}
                 resizeMode="cover"
               />
             )}
@@ -210,12 +213,12 @@ const ContentVideo = (item: any) => {
             {!CurrentUserData?.user_data?.reactions?.some(
               (asst: any) => asst?.post_id === item?.data?.postId,
             ) && (
-              <TouchableOpacity
-                onLongPress={toggleReactionsModal}
-                onPress={Like}>
-                <RenderSvgIcon icon="DisLike" width={23} height={23} />
-              </TouchableOpacity>
-            )}
+                <TouchableOpacity
+                  onLongPress={toggleReactionsModal}
+                  onPress={Like}>
+                  <RenderSvgIcon icon="DisLike" width={23} height={23} />
+                </TouchableOpacity>
+              )}
 
             <Text style={styles.textIcon}>
               {item?.data?.reactionsCount >= 1000
@@ -230,7 +233,7 @@ const ContentVideo = (item: any) => {
             <Text style={styles.textIcon}>10k</Text>
           </View>
           <View style={styles.containerIconText}>
-            <TouchableOpacity onPress={()=>shareReel(item?.data?.postId)}>
+            <TouchableOpacity onPress={() => shareReel(item?.data?.postId)}>
               <RenderSvgIcon icon="SHARE" width={20} height={20} />
             </TouchableOpacity>
             <Text style={styles.textIcon}>10k</Text>

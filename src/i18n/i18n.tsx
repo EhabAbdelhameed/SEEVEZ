@@ -15,7 +15,7 @@ const languageDetectorPlugin = {
                 if (language) {
                     return callback(language);
                 } else {
-                    return callback("ar");
+                    return callback("en");
                 }
             });
         } catch (error) {
@@ -40,7 +40,7 @@ const resources = {
 i18n.use(initReactI18next).use(languageDetectorPlugin).init({
     resources,
     compatibilityJSON: 'v3',
-    fallbackLng: "ar",
+    fallbackLng: "en",
     interpolation: {
         escapeValue: false,
     },

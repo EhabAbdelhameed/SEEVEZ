@@ -41,7 +41,7 @@ const Complete = ({
             <View style={styles.rowContainer}>
                 <View style={styles.contentContainer}>
                     <Text style={styles.text1}>Complete your profile</Text>
-                    <Text style={styles.text2}>Lorem ipsum dolor sit amet consectetur.</Text>
+                    {/* <Text style={styles.text2}>Lorem ipsum dolor sit amet consectetur.</Text> */}
                 </View>
                 <View style={{ transform: [{ rotate: "180deg" }] }}>
                     <RenderSvgIcon

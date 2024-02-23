@@ -7,29 +7,31 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles';
-import {RenderSvgIcon} from '../../../Components/atoms/svg';
-import {Form, Formik} from 'formik';
-import {Input} from 'react-native-elements';
+import { RenderSvgIcon } from '../../../Components/atoms/svg';
+import { Form, Formik } from 'formik';
+import { Input } from 'react-native-elements';
 import InputView from '../../../Components/molecules/Input';
 import Button from '../../../Components/molecules/Button';
 import SocialCard from '../../../Components/molecules/SocialCard';
 import DonotHaveAccountSection from '../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../Components/molecules/AuthTopSection';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {BigLogo, LogoWithName} from 'assets/Svgs';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { BigLogo, LogoWithName } from 'assets/Svgs';
 import DeviceInfo from 'react-native-device-info';
-import {useAppDispatch} from 'src/redux/store';
+import { useAppDispatch } from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
-import {useSelector} from 'react-redux';
-import {useLoadingSelector} from 'src/redux/selectors';
-import AuthSlice, {selectIsSignUpCompany, selectIsSignedUp, selectReseted, selectVerified} from 'src/redux/auth';
-import {LoginSchema} from 'src/Formik/schema';
+import { useSelector } from 'react-redux';
+import { useLoadingSelector } from 'src/redux/selectors';
+import AuthSlice, { selectIsSignUpCompany, selectIsSignedUp, selectReseted, selectVerified } from 'src/redux/auth';
+import { LoginSchema } from 'src/Formik/schema';
 import CustomInput from 'components/molecules/Input/CustomInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppSlice from 'src/redux/app';
+import LangSlice, { selectLang } from 'src/redux/lang';
 const Login = () => {
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
@@ -41,12 +43,14 @@ const Login = () => {
   // const signUpCompany=useSelector(selectIsSignUpCompany)
   const dispatch = useAppDispatch();
   const Verified = useSelector(selectVerified);
+  const lang = useSelector(selectLang);
   const signedUp = useSelector(selectIsSignedUp);
   useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(LangSlice.chnageLang('en'));
       dispatch(AuthSlice.chnageReseted(false));
       dispatch(AuthSlice.chnageIsCompanyAdmin(false));
-
+      dispatch(AppSlice.changeAccessToken(false));
     });
     return RenderFunction;
   }, []);
@@ -81,21 +85,19 @@ const Login = () => {
     DeviceVersion();
     DeviceModel();
   }, []);
-  const getLang= async()=>{
-    const lang= await AsyncStorage.getItem("settings.lang")
-    return lang
-  }
-  console.log(getLang())
+  console.log(lang)
 
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,
+      // { direction: lang == 'en' ? 'ltr' : 'rtl' }
+    ]}>
       <KeyboardAwareScrollView>
         <View style={styles.container}>
           <View style={styles.logoContainer}>
             <Image
               source={require('../../../assets/images/seevezlogo.png')}
-              style={{width: 148, height: 40}}
+              style={{ width: 148, height: 40 }}
             />
           </View>
           <View style={styles.bottomSection}>
@@ -111,7 +113,7 @@ const Login = () => {
             />
             <Formik
               validationSchema={LoginSchema}
-              initialValues={{email: '', password: ''}}
+              initialValues={{ email: '', password: '' }}
               onSubmit={values => {
                 setLoading(true);
                 setEmail(values.email);
@@ -124,8 +126,8 @@ const Login = () => {
                 // formdata.append('device_version', deviceVersion);
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false);
-                  console.log("Verified ",Verified)
-                  if (!Verified&&signedUp) {
+                  console.log("Verified ", Verified)
+                  if (!Verified && signedUp) {
                     navigation.navigate('Verification', {
                       email: values.email,
                       type: 'register',
@@ -150,12 +152,12 @@ const Login = () => {
                     iconName={'EYE'}
                     secure={true}
                   /> */}
-                    <CustomInput
-                  {...props}
-                  Label={'password'}
-                  placeholder="Write your password"
-                  secureTextEntry={true}
-                />
+                  <CustomInput
+                    {...props}
+                    Label={'password'}
+                    placeholder="Write your password"
+                    secureTextEntry={true}
+                  />
                   <Text style={styles.forgotPassword} onPress={_handleNavigate}>
                     Forgot password ?
                   </Text>

@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
-import {Input} from 'react-native-elements';
-import {RenderSvgIcon, TName} from '../atoms/svg';
-import {FormikProps} from 'formik';
-import {Text, View, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { Input } from 'react-native-elements';
+import { RenderSvgIcon, TName } from '../atoms/svg';
+import { FormikProps } from 'formik';
+import { Text, View, TouchableOpacity } from 'react-native';
 import NewPicker from './PhonePicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useAppSelector } from 'src/redux/store';
+import { selectLang } from 'src/redux/lang';
 const InputView = ({
   name,
   placeholder,
@@ -26,22 +28,23 @@ const InputView = ({
   secure?: boolean;
   touched?: any;
   errors?: any;
-  value?:any;
-  setSearchQuery?:any;
-  setSelectedCompanyName?:any;
+  value?: any;
+  setSearchQuery?: any;
+  setSelectedCompanyName?: any;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const lang = useAppSelector(selectLang);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
- 
+
   return (
     <>
       <Input
-      keyboardType={name == 'phone'||name=='otp'?'number-pad':'default'}
+        keyboardType={name == 'phone' || name == 'otp' ? 'number-pad' : 'default'}
         placeholder={placeholder}
-        secureTextEntry={showPassword?!secure:secure}
+        secureTextEntry={showPassword ? !secure : secure}
         autoComplete="off"
         leftIcon={name == 'phone' ? <NewPicker props={props} /> : <View />}
         rightIcon={
@@ -56,12 +59,12 @@ const InputView = ({
                   // borderColor: 'black',
                   paddingVertical: 10,
                 }}>
-                  {showPassword?
-                <Icon
-                  name={'eye-slash'}
-                  size={15}
-                  color="#B9B9B9"
-                />:<RenderSvgIcon icon={iconName} width={16} height={16} />}
+                {showPassword ?
+                  <Icon
+                    name={'eye-slash'}
+                    size={15}
+                    color="#B9B9B9"
+                  /> : <RenderSvgIcon icon={iconName} width={16} height={16} />}
               </TouchableOpacity>
             ) : (
               <RenderSvgIcon icon={iconName} width={16} height={16} />
@@ -78,9 +81,9 @@ const InputView = ({
         }}
         inputContainerStyle={{
           borderRadius: 16,
-          borderColor:( errors[name]!=undefined&&touched[name]!=undefined ) ? 'red' : '#1D5EDD',
+          borderColor: (errors[name] != undefined && touched[name] != undefined) ? 'red' : '#1D5EDD',
           borderWidth: 1,
-          paddingHorizontal: 15,  
+          paddingHorizontal: 15,
 
           // paddingVertical: 4,
 
@@ -88,6 +91,7 @@ const InputView = ({
         }}
         inputStyle={{
           fontSize: 14,
+          textAlign: lang == 'ar' ? 'right' : 'left'
           //  color: 'red'
         }}
         placeholderTextColor={'#B9B9B9'}

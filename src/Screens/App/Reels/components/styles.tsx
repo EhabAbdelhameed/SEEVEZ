@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         // backgroundColor: "#489",
         flexDirection: "row",
         alignItems: "center",
-        marginTop:Platform.OS=='ios'? 30:15
+        // marginTop:Platform.OS=='ios'? 50:15
 
         // height:100,
     },
@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         // backgroundColor: "#5659",
         flexDirection: "row"
+        
     },
     rightHeader: {
         flex: 1,
