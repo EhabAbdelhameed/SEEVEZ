@@ -26,6 +26,8 @@ import {selectAccessToken, selectDone} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthSlice, {selectUser} from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateAboutCard = () => {
   // const navigation = useNavigation<any>();
@@ -47,6 +49,9 @@ const UpdateAboutCard = () => {
   useEffect(() => {
     AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
   }, [AccessToken]);
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -88,10 +93,10 @@ const UpdateAboutCard = () => {
             </View>
             <View style={[{alignItems: 'center'}]}>
               <Text style={[styles.loginText, {fontSize: 24}]}>
-                Complete profile
+                {t("completeProfile")}
               </Text>
               <Text style={[styles.loginTextSub, {fontSize: 13}]}>
-                Finish setting up your profile to get noticed by recruiters
+                {t("finishSettingsUpYourProfileToGetNoticedByRecruiters")}
               </Text>
             </View>
             <View>
@@ -111,7 +116,7 @@ const UpdateAboutCard = () => {
               marginLeft: 8,
               fontFamily: 'Noto Sans',
             }}>
-            About
+            {t("about")}
           </Text>
           <Formik
             initialValues={{About: CurrentUserData?.about || ''}}

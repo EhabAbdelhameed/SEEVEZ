@@ -24,6 +24,8 @@ import AppThunks from 'src/redux/app/thunks';
 import AppSlice, { selectDone } from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateSkillsCard = () => {
   const {title}: any = useRoute().params;
@@ -64,11 +66,13 @@ const UpdateSkillsCard = () => {
     navigation.goBack();
   }, []);
 
-
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const handleDeleteSkills = (RefernceCheckId: any) => {
     // Show confirmation dialog
     Alert.alert(
-      'Seevez',
+      t('seevez'),
       `Are you sure you want to delete this ${title}?`,
       [
         {

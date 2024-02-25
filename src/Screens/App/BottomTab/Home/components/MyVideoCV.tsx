@@ -14,6 +14,8 @@ import {selectUser} from 'src/redux/auth';
 import AppThunks from 'src/redux/app/thunks';
 import AppSlice from 'src/redux/app';
 import { useAppDispatch } from 'src/redux/store';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const MyVideoCV = () => {
   const _handleNavigate = useCallback(() => {
@@ -47,6 +49,9 @@ const MyVideoCV = () => {
       {cancelable: false},
     );
   };
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView
       edges={['top']}
@@ -54,6 +59,7 @@ const MyVideoCV = () => {
         globalStyles.screen,
         {
           backgroundColor: appColors.black,
+          direction: lang == 'en' ? 'ltr' : 'rtl'
         },
       ]}>
       {CurrentUserData?.user_data?.cv_media === null ? (
@@ -111,6 +117,7 @@ const MyVideoCV = () => {
               activeOpacity={0.8}>
               <RenderSvgIcon
                 icon="ARROWBACK"
+                style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
                 width={30}
                 height={30}
                 color={appColors.primary}
@@ -119,6 +126,7 @@ const MyVideoCV = () => {
             <TouchableOpacity  onPress={() => handleDeleteVideo(CurrentUserData?.user_data?.cv_media?.id)} 
               style={[
                 styles.secContainer,
+
                 {
                   backgroundColor: appColors.white,
                   width: 40,

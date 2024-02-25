@@ -37,6 +37,8 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateTraining = () => {
@@ -111,8 +113,11 @@ const UpdateTraining = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -181,7 +186,7 @@ const UpdateTraining = () => {
                         marginBottom: 10,
                         fontFamily: 'Noto Sans',
                       }}>
-                      {`Training courses`}
+                      {t('trainingCourses')}
                     </Text>
                     <Input
                       {...props}
@@ -208,9 +213,10 @@ const UpdateTraining = () => {
                       }}
                       inputStyle={{
                         fontSize: 14,
+                        textAlign:lang=='ar'?'right':'left'
                         //  color: 'red'
                       }}
-                      placeholder={`Institute`}
+                      placeholder={t('institute')}
                     />
                  
                     <View
@@ -251,9 +257,10 @@ const UpdateTraining = () => {
                         }}
                         inputStyle={{
                           fontSize: 14,
+                          textAlign:lang=='ar'?'right':'left'
                           //  color: 'red'
                         }}
-                        placeholder={`Field of study`}
+                        placeholder={t('fieldOfStudy')}
                       />
                       </View>
                       <View style={{width:'48%'}}>
@@ -285,9 +292,10 @@ const UpdateTraining = () => {
                         }}
                         inputStyle={{
                           fontSize: 14,
+                          textAlign:lang=='ar'?'right':'left'
                           //  color: 'red'
                         }}
-                        placeholder={`Grade`}
+                        placeholder={t('grade')}
                       />
                       </View>
                     </View>
@@ -309,7 +317,7 @@ const UpdateTraining = () => {
                             marginLeft: 10,
                             fontFamily: 'Noto Sans',
                           }}>
-                          Start date
+                          {t('startDate')}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -339,7 +347,7 @@ const UpdateTraining = () => {
                             marginLeft: 10,
                             fontFamily: 'Noto Sans',
                           }}>
-                          End date
+                         {t('endDate')}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -501,7 +509,7 @@ const UpdateTraining = () => {
                       <PHOTO style={{marginRight: 20}} />
                       <Text numberOfLines={1} style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
-                          ? 'Upload certificate image'
+                          ? t('uploadCertificateImage')
                           :  `${Source[index].slice(0,20)}...`}
                       </Text>
                     </TouchableOpacity>
@@ -539,13 +547,13 @@ const UpdateTraining = () => {
                         marginLeft: 15,
                         color: '#000',
                       }}>
-                      Add another course
+                      {t("addAnotherCourse")}
                     </Text>
                   </View>
                 </TouchableOpacity>
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

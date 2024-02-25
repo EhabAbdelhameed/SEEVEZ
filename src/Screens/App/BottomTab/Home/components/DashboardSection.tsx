@@ -11,10 +11,14 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'src/redux/store';
 import { selectUser } from 'src/redux/auth';
 import { withDecay } from 'react-native-reanimated';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const DashboardSection = () => {
     const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
+  const lang = useSelector(selectLang);
+   const {t, i18n} = useTranslation();
   return (
     <View style={styles.containerDashboard}>
       <View
@@ -49,7 +53,7 @@ const DashboardSection = () => {
                 marginBottom: 0,
               },   
             ]}>
-            Total engagement
+            {t("totalEngagement")}
           </Text>
         </View>
         <RenderSvgIcon icon="LAYER" />
@@ -73,7 +77,7 @@ const DashboardSection = () => {
             ]}>
             10%
           </Text>
-          <Text style={styles.text3}>Engagement rate</Text>
+          <Text style={styles.text3}>{t("Engagement rate")}</Text>
         </View>
         <View style={styles.textSection}>
           <Text
@@ -85,7 +89,7 @@ const DashboardSection = () => {
             ]}>
             100
           </Text>
-          <Text style={styles.text3}>Post counts</Text>
+          <Text style={styles.text3}>{t("Post counts")}</Text>
         </View>
         <View style={styles.textSection}>
           <LayerDashboard width={95} />
@@ -112,7 +116,7 @@ const DashboardSection = () => {
               ]}>
               100
             </Text>
-            <Text style={styles.text2}>Likes</Text>
+            <Text style={styles.text2}>{t("Likes")}</Text>
           </View>
         </View>
         <View style={styles.textIconSection}>
@@ -127,7 +131,7 @@ const DashboardSection = () => {
               ]}>
               250
             </Text>
-            <Text style={styles.text2}>Repost</Text>
+            <Text style={styles.text2}>{t("Repost")}</Text>
           </View>
         </View>
         <View style={styles.textIconSection}>
@@ -142,7 +146,7 @@ const DashboardSection = () => {
               ]}>
               10
             </Text>
-            <Text style={styles.text2}>Share</Text>
+            <Text style={styles.text2}>{t("Share")}</Text>
           </View>
         </View>
       </View>
@@ -167,7 +171,7 @@ const DashboardSection = () => {
               ]}>
               1200
             </Text>
-            <Text style={styles.text2}>Followers</Text>
+            <Text style={styles.text2}>{t("Followers")}</Text>
           </View>
           <View style={styles.dot} />
         </View>
@@ -182,7 +186,7 @@ const DashboardSection = () => {
               ]}>
               200
             </Text>
-            <Text style={styles.text2}>Jobs applied</Text>
+            <Text style={styles.text2}>{t("Jobs applied")}</Text>
           </View>
           <View
             style={[

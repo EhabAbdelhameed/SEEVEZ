@@ -17,13 +17,17 @@ import SocailBtn from './components/SocailBtn';
 import Button from '../../../Components/molecules/Button';
 import { BigLogo } from 'assets/Svgs';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAppSelector } from 'src/redux/store';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const SignupWithSocail = () => {
   const{work_type,title}:any=useRoute().params
-
+  const lang = useAppSelector(selectLang);
+  const {t, i18n} = useTranslation();
   const navigation = useNavigation<any>()
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
       <KeyboardAwareScrollView
         contentContainerStyle={{
           // alignItems: "center",
@@ -52,20 +56,20 @@ const SignupWithSocail = () => {
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
           <AuthTopSection
-            title="Sign up"
+            title={t("Sign up")} 
             subtitle=""
           />
-          <SocailBtn title="Facebook" icon='FACEBOOK' />
-          <SocailBtn title="Linkedin" icon='LINKEDIN' />
+          <SocailBtn title={t("Facebook")} icon='FACEBOOK' />
+          <SocailBtn title={t("Linkedin")} icon='LINKEDIN' />
 
-          <SocailBtn title="Google" icon='GOOGLE' />
-          <SocailBtn title="Apple" icon='APPLE' />
+          <SocailBtn title={t("Google")} icon='GOOGLE' />
+          <SocailBtn title={t("Apple")} icon='APPLE' />
           <View style={styles.orContainer}>
             <View style={styles.line}></View>
-            <Text style={styles.orText}>Or sign up by</Text>
+            <Text style={styles.orText}>{t("orSignUpBy")}</Text>
             <View style={styles.line}></View>
           </View>
-          <Button text="Continue with email" onPress={() => { navigation.navigate("signup2",{work_type:work_type,title:title}) }}
+          <Button text={t("continueWithEmail")} onPress={() => { navigation.navigate("signup2",{work_type:work_type,title:title}) }}
             style={styles.btn}
             textStyle={{
               color: appColors.primary

@@ -41,6 +41,8 @@ import ReactNativeModal from 'react-native-modal';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import CustomInput from 'components/molecules/Input/CustomInput';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -143,8 +145,11 @@ const UpdateEducation = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{}}
@@ -223,7 +228,7 @@ const UpdateEducation = () => {
                         marginLeft: 8,
                         marginBottom: 10,
                       }}>
-                      {`Education`}
+                      {t('education')}
                     </Text>
                     <Input
                       {...props}
@@ -250,9 +255,10 @@ const UpdateEducation = () => {
                       }}
                       inputStyle={{
                         fontSize: 14,
+                        textAlign:lang=='ar'?'right':'left'
                         //  color: 'red'
                       }}
-                      placeholder={`School / university name`}
+                      placeholder={t('schoolUniversityName')}
                     />
                     {/* <CustomInput
                       {...props}
@@ -272,7 +278,7 @@ const UpdateEducation = () => {
                       // maxHeight={300}
                       labelField="name"
                       valueField="id"
-                      placeholder="Education level"
+                      placeholder={t("Education level")}
                       searchPlaceholder="Search..."
                       value={value}
                       onChange={(item: any) => {
@@ -282,11 +288,20 @@ const UpdateEducation = () => {
                         );
                       }}
                       renderRightIcon={() => (
+                        lang=='en'?
                         <RenderSvgIcon
                           icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                           width={16}
                           height={16}
-                        />
+                        />:null
+                      )}
+                      renderLeftIcon={()=>(
+                        lang=='ar'?
+                        <RenderSvgIcon
+                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                        width={16}
+                        height={16}
+                      />:null
                       )}
                       onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen(false)}
@@ -330,9 +345,10 @@ const UpdateEducation = () => {
                           }}
                           inputStyle={{
                             fontSize: 14,
+                            textAlign:lang=='ar'?'right':'left'
                             //  color: 'red'
                           }}
-                          placeholder={`Field of study`}
+                          placeholder={t('fieldOfStudy')}
                         />
                       </View>
                       <View style={{width: '48%'}}>
@@ -363,9 +379,10 @@ const UpdateEducation = () => {
                           }}
                           inputStyle={{
                             fontSize: 14,
+                            textAlign:lang=='ar'?'right':'left'
                             //  color: 'red'
                           }}
-                          placeholder={`Grade`}
+                          placeholder={t('grade')}
                         />
                       </View>
                     </View>
@@ -388,7 +405,7 @@ const UpdateEducation = () => {
                             marginLeft: 10,
                             fontFamily: 'Noto Sans',
                           }}>
-                          Start date
+                         {t("startDate")}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -418,7 +435,7 @@ const UpdateEducation = () => {
                             marginBottom: 10,
                             marginLeft: 10,
                           }}>
-                          End date
+                         {t("endDate")}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -565,7 +582,7 @@ const UpdateEducation = () => {
                         numberOfLines={1}
                         style={{fontSize: 20, color: appColors.primary}}>
                         {Source[index] == null
-                          ? 'Upload degree certificate'
+                          ? t('uploadDegreeCertificate')
                           : `${Source[index].slice(0, 20)}...`}
                       </Text>
                     </TouchableOpacity>
@@ -603,13 +620,14 @@ const UpdateEducation = () => {
                         marginLeft: 15,
                         color: '#000',
                       }}>
-                      Add another school
+                        {t("addAnotherSchool")}
+                      
                     </Text>
                   </View>
                 </TouchableOpacity>
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

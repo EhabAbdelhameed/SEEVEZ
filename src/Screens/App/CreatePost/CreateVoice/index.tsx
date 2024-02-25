@@ -91,8 +91,8 @@ const CreateVoice = () => {
         : Array.from(result);
       setAudioData(result);
       setRecordData(result);
-      console.log('result', result);
-      console.log('record Data: : : ', recordData);
+      // console.log('result', result);
+      // console.log('record Data: : : ', recordData);
 
       // Generate waveform points from the recorded audio data
       // const waveformPoints = await generateWaveformPoints(audioDataArray);

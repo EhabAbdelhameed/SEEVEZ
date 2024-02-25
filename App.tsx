@@ -15,22 +15,22 @@ enableScreens()
 
 
 const App = () => {
-  // React.useEffect(() => {
-  //   Platform.OS == 'ios' ?
-  //     (
-  //       I18nManager.allowRTL(true),
-  //       I18nManager.forceRTL(true)
-  //     )
-  //     :
-  //     ((i18n.language === 'en') ? (
-  //       I18nManager.allowRTL(false),
-  //       I18nManager.forceRTL(false)
-  //     ) : (
-  //       I18nManager.allowRTL(true),
-  //       I18nManager.forceRTL(true)
-  //     ))
-  // }, [i18n.language])
-  // console.warn(I18nManager?.isRTL)
+  React.useEffect(() => {
+    Platform.OS == 'ios' ?
+      (
+        I18nManager.allowRTL(true),
+        I18nManager.forceRTL(true)
+      )
+      :
+      ((i18n.language === 'en') ? (
+        I18nManager.allowRTL(false),
+        I18nManager.forceRTL(false)
+      ) : (
+        I18nManager.allowRTL(true),
+        I18nManager.forceRTL(true)
+      ))
+  }, [i18n.language])
+  console.warn(I18nManager?.isRTL)
   return (
     <Provider store={Store().store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -48,4 +48,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App

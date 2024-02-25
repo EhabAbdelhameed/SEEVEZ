@@ -30,6 +30,8 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateAchievements = () => {
   const [loading, setLoading] = React.useState(false);
@@ -83,6 +85,9 @@ const UpdateAchievements = () => {
       // console.log("sdasdas "+JSON.stringify(res))
     });
   };
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
@@ -106,7 +111,7 @@ const UpdateAchievements = () => {
               marginLeft: 8,
               fontFamily: 'Noto Sans',
             }}>
-            Achievements
+           {t('achievements')} 
           </Text>
           <Formik
             initialValues={{
@@ -147,8 +152,8 @@ const UpdateAchievements = () => {
                     <TextInput
                       multiline
                       numberOfLines={10} // Set the number of lines you want to display
-                      style={styles.textArea} // Define your own styles for the text area
-                      placeholder="Write here.."
+                      style={[styles.textArea,{textAlign:lang=='ar'?'right':'left'}]} // Define your own styles for the text area
+                      placeholder={t("writeHere")}
                       placeholderTextColor={'#B9B9B9'}
                       onChangeText={e =>
                         props?.setFieldValue(
@@ -160,7 +165,7 @@ const UpdateAchievements = () => {
                       value={props.values.achievement}
                       textAlignVertical="top"
                     />
-                    <Text style={{marginBottom: 10}}>1500 characters</Text>
+                    <Text style={{marginBottom: 10}}>{t("1500 characters")}</Text>
                     <TouchableOpacity
                       onPress={() => openGallery(props, index)}
                       style={styles.uploadContainer}>
@@ -172,7 +177,7 @@ const UpdateAchievements = () => {
                           fontFamily: 'Noto Sans',
                         }}>
                              {Source[index] == null
-                          ? 'Upload certificate image'
+                          ? t('uploadCertificateImage')
                           :  `${Source[index].slice(0,20)}...`}
                    
                       </Text>
@@ -211,14 +216,14 @@ const UpdateAchievements = () => {
                         marginLeft: 15,
                         color: '#000',
                       }}>
-                      Add another achievement
+                      {t("Add another achievement")}
                     </Text>
                   </View>
                 </TouchableOpacity>
                 {/* <View style={{height:appSizes.height * 0.06}}/> */}
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

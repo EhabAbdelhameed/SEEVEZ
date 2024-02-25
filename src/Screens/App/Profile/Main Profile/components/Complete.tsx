@@ -4,12 +4,18 @@ import { appColors } from '../../../../../theme/appColors'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
 import ProgressBar from '../../../../../Components/molecules/Progress'
 import { appSizes } from 'theme/appSizes'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { selectLang } from 'src/redux/lang'
 
 const Complete = ({
     pers = 0
 }: {
     pers: number;
 }) => {
+    const lang = useSelector(selectLang);
+  
+    const {t, i18n} = useTranslation();
     const Slider = () => {
         return (
             <View style={styles.rowItemSlide}>
@@ -40,10 +46,10 @@ const Complete = ({
         <View style={styles.containerCompleteProfile}>
             <View style={styles.rowContainer}>
                 <View style={styles.contentContainer}>
-                    <Text style={styles.text1}>Complete your profile</Text>
+                    <Text style={styles.text1}>{t("completeYourProfile")}</Text>
                     {/* <Text style={styles.text2}>Lorem ipsum dolor sit amet consectetur.</Text> */}
                 </View>
-                <View style={{ transform: [{ rotate: "180deg" }] }}>
+                <View style={{transform:lang=='en'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}>
                     <RenderSvgIcon
                         icon='ARROWBACK'
                         color={appColors.primary}

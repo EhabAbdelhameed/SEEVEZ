@@ -30,6 +30,8 @@ import SkillsProfileCard from './components/Skills';
 import TrainingProfileCard from './components/Training';
 import EducationProfileCard from './components/Education';
 import ExperienceProfileCard from './components/Experience';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -47,10 +49,13 @@ const ProfileScreen = () => {
   useEffect(() => {
     AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
   }, [AccessToken]);
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   // console.log("This Data From Hossam ",JSON.stringify(CurrentUserData))
   return (
-    <SafeAreaView edges={['top']} style={styles.Container}>
-      <Header Title="My profile" onPress={() => navigation.goBack()} />
+    <SafeAreaView edges={['top']} style={[styles.Container,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
+      <Header Title={t("myProfile")} onPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <RecordVideoCard data={CurrentUserData?.user_data?.cv_media} />
         <View style={styles.PaddingContainer}>
@@ -64,11 +69,11 @@ const ProfileScreen = () => {
           <EducationProfileCard data={CurrentUserData?.user_data?.educations} />
           <TrainingProfileCard data={CurrentUserData?.user_data?.training_courses} />
           <SkillsProfileCard
-            title={'Skills and tools'}
+            title={'skills'}
             data={CurrentUserData?.user_data?.skills}
           />
           <SkillsProfileCard
-            title={'Interests'}
+            title={'interests'}
             data={CurrentUserData?.user_data?.interests}
           />
           <LanguagesProfileCard data={CurrentUserData?.user_data?.languages} />

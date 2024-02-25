@@ -9,17 +9,19 @@ import React, { useState } from 'react';
 import { appColors } from '../../../../../theme/appColors';
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const AboutProfileCard = (data: any) => {
-  const [aboutSection, setAboutSection] = useState('Bio'); // Added state to track edited content
   const navigation = useNavigation<any>();
 
+  const {t, i18n} = useTranslation();
+  const [aboutSection, setAboutSection] = useState(t('bio')); // Added state to track edited content
 
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>About</Text>
+          <Text style={styles.Title}>{t('about')}</Text>
 
           {!data?.current && <TouchableOpacity onPress={() => navigation.navigate('UpdateAbout')}>
             <RenderSvgIcon

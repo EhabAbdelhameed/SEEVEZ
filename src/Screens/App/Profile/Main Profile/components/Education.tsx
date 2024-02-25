@@ -5,11 +5,17 @@ import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import moment from 'moment';
 import { AVATAR, PDF } from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const EducationProfileCard = (data: any) => {
 
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation()
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const differenceInYears = (date1: any, date2: any) => {
     let start_date = moment(date1).format('yyyy-MM-DD');
     let end_date = moment(date2).format('yyyy-MM-DD');
@@ -24,7 +30,7 @@ const EducationProfileCard = (data: any) => {
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>Education</Text>
+          <Text style={styles.Title}>{t("education")}</Text>
           {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity onPress={() => navigation.navigate('UpdateEducation')} >
               <RenderSvgIcon
@@ -63,8 +69,8 @@ const EducationProfileCard = (data: any) => {
               <AVATAR height={32} width={32} />
             </View>
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.Title2}>School/university name</Text>
-              <Text style={styles.CompanyName}>field of study</Text>
+              <Text style={styles.Title2}>{t("schoolUniversityName")}</Text>
+              <Text style={styles.CompanyName}>{t("fieldOfStudy")}</Text>
             </View>
           </View>
         ) : seeAllExperiences ? (
@@ -84,15 +90,15 @@ const EducationProfileCard = (data: any) => {
                   <AVATAR height={32} width={32} />
                 </View>
                 <View style={{ marginLeft: 10,width:'90%' }}>
-                  <Text style={styles.Title2}>{item?.university_name}</Text>
-                  <Text style={styles.CompanyName}>
-                    {item?.level_id?.name}
-                  </Text>
-                  <Text style={styles.des}>
-                    {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} · {differenceInYears(item.start_date, item.end_date)} years · Cairo, Egypt
-                  </Text>
+                <Text style={[styles.Title2,{textAlign:'left'}]}>{item?.university_name}</Text>
+                    <Text style={[styles.CompanyName,{textAlign:'left'}]}>
+                      {item?.level_id?.name}
+                    </Text>
+                    <Text style={[styles.des,{textAlign:'left'}]}>
+                      {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} · {differenceInYears(item.start_date, item.end_date)} years · Cairo, Egypt
+                    </Text>
                   <View style={styles.Row2}>
-                    <Text style={styles.Title3}>Grade : </Text>
+                    <Text style={styles.Title3}>{t("grade")} : </Text>
                     <Text style={styles.Title4}>{item.grade}</Text>
                   </View>
                 </View>
@@ -133,15 +139,15 @@ const EducationProfileCard = (data: any) => {
                     <AVATAR height={32} width={32} />
                   </View>
                   <View style={{ marginLeft: 10,width:'90%' }}>
-                    <Text style={styles.Title2}>{item?.university_name}</Text>
-                    <Text style={styles.CompanyName}>
+                    <Text style={[styles.Title2,{textAlign:'left'}]}>{item?.university_name}</Text>
+                    <Text style={[styles.CompanyName,{textAlign:'left'}]}>
                       {item?.level_id?.name}
                     </Text>
-                    <Text style={styles.des}>
+                    <Text style={[styles.des,{textAlign:'left'}]}>
                       {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} · {differenceInYears(item.start_date, item.end_date)} years · Cairo, Egypt
                     </Text>
                     <View style={styles.Row2}>
-                      <Text style={styles.Title3}>Grade : </Text>
+                      <Text style={styles.Title3}>{t("grade")} : </Text>
                       <Text style={styles.Title4}>{item.grade}</Text>
                     </View>
                   </View>
@@ -178,7 +184,7 @@ const EducationProfileCard = (data: any) => {
         }
         onPress={() => setSeeAllExperiences(!seeAllExperiences)}>
         <Text style={styles.seeAll}>
-          See {seeAllExperiences ? 'Less' : 'All'}
+          {t("See")} {seeAllExperiences ? t('Less') : t('All')}
         </Text>
       </TouchableOpacity>
     </View>

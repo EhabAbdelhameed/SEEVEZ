@@ -7,19 +7,19 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import { RenderSvgIcon } from '../../../Components/atoms/svg';
-import { Formik } from 'formik';
+import {RenderSvgIcon} from '../../../Components/atoms/svg';
+import {Formik} from 'formik';
 import InputView from '../../../Components/molecules/Input';
 import Button from '../../../Components/molecules/Button';
 import DonotHaveAccountSection from '../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../Components/molecules/AuthTopSection';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { appColors } from '../../../theme/appColors';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { BigLogo, CompanyLogo, PDF } from 'assets/Svgs';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {appColors} from '../../../theme/appColors';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {BigLogo, CompanyLogo, PDF} from 'assets/Svgs';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import DocumentPicker from 'react-native-document-picker';
 import {
   RegistSchema,
@@ -27,18 +27,23 @@ import {
   RegistSchemaCompanySelected,
 } from '../../../Formik/schema';
 
-import { useAppDispatch } from 'src/redux/store';
+import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import DeviceInfo from 'react-native-device-info';
-import { useSelector } from 'react-redux';
-import { selectIsSignedUp } from 'src/redux/auth';
-import { Input } from 'react-native-elements';
-import { selectCompanies } from 'src/redux/app';
+import {useSelector} from 'react-redux';
+import {selectIsSignedUp} from 'src/redux/auth';
+import {Input} from 'react-native-elements';
+import {selectCompanies} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import CustomInput from 'components/molecules/Input/CustomInput';
+import {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
+
 const SignupTwo = () => {
   const signedUp = useSelector(selectIsSignedUp);
   const CompaniesData = useSelector(selectCompanies);
+  const lang = useAppSelector(selectLang);
+  const {t, i18n} = useTranslation();
   const navigation = useNavigation<any>();
   const [email, setEmail] = React.useState('');
   const [deviceId, setDeviceId] = React.useState('');
@@ -90,14 +95,14 @@ const SignupTwo = () => {
             <CompanyLogo width={25} height={25} />
           ) : (
             <Image
-              source={{ uri: item?.avatar }}
-              style={{ width: 25, height: 25, borderRadius: 25 }}
+              source={{uri: item?.avatar}}
+              style={{width: 25, height: 25, borderRadius: 25}}
               resizeMode="cover"
             />
           )}
         </View>
 
-        <Text style={{ padding: 10, borderColor: '#ccc', fontSize: 14 }}>
+        <Text style={{padding: 10, borderColor: '#ccc', fontSize: 14}}>
           {item.name}
         </Text>
       </View>
@@ -133,7 +138,7 @@ const SignupTwo = () => {
   };
 
   useEffect(() => {
-    signedUp && navigation.navigate('Verification', { email, type: 'register' });
+    signedUp && navigation.navigate('Verification', {email, type: 'register'});
   }, [signedUp]);
 
   useEffect(() => {
@@ -168,11 +173,15 @@ const SignupTwo = () => {
       }
     }
   };
-  const { work_type, title }: any = useRoute().params;
-  console.log(work_type);
+  const {work_type, title}: any = useRoute().params;
+
+  const title2 = t(title);
+  const work_type2 = t(work_type);
   return (
     // <View style={styles.container}>
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView
+      edges={['top']}
+      style={[styles.container, {direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
       <KeyboardAwareScrollView
         contentContainerStyle={{
           // alignItems: "center",
@@ -188,7 +197,7 @@ const SignupTwo = () => {
           {/* <Image source={require('../../../assets/images/logoWithName.png')} /> */}
           <Image
             source={require('../../../assets/images/seevezlogo.png')}
-            style={{ width: 148, height: 47 }}
+            style={{width: 148, height: 47}}
           />
         </View>
         <View style={styles.circles}>
@@ -199,15 +208,15 @@ const SignupTwo = () => {
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
           <AuthTopSection
-            title="Sign up"
+            title={t('Sign up')}
             subtitle={
               title == 'Sign up as a job seeker'
-                ? 'as a job seeker'
+                ? t('as a job seeker')
                 : title == 'Sign up as a recruiter' && work_type !== 'Company'
-                  ? 'as a Freelancer recruiter'
-                  : work_type == 'Company'
-                    ? 'Company'
-                    : ''
+                ? t('as a Freelancer recruiter')
+                : work_type == 'Company'
+                ? t('Company')
+                : ''
             }
           />
           <Formik
@@ -229,10 +238,10 @@ const SignupTwo = () => {
               work_type === 'Company' && selectedItem?.length == 0
                 ? RegistSchemaCompany
                 : work_type === 'Company' && selectedItem?.length != 0
-                  ? RegistSchemaCompanySelected
-                  : RegistSchema
+                ? RegistSchemaCompanySelected
+                : RegistSchema
             }
-            onSubmit={values => {
+            onSubmit={(values: any) => {
               setLoading(true);
               setEmail(values.email);
               console.log(work_type?.toLowerCase());
@@ -243,7 +252,7 @@ const SignupTwo = () => {
                 : formdata.append('name', values.fullName);
               formdata.append(
                 'country_code',
-                values.code == '' ? '+20' : values.code.dial_code,
+                values.code == '' ? '+20' : values?.code?.dial_code,
               );
               work_type == 'Company'
                 ? null
@@ -267,9 +276,9 @@ const SignupTwo = () => {
                 console.log('eee', selectedItem?.length);
 
                 if (selectedItem?.length == 0) {
-                  console.log("hello")
+                  console.log('hello');
                   formdata.append('name', values.company_name);
-                  formdata.append('phone_number', values.phone)
+                  formdata.append('phone_number', values.phone);
                   formdata.append('tax_id', values.taxID);
                   formdata.append('tax_card_document', {
                     uri: tax_card_document[0]?.uri,
@@ -303,7 +312,7 @@ const SignupTwo = () => {
               <View>
                 {work_type == 'Company' ? (
                   <View>
-                    <View style={{ marginBottom: 5 }}>
+                    <View style={{marginBottom: 5}}>
                       <Input
                         {...props}
                         name={`company_name`}
@@ -334,7 +343,7 @@ const SignupTwo = () => {
                           fontSize: 14,
                           //  color: 'red'
                         }}
-                        placeholder={`Company name`}
+                        placeholder={t('CompanyName')}
                       />
                     </View>
                     {searchQuery.length > 0 && (
@@ -349,7 +358,7 @@ const SignupTwo = () => {
                         <FlatList
                           scrollEnabled={false}
                           data={CompaniesData?.filter(filteredData)}
-                          renderItem={({ item }) =>
+                          renderItem={({item}) =>
                             renderListItem(item, props, index)
                           }
                           keyExtractor={(item, index) => index.toString()}
@@ -363,17 +372,17 @@ const SignupTwo = () => {
                   <InputView
                     {...props}
                     name="fullName"
-                    placeholder="Enter your full name"
+                    placeholder={t('enterYourFullName')}
                   />
                 )}
                 <InputView
                   {...props}
                   name="phone"
-                  placeholder="Enter your mobile number"
+                  placeholder={t('Enter your mobile number')}
                 />
                 <InputView
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder={t('enterYourEmail')}
                   iconName={'RIGIHTININPUT'}
                   {...props}
                 />
@@ -381,14 +390,14 @@ const SignupTwo = () => {
                   <View>
                     <InputView
                       name="taxID"
-                      placeholder="Enter the taxId"
+                      placeholder={t('EnterTheTaxID')}
                       iconName={'RIGIHTININPUT'}
                       {...props}
                     />
                     <TouchableOpacity
                       onPress={() => uploadFile('1')}
                       style={styles.DocStyle}>
-                      <View style={{ flexDirection: 'row' }}>
+                      <View style={{flexDirection: 'row'}}>
                         <PDF width={20} height={20} />
                         <Text
                           numberOfLines={1}
@@ -398,7 +407,7 @@ const SignupTwo = () => {
                             color: '#15439D',
                           }}>
                           {tax_card_document.length == 0
-                            ? 'Upload Tax card'
+                            ? t('UploadTaxCard')
                             : `${tax_card_document[0]?.name.slice(0, 20)}...`}
                         </Text>
                       </View>
@@ -406,7 +415,7 @@ const SignupTwo = () => {
                     <TouchableOpacity
                       onPress={() => uploadFile('2')}
                       style={styles.DocStyle}>
-                      <View style={{ flexDirection: 'row' }}>
+                      <View style={{flexDirection: 'row'}}>
                         <PDF height={20} width={20} />
                         <Text
                           numberOfLines={1}
@@ -416,11 +425,11 @@ const SignupTwo = () => {
                             color: '#15439D',
                           }}>
                           {commercial_registration_document.length == 0
-                            ? 'Upload commercial registration'
+                            ? t('UploadCommercialRegistration')
                             : `${commercial_registration_document[0]?.name.slice(
-                              0,
-                              20,
-                            )}...`}
+                                0,
+                                20,
+                              )}...`}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -436,7 +445,7 @@ const SignupTwo = () => {
                 <CustomInput
                   {...props}
                   Label={'password'}
-                  placeholder="Enter your password"
+                  placeholder={t('enterYourPassword')}
                   secureTextEntry={true}
                 />
                 {/* <InputView
@@ -446,10 +455,10 @@ const SignupTwo = () => {
                   secure={true}
                   {...props}
                 /> */}
-                   <CustomInput
+                <CustomInput
                   {...props}
                   Label={'confirmPassword'}
-                  placeholder="Confirm your password"
+                  placeholder={t('ConfirmYourPassword')}
                   secureTextEntry={true}
                 />
                 <View style={styles.rowAgree}>
@@ -459,22 +468,24 @@ const SignupTwo = () => {
                     <View style={index ? styles.innerCircle : null} />
                   </TouchableOpacity>
                   <Text style={styles.agree}>
-                    I agree to the seevez{' '}
-                    <Text style={styles.agreeLine}>terms & condiitions</Text>{' '}
-                    and the seevez{' '}
-                    <Text style={styles.agreeLine}>privacy policy</Text>
+                    {t('I agree to the seevez')}{' '}
+                    <Text style={styles.agreeLine}>
+                      {t('terms & conditions')}
+                    </Text>{' '}
+                    {t('and the seevez')}{' '}
+                    <Text style={styles.agreeLine}>{t('privacy policy')}</Text>
                   </Text>
                 </View>
                 <Button
                   loading={loading}
-                  text="Sign up"
+                  text={t('Sign up')}
                   onPress={props.handleSubmit}
                 />
               </View>
             )}
           </Formik>
           <DonotHaveAccountSection noLang type="Log in" />
-          <View style={{ height: 50 }} />
+          <View style={{height: 50}} />
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

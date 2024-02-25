@@ -34,6 +34,8 @@ import LanguagesProfileCard from '../Profile/Main Profile/components/Languages';
 import AchievementsProfileCard from '../Profile/Main Profile/components/Achievements';
 import ReferenceProfileCheck from '../Profile/Main Profile/components/ReferenceCheck';
 import AboutProfileCard from '../Profile/Main Profile/components/About';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 const CompleteProfileScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -56,9 +58,12 @@ const CompleteProfileScreen = () => {
   useEffect(() => {
     AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
   }, [AccessToken]);
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.Container}>
-      <Header Title="My profile" onPress={() => navigation.goBack()} />
+    <SafeAreaView edges={['top']} style={[styles.Container,{direction:lang=='ar'?'rtl':'ltr'}]}>
+      <Header Title={t("myProfile")} onPress={() => navigation.goBack()} />
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <LottieView

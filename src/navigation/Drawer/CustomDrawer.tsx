@@ -29,6 +29,8 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppThunks from 'src/redux/app/thunks';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import LangSlice, { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const {height} = Dimensions.get('window');
 
@@ -44,7 +46,9 @@ const CustomSidebarMenu = (props: any) => {
   const navigation = useNavigation<any>();
   //   const dispatch = useAppDispatch();
   const USER = useSelector(selectUser);
+  const lang = useSelector(selectLang);
 
+  // dispatch(LangSlice.chnageLang(lang === 'ar' ? 'en' : 'ar'))
   return (
     <SafeAreaView edges={['']} style={styles.Container}>
       <DrawerContentScrollView {...props}>
@@ -168,6 +172,28 @@ const CustomSidebarMenu = (props: any) => {
               Switch profile
             </Text>
             <ArrowDown />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>dispatch(LangSlice.chnageLang(lang === 'ar' ? 'en' : 'ar'))}
+            style={{
+              width: '80%',
+              height: 50,
+              backgroundColor: '#E8EFFC',
+              marginTop: 20,
+              borderRadius: 16,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+              columnGap: 10,
+            }}>
+            <Text
+              style={{
+                fontFamily: 'Noto Sans',
+                fontSize: 18,
+                color: '#1D5EDD',
+              }}>
+              Switch Language
+            </Text>
+           
           </TouchableOpacity>
         </View>
       </DrawerContentScrollView>

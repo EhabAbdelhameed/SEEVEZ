@@ -10,11 +10,14 @@ import {appColors} from '../../../theme/appColors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import AuthThunks from 'src/redux/auth/thunks';
-import {useAppDispatch} from 'src/redux/store';
+import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import {selectReseted} from 'src/redux/auth';
 import {useLoadingSelector} from 'src/redux/selectors';
 import {ForgetSchema} from 'src/Formik/schema';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
+import CustomInput from 'components/molecules/Input/CustomInput';
 
 const ForgetPassword = () => {
   const navigation = useNavigation<any>();
@@ -32,7 +35,8 @@ const ForgetPassword = () => {
       // navigation.navigate('ResetPassword', { email })
     }
   }, [Reseted]);
-
+  const lang = useAppSelector(selectLang);
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <View style={styles.container}>
@@ -68,9 +72,9 @@ const ForgetPassword = () => {
             </View>
           
 
-            <Text style={styles.verificationText}>Forgot password ?</Text>
-            <Text style={styles.verificationText2}>
-              We will send you a one-time password on your email.
+            <Text style={styles.verificationText}>{t("forgotPassword")}</Text>
+            <Text style={styles.verificationText2}>  
+             {t("We will send you a one-time password on your email.")}
             </Text>
             <Formik
               validationSchema={ForgetSchema}
@@ -88,16 +92,14 @@ const ForgetPassword = () => {
               }}>
               {(props: any) => (
                 <View>
-                  <InputView
-                    name="email"
-                    placeholder="Enter your email"
-                    // props={props}
-                    iconName={'RIGIHTININPUT'}
+                 <CustomInput
                     {...props}
+                    Label="email"
+                    placeholder={t('WriteYourEmail')}
                   />
                   <Button
                     loading={loading}
-                    text="Next"
+                    text={t("next")}
                     onPress={props.handleSubmit}
                   />
                 </View>

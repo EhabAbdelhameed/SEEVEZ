@@ -14,17 +14,21 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useLoadingSelector} from 'src/redux/selectors';
 import AuthThunks from 'src/redux/auth/thunks';
-import {useAppDispatch} from 'src/redux/store';
+import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AuthSlice, {selectIsSignUpCompany, selectVerified} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import {OtpSchema} from 'src/Formik/schema';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const Verification = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [value,setValue]=useState('')
+  const lang = useAppSelector(selectLang);
+  const {t, i18n} = useTranslation();
   const {email, type}: any = useRoute().params;
   const CELL_COUNT = 4;
   const [minutes, setMinutes] = React.useState(0);
@@ -132,10 +136,10 @@ const Verification = () => {
             </View>
           </View>
 
-          <Text style={styles.verificationText}>OTP Verification</Text>
+          <Text style={styles.verificationText}>{t("OTP Verification")}</Text>
           <Text style={styles.verificationText2}>
-            We will send you a one-time password on this email Address :
-            <Text style={{fontWeight: '700'}}>{email}</Text>
+            {t("We will send you a one-time password on this email Address :")}
+            <Text style={{fontWeight: '700'}}>{lang=='ar'?' ':''}{email}</Text>
           </Text>
    
               <View>
@@ -177,8 +181,8 @@ const Verification = () => {
                 loading={loading}
                   text={
                     type == 'forget'
-                      ? 'Change password'
-                      : 'Activate your account'
+                      ? t('Change password')
+                      : t('Activate your account')
                   }
                   onPress={()=>ActiveAccount()}
                 />
@@ -194,7 +198,7 @@ const Verification = () => {
               disabled={seconds != 0}
               onPress={() => ResendOTP()}
               style={styles.resendCode}>
-              Resend the code{' '}
+              {t("Resend the code")}{' '}
             </Text>
             {seconds != 0 && (
               <Text style={styles.resendCode}>

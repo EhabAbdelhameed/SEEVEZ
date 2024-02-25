@@ -13,6 +13,8 @@ import Header from 'components/molecules/Header';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import AuthSlice from 'src/redux/auth';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const MyConnection = (props: any) => {
     const dispatch = useAppDispatch()
@@ -20,7 +22,9 @@ const MyConnection = (props: any) => {
     const ListUsers = useAppSelector(selectListUsers)
     const [load, setLoad] = React.useState(false)
     const ListFollowing = useAppSelector(selectFollowingList)
+    const lang = useSelector(selectLang);
   
+    const {t, i18n} = useTranslation();
     React.useEffect(() => {
         setLoad(true)
         dispatch(AppThunks.doGetFollowingList()).then(() =>setLoad(false))
@@ -31,9 +35,9 @@ const MyConnection = (props: any) => {
       AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
     }, [AccessToken]);
     return (
-        <SafeAreaView edges={['top']} style={globalStyles.screen}>
+        <SafeAreaView edges={['top']} style={[globalStyles.screen,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
             <View style={styles.screen}>
-                <Header Title="My connection" onPress={() => navigation.goBack()} />
+                <Header Title={t("myConnections")} onPress={() => navigation.goBack()} />
                 <ScrollView showsVerticalScrollIndicator={false} style={{
                     height: '100%',
                     width: '90%',

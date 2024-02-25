@@ -5,7 +5,13 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {Star} from 'assets/Svgs';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 const BottomHeader = () => {
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
     <View>
       <View style={styles.blueCircle}>
@@ -16,12 +22,12 @@ const BottomHeader = () => {
           {/* <RenderSvgIcon icon="ICON2CV" width={32} height={48} /> */}
         </View>
         <View style={[{alignItems: 'center'}]}>
-          <Text style={[styles.loginText, {fontSize: 24}]}>
-            Complete profile
-          </Text>
-          <Text style={[styles.loginTextSub, {fontSize: 13}]}>
-            Finish setting up your profile to get noticed by recruiters
-          </Text>
+        <Text style={[styles.loginText, {fontSize: 24}]}>
+                {t("completeProfile")}
+              </Text>
+              <Text style={[styles.loginTextSub, {fontSize: 13}]}>
+                {t("finishSettingsUpYourProfileToGetNoticedByRecruiters")}
+              </Text>
         </View>
         <View>
           <RenderSvgIcon

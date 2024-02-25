@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, TextInput, TextInputProps } from 'react-native';
 import { styles } from './styles';
 import { Eye, EyeSlash, Right } from 'assets/Svgs';
+import { useAppSelector } from 'src/redux/store';
+import { selectLang } from 'src/redux/lang';
 const CustomInput = ({
   values,
   Label,
@@ -24,7 +26,7 @@ const CustomInput = ({
   maxLength?: number;
 } & TextInputProps) => {
   const [secure, setSecure] = React.useState(true)
-
+  const lang = useAppSelector(selectLang);
   return (
     <>
       <View style={[styles.Container, { borderColor: (errors[Label] && touched[Label]) ? 'red' : '#1D5EDD', }]}>
@@ -33,7 +35,7 @@ const CustomInput = ({
           value={values[Label]}
           placeholder={placeholder}
           maxLength={maxLength}
-          style={[styles.Input, {}]}
+          style={[styles.Input, { textAlign: lang == 'ar' ? 'right' : 'left'}]}
           placeholderTextColor={'#B9B9B9'}
           secureTextEntry={secureTextEntry ? secure : false}
           onChangeText={handleChange(Label)}

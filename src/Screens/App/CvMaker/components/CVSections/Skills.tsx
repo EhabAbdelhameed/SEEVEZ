@@ -5,6 +5,7 @@ import { appColors } from '../../../../../theme/appColors';
 import { appSizes } from '../../../../../theme/appSizes';
 import { ComputerSkills, langSkills } from '../../../../../Dummy';
 import EditDragIcons from './EditDragIcons';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     drag: any;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const Skills = (props: Props) => {
+    const {t, i18n} = useTranslation();
     return (
         <TouchableOpacity style={[styles.container2, {
             backgroundColor: appColors.sisth
@@ -28,7 +30,7 @@ const Skills = (props: Props) => {
 
             <View style={[styles.rowContainer, { paddingRight: 10 }]}>
                 <View style={{ flex: 1.5 }}>
-                    <Text style={styles.textHeaderSection}>Skills</Text>
+                    <Text style={styles.textHeaderSection}>{t("skills")}</Text>
                     <FlatList
                         data={props.User?.user_data?.skills}
                         renderItem={({ item }) => (
@@ -43,7 +45,7 @@ const Skills = (props: Props) => {
                         }]}> . {item}</Text>)}*/}
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Text style={styles.textHeaderSection}>Languages</Text>
+                    <Text style={styles.textHeaderSection}> {t("languages")}</Text>
                     <FlatList
                         data={props.User?.user_data?.languages}
                         renderItem={({ item }) => (

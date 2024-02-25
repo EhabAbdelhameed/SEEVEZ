@@ -29,6 +29,8 @@ import {selectUser} from 'src/redux/auth';
 import {selectDone} from 'src/redux/app';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateSkills = () => {
   const [loading, setLoading] = React.useState(false);
@@ -41,9 +43,11 @@ const UpdateSkills = () => {
   }, [changeDone]);
   const dispatch = useAppDispatch();
   const {title}: any = useRoute().params;
-
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -66,7 +70,7 @@ const UpdateSkills = () => {
               marginBottom: 10,
               fontFamily: 'Noto Sans',
             }}>
-            {title}
+            {t(title.toLowerCase())}
           </Text>
           <Formik
             initialValues={{Skills: ''}}
@@ -81,7 +85,7 @@ const UpdateSkills = () => {
                   dispatch(AppThunks.GetProfileInfo());
                   setLoading(false);
                 });
-              } else {
+              } else { 
                 dispatch(AppThunks.doAddIntersts(formdata)).then((res: any) => {
                   dispatch(AppThunks.GetProfileInfo());
                   setLoading(false);
@@ -92,7 +96,7 @@ const UpdateSkills = () => {
               <View>
                 <InputView
                   name="Skills"
-                  placeholder="Write here.."
+                  placeholder={t("writeHere")}
                   // props={props}
                   {...props}
                 />
@@ -101,7 +105,7 @@ const UpdateSkills = () => {
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

@@ -11,11 +11,17 @@ import AppThunks from 'src/redux/app/thunks';
 import {selectFollowingList} from 'src/redux/app';
 import {useNavigation} from '@react-navigation/native';
 import {AVATAR} from 'assets/Svgs';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const {navigate} = useNavigation<any>();
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const FollowingList = useAppSelector(selectFollowingList);
   let exist = FollowingList?.some(
     (ele: any) => ele?.toUserPublicId == item?.user_id,
@@ -74,7 +80,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
           <Text style={styles.work}>{item?.metadata?.job_title}</Text>
           <View style={styles.followersContainer}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {count >= 1000 ? `${count / 1000}k` : count} followers
+              {count >= 1000 ? `${count / 1000}k` : count} {t("Followers")}
             </Text>
           </View>
         </View>
@@ -84,7 +90,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         onPress={() => doFollowingOperation()}
         style={styles.folowCotainer}>
         <Text style={[styles.text3, {color: appColors.darkGreen1}]}>
-          {exist ? 'unfollow' : 'Follow'}
+          {exist ? t('unfollow') : t('follow')}
         </Text>
         <RenderSvgIcon icon="PLUSFOLLOW" width={15} height={15} />
       </TouchableOpacity>

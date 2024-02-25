@@ -17,5 +17,6 @@ export const styles = StyleSheet.create({
         height: "100%",
         fontSize: 14,
         width: '92%',
+
     }
 });

@@ -31,6 +31,8 @@ import NewPicker from 'components/molecules/PhonePicker';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateRefernceCheck = () => {
   // const navigation = useNavigation<any>();
@@ -56,6 +58,9 @@ const UpdateRefernceCheck = () => {
   const addCode = (newCode :any) => {
     setCodes((prevCodes:any) => [...prevCodes, newCode]);
   };
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const uploadFile = async (type: any) => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -75,7 +80,7 @@ const UpdateRefernceCheck = () => {
   };
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -97,7 +102,7 @@ const UpdateRefernceCheck = () => {
               marginLeft: 8,
               marginBottom: 10,
             }}>
-            Reference check
+            {t("referenceCheck")}
           </Text>
           <Formik
             initialValues={{phones: [{phone: '', code:'+20'||''}]}}
@@ -173,7 +178,7 @@ const UpdateRefernceCheck = () => {
                         //  color: 'red'
                       }}
                       keyboardType="number-pad"
-                      placeholder={`Enter phone number`}
+                      placeholder={t('Enter phone number')}
                     />
                     {/* {index > 0 && (
                       <TouchableOpacity
@@ -217,7 +222,7 @@ const UpdateRefernceCheck = () => {
                         color: '#000',
                         fontFamily: 'Noto Sanc',
                       }}>
-                      Add another phone
+                      {t("addAnotherPhone")}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -227,7 +232,7 @@ const UpdateRefernceCheck = () => {
                   <PDF />
                   <Text numberOfLines={1} style={{fontSize: 19, color: appColors.primary}}>
                     {Source.length == 0
-                      ? 'Upload background check'
+                      ? t('uploadBackgroundCheck')
                       : `${Source[0].name.slice(0,20)}...`}
                   </Text>
                 </TouchableOpacity>
@@ -235,7 +240,7 @@ const UpdateRefernceCheck = () => {
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

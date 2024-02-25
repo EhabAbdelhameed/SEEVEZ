@@ -40,16 +40,16 @@ const Navigation = () => {
   // console.log(isAuth)
   const lang = useAppSelector(selectLang)
 
-  // const AwaitFun = async () => {
-  //   await i18n.changeLanguage(i18n.language == undefined ? 'en' : lang).then(() => {
-  //     setTimeout(() => {
-  //       setSplash(false)
-  //     }, 2500);
-  //   })
-  // }
+  const AwaitFun = async () => {
+    await i18n.changeLanguage(i18n.language == undefined ? 'en' : lang).then(() => {
+      setTimeout(() => {
+        setSplash(false)
+      }, 2500);
+    })
+  }
 
   React.useEffect(() => {
-    // AwaitFun()
+    AwaitFun()
   }, [lang])
 
   return (

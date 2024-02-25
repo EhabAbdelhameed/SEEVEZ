@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { RenderSvgIcon } from '../atoms/svg'
 import { appColors } from '../../theme/appColors'
+import { selectLang } from 'src/redux/lang'
+import { useSelector } from 'react-redux'
 
 const Header = ({
     Title,
@@ -10,13 +12,14 @@ const Header = ({
     Title?: string;
     onPress?: () => void;
 }) => {
+    const lang = useSelector(selectLang);
     return (
         <View style={styles.Container}>
             <TouchableOpacity style={styles.Row}
                 onPress={onPress}
                 activeOpacity={0.8}
             >
-                <RenderSvgIcon icon='ARROWBACK'
+                <RenderSvgIcon icon='ARROWBACK' style={{transform:lang=='ar'? [{rotate: '180deg'}]:[{rotate: '0deg'}]}}
                     width={25} height={25} color={appColors.primary} />
                 <Text style={styles.Title}>{Title}</Text>
             </TouchableOpacity>

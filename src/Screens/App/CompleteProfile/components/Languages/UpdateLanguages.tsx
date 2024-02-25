@@ -30,6 +30,8 @@ import {selectAccessToken, selectDone} from 'src/redux/app';
 import {Input} from 'react-native-elements';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateLanguages = () => {
   // const navigation = useNavigation<any>();
@@ -75,6 +77,9 @@ const UpdateLanguages = () => {
       Rate: 1,
     },
   ];
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -119,7 +124,7 @@ const UpdateLanguages = () => {
                         marginLeft: 8,
                         marginBottom: 10,
                       }}>
-                      Language
+                      {t("language")}
                     </Text>
                     <Input
                       {...props}
@@ -143,7 +148,7 @@ const UpdateLanguages = () => {
                         fontSize: 14,
                         //  color: 'red'
                       }}
-                      placeholder={`Enter your language`}
+                      placeholder={t('Enter your language')}
                     />
                     <View style={{paddingLeft: 15, marginBottom: 10}}>
                       <View
@@ -158,7 +163,7 @@ const UpdateLanguages = () => {
                             fontSize: 16,
                             fontWeight: '700',
                           }}>
-                          Rate your language ?
+                         {t("Rate your language ?")} 
                         </Text>
                         <View style={{flexDirection: 'row', columnGap: 5}}>
                           
@@ -200,7 +205,7 @@ const UpdateLanguages = () => {
                           ) : null}
                         </View>
                         <Text style={{color: '#000', fontSize: 15}}>
-                          {item?.languageRate}
+                          {t(item?.languageRate)}
                         </Text>
                       </TouchableOpacity>
                       // </View>
@@ -243,7 +248,7 @@ const UpdateLanguages = () => {
                         marginLeft: 15,
                         color: '#000',
                       }}>
-                      Add another language
+                      {t("addAnotherLanguage")}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -251,7 +256,7 @@ const UpdateLanguages = () => {
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>
