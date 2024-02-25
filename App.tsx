@@ -16,21 +16,13 @@ enableScreens()
 
 const App = () => {
   React.useEffect(() => {
-    Platform.OS == 'ios' ?
-      (
-        I18nManager.allowRTL(true),
-        I18nManager.forceRTL(true)
-      )
-      :
-      ((i18n.language === 'en') ? (
-        I18nManager.allowRTL(false),
-        I18nManager.forceRTL(false)
-      ) : (
-        I18nManager.allowRTL(true),
-        I18nManager.forceRTL(true)
-      ))
-  }, [i18n.language])
-  console.warn(I18nManager?.isRTL)
+    if (Platform.OS == "ios") {
+      CodePush.sync({
+        updateDialog: { title: 'A new update is Available' },
+        installMode: CodePush.InstallMode.IMMEDIATE,
+      }).catch(e => console.log(e));
+    }
+  }, []);
   return (
     <Provider store={Store().store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -48,4 +40,4 @@ const App = () => {
   )
 }
 
-export default App
+export default CodePush(CodePushOptions)(App);
