@@ -7,22 +7,22 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import styles from './styles';
-import { RenderSvgIcon } from '../../../Components/atoms/svg';
-import { Form, Formik } from 'formik';
-import { Input } from 'react-native-elements';
+import {RenderSvgIcon} from '../../../Components/atoms/svg';
+import {Form, Formik} from 'formik';
+import {Input} from 'react-native-elements';
 import InputView from '../../../Components/molecules/Input';
 import Button from '../../../Components/molecules/Button';
 import SocialCard from '../../../Components/molecules/SocialCard';
 import DonotHaveAccountSection from '../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../Components/molecules/AuthTopSection';
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { BigLogo, LogoWithName } from 'assets/Svgs';
+import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {BigLogo, LogoWithName} from 'assets/Svgs';
 import DeviceInfo from 'react-native-device-info';
-import { useAppDispatch } from 'src/redux/store';
+import {useAppDispatch} from 'src/redux/store';
 import AuthThunks from 'src/redux/auth/thunks';
 import {useSelector} from 'react-redux';
 import {useLoadingSelector} from 'src/redux/selectors';
@@ -101,7 +101,7 @@ const Login = () => {
           <View style={styles.logoContainer}>
             <Image
               source={require('../../../assets/images/seevezlogo.png')}
-              style={{ width: 148, height: 40 }}
+              style={{width: 148, height: 40}}
             />
           </View>
           <View style={styles.bottomSection}>
@@ -117,7 +117,7 @@ const Login = () => {
             />
             <Formik
               validationSchema={LoginSchema}
-              initialValues={{ email: '', password: '' }}
+              initialValues={{email: '', password: ''}}
               onSubmit={values => {
                 setLoading(true);
                 setEmail(values.email);
@@ -154,19 +154,6 @@ const Login = () => {
                     placeholder={t('WriteYourPassword')}
                     secureTextEntry={true}
                   />
-                  {/* <InputView
-                    {...props}
-                    name="password"
-                    placeholder="Write your password"
-                    iconName={'EYE'}
-                    secure={true}
-                  /> */}
-                    <CustomInput
-                  {...props}
-                  Label={'password'}
-                  placeholder="Write your password"
-                  secureTextEntry={true}
-                />
                   <Text style={styles.forgotPassword} onPress={_handleNavigate}>
                     {t('forgotPassword')}
                   </Text>

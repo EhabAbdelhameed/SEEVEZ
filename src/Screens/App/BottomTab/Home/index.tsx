@@ -25,13 +25,17 @@ import AppThunks from 'src/redux/app/thunks';
 import { RenderSvgIcon } from 'components/atoms/svg';
 import Pending from './components/pending';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppSlice, {selectFollowingList} from 'src/redux/app';
+import AppSlice, { selectFollowingList } from 'src/redux/app';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
-
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   // dispatch(AuthSlice.chnageisAuth(false))
   // const Following = AsyncStorage.getItem('FollowingList')
   const [followingList, setFollowingList] = useState<any[]>([]);
@@ -103,8 +107,9 @@ const Home = () => {
       }),
     );
   }, []);
+
   return (
-    <SafeAreaView edges={['top']} style={globalStyles.screen}>
+    <SafeAreaView edges={['top']} style={[globalStyles.screen, {direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
       <View style={globalStyles.screen}>
         <Header />
         <KeyboardAwareScrollView
@@ -142,9 +147,9 @@ const Home = () => {
               <BoxContentTitle
                 title={
                   CurrentUserData?.user_data?.user_type == 'company' ||
-                  CurrentUserData?.user_data?.user_type == 'company_admin'
-                    ? 'My Applicants'
-                    : 'My connections'
+                    CurrentUserData?.user_data?.user_type == 'company_admin'
+                    ? t('myApplicants')
+                    : t('myConnections')
                 }
                 onPress={() => {
                   navigation.navigate('Connections');
@@ -271,9 +276,9 @@ const Home = () => {
             </View>
           ) : null}
           <View style={styles.rowContainer}>
-            <BoxContentTitle title="My polls" onPress={() => {
-                  navigation.navigate('MYPolls');
-                }}>
+            <BoxContentTitle title={t("myPolls")} onPress={() => {
+              navigation.navigate('MYPolls');
+            }}>
               <Polls />
             </BoxContentTitle>
             <BoxContentTitle
