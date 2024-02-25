@@ -5,9 +5,9 @@ import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import {useNavigation} from '@react-navigation/native';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
-import {selectUser} from 'src/redux/auth';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import AppThunks from 'src/redux/app/thunks';
-import {selectPolls} from 'src/redux/app';
+import {selectAccessToken, selectPolls} from 'src/redux/app';
 
 const Polls = () => {
   const navigation = useNavigation<any>();
@@ -26,7 +26,10 @@ const Polls = () => {
     return RenderFunction;
   }, [navigation]);
   const polls = useSelector(selectPolls);
-
+  const AccessToken = useSelector(selectAccessToken);
+  React.useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const Slider = ({pers, title}: {pers: number; title: string}) => {
     return (
       <>

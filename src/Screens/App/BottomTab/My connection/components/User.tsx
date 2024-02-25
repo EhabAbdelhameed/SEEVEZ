@@ -29,6 +29,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
           dispatch(AppThunks.doGetFollowingList());
         });
   };
+  console.warn(item)
   React.useEffect(() => {
     dispatch(AppThunks.doGetFollowers(item?.userId)).then((res: any) => {
       setCount(res?.payload?.data?.followCounts[0]?.followerCount);

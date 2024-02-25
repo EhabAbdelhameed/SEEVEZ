@@ -33,6 +33,10 @@ const MYPolls = () => {
     });
     return RenderFunction;
   }, [navigation]);
+  const AccessToken = useSelector(selectAccessToken);
+  useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const polls = useSelector(selectPolls);
    
   const CurrentUserData = useSelector(selectUser);

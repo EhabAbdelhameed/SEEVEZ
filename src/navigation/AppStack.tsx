@@ -59,6 +59,7 @@ import CreateShareLink from 'screens/App/CreatePost/CreateShareLink';
 import Market from 'screens/App/CreatePost/Market';
 import ExterinalLinks from 'screens/App/CreatePost/ExteraLinks';
 import MYPolls from 'screens/App/MyPolls';
+import SearchScreen from 'screens/App/Search';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -289,21 +290,25 @@ const AppStack = () => {
                 name='MyVideoCV'
                 component={MyVideoCV}
             />
-         <Stack.Screen
+            <Stack.Screen
                 name='CreateShareLink'
                 component={CreateShareLink}
             />
-               <Stack.Screen
+            <Stack.Screen
                 name='Market'
                 component={Market}
             />
-              <Stack.Screen
+            <Stack.Screen
                 name='ExterinalLinks'
                 component={ExterinalLinks}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name='MYPolls'
                 component={MYPolls}
+            />
+            <Stack.Screen
+                name='Search'
+                component={SearchScreen}
             />
         </Stack.Navigator>
     );

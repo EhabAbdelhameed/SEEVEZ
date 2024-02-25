@@ -39,7 +39,9 @@ const Flatlist = () => {
     dispatch(AppSlice.changeTagNames(selectedNames));
   }, [selectedIds, selectedNames]);
   React.useEffect(() => {
+    dispatch(AppThunks.GetProfileInfo())
     const timer = setTimeout(() => {
+      
       searchTerm &&
         dispatch(AppThunks?.searchForTagPeopel(searchTerm)).then(() => {
           // setLoad(false)

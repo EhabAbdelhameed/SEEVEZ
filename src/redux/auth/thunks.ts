@@ -228,7 +228,7 @@ const doResetPassword: any = createAsyncThunk<any, any, any>(
     console.log(data)
     try {
       const response = await AuthAPI.restPassword(data);
-      console.warn(JSON.stringify(response.data))
+      // console.warn(JSON.stringify(response.data))
       if (
         response.status == 400 ||
         response.status == 401 ||

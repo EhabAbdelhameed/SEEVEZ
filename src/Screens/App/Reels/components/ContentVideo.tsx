@@ -16,11 +16,12 @@ import TextLinks from './TextLinks';
 import { useNavigation } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 import { useSelector } from 'react-redux';
-import { selectUser } from 'src/redux/auth';
+import AuthSlice, { selectUser } from 'src/redux/auth';
 import { AVATAR, LOVE, LikeHand, SAD, WOW } from 'assets/Svgs';
 import { appColors } from 'theme/appColors';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
+import { selectAccessToken } from 'src/redux/app';
 // import Share from 'react-native-share';
 const ContentVideo = (item: any) => {
   const navigation = useNavigation<any>();
@@ -52,7 +53,10 @@ const ContentVideo = (item: any) => {
       dispatch(AppThunks.GetProfileInfo());
     });
   };
-
+  const AccessToken = useSelector(selectAccessToken);
+  React.useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const toggleReactionsModal = () => {
     setShowReactionsModal(!showReactionsModal);
   };

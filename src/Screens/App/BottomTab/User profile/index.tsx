@@ -20,41 +20,55 @@ import ReferenceProfileCheck from 'screens/App/Profile/Main Profile/components/R
 import { useSelector } from 'react-redux';
 import { selectUser, selectUserProfile } from 'src/redux/auth';
 import AuthThunks from 'src/redux/auth/thunks';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 const UserProfile = (props: any) => {
     const { id }: any = useRoute().params
     const dispatch = useAppDispatch()
     const navigation = useNavigation()
     const CurrentUserData: any = useSelector(selectUserProfile);
+    const [Load, setLoad] = React.useState(false)
     React.useEffect(() => {
-        dispatch(AuthThunks.doGetUserProfile(id))
+        setLoad(true)
+        dispatch(AuthThunks.doGetUserProfile(id)).then(() => setLoad(false))
     }, [id])
 
     return (
         <SafeAreaView edges={['top']} style={globalStyles.screen}>
-            <View style={styles.screen}>
-                <Header Title="Profile" onPress={() => navigation.goBack()} />
-                <ScrollView showsVerticalScrollIndicator={false} style={{
-                    height: '100%',
-                    width: '90%',
-                    alignSelf: 'center',
-                    // backgroundColor: '#fff',
-                    // borderRadius: 20
-                }}>
-                    <RecordVideo user_data={CurrentUserData?.cv_media} current={true} />
-                    <InfoProfileCard data={CurrentUserData} current={true} />
-                    <AboutProfileCard data={CurrentUserData?.about} current={true} />
-                    <ExperienceProfileCard data={CurrentUserData?.experiences} current={true} />
-                    <EducationProfileCard data={CurrentUserData?.educations} current={true} />
-                    <TrainingProfileCard data={CurrentUserData?.training_courses} current={true} />
-                    <SkillsProfileCard title={'Skills'} data={CurrentUserData?.skills} current={true} />
-                    <SkillsProfileCard title={'Interests'} data={CurrentUserData?.interests} current={true} />
-                    <LanguagesProfileCard data={CurrentUserData?.languages} current={true} />
-                    <AchievementsProfileCard data={CurrentUserData?.achievement} current={true} />
-                    {CurrentUserData?.reference_check?.length != 0 && <ReferenceProfileCheck data={CurrentUserData?.reference_check} current={true} />}
-                    <View style={{ height: 30 }} />
-                </ScrollView>
-            </View>
+            {
+                Load ?
+                    <ActivityIndicator
+                        size={'large'}
+                        style={{
+                            marginTop: ScreenHeight / 2.4
+                        }}
+                    />
+                    :
+                    <View style={styles.screen}>
+                        <Header Title="Profile" onPress={() => navigation.goBack()} />
+                        <ScrollView showsVerticalScrollIndicator={false} style={{
+                            height: '100%',
+                            width: '90%',
+                            alignSelf: 'center',
+                            // backgroundColor: '#fff',
+                            // borderRadius: 20
+                        }}>
+                            <RecordVideo user_data={CurrentUserData?.cv_media} current={true} />
+                            <InfoProfileCard data={CurrentUserData} current={true} />
+                            <AboutProfileCard data={CurrentUserData?.about} current={true} />
+                            <ExperienceProfileCard data={CurrentUserData?.experiences} current={true} />
+                            <EducationProfileCard data={CurrentUserData?.educations} current={true} />
+                            <TrainingProfileCard data={CurrentUserData?.training_courses} current={true} />
+                            <SkillsProfileCard title={'Skills'} data={CurrentUserData?.skills} current={true} />
+                            <SkillsProfileCard title={'Interests'} data={CurrentUserData?.interests} current={true} />
+                            <LanguagesProfileCard data={CurrentUserData?.languages} current={true} />
+                            <AchievementsProfileCard data={CurrentUserData?.achievement} current={true} />
+                            {CurrentUserData?.reference_check?.length != 0 && <ReferenceProfileCheck data={CurrentUserData?.reference_check} current={true} />}
+                            <View style={{ height: 30 }} />
+                        </ScrollView>
+                    </View>
+            }
+
         </SafeAreaView >
     )
 }

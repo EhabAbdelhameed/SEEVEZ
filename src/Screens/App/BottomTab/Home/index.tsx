@@ -90,7 +90,6 @@ const Home = () => {
     dispatch(AuthSlice.chnageVerified(false));
     dispatch(AuthSlice.chnageIsSignedUp(false));
     dispatch(AuthSlice.chnageReseted(false));
-    dispatch(AppSlice.changeAccessToken(false));
     dispatch(
       AppSlice.changePhotoData({
         image: null,
@@ -105,7 +104,7 @@ const Home = () => {
       }),
     );
   }, []);
-  console.warn(lang)
+  // console.warn(lang)
   return (
     <SafeAreaView edges={['top']} style={[globalStyles.screen, {
       // direction: 'ltr'

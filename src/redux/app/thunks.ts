@@ -1,4 +1,4 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import AppAPI from './api';
 
 //doAddSkills
@@ -892,7 +892,7 @@ const CreatePoll: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Poll(data);
-      console.warn('mmm', response);
+      // console.warn('mmm', response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -942,7 +942,7 @@ const GetMyReels: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.GetMyReel(data);
-      console.log("Response Data",JSON.stringify(response))
+      console.log("Response Data", JSON.stringify(response))
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1264,7 +1264,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.profileInfo();
-      console.log(JSON.stringify(response?.data))
+      console.log(JSON.stringify(response))
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1314,7 +1314,7 @@ const doRemoveLike: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.disLike(data);
-      console.warn('mmm', response);
+      // console.warn('mmm', response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1338,7 +1338,7 @@ const doVotePoll: any = createAsyncThunk<any, any, any>(
   'app/VotePoll',
   async (data, thunkApi: any) => {
     try {
-      const response = await AppAPI.votePoll(data);
+      // const response = await AppAPI.votePoll(data);
       console.warn('mmm', response);
       if (
         response.status == null ||
@@ -1359,6 +1359,31 @@ const doVotePoll: any = createAsyncThunk<any, any, any>(
   },
 );
 
+
+const doSearch: any = createAsyncThunk<any, any, any>(
+  'app/search',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.search(data);
+      // alert(JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 const AppThunks = {
   doAddSkills,
   GetAccessToken,
@@ -1410,10 +1435,11 @@ const AppThunks = {
   searchForTagPeopel,
   doGetFollowers,
   CreatePoll,
-   GetOnePost,
-   doAddLike,
-   doRemoveLike,
-   doVotePoll
+  GetOnePost,
+  doAddLike,
+  doRemoveLike,
+  doVotePoll,
+  doSearch
 };
 
 export default AppThunks;
