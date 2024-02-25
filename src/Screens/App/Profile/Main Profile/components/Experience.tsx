@@ -13,9 +13,14 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import { AVATAR, CompanyLogo, PDF } from 'assets/Svgs';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const ExperienceProfileCard = (data: any) => {
-
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
   const differenceInMonths = (date1: any, date2: any) => {
@@ -39,7 +44,7 @@ const ExperienceProfileCard = (data: any) => {
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>Experience</Text>
+          <Text style={styles.Title}>{t("experience")}</Text>
           {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateExperience')}>
@@ -86,8 +91,8 @@ const ExperienceProfileCard = (data: any) => {
             </View>
 
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.Title2}>Job Title</Text>
-              <Text style={styles.CompanyName}>Company Name</Text>
+              <Text style={styles.Title2}>{t("jobTitle")}</Text>
+              <Text style={styles.CompanyName}>{t("CompanyName")}</Text>
             </View>
           </View>
         ) : seeAllExperiences ? (
@@ -130,7 +135,7 @@ const ExperienceProfileCard = (data: any) => {
                 <Text style={styles.statuesText}>Hybrid</Text>
               </View> */}
               </View>
-              <Text style={styles.Title3}>Description</Text>
+              <Text style={styles.Title3}>{t("description")}</Text>
               <ReadMore
                 style={styles.PostText}
                 animate={true}
@@ -142,8 +147,8 @@ const ExperienceProfileCard = (data: any) => {
                   color: appColors.primary,
                   textDecorationLine: 'underline',
                 }}
-                seeLessText="less"
-                seeMoreText="Read more"
+                seeLessText={t("Less")}
+                seeMoreText={t("Read more")}
                 numberOfLines={3}>
                 {item.description}
               </ReadMore>
@@ -206,7 +211,7 @@ const ExperienceProfileCard = (data: any) => {
                       <Text style={styles.statuesText}>Hybrid</Text>
                     </View> */}
                 </View>
-                <Text style={styles.Title3}>Description</Text>
+                <Text style={styles.Title3}>{t("description")}</Text>
                 <ReadMore
                   style={styles.PostText}
                   animate={true}
@@ -218,8 +223,8 @@ const ExperienceProfileCard = (data: any) => {
                     color: appColors.primary,
                     textDecorationLine: 'underline',
                   }}
-                  seeLessText="less"
-                  seeMoreText="Read more"
+                  seeLessText={t("Less")}
+                  seeMoreText={t("Read more")}
                   numberOfLines={3}>
                   {item.description}
                 </ReadMore>
@@ -252,7 +257,7 @@ const ExperienceProfileCard = (data: any) => {
         }
         onPress={() => setSeeAllExperiences(!seeAllExperiences)}>
         <Text style={styles.seeAll}>
-          See {seeAllExperiences ? 'Less' : 'All'}
+        {t("See")} {seeAllExperiences ? t('Less') : t('All')}
         </Text>
       </TouchableOpacity>
     </View>

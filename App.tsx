@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Platform } from 'react-native'
+import { View, Text, SafeAreaView, Platform, I18nManager } from 'react-native'
 import { PortalProvider } from '@gorhom/portal';
 import React from 'react'
 import { enableScreens } from "react-native-screens";
@@ -9,21 +9,28 @@ import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-c
 import { Provider } from 'react-redux';
 import { Store } from 'src/redux/store';
 import Toast from 'react-native-toast-message';
+import i18n from 'src/i18n/i18n';
 
 enableScreens()
 
-let CodePushOptions = {
-  checkFrequency: CodePush.CheckFrequency.MANUAL,
-};
+
 const App = () => {
   React.useEffect(() => {
-    if (Platform.OS == "ios") {
-      CodePush.sync({
-        updateDialog: { title: 'A new update is Available' },
-        installMode: CodePush.InstallMode.IMMEDIATE,
-      }).catch(e => console.log(e));
-    }
-  }, []);
+    Platform.OS == 'ios' ?
+      (
+        I18nManager.allowRTL(true),
+        I18nManager.forceRTL(true)
+      )
+      :
+      ((i18n.language === 'en') ? (
+        I18nManager.allowRTL(false),
+        I18nManager.forceRTL(false)
+      ) : (
+        I18nManager.allowRTL(true),
+        I18nManager.forceRTL(true)
+      ))
+  }, [i18n.language])
+  console.warn(I18nManager?.isRTL)
   return (
     <Provider store={Store().store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -41,4 +48,4 @@ const App = () => {
   )
 }
 
-export default CodePush(CodePushOptions)(App);
+export default App

@@ -6,10 +6,13 @@ import {appColors} from '../../../../../theme/appColors';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const CompleteProfile = ({pers = 0}: {pers: number}) => {
   const CurrentUserData = useSelector(selectUser);
-
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   const navigation = useNavigation();
   const Slider = () => {
     return (
@@ -61,12 +64,12 @@ const CompleteProfile = ({pers = 0}: {pers: number}) => {
         style={styles.containerCompleteProfile}>
         <View style={styles.rowContainer}>
           <View style={styles.contentContainer}>
-            <Text style={styles.text1}>Complete your profile</Text>
-            <Text style={styles.text2}>
+            <Text style={styles.text1}>{t("completeYourProfile")}</Text>
+            {/* <Text style={styles.text2}>
               Lorem ipsum dolor sit amet consectetur.
-            </Text>
+            </Text> */}
           </View>
-          <View style={{transform: [{rotate: '180deg'}]}}>
+          <View style={{transform:lang=='en'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}>
             <RenderSvgIcon icon="ARROWBACK" color={appColors.primary} />
           </View>
         </View>

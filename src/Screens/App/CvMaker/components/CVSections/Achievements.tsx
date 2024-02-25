@@ -4,6 +4,7 @@ import { styles } from './styles';
 import { appColors } from '../../../../../theme/appColors';
 import EditDragIcons from './EditDragIcons';
 import { PDF } from 'assets/Svgs';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   drag: any;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const Achievements = (props: Props) => {
+  const {t, i18n} = useTranslation();
   return (
     <TouchableOpacity style={[styles.container2, {
       backgroundColor: appColors.lightGrey
@@ -22,7 +24,7 @@ const Achievements = (props: Props) => {
       <EditDragIcons />
       <Text
         style={styles.textHeaderSection}
-      >Achievements</Text>
+      >{t("achievements")}</Text>
       <FlatList
         data={props.User?.user_data?.achievement}
         renderItem={({ item }) => (

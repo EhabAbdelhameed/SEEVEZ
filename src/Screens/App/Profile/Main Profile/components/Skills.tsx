@@ -4,16 +4,21 @@ import { appColors } from '../../../../../theme/appColors';
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import { Close } from 'assets/Svgs';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const SkillsProfileCard = ({ title, data, current }: { title?: any; data?: any; current?: boolean }) => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
-
+  const lang = useSelector(selectLang);
+  console.log(title)
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>{title}</Text>
+          <Text style={styles.Title}>{t(title?.toLowerCase())}</Text>
           {!current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() =>
@@ -80,7 +85,7 @@ const SkillsProfileCard = ({ title, data, current }: { title?: any; data?: any; 
         }
         onPress={() => setSeeAllExperiences(!seeAllExperiences)}>
         <Text style={styles.seeAll}>
-          See {seeAllExperiences ? 'Less' : 'All'}
+        {t("See")} {seeAllExperiences ? t('Less') : t('All')}
         </Text>
       </TouchableOpacity>
     </View>

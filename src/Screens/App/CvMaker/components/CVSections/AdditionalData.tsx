@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { styles } from './styles';
 import { appColors } from '../../../../../theme/appColors';
 import EditDragIcons from './EditDragIcons';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     drag: any;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const AdditionalData = (props: Props) => {
+    const {t, i18n} = useTranslation();
     return (
         <TouchableOpacity style={[styles.container2, {
             backgroundColor: appColors.yellow
@@ -22,16 +24,16 @@ const AdditionalData = (props: Props) => {
             <EditDragIcons color={appColors.brown} />
             <Text
                 style={styles.textHeaderSection}
-            >Additional data</Text>
+            >{t("additionalData")}</Text>
             <View style={styles.rowContainer}>
                 <View style={{ flex: 1 }}>
-                    <Text style={styles.label}>Date of birth</Text>
+                    <Text style={styles.label}>{t("dateOfBirth")}</Text>
                     <Text
                         style={styles.textContentSection}
                     >{props?.User?.birthdate}</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Text style={styles.label}>Nationality</Text>
+                    <Text style={styles.label}> {t("nationality")}</Text>
                     <FlatList
                         data={props.User?.user_data?.nationality}
                         renderItem={({item}) => (

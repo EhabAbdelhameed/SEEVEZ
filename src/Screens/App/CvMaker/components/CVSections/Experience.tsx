@@ -6,6 +6,9 @@ import { appSizes } from '../../../../../theme/appSizes';
 import EditDragIcons from './EditDragIcons';
 import moment from 'moment';
 import { getDateDistanceInMonthsAndYears } from 'src/Utils/HF';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     drag: any;
@@ -14,6 +17,9 @@ interface Props {
 }
 
 const Experience = (props: Props) => {
+    const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
     return (
         <TouchableOpacity style={[styles.container2, {
             backgroundColor: appColors.yellow
@@ -22,7 +28,7 @@ const Experience = (props: Props) => {
             disabled={props.isActive}
         >
             <EditDragIcons color={appColors.brown} />
-            <Text style={styles.textHeaderSection}>Experience</Text>
+            <Text style={styles.textHeaderSection}>{t("experience")}</Text>
             <FlatList
                 data={props?.User?.user_data?.experiences}
                 renderItem={({ item }) => (
@@ -43,7 +49,7 @@ const Experience = (props: Props) => {
                             fontWeight: "700",
                             marginTop: 10,
                             fontSize: appSizes.font_m
-                        }]}>Description</Text>
+                        }]}>{t("description")}</Text>
                         <Text style={[styles.textContentSection, {
                             fontSize: appSizes.font_xs,
                             marginTop:5

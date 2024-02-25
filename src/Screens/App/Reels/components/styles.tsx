@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, Platform, StyleSheet } from "react-native";
 // import { appSizes } from "../../theme/appSizes";
 import { appColors } from "../../../../theme/appColors";
 import { appSizes } from "../../../../theme/appSizes";
@@ -16,7 +16,8 @@ export const styles = StyleSheet.create({
         // backgroundColor: "#489",
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 15
+        // marginTop:Platform.OS=='ios'? 50:15
+
         // height:100,
     },
     leftHeader: {
@@ -24,6 +25,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         // backgroundColor: "#5659",
         flexDirection: "row"
+        
     },
     rightHeader: {
         flex: 1,

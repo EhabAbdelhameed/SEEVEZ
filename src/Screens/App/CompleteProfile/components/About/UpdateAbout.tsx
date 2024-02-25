@@ -23,6 +23,8 @@ import AuthSlice, { selectUser } from 'src/redux/auth';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import CustomButton from 'components/molecules/Button/CustomButton';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateAbout = () => {
   // const navigation = useNavigation<any>();
@@ -48,6 +50,9 @@ const UpdateAbout = () => {
   useEffect(() => {
     AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
   }, [AccessToken]);
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -72,7 +77,7 @@ const UpdateAbout = () => {
               marginLeft: 8,
               fontFamily: 'Noto Sans',
             }}>
-            About
+            {t("about")}
           </Text>
           <Formik
             initialValues={{About:CurrentUserData?.about|| ''}}
@@ -99,8 +104,8 @@ const UpdateAbout = () => {
                 <TextInput
                   multiline
                   numberOfLines={10} // Set the number of lines you want to display
-                  style={styles.textArea} // Define your own styles for the text area
-                  placeholder="Write here.."
+                  style={[styles.textArea,{textAlign:lang=='ar'?'right':'left'}]} // Define your own styles for the text area
+                  placeholder={t("writeHere")}
                   placeholderTextColor={'#B9B9B9'}
                   onChangeText={value =>
                     props?.setFieldValue(`About`, value)
@@ -112,7 +117,7 @@ const UpdateAbout = () => {
                   textAlignVertical="top"
                 />
                 <View style={{height:appSizes.height * 0.09}}/>
-                <CustomButton loading={loading} text={'Done'} onPress={props.handleSubmit} />
+                <CustomButton loading={loading} text={t('Done')} onPress={props.handleSubmit} />
                 {/* <Button loading={loading} text={'Done'} onPress={props.handleSubmit} /> */}
               </View>
             )}

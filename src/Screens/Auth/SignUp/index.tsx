@@ -5,17 +5,22 @@ import {RenderSvgIcon} from '../../../Components/atoms/svg';
 import styles from './styles';
 import DonotHaveAccountSection from '../../../Components/molecules/DonotHaveAccountSection';
 import RectangleBtn from './components/RectangleBtn';
-import Rectangle1Img from './../../../assets/images/Rectangle1.jpg';
-import Rectangle1Img2 from './../../../assets/images/Rectangle4.jpg';
+// import Rectangle1Img from './../../../assets/images/Rectangle1.jpg';
+// import Rectangle1Img2 from './../../../assets/images/Rectangle4.jpg';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {appColors} from '../../../theme/appColors';
 import {BigLogo} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import { useAppSelector } from 'src/redux/store';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 const SignUp = () => {
   const{width,height}=useWindowDimensions()
+  const lang = useAppSelector(selectLang);
+  const {t, i18n} = useTranslation();
   // console.log(height/3)
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
       <StatusBar backgroundColor={'#FFF'} barStyle={'dark-content'}/>
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -60,19 +65,19 @@ const SignUp = () => {
               </View>
             </View>
             <View>
-              <Text style={styles.signup}>Sign up</Text>
-              <Text style={styles.letsJumpIn}>Let‘s jump in</Text>
+              <Text style={styles.signup}>{t("Sign up")}</Text>
+              <Text style={styles.letsJumpIn}>{t("LetsJumpIn")}</Text>
             </View>
             <View style={styles.rowRectangles}>
               <RectangleBtn
-                img={Rectangle1Img}
-                title1="As a"
-                title2="recruiter"
+                img={require("./../../../assets/images/Rectangle1.jpg")}
+                title1={t('As a')}
+                title2= {t("Recruiter")}
               />
               <RectangleBtn
-                img={Rectangle1Img2}
-                title1="As a "
-                title2="job seeker"
+                img={require("./../../../assets/images/Rectangle4.jpg")}
+                title1={t('As a')}
+                title2={t('JobSeeker')}
               />
             </View>
             <View style={{marginTop: 10}}>

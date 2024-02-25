@@ -7,6 +7,9 @@ import { appColors } from '../../../../theme/appColors';
 import { appSizes } from '../../../../theme/appSizes';
 import Button from '../../../../Components/molecules/Button';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
+import { useAppSelector } from 'src/redux/store';
 
 
 const JumpModal = (
@@ -41,19 +44,21 @@ const JumpModal = (
                         marginTop: 0,
                         color: appColors.black,
                         alignSelf: "flex-start",marginLeft:12
-                    }]}>{data?.title}</Text>
+                    }]}>{t(data?.title)}</Text>
                 </View>
             </>
         )
     }
+    const lang = useAppSelector(selectLang);
+    const {t, i18n} = useTranslation();
     return (
         <RNModal
             ref={ModalRef}
             renderModalHeader={header}
             height={appSizes.height * .4}
         >
-            <View style={styles.ModalContanier}>
-                {data?.question.length ? <Text style={[styles.questionText, { marginLeft:13, fontSize: 17,}]}>{data?.question}</Text> : null}
+            <View style={[styles.ModalContanier,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
+                {data?.question.length ? <Text style={[styles.questionText, { marginLeft:13, fontSize: 17,}]}>{t(data?.question)}</Text> : null}
                 {data?.answers.map(({ answer, selected }, index) => (
                     // <View >
                           <TouchableOpacity style={styles.rowAnswer} onPress={()=>{
@@ -62,7 +67,7 @@ const JumpModal = (
                         <Text style={[styles.questionText,
                         {
                             marginTop: 0
-                        }]}>{answer}</Text>
+                        }]}>{t(answer)}</Text>
                       
                         <View style={styles.Circle}>
                             {buttonIndex==index?
@@ -73,7 +78,7 @@ const JumpModal = (
                         </TouchableOpacity>
                     // </View>
                 ))} 
-                <Button textStyle={{fontSize:16}} text="Done" onPress={() => {
+                <Button textStyle={{fontSize:16}} text={t("Done")} onPress={() => {
                     ModalRef.current?.close()
                     navigation.navigate("SignupWithSocail",{work_type:data?.answers[buttonIndex].answer,title:data?.title})
                 }}

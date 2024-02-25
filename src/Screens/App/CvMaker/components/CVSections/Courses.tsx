@@ -6,6 +6,7 @@ import { appSizes } from '../../../../../theme/appSizes';
 import EditDragIcons from './EditDragIcons';
 import moment from 'moment';
 import { getDateDistanceInMonthsAndYears } from 'src/Utils/HF';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     drag: any;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const Courses = (props: Props) => {
+    const {t, i18n} = useTranslation();
     return (
         <TouchableOpacity style={[styles.container2, {
             backgroundColor: appColors.siv
@@ -22,7 +24,7 @@ const Courses = (props: Props) => {
             disabled={props.isActive}
         >
             <EditDragIcons />
-            <Text style={styles.textHeaderSection}>Training Courses</Text>
+            <Text style={styles.textHeaderSection}>{t("trainingCourses")}</Text>
             <FlatList
                 data={props.User?.user_data?.training_courses}
                 renderItem={({ item }) => (

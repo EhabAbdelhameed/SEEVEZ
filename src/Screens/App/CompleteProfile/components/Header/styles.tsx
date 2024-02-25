@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     // alignItems: '',
     marginVertical: appSizes.x,
     marginBottom: appSizes.height * 0.07,
+    backgroundColor:appColors.bg
   },
   bottomSection: {
     backgroundColor: appColors.white,

@@ -25,19 +25,22 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import DocumentPicker from 'react-native-document-picker';
 import AppSlice from 'src/redux/app';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 const InfoProfileCard = (data: any) => {
   const [name, setName] = useState<any>('');
   const [count, setCount] = React.useState(0)
   const [loading, setLoading] = useState<any>(false);
   const dispatch = useAppDispatch();
-  console.log('====================================');
-  console.log(data?.data);
-  console.log('====================================');
+
   React.useEffect(() => {
     dispatch(AppThunks.doGetFollowers(data?.current? data?.data?.id:data?.data?.user_id)).then((res: any) => {
         setCount(res?.payload?.data?.followCounts[0]?.followerCount)
     })
 }, [])
+const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const uploadFile = async (type: any) => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -167,13 +170,13 @@ const InfoProfileCard = (data: any) => {
         )}
         <View style={[styles.Row, {marginTop: 10}]}>
           <View style={styles.subContainer}>
-            <Text style={styles.subText}>Premium</Text>
+            <Text style={styles.subText}>{t("premium")}</Text>
           </View>
           <View style={styles.statuesContainer}>
-            <Text style={styles.statuesText}>Online</Text>
+            <Text style={styles.statuesText}>{t("online")}</Text>
           </View>
           <View style={styles.FollowersContainer}>
-            <Text style={styles.FollowersText}>{count >= 1000 ? `${count / 1000}k` : count} Followers</Text>
+            <Text style={styles.FollowersText}>{count >= 1000 ? `${count / 1000}k` : count} {t("Followers")}</Text>
           </View>
         </View>
         {data?.data?.area == null &&
@@ -281,10 +284,10 @@ const InfoProfileCard = (data: any) => {
                 columnGap: 10,
               }}>
               <Analytic width={20} height={20} />
-              <Text style={{color: appColors.white}}>My analytics</Text>
+              <Text style={{color: appColors.white}}>{t("myAnalytics")}</Text>
             </TouchableOpacity>
           </View>
-        ) : (
+        ) : (   
           <View style={[styles.Row, {marginTop: 15}]}>
             {(data?.data?.cv_pdf == null&&!data.current) ? (
               <TouchableOpacity
@@ -304,7 +307,7 @@ const InfoProfileCard = (data: any) => {
                   columnGap: 10,
                 }}>
                 <PDF width={20} height={20} />
-                <Text style={{color: appColors.primary}}>
+                <Text style={{color: appColors.primary,fontSize:lang=='ar'?12:14}}>
                   {name == '' ? (
                     loading ? (
                       <ActivityIndicator
@@ -312,10 +315,10 @@ const InfoProfileCard = (data: any) => {
                         color={appColors.primary}
                       />
                     ) : (
-                      'Upload CV'
+                      t('Upload CV')
                     )
                   ) : (
-                    name.slice(9)
+                    name.slice(0,10)
                   )}
                 </Text>
               </TouchableOpacity>

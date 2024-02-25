@@ -1,7 +1,7 @@
-import {View, Text, ImageBackground} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {styles} from './styles';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { View, Text, ImageBackground } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { styles } from './styles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Header from './components/Header';
 import CompleteProfile from './components/CompleteProfile';
 import BoxContentTitle from './components/BoxContentTitle';
@@ -13,25 +13,29 @@ import Polls from './components/Polls';
 import Hashtags from './components/Hashtags';
 import Communities from './components/Communities';
 import Schedule from './components/Schedule';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {globalStyles} from 'src/globalStyle';
-import {appColors, appSizes} from 'theme';
-import {PlayVideo, Trending} from 'assets/Svgs';
-import {useAppDispatch, useAppSelector} from 'src/redux/store';
-import AuthSlice, {selectUser} from 'src/redux/auth';
-import {useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { globalStyles } from 'src/globalStyle';
+import { appColors, appSizes } from 'theme';
+import { PlayVideo, Trending } from 'assets/Svgs';
+import { useAppDispatch, useAppSelector } from 'src/redux/store';
+import AuthSlice, { selectUser } from 'src/redux/auth';
+import { useSelector } from 'react-redux';
 import AppThunks from 'src/redux/app/thunks';
-import {RenderSvgIcon} from 'components/atoms/svg';
+import { RenderSvgIcon } from 'components/atoms/svg';
 import Pending from './components/pending';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppSlice, {selectFollowingList} from 'src/redux/app';
+import AppSlice, { selectFollowingList } from 'src/redux/app';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
-
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   // dispatch(AuthSlice.chnageisAuth(false))
   // const Following = AsyncStorage.getItem('FollowingList')
   const [followingList, setFollowingList] = useState<any[]>([]);
@@ -103,8 +107,9 @@ const Home = () => {
       }),
     );
   }, []);
+
   return (
-    <SafeAreaView edges={['top']} style={globalStyles.screen}>
+    <SafeAreaView edges={['top']} style={[globalStyles.screen, {direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
       <View style={globalStyles.screen}>
         <Header />
         <KeyboardAwareScrollView
@@ -118,14 +123,14 @@ const Home = () => {
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}>
           {parseInt(CurrentUserData?.user_data?.complete_progress) ==
-          100 ? null : (
+            100 ? null : (
             <CompleteProfile
               pers={parseInt(CurrentUserData?.user_data?.complete_progress)}
             />
           )}
           <View style={styles.rowContainer}>
             <BoxContentTitle
-              title="My reels"
+              title={t("myReels")}
               onPress={() => {
                 navigation.navigate('Reels');
               }}>
@@ -137,14 +142,14 @@ const Home = () => {
               </ImageBackground>
             </BoxContentTitle>
             {CurrentUserData?.work_type == 'freelancer' ||
-            CurrentUserData?.user_data?.user_type == 'company' ||
-            CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+              CurrentUserData?.user_data?.user_type == 'company' ||
+              CurrentUserData?.user_data?.user_type == 'company_admin' ? (
               <BoxContentTitle
                 title={
                   CurrentUserData?.user_data?.user_type == 'company' ||
-                  CurrentUserData?.user_data?.user_type == 'company_admin'
-                    ? 'My Applicants'
-                    : 'My connections'
+                    CurrentUserData?.user_data?.user_type == 'company_admin'
+                    ? t('myApplicants')
+                    : t('myConnections')
                 }
                 onPress={() => {
                   navigation.navigate('Connections');
@@ -152,11 +157,11 @@ const Home = () => {
                 <User data={followingList[0]} />
                 <User data={followingList[0]} />
                 <User data={followingList[0]} />
-                <View style={{height: 8}} />
+                <View style={{ height: 8 }} />
               </BoxContentTitle>
             ) : (
               <BoxContentTitle
-                title="My video CV"
+                title={t("myVideoCv")}
                 onPress={() => {
                   navigation.navigate('MyVideoCV');
                 }}>
@@ -170,16 +175,16 @@ const Home = () => {
             )}
           </View>
           <View style={styles.rowContainer}>
-            <BoxContentTitle title="My analytics">
+            <BoxContentTitle title={t("myAnalytics")}>
               <DashboardSection />
             </BoxContentTitle>
           </View>
           {CurrentUserData?.work_type == 'freelancer' ||
-          CurrentUserData?.user_data?.user_type == 'company' ||
-          CurrentUserData?.user_data?.user_type == 'company_admin' ? null : (
+            CurrentUserData?.user_data?.user_type == 'company' ||
+            CurrentUserData?.user_data?.user_type == 'company_admin' ? null : (
             <View style={styles.rowContainer}>
               <BoxContentTitle
-                title="CV maker"
+                title={t("cvMaker")}
                 onPress={() => {
                   navigation.navigate('Cv');
                 }}>
@@ -189,7 +194,7 @@ const Home = () => {
                   resizeMode="contain"></ImageBackground>
               </BoxContentTitle>
               <BoxContentTitle
-                title="My connections"
+                title={t('myConnections')}
                 onPress={() => {
                   navigation.navigate('MyConnection');
                 }}>
@@ -204,8 +209,8 @@ const Home = () => {
               <BoxContentTitle
                 title={
                   CurrentUserData?.user_data?.user_type == 'recruiter'
-                    ? 'My workshop'
-                    : 'My jobs'
+                    ? t('myWorkshop')
+                    : t('myJobs')
                 }>
                 <CompanySection />
                 <CompanySection />
@@ -214,8 +219,8 @@ const Home = () => {
             </View>
           )}
           {CurrentUserData?.user_data?.user_type == 'recruiter' ||
-          CurrentUserData?.user_data?.user_type == 'company' ||
-          CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+            CurrentUserData?.user_data?.user_type == 'company' ||
+            CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <View
                 style={{
@@ -245,7 +250,7 @@ const Home = () => {
                     color={appColors.primary}
                   />
                 </View>
-                <View style={{paddingHorizontal: 20}}>
+                <View style={{ paddingHorizontal: 20 }}>
                   <Text
                     style={{
                       fontSize: 18,
@@ -253,14 +258,15 @@ const Home = () => {
                       color: appColors.dark,
                       fontFamily: 'Noto sanc',
                     }}>
-                    Create a vacancy
+                    {t("createAVacancy")}
+                    
                   </Text>
                 </View>
               </View>
             </View>
           ) : null}
           {CurrentUserData?.user_data?.user_type == 'company' ||
-          CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+            CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <BoxContentTitle title={'My internship'}>
                 <CompanySection title={'My internship'} />
@@ -270,16 +276,16 @@ const Home = () => {
             </View>
           ) : null}
           <View style={styles.rowContainer}>
-            <BoxContentTitle title="My polls" onPress={() => {
-                  navigation.navigate('MYPolls');
-                }}>
+            <BoxContentTitle title={t("myPolls")} onPress={() => {
+              navigation.navigate('MYPolls');
+            }}>
               <Polls />
             </BoxContentTitle>
             <BoxContentTitle
-              title="My profile"
+              title={t("myProfile")}
               onPress={() =>
                 CurrentUserData?.user_data?.user_type == 'company' ||
-                CurrentUserData?.user_data?.user_type == 'company_admin'
+                  CurrentUserData?.user_data?.user_type == 'company_admin'
                   ? navigation.navigate('ProfileCompanyScreen')
                   : navigation.navigate('ProfileScreen')
               }>
@@ -287,15 +293,15 @@ const Home = () => {
             </BoxContentTitle>
           </View>
           <View style={styles.rowContainer}>
-            <BoxContentTitle title="My schedule">
+            <BoxContentTitle title={t("mySchedule")}>
               <Schedule />
             </BoxContentTitle>
           </View>
           <View style={styles.rowContainer}>
-            <BoxContentTitle title="Hashtags">
+            <BoxContentTitle title={t("hashtags")}>
               <Hashtags />
             </BoxContentTitle>
-            <BoxContentTitle title="Trending now">
+            <BoxContentTitle title={t("trendingNow")}>
               <View style={styles.rowContainer}>
                 <ImageBackground
                   source={require('../../../../assets/images/Rectangle171.png')}
@@ -329,14 +335,14 @@ const Home = () => {
             </BoxContentTitle>
           </View>
           <View style={styles.rowContainer}>
-            <BoxContentTitle title="My communities">
+            <BoxContentTitle title={t("myCommunities")}>
               <Communities />
             </BoxContentTitle>
           </View>
           {CurrentUserData?.user_data?.user_type == 'company' ||
-          CurrentUserData?.user_data?.user_type == 'company_admin' ? (
+            CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
-              <BoxContentTitle title="Pending requests">
+              <BoxContentTitle title={t("pendingRequests")}>
                 <Pending />
                 <Pending />
               </BoxContentTitle>

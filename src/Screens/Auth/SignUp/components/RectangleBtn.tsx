@@ -11,6 +11,9 @@ import styles from '../styles';
 import {Modalize} from 'react-native-modalize';
 import JumpModal from './JumpModal';
 import {appColors} from 'theme/appColors';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
+import { useAppSelector } from 'src/redux/store';
 
 const jobSeeker = {
   title: 'Sign up as a job seeker',
@@ -55,21 +58,22 @@ const RectangleBtn = ({
   title2,
   nav,
 }: {
-  img: ImageRequireSource;
+  img: any;
   title1: string;
   title2: string;
   nav?: any;
 }) => {
   const {width, height} = useWindowDimensions();
-
+  const lang = useAppSelector(selectLang);
+  const {t, i18n} = useTranslation();
   const ModalRef = useRef<Modalize>(null);
   const [data, setData] = useState(creator);
   return (
     <>
       <TouchableOpacity
-        style={styles.rectangleContainer}
+        style={[styles.rectangleContainer,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}
         onPress={() => {
-          title2.toLowerCase().includes('recruiter')
+          title2.toLowerCase().includes(lang == 'en'?'recruiter':'موظف التوظيف')
             ? setData(creator)
             : setData(jobSeeker);
           setTimeout(() => {
@@ -83,8 +87,8 @@ const RectangleBtn = ({
         
             
           }}>
-          <Text style={styles.rectangleText}>{title1}</Text>
-          <Text style={[styles.rectangleText1]}>{title2}</Text>
+          <Text style={styles.rectangleText}>{t(title1)}</Text>
+          <Text style={[styles.rectangleText1]}>{t(title2)}</Text>
         </View>    
       </TouchableOpacity>
       <JumpModal ModalRef={ModalRef} setData={setData} data={data} />

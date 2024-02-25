@@ -45,6 +45,8 @@ import {Input} from 'react-native-elements';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateExperience = () => {
@@ -100,7 +102,9 @@ const UpdateExperience = () => {
     return RenderFunction;
   }, []);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   // const filteredData = data.filter(item =>
   //   item.toLowerCase().includes(searchQuery.toLowerCase()),
   // );
@@ -213,7 +217,7 @@ const UpdateExperience = () => {
     navigation.goBack();
   }, []);
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -309,7 +313,7 @@ const UpdateExperience = () => {
                         marginLeft: 8,
                         marginBottom: 10,
                       }}>
-                      Experience
+                      {t("experience")}
                     </Text>
                     <View style={{marginBottom:10}}>
                       <Input
@@ -339,9 +343,10 @@ const UpdateExperience = () => {
                         }}
                         inputStyle={{
                           fontSize: 14,
+                          textAlign:lang=='ar'?'right':'left'
                           //  color: 'red'
                         }}
-                        placeholder={`Job title`}
+                        placeholder={t('jobTitle')}
                       />
                     </View>
                     <View style={{marginBottom:5}}>
@@ -380,9 +385,10 @@ const UpdateExperience = () => {
                         }}
                         inputStyle={{
                           fontSize: 14,
+                          textAlign:lang=='ar'?'right':'left'
                           //  color: 'red'
                         }}
-                        placeholder={`Company name`}
+                        placeholder={t('CompanyName')}
                       />
                     </View>
 
@@ -407,7 +413,7 @@ const UpdateExperience = () => {
                     )}
 
                     <Dropdown
-                      style={styles.uploadContainer1}
+                      style={[styles.uploadContainer1]}
                       placeholderStyle={styles.placeholderStyle}
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
@@ -417,7 +423,7 @@ const UpdateExperience = () => {
                       // maxHeight={300}
                       labelField="name"
                       valueField="id"
-                      placeholder="Industry"
+                      placeholder={t("industry")}
                       searchPlaceholder="Search..."
                       value={value}
                       onChange={(item: any) => {
@@ -427,11 +433,20 @@ const UpdateExperience = () => {
                         );
                       }}
                       renderRightIcon={() => (
+                        lang=='en'?
                         <RenderSvgIcon
                           icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                           width={16}
                           height={16}
-                        />
+                        />:null
+                      )}
+                      renderLeftIcon={()=>(
+                        lang=='ar'?
+                        <RenderSvgIcon
+                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                        width={16}
+                        height={16}
+                      />:null
                       )}
                       onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen(false)}
@@ -448,7 +463,7 @@ const UpdateExperience = () => {
                       // maxHeight={300}
                       labelField="name"
                       valueField="id"
-                      placeholder="Years of experience"
+                      placeholder={t("yearsOfExperience")}
                       searchPlaceholder="Search..."
                       value={value1}
                       onChange={(item: any) => {
@@ -459,11 +474,20 @@ const UpdateExperience = () => {
                         // setValue1(item?.name);
                       }}
                       renderRightIcon={() => (
+                        lang=='en'?
                         <RenderSvgIcon
-                          icon={dropdownOpen1 ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                          icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                           width={16}
                           height={16}
-                        />
+                        />:null
+                      )}
+                      renderLeftIcon={()=>(
+                        lang=='ar'?
+                        <RenderSvgIcon
+                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                        width={16}
+                        height={16}
+                      />:null
                       )}
                       onFocus={() => setDropdownOpen1(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen1(false)}
@@ -480,7 +504,7 @@ const UpdateExperience = () => {
                       // maxHeight={300}
                       labelField="name"
                       valueField="id"
-                      placeholder="Job type"
+                      placeholder={t("jobType")}
                       searchPlaceholder="Search..."
                       value={value2}
                       onChange={(item: any) => {
@@ -491,11 +515,20 @@ const UpdateExperience = () => {
                         // setValue1(item?.name);
                       }}
                       renderRightIcon={() => (
+                        lang=='en'?
                         <RenderSvgIcon
-                          icon={dropdownOpen2 ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                          icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                           width={16}
                           height={16}
-                        />
+                        />:null
+                      )}
+                      renderLeftIcon={()=>(
+                        lang=='ar'?
+                        <RenderSvgIcon
+                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                        width={16}
+                        height={16}
+                      />:null
                       )}
                       onFocus={() => setDropdownOpen2(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen2(false)}
@@ -523,9 +556,10 @@ const UpdateExperience = () => {
                       }}
                       inputStyle={{
                         fontSize: 14,
+                        textAlign:lang=='ar'?'right':'left'
                         //  color: 'red'
                       }}
-                      placeholder={`Description`}
+                      placeholder= {t("description")}
                     />
 
                     <View
@@ -545,7 +579,7 @@ const UpdateExperience = () => {
                             marginBottom: 10,
                             marginLeft: 10,
                           }}>
-                          Start date
+                          {t("startDate")}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -576,7 +610,7 @@ const UpdateExperience = () => {
                             marginBottom: 10,
                             marginLeft: 10,
                           }}>
-                          End date
+                          {t("endDate")}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -757,7 +791,7 @@ const UpdateExperience = () => {
                           }
                         />
                       </TouchableOpacity>
-                      <Text style={styles.agree}>I currently work there</Text>
+                      <Text style={styles.agree}>{t("iCurrentlyWorkThere")}</Text>
                     </View>
                     <TouchableOpacity
                       onPress={() => uploadFile(props, index)}
@@ -771,7 +805,7 @@ const UpdateExperience = () => {
                           fontFamily: 'Noto Sans',
                         }}>
                         {experienceLetter[index] == null
-                          ? 'Upload degree certificate'
+                          ? t('uploadDegreeCertificate')
                           : `${experienceLetter[index].slice(0,20)}...`}
                          
                       </Text>
@@ -812,14 +846,14 @@ const UpdateExperience = () => {
                         color: '#000',
                         fontFamily: 'Noto Sans',
                       }}>
-                      Add another job
+                      {t("addAnotherJob")}
                     </Text>
                   </View>
                 </TouchableOpacity>
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

@@ -19,11 +19,15 @@ import AuthSlice, {selectReseted} from 'src/redux/auth';
 import {ResetSchema} from 'src/Formik/schema';
 import {useSelector} from 'react-redux';
 import CustomInput from 'components/molecules/Input/CustomInput';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const ResetPassword = () => {
   const navigation = useNavigation();
   const {email, otpValue}: any = useRoute().params;
   const dispatch = useAppDispatch();
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   // const loading = useLoadingSelector(AuthThunks.doResetPassword());
   const [Token, setToken] = React.useState('');
   const [loading, setLoading] = React.useState(false);
@@ -35,7 +39,7 @@ const ResetPassword = () => {
   }, [reseted]);
   return (
     // <View style={styles.container}>
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container, {direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
       <KeyboardAwareScrollView
         contentContainerStyle={{
           // alignItems: "center",
@@ -67,8 +71,8 @@ const ResetPassword = () => {
             titleStyle={{
               fontSize: 32,
             }}
-            title="Reset password ?"
-            subtitle="Lorem ipsum dolor sit amet consectetur. Posuere pellentesque morbi placerat orci"
+            title={t("Reset password ?")}
+            subtitle=""
           />
           <Formik
             validationSchema={ResetSchema}
@@ -92,20 +96,20 @@ const ResetPassword = () => {
                 <CustomInput
                   {...props}
                   Label={'password'}
-                  placeholder="Enter your password"
+                  placeholder={t("enterYourPassword")}
                   secureTextEntry={true}
                 />
 
                 <CustomInput
                   {...props}
                   Label={'confirmPassword'}
-                  placeholder="Confirm your password"
+                  placeholder={t("confirmYourPassword")}
                   secureTextEntry={true}
                 />
                 <View style={{height: 50}} />
 
                 <Button
-                  text="Get started"
+                  text={t("getStarted")}
                   loading={loading}
                   onPress={props.handleSubmit}
                   style={styles.btn}

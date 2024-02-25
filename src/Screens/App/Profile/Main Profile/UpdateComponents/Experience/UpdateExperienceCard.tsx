@@ -26,6 +26,8 @@ import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 import ReadMore from '@fawazahmed/react-native-read-more';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateExperienceCard = () => {
   const CurrentUserData = useSelector(selectUser);
@@ -98,6 +100,9 @@ const UpdateExperienceCard = () => {
       {cancelable: false},
     );
   };
+
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />

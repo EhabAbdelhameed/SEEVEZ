@@ -1,91 +1,100 @@
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { appColors } from '../../../../../theme/appColors';
-import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
-import { Star } from 'assets/Svgs';
-import { useNavigation } from '@react-navigation/native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {appColors} from '../../../../../theme/appColors';
+import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import {Star} from 'assets/Svgs';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
 
 const LanguagesProfileCard = (data: any) => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation();
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>Languages</Text>
-          {!data?.current && <View style={styles.Row2}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('UpdateLanguages')}>
-              <RenderSvgIcon
-                icon="PLUSFOLLOW"
-                style={{ marginRight: 10 }}
-                width={20}
-                height={20}
-                color={appColors.primary}
-              />
-            </TouchableOpacity>
-            {data?.data?.length == 0 ? null :
+          <Text style={styles.Title}>{t('languages')}</Text>
+          {!data?.current && (
+            <View style={styles.Row2}>
               <TouchableOpacity
-                style={{
-                  height: 30,
-                  width: 30,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                disabled={data?.data?.length == 0 ? true : false}
-                onPress={() => navigation.navigate('UpdateLanguageCard')}>
+                onPress={() => navigation.navigate('UpdateLanguages')}>
                 <RenderSvgIcon
-                  icon="PEN"
+                  icon="PLUSFOLLOW"
+                  style={{marginRight: 10}}
                   width={20}
                   height={20}
                   color={appColors.primary}
                 />
-              </TouchableOpacity>}
-          </View>}
+              </TouchableOpacity>
+              {data?.data?.length == 0 ? null : (
+                <TouchableOpacity
+                  style={{
+                    height: 30,
+                    width: 30,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  disabled={data?.data?.length == 0 ? true : false}
+                  onPress={() => navigation.navigate('UpdateLanguageCard')}>
+                  <RenderSvgIcon
+                    icon="PEN"
+                    width={20}
+                    height={20}
+                    color={appColors.primary}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
         </View>
         {data?.data?.length == 0
           ? null
           : data?.data?.map((item: any, index: any) =>
-            seeAllExperiences ? (
-              <View style={[styles.Row, { marginTop: 10, marginBottom: 0 }]}>
-                <View>
-                  <Text style={styles.Head}>{item?.name}</Text>
-                  <Text style={styles.Des}>
-                    {item.rate == 5
-                      ? 'Native or bilingual proficiency'
-                      : item.rate == 3
+              seeAllExperiences ? (
+                <View style={[styles.Row, {marginTop: 10, marginBottom: 0}]}>
+                  <View>
+                    <Text style={styles.Head}>{item?.name}</Text>
+                    <Text style={styles.Des}>
+                      {item.rate == 5
+                        ? 'Native or bilingual proficiency'
+                        : item.rate == 3
                         ? 'Advanced'
                         : item.rate == 2
-                          ? 'Intermediate'
-                          : 'Beginner'}
-                  </Text>
+                        ? 'Intermediate'
+                        : 'Beginner'}
+                    </Text>
+                  </View>
+                  <View style={styles.Row2}>
+                    <Text style={styles.RatingText}>{item.rate}/5</Text>
+                    <Star />
+                  </View>
                 </View>
-                <View style={styles.Row2}>
-                  <Text style={styles.RatingText}>{item.rate}/5</Text>
-                  <Star />
-                </View>
-              </View>
-            ) : index == 0 ? (
-              <View style={[styles.Row, { marginTop: 10, marginBottom: 0 }]}>
-                <View>
-                  <Text style={styles.Head}>{item?.name}</Text>
-                  <Text style={styles.Des}>
-                    {item.rate == 5
-                      ? 'Native or bilingual proficiency'
-                      : item.rate == 3
+              ) : index == 0 ? (
+                <View style={[styles.Row, {marginTop: 10, marginBottom: 0}]}>
+                  <View>
+                    <Text style={styles.Head}>{item?.name}</Text>
+                    <Text style={styles.Des}>
+                      {item.rate == 5
+                        ? 'Native or bilingual proficiency'
+                        : item.rate == 3
                         ? 'Advanced'
                         : item.rate == 2
-                          ? 'Intermediate'
-                          : 'Beginner'}
-                  </Text>
+                        ? 'Intermediate'
+                        : 'Beginner'}
+                    </Text>
+                  </View>
+                  <View style={styles.Row2}>
+                    <Text style={styles.RatingText}>{item?.rate}/5</Text>
+                    <Star />
+                  </View>
                 </View>
-                <View style={styles.Row2}>
-                  <Text style={styles.RatingText}>{item?.rate}/5</Text>
-                  <Star />
-                </View>
-              </View>
-            ) : null,
-          )}
+              ) : null,
+            )}
       </View>
 
       <View style={styles.devider} />
@@ -95,7 +104,7 @@ const LanguagesProfileCard = (data: any) => {
         }
         onPress={() => setSeeAllExperiences(!seeAllExperiences)}>
         <Text style={styles.seeAll}>
-          See {seeAllExperiences ? 'Less' : 'All'}
+        {t("See")} {seeAllExperiences ? t('Less') : t('All')}
         </Text>
       </TouchableOpacity>
     </View>
@@ -134,27 +143,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: appColors.black,
-    textAlign:'left'
+    textAlign: 'left',
   },
   Head: {
     fontSize: 16,
     fontWeight: '700',
     color: appColors.black,
-    textAlign:'left'
+    textAlign: 'left',
   },
   Des: {
     fontSize: 14,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,
-    textAlign:'left'
+    textAlign: 'left',
   },
   RatingText: {
     fontSize: 12,
     fontWeight: '700',
     color: appColors.black,
     marginRight: 3,
-    textAlign:'left'
+    textAlign: 'left',
   },
   devider: {
     height: 1,

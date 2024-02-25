@@ -3,5 +3,5 @@ interface userState {
 }
 
 export const initialState: userState = {
-    lang: 'ar',
+    lang: 'en',
 }

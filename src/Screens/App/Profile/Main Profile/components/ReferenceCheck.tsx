@@ -14,17 +14,22 @@ import { useNavigation } from '@react-navigation/native';
 import { PDF } from 'assets/Svgs';
 import { selectUser } from 'src/redux/auth';
 import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const ReferenceProfileCheck = (data: any) => {
   const CurrentUserData = useSelector(selectUser);
 
   const navigation = useNavigation();
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
 
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>Reference check</Text>
+          <Text style={styles.Title}>{t("referenceCheck")}</Text>
           {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateRefernceCheck')}>

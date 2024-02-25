@@ -15,12 +15,17 @@ import AuthSlice, { selectUser } from 'src/redux/auth';
 import AppThunks from 'src/redux/app/thunks';
 import { useSelector } from 'react-redux';
 import { selectAccessToken } from 'src/redux/app';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const Cv = () => {
     const dispatch = useAppDispatch()
     const [isLoading, setIsLoading] = useState(false);
     const [count, setCount] = useState(1);
     const User = useAppSelector(selectUser)
+    const lang = useSelector(selectLang);
+  
+    const {t, i18n} = useTranslation();
     React.useEffect(() => {
         dispatch(AppThunks.GetProfileInfo())
     }, [])
@@ -28,6 +33,7 @@ const Cv = () => {
     useEffect(() => {
       AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
     }, [AccessToken]);
+    
     const onGenerate = async () => {
         try {
             // const options = {
@@ -61,7 +67,7 @@ const Cv = () => {
     }
 
     return (
-        <SafeAreaView edges={['top']} style={styles.container}>
+        <SafeAreaView edges={['top']} style={[styles.container,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
             <Header />
             <CVRN />
             {/* <RenderHtml source={source} /> */}

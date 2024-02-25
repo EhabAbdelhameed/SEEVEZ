@@ -12,16 +12,21 @@ import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import { useNavigation } from '@react-navigation/native';
 import { PDF } from 'assets/Svgs';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const AchievementsProfileCard = (data: any) => {
   const navigation = useNavigation();
-  console.log('HELLO FROM ACHIEV', data);
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
-          <Text style={styles.Title}>Achievements</Text>
+          <Text style={styles.Title}>{t("achievements")}</Text>
           {!data?.current && <View style={styles.Row2}>
             <TouchableOpacity
               onPress={() => navigation.navigate('UpdateAchievements')}>
@@ -164,7 +169,7 @@ const AchievementsProfileCard = (data: any) => {
         }
         onPress={() => setSeeAllExperiences(!seeAllExperiences)}>
         <Text style={styles.seeAll}>
-          See {seeAllExperiences ? 'Less' : 'All'}
+        {t("See")} {seeAllExperiences ? t('Less') : t('All')}
         </Text>
       </TouchableOpacity>
     </View>
