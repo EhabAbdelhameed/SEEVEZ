@@ -79,9 +79,9 @@ const UpdateLanguages = () => {
   ];
   const lang = useSelector(selectLang);
   
-  const {t, i18n} = useTranslation();
+  const {t, i18n} = useTranslation(); 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -114,7 +114,7 @@ const UpdateLanguages = () => {
             }}>
             {(props: any) => (
               <View>
-                {Languages.map((lang: any, index: any) => (
+                {Languages.map((lang1: any, index: any) => (
                   <View key={index} style={{marginTop: 10, marginBottom: 10}}>
                     <Text
                       style={{
@@ -146,6 +146,7 @@ const UpdateLanguages = () => {
                       }}
                       inputStyle={{
                         fontSize: 14,
+                        textAlign:lang=='ar'?'right':'left'
                         //  color: 'red'
                       }}
                       placeholder={t('Enter your language')}

@@ -64,6 +64,10 @@ const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?n
 const like = (data: any) => api.post(`api/add-reaction`, data);
 const disLike = (data: any) => api.post(`api/remove-reaction`, data);
 const votePoll = (data: any) => api.post(`api/vote-poll`, data);
+const JobSeeker = (data: any) => api.get(`api/job-seeker/5?page=${data}`);
+const recruiterUser = (data: any) => api.get(`api/recruiter/5?page=${data}`);
+const companyUser = (data: any) => api.get(`api/company/1?page=${data}`);
+
 
 
 
@@ -126,7 +130,11 @@ const AppAPI = {
   followers,
   like,
   disLike,
-  votePoll
+  votePoll,
+  JobSeeker,
+  recruiterUser,
+  companyUser
+
 };
 
 export default AppAPI;

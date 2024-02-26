@@ -14,6 +14,8 @@ import PollHeader from './components/Header';
 import Polls from './components/Polls';
 import { FlatList } from 'react-native-gesture-handler';
 import Footer from './components/footer';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 
 const MYPolls = () => {
@@ -36,11 +38,13 @@ const MYPolls = () => {
   const polls = useSelector(selectPolls);
    
   const CurrentUserData = useSelector(selectUser);
-  
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   // console.log("This Data From Hossam ",JSON.stringify(CurrentUserData))
   return (
-    <SafeAreaView edges={['top']} style={styles.Container}>
-      <Header Title="My poll" onPress={() => navigation.goBack()} />
+    <SafeAreaView edges={['top']} style={[styles.Container,{direction:lang=="ar"?'rtl':'ltr'}]}>
+      <Header Title={t("myPolls")} onPress={() => navigation.goBack()} />
       <View style={styles.PaddingContainer}>
       {loader ?
     <ActivityIndicator size={50} style={{marginTop:300}}/>:

@@ -4,6 +4,9 @@ import {styles} from '../styles';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {appColors} from 'theme';
 import {useNavigation} from '@react-navigation/native';
+import { selectLang } from 'src/redux/lang';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const ContainerHeader = ({
   multiSelect,
@@ -21,6 +24,9 @@ const ContainerHeader = ({
 }) => {
   const [opened, setOpened] = useState(false);
   const navigation = useNavigation<any>();
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.containerHeader}>
       {!multiSelect && (
@@ -72,7 +78,7 @@ const ContainerHeader = ({
               key: '3',
             })
           }>
-          <Text style={[styles.text1, {color: '#FFF'}]}>Save</Text>
+          <Text style={[styles.text1, {color: '#FFF'}]}>{t("save")}</Text>
         </TouchableOpacity>
       )}
       <TouchableOpacity

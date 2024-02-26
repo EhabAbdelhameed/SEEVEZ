@@ -75,7 +75,7 @@ const UpdateRefernceCheck = () => {
       } else {
         console.log('Unknown Error: ' + JSON.stringify(err));
         throw err;
-      }
+      } 
     }
   };
 
@@ -175,6 +175,7 @@ const UpdateRefernceCheck = () => {
                       }}
                       inputStyle={{
                         fontSize: 14,
+                        textAlign:lang=='ar'?'right':'left'
                         //  color: 'red'
                       }}
                       keyboardType="number-pad"

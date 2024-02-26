@@ -106,5 +106,30 @@ export const styles = StyleSheet.create({
         fontSize: appSizes.font_l - 1,
         fontWeight: "500",
         color: appColors.blue2
-    }
+    },
+    containerFooterUsers1: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+       
+      },
+      paginationNumber: {
+        padding: 5,
+        marginHorizontal: 5,
+        borderWidth: 1,
+        borderRadius: 30,
+        width:30,
+        height:30,
+        justifyContent:'center',
+        alignItems:'center',
+        borderColor: '#ccc',
+
+      },
+      activePaginationNumber: {
+        backgroundColor: 'blue', // Customize the background color for the active page number
+      },
+      paginationText: {
+        fontSize: 16,
+      },
 })

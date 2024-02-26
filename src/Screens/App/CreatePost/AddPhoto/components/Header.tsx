@@ -12,6 +12,9 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import {appColors} from 'theme';
 import {useNavigation} from '@react-navigation/native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const navigation = useNavigation<any>();
@@ -45,13 +48,24 @@ const Header = () => {
       console.warn(err);
     }
   };
+  const lang = useSelector(selectLang);
 
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.HeaderContainer}>
-      <TouchableOpacity style={styles.skipContainer} onPress={_handleNavigate}>
-        <Text style={styles.skipText}>Skip</Text>
-      </TouchableOpacity>
-      <Text style={styles.TitleHeader}>New post</Text>
+         <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
+          <RenderSvgIcon
+            icon="ARROWBACK"
+            style={{
+              transform:
+                lang == 'ar' ? [{rotate: '180deg'}] : [{rotate: '0deg'}],
+            }}
+            width={30}
+            height={30}
+            color={appColors.primary}
+          />
+        </TouchableOpacity>
+      <Text style={styles.TitleHeader}>{t("newPost")}</Text>
       <TouchableOpacity onPress={checkCameraPermission}>
         <RenderSvgIcon icon="CAMERA" color={appColors.primary} />
       </TouchableOpacity>

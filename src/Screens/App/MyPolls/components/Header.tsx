@@ -9,9 +9,15 @@ import AvatarIcon from '../../../../Components/molecules/Avatar';
 import {useAppSelector} from 'src/redux/store';
 import {selectUser} from 'src/redux/auth';
 import {AVATAR, ThreeDots, Time} from 'assets/Svgs';
+import { selectLang } from 'src/redux/lang';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const PollHeader = () => {
   const User = useAppSelector(selectUser);
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   return (
     <View style={{backgroundColor: '#fff'}}>
       <View style={[globalStyles.leftHeaderContainer,{width:'100%'}]}>
@@ -93,7 +99,7 @@ const PollHeader = () => {
           </View>
           <View style={{flexDirection: 'row', columnGap: 15}}>
             <View style={styles.containerType}>
-              <Text style={styles.text3}>Premium</Text>
+              <Text style={styles.text3}>{t("premium")}</Text>
             </View>
           </View>
          </View>

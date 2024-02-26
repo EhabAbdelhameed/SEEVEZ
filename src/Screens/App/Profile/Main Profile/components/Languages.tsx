@@ -15,7 +15,7 @@ const LanguagesProfileCard = (data: any) => {
 
   const {t, i18n} = useTranslation();
   return (
-    <View style={styles.CardContainer}>
+    <View style={[styles.CardContainer,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <View style={styles.secContainer}>
         <View style={styles.Row}>
           <Text style={styles.Title}>{t('languages')}</Text>
@@ -61,12 +61,12 @@ const LanguagesProfileCard = (data: any) => {
                     <Text style={styles.Head}>{item?.name}</Text>
                     <Text style={styles.Des}>
                       {item.rate == 5
-                        ? 'Native or bilingual proficiency'
+                        ? t('Native or Proficient')
                         : item.rate == 3
-                        ? 'Advanced'
+                        ? t('Advanced')
                         : item.rate == 2
-                        ? 'Intermediate'
-                        : 'Beginner'}
+                        ? t('Intermediate')
+                        : t('Beginner')}
                     </Text>
                   </View>
                   <View style={styles.Row2}>
@@ -79,13 +79,13 @@ const LanguagesProfileCard = (data: any) => {
                   <View>
                     <Text style={styles.Head}>{item?.name}</Text>
                     <Text style={styles.Des}>
-                      {item.rate == 5
-                        ? 'Native or bilingual proficiency'
+                    {item.rate == 5
+                        ? t('Native or Proficient')
                         : item.rate == 3
-                        ? 'Advanced'
+                        ? t('Advanced')
                         : item.rate == 2
-                        ? 'Intermediate'
-                        : 'Beginner'}
+                        ? t('Intermediate')
+                        : t('Beginner')}
                     </Text>
                   </View>
                   <View style={styles.Row2}>

@@ -39,6 +39,8 @@ import {isDate} from 'lodash';
 import ReactNativeModal from 'react-native-modal';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -116,8 +118,10 @@ const UpdateOneEducation = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -180,7 +184,7 @@ const UpdateOneEducation = () => {
                       marginLeft: 8,
                       marginBottom: 10,
                     }}>
-                    {`Education`}
+                   {t('education')}
                   </Text>
                   <Input
                     {...props}
@@ -205,15 +209,16 @@ const UpdateOneEducation = () => {
                     }}
                     inputStyle={{
                       fontSize: 14,
+                      textAlign:lang=='ar'?'right':'left'
                       //  color: 'red'
                     }}
-                    placeholder={`School / university name`}
+                    placeholder={t('schoolUniversityName')}
                   />
 
                   <Dropdown
                     style={styles.uploadContainer}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
+                    placeholderStyle={[styles.placeholderStyle,{textAlign:lang=='ar'?'right':'left'}]}
+                    selectedTextStyle={[styles.selectedTextStyle,{textAlign:lang=='ar'?'right':'left'}]}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
                     data={EducationLevelData}
@@ -228,11 +233,20 @@ const UpdateOneEducation = () => {
                       props?.setFieldValue(`level_id`, item?.id);
                     }}
                     renderRightIcon={() => (
+                      lang=='en'?
                       <RenderSvgIcon
                         icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                         width={16}
                         height={16}
-                      />
+                      />:null
+                    )}
+                    renderLeftIcon={()=>(
+                      lang=='ar'?
+                      <RenderSvgIcon
+                      icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                      width={16}
+                      height={16}
+                    />:null
                     )}
                     onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
                     onBlur={() => setDropdownOpen(false)}
@@ -246,9 +260,9 @@ const UpdateOneEducation = () => {
                       columnGap: 15,
                     }}>
                     <TextInput
-                      placeholder="Field of study"
+                      placeholder={t('fieldOfStudy')}
                       placeholderTextColor={'#B9B9B9'}
-                      style={styles.inputStyle}
+                      style={[styles.inputStyle,{textAlign:lang=='ar'?'right':'left'}]}
                       onChangeText={e =>
                         props?.setFieldValue(`field_of_study`, e)
                       }
@@ -256,9 +270,9 @@ const UpdateOneEducation = () => {
                     />
 
                     <TextInput
-                      placeholder="Grade"
+                      placeholder={t('grade')}
                       placeholderTextColor={'#B9B9B9'}
-                      style={styles.inputStyle}
+                      style={[styles.inputStyle,{textAlign:lang=='ar'?'right':'left'}]}
                       onChangeText={e => props?.setFieldValue(`grade`, e)}
                       value={props.values.grade}
                     />
@@ -282,7 +296,7 @@ const UpdateOneEducation = () => {
                           marginLeft: 10,
                           fontFamily: 'Noto Sans',
                         }}>
-                        Start date
+                       {t("startDate")}
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
@@ -310,7 +324,7 @@ const UpdateOneEducation = () => {
                           marginBottom: 10,
                           marginLeft: 10,
                         }}>
-                        End date
+                       {t("endDate")}
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
@@ -422,14 +436,14 @@ const UpdateOneEducation = () => {
                     style={styles.InputStyleNoWidth1}>
                     <PHOTO style={{marginRight: 20}} />
                     <Text style={{fontSize: 20, color: appColors.primary}}>
-                      {Source ? 'Update degree certificate' : Source}
+                      {Source ? t('uploadDegreeCertificate') : Source}
                     </Text>
                   </TouchableOpacity>
                 </View>
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

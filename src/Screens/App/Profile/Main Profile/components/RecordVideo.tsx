@@ -21,7 +21,7 @@ const RecordVideoCard = (data: any) => {
   const handleDeleteVideo = (VideoId: any) => {
     // Show confirmation dialog
     Alert.alert(
-      t('seevez'),
+      t('SEEVEZ'),
       t('Are you sure you want to delete this video?'),
       [
         {
@@ -29,7 +29,7 @@ const RecordVideoCard = (data: any) => {
           style: 'cancel',
         },
         {
-          text: 'OK',
+          text: t('OK'),
           onPress: () => {
             // Dispatch the action to delete the experience
             dispatch(AppThunks.doDeleteVideoCV(VideoId)).then((res: any) => {

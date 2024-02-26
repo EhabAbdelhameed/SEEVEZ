@@ -29,7 +29,7 @@ import { useTranslation } from 'react-i18next';
 
 const UpdateSkillsCard = () => {
   const {title}: any = useRoute().params;
-
+  // console.log("mm",title)
   const CurrentUserData = useSelector(selectUser);
 
   let data: any =
@@ -72,15 +72,15 @@ const UpdateSkillsCard = () => {
   const handleDeleteSkills = (RefernceCheckId: any) => {
     // Show confirmation dialog
     Alert.alert(
-      t('seevez'),
-      `Are you sure you want to delete this ${title}?`,
+      t('SEEVEZ'),
+      `${t("Are you sure you want to delete this")} ${t(title.toLowerCase())}?`,
       [
         {
-          text: 'Cancel',
+          text: t('cancel'),
           style: 'cancel',
         },
         {
-          text: 'OK',
+          text: t('OK'),
           onPress: () => {
             if(title=="Interests"){
                 dispatch(AppThunks.doDeleteIntersts(RefernceCheckId)).then(
@@ -104,7 +104,7 @@ const UpdateSkillsCard = () => {
     );
   };
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -118,6 +118,7 @@ const UpdateSkillsCard = () => {
           <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
             <RenderSvgIcon
               icon="ARROWBACK"
+              style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
               width={30}
               height={30}
               color={appColors.primary}
@@ -161,7 +162,7 @@ const UpdateSkillsCard = () => {
                 marginLeft: 8,
                 fontFamily: 'Noto Sans',
               }}>
-              {title == 'Interests' ? 'Interests' : 'skills and tools'}
+              {title == 'Interests' ? t('interests') : t('skills and tools')}
             </Text>
           </View>
 

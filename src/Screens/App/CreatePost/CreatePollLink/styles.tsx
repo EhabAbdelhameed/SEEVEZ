@@ -106,10 +106,12 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginTop: 15,
         paddingHorizontal: 5,
+        paddingVertical:10,
     },
     footerLeftSide: {
         alignItems: "center",
         rowGap: 6,
+        padding:10
     },
     btnShare: {
         backgroundColor: appColors.primary,

@@ -7,6 +7,7 @@ import PlusAbs from "./Plus"
 
 export function MyTabBar({ state, descriptors, navigation }:
     { state: any, descriptors: any, navigation: any }) {
+    
     // const [isOpened, setIsOpened] = useState(false)
     // const [inHome, setInHome] = useState(true)
     // const [isOpenedAnimation, setIsOpenedAnimation] = useState(false)
@@ -17,6 +18,7 @@ export function MyTabBar({ state, descriptors, navigation }:
             />
         )
     }
+ 
     return (
         <>
             {/* <View style={{backgroundColor:"#a00",padding:10}}> */}

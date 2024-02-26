@@ -24,6 +24,8 @@ import {
   import AppSlice, { selectDone } from 'src/redux/app';
   import {useSelector} from 'react-redux';
   import {selectUser} from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
   
   const UpdateLanguageCard = () => {
     const CurrentUserData = useSelector(selectUser);
@@ -69,15 +71,15 @@ import {
     const handleDeleteLanguage = (LanguageId:any) => {
       // Show confirmation dialog
       Alert.alert(
-        'Seevez',
-        'Are you sure you want to delete this language?',
+        t('SEEVEZ'),
+        t('Are you sure you want to delete this language?'),
         [
           {
-            text: 'Cancel',
+            text: t('cancel'),
             style: 'cancel',
           },
           {
-            text: 'OK',
+            text: t('OK'),
             onPress: () => {
               // Dispatch the action to delete the experience
               dispatch(AppThunks.doDeleteLanguages(LanguageId)).then((res: any) => {
@@ -90,8 +92,10 @@ import {
         { cancelable: false },
       );
     };
+    const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
     return (
-      <SafeAreaView edges={['top']} style={styles.container}>
+      <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
         <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
@@ -105,6 +109,7 @@ import {
             <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
               <RenderSvgIcon
                 icon="ARROWBACK"
+                style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
                 width={30}
                 height={30}
                 color={appColors.primary}
@@ -148,7 +153,7 @@ import {
                 marginLeft: 8,
                 fontFamily: 'Noto Sans',
               }}>
-              Languages 
+             {t("languages")}
             </Text>
             </View>
             
@@ -159,12 +164,12 @@ import {
                     <Text style={styles.Head}>{item?.name}</Text>
                     <Text style={styles.Des}>
                     {item.rate == 5
-                    ? 'Native or bilingual proficiency'
+                    ? t('Native or bilingual proficiency')
                     : item.rate == 3
-                    ? 'Advanced'
+                    ? t('Advanced')
                     : item.rate == 2
-                    ? 'Intermediate'
-                    : 'Beginner'}
+                    ? t('Intermediate')
+                    : t('Beginner')}
                     </Text>
                   </View>
                   <View style={styles.Row2}>

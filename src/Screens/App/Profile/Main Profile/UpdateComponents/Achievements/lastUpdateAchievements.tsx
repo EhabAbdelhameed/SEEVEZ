@@ -21,6 +21,8 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 
 const UpdateOneAchievements = () => {
@@ -68,9 +70,10 @@ const UpdateOneAchievements = () => {
       // console.log("sdasdas "+JSON.stringify(res))
     });
   };
-  
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -92,7 +95,7 @@ const UpdateOneAchievements = () => {
               marginLeft: 8,
               fontFamily: 'Noto Sans',
             }}>
-            Achievements 
+            {t('achievements')}
           </Text>
           <Formik
             initialValues={{Achievements:data?.text||''}}
@@ -122,8 +125,8 @@ const UpdateOneAchievements = () => {
                  <TextInput
                   multiline
                   numberOfLines={10} // Set the number of lines you want to display
-                  style={styles.textArea} // Define your own styles for the text area
-                  placeholder="Write here.."
+                  style={[styles.textArea,{textAlign:lang=='ar'?'right':'left'}]} // Define your own styles for the text area
+                  placeholder={t("writeHere")}
                   placeholderTextColor={'#B9B9B9'}
                   
                 
@@ -134,19 +137,19 @@ const UpdateOneAchievements = () => {
                   value={props.values.Achievements}
                   textAlignVertical="top"
                 />
-                <Text style={{marginBottom: 10}}>1500 characters</Text>
+                <Text style={{marginBottom: 10}}>{t("1500 characters")}</Text>
                 <TouchableOpacity
                   onPress={openGallery}
                   style={styles.uploadContainer}>
                   <PHOTO style={{marginRight: 20}} />
                   <Text style={{fontSize: 20, color: appColors.primary, fontFamily: 'Noto Sans'}}>
                     {Source.length == 0
-                      ? 'Update certificate image'
+                      ? t('uploadCertificateImage')
                       : Source[0].name}
                   </Text>
                 </TouchableOpacity>
                 <View style={{height:appSizes.height * 0.06}}/>
-                <Button loading={loading} text={'Done'} onPress={props.handleSubmit} />
+                <Button loading={loading} text={t('Done')} onPress={props.handleSubmit} />
               </View>
             )}
           </Formik>

@@ -105,6 +105,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginTop: 15,
         paddingHorizontal: 5,
+        paddingVertical:10,
     },
     footerLeftSide: {
         alignItems: "center",
@@ -114,7 +115,7 @@ export const styles = StyleSheet.create({
         backgroundColor: appColors.primary,
         paddingVertical: 13,
         paddingHorizontal: 35,
-        borderRadius: 10
+        borderRadius: 10,
     },
     button: {
         backgroundColor: '#007bff',

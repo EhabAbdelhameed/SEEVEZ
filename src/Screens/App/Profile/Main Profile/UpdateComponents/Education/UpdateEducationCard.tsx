@@ -25,6 +25,8 @@ import {
   import AppSlice, { selectDone } from 'src/redux/app';
   import {useSelector} from 'react-redux';
   import {selectUser} from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
   
   const UpdateEducationCard = () => {
     const CurrentUserData = useSelector(selectUser);
@@ -67,18 +69,20 @@ import {
     
         return years; 
       };
+      const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
     const handleDeleteEducation = (experienceId:any) => {
       // Show confirmation dialog
       Alert.alert(
-        'Seevez',
-        'Are you sure you want to delete this education?',
+        t('SEEVEZ'),
+        t('Are you sure you want to delete this education?'),
         [
           {
-            text: 'Cancel',
+            text: t('cancel'),
             style: 'cancel',
           },
           {
-            text: 'OK',
+            text: t('OK'),
             onPress: () => {
               // Dispatch the action to delete the experience
               dispatch(AppThunks.doDeleteEducation(experienceId)).then((res: any) => {
@@ -92,7 +96,7 @@ import {
       );
     };
     return (
-      <SafeAreaView edges={['top']} style={styles.container}>
+      <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
         <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
@@ -106,6 +110,7 @@ import {
             <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
               <RenderSvgIcon
                 icon="ARROWBACK"
+                style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
                 width={30}
                 height={30}
                 color={appColors.primary}
@@ -167,7 +172,7 @@ import {
                 {moment(item.start_date).format('yyyy')} - {moment(item.end_date).format('yyyy')} ·{differenceInYears(item.start_date,item.end_date)} years · Cairo, Egypt
                 </Text>
                 <View style={styles.Row2}>
-                  <Text style={styles.Title3}>Grade : </Text>
+                  <Text style={styles.Title3}>{t("grade")} : </Text>
                   <Text style={styles.Title4}>{item.grade}</Text>
                 </View>
               </View>

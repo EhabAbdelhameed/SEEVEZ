@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   View,
   Share,
-  Platform
+  Platform,
+  BackHandler
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { RenderSvgIcon } from '../../../../Components/atoms/svg';
 import Bolls from './Bolls';
@@ -106,6 +107,19 @@ const ContentVideo = (item: any) => {
   //   }
   // };
   const hasNotch = DeviceInfo.hasNotch()
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    
+    return () => {
+      backHandler.remove();
+    };
+  }, []); // Empty dependency array ensures that the effect runs only once on mount
+
+  const handleBackPress = () => {
+    navigation.navigate('Home');
+    return true; // Prevent default behavior (exit the app)
+  };
   return (
     <View style={[styles.container]}>
       <View style={[styles.header, { marginTop: hasNotch ? 60 : 15 }]}>

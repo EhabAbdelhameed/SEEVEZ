@@ -81,8 +81,7 @@ const Footer = (data: any) => {
   return (
     <View style={styles.footerContainer}>
       <View style={styles.footerLeftSide}>
-        <SaveCircle />
-        <Text style={styles.textOption}>Save</Text>
+      
       </View>
       <TouchableOpacity onPress={sendAudioData} style={styles.btnShare}>
         {isLoading ? (

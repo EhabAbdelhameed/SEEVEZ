@@ -61,6 +61,7 @@ const CompleteProfileScreen = () => {
   const lang = useSelector(selectLang);
   
   const {t, i18n} = useTranslation();
+  
   return (
     <SafeAreaView edges={['top']} style={[styles.Container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <Header Title={t("myProfile")} onPress={() => navigation.goBack()} />

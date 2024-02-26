@@ -12,7 +12,7 @@ const SkillsProfileCard = ({ title, data, current }: { title?: any; data?: any; 
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLang);
-  console.log(title)
+  console.log("ff",title)
   const {t, i18n} = useTranslation();
   return (
     <View style={styles.CardContainer}>

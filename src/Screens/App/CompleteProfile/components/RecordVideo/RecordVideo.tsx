@@ -16,23 +16,29 @@ import { styles } from './styles';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
 import AppSlice from 'src/redux/app';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
 
 const RecordVideo = (data: any) => {
   const navigation = useNavigation<any>();
   const [isPaused, setPaused] = useState(false);
   const dispatch = useAppDispatch();
+  const lang = useSelector(selectLang);
+  
+  const {t, i18n} = useTranslation();
   const handleDeleteVideo = (VideoId: any) => {
     // Show confirmation dialog
     Alert.alert(
-      'Seevez',
-      'Are you sure you want to delete this video?',
+      t('SEEVEZ'),
+      t('Are you sure you want to delete this video?'),
       [
         {
-          text: 'Cancel',
+          text: t('cancel'),
           style: 'cancel',
         },
         {
-          text: 'OK',
+          text: t('OK'),
           onPress: () => {
             // Dispatch the action to delete the experience
             dispatch(AppThunks.doDeleteVideoCV(VideoId)).then((res: any) => {
@@ -42,7 +48,7 @@ const RecordVideo = (data: any) => {
           },
         },
       ],
-      { cancelable: false },
+      {cancelable: false},
     );
   };
   return (

@@ -36,6 +36,8 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateOneTraining = () => {
@@ -79,8 +81,10 @@ const UpdateOneTraining = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -138,9 +142,9 @@ const UpdateOneTraining = () => {
                       marginBottom: 10,
                       fontFamily: 'Noto Sans',
                     }}>
-                    {`Training Courses`}
+                    {t('trainingCourses')}
                   </Text>
-                  <Input
+                  <Input 
                     {...props}
                     name={`institute`}
                     inputContainerStyle={{
@@ -161,9 +165,10 @@ const UpdateOneTraining = () => {
                     }}
                     inputStyle={{
                       fontSize: 14,
+                      textAlign:lang=='ar'?'right':'left'
                       //  color: 'red'
                     }}
-                    placeholder={`Institute`}
+                    placeholder={t('institute')}
                   />
                   <View
                     style={{
@@ -172,16 +177,16 @@ const UpdateOneTraining = () => {
                       columnGap: 15,
                     }}>
                     <TextInput
-                      placeholder="Field of study"
-                      style={styles.inputStyle}
+                      placeholder={t('fieldOfStudy')}
+                      style={[styles.inputStyle,{textAlign:lang=='ar'?'right':'left'}]}
                       onChangeText={e =>
                         props?.setFieldValue(`field_of_study`, e)
                       }
                       value={props.values.field_of_study}
                     />
                     <TextInput
-                      placeholder="Grade"
-                      style={styles.inputStyle}
+                      placeholder={t('grade')}
+                      style={[styles.inputStyle,{textAlign:lang=='ar'?'right':'left'}]}
                       onChangeText={e => props?.setFieldValue(`grade`, e)}
                       value={props.values.grade}
                     />
@@ -204,7 +209,7 @@ const UpdateOneTraining = () => {
                           marginLeft: 10,
                           fontFamily: 'Noto Sans',
                         }}>
-                        Start date
+                       {t('startDate')}
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
@@ -234,7 +239,7 @@ const UpdateOneTraining = () => {
                           marginLeft: 10,
                           fontFamily: 'Noto Sans',
                         }}>
-                        End date
+                         {t('endDate')}
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
@@ -349,14 +354,14 @@ const UpdateOneTraining = () => {
                     style={styles.uploadContainer}>
                     <PHOTO style={{marginRight: 20}} />
                     <Text style={{fontSize: 20, color: appColors.primary}}>
-                      {Source == '' ? 'Update certificate image' : Source}
+                      {Source == '' ? t('uploadCertificateImage') : Source}
                     </Text>
                   </TouchableOpacity>
                 </View>
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

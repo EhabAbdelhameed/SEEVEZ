@@ -22,6 +22,8 @@ import { selectDone } from 'src/redux/app';
 import { Input } from 'react-native-elements';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateOneSkills = () => {
   const [loading, setLoading] = React.useState(false);
@@ -38,9 +40,11 @@ changeDone?navigation.goBack():null
   }, []);
   const dispatch = useAppDispatch();
   const { title,data}: any = useRoute().params;
-
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
+  
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -63,7 +67,7 @@ changeDone?navigation.goBack():null
               marginBottom: 10,
               fontFamily: 'Noto Sans',
             }}>
-           {title}
+           {t(title.toLowerCase())}
           </Text>
           <Formik
             initialValues={{Skills:data?.name||''}}
@@ -112,16 +116,17 @@ changeDone?navigation.goBack():null
                     }}
                     inputStyle={{
                       fontSize: 14,
+                      textAlign:lang=='ar'?'right':'left'
                       //  color: 'red'
                     }}
-                    placeholder={`Write here..`}
+                    placeholder={t("writeHere")}
                   />
 
                 <View style={{height: appSizes.height * 0.28}} />
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

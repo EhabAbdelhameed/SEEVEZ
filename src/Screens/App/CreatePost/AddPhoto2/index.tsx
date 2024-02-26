@@ -45,64 +45,7 @@ const CreatePhoto2 = () => {
     return RenderFunction;
   }, [navigation]);
   const saveVideoFun = () => {
-    if (key == 1) {
-      setLoading(true);
-      const formdata = new FormData();
-      //  console.log(source) item?.node?.image?.uri
-      formdata.append(`photo[0][files]`, {
-        uri: item?.node?.image?.uri,
-        type: item?.node?.type,
-        name: `image.${item?.node?.type?.slice(6)}`,
-      });
-
-      console.log("Photo123 ",JSON.stringify(formdata))
-      dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
-       
-        setLoading(false);
-      });
-    } else if(key==2){
-    
-     
-      setLoading(true);
-      const formdata = new FormData();
-      //  console.log(source) item?.node?.image?.uri
-      formdata.append(`photo[0][files]`, {
-        uri: item?.assets[0]?.uri,
-        type:item?.assets[0]?.type,
-        name: item?.assets[0]?.fileName,
-      });
-
-      console.log("Photo123 ",JSON.stringify(formdata))
-      dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
-       
-        setLoading(false);
-      });
-    }else{
-      setLoading(true);
-      const formdata = new FormData();
-      //  console.log(source) item?.node?.image?.uri
-
-      for(let i=0;i<item?.length;i++){
-        //array[${index}][end_date]
-        formdata.append(`photo[${i}][files]`, {
-          uri: item[i]?.node?.image?.uri,
-          type: item[i]?.node?.type,
-          name: `image.${item[i]?.node?.type?.slice(6)}`,
-        });
-      }
-   
-
-      console.log("Photo123 ",JSON.stringify(formdata))
-      dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
-       
-        setLoading(false);
-      });
-
-
-
-
-
-    }
+    navigation.navigate('CreatePollLink');
   };
   // useEffect(() => {
   //   changeDone ? navigation.replace('app') : null;

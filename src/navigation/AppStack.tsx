@@ -59,6 +59,7 @@ import CreateShareLink from 'screens/App/CreatePost/CreateShareLink';
 import Market from 'screens/App/CreatePost/Market';
 import ExterinalLinks from 'screens/App/CreatePost/ExteraLinks';
 import MYPolls from 'screens/App/MyPolls';
+import HealthProfile from 'screens/App/CompleteProfile/components/HealthProfile/HealthProfile';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -304,6 +305,10 @@ const AppStack = () => {
              <Stack.Screen
                 name='MYPolls'
                 component={MYPolls}
+            />
+               <Stack.Screen
+                name='HealthProfile'
+                component={HealthProfile}
             />
         </Stack.Navigator>
     );

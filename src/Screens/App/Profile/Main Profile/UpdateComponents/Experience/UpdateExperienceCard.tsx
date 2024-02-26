@@ -26,13 +26,13 @@ import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import { selectLang } from 'src/redux/lang';
-import { useTranslation } from 'react-i18next';
+import {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
 
 const UpdateExperienceCard = () => {
   const CurrentUserData = useSelector(selectUser);
   let data = CurrentUserData?.user_data?.experiences;
-  console.log('11111111 ', data);
+
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const [refreshPage, setRefreshPage] = useState(false);
@@ -78,15 +78,15 @@ const UpdateExperienceCard = () => {
   const handleDeleteExperience = (experienceId: any) => {
     // Show confirmation dialog
     Alert.alert(
-      'Seevez',
-      'Are you sure you want to delete this experience?',
+      t('SEEVEZ'),
+      t('Are you sure you want to delete this experience?'),
       [
         {
-          text: 'Cancel',
+          text: t('cancel'),
           style: 'cancel',
         },
         {
-          text: 'OK',
+          text: t('OK'),
           onPress: () => {
             // Dispatch the action to delete the experience
             dispatch(AppThunks.doDeleteExperience(experienceId)).then(
@@ -104,7 +104,7 @@ const UpdateExperienceCard = () => {
   const lang = useSelector(selectLang);
   const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -118,6 +118,7 @@ const UpdateExperienceCard = () => {
           <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
             <RenderSvgIcon
               icon="ARROWBACK"
+              style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
               width={30}
               height={30}
               color={appColors.primary}
@@ -156,84 +157,83 @@ const UpdateExperienceCard = () => {
           {data?.map((item: any) => (
             <View style={{marginBottom: 15}}>
               <View style={{flexDirection: 'row'}}>
-              <View style={{width:'85%'}}>
-                <View style={styles.Row2}>
-                  <View
-                    style={{
-                      width: 64,
-                      height: 64,
-                      borderRadius: 64,
+                <View style={{width: '85%'}}>
+                  <View style={styles.Row2}>
+                    <View
+                      style={{
+                        width: 64,
+                        height: 64,
+                        borderRadius: 64,
 
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: appColors.bg,
-                    }}>
-                    <CompanyLogo height={32} width={32} />
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: appColors.bg,
+                      }}>
+                      <CompanyLogo height={32} width={32} />
+                    </View>
+                    <View style={{marginLeft: 10, width: '85%'}}>
+                      <Text style={styles.Title2}>{item.job_title}</Text>
+                      <Text style={styles.CompanyName}>
+                        {item?.company_name == null
+                          ? item?.company_id?.name
+                          : item?.company_name}
+                      </Text>
+                      <Text style={styles.des}>
+                        {moment(item.start_date).format('MMM yyyy')} - Present{' '}
+                        {differenceInMonths(item?.start_date, item?.end_date)}{' '}
+                        mos · Cairo, Egypt
+                      </Text>
+                    </View>
                   </View>
-                  <View style={{marginLeft: 10,width:'85%'}}>
-                    <Text style={styles.Title2}>{item.job_title}</Text>
-                    <Text style={styles.CompanyName}>
-                      {item?.company_name == null
-                        ? item?.company_id?.name
-                        : item?.company_name}
-                    </Text>
-                    <Text style={styles.des}>
-                      {moment(item.start_date).format('MMM yyyy')} - Present{' '}
-                      {differenceInMonths(item?.start_date, item?.end_date)} mos
-                      · Cairo, Egypt
-                    </Text>
+                  <View style={styles.Row3}>
+                    <View style={styles.FollowersContainer}>
+                      <Text style={styles.FollowersText}>
+                        {item?.job_type_id?.name}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-                <View style={styles.Row3}>
-                  <View style={styles.FollowersContainer}>
-                    <Text style={styles.FollowersText}>
-                      {item?.job_type_id?.name}
-                    </Text>
-                  </View>
+                <View
+                  style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
+                  <TouchableOpacity
+                    onPress={() => handleDeleteExperience(item.id)}>
+                    <DELETE />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('UpdateOneExperience', {
+                        data: item,
+                      })
+                    }>
+                    <RenderSvgIcon
+                      icon="PEN"
+                      width={20}
+                      height={20}
+                      color={appColors.primary}
+                    />
+                  </TouchableOpacity>
                 </View>
-              
-              </View>
-              <View
-                style={{flexDirection: 'row', columnGap: 15, marginLeft: 5}}>
-                <TouchableOpacity
-                  onPress={() => handleDeleteExperience(item.id)}>
-                  <DELETE />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('UpdateOneExperience', {
-                      data: item,
-                    })
-                  }>
-                  <RenderSvgIcon
-                    icon="PEN"
-                    width={20}
-                    height={20}
-                    color={appColors.primary}
-                  />
-                </TouchableOpacity>
-              </View>
               </View>
               <View style={{}}>
-                <Text style={styles.Title3}>Description</Text>
-              <ReadMore
-                style={styles.PostText}
-                animate={true}
-                seeMoreStyle={{
-                  color: appColors.primary,
-                  textDecorationLine: 'underline',
-                }}
-                seeLessStyle={{
-                  color: appColors.primary,
-                  textDecorationLine: 'underline',
-                }}
-                seeLessText="less"
-                seeMoreText="Read more"
-                numberOfLines={3}>
-                {item.description}
-              </ReadMore>
-              {item?.experience_letter==null?null:
-                item?.object_info?.extension == 'pdf' ? (
+                <Text style={styles.Title3}>{t("description")}</Text>
+                <ReadMore
+                  style={styles.PostText}
+                  animate={true}
+                  seeMoreStyle={{
+                    color: appColors.primary,
+                    textDecorationLine: 'underline',
+                  }}
+                  seeLessStyle={{
+                    color: appColors.primary,
+                    textDecorationLine: 'underline',
+                  }}
+                  seeLessText={t("less")}
+                  seeMoreText={t("Read more")}
+                  numberOfLines={3}>
+                  {item.description}
+                </ReadMore>
+                {item?.experience_letter == null ? null : item?.object_info
+                    ?.extension == 'pdf' ? (
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => Linking.openURL(item?.experience_letter)}
@@ -248,7 +248,7 @@ const UpdateExperienceCard = () => {
                     }}
                   />
                 )}
-                </View>
+              </View>
             </View>
           ))}
         </View>

@@ -24,12 +24,14 @@ import {
   import AppSlice, { selectDone } from 'src/redux/app';
   import {useSelector} from 'react-redux';
   import {selectUser} from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
   
   const UpdateReferenceCheckCard = () => {
     const CurrentUserData = useSelector(selectUser);
     
     let data = CurrentUserData?.user_data?.reference_check;
-    console.log('11111111 ', data);
+   
     const navigation = useNavigation<any>();
     const dispatch = useAppDispatch();
     const [refreshPage, setRefreshPage] = useState(false);
@@ -61,15 +63,15 @@ import {
     const handleDeleteReferenceCheck = (RefernceCheckId:any) => {
       // Show confirmation dialog
       Alert.alert(
-        'Seevez',
-        'Are you sure you want to delete this phone number?',
+        t('SEEVEZ'),
+        t('Are you sure you want to delete this phone number?'),
         [
           {
-            text: 'Cancel',
+            text: t('cancel'),
             style: 'cancel',
           },
           {
-            text: 'OK',
+            text: t('OK'),
             onPress: () => {
               // Dispatch the action to delete the experience
               dispatch(AppThunks.doDeleteReferenceCheck(RefernceCheckId)).then((res: any) => {
@@ -84,8 +86,10 @@ import {
         { cancelable: false },
       );
     };
+    const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
     return (
-      <SafeAreaView edges={['top']} style={styles.container}>
+      <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
         <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
@@ -99,6 +103,7 @@ import {
             <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
               <RenderSvgIcon
                 icon="ARROWBACK"
+                style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
                 width={30}
                 height={30}
                 color={appColors.primary}
@@ -142,7 +147,7 @@ import {
                 marginLeft: 8,
                 fontFamily: 'Noto Sans',
               }}>
-              Reference check
+              {t("referenceCheck")}
             </Text>
             </View>
             

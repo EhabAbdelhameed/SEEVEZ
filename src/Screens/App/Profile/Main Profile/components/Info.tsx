@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   Image,
   Linking,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -25,21 +26,29 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import DocumentPicker from 'react-native-document-picker';
 import AppSlice from 'src/redux/app';
-import { useTranslation } from 'react-i18next';
-import { selectLang } from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
+import {selectLang} from 'src/redux/lang';
+import {launchImageLibrary} from 'react-native-image-picker';
 const InfoProfileCard = (data: any) => {
   const [name, setName] = useState<any>('');
-  const [count, setCount] = React.useState(0)
+  const [count, setCount] = React.useState(0);
   const [loading, setLoading] = useState<any>(false);
   const dispatch = useAppDispatch();
-
+  const [source, setSource] = useState<any>([]);
   React.useEffect(() => {
-    dispatch(AppThunks.doGetFollowers(data?.current? data?.data?.id:data?.data?.user_id)).then((res: any) => {
-        setCount(res?.payload?.data?.followCounts[0]?.followerCount)
-    })
-}, [])
-const lang = useSelector(selectLang);
-  
+    dispatch(
+      AppThunks.doGetFollowers(
+        data?.current ? data?.data?.id : data?.data?.user_id,
+      ),
+    ).then((res: any) => {
+      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
+    });
+
+    source?.length != 0?
+    savePhoto():null
+  }, [source]);
+  const lang = useSelector(selectLang);
+  const CurrentUserData = useSelector(selectUser);
   const {t, i18n} = useTranslation();
   const uploadFile = async (type: any) => {
     try {
@@ -71,6 +80,48 @@ const lang = useSelector(selectLang);
         throw err;
       }
     }
+  };
+  
+  
+  const UploadImageProfile = async () => {
+    try {
+      const result = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+
+      // The selected media is available in the result.uri
+      // dispatch(setImageURL(result[0].uri));
+
+      setSource(result);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('User cancelled document picker');
+      } else {
+        console.error('DocumentPicker Error:', err);
+      }
+    }
+  };
+  const pick = () => {
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
+      setSource(res?.assets);
+    });
+  };
+  const savePhoto = () => {
+    const formdata = new FormData();
+    formdata.append('name', CurrentUserData?.name);
+
+    source?.length != 0
+      ? formdata.append('avatar', {
+          uri: source[0]?.uri,
+          type: source[0]?.type,
+          name: Platform.OS == 'ios' ? source[0]?.fileName : source[0]?.name,
+        })
+      : null;
+
+    dispatch(AppThunks.doAddPersonalInfo(formdata)).then((res: any) => {
+      dispatch(AppThunks.GetProfileInfo());
+      setLoading(false);
+    });
   };
   const navigation = useNavigation();
   return (
@@ -111,51 +162,59 @@ const lang = useSelector(selectLang);
             </TouchableOpacity>
           </View>
         )}
-
-        <View
+        <TouchableOpacity
+          onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}
           style={{
             width: 96,
             height: 96,
-            borderRadius: 96,
-            // borderWidth: 1,
-            // borderColor: '#DDD',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: appColors.bg,
+            // justifyContent: 'center',
+            // alignItems: 'center',
+            // marginBottom: 15,
           }}>
-          {data?.data?.avatar == null ? (
-            <AVATAR height={48} width={48} />
-          ) : (
-            <Image
-              source={{uri: data?.data?.avatar}}
-              style={{width: 96, height: 96, borderRadius: 96}}
-              resizeMode="cover"
-            />
-          )}
           <View
             style={{
-              width: 15,
-              height: 15,
-              borderRadius: 15,
+              width: 96,
+              height: 96,
+              borderRadius: 96,
               // borderWidth: 1,
               // borderColor: '#DDD',
               justifyContent: 'center',
-              position: 'absolute',
-              bottom: 2,
-              right: 12,
               alignItems: 'center',
-              backgroundColor: appColors.primary,
+              backgroundColor: appColors.bg,
             }}>
-            <RenderSvgIcon
-              icon="PLUSFOLLOW"
-              // style={{marginRight: 10}}
-              width={10}
-              height={10}
-              color={appColors.white}
-            />
+            {data?.data?.avatar == null ? (
+              <AVATAR height={48} width={48} />
+            ) : (
+              <Image
+                source={{uri: data?.data?.avatar}}
+                style={{width: 96, height: 96, borderRadius: 96}}
+                resizeMode="cover"
+              />
+            )}
+            <View
+              style={{
+                width: 15,
+                height: 15,
+                borderRadius: 15,
+                // borderWidth: 1,
+                // borderColor: '#DDD',
+                justifyContent: 'center',
+                position: 'absolute',
+                bottom: 2,
+                right: 12,
+                alignItems: 'center',
+                backgroundColor: appColors.primary,
+              }}>
+              <RenderSvgIcon
+                icon="PLUSFOLLOW"
+                // style={{marginRight: 10}}
+                width={10}
+                height={10}
+                color={appColors.white}
+              />
+            </View>
           </View>
-        </View>
-
+        </TouchableOpacity>
         <View style={styles.Row}>
           <Text style={styles.Name}>{data?.data?.name}</Text>
           <RenderSvgIcon
@@ -170,13 +229,15 @@ const lang = useSelector(selectLang);
         )}
         <View style={[styles.Row, {marginTop: 10}]}>
           <View style={styles.subContainer}>
-            <Text style={styles.subText}>{t("premium")}</Text>
+            <Text style={styles.subText}>{t('premium')}</Text>
           </View>
           <View style={styles.statuesContainer}>
-            <Text style={styles.statuesText}>{t("online")}</Text>
+            <Text style={styles.statuesText}>{t('online')}</Text>
           </View>
           <View style={styles.FollowersContainer}>
-            <Text style={styles.FollowersText}>{count >= 1000 ? `${count / 1000}k` : count} {t("Followers")}</Text>
+            <Text style={styles.FollowersText}>
+              {count >= 1000 ? `${count / 1000}k` : count} {t('Followers')}
+            </Text>
           </View>
         </View>
         {data?.data?.area == null &&
@@ -205,16 +266,17 @@ const lang = useSelector(selectLang);
           />
           <Text style={styles.InfoText}>{data?.data?.email}</Text>
         </View>
-        {data.current?
-        null:<View style={styles.Row}>
-          <RenderSvgIcon
-            icon="PHONE"
-            width={20}
-            height={20}
-            color={appColors.white}
-          />
-          <Text style={styles.InfoText}>{data?.data?.phone_number}</Text>
-        </View>}
+        {data.current ? null : (
+          <View style={styles.Row}>
+            <RenderSvgIcon
+              icon="PHONE"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
+            <Text style={styles.InfoText}>{data?.data?.phone_number}</Text>
+          </View>
+        )}
         {data?.data?.website == null ? null : (
           <TouchableOpacity
             onPress={() => Linking.openURL(data?.data?.website)}
@@ -284,12 +346,12 @@ const lang = useSelector(selectLang);
                 columnGap: 10,
               }}>
               <Analytic width={20} height={20} />
-              <Text style={{color: appColors.white}}>{t("myAnalytics")}</Text>
+              <Text style={{color: appColors.white}}>{t('myAnalytics')}</Text>
             </TouchableOpacity>
           </View>
-        ) : (   
+        ) : (
           <View style={[styles.Row, {marginTop: 15}]}>
-            {(data?.data?.cv_pdf == null&&!data.current) ? (
+            {data?.data?.cv_pdf == null && !data.current ? (
               <TouchableOpacity
                 onPress={uploadFile}
                 style={{
@@ -307,7 +369,11 @@ const lang = useSelector(selectLang);
                   columnGap: 10,
                 }}>
                 <PDF width={20} height={20} />
-                <Text style={{color: appColors.primary,fontSize:lang=='ar'?12:14}}>
+                <Text
+                  style={{
+                    color: appColors.primary,
+                    fontSize: lang == 'ar' ? 12 : 14,
+                  }}>
                   {name == '' ? (
                     loading ? (
                       <ActivityIndicator
@@ -318,7 +384,7 @@ const lang = useSelector(selectLang);
                       t('Upload CV')
                     )
                   ) : (
-                    name.slice(0,10)
+                    name.slice(0, 10)
                   )}
                 </Text>
               </TouchableOpacity>
@@ -330,13 +396,15 @@ const lang = useSelector(selectLang);
                 </TouchableOpacity>
               )
             )}
-            { !data?.current && <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.navigate('Analytics');
-              }}>
-              <Analytics width={140} style={{marginLeft: 10}} />
-            </TouchableOpacity>}
+            {!data?.current && (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  navigation.navigate('Analytics');
+                }}>
+                <Analytics width={140} style={{marginLeft: 10}} />
+              </TouchableOpacity>
+            )}
           </View>
         )}
       </View>
@@ -391,7 +459,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: appColors.black,
     marginRight: 7,
-    textAlign:'left'
+    textAlign: 'left',
   },
   Description: {
     fontSize: 14,
@@ -399,7 +467,7 @@ const styles = StyleSheet.create({
     color: appColors.black,
     marginRight: 7,
     marginTop: 2,
-    textAlign:'left'
+    textAlign: 'left',
   },
   subContainer: {
     paddingHorizontal: 15,
@@ -414,7 +482,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: '#A57900',
-    textAlign:'left'
+    textAlign: 'left',
   },
   statuesContainer: {
     paddingHorizontal: 15,
@@ -429,7 +497,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: '#00928E',
-    textAlign:'left'
+    textAlign: 'left',
   },
   FollowersContainer: {
     paddingHorizontal: 15,
@@ -443,25 +511,25 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: '#15439D',
-    textAlign:'left'
+    textAlign: 'left',
   },
   InfoText: {
     fontWeight: '600',
     color: appColors.black,
     marginLeft: 7,
-    textAlign:'left'
+    textAlign: 'left',
   },
   Title: {
     fontSize: 16,
     fontWeight: '700',
     color: appColors.black,
-    textAlign:'left'
+    textAlign: 'left',
   },
   Des: {
     fontSize: 12,
     fontWeight: '400',
     color: appColors.black,
-    textAlign:'left'
+    textAlign: 'left',
   },
   PlusContainer: {
     position: 'absolute',

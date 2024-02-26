@@ -20,6 +20,8 @@ const TabBar = () => {
   const CurrentUserData = useSelector(selectUser);
   return (
     <Tabs.Navigator
+    initialRouteName='Camera'
+  
     tabBar={(props) => <MyTabBar {...props} />}
     screenOptions={{
       headerShown: false,

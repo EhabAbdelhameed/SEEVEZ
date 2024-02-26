@@ -33,33 +33,7 @@ const CreateVideo2 = () => {
   }, [changeDone]);
 
   const saveVideoFun = () => {
-    if (key == 4) {
-      setLoading(true);
-      const formdata = new FormData();
-      formdata.append('files', {
-        uri:  videoPath,
-        type: 'video/mp4',
-        name: 'video.mp4',
-      });
-
-      console.log('Video123 ', formdata);
-      dispatch(AppThunks.doUploadVideoReel(formdata)).then((res: any) => {
-        setLoading(false);
-      });
-    } else {
-      setLoading(true);
-      const formdata = new FormData();
-      //  console.log(source)
-      formdata.append('files', {
-        uri: source?.assets[0]?.uri,
-        type: source?.assets[0]?.type,
-        name: source?.assets[0]?.fileName,
-      });
-      console.log('2222', JSON.stringify(formdata));
-      dispatch(AppThunks.doUploadVideoReel(formdata)).then((res: any) => {
-        setLoading(false);
-      });
-    }
+    navigation.navigate('CreatePollLink');
   };
   // useEffect(() => {
   //   changeDone ? navigation.replace('app') : null;
@@ -82,20 +56,7 @@ const CreateVideo2 = () => {
             }}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
-          <View style={styles.rightContainer}>
-            <RenderSvgIcon icon="WHO" />
-            <Text style={styles.skipText}>Anyone</Text>
-            <View
-              style={{
-                transform: [
-                  {
-                    rotate: '-90deg',
-                  },
-                ],
-              }}>
-              <RenderSvgIcon icon="ARROWBACK" />
-            </View>
-          </View>
+          <View style={styles.rightContainer}/>
         </View>
         <Video
           resizeMode="cover"

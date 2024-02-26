@@ -29,6 +29,8 @@ import {selectAccessToken, selectDone} from 'src/redux/app';
 import {Input} from 'react-native-elements';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateOneLanguage = () => {
   const {data1}: any = useRoute().params;
@@ -83,8 +85,10 @@ const UpdateOneLanguage = () => {
       Rate: 1,
     },
   ];
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -125,7 +129,7 @@ const UpdateOneLanguage = () => {
                       marginLeft: 8,
                       marginBottom: 10,
                     }}>
-                    Language
+                    {t("language")}
                   </Text>
                   <Input
                     {...props}
@@ -148,7 +152,7 @@ const UpdateOneLanguage = () => {
                       fontSize: 14,
                       //  color: 'red'
                     }}
-                    placeholder={`Enter your language`}
+                    placeholder={t('Enter your language')}
                   />
                   <View style={{paddingLeft: 15, marginBottom: 10}}>
                     <View
@@ -163,7 +167,7 @@ const UpdateOneLanguage = () => {
                           fontSize: 16,
                           fontWeight: '700',
                         }}>
-                        Rate your language ?
+                        {t("Rate your language ?")} 
                       </Text>
                       <View style={{flexDirection: 'row', columnGap: 5}}>
                         <Text style={{fontSize: 12}}>
@@ -199,7 +203,7 @@ const UpdateOneLanguage = () => {
                         ) : null}
                       </View>
                       <Text style={{color: '#000', fontSize: 15}}>
-                        {item?.languageRate}
+                      {t(item?.languageRate)}
                       </Text>
                     </TouchableOpacity>
                 
@@ -210,7 +214,7 @@ const UpdateOneLanguage = () => {
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

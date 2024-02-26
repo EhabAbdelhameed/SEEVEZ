@@ -45,6 +45,8 @@ import Pdf from 'react-native-pdf';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 const UpdateOneExperience = () => {
   const {data}: any = useRoute().params;
 
@@ -204,8 +206,10 @@ const UpdateOneExperience = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -272,10 +276,10 @@ const UpdateOneExperience = () => {
                       marginLeft: 8,
                       marginBottom: 10,
                     }}>
-                    Experience
+                   {t("experience")}
                   </Text>
                   <TextInput
-                    placeholder="Job title"
+                    placeholder={t('jobTitle')}
                     onChangeText={value =>
                       props?.setFieldValue(`job_title`, value)
                     }
@@ -290,10 +294,11 @@ const UpdateOneExperience = () => {
                       marginBottom: 10,
                       color: '#000',
                       fontFamily: 'Noto Sans',
+                      textAlign:lang=='ar'?'right':'left'
                     }}
                   />
                   <TextInput
-                    placeholder="Company name"
+                    placeholder={t('CompanyName')}
                     value={props.values.company_name}
                     onChangeText={value => {
                       setSearchQuery(value);
@@ -311,6 +316,7 @@ const UpdateOneExperience = () => {
                       marginBottom: 10,
                       color: '#000',
                       fontFamily: 'Noto Sans',
+                      textAlign:lang=='ar'?'right':'left'
                     }}
                   />
 
@@ -334,8 +340,8 @@ const UpdateOneExperience = () => {
 
                   <Dropdown
                     style={styles.uploadContainer1}
-                    placeholderStyle={styles.placeholderStyle1}
-                    selectedTextStyle={styles.selectedTextStyle}
+                    placeholderStyle={[styles.placeholderStyle1,{textAlign:lang=='ar'?'right':'left'}]}
+                    selectedTextStyle={[styles.selectedTextStyle,{textAlign:lang=='ar'?'right':'left'}]}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
                     data={IndustryData}
@@ -350,11 +356,20 @@ const UpdateOneExperience = () => {
                       props?.setFieldValue(`industry_id`, item?.id);
                     }}
                     renderRightIcon={() => (
+                      lang=='en'?
                       <RenderSvgIcon
                         icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                         width={16}
                         height={16}
-                      />
+                      />:null
+                    )}
+                    renderLeftIcon={()=>(
+                      lang=='ar'?
+                      <RenderSvgIcon
+                      icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                      width={16}
+                      height={16}
+                    />:null
                     )}
                     onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
                     onBlur={() => setDropdownOpen(false)}
@@ -362,8 +377,8 @@ const UpdateOneExperience = () => {
 
                   <Dropdown
                     style={styles.uploadContainer1}
-                    placeholderStyle={styles.placeholderStyle1}
-                    selectedTextStyle={styles.selectedTextStyle}
+                    placeholderStyle={[styles.placeholderStyle1,{textAlign:lang=='ar'?'right':'left'}]}
+                    selectedTextStyle={[styles.selectedTextStyle,{textAlign:lang=='ar'?'right':'left'}]}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
                     data={YearsData}
@@ -379,11 +394,20 @@ const UpdateOneExperience = () => {
                       // setValue1(item?.name);
                     }}
                     renderRightIcon={() => (
+                      lang=='en'?
                       <RenderSvgIcon
-                        icon={dropdownOpen1 ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                         width={16}
                         height={16}
-                      />
+                      />:null
+                    )}
+                    renderLeftIcon={()=>(
+                      lang=='ar'?
+                      <RenderSvgIcon
+                      icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                      width={16}
+                      height={16}
+                    />:null
                     )}
                     onFocus={() => setDropdownOpen1(true)} // Set the state to open when the dropdown is focused
                     onBlur={() => setDropdownOpen1(false)}
@@ -391,8 +415,8 @@ const UpdateOneExperience = () => {
 
                   <Dropdown
                     style={styles.uploadContainer1}
-                    placeholderStyle={styles.placeholderStyle1}
-                    selectedTextStyle={styles.selectedTextStyle}
+                    placeholderStyle={[styles.placeholderStyle1,{textAlign:lang=='ar'?'right':'left'}]}
+                    selectedTextStyle={[styles.selectedTextStyle,{textAlign:lang=='ar'?'right':'left'}]}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
                     data={JobTypeData}
@@ -408,11 +432,20 @@ const UpdateOneExperience = () => {
                       // setValue1(item?.name);
                     }}
                     renderRightIcon={() => (
+                      lang=='en'?
                       <RenderSvgIcon
-                        icon={dropdownOpen2 ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
                         width={16}
                         height={16}
-                      />
+                      />:null
+                    )}
+                    renderLeftIcon={()=>(
+                      lang=='ar'?
+                      <RenderSvgIcon
+                      icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                      width={16}
+                      height={16}
+                    />:null
                     )}
                     onFocus={() => setDropdownOpen2(true)} // Set the state to open when the dropdown is focused
                     onBlur={() => setDropdownOpen2(false)}
@@ -436,9 +469,10 @@ const UpdateOneExperience = () => {
                     }}
                     inputStyle={{
                       fontSize: 14,
+                      textAlign:lang=='ar'?'right':'left'
                       //  color: 'red'
                     }}
-                    placeholder={`Description`}
+                    placeholder={t("description")}
                   />
 
                   <View
@@ -458,7 +492,7 @@ const UpdateOneExperience = () => {
                           marginBottom: 10,
                           marginLeft: 10,
                         }}>
-                        Start date
+                         {t("startDate")}
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
@@ -486,7 +520,7 @@ const UpdateOneExperience = () => {
                           marginBottom: 10,
                           marginLeft: 10,
                         }}>
-                        End date
+                         {t("endDate")}
                       </Text>
                       <TouchableOpacity
                         onPress={() => {
@@ -608,7 +642,7 @@ const UpdateOneExperience = () => {
                       style={styles.Circle}>
                       <View style={stillWorkHere ? styles.innerCircle : null} />
                     </TouchableOpacity>
-                    <Text style={styles.agree}>I currently work there</Text>
+                    <Text style={styles.agree}>{t("iCurrentlyWorkThere")}</Text>
                   </View>
                   <TouchableOpacity
                     onPress={() => uploadFile(props)}
@@ -621,7 +655,7 @@ const UpdateOneExperience = () => {
                         fontFamily: 'Noto Sans',
                       }}>
                       {experienceLetter == ''
-                        ? 'Update degree certificate'
+                        ? t('uploadDegreeCertificate')
                         : experienceLetter}
                     </Text>
                   </TouchableOpacity>
@@ -630,7 +664,7 @@ const UpdateOneExperience = () => {
 
                 <Button
                   loading={loading}
-                  text={'Done'}
+                  text={t('Done')}
                   onPress={props.handleSubmit}
                 />
               </View>

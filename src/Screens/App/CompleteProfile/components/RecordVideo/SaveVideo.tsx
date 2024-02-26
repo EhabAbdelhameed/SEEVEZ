@@ -30,6 +30,7 @@ import RNFS from 'react-native-fs';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { useTranslation } from 'react-i18next';
 const SaveVideo = () => {
   // const navigation = useNavigation<any>();
   const navigation = useNavigation();
@@ -85,6 +86,7 @@ const SaveVideo = () => {
       setPaused(true);
     }, 100);
   };
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -127,7 +129,7 @@ const SaveVideo = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <Button loading={loading} text={'Done'} onPress={saveVideoFun} />
+          <Button loading={loading} text={t('Done')} onPress={saveVideoFun} />
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

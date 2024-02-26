@@ -16,12 +16,17 @@ import {appSizes} from '../../../../../theme/appSizes';
 import Button from '../../../../../Components/molecules/Button';
 import {useNavigation} from '@react-navigation/native';
 import ReactNativeModal from 'react-native-modal';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const BottomModalIos = ({
   setVisable,
   data,
   setData,
   visable,
+  disabilityData,
+ 
 }: {
   setVisable: any;
   data: {
@@ -30,7 +35,12 @@ const BottomModalIos = ({
   };
   setData: (str: any) => void;
   visable: boolean;
+  disabilityData:any;
+
 }) => {
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   return (
     <ReactNativeModal
       isVisible={visable}
@@ -42,12 +52,13 @@ const BottomModalIos = ({
             <View style={styles.ModalContanier}>
               <View style={{paddingHorizontal: appSizes.padding_m}}>
                 <Text style={{fontSize: 14, fontWeight: '400', color: '#000'}}>
-                  {data?.subTitle}
+                  {t(data?.subTitle)}
                 </Text>
               </View>
               <TextInput
-                placeholder="Write here.."
+                placeholder={t("writeHere")}
                 placeholderTextColor={'#B9B9B9'}
+                value={disabilityData!=null?disabilityData:''}
                 onChangeText={e => {
                   setData(e);
                 }}
@@ -59,7 +70,7 @@ const BottomModalIos = ({
 
               <Button
                 textStyle={{fontSize: 16}}
-                text="Done"
+                text={t("Done")}
                 onPress={() => {
                   setVisable(false);
                 }}

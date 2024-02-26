@@ -942,7 +942,8 @@ const GetMyReels: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.GetMyReel(data);
-      console.log("Response Data",JSON.stringify(response))
+      // console.log("Response Data",JSON.stringify(response))
+      
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1264,7 +1265,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.profileInfo();
-      console.log(JSON.stringify(response?.data))
+      // console.log(JSON.stringify(response?.data))
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1358,7 +1359,80 @@ const doVotePoll: any = createAsyncThunk<any, any, any>(
     }
   },
 );
-
+//GetJobSeeker
+const GetJobSeekers: any = createAsyncThunk<any, any, any>(
+  'app/Jobseeker',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.JobSeeker(data);
+      // console.warn('Job Seeker', JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//GetRecruiterUser
+const GetRecruiterUsers: any = createAsyncThunk<any, any, any>(
+  'app/RecruiterUsers',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.recruiterUser(data);
+      console.warn('Recuriter', JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+const GetCompanyUsers: any = createAsyncThunk<any, any, any>(
+  'app/CompanyUsers',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.companyUser(data);
+      console.warn('mmm', response);
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 const AppThunks = {
   doAddSkills,
   GetAccessToken,
@@ -1413,7 +1487,11 @@ const AppThunks = {
    GetOnePost,
    doAddLike,
    doRemoveLike,
-   doVotePoll
+   doVotePoll,
+   GetJobSeekers,
+   GetRecruiterUsers,
+   GetCompanyUsers
+
 };
 
 export default AppThunks;

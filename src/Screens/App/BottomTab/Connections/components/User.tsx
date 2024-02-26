@@ -15,7 +15,7 @@ const UserSection = ({
 }: {
     item?: any
 }) => {
-    console.log("USERSECTION : ",item)
+    
     const dispatch = useAppDispatch()
     const FollowingList = useAppSelector(selectFollowingList)
     let exist = FollowingList?.some((ele: any) => ele?.toUserPublicId == item?.user_id)

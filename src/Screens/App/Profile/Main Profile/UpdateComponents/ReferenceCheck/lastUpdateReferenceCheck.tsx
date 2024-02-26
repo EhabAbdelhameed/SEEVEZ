@@ -30,6 +30,8 @@ import {
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
   
   const UpdateOneRefernceCheck = () => {
     // const navigation = useNavigation<any>();
@@ -102,9 +104,10 @@ import AuthSlice from 'src/redux/auth';
         }
       }
     };
-  
+    const lang = useSelector(selectLang);
+    const {t, i18n} = useTranslation();
     return (
-      <SafeAreaView edges={['top']} style={styles.container}>
+      <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
         <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
@@ -126,7 +129,7 @@ import AuthSlice from 'src/redux/auth';
                 marginLeft: 8,
                 marginBottom: 10,
               }}>
-              Reference check
+              {t("referenceCheck")}
             </Text>
             <Formik
               initialValues={{phone:data?.phone||'', code:data?.country_code||''}}
@@ -197,10 +200,11 @@ import AuthSlice from 'src/redux/auth';
                         }}
                         inputStyle={{
                           fontSize: 14,
+                          textAlign:lang=='ar'?'right':'left'
                           //  color: 'red'
                         }}
                         keyboardType="number-pad"
-                        placeholder={`Enter phone number`}
+                        placeholder={t('Enter phone number')}
                       />
                       {/* {index > 0 && (
                         <TouchableOpacity
@@ -218,7 +222,7 @@ import AuthSlice from 'src/redux/auth';
                     <PDF />
                     <Text style={{fontSize: 19, color: appColors.primary}}>
                       {Source.length == 0
-                        ? 'Update background check'
+                        ? t('uploadBackgroundCheck')
                         : Source[0].name}
                     </Text>
                   </TouchableOpacity>
@@ -226,7 +230,7 @@ import AuthSlice from 'src/redux/auth';
   
                   <Button
                     loading={loading}
-                    text={'Done'}
+                    text={t('Done')}
                     onPress={props.handleSubmit}
                   />
                 </View>

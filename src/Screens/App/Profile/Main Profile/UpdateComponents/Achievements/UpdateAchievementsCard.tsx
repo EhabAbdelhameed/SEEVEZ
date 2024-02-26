@@ -26,6 +26,8 @@ import AppSlice, { selectAccessToken, selectDone } from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import AuthSlice, {selectUser} from 'src/redux/auth';
 import ReadMore from '@fawazahmed/react-native-read-more';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const UpdateAchievementCard = () => {
   const CurrentUserData = useSelector(selectUser);
@@ -62,19 +64,20 @@ const UpdateAchievementCard = () => {
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
-
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
   const handleDeleteAchievement = (achievementId: any) => {
     // Show confirmation dialog
     Alert.alert(
-      'Seevez',
-      'Are you sure you want to delete this achievement ?',
+      t('SEEVEZ'),
+      t('Are you sure you want to delete this achievement?'),
       [
         {
-          text: 'Cancel',
+          text: t('cancel'),
           style: 'cancel',
         },
         {
-          text: 'OK',
+          text: t('OK'),
           onPress: () => {
             // Dispatch the action to delete the experience
             dispatch(AppThunks.doDeleteAchievement(achievementId)).then(
@@ -89,7 +92,7 @@ const UpdateAchievementCard = () => {
     );
   };
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -103,6 +106,7 @@ const UpdateAchievementCard = () => {
           <TouchableOpacity onPress={_handleNavigate} activeOpacity={0.8}>
             <RenderSvgIcon
               icon="ARROWBACK"
+              style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
               width={30}
               height={30}
               color={appColors.primary}
@@ -151,7 +155,7 @@ const UpdateAchievementCard = () => {
                 marginLeft: 8,
                 fontFamily: 'Noto Sans',
               }}>
-              Achievements
+              {t('achievements')}
             </Text>
            
           </View>
@@ -169,8 +173,8 @@ const UpdateAchievementCard = () => {
                  color: appColors.primary,
                  textDecorationLine: 'underline',
                }}
-               seeLessText="less"
-               seeMoreText="Read more"
+               seeLessText={t("less")}
+               seeMoreText={t("Read more")}
                numberOfLines={3}>
                {item?.text}
              </ReadMore>

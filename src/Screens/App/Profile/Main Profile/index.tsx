@@ -32,6 +32,7 @@ import EducationProfileCard from './components/Education';
 import ExperienceProfileCard from './components/Experience';
 import { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
+import HealthProfileCard from './components/HealthProfileCard';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -69,17 +70,18 @@ const ProfileScreen = () => {
           <EducationProfileCard data={CurrentUserData?.user_data?.educations} />
           <TrainingProfileCard data={CurrentUserData?.user_data?.training_courses} />
           <SkillsProfileCard
-            title={'skills'}
+            title={'Skills'}
             data={CurrentUserData?.user_data?.skills}
           />
           <SkillsProfileCard
-            title={'interests'}
+            title={'Interests'}
             data={CurrentUserData?.user_data?.interests}
           />
           <LanguagesProfileCard data={CurrentUserData?.user_data?.languages} />
           <AchievementsProfileCard data={CurrentUserData?.user_data?.achievement} />
           {/* <RecommendationsCard /> */}
           <ReferenceProfileCheck data={CurrentUserData?.user_data?.reference_check}/>
+          <HealthProfileCard data={CurrentUserData?.user_data?.reference_check}/>
           <View style={{height: 20}} />
         </View>
       </ScrollView>

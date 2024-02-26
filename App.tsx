@@ -4,7 +4,7 @@ import React from 'react'
 import { enableScreens } from "react-native-screens";
 import Navigation from './src/navigation'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import CodePush from 'react-native-code-push';
+
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { Store } from 'src/redux/store';

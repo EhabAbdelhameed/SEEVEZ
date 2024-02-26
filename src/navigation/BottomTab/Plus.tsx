@@ -6,11 +6,17 @@ import Animated, { FadeIn, FadeOut, FadeOutUp } from 'react-native-reanimated'
 import { RenderSvgIcon, TName } from '../../Components/atoms/svg'
 import { useNavigation } from '@react-navigation/native'
 import {  PrimaryParamListKeys } from '../types'
+import { selectLang } from 'src/redux/lang'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const PlusAbs = () => {
   const [isOpened, setIsOpened] = useState(false)
   const navigation = useNavigation<any>()
   const Item = ({ icon, title, nav = 'CreateVideo' }: { icon: TName; title: string; nav?: PrimaryParamListKeys }) => {
+    const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
     return (
       <TouchableOpacity
         style={styles.btnIconTitle}
@@ -19,7 +25,7 @@ const PlusAbs = () => {
         <View style={styles.containerIcon}>
           <RenderSvgIcon icon={icon} />
         </View>
-        <Text style={styles.text}>{title}</Text>
+        <Text style={styles.text}>{t(title)}</Text>
       </TouchableOpacity>
     )
   }
