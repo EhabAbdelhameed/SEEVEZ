@@ -106,7 +106,6 @@ const Home = () => {
       }),
     );
   }, []);
-  console.warn(lang)
   return (
     <SafeAreaView edges={['top']} style={[globalStyles.screen, {direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
       <View style={globalStyles.screen}>

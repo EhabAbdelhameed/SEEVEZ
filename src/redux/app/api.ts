@@ -66,7 +66,7 @@ const disLike = (data: any) => api.post(`api/remove-reaction`, data);
 const votePoll = (data: any) => api.post(`api/vote-poll`, data);
 
 
-const search = (Search: any) => api.get(`api/general/search?filter[global]=${Search}`);
+const search = (Search: any) => api.get(`api/general/search?${Search}`);
 
 
 /////////////////////////////////end////////////////////////////////////////

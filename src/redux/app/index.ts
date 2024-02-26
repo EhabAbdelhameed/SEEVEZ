@@ -1679,9 +1679,9 @@ const slice = createSlice({
   },
 });
 
-export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
 export const selectCompanies = (state: RootState) => state.app.CompaniesData;
 
+export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
 export const selectYears = (state: RootState) => state.app.YearsOfExperience;
 export const selectJobtype = (state: RootState) => state.app.JobType;
 export const selectEducation = (state: RootState) => state.app.EducationLevel;

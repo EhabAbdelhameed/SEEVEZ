@@ -7,8 +7,6 @@ interface appState {
       name: any;
     },
   ];
-  FollowingList: any[];
-  listUsers: any[];
   YearsOfExperience: [
     {
       deleted_at: any;
@@ -23,6 +21,16 @@ interface appState {
       name: any;
     },
   ];
+  EducationLevel: [
+    {
+      deleted_at: any;
+      id: any;
+      name: any;
+    },
+  ];
+  FollowingList: any[];
+  listUsers: any[];
+  
   photoData: {
     image: any;
     addonesCaption: any;
@@ -35,13 +43,7 @@ interface appState {
     exterinalLinks: any;
   };
 
-  EducationLevel: [
-    {
-      deleted_at: any;
-      id: any;
-      name: any;
-    },
-  ];
+  
   CompaniesData: [
     {
       avatar: any;

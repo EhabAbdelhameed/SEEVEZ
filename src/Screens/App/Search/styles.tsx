@@ -2,14 +2,29 @@ import { StyleSheet } from "react-native";
 import { appColors, appSizes } from "theme";
 
 export const styles = StyleSheet.create({
+    Container: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    SearchContainer: {
+        flexDirection: 'row-reverse',
+        alignItems: 'center',
+        height: 55,
+        width: '90%',
+        borderWidth: 1,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+        borderColor: appColors.primary,
+        marginTop: 25
+    },
     HeaderContainer: {
         width: "100%",
-        backgroundColor:appColors.bg,
+        backgroundColor: appColors.bg,
         // height:100,
         // paddingTop: 10,
-        height:54,
+        height: 54,
         paddingHorizontal: 10,
-        flexDirection: "row",
+        flexDirection: "row-reverse",
         alignItems: "center",
         // justifyContent:'center'
     },
@@ -122,11 +137,11 @@ export const styles = StyleSheet.create({
         width: "80%",
         backgroundColor: appColors.white,
         position: "absolute",
-        alignSelf:'center',
+        alignSelf: 'center',
         // height: 200,
         // left: 0,
-       
-        height:195,
+
+        height: 195,
         bottom: 10,
         elevation: 4,
         borderRadius: 10,
@@ -140,7 +155,7 @@ export const styles = StyleSheet.create({
         shadowRadius: 4.65,
     },
     text11: {
-        fontSize: appSizes.x-1,
+        fontSize: appSizes.x - 1,
         fontWeight: "600",
         color: appColors.black,
     },
@@ -200,8 +215,8 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         gap: 10,
         marginVertical: 10,
-        marginBottom:30,
-        marginTop:20
+        marginBottom: 30,
+        marginTop: 20
 
     },
     text2: {

@@ -55,6 +55,7 @@ import LikeHand from './LikeHand.svg'
 import LOCATION from './Location.svg'
 import Time from './Time.svg'
 import ThreeDots from './ThreeDots.svg'
+import Filter from './Filter.svg'
 export {
     Right,
     WAVE,
@@ -109,5 +110,6 @@ export {
     LikeHand,
     LOCATION,
     Time,
-    ThreeDots
+    ThreeDots,
+    Filter
 }
