@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     SearchContainer: {
-        flexDirection: 'row-reverse',
+        flexDirection: 'row',
         alignItems: 'center',
         height: 55,
         width: '90%',
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
         // paddingTop: 10,
         height: 54,
         paddingHorizontal: 10,
-        flexDirection: "row-reverse",
+        flexDirection: "row",
         alignItems: "center",
         // justifyContent:'center'
     },

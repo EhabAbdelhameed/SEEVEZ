@@ -30,16 +30,16 @@ const SearchScreen = () => {
     const [search, setSearch] = React.useState('')
 
     const [industryVisable, setIndustryVaisable] = React.useState(false)
-    const [industry, setIndustry] = React.useState<any>(null)
+    const [industry, setIndustry] = React.useState<any>([])
 
     const [experianceVisable, setExperianceVaisable] = React.useState(false)
-    const [experiance, setExperiance] = React.useState<any>(null)
+    const [experiance, setExperiance] = React.useState<any>([])
 
     const [jobTypeVisable, setJobTypeVaisable] = React.useState(false)
-    const [jobType, setJobTypee] = React.useState<any>(null)
+    const [jobType, setJobTypee] = React.useState<any>([])
 
     const [educationVisable, setEducationVisable] = React.useState(false)
-    const [education, setEducation] = React.useState<any>(null)
+    const [education, setEducation] = React.useState<any>([])
 
     const [Load, setLoad] = React.useState(false)
     const searchList = useAppSelector(selectSearchingList)
@@ -91,10 +91,10 @@ const SearchScreen = () => {
                             :
                             (
                                 dispatch(AppSlice.changeSearch([])),
-                                setIndustry(null),
-                                setEducation(null),
-                                setJobTypee(null),
-                                setExperiance(null),
+                                setIndustry([]),
+                                setEducation([]),
+                                setJobTypee([]),
+                                setExperiance([]),
                                 setFiltered(false)
                             )
                     }} activeOpacity={.8} style={{
@@ -128,7 +128,7 @@ const SearchScreen = () => {
                                 <TouchableOpacity activeOpacity={.8} onPress={() => {
                                     navigation.navigate('UserProfile', { id: item?.id });
                                 }} style={{
-                                    flexDirection: 'row-reverse',
+                                    flexDirection: 'row',
                                     alignItems: 'center',
                                     width: ScreenWidth,
                                     justifyContent: 'flex-start',
@@ -175,7 +175,7 @@ const SearchScreen = () => {
                     />
                 }
             </SafeAreaView>
-            <ReactNativeModal style={{
+            <ReactNativeModal onBackdropPress={() => setFilterVisable(false)} onBackButtonPress={() => setFilterVisable(false)} style={{
                 justifyContent: 'flex-end'
             }} isVisible={FilterVisable}>
                 <View style={{
@@ -218,7 +218,8 @@ const SearchScreen = () => {
                     text='Filter'
                     style={{ marginTop: 30 }}
                     onPress={() => {
-                        let str = ((jobType != null ? ('filter[jobTypes.name]=' + Jobtype[jobType]?.name) : '') + (experiance != null ? '&' : '') + (experiance != null ? ('filter[yearsOfExperiences.name]=' + Years[experiance]?.name) : '') + (education != null ? '&' : '') + (education != null ? ('filter[educationLevel.name]=' + Education[education]?.name) : '') + ((industry != null) ? '&' : '') + (industry != null ? ('filter[industries.name]=' + Indstries[industry]?.name) : ''))
+                        let str = ((jobType?.length != 0 ? ('filter[jobTypes.name]=' + jobType) : '') + (experiance?.length != 0 ? '&' : '') + (experiance?.length != 0 ? ('filter[yearsOfExperiences.name]=' + experiance) : '') + (education?.length != 0 ? '&' : '') + (education?.length != 0 ? ('filter[educationLevel.name]=' + education) : '') + ((industry?.length != 0) ? '&' : '') + (industry?.length != 0 ? ('filter[industries.name]=' + industry) : ''))
+                        // console.log(str)
                         setLoad(true)
                         setFiltered(true)
                         dispatch(AppThunks?.doSearch(str[0] == '&' ? str?.substring(1) : str)).then(() => {

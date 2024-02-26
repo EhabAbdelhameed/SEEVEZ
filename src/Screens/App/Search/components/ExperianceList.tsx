@@ -20,7 +20,7 @@ const ExperianceList = ({
     return (
         <>
             <TouchableOpacity activeOpacity={.8} onPress={() => setIndustryVaisable((v: any) => !v)} style={{
-                flexDirection: 'row-reverse',
+                flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 borderBottomWidth: 1,
@@ -33,7 +33,7 @@ const ExperianceList = ({
                     fontSize: 18,
                     fontWeight: '500',
                     color: appColors.textColor,
-                }}>Years of experiance</Text>
+                }}>Years of experience</Text>
                 <ArrowDown height={20} />
             </TouchableOpacity>
             {industryVisable && <FlatList
@@ -43,10 +43,16 @@ const ExperianceList = ({
                 renderItem={({ item, index }) => (
                     <>
                         <TouchableOpacity activeOpacity={.8} onPress={() => {
-                            setIndustry(index)
-                            setIndustryVaisable(false)
+                           const arr = [...industry]
+                           const ind = arr?.indexOf(item?.name)
+                           if (ind !== -1) {
+                               arr.splice(ind, 1);
+                           } else {
+                               arr?.push(item?.name)
+                           }
+                           setIndustry(arr)
                         }} style={{
-                            flexDirection: 'row-reverse',
+                            flexDirection: 'row',
                             alignItems: 'center',
                             width: '100%',
                             marginBottom: 15
@@ -60,7 +66,7 @@ const ExperianceList = ({
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}>
-                                {index == industry && <View style={{
+                                {industry?.indexOf(item?.name) != -1 && <View style={{
                                     width: 14,
                                     height: 14,
                                     borderRadius: 15,
@@ -79,6 +85,33 @@ const ExperianceList = ({
                     </>
                 )}
             />}
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                flexWrap: 'wrap'
+            }}>
+                {
+                    industry?.map((item: any) => (
+                        <>
+                            <View style={{
+                                paddingHorizontal: 20,
+                                paddingVertical: 10,
+                                borderWidth: 1,
+                                borderColor: appColors.primary,
+                                borderRadius: 20,
+                                marginLeft: 5,
+                                marginBottom: 5
+                            }}>
+                                <Text style={{
+                                    fontSize: 13,
+                                    color: appColors.primary,
+                                    fontWeight: '500'
+                                }}>{item}</Text>
+                            </View>
+                        </>
+                    ))
+                }
+            </View>
         </>
     )
 }
