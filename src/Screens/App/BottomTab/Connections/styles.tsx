@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
         color: appColors.dark
     },
     text3: {
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: "400",
         color: appColors.dark
     },
@@ -71,11 +71,12 @@ export const styles = StyleSheet.create({
         borderRadius: appSizes.m
     },
     followersContainer: {
-        width: "100%",
+        width: 100,
+        // height:21,
         alignItems: "center",
         justifyContent: "center",
         // paddingHorizontal:18,
-        paddingVertical: 5,
+        paddingVertical: 4,
         paddingHorizontal:15,
         backgroundColor: appColors.lightPurple2,
         borderRadius: appSizes.l,
@@ -117,13 +118,13 @@ export const styles = StyleSheet.create({
       paginationNumber: {
         padding: 5,
         marginHorizontal: 5,
-        borderWidth: 1,
+       
         borderRadius: 30,
         width:30,
         height:30,
         justifyContent:'center',
         alignItems:'center',
-        borderColor: '#ccc',
+     
 
       },
       activePaginationNumber: {
@@ -131,5 +132,6 @@ export const styles = StyleSheet.create({
       },
       paginationText: {
         fontSize: 16,
+        color:appColors.primary
       },
 })

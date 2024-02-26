@@ -1,43 +1,56 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, ActivityIndicator} from 'react-native';
 import {styles} from '../styles';
 import UserSection from './User';
 import FooterSection from './footerPagaination';
+import {appColors} from 'theme';
 
-const ContainerUsers = ({title, data}: {title: string; data: any[]}) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Adjust this based on your requirement
-
-  // Calculate total number of pages
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  // Function to handle pagination
-  const handlePagination = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  // Calculate the data to display based on the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const displayedData = data.slice(startIndex, endIndex);
+const ContainerUsers = ({
+  title,
+  data,
+  loading,
+  totalPages,
+  currentPage,
+  onPageChange
+}: {
+  title: string;
+  data: any[];
+  loading: boolean;
+  totalPages:any,
+  currentPage:any,
+  onPageChange:(page: number) => void;
+}) => {
+ 
   return (
     <View style={styles.containerUsers}>
       <Text style={styles.titleSection}>{title}</Text>
-      <View style={styles.container2Users}>
-        <FlatList
-          data={data}
-          contentContainerStyle={{rowGap: 10}}
-          scrollEnabled={false}
-          renderItem={({item}) => <UserSection item={item} />}
-          ListFooterComponent={() => (
-            <FooterSection
-              totalPages={totalPages}
-              currentPage={currentPage}
-              onPageChange={handlePagination}
-            />
-          )}
-        />
-      </View>
+     
+        <View style={styles.container2Users}>
+        {loading ? (
+        <View
+          style={[
+            styles.container2Users,
+            {height: 560, justifyContent: 'center', alignItems: 'center'},
+          ]}>
+          <ActivityIndicator size={'large'} color={appColors.primary} />
+        </View>
+      ) : (
+          <FlatList
+            data={data}
+            contentContainerStyle={{rowGap: 10}}
+            scrollEnabled={false}
+            renderItem={({item}) => (
+              <UserSection  item={item} />
+            )}
+          />)}
+          <View style={{width:'100%',height:2,backgroundColor:'#E8E8E8',marginTop:10,marginBottom:5}}/>
+           <FooterSection
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
+        </View>
+  
     </View>
   );
 };

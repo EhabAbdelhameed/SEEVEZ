@@ -1392,7 +1392,7 @@ const GetRecruiterUsers: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.recruiterUser(data);
-      console.warn('Recuriter', JSON.stringify(response?.data));
+      // console.warn('Recuriter', JSON.stringify(response?.data));
       if (
         response.status == null ||
         response.status == 401 ||

@@ -66,7 +66,7 @@ const disLike = (data: any) => api.post(`api/remove-reaction`, data);
 const votePoll = (data: any) => api.post(`api/vote-poll`, data);
 const JobSeeker = (data: any) => api.get(`api/job-seeker/5?page=${data}`);
 const recruiterUser = (data: any) => api.get(`api/recruiter/5?page=${data}`);
-const companyUser = (data: any) => api.get(`api/company/1?page=${data}`);
+const companyUser = (data: any) => api.get(`api/company/5?page=${data}`);
 
 
 

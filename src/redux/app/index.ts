@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import Toast from 'react-native-toast-message';
-import { EntityKeys } from 'src/redux/keys';
-import { RootState } from '../store';
-import { initialState } from './types';
+import {EntityKeys} from 'src/redux/keys';
+import {RootState} from '../store';
+import {initialState} from './types';
 import thunks from './thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -97,7 +97,6 @@ const slice = createSlice({
 
         text1: action?.payload?.message,
       });
-      
     });
     builder.addCase(thunks.doAddSkills.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -105,7 +104,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-       
       } else {
         Toast.show({
           type: 'error',
@@ -115,7 +113,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
 
     //doUpdateSkills
@@ -133,7 +130,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-       
       } else {
         Toast.show({
           type: 'error',
@@ -143,7 +139,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     //doDeleteSkills
     builder.addCase(thunks.doDeleteSkills.fulfilled, (state, action) => {
@@ -160,7 +155,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-      
       } else {
         Toast.show({
           type: 'error',
@@ -170,7 +164,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-     
     });
     //doDeleteVideoCV
     builder.addCase(thunks.doDeleteVideoCV.fulfilled, (state, action) => {
@@ -187,7 +180,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-      
       } else {
         Toast.show({
           type: 'error',
@@ -197,7 +189,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     //doUploadPhotoReel
     builder.addCase(thunks.doUploadPhotoReel.fulfilled, (state, action) => {
@@ -226,7 +217,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-       
       } else {
         Toast.show({
           type: 'error',
@@ -236,7 +226,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
 
     //doAddAudio
@@ -265,7 +254,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-      
       } else {
         Toast.show({
           type: 'error',
@@ -275,7 +263,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     //doAddIntersts
     builder.addCase(thunks.doAddIntersts.fulfilled, (state, action) => {
@@ -292,15 +279,12 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-       
       } else {
         Toast.show({
           type: 'error',
           text1: action.payload.data.message,
         });
-      
       }
-     
     });
     //doUpdateIntersts
     builder.addCase(thunks.doUpdateIntersts.fulfilled, (state, action) => {
@@ -317,7 +301,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-       
       } else {
         Toast.show({
           type: 'error',
@@ -327,7 +310,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-     
     });
     //doDeleteIntersts
     builder.addCase(thunks.doDeleteIntersts.fulfilled, (state, action) => {
@@ -344,7 +326,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -354,7 +335,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-  
     });
 
     //doAddEducation
@@ -372,7 +352,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -382,7 +361,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
     //doUpdateEducation
     builder.addCase(thunks.doUpdateEducation.fulfilled, (state, action) => {
@@ -399,7 +377,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-      
       } else {
         Toast.show({
           type: 'error',
@@ -409,7 +386,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
     //doDeleteEducation
     builder.addCase(thunks.doDeleteEducation.fulfilled, (state, action) => {
@@ -426,7 +402,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-      
       } else {
         Toast.show({
           type: 'error',
@@ -436,7 +411,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
 
     //doAddExperience
@@ -454,7 +428,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -464,7 +437,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
     //doUpdateExperience
     builder.addCase(thunks.doUpdateExperience.fulfilled, (state, action) => {
@@ -483,7 +455,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-       
         } else {
           Toast.show({
             type: 'error',
@@ -493,7 +464,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-      
       },
     );
     //doDeleteExperience
@@ -513,7 +483,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-       
         } else {
           Toast.show({
             type: 'error',
@@ -523,7 +492,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-     
       },
     );
     //doAddTrainingCourse
@@ -543,7 +511,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-         
         } else {
           Toast.show({
             type: 'error',
@@ -553,7 +520,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-      
       },
     );
     //doUpdateTrainingCourse
@@ -576,7 +542,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-        
         } else {
           Toast.show({
             type: 'error',
@@ -586,7 +551,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-     
       },
     );
     //doDeleteTrainingCourse
@@ -609,7 +573,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-         
         } else {
           Toast.show({
             type: 'error',
@@ -619,7 +582,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-       
       },
     );
 
@@ -640,7 +602,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-        
         } else {
           Toast.show({
             type: 'error',
@@ -650,7 +611,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-     
       },
     );
     //doUpdateReferenceCheck
@@ -673,7 +633,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-      
         } else {
           Toast.show({
             type: 'error',
@@ -683,7 +642,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-    
       },
     );
     //doDeleteReferenceCheck
@@ -706,7 +664,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-        
         } else {
           Toast.show({
             type: 'error',
@@ -716,7 +673,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-    
       },
     );
 
@@ -735,7 +691,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-       
       } else {
         Toast.show({
           type: 'error',
@@ -745,7 +700,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
 
     //searchForTagPeopel
@@ -760,7 +714,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-      
         } else {
           Toast.show({
             type: 'error',
@@ -770,7 +723,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-      
       },
     );
     //doUpdateAchievement
@@ -790,7 +742,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-       
         } else {
           Toast.show({
             type: 'error',
@@ -800,7 +751,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-     
       },
     );
     //doDeleteAchievement
@@ -820,7 +770,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-       
         } else {
           Toast.show({
             type: 'error',
@@ -830,7 +779,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-     
       },
     );
 
@@ -845,7 +793,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -855,7 +802,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     //GetMyReels
     builder.addCase(thunks.GetMyReels.fulfilled, (state, action) => {
@@ -869,8 +815,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
-
       } else {
         Toast.show({
           type: 'error',
@@ -883,7 +827,6 @@ const slice = createSlice({
       // if (action?.payload?.data?.message == 'Access token is invalid.') {
       //   ////state.AccessToken = true;
       // }
-      
     });
     //GetOnePost
     builder.addCase(thunks.GetOnePost.fulfilled, (state, action) => {
@@ -895,14 +838,13 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-      
       } else {
         Toast.show({
           type: 'error',
           text1: action.payload.data.message,
         });
         if (action?.payload?.data?.message == 'Access token is invalid.') {
-        state.AccessToken = true;
+          state.AccessToken = true;
         }
       }
       // if (action?.payload?.data?.message == 'Access token is invalid.') {
@@ -911,6 +853,7 @@ const slice = createSlice({
     });
     //doGetFollowingList
     builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
+      console.log("yarb",action.payload.data?.users)
       state.FollowingList = action.payload.data?.users;
       const saveFollowingListToStorage = async (followingList: any) => {
         try {
@@ -948,7 +891,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-       
       } else {
         Toast.show({
           type: 'error',
@@ -958,7 +900,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
     //doUpdateLanguages
     builder.addCase(thunks.doUpdateLanguages.fulfilled, (state, action) => {
@@ -975,7 +916,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-    
       } else {
         Toast.show({
           type: 'error',
@@ -985,7 +925,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-     
     });
     //doDeleteLanguages
     builder.addCase(thunks.doDeleteLanguages.fulfilled, (state, action) => {
@@ -995,7 +934,6 @@ const slice = createSlice({
 
         text1: action?.payload?.message,
       });
-   
     });
     builder.addCase(thunks.doDeleteLanguages.rejected, (state, action: any) => {
       if (action.payload.data.message == 'Validation error.') {
@@ -1003,7 +941,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1013,7 +950,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-     
     });
 
     //doAddPersonalInfo
@@ -1031,7 +967,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1041,7 +976,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-     
     });
     //GetIndustry
     builder.addCase(thunks.GetIndustry.fulfilled, (state, action) => {
@@ -1053,7 +987,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -1063,7 +996,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-     
     });
     //GetAccessToken
     builder.addCase(thunks.GetAccessToken.fulfilled, (state, action) => {
@@ -1076,7 +1008,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1086,7 +1017,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
     //GetYearsOfExperience
     builder.addCase(thunks.GetYearsOfExperience.fulfilled, (state, action) => {
@@ -1100,7 +1030,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-       
         } else {
           Toast.show({
             type: 'error',
@@ -1110,7 +1039,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-   
       },
     );
     //GetJobType
@@ -1123,7 +1051,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1133,7 +1060,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     //GetEducationLevel
     builder.addCase(thunks.GetEducationLevel.fulfilled, (state, action) => {
@@ -1146,7 +1072,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -1156,7 +1081,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-     
     });
     //doUploadCV
     builder.addCase(thunks.doUploadCV.fulfilled, (state, action) => {
@@ -1174,7 +1098,6 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -1184,7 +1107,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     //doUploadVideoReel
     builder.addCase(thunks.doUploadVideoReel.fulfilled, (state, action) => {
@@ -1212,7 +1134,6 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
-  
       } else {
         Toast.show({
           type: 'error',
@@ -1222,7 +1143,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     //CreatePoll
     builder.addCase(thunks.CreatePoll.fulfilled, (state, action) => {
@@ -1250,7 +1170,6 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1260,7 +1179,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-  
     });
     //doUploadVideoReelPoll
     builder.addCase(thunks.doUploadpoll.fulfilled, (state, action) => {
@@ -1278,7 +1196,6 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
-    
       } else {
         Toast.show({
           type: 'error',
@@ -1288,7 +1205,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
     //doGetLatestOrder
     //doAddAbout
@@ -1306,7 +1222,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-     
       } else {
         Toast.show({
           type: 'error',
@@ -1316,7 +1231,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     // doAddCompanyInfo
     builder.addCase(thunks.doAddCompanyInfo.fulfilled, (state, action) => {
@@ -1334,7 +1248,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-    
       } else {
         Toast.show({
           type: 'error',
@@ -1344,7 +1257,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-   
     });
     // doAddCompanyAbout
     builder.addCase(thunks.doAddCompanyAbout.fulfilled, (state, action) => {
@@ -1361,7 +1273,6 @@ const slice = createSlice({
           type: 'error',
           text1: action.payload.data.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1371,7 +1282,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
     // doAddUploadPortfolio
     builder.addCase(thunks.doAddUploadPortfolio.fulfilled, (state, action) => {
@@ -1390,7 +1300,6 @@ const slice = createSlice({
             type: 'error',
             text1: action.payload.data.error,
           });
-       
         } else {
           Toast.show({
             type: 'error',
@@ -1400,7 +1309,6 @@ const slice = createSlice({
             state.AccessToken = true;
           }
         }
-      
       },
     );
     //doAddLike
@@ -1417,7 +1325,6 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1427,7 +1334,6 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-  
     });
     //doRemoveLike
     builder.addCase(thunks.doRemoveLike.fulfilled, (state, action) => {
@@ -1443,7 +1349,6 @@ const slice = createSlice({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
-   
       } else {
         Toast.show({
           type: 'error',
@@ -1453,18 +1358,16 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
 
     //doVotePoll
-    builder.addCase(thunks.doVotePoll.fulfilled, (state, action) => { });
+    builder.addCase(thunks.doVotePoll.fulfilled, (state, action) => {});
     builder.addCase(thunks.doVotePoll.rejected, (state, action: any) => {
       if (action?.payload?.data?.message == 'Validation error.') {
         Toast.show({
           type: 'error',
           text1: action?.payload?.data?.error,
         });
-    
       } else {
         Toast.show({
           type: 'error',
@@ -1474,14 +1377,75 @@ const slice = createSlice({
           state.AccessToken = true;
         }
       }
-    
     });
 
     //doSearch
-    builder.addCase(thunks.doSearch.fulfilled, (state, action) => { 
-      state.search=action?.payload?.result
+    builder.addCase(thunks.doSearch.fulfilled, (state, action) => {
+      state.search = action?.payload?.result;
     });
+    //GetJobSeeker
 
+    builder.addCase(thunks.GetJobSeekers.fulfilled, (state, action) => {
+      state.JobSeekerData = action?.payload?.data;
+    });
+    builder.addCase(thunks.GetJobSeekers.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
+        });
+        if (action?.payload?.data?.message == 'Access token is invalid.') {
+          state.AccessToken = true;
+        }
+      }
+    });
+    //GetRecruiterUsers
+
+    builder.addCase(thunks.GetRecruiterUsers.fulfilled, (state, action) => {
+      state.recuriterUsers = action?.payload?.data;
+    });
+    builder.addCase(thunks.GetRecruiterUsers.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
+        });
+        if (action?.payload?.data?.message == 'Access token is invalid.') {
+          state.AccessToken = true;
+        }
+      }
+    });
+    //GetCompanyUsers
+
+    builder.addCase(thunks.GetCompanyUsers.fulfilled, (state, action) => {
+      state.companyUsers = action?.payload?.data;
+    });
+    builder.addCase(thunks.GetCompanyUsers.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
+        });
+        if (action?.payload?.data?.message == 'Access token is invalid.') {
+          state.AccessToken = true;
+        }
+      }
+    });
   },
 });
 
@@ -1510,6 +1474,9 @@ export const selectLike = (state: RootState) => state.app.like;
 export const selectAccessToken = (state: RootState) => state.app.AccessToken;
 export const selectPolls = (state: RootState) => state.app.polls;
 export const selectSearchingList = (state: RootState) => state.app.search;
+export const selectJobSeeker = (state: RootState) => state.app.JobSeekerData;
+export const selectRecuriters = (state: RootState) => state.app.recuriterUsers;
+export const selectCompaniesUser = (state: RootState) => state.app.companyUsers;
 
 const AppSlice = {
   slice,

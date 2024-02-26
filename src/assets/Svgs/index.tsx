@@ -56,6 +56,7 @@ import LOCATION from './Location.svg'
 import Time from './Time.svg'
 import ThreeDots from './ThreeDots.svg'
 import Filter from './Filter.svg'
+import JOBOP   from './JobOprtuinty.svg'
 export {
     Right,
     WAVE,
@@ -111,5 +112,6 @@ export {
     LOCATION,
     Time,
     ThreeDots,
-    Filter
+    Filter,
+    JOBOP
 }

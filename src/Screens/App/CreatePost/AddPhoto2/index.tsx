@@ -8,7 +8,7 @@ import {styles} from './styles';
 import {videoSource} from 'screens/App/Reels/fucntions/helper';
 import {appColors} from 'theme';
 import {RenderSvgIcon} from 'components/atoms/svg';
-import {CV, ExterinalLinks, MARKET, PULL} from 'assets/Svgs';
+import {CV, ExterinalLinks, JOBOP, MARKET, PULL} from 'assets/Svgs';
 import Footer from './components/Footer';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
@@ -142,10 +142,10 @@ const CreatePhoto2 = () => {
             </TouchableOpacity>
           
           </View>
-          <View style={[styles.bottomStartContainer,{marginTop:20}]}>
+         
         
             
-           
+          <View style={[styles.bottomStartContainer,{marginTop:20}]}>
             <TouchableOpacity
               style={[
                 styles.leftBtn,
@@ -159,17 +159,21 @@ const CreatePhoto2 = () => {
               <MARKET />
               <Text style={styles.text1}>Market</Text>
             </TouchableOpacity>
-            <View
+
+            <TouchableOpacity
               style={[
                 styles.leftBtn,
                 {
-                 backgroundColor:'transparent'
+                 backgroundColor:'#E8EFFC'
                 },
               ]}
-             />
-          
-          </View>
-         
+              
+            >
+             <JOBOP />
+              <Text style={styles.text1}>Job opportunity</Text>
+       
+         </TouchableOpacity>
+         </View>
        
           <Footer saveVideo={saveVideoFun} loading={loading} />
         </LinearGradient>
