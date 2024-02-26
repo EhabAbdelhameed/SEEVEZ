@@ -37,7 +37,7 @@ const AccessToken = () => api.post(`api/amity-data-access-token`);
 
 const CompanyInfo = (data: any) => api.post(`api/complete-profile-company`, data);
 const CompanyAbout = (data: any) => api.post(`api/complete-profile-company`, data);
-const SearchToTagPeople = (data: any) => api.post(`api/search-for-users/10/?name=${data}`);
+const SearchToTagPeople = (data: any) => api.get(`api/search-for-users/10/?name=${data}`);
 
 const CVCompany = (data: any) => api.post(`api/complete-profile-company`, data);
 const CV = (data: any) => api.post(`api/media-cv`, data);
@@ -70,6 +70,7 @@ const companyUser = (data: any) => api.get(`api/company/1?page=${data}`);
 
 
 
+const search = (Search: any) => api.get(`api/general/search?${Search}`);
 
 
 /////////////////////////////////end////////////////////////////////////////
@@ -133,8 +134,9 @@ const AppAPI = {
   votePoll,
   JobSeeker,
   recruiterUser,
-  companyUser
+  companyUser,
 
+  search
 };
 
 export default AppAPI;

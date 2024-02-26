@@ -1,4 +1,5 @@
 interface appState {
+  search: any[]
   IndsturyData: [
     {
       deleted_at: any;
@@ -6,8 +7,6 @@ interface appState {
       name: any;
     },
   ];
-  FollowingList: any[];
-  listUsers: any[];
   YearsOfExperience: [
     {
       deleted_at: any;
@@ -22,6 +21,16 @@ interface appState {
       name: any;
     },
   ];
+  EducationLevel: [
+    {
+      deleted_at: any;
+      id: any;
+      name: any;
+    },
+  ];
+  FollowingList: any[];
+  listUsers: any[];
+  
   photoData: {
     image: any;
     addonesCaption: any;
@@ -34,13 +43,7 @@ interface appState {
     exterinalLinks: any;
   };
 
-  EducationLevel: [
-    {
-      deleted_at: any;
-      id: any;
-      name: any;
-    },
-  ];
+  
   CompaniesData: [
     {
       avatar: any;
@@ -150,6 +153,7 @@ interface appState {
       impression: any;
     },
   ];
+  
   like: boolean;
   AccessToken: boolean;
   polls: [
@@ -167,6 +171,7 @@ interface appState {
           voteCount: any;
           id: any;
         },
+
       ];
       answerType: any;
       closedAt: any;
@@ -299,6 +304,7 @@ interface appState {
     total: any;
   };
 }
+
 
 
 export const initialState: appState = {
@@ -600,5 +606,12 @@ export const initialState: appState = {
     to: null,
     total: null
   },
+ 
+ 
+
+ 
+ 
+  search: []
   //   Search: [],
+
 };

@@ -6,15 +6,15 @@ import ContainerImgs from './components/ContainerImgs';
 import Header from './components/Header';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-import { Alert, PermissionsAndroid } from 'react-native';
+import { Alert, PermissionsAndroid, Platform } from 'react-native';
 const AddPhoto = () => {
 
   const [imageData, setImageData] = useState<PhotoIdentifiersPage | any>();
   const [selected, setSelected] = useState()
   const [multiSelect, setMultiSelect] = useState(false)
-  const [typeSelect, setTypeSelect] = useState<"Gallery"|"Camera">('Gallery')
+  const [typeSelect, setTypeSelect] = useState<"Gallery" | "Camera">('Gallery')
   useEffect(() => {
-    requestStoragePermission();
+    Platform.OS == 'android' && requestStoragePermission();
   }, []);
   const requestStoragePermission = async () => {
     try {

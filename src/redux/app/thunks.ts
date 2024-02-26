@@ -1,4 +1,4 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import AppAPI from './api';
 
 //doAddSkills
@@ -892,7 +892,7 @@ const CreatePoll: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Poll(data);
-      console.warn('mmm', response);
+      // console.warn('mmm', response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -944,6 +944,7 @@ const GetMyReels: any = createAsyncThunk<any, any, any>(
       const response = await AppAPI.GetMyReel(data);
       // console.log("Response Data",JSON.stringify(response))
       
+      // console.log("Response Data", JSON.stringify(response))
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1266,6 +1267,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
     try {
       const response = await AppAPI.profileInfo();
       // console.log(JSON.stringify(response?.data))
+      console.log(JSON.stringify(response))
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1315,7 +1317,7 @@ const doRemoveLike: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.disLike(data);
-      console.warn('mmm', response);
+      // console.warn('mmm', response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1414,7 +1416,31 @@ const GetCompanyUsers: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.companyUser(data);
-      console.warn('mmm', response);
+      // console.warn('Recuriter', JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+const doSearch: any = createAsyncThunk<any, any, any>(
+  'app/search',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.search(data);
+      // alert(JSON.stringify(response?.data));
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1490,8 +1516,8 @@ const AppThunks = {
    doVotePoll,
    GetJobSeekers,
    GetRecruiterUsers,
-   GetCompanyUsers
-
+   GetCompanyUsers,
+   doSearch,
 };
-
+    
 export default AppThunks;
