@@ -21,6 +21,13 @@ interface appState {
       name: any;
     },
   ];
+  WorkType: [
+    {
+      deleted_at: any;
+      id: any;
+      name: any;
+    },
+  ];
   EducationLevel: [
     {
       deleted_at: any;
@@ -354,6 +361,13 @@ export const initialState: appState = {
     },
   ],
   JobType: [
+    {
+      deleted_at: null,
+      id: null,
+      name: null,
+    },
+  ],
+  WorkType: [
     {
       deleted_at: null,
       id: null,

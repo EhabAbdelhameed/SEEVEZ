@@ -61,6 +61,8 @@ import ExterinalLinks from 'screens/App/CreatePost/ExteraLinks';
 import MYPolls from 'screens/App/MyPolls';
 import HealthProfile from 'screens/App/CompleteProfile/components/HealthProfile/HealthProfile';
 import SearchScreen from 'screens/App/Search';
+import JobOpportunity from 'screens/App/CreatePost/JobOpportunity';
+import Form2 from 'screens/App/CreatePost/JobOpportunity/components/Form2';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -313,6 +315,14 @@ const AppStack = () => {
             <Stack.Screen
                 name='Search'
                 component={SearchScreen}
+            />
+              <Stack.Screen
+                name='JobOpportunity'
+                component={JobOpportunity}
+            />
+             <Stack.Screen
+                name='Form2'
+                component={Form2}
             />
         </Stack.Navigator>
     );

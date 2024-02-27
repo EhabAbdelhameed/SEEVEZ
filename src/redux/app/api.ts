@@ -58,6 +58,7 @@ const followingList = () => api.get(`api/get-following-list`)
 const followers = (id: number) => api.get(`api/follow-other-info?user_id=${id}`)
 const YearsOfExperience = () => api.get(`api/drop-down/year-of-experience`)
 const JobType = () => api.get(`api/drop-down/job-type`)
+const WorkType = () => api.get(`api/drop-down/work-type`)
 const EducationLevel = () => api.get(`api/drop-down/education-level`)
 const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?name=${data}`)
 
@@ -136,7 +137,8 @@ const AppAPI = {
   recruiterUser,
   companyUser,
 
-  search
+  search,
+  WorkType
 };
 
 export default AppAPI;

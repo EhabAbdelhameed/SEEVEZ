@@ -66,6 +66,9 @@ const slice = createSlice({
     changeJobType: (state, action) => {
       state.JobType = action.payload;
     },
+    changeWorkType: (state, action) => {
+      state.WorkType = action.payload;
+    },
     changeEducationLevel: (state, action) => {
       state.EducationLevel = action.payload;
     },
@@ -1061,6 +1064,26 @@ const slice = createSlice({
         }
       }
     });
+     //GetJobType
+     builder.addCase(thunks.GetWorkType.fulfilled, (state, action) => {
+      state.WorkType = action.payload?.data;
+    });
+    builder.addCase(thunks.GetWorkType.rejected, (state, action: any) => {
+      if (action.payload.data.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action.payload.data.message,
+        });
+        if (action?.payload?.data?.message == 'Access token is invalid.') {
+          state.AccessToken = true;
+        }
+      }
+    });
     //GetEducationLevel
     builder.addCase(thunks.GetEducationLevel.fulfilled, (state, action) => {
       //  console.log(action.payload?.data)
@@ -1454,6 +1477,7 @@ export const selectCompanies = (state: RootState) => state.app.CompaniesData;
 export const selectIndstruy = (state: RootState) => state.app.IndsturyData;
 export const selectYears = (state: RootState) => state.app.YearsOfExperience;
 export const selectJobtype = (state: RootState) => state.app.JobType;
+export const selectWorktype = (state: RootState) => state.app.WorkType;
 export const selectEducation = (state: RootState) => state.app.EducationLevel;
 
 export const selectDone = (state: RootState) => state.app.done;
@@ -1495,6 +1519,7 @@ const AppSlice = {
   changeCompainesData: slice.actions.chnageCompaniesData,
   changeYearsOfExperience: slice.actions.changeYearsOfExperience,
   changeJobType: slice.actions.changeJobType,
+  changeWorkType: slice.actions.changeWorkType,
   changeEducationLevel: slice.actions.changeEducationLevel,
   changeSearchPeopelData: slice.actions.changeSearchPeopelData,
   changePhotoData: slice.actions.changePhotoData,

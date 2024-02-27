@@ -163,11 +163,13 @@ const CreatePhoto2 = () => {
             <TouchableOpacity
               style={[
                 styles.leftBtn,
-                {
+                { 
                  backgroundColor:'#E8EFFC'
                 },
               ]}
-              
+              onPress={() => {
+                navigation.navigate('JobOpportunity');
+              }}
             >
              <JOBOP />
               <Text style={styles.text1}>Job opportunity</Text>

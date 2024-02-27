@@ -786,6 +786,31 @@ const GetJobType: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//GetJobType
+const GetWorkType: any = createAsyncThunk<any, any, any>(
+  'app/WorkType',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.WorkType();
+      // console.log(response.data)
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 //GetEducationLevel
 const GetEducationLevel: any = createAsyncThunk<any, any, any>(
   'app/EducationLevel',
@@ -1518,6 +1543,7 @@ const AppThunks = {
    GetRecruiterUsers,
    GetCompanyUsers,
    doSearch,
+   GetWorkType
 };
     
 export default AppThunks;

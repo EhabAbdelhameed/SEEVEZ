@@ -77,6 +77,8 @@ export type AppParamsList = {
     ExterinalLinks:undefined;
     MYPolls:undefined;
     HealthProfile:undefined;
+    JobOpportunity:undefined;
+    Form2:undefined;
 }
 export type RootParamsList = {
     auth: any;
