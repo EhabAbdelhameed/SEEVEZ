@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     leftFooter: {
         // width:"80%",
         // backgroundColor: appColors.secondary,
-        alignItems: "flex-start",
+        alignItems: "center",
         flexDirection: "row",
     },
     containerIconText: {

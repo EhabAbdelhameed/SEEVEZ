@@ -15,7 +15,7 @@ const User = (data: any) => {
             marginBottom: 3,
             paddingVertical: 3,
         }]}>
-            {data?.data?.avatarCustomUrl == null || data?.data?.avatarCustomUrl == undefined || !data?.data?.avatarCustomUrl ?
+            {data?.data?.avatarCustomUrl == null ||data?.data?.avatarCustomUrl == 'null' || data?.data?.avatarCustomUrl == undefined || !data?.data?.avatarCustomUrl ?
                 <View
                     style={{
                         width: 38,

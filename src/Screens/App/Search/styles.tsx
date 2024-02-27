@@ -17,6 +17,24 @@ export const styles = StyleSheet.create({
         borderColor: appColors.primary,
         marginTop: 25
     },
+    text3: {
+        fontSize: 11,
+        fontWeight: "400",
+        color: appColors.dark,
+    },
+    folowCotainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        columnGap: 3,
+        borderRadius: appSizes.l,
+        borderWidth: 1,
+        padding: appSizes.s,
+        paddingHorizontal: appSizes.padding_s,
+        borderColor: appColors.lightGreen,
+        backgroundColor: appColors.lightGreen2,
+        position: 'absolute',
+        right: 20
+    },
     HeaderContainer: {
         width: "100%",
         backgroundColor: appColors.bg,

@@ -77,8 +77,8 @@ const EducationList = ({
                                 fontSize: 15,
                                 fontWeight: '400',
                                 color: appColors.textColor,
-                                marginRight: 10,
                                 width: '90%',
+                                marginLeft: 7,
                             }}>{item?.name}</Text>
 
                         </TouchableOpacity>

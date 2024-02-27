@@ -51,18 +51,27 @@ const CameraScreen = () => {
   const token = useSelector(selectToken);
   const [limit, setLimit] = React.useState<number>(1)
 
-  console.error(postsData?.filter(user => user?.postedUserId == CurrentUserData?.id || user?.metadata?.originalPostId == undefined)?.length)
 
   const swiperRef = useRef(null);
-  console.warn(postsData[0])
+  const [pause, setPause] = useState(false)
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppSlice.changeGlobalBools([]))
       dispatch(AppSlice.changeGlobalReals([]))
       dispatch(AppSlice.changeToken(''))
+      setVideo({
+        currentTime: 0,
+        duration: 0.1,
+        paused: false,
+        overlay: true,
+        fulltime: 0.1,
+      });
       setLoader(true)
       setTimeout(() => {
-        dispatch(AppThunks.GetGlobalReels()).then((res: any) => { setLoader(false) })
+        dispatch(AppThunks.GetGlobalReels()).then((res: any) => {
+          setLoader(false)
+          setPause(false)
+        })
       }, 500);
       dispatch(AppSlice.changeDone(false));
     });
@@ -85,6 +94,12 @@ const CameraScreen = () => {
   const [loader, setLoader] = React.useState(false)
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const blur = navigation.addListener('blur', () => {
+      setPause(true)
+    });
+    return blur
+  }, [navigation]);
   const [video, setVideo] = React.useState({
     currentTime: 0,
     duration: 0.1,
@@ -271,6 +286,7 @@ const CameraScreen = () => {
             height: height,
             // backgroundColor:"#a00"
           }}
+          paused={pause}
           resizeMode="contain"
           onEnd={() => {
             videoRef.current.seek(0);
@@ -390,7 +406,7 @@ const CameraScreen = () => {
             ref={flatListRef}
             // style={{flex: 1}}
             // contentContainerStyle={{flex:1}}
-            data={postsData?.filter(user => user?.postedUserId == CurrentUserData?.id || user?.metadata?.originalPostId == undefined)}
+            data={postsData?.filter(user => user?.postedUserId == CurrentUserData?.id || user?.metadata?.originalPostId == null || user?.metadata?.originalPostId == undefined)}
             renderItem={renderVideoItem}
             pagingEnabled
             onMomentumScrollEnd={event => {

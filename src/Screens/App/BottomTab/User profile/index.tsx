@@ -28,11 +28,18 @@ const UserProfile = (props: any) => {
     const navigation = useNavigation()
     const CurrentUserData: any = useSelector(selectUserProfile);
     const [Load, setLoad] = React.useState(false)
+    const [stopVideo, setStopVideo] = React.useState(false);
     React.useEffect(() => {
         setLoad(true)
         dispatch(AuthThunks.doGetUserProfile(id)).then(() => setLoad(false))
     }, [id])
-
+    const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+        const paddingToBottom = 20;
+        return layoutMeasurement.height - 100 + contentOffset.y >= ScreenHeight - paddingToBottom;
+    };
+    const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }) => {
+        return contentOffset.y == 0;
+    }
     return (
         <SafeAreaView edges={['top']} style={globalStyles.screen}>
             {
@@ -46,23 +53,32 @@ const UserProfile = (props: any) => {
                     :
                     <View style={styles.screen}>
                         <Header Title="Profile" onPress={() => navigation.goBack()} />
-                        <ScrollView showsVerticalScrollIndicator={false} style={{
-                            height: '100%',
-                            width: '90%',
-                            alignSelf: 'center',
-                            // backgroundColor: '#fff',
-                            // borderRadius: 20
-                        }}>
-                            <RecordVideo user_data={CurrentUserData?.cv_media} current={true} />
+                        <ScrollView
+                            onScroll={({ nativeEvent }) => {
+                                if (isCloseToBottom(nativeEvent)) {
+                                    setStopVideo(true)
+                                }
+                                if (ifCloseToTop(nativeEvent)) {
+                                    setStopVideo(false)
+                                }
+                            }}
+                            showsVerticalScrollIndicator={false} style={{
+                                height: '100%',
+                                width: '90%',
+                                alignSelf: 'center',
+                                // backgroundColor: '#fff',
+                                // borderRadius: 20
+                            }}>
+                            {CurrentUserData?.cv_media != null && <RecordVideo stopVideo={stopVideo} user_data={CurrentUserData?.cv_media} current={true} />}
                             <InfoProfileCard data={CurrentUserData} current={true} />
-                            <AboutProfileCard data={CurrentUserData?.about} current={true} />
-                            <ExperienceProfileCard data={CurrentUserData?.experiences} current={true} />
-                            <EducationProfileCard data={CurrentUserData?.educations} current={true} />
-                            <TrainingProfileCard data={CurrentUserData?.training_courses} current={true} />
-                            <SkillsProfileCard title={'Skills'} data={CurrentUserData?.skills} current={true} />
-                            <SkillsProfileCard title={'Interests'} data={CurrentUserData?.interests} current={true} />
-                            <LanguagesProfileCard data={CurrentUserData?.languages} current={true} />
-                            <AchievementsProfileCard data={CurrentUserData?.achievement} current={true} />
+                            {CurrentUserData?.about && <AboutProfileCard data={CurrentUserData?.about} current={true} />}
+                            {CurrentUserData?.experiences?.length != 0 && <ExperienceProfileCard data={CurrentUserData?.experiences} current={true} />}
+                            {CurrentUserData?.educations?.length != 0 && <EducationProfileCard data={CurrentUserData?.educations} current={true} />}
+                            {CurrentUserData?.training_courses?.length != 0 && < TrainingProfileCard data={CurrentUserData?.training_courses} current={true} />}
+                            {CurrentUserData?.skills?.length != 0 && <SkillsProfileCard title={'Skills'} data={CurrentUserData?.skills} current={true} />}
+                            {CurrentUserData?.interests?.length != 0 && <SkillsProfileCard title={'Interests'} data={CurrentUserData?.interests} current={true} />}
+                            {CurrentUserData?.languages?.length != 0 && <LanguagesProfileCard data={CurrentUserData?.languages} current={true} />}
+                            {CurrentUserData?.achievement?.length != 0 && <AchievementsProfileCard data={CurrentUserData?.achievement} current={true} />}
                             {CurrentUserData?.reference_check?.length != 0 && <ReferenceProfileCheck data={CurrentUserData?.reference_check} current={true} />}
                             <View style={{ height: 30 }} />
                         </ScrollView>

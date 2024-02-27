@@ -77,7 +77,7 @@ const IndustriesList = ({
                                 fontSize: 16,
                                 fontWeight: '400',
                                 color: appColors.textColor,
-                                marginRight: 10
+                                marginLeft: 7
                             }}>{item?.name}</Text>
 
                         </TouchableOpacity>

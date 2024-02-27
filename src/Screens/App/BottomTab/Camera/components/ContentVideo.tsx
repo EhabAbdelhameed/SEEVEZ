@@ -124,6 +124,7 @@ const ContentVideo = (item: any) => {
     navigation.navigate('Home');
     return true; // Prevent default behavior (exit the app)
   };
+  // console.log(item?.data?.metadata?.user_data?.name)
   return (
     <View style={[styles.container]}>
       <View style={[styles.header, { marginTop: hasNotch ? 60 : 15 }]}>
@@ -144,24 +145,22 @@ const ContentVideo = (item: any) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <View style={styles.leftFooter}>
+        <TouchableOpacity activeOpacity={.8} onPress={()=>{navigation.navigate('UserProfile',{id:item?.data?.postedUserId})}} style={styles.leftFooter}>
           <View
             style={{
               width: 56,
               height: 56,
               borderRadius: 56,
               marginTop: 12,
-              // borderWidth: 1,
-              // borderColor: '#DDD',
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: appColors.bg,
             }}>
-            {CurrentUserData?.avatar == null ? (
+            {item?.data?.metadata?.user_data?.avatar == null ? (
               <AVATAR height={48} width={48} />
             ) : (
               <Image
-                source={{ uri: CurrentUserData?.avatar }}
+                source={{ uri: item?.data?.metadata?.user_data?.avatar }}
                 style={{ width: 56, height: 56, borderRadius: 56 }}
                 resizeMode="cover"
               />
@@ -170,19 +169,12 @@ const ContentVideo = (item: any) => {
           <View
             style={{
               marginLeft: 8,
-              rowGap: 4,
             }}>
-            <View style={styles.nameIcon}>
-              <Text style={styles.name}>{CurrentUserData?.name}</Text>
-              <RenderSvgIcon icon="RIGHTACCOUNT" />
-              <Text style={styles.text2}>-2 nd</Text>
-            </View>
-            <Text style={styles.text2}>{CurrentUserData?.job_title}</Text>
-            <View style={styles.containerType}>
-              <Text style={styles.text3}>Premium</Text>
-            </View>
+            <Text style={styles.name}>{item?.data?.metadata?.user_data?.name}</Text>
+            {item?.data?.metadata?.user_data?.job_title != null && <Text style={styles.text2}>{item?.data?.metadata?.user_data?.job_title}</Text>}
+
           </View>
-        </View>
+        </TouchableOpacity>
         <View style={styles.rightFooter}>
           <View style={styles.containerIconText}>
             {CurrentUserData?.user_data?.reactions?.map(

@@ -8,7 +8,7 @@ import { appColors } from 'theme'
 import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import AppThunks from 'src/redux/app/thunks'
 import { ActivityIndicator } from 'react-native'
-import AppSlice, { selectEducation, selectIndstruy, selectJobtype, selectSearchingList, selectYears } from 'src/redux/app'
+import AppSlice, { selectEducation, selectFollowingList, selectIndstruy, selectJobtype, selectSearchingList, selectYears } from 'src/redux/app'
 import { ScreenWidth } from 'react-native-elements/dist/helpers'
 import { AVATAR, ArrowDown, Close, Filter } from 'assets/Svgs'
 import { useNavigation } from '@react-navigation/native'
@@ -20,6 +20,8 @@ import IndustriesList from './components/IndustriesList'
 import ExperianceList from './components/ExperianceList'
 import JobTypeList from './components/JobTypeList'
 import EducationList from './components/EducationList'
+import { t } from 'i18next'
+import User from './components/User'
 
 const SearchScreen = () => {
     const dispatch = useAppDispatch()
@@ -43,10 +45,6 @@ const SearchScreen = () => {
 
     const [Load, setLoad] = React.useState(false)
     const searchList = useAppSelector(selectSearchingList)
-    const Indstries = useAppSelector(selectIndstruy)
-    const Jobtype = useAppSelector(selectJobtype)
-    const Years = useAppSelector(selectYears)
-    const Education = useAppSelector(selectEducation)
 
 
     React.useEffect(() => {
@@ -71,6 +69,9 @@ const SearchScreen = () => {
         }, 500)
         return () => clearTimeout(timer)
     }, [search])
+
+
+
     const hasNotch = DeviceInfo.hasNotch()
     return (
         <>
@@ -124,53 +125,7 @@ const SearchScreen = () => {
                         ItemSeparatorComponent={() => <View style={{ width: ScreenWidth * .9, alignSelf: 'center', height: 1, backgroundColor: appColors.transparentBlack10, marginVertical: 10 }} />}
                         contentContainerStyle={{ alignItems: 'center', width: ScreenWidth }}
                         renderItem={({ item }) => (
-                            <>
-                                <TouchableOpacity activeOpacity={.8} onPress={() => {
-                                    navigation.navigate('UserProfile', { id: item?.id });
-                                }} style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    width: ScreenWidth,
-                                    justifyContent: 'flex-start',
-                                    paddingHorizontal: 25,
-                                }}>
-                                    {item?.avatar == null ? (
-                                        <View
-                                            style={{
-                                                width: 50,
-                                                height: 50,
-                                                borderRadius: 50,
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                backgroundColor: appColors.bg,
-                                                marginLeft: 15
-                                            }}>
-                                            <AVATAR height={50} width={40} />
-                                        </View>
-                                    ) : (
-                                        <Image source={{ uri: item?.avatar }} style={{
-                                            width: 50,
-                                            height: 50,
-                                            borderRadius: 25,
-                                            marginLeft: 15
-                                        }} />
-                                    )}
-                                    <View>
-                                        <Text style={{
-                                            fontSize: 16,
-                                            color: appColors.dark,
-                                            fontWeight: '500'
-                                        }}>{item?.name}</Text>
-                                        <Text style={{
-                                            fontSize: 11,
-                                            fontWeight: "400",
-                                            color: appColors.dark,
-                                            marginTop: 4
-                                        }}>{item?.job_title}</Text>
-                                    </View>
-
-                                </TouchableOpacity>
-                            </>
+                            <User item={item} />
                         )}
                     />
                 }
