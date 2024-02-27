@@ -50,6 +50,9 @@ const slice = createSlice({
     changeExterinalLinks: (state, action) => {
       state.photoData.exterinalLinks = action.payload;
     },
+    changeJobOpportunity: (state, action) => {
+      state.photoData.JobOpportunity = action.payload;
+    },
 
     // changeSearch: (state, action) => {
     //   state.Search = action.payload;
@@ -216,6 +219,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
+        JobOpportunity:[],
       };
       Toast.show({
         type: 'success',
@@ -253,6 +257,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
+        JobOpportunity:[],
       };
       Toast.show({
         type: 'success',
@@ -1153,6 +1158,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
+        JobOpportunity:[],
       };
       Toast.show({
         type: 'success',
@@ -1189,6 +1195,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
+        JobOpportunity:[]
       };
       Toast.show({
         type: 'success',
@@ -1501,6 +1508,30 @@ const slice = createSlice({
         }
       }
     });
+     //doRepost
+
+     builder.addCase(thunks.doRepost.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+    });
+    builder.addCase(thunks.doRepost.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.error,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
+        });
+        if (action?.payload?.data?.message == 'Access token is invalid.') {
+          state.AccessToken = true;
+        }
+      }
+    });
   },
 });
 
@@ -1561,6 +1592,7 @@ const AppSlice = {
   changePostsData: slice.actions.changePostsData,
   changeMarket: slice.actions.changeMarket,
   changeExterinalLinks: slice.actions.changeExterinalLinks,
+  changeJobOpportunity: slice.actions.changeJobOpportunity,
   changeLike: slice.actions.changeLike,
   changeFollowingList: slice.actions.changeFollowingList,
   changeAccessToken: slice.actions.changeAccessToken,

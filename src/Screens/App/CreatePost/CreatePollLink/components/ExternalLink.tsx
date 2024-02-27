@@ -19,16 +19,7 @@ const ExternalLinks = () => {
           bottom:20,
         },
       ]}>
-      <Text
-        style={[
-          styles.text11,
-          {
-            fontSize: appSizes.m + 2,
-            fontWeight: 'bold',
-          },
-        ]}>
-        Lorem ipsum dolor
-      </Text>
+     
       <Text style={styles.text12}>{photoData?.addonesCaption}</Text>
       {photoData?.exterinalLinks?.map((Exp: any, index: any) => (
         <Text

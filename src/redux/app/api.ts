@@ -74,7 +74,7 @@ const companyUser = (data: any) => api.get(`api/company/5?page=${data}`);
 
 
 const search = (Search: any) => api.get(`api/general/search?${Search}`);
-
+const Repost = (data: any) => api.post(`api/repost`, data);
 
 /////////////////////////////////end////////////////////////////////////////
 // const home = (data: any) => api.get(`home?${data}`)
@@ -141,6 +141,7 @@ const AppAPI = {
 
   search,
   WorkType,
+  Repost,
   GetGlobalReels
 };
 

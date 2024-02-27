@@ -1512,6 +1512,31 @@ const doSearch: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//doRepost
+const doRepost: any = createAsyncThunk<any, any, any>(
+  'app/repost',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.Repost(data);
+      // alert(JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 const AppThunks = {
   doAddSkills,
   GetAccessToken,
@@ -1563,16 +1588,17 @@ const AppThunks = {
   searchForTagPeopel,
   doGetFollowers,
   CreatePoll,
-  GetOnePost,
-  doAddLike,
-  doRemoveLike,
-  doVotePoll,
-  GetJobSeekers,
-  GetRecruiterUsers,
-  GetCompanyUsers,
-  doSearch,
-  GetWorkType,
-  GetGlobalReels
+   GetOnePost,
+   doAddLike,
+   doRemoveLike,
+   doVotePoll,
+   GetJobSeekers,
+   GetRecruiterUsers,
+   GetCompanyUsers,
+   doSearch,
+   GetWorkType,
+   doRepost,
+    GetGlobalReels
 };
 
 export default AppThunks;

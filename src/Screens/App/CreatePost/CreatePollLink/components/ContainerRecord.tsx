@@ -13,6 +13,7 @@ import Market from './Market';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {appColors} from 'theme';
 import { LOCATION } from 'assets/Svgs';
+import JopOppertunity from './JobOppertienty';
 
 const ContainerRecord = () => {
   const photoData = useSelector(selectPhotoData);
@@ -48,6 +49,7 @@ const ContainerRecord = () => {
         ))}
       </Swiper>
       {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : <CV />}
+      {photoData?.JobOpportunity == null || photoData?.JobOpportunity?.length == 0 ? null : <JopOppertunity />}
       {photoData?.exterinalLinks == null ||
       photoData?.exterinalLinks?.length == 0 ? null : (
         <ExternalLinks />
@@ -132,6 +134,7 @@ const ContainerRecord = () => {
         }}
       />
       {photoData?.pdf == null || photoData?.pdf?.length == 0 ? null : <CV />}
+      {photoData?.JobOpportunity == null || photoData?.JobOpportunity?.length == 0 ? null : <JopOppertunity />}
       {photoData?.exterinalLinks == null ||
       photoData?.exterinalLinks?.length == 0 ? null : (
         <ExternalLinks />
@@ -213,6 +216,7 @@ const ContainerRecord = () => {
       {photoData?.market == null || photoData?.market?.length == 0 ? null : (
         <Market />
       )}
+      {photoData?.JobOpportunity == null || photoData?.JobOpportunity?.length == 0 ? null : <JopOppertunity />}
       {photoData?.names == null || photoData?.names?.length == 0 ? null : (
         <View style={styles.taggedPeopleContainer}>
           <FlatList
