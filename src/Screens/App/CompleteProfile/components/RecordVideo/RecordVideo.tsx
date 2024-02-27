@@ -25,8 +25,8 @@ const RecordVideo = (data: any) => {
   const [isPaused, setPaused] = useState(false);
   const dispatch = useAppDispatch();
   const lang = useSelector(selectLang);
-  
-  const {t, i18n} = useTranslation();
+
+  const { t, i18n } = useTranslation();
   const handleDeleteVideo = (VideoId: any) => {
     // Show confirmation dialog
     Alert.alert(
@@ -48,7 +48,7 @@ const RecordVideo = (data: any) => {
           },
         },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   };
   return (
@@ -69,7 +69,7 @@ const RecordVideo = (data: any) => {
         // <TouchableOpacity onPress={handleVideoPress}>
         <Video
           resizeMode="cover"
-          paused={isPaused}
+          paused={data?.stopVideo}
           repeat
           source={{ uri: data?.user_data?.media }}
           style={styles.videoContainer}

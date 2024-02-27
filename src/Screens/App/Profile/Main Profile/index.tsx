@@ -82,7 +82,6 @@ const ProfileScreen = () => {
           {/* <RecommendationsCard /> */}
           <ReferenceProfileCheck data={CurrentUserData?.user_data?.reference_check}/>
           <HealthProfileCard data={CurrentUserData?.user_data?.reference_check}/>
-          <View style={{height: 20}} />
         </View>
       </ScrollView>
     </SafeAreaView>

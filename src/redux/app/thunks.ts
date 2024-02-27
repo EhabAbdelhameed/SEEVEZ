@@ -968,7 +968,35 @@ const GetMyReels: any = createAsyncThunk<any, any, any>(
     try {
       const response = await AppAPI.GetMyReel(data);
       // console.log("Response Data",JSON.stringify(response))
-      
+
+      // console.log("Response Data", JSON.stringify(response))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+
+
+const GetGlobalReels: any = createAsyncThunk<any, any, any>(
+  'app/GetGlobalReels',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.GetGlobalReels(data);
+      // console.log("Response Data",JSON.stringify(response))
+
       // console.log("Response Data", JSON.stringify(response))
       if (
         response.status == null ||
@@ -1114,7 +1142,7 @@ const doFollowUser: any = createAsyncThunk<any, any, any>(
   async (id, thunkApi: any) => {
     try {
       const response = await AppAPI.followUser(id);
-      console.log(response?.data);
+      console.error(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1535,15 +1563,16 @@ const AppThunks = {
   searchForTagPeopel,
   doGetFollowers,
   CreatePoll,
-   GetOnePost,
-   doAddLike,
-   doRemoveLike,
-   doVotePoll,
-   GetJobSeekers,
-   GetRecruiterUsers,
-   GetCompanyUsers,
-   doSearch,
-   GetWorkType
+  GetOnePost,
+  doAddLike,
+  doRemoveLike,
+  doVotePoll,
+  GetJobSeekers,
+  GetRecruiterUsers,
+  GetCompanyUsers,
+  doSearch,
+  GetWorkType,
+  GetGlobalReels
 };
-    
+
 export default AppThunks;

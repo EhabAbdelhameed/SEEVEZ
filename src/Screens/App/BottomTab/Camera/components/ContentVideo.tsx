@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
-import { RenderSvgIcon } from '../../../../Components/atoms/svg';
 import Bolls from './Bolls';
 import TextLinks from './TextLinks';
 import { useNavigation } from '@react-navigation/native';
@@ -23,6 +22,7 @@ import { appColors } from 'theme/appColors';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch } from 'src/redux/store';
 import { selectAccessToken } from 'src/redux/app';
+import { RenderSvgIcon } from 'components/atoms/svg';
 // import Share from 'react-native-share';
 const ContentVideo = (item: any) => {
   const navigation = useNavigation<any>();

@@ -1,4 +1,7 @@
 interface appState {
+  token: string;
+  GlobalReals: any[]
+  GlobalBools: any[]
   search: any[]
   IndsturyData: [
     {
@@ -37,7 +40,7 @@ interface appState {
   ];
   FollowingList: any[];
   listUsers: any[];
-  
+
   photoData: {
     image: any;
     addonesCaption: any;
@@ -50,7 +53,7 @@ interface appState {
     exterinalLinks: any;
   };
 
-  
+
   CompaniesData: [
     {
       avatar: any;
@@ -160,7 +163,7 @@ interface appState {
       impression: any;
     },
   ];
-  
+
   like: boolean;
   AccessToken: boolean;
   polls: [
@@ -224,7 +227,7 @@ interface appState {
         };
       },
     ];
-  
+
     from: any;
     last_page: any;
     to: any;
@@ -264,13 +267,13 @@ interface appState {
         };
       },
     ];
-  
+
     from: any;
     last_page: any;
     to: any;
     total: any;
   };
-  companyUsers:{
+  companyUsers: {
     current_page: any;
     data: [
       {
@@ -304,7 +307,7 @@ interface appState {
         };
       },
     ];
-  
+
     from: any;
     last_page: any;
     to: any;
@@ -315,6 +318,9 @@ interface appState {
 
 
 export const initialState: appState = {
+  token: '',
+  GlobalReals: [],
+  GlobalBools: [],
   done: false,
   Nav: '',
 
@@ -534,7 +540,7 @@ export const initialState: appState = {
         }
       }
     ],
-  
+
     from: null,
     last_page: null,
     to: null,
@@ -574,7 +580,7 @@ export const initialState: appState = {
         }
       }
     ],
-  
+
     from: null,
     last_page: null,
     to: null,
@@ -614,17 +620,17 @@ export const initialState: appState = {
         }
       }
     ],
-  
+
     from: null,
     last_page: null,
     to: null,
     total: null
   },
- 
- 
 
- 
- 
+
+
+
+
   search: []
   //   Search: [],
 

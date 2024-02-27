@@ -124,10 +124,10 @@ const Login = () => {
                 const formdata = new FormData();
                 formdata.append('email', values.email);
                 formdata.append('password', values.password);
-                // formdata.append('device_id', deviceId);
-                // formdata.append('device_kind', Platform.OS);
-                // formdata.append('device_model', deviceModel);
-                // formdata.append('device_version', deviceVersion);
+                formdata.append('device_id', deviceId);
+                formdata.append('device_kind', Platform.OS);
+                formdata.append('device_model', deviceModel);
+                formdata.append('device_version', deviceVersion);
                 dispatch(AuthThunks.doSignIn(formdata)).then((res: any) => {
                   setLoading(false);
                   console.log('Verified ', Verified);

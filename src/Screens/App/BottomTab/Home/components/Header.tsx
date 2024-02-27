@@ -62,7 +62,7 @@ const Header = (props: any) => {
         <TouchableOpacity activeOpacity={.8} onPress={() => { navigation.navigate('Search') }}>
           <RenderSvgIcon icon="SEARCH" color={appColors.primary} />
         </TouchableOpacity>
-        <RenderSvgIcon icon="COMMENT" color={appColors.primary} />
+        {/* <RenderSvgIcon icon="COMMENT" color={appColors.primary} /> */}
 
         <RenderSvgIcon icon="NOTIFICATION" color={appColors.primary} />
       </View>

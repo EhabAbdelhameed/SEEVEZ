@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
         paddingVertical: appSizes.padding_m,
         marginTop: appSizes.spacing_m,
         borderRadius: appSizes.radius_l,
-     
+
     },
     containerBox: {
         flex: 1,
@@ -24,19 +24,29 @@ export const styles = StyleSheet.create({
         marginTop: appSizes.spacing_m,
         borderRadius: appSizes.radius_l
     },
+    containerBox2: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: appColors.white,
+        // paddingHorizontal: appSizes.padding_s,
+        // paddingVertical: appSizes.padding_s,
+        marginTop: appSizes.spacing_m,
+        borderRadius: appSizes.radius_l
+    },
     rowContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         columnGap: 10
-        
+
     },
     rowContainer1: {
         flexDirection: "row",
-        width:'88%',
+        width: '88%',
         // alignItems: "center",
         justifyContent: "space-between",
-        
+
     },
     contentContainer: {
         width: "85%"
@@ -46,14 +56,14 @@ export const styles = StyleSheet.create({
         fontWeight: "700",
         color: appColors.dark,
         marginBottom: 4,
-        
+
     },
     text2: {
-        fontSize: appSizes.font_xs-3,
+        fontSize: appSizes.font_xs - 3,
         fontWeight: "400",
         color: appColors.dark,
         opacity: .8,
-        marginLeft:10
+        marginLeft: 10
     },
     text3: {
         fontSize: appSizes.font_s,
@@ -100,6 +110,18 @@ export const styles = StyleSheet.create({
         borderTopWidth: .3,
         paddingTop: 10,
         marginTop: 10
+    },
+    boxTitleBottomContainer2: {
+        flexDirection: "row",
+        width: "90%",
+        alignItems: "center",
+        justifyContent: "center",
+        columnGap: 5,
+        borderTopColor: appColors.placeholder,
+        borderTopWidth: .3,
+        paddingTop: 10,
+        marginTop: 10,
+        paddingBottom: 13
     },
     containerDashboard: {
         width: "100%",
@@ -154,8 +176,8 @@ export const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical:10,
-        height:153
+        paddingVertical: 10,
+        height: 153
         // backgroundColor:"#a00"
     },
     absIconProfile: {
@@ -163,42 +185,42 @@ export const styles = StyleSheet.create({
         bottom: -10,
         alignSelf: "center"
     },
-    PollsContainer:{
-        width:"100%",
-        alignItems:"flex-start",
-        height:150
+    PollsContainer: {
+        width: "100%",
+        alignItems: "flex-start",
+        height: 150
     },
-    hashtagItem:{
-        width:"90%",
-        alignItems:"center",
-        flexDirection:"column",
-        backgroundColor:appColors.lightPurple2,
-        paddingVertical:7,
-        borderRadius:appSizes.radius_l,
-        marginBottom:5
+    hashtagItem: {
+        width: "90%",
+        alignItems: "center",
+        flexDirection: "column",
+        backgroundColor: appColors.lightPurple2,
+        paddingVertical: 7,
+        borderRadius: appSizes.radius_l,
+        marginBottom: 5
     },
-    imgsAvatar:{
-        width:15,
-        height:15,
-        borderWidth:1,
-        borderRadius:7.5,
-        borderColor:appColors.primary
+    imgsAvatar: {
+        width: 15,
+        height: 15,
+        borderWidth: 1,
+        borderRadius: 7.5,
+        borderColor: appColors.primary
     },
-    imgsAvatar2:{
-        width:15,
-        height:15,
-        borderWidth:1,
-        borderRadius:7.5,
-        borderColor:appColors.white
+    imgsAvatar2: {
+        width: 15,
+        height: 15,
+        borderWidth: 1,
+        borderRadius: 7.5,
+        borderColor: appColors.white
     },
-    containerSchedule:{
+    containerSchedule: {
         width: "100%",
         justifyContent: "center",
         marginBottom: 15,
-        backgroundColor:appColors.green2,
-        paddingHorizontal:appSizes.padding_s-2,
-        paddingVertical:appSizes.padding_s,
-        borderRadius:appSizes.radius_l
+        backgroundColor: appColors.green2,
+        paddingHorizontal: appSizes.padding_s - 2,
+        paddingVertical: appSizes.padding_s,
+        borderRadius: appSizes.radius_l
     },
     dot2: {
         width: 20,

@@ -1,5 +1,5 @@
 // ReelsScreen.js
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   FlatList,
@@ -18,20 +18,20 @@ import {
   ActivityIndicator,
   NativeModules,
 } from 'react-native';
-import {styles} from './styles';
-import {data, getTime} from './fucntions/helper';
+import { styles } from './styles';
+import { data, getTime } from './fucntions/helper';
 import ContentVideo from './components/ContentVideo';
 import RenderVideo from './components/Video';
-import {appColors} from 'theme/appColors';
-import {appSizes} from 'theme/appSizes';
+import { appColors } from 'theme/appColors';
+import { appSizes } from 'theme/appSizes';
 
-import {globalStyles} from 'src/globalStyle';
-import {useAppDispatch} from 'src/redux/store';
-import {useNavigation} from '@react-navigation/native';
-import AppSlice, {selectAccessToken, selectPolls, selectPosts} from 'src/redux/app';
+import { globalStyles } from 'src/globalStyle';
+import { useAppDispatch } from 'src/redux/store';
+import { useNavigation } from '@react-navigation/native';
+import AppSlice, { selectAccessToken, selectPolls, selectPosts } from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
-import {useSelector} from 'react-redux';
-import AuthSlice, {selectUser} from 'src/redux/auth';
+import { useSelector } from 'react-redux';
+import AuthSlice, { selectUser } from 'src/redux/auth';
 import Video from 'react-native-fast-video';
 import Swiper from 'react-native-swiper';
 import CVAddones from './components/CVAddones';
@@ -39,6 +39,8 @@ import Audio from './components/Audio';
 import Boll from './components/Bolls';
 import LinearGradient from 'react-native-linear-gradient';
 import TextLinks from './components/TextLinks';
+import { RenderSvgIcon } from 'components/atoms/svg';
+import DeviceInfo from 'react-native-device-info';
 const ReelsScreen = () => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -47,13 +49,8 @@ const ReelsScreen = () => {
   const polls = useSelector(selectPolls);
 
 
-
-  // console.log('posts', JSON.stringify(postsData));
-
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  
 
   // const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   React.useEffect(() => {
@@ -86,6 +83,7 @@ const ReelsScreen = () => {
     overlay: true,
     fulltime: 0.1,
   });
+  const hasNotch = DeviceInfo.hasNotch()
   const renderSwiper = (item: any) => {
     return (
       <View
@@ -98,13 +96,14 @@ const ReelsScreen = () => {
             justifyContent: 'center',
           },
         ]}>
+
         <Swiper
           ref={swiperRef}
           loop={false}
           // showsButtons
           // onIndexChanged={index => setCurrentIndex(index)}
           showsPagination={true}
-          paginationStyle={{top: -500}}
+          paginationStyle={{ top: -500 }}
           dotStyle={{
             backgroundColor: 'rgba(255,255,255,.3)',
             width: 8,
@@ -119,7 +118,7 @@ const ReelsScreen = () => {
             <View key={index}>
               {/* <TouchableOpacity onPress={() => console.log('Swiper item pressed')}> */}
               <ImageBackground
-                source={{uri: asset?.file?.fileUrl + '?size=full'}}
+                source={{ uri: asset?.file?.fileUrl + '?size=full' }}
                 style={{
                   width,
                   height,
@@ -136,7 +135,7 @@ const ReelsScreen = () => {
         {item?.metadata?.pdfData == null ? null : (
           <CVAddones data={item?.metadata} />
         )}
-         {item?.metadata?.externalLinks == null ? null : (
+        {item?.metadata?.externalLinks == null ? null : (
           <TextLinks data={item?.metadata} />
         )}
       </View>
@@ -146,8 +145,8 @@ const ReelsScreen = () => {
   const renderAudio = (item: any) => {
     return item?.metadata?.color == '#0f0' ? (
       <LinearGradient
-        start={{x: 0, y: 0}}
-        end={{x: 0, y: 1}}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
         colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
         style={[
           {
@@ -158,7 +157,7 @@ const ReelsScreen = () => {
             justifyContent: 'center',
           },
         ]}>
-         <Audio data={item?.metadata} />
+        <Audio data={item?.metadata} />
       </LinearGradient>
     ) : (
       <View
@@ -178,42 +177,42 @@ const ReelsScreen = () => {
   };
   const renderPoll = (item: any) => {
 
-    return polls?.map((attach: any)=>(
-      attach?.pollId==item?.metadata?.poll?
-      item?.metadata?.color == '#0f0' ? (
-        <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}
-          colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
-          style={[
-            {
-              width: width,
-              height: height,
-  
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          ]}>
-           <Boll data={attach} />
-        </LinearGradient>
-         ) : (
+    return polls?.map((attach: any) => (
+      attach?.pollId == item?.metadata?.poll ?
+        item?.metadata?.color == '#0f0' ? (
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
+            style={[
+              {
+                width: width,
+                height: height,
+
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            ]}>
+            <Boll data={attach} />
+          </LinearGradient>
+        ) : (
           <View
-          style={[
-            {
-              width: width,
-              height: height,
-              backgroundColor: item?.metadata?.color,
-    
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          ]}>
+            style={[
+              {
+                width: width,
+                height: height,
+                backgroundColor: item?.metadata?.color,
+
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            ]}>
             <Boll data={attach} />
           </View>
-        ):null
+        ) : null
 
-    )) 
-   
+    ))
+
   };
   const renderImage = (attach: any, item: any) => {
     return (
@@ -236,55 +235,55 @@ const ReelsScreen = () => {
         {item?.metadata?.pdfData == null ? null : (
           <CVAddones data={item?.metadata} />
         )}
-          {item?.metadata?.externalLinks == null ? null : (
+        {item?.metadata?.externalLinks == null ? null : (
           <TextLinks data={item?.metadata} />
         )}
       </ImageBackground>
     );
   };
-  const renderVideo = (attach: any,item:any) => {
+  const renderVideo = (attach: any, item: any) => {
     return (
       <View>
-      <Video
-        ref={player => {
-          videoRef.current = player;
-        }}
-        source={{uri: attach?.fileUrl}}
-        onLoad={load}
-        //   fullscreenOrientation={'portrait'}
-        // onProgress={progress}
-        // muted={isMuted}
-        // paused={video.paused}
-        // paused={currentVideoIndex != index ? false : true}
-        style={{
-          width: width,
-          // height: appSizes.height ,
+        <Video
+          ref={player => {
+            videoRef.current = player;
+          }}
+          source={{ uri: attach?.fileUrl }}
+          onLoad={load}
+          //   fullscreenOrientation={'portrait'}
+          // onProgress={progress}
+          // muted={isMuted}
+          // paused={video.paused}
+          // paused={currentVideoIndex != index ? false : true}
+          style={{
+            width: width,
+            // height: appSizes.height ,
 
-          height: height,
-          // backgroundColor:"#a00"
-        }}
-        resizeMode="contain"
-        onEnd={() => {
-          videoRef.current.seek(0);
-        }}
-        onError={err => {
-          Alert.alert(JSON.stringify(err));
-        }}
-        bufferConfig={{
-          minBufferMs: 15000,
-          maxBufferMs: 50000,
-          bufferForPlaybackMs: 2500,
-          bufferForPlaybackAfterRebufferMs: 5000,
-        }}
-        selectedVideoTrack={{
-          type: 'auto',
-          value: '180',
-        }}
-      />
+            height: height,
+            // backgroundColor:"#a00"
+          }}
+          resizeMode="contain"
+          onEnd={() => {
+            videoRef.current.seek(0);
+          }}
+          onError={err => {
+            Alert.alert(JSON.stringify(err));
+          }}
+          bufferConfig={{
+            minBufferMs: 15000,
+            maxBufferMs: 50000,
+            bufferForPlaybackMs: 2500,
+            bufferForPlaybackAfterRebufferMs: 5000,
+          }}
+          selectedVideoTrack={{
+            type: 'auto',
+            value: '180',
+          }}
+        />
         {item?.metadata?.pdfData == null ? null : (
           <CVAddones data={item?.metadata} />
         )}
-          {item?.metadata?.externalLinks == null ? null : (
+        {item?.metadata?.externalLinks == null ? null : (
           <TextLinks data={item?.metadata} />
         )}
       </View>
@@ -295,17 +294,17 @@ const ReelsScreen = () => {
   // const [screenType, setScreenType] = React.useState('cover');
   const scrollToTop = () => {
     if (flatListRef.current) {
-      flatListRef.current.scrollToOffset({animated: true, offset: 0});
+      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
     }
   };
 
-  const load = ({duration}: any) => {
-    setVideo(prev => ({...prev, duration}));
+  const load = ({ duration }: any) => {
+    setVideo(prev => ({ ...prev, duration }));
     setLoading(false);
   };
 
-  const {height, width} = useWindowDimensions();
-  const renderVideoItem = ({item, index}: any) => {
+  const { height, width } = useWindowDimensions();
+  const renderVideoItem = ({ item, index }: any) => {
     return item?.metadata?.attachments == null &&
       item?.metadata?.poll == null ? null : (
       <View
@@ -330,7 +329,7 @@ const ReelsScreen = () => {
                 )
               )
             ) : item?.metadata?.attachments?.type == 'video' ? (
-              renderVideo(item?.metadata?.attachments,item)
+              renderVideo(item?.metadata?.attachments, item)
             ) : (
               renderAudio(item)
             )
@@ -361,52 +360,71 @@ const ReelsScreen = () => {
     // <SafeAreaView style={globalStyles.screen} edges={['top']}>
     // <View style={globalStyles.screen}>
     loader ?
-    <ActivityIndicator size={50} style={{marginTop:300}}/>:
-    !postsData ||postsData[0]?.postId==null ? (
-      <View
-        style={{
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#FFF',
-        }}>
-        <Text style={{color: '#000', fontSize: 20}}>
-          {' '}
-          No posts please create post
-        </Text>
-      </View>
-    ) : (
-      <FlatList
-        ref={flatListRef}
-        // style={{flex: 1}}
-        // contentContainerStyle={{flex:1}}
-        data={postsData}
-        renderItem={renderVideoItem}
-        pagingEnabled
-        onMomentumScrollEnd={event => {
-          const index = Math.floor(
-            event.nativeEvent.contentOffset.y /
-              event.nativeEvent.layoutMeasurement.height,
-          );
-          setVideo({
-            currentTime: 0,
-            duration: 0.1,
-            paused: false,
-            overlay: true,
-            fulltime: 0.1,
-          });
-          setCurrentVideoIndex(index);
-          setLoading(true);
-        }}
-        keyExtractor={item => item._id}
-        // scrollEventThrottle={16} // Adjust this value for smoother scrolling events
-        showsVerticalScrollIndicator={false}
-        snapToInterval={height}
-        snapToAlignment="start"
-        decelerationRate={'fast'}
-      />
-    )
+      <ActivityIndicator size={50} style={{ marginTop: 300 }} /> :
+      <>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            zIndex: 100,
+            top: hasNotch ? 70 : 15,
+            flexDirection: 'row',
+            alignItems: 'center',
+            left: 10
+          }}
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
+          <RenderSvgIcon icon="ARROWBACK" width={25} height={25} />
+          <Text style={styles.textLeftHeader}>My reels</Text>
+        </TouchableOpacity>
+        {!postsData || postsData[0]?.postId == null ? (
+          <View
+            style={{
+              width: '100%',
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#FFF',
+            }}>
+            <Text style={{ color: '#000', fontSize: 20 }}>
+              {' '}
+              No posts please create post
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            ref={flatListRef}
+            // style={{flex: 1}}
+            // contentContainerStyle={{flex:1}}
+            data={postsData}
+            renderItem={renderVideoItem}
+            pagingEnabled
+            onMomentumScrollEnd={event => {
+              const index = Math.floor(
+                event.nativeEvent.contentOffset.y /
+                event.nativeEvent.layoutMeasurement.height,
+              );
+              setVideo({
+                currentTime: 0,
+                duration: 0.1,
+                paused: false,
+                overlay: true,
+                fulltime: 0.1,
+              });
+              setCurrentVideoIndex(index);
+              setLoading(true);
+            }}
+            keyExtractor={item => item._id}
+            // scrollEventThrottle={16} // Adjust this value for smoother scrolling events
+            showsVerticalScrollIndicator={false}
+            snapToInterval={height}
+            snapToAlignment="start"
+            decelerationRate={'fast'}
+          />
+        )
+        }
+      </>
+
     // {/* </View> */}
   );
 };
