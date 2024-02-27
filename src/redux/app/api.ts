@@ -49,6 +49,7 @@ const Poll = (data: any) => api.post(`api/post-poll`, data);
 const profileInfo = () => api.get(`api/get-info`)
 const Industry = () => api.get(`api/drop-down/industry`)
 const GetMyReel = (id:number) => api.get(`api/get-my-reels?user_id=${id}`)
+const GetGlobalReels = (token:any) => api.get(`api/get-global-reels?limit=10&${token}`)
 const GetOneReel = (id:number) => api.get(`api/get-post-by-id?postId=770d8527-27fe-417b-a938-a3a90a9677b4`)
 
 const listUsers = () => api.get(`dashboard/recruiter/20`)
@@ -59,6 +60,7 @@ const followers = (id: number) => api.get(`api/follow-other-info?user_id=${id}`)
 const YearsOfExperience = () => api.get(`api/drop-down/year-of-experience`)
 const JobType = () => api.get(`api/drop-down/job-type`)
 const WorkType = () => api.get(`api/drop-down/work-type`)
+
 const EducationLevel = () => api.get(`api/drop-down/education-level`)
 const CompaniesName = (data: any) => api.get(`company-admin/search-for-company?name=${data}`)
 
@@ -140,6 +142,7 @@ const AppAPI = {
   search,
   WorkType,
   Repost,
+  GetGlobalReels
 };
 
 export default AppAPI;

@@ -136,13 +136,13 @@ const InfoProfileCard = (data: any) => {
               right: 10,
               top: 10,
             }}>
-            <RenderSvgIcon
+            {/* <RenderSvgIcon
               icon="SEND"
               width={20}
               height={20}
               color={appColors.white}
               // style={styles.SENDIcon}
-            />
+            /> */}
             <TouchableOpacity
               style={{
                 marginLeft: 15,

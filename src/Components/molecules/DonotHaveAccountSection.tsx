@@ -1,14 +1,14 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
-import {appSizes} from '../../theme/appSizes';
-import {appColors} from '../../theme/appColors';
-import {useTranslation} from 'react-i18next';
-import {RenderSvgIcon} from '../atoms/svg';
-import {useNavigation} from '@react-navigation/native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { appSizes } from '../../theme/appSizes';
+import { appColors } from '../../theme/appColors';
+import { useTranslation } from 'react-i18next';
+import { RenderSvgIcon } from '../atoms/svg';
+import { useNavigation } from '@react-navigation/native';
 import RNRestart from 'react-native-restart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppDispatch, useAppSelector} from 'src/redux/store';
-import LangSlice, {selectLang} from 'src/redux/lang';
+import { useAppDispatch, useAppSelector } from 'src/redux/store';
+import LangSlice, { selectLang } from 'src/redux/lang';
 
 const DonotHaveAccountSection = ({
   type = 'Sign up',
@@ -20,7 +20,7 @@ const DonotHaveAccountSection = ({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const lang = useAppSelector(selectLang);
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const _handleNavigation = () => {
     navigation.navigate(type == 'Sign up' ? 'signup' : 'login');
   };
@@ -28,7 +28,7 @@ const DonotHaveAccountSection = ({
   return (
     <View>
       <View style={[styles.signUpContainer]}>
-        <View style={{flexDirection: 'row', columnGap: 3}}>
+        <View style={{ flexDirection: 'row', columnGap: 3 }}>
           {/* {lang === 'ar' ? (
             <Text style={styles.signUp} onPress={_handleNavigation}>
               {t(type)}
@@ -38,8 +38,8 @@ const DonotHaveAccountSection = ({
             {type == 'Log in' ? t('alreadyHaveAccount') : t('dontHaveAccount')}
           </Text>
           <Text style={styles.signUp} onPress={_handleNavigation}>
-              {t(type)}
-            </Text>
+            {t(type)}
+          </Text>
           {/* {lang === 'en' ? (
             <Text style={styles.signUp} onPress={_handleNavigation}>
               {t(type)}
@@ -53,13 +53,9 @@ const DonotHaveAccountSection = ({
             onPress={() => {
               dispatch(LangSlice.chnageLang(lang === 'ar' ? 'en' : 'ar'));
               i18n.changeLanguage(lang === 'ar' ? 'en' : 'ar');
-
               setTimeout(() => {
-                if (RNRestart) {
-                  RNRestart.Restart();
-                }
-                
-              }, 100);
+                // RNRestart.Restart()
+            }, 100)
             }}
             style={styles.languageContainer}>
             <RenderSvgIcon icon={'EGYPTFLAG'} />

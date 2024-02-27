@@ -8,6 +8,50 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: appColors.white,
   },
+  placeholderStyle: {
+    fontSize: 14,
+    color:"#B9B9B9",
+    fontFamily: 'Noto Sans',
+    
+
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+    fontFamily: 'Noto Sans',
+    textAlign: 'left',
+  },
+  placeholderStyle1: {
+    fontSize: 14,
+    color:"rgba(0,0,0,.8)",
+    fontFamily: 'Noto Sans',
+    
+
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+    fontFamily: 'Noto Sans',
+    color:'#000',
+    opacity:.8,
+    textAlign: 'left',
+  },
+  uploadContainer1:{
+    borderRadius: 16,
+    borderColor: '#1D5EDD',
+    borderWidth: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 4,
+    
+    // borderBottomWidth: 0.5,
+    marginBottom: 10,
+    marginTop: 5,
+    height: 52,
+  
+  },
   logoContainer: {
     flexBasis: 'auto',
     justifyContent: 'space-between',

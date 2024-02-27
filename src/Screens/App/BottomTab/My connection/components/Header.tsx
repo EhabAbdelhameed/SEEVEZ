@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { globalStyles } from '../../../../../globalStyle'
 import { RenderSvgIcon } from '../../../../../Components/atoms/svg'
@@ -8,9 +8,11 @@ import { styles } from '../styles'
 import AvatarIcon from '../../../../../Components/molecules/Avatar'
 import { useAppSelector } from 'src/redux/store'
 import { selectUser } from 'src/redux/auth'
+import { useNavigation } from '@react-navigation/native'
 
 const Header = () => {
-  const User=useAppSelector(selectUser)
+  const User = useAppSelector(selectUser)
+  const navigation = useNavigation()
   return (
     <View style={globalStyles.header}>
       <View style={globalStyles.leftHeaderContainer}>
@@ -33,10 +35,12 @@ const Header = () => {
         </View>
       </View>
       <View style={globalStyles.rightHeaderContainer}>
-        <RenderSvgIcon
-          icon='SEARCH'
-          color={appColors.primary}
-        />
+        <TouchableOpacity activeOpacity={.8} onPress={() => { navigation.navigate('Search') }}>
+          <RenderSvgIcon
+            icon='SEARCH'
+            color={appColors.primary}
+          />
+        </TouchableOpacity>
         <RenderSvgIcon
           icon='COMMENT'
           color={appColors.primary}

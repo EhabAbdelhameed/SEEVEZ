@@ -17,14 +17,16 @@ const UserSection = ({item}: {item?: any}) => {
   const FollowingList = useAppSelector(selectFollowingList);
   const [count, setCount] = React.useState(0);
   let exist = FollowingList?.some(
-    (ele: any) => ele?.toUserPublicId == item?.user_id,
+    (ele: any) => ele?.userId == item?.user_id,
   );
   const doFollowingOperation = () => {
     !exist
       ? dispatch(AppThunks.doFollowUser(item?.user_id)).then(() => {
+          dispatch(AppThunks.GetRecruiterUsers());
           dispatch(AppThunks.doGetFollowingList());
         })
       : dispatch(AppThunks.doUnFollowUser(item?.user_id)).then(() => {
+          dispatch(AppThunks.GetRecruiterUsers());
           dispatch(AppThunks.doGetFollowingList());
         });
   };

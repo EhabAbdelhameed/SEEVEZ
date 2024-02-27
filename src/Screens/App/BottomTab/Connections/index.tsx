@@ -43,13 +43,12 @@ const Connections = (props: any) => {
     
   }, [jobseekerIndex]);
   React.useEffect(() => {
-
     setIsloadingRecuriter(true);
     dispatch(AppThunks.doGetFollowingList())
     dispatch(AppThunks.GetRecruiterUsers(recuriterIndex)).then(() =>
     setIsloadingRecuriter(false),
     );
-   
+
   }, [recuriterIndex]);
   React.useEffect(() => {
     setIsloadingCompany(true);

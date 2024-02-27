@@ -1,5 +1,5 @@
 // ReelsScreen.js
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   FlatList,
@@ -18,12 +18,12 @@ import {
   ActivityIndicator,
   NativeModules,
 } from 'react-native';
-import {styles} from './styles';
-import {data, getTime} from './fucntions/helper';
+import { styles } from './styles';
+import { data, getTime } from './fucntions/helper';
 import ContentVideo from './components/ContentVideo';
 import RenderVideo from './components/Video';
-import {appColors} from 'theme/appColors';
-import {appSizes} from 'theme/appSizes';
+import { appColors } from 'theme/appColors';
+import { appSizes } from 'theme/appSizes';
 
 import {globalStyles} from 'src/globalStyle';
 import {useAppDispatch} from 'src/redux/store';
@@ -33,9 +33,10 @@ import AppSlice, {
   selectPolls,
   selectPosts,
 } from 'src/redux/app';
+
 import AppThunks from 'src/redux/app/thunks';
-import {useSelector} from 'react-redux';
-import AuthSlice, {selectUser} from 'src/redux/auth';
+import { useSelector } from 'react-redux';
+import AuthSlice, { selectUser } from 'src/redux/auth';
 import Video from 'react-native-fast-video';
 import Swiper from 'react-native-swiper';
 import CVAddones from './components/CVAddones';
@@ -44,6 +45,9 @@ import Boll from './components/Bolls';
 import LinearGradient from 'react-native-linear-gradient';
 import TextLinks from './components/TextLinks';
 import JopOppertunity from './components/JobOppertienty';
+import DeviceInfo from 'react-native-device-info';
+import { RenderSvgIcon } from 'components/atoms/svg';
+
 const ReelsScreen = () => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -87,6 +91,7 @@ const ReelsScreen = () => {
     overlay: true,
     fulltime: 0.1,
   });
+  const hasNotch = DeviceInfo.hasNotch()
   const renderSwiper = (item: any) => {
     return (
       <View
@@ -99,13 +104,14 @@ const ReelsScreen = () => {
             justifyContent: 'center',
           },
         ]}>
+
         <Swiper
           ref={swiperRef}
           loop={false}
           // showsButtons
           // onIndexChanged={index => setCurrentIndex(index)}
           showsPagination={true}
-          paginationStyle={{top: -500}}
+          paginationStyle={{ top: -500 }}
           dotStyle={{
             backgroundColor: 'rgba(255,255,255,.3)',
             width: 8,
@@ -120,7 +126,7 @@ const ReelsScreen = () => {
             <View key={index}>
               {/* <TouchableOpacity onPress={() => console.log('Swiper item pressed')}> */}
               <ImageBackground
-                source={{uri: asset?.file?.fileUrl + '?size=full'}}
+                source={{ uri: asset?.file?.fileUrl + '?size=full' }}
                 style={{
                   width,
                   height,
@@ -151,8 +157,8 @@ const ReelsScreen = () => {
   const renderAudio = (item: any) => {
     return item?.metadata?.color == '#0f0' ? (
       <LinearGradient
-        start={{x: 0, y: 0}}
-        end={{x: 0, y: 1}}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
         colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
         style={[
           {
@@ -217,6 +223,8 @@ const ReelsScreen = () => {
         )
       ) : null,
     );
+        
+
   };
   const renderImage = (attach: any, item: any) => {
     return (
@@ -257,6 +265,7 @@ const ReelsScreen = () => {
             videoRef.current = player;
           }}
           source={{uri: attach?.fileUrl}}
+        
           onLoad={load}
           //   fullscreenOrientation={'portrait'}
           // onProgress={progress}
@@ -306,17 +315,17 @@ const ReelsScreen = () => {
   // const [screenType, setScreenType] = React.useState('cover');
   const scrollToTop = () => {
     if (flatListRef.current) {
-      flatListRef.current.scrollToOffset({animated: true, offset: 0});
+      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
     }
   };
 
-  const load = ({duration}: any) => {
-    setVideo(prev => ({...prev, duration}));
+  const load = ({ duration }: any) => {
+    setVideo(prev => ({ ...prev, duration }));
     setLoading(false);
   };
 
-  const {height, width} = useWindowDimensions();
-  const renderVideoItem = ({item, index}: any) => {
+  const { height, width } = useWindowDimensions();
+  const renderVideoItem = ({ item, index }: any) => {
     return item?.metadata?.attachments == null &&
       item?.metadata?.poll == null &&
       !item?.metadata?.originalPostId ? null : (

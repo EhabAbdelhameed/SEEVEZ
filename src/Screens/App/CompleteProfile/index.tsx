@@ -36,11 +36,13 @@ import ReferenceProfileCheck from '../Profile/Main Profile/components/ReferenceC
 import AboutProfileCard from '../Profile/Main Profile/components/About';
 import { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const CompleteProfileScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
   const [isLoading, setIsLoading] = useState(true);
+  const [stopVideo, setStopVideo] = useState(false);
 
   // console.log(CurrentUserData)
   React.useEffect(() => {
@@ -59,11 +61,18 @@ const CompleteProfileScreen = () => {
     AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
   }, [AccessToken]);
   const lang = useSelector(selectLang);
-  
-  const {t, i18n} = useTranslation();
-  
+
+  const { t, i18n } = useTranslation();
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 20;
+    return layoutMeasurement.height-100 + contentOffset.y >= ScreenHeight - paddingToBottom;
+  };
+  const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    return contentOffset.y == 0;
+  }
+
   return (
-    <SafeAreaView edges={['top']} style={[styles.Container,{direction:lang=='ar'?'rtl':'ltr'}]}>
+    <SafeAreaView edges={['top']} style={[styles.Container, { direction: lang == 'ar' ? 'rtl' : 'ltr' }]}>
       <Header Title={t("myProfile")} onPress={() => navigation.goBack()} />
       {isLoading ? (
         <View style={styles.loadingContainer}>
@@ -75,8 +84,15 @@ const CompleteProfileScreen = () => {
           />
         </View>
       ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <RecordVideo user_data={CurrentUserData?.user_data?.cv_media} />
+        <ScrollView onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent)) {
+            setStopVideo(true)
+          }
+          if (ifCloseToTop(nativeEvent)) {
+            setStopVideo(false)
+          }
+        }} showsVerticalScrollIndicator={false}>
+          <RecordVideo stopVideo={stopVideo} user_data={CurrentUserData?.user_data?.cv_media} />
           <View style={styles.PaddingContainer}>
             <Complete pers={parseInt(CurrentUserData?.user_data?.complete_progress)} />
             <InfoProfileCard data={CurrentUserData} />
@@ -91,7 +107,7 @@ const CompleteProfileScreen = () => {
             <ReferenceProfileCheck data={CurrentUserData?.user_data?.reference_check} />
           </View>
 
-          {/* <View style={{ height: 20 }} /> */}
+          <View style={{ height: 40 }} />
         </ScrollView>
       )}
     </SafeAreaView>

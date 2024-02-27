@@ -4,6 +4,7 @@ import { RenderSvgIcon } from '../atoms/svg'
 import { appColors } from '../../theme/appColors'
 import { selectLang } from 'src/redux/lang'
 import { useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 const Header = ({
     Title,
@@ -13,19 +14,22 @@ const Header = ({
     onPress?: () => void;
 }) => {
     const lang = useSelector(selectLang);
+    const navigation = useNavigation()
     return (
         <View style={styles.Container}>
             <TouchableOpacity style={styles.Row}
                 onPress={onPress}
                 activeOpacity={0.8}
             >
-                <RenderSvgIcon icon='ARROWBACK' style={{transform:lang=='ar'? [{rotate: '180deg'}]:[{rotate: '0deg'}]}}
+                <RenderSvgIcon icon='ARROWBACK' style={{ transform: lang == 'ar' ? [{ rotate: '180deg' }] : [{ rotate: '0deg' }] }}
                     width={25} height={25} color={appColors.primary} />
                 <Text style={styles.Title}>{Title}</Text>
             </TouchableOpacity>
             <View style={styles.Row}>
-                <RenderSvgIcon icon='SEARCH' width={25} height={25} color={appColors.primary} />
-                <RenderSvgIcon icon='COMMENT' width={25} height={25} color={appColors.primary} style={{ marginLeft: 20 }} />
+                <TouchableOpacity activeOpacity={.8} onPress={() => { navigation.navigate('Search') }}>
+                    <RenderSvgIcon icon='SEARCH' width={25} height={25} color={appColors.primary} />
+                </TouchableOpacity>
+                {/* <RenderSvgIcon icon='COMMENT' width={25} height={25} color={appColors.primary} style={{ marginLeft: 20 }} /> */}
                 <RenderSvgIcon icon='NOTIFICATION' width={25} height={25} color={appColors.primary} style={{ marginLeft: 20 }} />
             </View>
 
