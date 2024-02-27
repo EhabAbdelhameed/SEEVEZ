@@ -162,26 +162,9 @@ const Home = () => {
               </BoxContentTitle>
             )}
           </View>
-
           <View style={styles.rowContainer}>
-            
+            <BoxContentTitle title={t('myAnalytics')}>
               <DashboardSection />
-
-            <BoxContentTitle Change title={t("myAnalytics")}>
-              <View style={{
-                backgroundColor: '#3c3c3cc9',
-                zIndex: 100,
-                flex: 1,
-                height: '100%',
-                width: '100%',
-                position: 'absolute',
-                borderRadius: 20
-              }}></View>
-              <View style={{
-                padding: appSizes.padding_s
-              }}>
-                <DashboardSection />
-              </View>
             </BoxContentTitle>
           </View>
           {CurrentUserData?.work_type == 'freelancer' ||
@@ -198,7 +181,6 @@ const Home = () => {
                   style={styles.imgBg2}
                   resizeMode="contain"></ImageBackground>
               </BoxContentTitle>
-
               <BoxContentTitle
                 title={t('myConnections')}
                 onPress={() => {
@@ -213,28 +195,14 @@ const Home = () => {
           {CurrentUserData?.work_type == 'freelancer' ? null : (
             <View style={styles.rowContainer}>
               <BoxContentTitle
-                Change
                 title={
                   CurrentUserData?.user_data?.user_type == 'recruiter'
                     ? t('myWorkshop')
                     : t('myJobs')
                 }>
-                <View style={{
-                  backgroundColor: '#3c3c3cc9',
-                  zIndex: 100,
-                  flex: 1,
-                  height: '100%',
-                  width: '100%',
-                  position: 'absolute',
-                  borderRadius: 20
-                }}></View>
-                <View style={{
-                  padding: appSizes.padding_s
-                }}>
-                  <CompanySection />
-                  <CompanySection />
-                  <CompanySection />
-                </View>
+                <CompanySection />
+                <CompanySection />
+                <CompanySection />
               </BoxContentTitle>
             </View>
           )}
@@ -314,22 +282,8 @@ const Home = () => {
             </BoxContentTitle>
           </View>
           <View style={styles.rowContainer}>
-            <BoxContentTitle Change title={t("mySchedule")}>
-              <View style={{
-                backgroundColor: '#3c3c3cc9',
-                zIndex: 100,
-                flex: 1,
-                height: '100%',
-                width: '100%',
-                position: 'absolute',
-                borderRadius: 20
-              }}></View>
-              <View style={{
-                padding: appSizes.padding_s,
-                width: '100%'
-              }}>
-                <Schedule />
-              </View>
+            <BoxContentTitle title={t('mySchedule')}>
+              <Schedule />
             </BoxContentTitle>
           </View>
           <View style={styles.rowContainer}>
@@ -370,22 +324,8 @@ const Home = () => {
             </BoxContentTitle>
           </View>
           <View style={styles.rowContainer}>
-            <BoxContentTitle Change title={t("myCommunities")}>
-              <View style={{
-                backgroundColor: '#3c3c3cc9',
-                zIndex: 100,
-                flex: 1,
-                height: '100%',
-                width: '100%',
-                position: 'absolute',
-                borderRadius: 20
-              }}></View>
-              <View style={{
-                padding: appSizes.padding_s,
-                width: '100%'
-              }}>
-                <Communities />
-              </View>
+            <BoxContentTitle title={t('myCommunities')}>
+              <Communities />
             </BoxContentTitle>
           </View>
           {CurrentUserData?.user_data?.user_type == 'company' ||
