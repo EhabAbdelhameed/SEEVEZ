@@ -11,7 +11,7 @@ import {Input} from 'react-native-elements';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {Dropdown} from 'react-native-element-dropdown';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {duration} from 'moment';
 import Toast from 'react-native-toast-message';
 import CustomInput from 'components/molecules/Input/CustomInput';
@@ -26,6 +26,7 @@ import {globalStyles} from 'src/globalStyle';
 import Header from './Header';
 import AppThunks from 'src/redux/app/thunks';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { selectUser } from 'src/redux/auth';
 const data = [
   {label: '1 day', id: 1},
   {label: '3 days', id: 2},
@@ -41,6 +42,10 @@ const data1 = [
 const Form2 = () => {
   const JobTypeData = useSelector(selectJobtype);
   const WorkTypeData = useSelector(selectWorktype);
+  const User = useSelector(selectUser);
+
+  const {data}: any = useRoute().params;
+  console.log(JSON.stringify(data))
 
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
@@ -52,6 +57,7 @@ const Form2 = () => {
   }, []);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [value, setValue] = useState(null);
+  
   // const [jobRequirements, setJobRequirements] = useState<any>([1]);
   const [jobRequirements, setJobRequirements] = useState<any>(['']);
   const [skills, setSkills] = useState<any>(['']);
@@ -120,7 +126,28 @@ const Form2 = () => {
                       .matches(EmailReg, 'Invalid e-mail'),
                   })
             }
-            onSubmit={values => {}}>
+            onSubmit={values => {
+                let obj={
+                    job_title:data.JobTitle,
+                    job_location: data.JobLocation,
+                    number_of_vacancies: values.number_of_vacancies,
+                    work_type_id: values.work_type_id,
+                    job_type_id: values.job_type_id,
+                    job_description: values.job_description,
+                    salary_range:values.salary_range,
+                    email: values.email,
+                    external_link: values.external_link,
+                    job_requirements: data.job_requirements,
+                    skills: data.skills,
+                    user_id: User?.user_id, 
+                    updated_at: "2024-02-26T08:59:31.000000Z",
+                    created_at: "2024-02-26T08:59:31.000000Z",
+                    id: 3
+                }
+                dispatch(AppSlice.changeJobOpportunity(obj));
+                navigation.navigate('CreatePollLink');
+            
+            }}>
             {(props: any) => (
               <View>
                 <View>
@@ -138,7 +165,7 @@ const Form2 = () => {
                   </Text>
                   <CustomInput
                     {...props}
-                    Label={'JobTitle'}
+                    Label={'number_of_vacancies'}
                     placeholder={t('writeHere')}
                   />
                 </View>
@@ -170,7 +197,7 @@ const Form2 = () => {
                     searchPlaceholder={t('search')}
                     value={value}
                     onChange={(item: any) => {
-                      props?.setFieldValue(`duration`, item?.id);
+                      props?.setFieldValue(`work_type_id`, item?.id);
                     }}
                     renderRightIcon={() =>
                       lang == 'en' ? (
@@ -222,7 +249,8 @@ const Form2 = () => {
                     searchPlaceholder={t('search')}
                     value={value}
                     onChange={(item: any) => {
-                      props?.setFieldValue(`duration`, item?.id);
+                      props?.setFieldValue(`job_type_id`, item?.id),
+                      dispatch(AppSlice.changeAddonesCaption(item?.name));
                     }}
                     renderRightIcon={() =>
                       lang == 'en' ? (
@@ -261,7 +289,7 @@ const Form2 = () => {
                   </Text>
                   <CustomInput
                     {...props}
-                    Label={'JobTitle'}
+                    Label={'job_description'}
                     placeholder={t('writeHere')}
                     style={{height: 200}}
                   />
@@ -281,7 +309,7 @@ const Form2 = () => {
                   </Text>
                   <CustomInput
                     {...props}
-                    Label={'JobTitle'}
+                    Label={'salary_range'}
                     placeholder={t('writeHere')}
                   />
                 </View>

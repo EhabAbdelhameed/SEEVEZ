@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux';
 import {selectPhotoData} from 'src/redux/app';
 
 const CVAddones = (data: any) => {
-  console.log("mm",data)
+  
   return (
     <TouchableOpacity
       onPress={() => Linking.openURL(data?.data?.pdfData?.fileUrl)}
@@ -23,7 +23,7 @@ const CVAddones = (data: any) => {
         My CV in the attachment below
       </Text>
       <Text style={styles.text12}>{data?.data?.addonCaption}</Text>
-      <View style={{flexDirection: 'row', columnGap: 15, alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', columnGap: 10, alignItems: 'center'}}>
         <PDF />
         <Text
           style={{
@@ -32,7 +32,8 @@ const CVAddones = (data: any) => {
             fontFamily: 'Noto Sans',
             color: appColors.primary,
           }}>
-          {data?.data?.pdfData?.attributes?.name}
+         
+          {`${data?.data?.pdfData?.attributes?.name?.slice(0,16)}${data?.data?.pdfData?.attributes?.name?.length>=16?'...':''}`}
         </Text>
         <View
           style={{

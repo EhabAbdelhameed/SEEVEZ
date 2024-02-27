@@ -11,10 +11,7 @@ const TextLinks = (data:any) => {
         <View style={[styles.CVContainer, {
             width: "68%"
         }]}>
-            <Text style={[styles.text11, {
-                fontSize: appSizes.m + 2,
-                fontWeight: "bold"
-            }]}>Lorem ipsum dolor</Text>
+          
             <Text style={styles.text12}>{data?.data?.addonCaption}</Text>
             {data?.data?.externalLinks?.map((Exp: any, index: any) => (
             <Text style={[styles.text12, {

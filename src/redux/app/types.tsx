@@ -48,6 +48,7 @@ interface appState {
     names: any;
     market: any;
     exterinalLinks: any;
+    JobOpportunity:any;
   };
 
   
@@ -337,6 +338,7 @@ export const initialState: appState = {
     names: null,
     market: null,
     exterinalLinks: null,
+    JobOpportunity:null,
   },
   searchPeopelData: {
     current_page: null,

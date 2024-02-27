@@ -65,7 +65,7 @@ const Form = () => {
         }}
         onSubmit={values => {
           if (values.JobTitle != '' && values.JobLocation != ''&&values.job_requirements[0]!='') {
-            navigation.navigate('Form2');
+            navigation.navigate('Form2',{data:values});
           } else {
             Toast.show({
               type: 'error',
