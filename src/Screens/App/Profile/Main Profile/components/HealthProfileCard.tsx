@@ -37,7 +37,7 @@ const HealthProfileCard = (data: any) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  disabled={data?.data?.length == 0 ? true : false}
+                 
                   onPress={() =>
                     navigation.navigate('HealthProfile')
                   }>

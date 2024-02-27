@@ -81,7 +81,7 @@ const ProfileScreen = () => {
           <AchievementsProfileCard data={CurrentUserData?.user_data?.achievement} />
           {/* <RecommendationsCard /> */}
           <ReferenceProfileCheck data={CurrentUserData?.user_data?.reference_check}/>
-          <HealthProfileCard data={CurrentUserData?.user_data?.reference_check}/>
+          <HealthProfileCard />
         </View>
       </ScrollView>
     </SafeAreaView>
