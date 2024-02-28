@@ -116,6 +116,38 @@ const SearchScreen = () => {
                         }
                     </TouchableOpacity>
                 </View>
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    marginTop: 10,
+                    justifyContent: 'flex-start',
+                    width: '100%',
+                    paddingHorizontal: 15
+                }}>
+                    {
+                        industry?.concat(education)?.concat(experiance)?.concat(jobType)?.map((item: any) => (
+                            <>
+                                <View style={{
+                                    paddingHorizontal: 20,
+                                    paddingVertical: 10,
+                                    borderWidth: 1,
+                                    borderColor: appColors.primary,
+                                    borderRadius: 20,
+                                    marginLeft: 5,
+                                    marginBottom: 5
+                                }}>
+                                    <Text style={{
+                                        fontSize: 13,
+                                        color: appColors.primary,
+                                        fontWeight: '500'
+                                    }}>{item}</Text>
+                                </View>
+                            </>
+                        ))
+                    }
+                </View>
+
                 {Load ?
                     <ActivityIndicator size={30} style={{ marginTop: 15 }} />
                     :

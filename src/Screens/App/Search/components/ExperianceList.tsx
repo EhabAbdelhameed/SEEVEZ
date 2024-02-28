@@ -58,8 +58,8 @@ const ExperianceList = ({
                             marginBottom: 15
                         }}>
                             <View style={{
-                                width: 20,
-                                height: 20,
+                                width: 17,
+                                height: 17,
                                 borderRadius: 20,
                                 borderColor: appColors.primary,
                                 borderWidth: 1,
@@ -67,8 +67,8 @@ const ExperianceList = ({
                                 justifyContent: 'center',
                             }}>
                                 {industry?.indexOf(item?.name) != -1 && <View style={{
-                                    width: 14,
-                                    height: 14,
+                                    width: 12,
+                                    height: 12,
                                     borderRadius: 15,
                                     backgroundColor: appColors.primary
                                 }} />}

@@ -122,11 +122,11 @@ const Audio = (data: any) => {
             alignItems: 'center',
             backgroundColor: appColors.bg,
           }}>
-          {CurrentUserData?.avatar == null ? (
+          {data?.data?.user_data?.avatar == null ? (
             <AVATAR height={32} width={32} />
           ) : (
             <Image
-              source={{ uri: CurrentUserData?.avatar }}
+              source={{ uri: data?.data?.user_data?.avatar }}
               style={{ width: 40, height: 40, borderRadius: 40 }}
               resizeMode="cover"
             />
