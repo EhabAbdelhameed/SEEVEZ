@@ -13,6 +13,16 @@ const Boll = (data: any) => {
     const dispatch = useAppDispatch()
     const CurrentUserData = useSelector(selectUser);
     const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(-1);
+    const handleAnswerSelection = (index: number) => {
+
+        const formdata = new FormData();
+        formdata.append('pollId', data?.data?.pollId);
+
+        formdata.append('answerIds', data?.data?.answers[index]?.id);
+        dispatch(AppThunks.doVotePoll(formdata)).then((response: any) => {
+            dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
+        });
+    }
     const Item = ({ pers, name, color, index, selected }: { pers: number; name: string; color: string; index: number; selected: boolean }) => {
         return (
             <>
@@ -55,17 +65,7 @@ const Boll = (data: any) => {
             </>
         )
     }
-    const handleAnswerSelection = (index: number) => {
-
-        const formdata = new FormData();
-        formdata.append('pollId', data?.data?.pollId);
-
-        formdata.append('answerIds', data?.data?.answers[index]?.id);
-        console.log("ids", formdata);
-        dispatch(AppThunks.doVotePoll(formdata)).then((response: any) => {
-            dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
-        });
-    }
+   
     const AccessToken = useSelector(selectAccessToken);
     React.useEffect(() => {
         AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;

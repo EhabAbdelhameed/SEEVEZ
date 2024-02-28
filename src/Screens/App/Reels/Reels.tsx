@@ -238,7 +238,6 @@ const ReelsScreen = () => {
             height: height,
             alignSelf: 'center',
             alignContent: 'center',
-
             alignItems: 'center',
             justifyContent: 'center',
           },

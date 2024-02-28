@@ -9,20 +9,20 @@ import {
   Platform,
   BackHandler,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {styles} from './styles';
-import {RenderSvgIcon} from '../../../../Components/atoms/svg';
+import React, { useEffect, useState } from 'react';
+import { styles } from './styles';
+import { RenderSvgIcon } from '../../../../Components/atoms/svg';
 import Bolls from './Bolls';
 import TextLinks from './TextLinks';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-import {useSelector} from 'react-redux';
-import AuthSlice, {selectUser} from 'src/redux/auth';
-import {AVATAR, LOVE, LikeHand, SAD, WOW} from 'assets/Svgs';
-import {appColors} from 'theme/appColors';
+import { useSelector } from 'react-redux';
+import AuthSlice, { selectUser } from 'src/redux/auth';
+import { AVATAR, LOVE, LikeHand, SAD, WOW } from 'assets/Svgs';
+import { appColors } from 'theme/appColors';
 import AppThunks from 'src/redux/app/thunks';
-import {useAppDispatch} from 'src/redux/store';
-import {selectAccessToken} from 'src/redux/app';
+import { useAppDispatch } from 'src/redux/store';
+import { selectAccessToken } from 'src/redux/app';
 // import Share from 'react-native-share';
 const ContentVideo = (item: any) => {
   const navigation = useNavigation<any>();
@@ -118,7 +118,7 @@ const ContentVideo = (item: any) => {
   const hasNotch = DeviceInfo.hasNotch();
 
   useEffect(() => {
-   
+
     const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
     return () => {
@@ -132,7 +132,7 @@ const ContentVideo = (item: any) => {
   };
   return (
     <View style={[styles.container]}>
-      <View style={[styles.header, {marginTop: hasNotch ? 60 : 15}]}>
+      <View style={[styles.header, { marginTop: hasNotch ? 60 : 15 }]}>
         <TouchableOpacity
           style={[styles.leftHeader]}
           onPress={() => {
@@ -167,8 +167,8 @@ const ContentVideo = (item: any) => {
               <AVATAR height={48} width={48} />
             ) : (
               <Image
-                source={{uri: CurrentUserData?.avatar}}
-                style={{width: 56, height: 56, borderRadius: 56}}
+                source={{ uri: CurrentUserData?.avatar }}
+                style={{ width: 56, height: 56, borderRadius: 56 }}
                 resizeMode="cover"
               />
             )}
@@ -177,16 +177,17 @@ const ContentVideo = (item: any) => {
             style={{
               marginLeft: 8,
               rowGap: 4,
+              
             }}>
             <View style={styles.nameIcon}>
               <Text style={styles.name}>{CurrentUserData?.name}</Text>
-              <RenderSvgIcon icon="RIGHTACCOUNT" />
-              <Text style={styles.text2}>-2 nd</Text>
+              {/* <RenderSvgIcon icon="RIGHTACCOUNT" />
+              <Text style={styles.text2}>-2 nd</Text> */}
             </View>
             <Text style={styles.text2}>{CurrentUserData?.job_title}</Text>
-            <View style={styles.containerType}>
+            {/* <View style={styles.containerType}>
               <Text style={styles.text3}>Premium</Text>
-            </View>
+            </View> */}
           </View>
         </View>
         <View style={styles.rightFooter}>
@@ -239,12 +240,12 @@ const ContentVideo = (item: any) => {
             {!CurrentUserData?.user_data?.reactions?.some(
               (asst: any) => asst?.post_id === item?.data?.postId,
             ) && (
-              <TouchableOpacity
-                onLongPress={toggleReactionsModal}
-                onPress={Like}>
-                <RenderSvgIcon icon="DisLike" width={23} height={23} />
-              </TouchableOpacity>
-            )}
+                <TouchableOpacity
+                  onLongPress={toggleReactionsModal}
+                  onPress={Like}>
+                  <RenderSvgIcon icon="DisLike" width={23} height={23} />
+                </TouchableOpacity>
+              )}
 
             <Text style={styles.textIcon}>
               {item?.data?.reactionsCount >= 1000

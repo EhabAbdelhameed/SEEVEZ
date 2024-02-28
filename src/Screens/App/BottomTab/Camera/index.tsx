@@ -54,6 +54,7 @@ const CameraScreen = () => {
 
   const swiperRef = useRef(null);
   const [pause, setPause] = useState(false)
+  console.log(postsData[0])
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppSlice.changeGlobalBools([]))
@@ -200,9 +201,8 @@ const CameraScreen = () => {
     );
   };
   const renderPoll = (item: any) => {
-
-    return polls?.map((attach: any) => (
-      attach?.pollId == item?.metadata?.poll ?
+    return polls?.map((attach: any) =>
+      attach?.pollId == item?.metadata?.poll ? (
         item?.metadata?.color == '#0f0' ? (
           <LinearGradient
             start={{ x: 0, y: 0 }}
@@ -233,9 +233,10 @@ const CameraScreen = () => {
             ]}>
             <Boll data={attach} />
           </View>
-        ) : null
+        )
+      ) : null,
+    );
 
-    ))
 
   };
   const renderImage = (attach: any, item: any) => {
@@ -342,21 +343,47 @@ const CameraScreen = () => {
           backgroundColor: appColors.black,
         }}>
         <>
-          {currentVideoIndex == index ? (
-            item?.metadata?.attachments == null ? (
+        {currentVideoIndex == index ? (
+            item?.metadata?.attachments == null &&
+              !item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments ? (
               renderPoll(item)
-            ) : Array.isArray(item?.metadata?.attachments) ? (
-              item?.metadata?.attachments?.length > 1 ? (
-                renderSwiper(item)
+            ) : !item?.metadata?.originalPostId ? (
+              Array.isArray(item?.metadata?.attachments) ? (
+                item?.metadata?.attachments?.length > 1 ? (
+                  renderSwiper(item)
+                ) : (
+                  item?.metadata?.attachments?.map((attach: any) =>
+                    renderImage(attach, item),
+                  )
+                )
+              ) : item?.metadata?.attachments?.type == 'video' ? (
+                renderVideo(item?.metadata?.attachments, item)
               ) : (
-                item?.metadata?.attachments?.map((attach: any) =>
-                  renderImage(attach, item),
+                renderAudio(item)
+              )
+            ) : Array.isArray(
+              item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
+            ) ? (
+              item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
+                ?.length > 1 ? (
+                renderSwiper(item?.metadata?.originalPostId?.posts[0])
+              ) : (
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
+                  (attach: any) =>
+                    renderImage(
+                      attach,
+                      item?.metadata?.originalPostId?.posts[0],
+                    ),
                 )
               )
-            ) : item?.metadata?.attachments?.type == 'video' ? (
-              renderVideo(item?.metadata?.attachments, item)
+            ) : item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
+              ?.type == 'video' ? (
+              renderVideo(
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
+                item?.metadata?.originalPostId?.posts[0],
+              )
             ) : (
-              renderAudio(item)
+              renderAudio(item?.metadata?.originalPostId?.posts[0])
             )
           ) : (
             <View>

@@ -30,8 +30,6 @@ const MYPolls = () => {
           setLoader(false)
         },
       );
-
-    
     });
     return RenderFunction;
   }, [navigation]);
@@ -45,7 +43,6 @@ const MYPolls = () => {
   const lang = useSelector(selectLang);
 
   const {t, i18n} = useTranslation();
-  // console.log("This Data From Hossam ",JSON.stringify(CurrentUserData))
   return (
     <SafeAreaView edges={['top']} style={[styles.Container,{direction:lang=="ar"?'rtl':'ltr'}]}>
       <Header Title={t("myPolls")} onPress={() => navigation.goBack()} />
@@ -56,14 +53,12 @@ const MYPolls = () => {
       <FlatList
             // scrollEnabled={false}
             data={polls}
-            // style={{flex:1}}
-            // numColumns={2}
             contentContainerStyle={{ paddingBottom: 90 }} 
             renderItem={({item, index}) => (
                 <View key={index} style={styles.bigContainer}>
-                <PollHeader/>
+                <PollHeader item={item}/>
                 {polls[index]?.pollId==null?null:<Polls data={item}/> }
-                <Footer/>
+                {/* <Footer/> */}
                 </View>
             )}
             keyExtractor={(item) => item?.pollId?.toString()}

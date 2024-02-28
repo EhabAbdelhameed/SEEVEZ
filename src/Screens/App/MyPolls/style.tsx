@@ -1,21 +1,21 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 // import { appSizes } from "../../theme/appSizes";
-import {appColors} from '../../../theme/appColors';
+import { appColors } from '../../../theme/appColors';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 export const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor:appColors.bg
+    backgroundColor: appColors.bg
     // paddingHorizontal: 20,
   },
- bollsContainer: {
- 
+  bollsContainer: {
+
     // backgroundColor: appColors.white,
     // position: "absolute",
     // height: 200,
     // left: 10,
-  
+
     // bottom: 200,
 
   },
@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     color: appColors.black,
+    marginBottom:10
   },
   text12: {
     fontSize: 10,
@@ -71,7 +72,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(232, 239, 252, 1)',
     width: 40,
     height: 40,
-    padding: 3, 
+    padding: 3,
     borderWidth: 1,
     borderRadius: 10,
     position: 'absolute',
@@ -130,23 +131,23 @@ export const styles = StyleSheet.create({
   },
   PaddingContainer: {
     paddingHorizontal: 20,
-    paddingVertical:10
-},
-bigContainer:{
+    paddingVertical: 10
+  },
+  bigContainer: {
 
     // width: '85%',
-    marginTop:10,
+    marginTop: 10,
     backgroundColor: appColors.white,
     // position: "absolute",
     // height: 200,
     // left: 10,
     // marginRight: 20,
     // bottom: 200,
-   
+
     elevation: 1,
     borderRadius: 16,
     paddingHorizontal: 20,
-    paddingVertical:10,
+    paddingVertical: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 2,
@@ -154,23 +155,23 @@ bigContainer:{
     },
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
+    paddingBottom: 15,
 
-
-},
-containerType: {
-  backgroundColor: "#FDF7E6",
-  borderRadius: 20,
-  paddingHorizontal: 3,
-  paddingVertical: 3,
-  borderWidth:1,
-  borderColor:"#F8E5B0",
-  width: 80,
-  alignItems: "center",
-  marginTop:-8,
-},
-text3: {
-  color: "#A57900",
-  fontSize: 12,
-  fontWeight: "600"
-},
+  },
+  containerType: {
+    backgroundColor: "#FDF7E6",
+    borderRadius: 20,
+    paddingHorizontal: 3,
+    paddingVertical: 3,
+    borderWidth: 1,
+    borderColor: "#F8E5B0",
+    width: 80,
+    alignItems: "center",
+    marginTop: -8,
+  },
+  text3: {
+    color: "#A57900",
+    fontSize: 12,
+    fontWeight: "600"
+  },
 });
