@@ -16,6 +16,7 @@ import AuthSlice from 'src/redux/auth';
 import { useTranslation } from 'react-i18next';
 import { selectLang } from 'src/redux/lang';
 import Header from './components/Header';
+import { appSizes } from 'theme/appSizes';
 
 const JobDescraption = (props: any) => {
     const dispatch = useAppDispatch()
@@ -26,33 +27,37 @@ const JobDescraption = (props: any) => {
     const lang = useSelector(selectLang);
   
     const {t, i18n} = useTranslation();
-    React.useEffect(() => {
-        setLoad(true)
-        dispatch(AppThunks.doGetJobs()).then(() =>setLoad(false))
+    // React.useEffect(() => {
+    //     setLoad(true)
+    //     dispatch(AppThunks.doGetJobs()).then(() =>setLoad(false))
       
-    }, [])
+    // }, [])
  
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
             <View style={styles.screen}>
                 <Header Title={"Senior ui ux designer"} onPress={() => navigation.goBack()} />
-                <ScrollView showsVerticalScrollIndicator={false} style={{
-                    height: '100%',
-                    width: '90%',
-                    alignSelf: 'center',
-                    backgroundColor: '#fff',
-                    borderRadius: 20
-                }}>
+                <KeyboardAwareScrollView
+          contentContainerStyle={{
+            alignItems: 'center',
+            paddingBottom: 130,
+            paddingHorizontal: appSizes.padding_m,
+          }}
+          enableOnAndroid={true}
+          keyboardShouldPersistTaps={'handled'}
+          enableResetScrollToCoords={false}
+          showsVerticalScrollIndicator={false}>
                     {
                         load ?
                             <ActivityIndicator size={50} style={{marginTop:300}}/>
                             :
                             <ContainerUsers
-                                data={MyJob}
+                                // data={MyJob}
                             />
                     }
+                    
 
-                </ScrollView>
+                </KeyboardAwareScrollView>
             </View>
         </SafeAreaView >
     )

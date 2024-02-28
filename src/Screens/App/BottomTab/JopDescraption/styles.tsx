@@ -108,5 +108,12 @@ export const styles = StyleSheet.create({
         fontSize: appSizes.font_l - 1,
         fontWeight: "500",
         color: appColors.blue2
-    }
+    },
+    PostText: {
+        fontSize: 12,
+        fontWeight: '400',
+        marginTop: 15,
+        color: '#676767',
+        textAlign:'left'
+      },
 })

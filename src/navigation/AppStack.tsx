@@ -65,6 +65,7 @@ import JobOpportunity from 'screens/App/CreatePost/JobOpportunity';
 import Form2 from 'screens/App/CreatePost/JobOpportunity/components/Form2';
 import JobDetailsScreen from 'screens/App/Job Details';
 import MyJob from 'screens/App/BottomTab/My Job';
+import JobDescraption from 'screens/App/BottomTab/JopDescraption';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -334,6 +335,10 @@ const AppStack = () => {
               <Stack.Screen
                 name='MyJob'
                 component={MyJob}
+            />
+             <Stack.Screen
+                name='JobDescraption'
+                component={JobDescraption}
             />
         </Stack.Navigator>
     );

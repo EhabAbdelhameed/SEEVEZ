@@ -27,7 +27,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const {t, i18n} = useTranslation();
 
   const getdate = () => {
-    const startDate: Date = new Date('2024-02-27T10:39:21.000000Z');
+    const startDate: Date = new Date(item?.created_at);
     const currentDate: Date = new Date();
 
     const timeDifferenceInMilliseconds: number =
@@ -84,7 +84,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        // navigate('UserProfile', { id: item?.userId });
+        navigate('JobDescraption');
       }}
       style={styles.containerUserSection}>
       <View style={globalStyles.leftHeaderContainer}>

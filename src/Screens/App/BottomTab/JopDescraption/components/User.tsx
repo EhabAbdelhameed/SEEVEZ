@@ -15,6 +15,13 @@ import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
 import {selectUser} from 'src/redux/auth';
+import TopHeader from './TopHeader';
+import HeaderAfter from './HeaderAfterMeet';
+import JobDetails from './JobDetails';
+import JobSkills from './skills';
+import ReadMore from '@fawazahmed/react-native-read-more';
+import {appSizes} from 'theme';
+import Button from 'components/molecules/Button';
 
 const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const [count, setCount] = React.useState(0);
@@ -22,7 +29,6 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const {navigate} = useNavigation<any>();
   const lang = useSelector(selectLang);
   const User = useSelector(selectUser);
-
 
   const {t, i18n} = useTranslation();
 
@@ -73,67 +79,101 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
       }
     }
   };
-  React.useEffect(() => {
-    dispatch(AppThunks.doGetFollowers(item?.userId)).then((res: any) => {
-      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
-      setLoad(false);
-    });
-  }, []);
+
   // console.log("USERS",item?.avatarCustomUrl)
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={() => {
-        // navigate('UserProfile', { id: item?.userId });
-      }}
-      style={styles.containerUserSection}>
-      <View style={globalStyles.leftHeaderContainer}>
-        {User?.avatar == null || User?.avatar == undefined ? (
-          <View
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 58,
-              marginTop:10,
-              // borderWidth: 1,
-              // borderColor: '#DDD',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: appColors.bg,
-            }}>
-            <AVATAR height={40} width={40} />
-          </View>
-        ) : (
-          <AvatarIcon imgUrl={User?.avatar} style={{height: 58, width: 58,marginTop:10,}} />
-        )}
-        <View style={{rowGap: 3}}>
-          <View style={[globalStyles.leftHeaderContainer, {width: '100%',columnGap:70,marginLeft:3}]}>
-            <Text style={styles.UserName} numberOfLines={1}>
-              {item?.job_title}
-            </Text>
-            <SaveJob />
-          </View>
-          <View style={{flexDirection: 'row', columnGap: 8,marginLeft:3}}>
-            <Text style={styles.work}>{User?.name}</Text>
-            <Text style={styles.work}>{item?.job_location}</Text>
-            <Text style={[styles.work,{color: "#00BBB6"}]}>{getdate()}</Text>
-          </View>
-          <View style={{flexDirection:'row',columnGap:10}}>
-          <View style={styles.followersContainer}>
-            <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {item?.job_type_id?.name}  
-            </Text>
-          </View>
-          <View style={[styles.followersContainer,{backgroundColor:'#E6FAFA'}]}>
-            <Text style={[styles.text3, {color: '#00928E'}]}>
-              {item?.work_type_id?.name}
-            </Text>
-          </View>
-          </View>
+    <View style={{paddingHorizontal: 10}}>
+      <TopHeader />
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: '700',
+          fontFamily: 'Noto Sans',
+          color: '#000',
+        }}>
+        Meet our recruiter
+      </Text>
+      <HeaderAfter />
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: '700',
+          fontFamily: 'Noto Sans',
+          color: '#000',
+        }}>
+        About the job
+      </Text>
+      <JobDetails />
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: '700',
+          fontFamily: 'Noto Sans',
+          color: '#000',
+        }}>
+        Skills
+      </Text>
+      <JobSkills />
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: '700',
+          fontFamily: 'Noto Sans',
+          color: '#000',
+        }}>
+        About the company
+      </Text>
+      <HeaderAfter />
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: '700',
+          fontFamily: 'Noto Sans',
+          color: '#000',
+          marginTop: -15,
+        }}>
+        About
+      </Text>
+      <ReadMore
+        style={styles.PostText}
+        animate={true}
+        seeMoreStyle={{
+          color: appColors.primary,
+          textDecorationLine: 'underline',
+        }}
+        seeLessStyle={{
+          color: appColors.primary,
+          textDecorationLine: 'underline',
+        }}
+        seeLessText={t('Less')}
+        seeMoreText={t('Learn more')}
+        numberOfLines={3}>
+        A problem isn't truly solved until it's solved for all. Googlers build
+        products that help create opportunities for everyone, whether down the
+        street or across the globe. Bring your insight, imagination and a
+        healthy disregard for the impossible. Bring everything that makes you
+        unique. Together, we can build
+      </ReadMore>
+      <View style={{height: appSizes.height * 0.04}} />
+      <View style={{flexDirection: 'row', width: '100%',columnGap:10}}>
+        <View style={{width:'80%'}}>
+          <Button style={{height:62}} text={"Apply for job"} onPress={() => console.log('Job')} />
+        </View>
+        <View
+          style={{
+            backgroundColor: appColors.bg,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: 15,
+            paddingVertical:15,
+            borderRadius:16,
+            borderWidth:1,
+            borderColor:appColors.primary
+          }}>
+          <SaveJob width={30} height={30} />
         </View>
       </View>
-     
-    </TouchableOpacity>
+    </View>
   );
 };
 

@@ -11,20 +11,14 @@ const ContainerUsers = ({
     data,
     setLoad
 }: {
-    data: any[];
+    data?: any[];
     setLoad?: any
 }) => {
    
     return (
         <View style={styles.containerUsers}>
             <View style={styles.container2Users}>
-                <FlatList
-                    data={data}
-                    contentContainerStyle={{ rowGap: 10 }}
-                    scrollEnabled={false}
-                    renderItem={({item}) => <UserSection setLoad={setLoad} item={item} />}
-                    // ListFooterComponent={() => <FooterSectionUsers />}
-                />
+            <UserSection />
 
             </View>
         </View>

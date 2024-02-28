@@ -1,0 +1,84 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const JobDetails = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.sectionTitle}>Responsibilities:</Text>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+        Analyze and understand user requirements, behaviors, and motivations through research, feedback, usability testing, another methodologies to craft optimal UX solutions.
+      </Text>
+      </View>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+      Develop and maintain consistent, intuitive, and high-quality Web and Mobile interfaces for the Service Portals.
+      </Text>
+      </View>
+      {/* Add more responsibilities as needed */}
+
+      <Text style={styles.sectionTitle}>Requirements:</Text>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+         8+ Years of experience
+      </Text>
+      </View>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+        Strong visual design skills with an eye for detail.
+      </Text>
+      </View>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+        Experience in UX design, preferably with enterprise platforms.
+      </Text>
+      </View>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+         Prior experience in Service Now
+      </Text>
+      </View>
+      
+      <Text style={styles.sectionTitle}>Nice to have:</Text>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+       BSc (Honors) Computer Science or a similar degree with significant computing bias.
+      </Text>
+      </View>
+
+      <Text style={styles.sectionTitle}>Languages:</Text>
+      <View style={{flexDirection:'row',marginLeft:10}}>
+      <Text style={{marginRight:5,marginTop:5,color:'#1C1C1C'}}>•</Text>
+      <Text style={styles.descriptionText}>
+        English: C2 Proficiency
+      </Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+  },
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginTop: 10,
+    color:'#000'
+  },
+  descriptionText: {
+    fontSize: 12,
+    marginTop: 5,
+   color:'#1C1C1C'
+  },
+});
+
+export default JobDetails;

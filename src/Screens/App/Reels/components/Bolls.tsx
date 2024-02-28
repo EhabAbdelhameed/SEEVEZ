@@ -26,7 +26,7 @@ const Boll = (data: any) => {
     const Item = ({ pers, name, color, index, selected }: { pers: number; name: string; color: string; index: number; selected: boolean }) => {
         return (
             <>
-                <TouchableOpacity style={{ zIndex: 100 }} onPress={() => alert('a')}>
+                <TouchableOpacity style={{ zIndex: 100 }} onPress={() =>handleAnswerSelection(index)}>
                     <View style={{ marginTop: 5 }}>
                         <Text style={styles.text13}>{name}</Text>
                         <View style={[styles.rowItemSlide, { columnGap: 5 }]}>

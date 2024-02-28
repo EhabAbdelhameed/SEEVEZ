@@ -63,11 +63,11 @@ const CompleteProfileScreen = () => {
   const lang = useSelector(selectLang);
 
   const { t, i18n } = useTranslation();
-  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
     const paddingToBottom = 20;
     return layoutMeasurement.height-100 + contentOffset.y >= ScreenHeight - paddingToBottom;
   };
-  const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
     return contentOffset.y == 0;
   }
 
