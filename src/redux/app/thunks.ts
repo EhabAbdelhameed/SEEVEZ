@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import AppAPI from './api';
 
 //doAddSkills
@@ -989,7 +989,6 @@ const GetMyReels: any = createAsyncThunk<any, any, any>(
   },
 );
 
-
 const GetGlobalReels: any = createAsyncThunk<any, any, any>(
   'app/GetGlobalReels',
   async (data, thunkApi: any) => {
@@ -1320,7 +1319,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
     try {
       const response = await AppAPI.profileInfo();
       // console.log(JSON.stringify(response?.data))
-      console.log(JSON.stringify(response))
+      console.log(JSON.stringify(response));
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1537,6 +1536,107 @@ const doRepost: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doDeleteNationality: any = createAsyncThunk<any, any, any>(
+  'app/DeleteNat',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.DeleteNationality(data);
+      // alert(JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+
+//doDeletePost
+const doDeletePost: any = createAsyncThunk<any, any, any>(
+  'app/Deletepost',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.deletePost(data);
+      // alert(JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doUpdatePost
+const doUpdatePost: any = createAsyncThunk<any, any, any>(
+  'app/UpdatePost',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.updatePost(data);
+      // alert(JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doUpdatePost
+const doGetJobs: any = createAsyncThunk<any, any, any>(
+  'app/Jobs',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.jobs();
+      // alert(JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+
 const AppThunks = {
   doAddSkills,
   GetAccessToken,
@@ -1588,17 +1688,21 @@ const AppThunks = {
   searchForTagPeopel,
   doGetFollowers,
   CreatePoll,
-   GetOnePost,
-   doAddLike,
-   doRemoveLike,
-   doVotePoll,
-   GetJobSeekers,
-   GetRecruiterUsers,
-   GetCompanyUsers,
-   doSearch,
-   GetWorkType,
-   doRepost,
-    GetGlobalReels
+  GetOnePost,
+  doAddLike,
+  doRemoveLike,
+  doVotePoll,
+  GetJobSeekers,
+  GetRecruiterUsers,
+  GetCompanyUsers,
+  doSearch,
+  GetWorkType,
+  doRepost,
+  GetGlobalReels,
+  doDeleteNationality,
+  doDeletePost,
+  doUpdatePost,
+  doGetJobs
 };
 
 export default AppThunks;

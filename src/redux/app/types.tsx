@@ -39,6 +39,7 @@ interface appState {
     },
   ];
   FollowingList: any[];
+  myJobs: any[];
   listUsers: any[];
 
   photoData: {
@@ -326,6 +327,7 @@ export const initialState: appState = {
   Nav: '',
 
   FollowingList: [],
+  myJobs: [],
   listUsers: [],
   IndsturyData: [
     {

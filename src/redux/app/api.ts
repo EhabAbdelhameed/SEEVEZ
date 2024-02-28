@@ -75,6 +75,13 @@ const companyUser = (data: any) => api.get(`api/company/5?page=${data}`);
 
 const search = (Search: any) => api.get(`api/general/search?${Search}`);
 const Repost = (data: any) => api.post(`api/repost`, data);
+const DeleteNationality = (id: number) => api.delete(`api/delete-nationality/${id}`)
+const deletePost = (id: number) => api.delete(`api/delete-reel?postId=${id}&permanent=false`)
+const updatePost = (data: any) => api.post(`api/update-reel`, data);
+const jobs = () => api.get(`company/job-opportunity`)
+
+
+
 
 /////////////////////////////////end////////////////////////////////////////
 // const home = (data: any) => api.get(`home?${data}`)
@@ -142,7 +149,11 @@ const AppAPI = {
   search,
   WorkType,
   Repost,
-  GetGlobalReels
+  GetGlobalReels,
+  DeleteNationality,
+  deletePost,
+  updatePost,
+  jobs
 };
 
 export default AppAPI;

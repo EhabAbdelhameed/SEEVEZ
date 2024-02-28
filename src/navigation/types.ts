@@ -80,6 +80,7 @@ export type AppParamsList = {
     HealthProfile:undefined;
     JobOpportunity:undefined;
     Form2:undefined;
+    MyJob:undefined;
 }
 export type RootParamsList = {
     auth: any;

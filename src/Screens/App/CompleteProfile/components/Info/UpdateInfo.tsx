@@ -7,56 +7,67 @@ import {
   Image,
   Platform,
   KeyboardAvoidingView,
+  FlatList,
 } from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Moment from 'moment';
 import styles from './styles';
 
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
 import AuthTopSection from '../../../../../Components/molecules/AuthTopSection';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { appColors } from '../../../../../theme/appColors';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {appColors} from '../../../../../theme/appColors';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
 
-import { BigLogo, CALANDER, PHOTO, PERSON, ImageInfo, DELETE } from 'assets/Svgs';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'react-native';
-import { Formik } from 'formik';
+import {
+  BigLogo,
+  CALANDER,
+  PHOTO,
+  PERSON,
+  ImageInfo,
+  DELETE,
+  Close,
+} from 'assets/Svgs';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {StatusBar} from 'react-native';
+import {Formik} from 'formik';
 import InputView from 'components/molecules/Input';
-import { appSizes } from 'theme/appSizes';
+import {appSizes} from 'theme/appSizes';
 import DatePicker from 'react-native-date-picker';
-import Modal, { ReactNativeModal } from 'react-native-modal';
+import Modal, {ReactNativeModal} from 'react-native-modal';
 import DocumentPicker from 'react-native-document-picker';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { Modalize } from 'react-native-modalize';
+import {Modalize} from 'react-native-modalize';
 import AppThunks from 'src/redux/app/thunks';
-import { useAppDispatch } from 'src/redux/store';
-import { useSelector } from 'react-redux';
-import { selectAccessToken, selectDone } from 'src/redux/app';
-import AuthSlice, { selectUser } from 'src/redux/auth';
+import {useAppDispatch} from 'src/redux/store';
+import {useSelector} from 'react-redux';
+import AppSlice, {selectAccessToken, selectDone} from 'src/redux/app';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import NewPicker from 'components/molecules/PhonePicker';
-import { Input } from 'react-native-elements';
-import { RenderSvgIcon } from 'components/atoms/svg';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {Input} from 'react-native-elements';
+import {RenderSvgIcon} from 'components/atoms/svg';
+import {launchImageLibrary} from 'react-native-image-picker';
 import BottomModal from './BottomModal';
 import BottomModalIos from './BottomModalIos';
 import TopHeader from '../Header/TopHeader';
 import * as Yup from 'yup';
 import BottomHeader from '../Header/BottomHeader';
-import { selectLang } from 'src/redux/lang';
-import { useTranslation } from 'react-i18next';
-import { Nationalities } from '../../../../../../Nationality';
-import { Dropdown } from 'react-native-element-dropdown';
+import {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
+import {Nationalities} from '../../../../../../Nationality';
+
+import {MultiSelect} from 'react-native-element-dropdown';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
   const CurrentUserData = useSelector(selectUser);
+  //  console.log("55",JSON.stringify)
   const [date, setDate] = useState(new Date(CurrentUserData?.birthdate));
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const [selected, setSelected] = useState([]);
   const dispatch = useAppDispatch();
   const [index, setIndex] = React.useState(false);
   const [isVisible, setVisible] = useState(false);
@@ -65,10 +76,10 @@ const UpdateInfo = () => {
     CurrentUserData?.gender == 'male'
       ? 0
       : CurrentUserData?.gender == 'female'
-        ? 1
-        : CurrentUserData?.gender == null
-          ? 3
-          : 2,
+      ? 1
+      : CurrentUserData?.gender == null
+      ? 3
+      : 2,
   );
   const [buttonIndexHealth, setButtonIndexHealth] = React.useState(2);
   const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(
@@ -97,7 +108,21 @@ const UpdateInfo = () => {
   const [value2, setValue2] = useState(null);
   const [source, setSource] = useState<any>([]);
   const [Nationality, setNationality] = useState<any>(['']);
-
+  const [dropdownOpen1, setDropdownOpen1] = useState(false);
+  const [dropdownOpen2, setDropdownOpen2] = useState(false);
+  const renderItem = (item: any) => {
+    return (
+      <View
+        style={{
+          padding: 17,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <Text style={styles.selectedTextStyle}>{item.label}</Text>
+      </View>
+    );
+  };
   const UploadImageProfile = async () => {
     try {
       const result = await DocumentPicker.pick({
@@ -117,7 +142,7 @@ const UpdateInfo = () => {
     }
   };
   const pick = () => {
-    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res: any) => {
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
       setSource(res?.assets);
     });
   };
@@ -134,7 +159,7 @@ const UpdateInfo = () => {
   const [code, setCode] = React.useState('');
   const lang = useSelector(selectLang);
 
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
 
   const data = {
     title: 'Disabilities',
@@ -165,13 +190,44 @@ const UpdateInfo = () => {
   const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/.*/i;
   const instagramPattern = /^(https?:\/\/)?(www\.)?instagram\.com\/.*/i;
   const githubPattern = /^(https?:\/\/)?(www\.)?github\.com\/.*/i;
-  const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/
+  const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+
+  const renderListItem = (item: any) => {
+    return (
+      <TouchableOpacity
+        onPress={() => handleDeleteNationality(item?.id)}
+        style={{
+          backgroundColor: appColors.bg, // Change the background color of selected items
+          borderRadius: 10, // Add border radius to the selected items
+          paddingHorizontal: 20,
+          paddingVertical: 10, // Adjust padding for selected items
+          margin: 2,
+          columnGap: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'row', // Adjust margin for selected items
+        }}>
+        <Text>{item.name}</Text>
+
+        <Close />
+      </TouchableOpacity>
+    );
+  };
+  const handleDeleteNationality = (NationalityId: any) => {
+    // Show confirmation dialog
+
+    // Dispatch the action to delete the experience
+    dispatch(AppThunks.doDeleteNationality(NationalityId)).then((res: any) => {
+      dispatch(AppThunks.GetProfileInfo());
+      dispatch(AppSlice.changeDone(false));
+    });
+  };
   //url.startsWith("http://") || url.startsWith("https://")
 
   return (
     <SafeAreaView
       edges={['top']}
-      style={[styles.container, { direction: lang == 'ar' ? 'rtl' : 'ltr' }]}>
+      style={[styles.container, {direction: lang == 'ar' ? 'rtl' : 'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -203,7 +259,7 @@ const UpdateInfo = () => {
                 borderColor: '#B9CDF4',
               }}>
               {CurrentUserData?.avatar == null &&
-                (source == undefined || source?.length == 0) ? (
+              (source == undefined || source?.length == 0) ? (
                 <PERSON />
               ) : (
                 <Image
@@ -213,7 +269,7 @@ const UpdateInfo = () => {
                         ? source[0]?.uri
                         : CurrentUserData?.avatar,
                   }}
-                  style={{ width: 86, height: 86, borderRadius: 86 }}
+                  style={{width: 86, height: 86, borderRadius: 86}}
                   resizeMode="cover"
                 />
               )}
@@ -264,13 +320,22 @@ const UpdateInfo = () => {
               code: CurrentUserData?.country_code || '',
             }}
             validationSchema={Yup.object().shape({
-              facebook: Yup.string().trim().matches(regFacebook, 'Must be a facebook link'),
-              linkedin: Yup.string().trim().matches(linkedinPattern, 'Must be a linkedin link'),
-              instagram: Yup.string().trim().matches(instagramPattern, 'Must be an instagram link'),
-              github: Yup.string().trim().matches(githubPattern, 'Must be a github link'),
+              facebook: Yup.string()
+                .trim()
+                .matches(regFacebook, 'Must be a facebook link'),
+              linkedin: Yup.string()
+                .trim()
+                .matches(linkedinPattern, 'Must be a linkedin link'),
+              instagram: Yup.string()
+                .trim()
+                .matches(instagramPattern, 'Must be an instagram link'),
+              github: Yup.string()
+                .trim()
+                .matches(githubPattern, 'Must be a github link'),
               other: Yup.string().trim().matches(urlPattern, 'Must be a link'),
-              website: Yup.string().trim().matches(urlPattern, 'Must be a website link'),
-
+              website: Yup.string()
+                .trim()
+                .matches(urlPattern, 'Must be a website link'),
             })}
             onSubmit={values => {
               setLoading(true);
@@ -299,9 +364,9 @@ const UpdateInfo = () => {
                 : null;
               values.birthdate != new Date() || !values.birthdate
                 ? formdata.append(
-                  'birthdate',
-                  Moment(date).format('yyyy/MM/DD'),
-                )
+                    'birthdate',
+                    Moment(date).format('yyyy/MM/DD'),
+                  )
                 : formdata.append('birthdate', '');
 
               disabilityData != '' || !disabilityData
@@ -353,13 +418,13 @@ const UpdateInfo = () => {
 
               source?.length != 0
                 ? formdata.append('avatar', {
-                  uri: source[0]?.uri,
-                  type: source[0]?.type,
-                  name:
-                    Platform.OS == 'ios'
-                      ? source[0]?.fileName
-                      : source[0]?.name,
-                })
+                    uri: source[0]?.uri,
+                    type: source[0]?.type,
+                    name:
+                      Platform.OS == 'ios'
+                        ? source[0]?.fileName
+                        : source[0]?.name,
+                  })
                 : null;
               console.log(formdata);
               dispatch(AppThunks.doAddPersonalInfo(formdata)).then(
@@ -438,13 +503,13 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('yourCity')}
                       placeholderTextColor={'#B9B9B9'}
                       style={[
                         styles.InputStyleWithOutWidth,
-                        { textAlign: lang == 'ar' ? 'right' : 'left' },
+                        {textAlign: lang == 'ar' ? 'right' : 'left'},
                       ]}
                       onChangeText={value =>
                         props?.setFieldValue(`city`, value)
@@ -452,13 +517,13 @@ const UpdateInfo = () => {
                       value={props.values.city}
                     />
                   </View>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('yourArea')}
                       placeholderTextColor={'#B9B9B9'}
                       style={[
                         styles.InputStyleWithOutWidth,
-                        { textAlign: lang == 'ar' ? 'right' : 'left' },
+                        {textAlign: lang == 'ar' ? 'right' : 'left'},
                       ]}
                       onChangeText={value =>
                         props?.setFieldValue(`area`, value)
@@ -519,7 +584,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('Facebook')}
                       placeholderTextColor={'#B9B9B9'}
@@ -529,7 +594,7 @@ const UpdateInfo = () => {
                           textAlign: lang == 'ar' ? 'right' : 'left',
                           borderColor:
                             props?.errors['facebook'] &&
-                              props?.touched['facebook']
+                            props?.touched['facebook']
                               ? 'red'
                               : '#1D5EDD',
                           width: '100%',
@@ -541,12 +606,13 @@ const UpdateInfo = () => {
                       value={props.values.facebook}
                     />
                     {props?.errors.facebook && props?.touched.facebook ? (
-                      <Text style={{ color: 'red', marginLeft: 10, fontSize: 12 }}>
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
                         {props?.errors.facebook}
                       </Text>
                     ) : null}
                   </View>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('Linkedin')}
                       placeholderTextColor={'#B9B9B9'}
@@ -556,7 +622,7 @@ const UpdateInfo = () => {
                           textAlign: lang == 'ar' ? 'right' : 'left',
                           borderColor:
                             props?.errors['linkedin'] &&
-                              props?.touched['linkedin']
+                            props?.touched['linkedin']
                               ? 'red'
                               : '#1D5EDD',
                           width: '100%',
@@ -568,7 +634,8 @@ const UpdateInfo = () => {
                       value={props.values.linkedin}
                     />
                     {props?.errors.linkedin && props?.touched.linkedin ? (
-                      <Text style={{ color: 'red', marginLeft: 10, fontSize: 12 }}>
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
                         {props?.errors.linkedin}
                       </Text>
                     ) : null}
@@ -581,7 +648,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('Instagram')}
                       style={[
@@ -590,7 +657,7 @@ const UpdateInfo = () => {
                           textAlign: lang == 'ar' ? 'right' : 'left',
                           borderColor:
                             props?.errors['instagram'] &&
-                              props?.touched['instagram']
+                            props?.touched['instagram']
                               ? 'red'
                               : '#1D5EDD',
                           width: '100%',
@@ -603,12 +670,13 @@ const UpdateInfo = () => {
                       value={props.values.instagram}
                     />
                     {props?.errors.instagram && props?.touched.instagram ? (
-                      <Text style={{ color: 'red', marginLeft: 10, fontSize: 12 }}>
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
                         {props?.errors.instagram}
                       </Text>
                     ) : null}
                   </View>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('Website')}
                       placeholderTextColor={'#B9B9B9'}
@@ -618,7 +686,7 @@ const UpdateInfo = () => {
                           textAlign: lang == 'ar' ? 'right' : 'left',
                           borderColor:
                             props?.errors['website'] &&
-                              props?.touched['website']
+                            props?.touched['website']
                               ? 'red'
                               : '#1D5EDD',
                           width: '100%',
@@ -630,7 +698,8 @@ const UpdateInfo = () => {
                       value={props.values.website}
                     />
                     {props?.errors.website && props?.touched.website ? (
-                      <Text style={{ color: 'red', marginLeft: 10, fontSize: 12 }}>
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
                         {props?.errors.website}
                       </Text>
                     ) : null}
@@ -643,7 +712,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('Github')}
                       placeholderTextColor={'#B9B9B9'}
@@ -652,8 +721,7 @@ const UpdateInfo = () => {
                         {
                           textAlign: lang == 'ar' ? 'right' : 'left',
                           borderColor:
-                            props?.errors['github'] &&
-                              props?.touched['github']
+                            props?.errors['github'] && props?.touched['github']
                               ? 'red'
                               : '#1D5EDD',
                           width: '100%',
@@ -665,12 +733,13 @@ const UpdateInfo = () => {
                       value={props.values.github}
                     />
                     {props?.errors.github && props?.touched.github ? (
-                      <Text style={{ color: 'red', marginLeft: 10, fontSize: 12 }}>
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
                         {props?.errors.github}
                       </Text>
                     ) : null}
                   </View>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <TextInput
                       placeholder={t('Others')}
                       placeholderTextColor={'#B9B9B9'}
@@ -679,18 +748,20 @@ const UpdateInfo = () => {
                         {
                           textAlign: lang == 'ar' ? 'right' : 'left',
                           borderColor:
-                            props?.errors['other'] &&
-                              props?.touched['other']
+                            props?.errors['other'] && props?.touched['other']
                               ? 'red'
                               : '#1D5EDD',
                           width: '100%',
                         },
                       ]}
-                      onChangeText={value => props?.setFieldValue(`other`, value)}
+                      onChangeText={value =>
+                        props?.setFieldValue(`other`, value)
+                      }
                       value={props.values.other}
                     />
                     {props?.errors.other && props?.touched.other ? (
-                      <Text style={{ color: 'red', marginLeft: 10, fontSize: 12 }}>
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
                         {props?.errors.other}
                       </Text>
                     ) : null}
@@ -704,7 +775,7 @@ const UpdateInfo = () => {
                     marginBottom: 10,
                     columnGap: 15,
                   }}>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <Text style={styles.labelStyle}>{t('currentSalary')}</Text>
                     <TextInput
                       placeholder={t('writeHere')}
@@ -717,7 +788,7 @@ const UpdateInfo = () => {
                       value={props.values.currentSalary}
                     />
                   </View>
-                  <View style={{ width: '49%' }}>
+                  <View style={{width: '49%'}}>
                     <Text style={styles.labelStyle}>{t('expectedSalary')}</Text>
                     <TextInput
                       placeholder={t('writeHere')}
@@ -741,20 +812,20 @@ const UpdateInfo = () => {
                   <View
                     style={[
                       styles.Circle,
-                      { width: 15, height: 15, borderRadius: 15 },
+                      {width: 15, height: 15, borderRadius: 15},
                     ]}>
                     <View
                       style={
                         index
                           ? [
-                            styles.innerCircle,
-                            { width: 15, height: 15, borderRadius: 15 },
-                          ]
+                              styles.innerCircle,
+                              {width: 15, height: 15, borderRadius: 15},
+                            ]
                           : null
                       }
                     />
                   </View>
-                  <Text style={[styles.agree, { fontSize: 12 }]}>
+                  <Text style={[styles.agree, {fontSize: 12}]}>
                     {t('don’tShowMySalary')}
                   </Text>
                 </TouchableOpacity>
@@ -799,149 +870,107 @@ const UpdateInfo = () => {
                     </View>
                   ))}
                 </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    marginTop: 20,
-                    marginBottom: 20,
-                    columnGap: 15,
-                  }}>
-                  <View style={{ width: '49%' }}>
-                    <Text style={styles.labelStyle}>{t('birthdate')}</Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setVisible(true), setType('1');
-                      }}>
-                      <View style={styles.dateStyle}>
-                        <Text
-                          style={{
-                            marginRight: 20,
-                            color: '#DDD',
-                            fontSize: 16,
-                            fontFamily: 'Noto Sans',
-                          }}>
-                          {Moment(date).format('DD/MM/yyyy')}
-                        </Text>
-                        <CALANDER />
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ width: '49%' }}>
-                    {Nationality.map((na: any, index: any) =>
-                      index == 0 ? (
-                        <View key={index}>
-                          <Text
-                            style={[
-                              styles.labelStyle,
-                              { marginTop: index >= 1 ? 10 : 0 },
-                            ]}>
-                            {t('nationality')}
-                          </Text>
-                          <TextInput
-                            placeholder={t('Enter your Nationality')}
-                            placeholderTextColor={'#B9B9B9'}
-                            value={
-                              CurrentUserData?.user_data?.nationality[index]
-                                ?.name
-                            }
-                            style={styles.InputStyleWithOutWidth}
-                            onChangeText={e => {
-                              let data = [...Nationality];
 
-                              data[index] = e;
-                              setNationality(data);
-                            }}
-                          />
-                        </View>
-                      ) : null,
-                    )}
-                  </View>
+                <View style={{marginTop: 10, marginBottom: 10}}>
+                  <Text style={styles.labelStyle}>{t('birthdate')}</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setVisible(true), setType('1');
+                    }}>
+                    <View style={styles.dateStyle}>
+                      <Text
+                        style={{
+                          marginRight: 20,
+                          color: '#DDD',
+                          fontSize: 16,
+                          fontFamily: 'Noto Sans',
+                        }}>
+                        {Moment(date).format('DD/MM/yyyy')}
+                      </Text>
+                      <CALANDER />
+                    </View>
+                  </TouchableOpacity>
                 </View>
                 <View>
-                  {Nationality.map((na: any, index: any) =>
-                    index !== 0 ? (
-                      <View key={index}>
-                        <Text style={[styles.labelStyle]}>{`Nationality`}</Text>
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            columnGap: 10,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginBottom: 10,
-                          }}>
-                          <TextInput
-                            placeholder={`Enter your Nationality`}
-                            placeholderTextColor={'#B9B9B9'}
-                            value={
-                              CurrentUserData?.user_data?.nationality[index]
-                                ?.name
-                            }
-                            style={[
-                              styles.InputStyleWithOutWidth,
-                              {
-                                width: '90%',
-                                textAlign: lang == 'ar' ? 'right' : 'left',
-                              },
-                            ]}
-                            onChangeText={e => {
-                              let data = [...Nationality];
-
-                              data[index] = e;
-                              setNationality(data);
-                            }}
-                          />
-
-                          {index > 0 && (
-                            <TouchableOpacity
-                              onPress={() => removeNationalty(index)}>
-                              <DELETE width={30} height={30} />
-                            </TouchableOpacity>
-                          )}
-                        </View>
+                  <View style={{marginTop: 10, marginBottom: 10}}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <View>
+                        <Text style={styles.labelStyle}>
+                          {t('nationality')}
+                        </Text>
                       </View>
-                    ) : null,
-                  )}
+                    </View>
+                    <MultiSelect
+                      style={styles.uploadContainer1}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      data={Nationalities}
+                      search
+                      labelField="name"
+                      valueField="name"
+                      placeholder={'Select one or more Nationality'}
+                      searchPlaceholder="Search..."
+                      value={selected}
+                      onChange={(items: any) => {
+                        setSelected(items), setNationality(items);
+                        console.log(items);
+                      }}
+                      renderRightIcon={() =>
+                        lang == 'en' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'}
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
+                      maxSelect={7}
+                      renderLeftIcon={() =>
+                        lang == 'ar' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'}
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
+                      onFocus={() => setDropdownOpen2(true)}
+                      onBlur={() => setDropdownOpen2(false)}
+                      // Customizing the style of selected items
+                      selectedStyle={{
+                        backgroundColor: appColors.bg, // Change the background color of selected items
+                        borderRadius: 10, // Add border radius to the selected items
+                        paddingHorizontal: 20,
+                        paddingVertical: 10,
+                        borderColor:appColors.bg,
+                         // Adjust padding for selected items
+                        // margin: 2,
+                        columnGap: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row', // Adjust margin for selected items
+                      }}
+                      dropdownPosition={'top'}
+                      // Customizing the rendering of selected items
+                    />
+                    {CurrentUserData?.user_data?.nationality?.length != 0 ? (
+                      <FlatList
+                        data={CurrentUserData?.user_data?.nationality}
+                        renderItem={({item}) => renderListItem(item)}
+                        numColumns={2}
+                        keyExtractor={(item, index) => index.toString()}
+                      />
+                    ) : null}
+                  </View>
                 </View>
 
-                <TouchableOpacity
-                  onPress={addNationalty}
-                  style={{
-                    flexDirection: 'row',
-                    marginBottom: 10,
-                    columnGap: 15,
-                  }}>
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: 36,
-                      height: 36,
-                      borderRadius: 36,
-                      backgroundColor: 'rgba(185,205,244,.7)',
-                    }}>
-                    <RenderSvgIcon
-                      icon="PLUSFOLLOW"
-                      width={16}
-                      height={16}
-                      color={appColors.primary}
-                    />
-                  </View>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontWeight: '500',
-
-                        color: '#000',
-                        fontFamily: 'Noto Sans',
-                      }}>
-                      {t('addAnotherNationality')}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
+                <View style={{height: appSizes.height * 0.05}} />
 
                 <Button
                   loading={loading}
@@ -950,48 +979,48 @@ const UpdateInfo = () => {
                 />
                 {Platform.OS == 'ios'
                   ? isVisible && (
-                    <ReactNativeModal isVisible={isVisible}>
-                      <View
-                        style={{
-                          width: '100%',
-                          paddingVertical: 20,
-                          borderRadius: 10,
-                          backgroundColor: '#fff',
-                          alignItems: 'center',
-                        }}>
-                        <DateTimePicker
-                          testID="dateTimePicker"
-                          textColor="#000"
-                          value={date}
-                          mode="date"
-                          is24Hour={true}
-                          display="spinner"
-                          onChange={(event: any, selectedDate: any) => {
-                            // props?.setFieldValue(`birthdate`, selectedDate);
-                            setDate(selectedDate);
-                            // setVisible(false);
-                          }}
-                        />
-                        <Button
-                          text="Choose"
-                          onPress={() => setVisible(false)}
-                          style={{ width: '90%', marginTop: 20 }}
-                        />
-                      </View>
-                    </ReactNativeModal>
-                  )
+                      <ReactNativeModal isVisible={isVisible}>
+                        <View
+                          style={{
+                            width: '100%',
+                            paddingVertical: 20,
+                            borderRadius: 10,
+                            backgroundColor: '#fff',
+                            alignItems: 'center',
+                          }}>
+                          <DateTimePicker
+                            testID="dateTimePicker"
+                            textColor="#000"
+                            value={date}
+                            mode="date"
+                            is24Hour={true}
+                            display="spinner"
+                            onChange={(event: any, selectedDate: any) => {
+                              // props?.setFieldValue(`birthdate`, selectedDate);
+                              setDate(selectedDate);
+                              // setVisible(false);
+                            }}
+                          />
+                          <Button
+                            text="Choose"
+                            onPress={() => setVisible(false)}
+                            style={{width: '90%', marginTop: 20}}
+                          />
+                        </View>
+                      </ReactNativeModal>
+                    )
                   : isVisible && (
-                    <DateTimePicker
-                      mode="date"
-                      value={date}
-                      // display="spinner"
-                      onChange={(event: any, selectedDate: any) => {
-                        // props?.setFieldValue(`birthdate`, selectedDate);
-                        setDate(selectedDate);
-                        setVisible(false);
-                      }}
-                    />
-                  )}
+                      <DateTimePicker
+                        mode="date"
+                        value={date}
+                        // display="spinner"
+                        onChange={(event: any, selectedDate: any) => {
+                          // props?.setFieldValue(`birthdate`, selectedDate);
+                          setDate(selectedDate);
+                          setVisible(false);
+                        }}
+                      />
+                    )}
               </View>
             )}
           </Formik>
@@ -1004,7 +1033,7 @@ const UpdateInfo = () => {
           }
         /> */}
 
-        <View style={{ height: 40 }} />
+        <View style={{height: 40}} />
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );

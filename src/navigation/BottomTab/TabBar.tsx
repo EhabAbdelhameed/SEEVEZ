@@ -12,6 +12,7 @@ import { TabParamsList } from '../types';
 import Home from 'src/Screens/App/BottomTab/Home';
 import { useSelector } from 'react-redux';
 import { selectUser } from 'src/redux/auth';
+import MyJob from 'screens/App/BottomTab/My Job';
 const Tabs = createBottomTabNavigator<TabParamsList>();
 
 
@@ -32,7 +33,7 @@ const TabBar = () => {
     <Tabs.Screen name="Home" component={Home} />
     <Tabs.Screen name="Connections" component={Connections} />
     <Tabs.Screen name="Camera" component={CameraScreen} />
-    {CurrentUserData?.work_type=='freelancer'?null:<Tabs.Screen name="Bag" component={Bag} />}
+    {CurrentUserData?.work_type=='freelancer'?null:<Tabs.Screen name="Bag" component={MyJob} />}
     <Tabs.Screen name="Calendar" component={Calendar} />
 
   </Tabs.Navigator>

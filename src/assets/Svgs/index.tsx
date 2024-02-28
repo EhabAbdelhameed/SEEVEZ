@@ -57,6 +57,7 @@ import Time from './Time.svg'
 import ThreeDots from './ThreeDots.svg'
 import Filter from './Filter.svg'
 import JOBOP   from './JobOprtuinty.svg'
+import SaveJob from './SaveJob.svg'
 export {
     Right,
     WAVE,
@@ -113,5 +114,6 @@ export {
     Time,
     ThreeDots,
     Filter,
-    JOBOP
+    JOBOP,
+    SaveJob
 }
