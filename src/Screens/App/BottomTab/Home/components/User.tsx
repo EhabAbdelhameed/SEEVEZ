@@ -10,12 +10,13 @@ import { AVATAR } from 'assets/Svgs'
 const User = (data: any) => {
     return (
         <View style={[styles.rowContainer, {
-            width: "50%",
-            justifyContent: "center",
+            width: '65%',
+            // justifyContent: "center",
             marginBottom: 3,
             paddingVertical: 3,
+
         }]}>
-            {data?.data?.avatarCustomUrl == null ||data?.data?.avatarCustomUrl == 'null' || data?.data?.avatarCustomUrl == undefined || !data?.data?.avatarCustomUrl ?
+            {data?.data?.avatarCustomUrl == null || data?.data?.avatarCustomUrl == 'null' || data?.data?.avatarCustomUrl == undefined || !data?.data?.avatarCustomUrl ?
                 <View
                     style={{
                         width: 38,

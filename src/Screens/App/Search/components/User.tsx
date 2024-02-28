@@ -15,7 +15,8 @@ const User = ({ item }: any) => {
     const dispatch = useAppDispatch()
     const navigation = useNavigation<any>()
     const FollowingList = useAppSelector(selectFollowingList);
-    let exist = FollowingList?.some((ele: any) => ele?.toUserPublicId == item?.id,);
+    let exist = FollowingList?.some((ele: any) => ele?.userId == item?.id);
+
     const doFollowingOperation = () => {
         !exist
             ? dispatch(AppThunks.doFollowUser(item?.id)).then(() => {

@@ -292,7 +292,7 @@ const CameraScreen = () => {
             videoRef.current.seek(0);
           }}
           onError={err => {
-            Alert.alert(JSON.stringify(err));
+            console.warn(JSON.stringify(err));
           }}
           bufferConfig={{
             minBufferMs: 15000,
