@@ -1489,7 +1489,7 @@ const slice = createSlice({
     //GetGlobalReels
     builder.addCase(thunks.GetGlobalReels.fulfilled, (state, action) => {
       state.GlobalReals = state.GlobalReals.concat(action?.payload?.posts)
-      state.GlobalBools = state.GlobalBools.concat(action?.payload?.posts)
+      state.GlobalBools = state.GlobalBools.concat(action?.payload?.polls)
       state.token = action.payload?.paging?.next
     });
     builder.addCase(thunks.GetGlobalReels.rejected, (state, action: any) => {

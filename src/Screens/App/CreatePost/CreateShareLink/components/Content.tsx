@@ -12,20 +12,20 @@ import { useSelector } from 'react-redux'
 import { RenderSvgIcon } from 'components/atoms/svg'
 import { appColors } from 'theme'
 const Content = () => {
-  const [caption,setCaption]=useState('')
-  const [imgUrl,setImageURL]=useState<any>([])
+  const [caption, setCaption] = useState('')
+  const [imgUrl, setImageURL] = useState<any>([])
   const searchPeople = useSelector(selectPhotoData);
-  const [key,setKey]=useState<any>(0)  
+  const [key, setKey] = useState<any>(0)
 
   return (
     <View style={styles.ContentCotainer}>
-      
-      <ContainerRecord data={key}    />
+
+      <ContainerRecord data={key} />
       <Templetes onPress={setKey} onPressImg={setImageURL} />
-   
-      <AddCaption caption={caption} setCaption={setCaption}/>
+
+      <AddCaption caption={caption} setCaption={setCaption} />
       <Option onPress={setImageURL} imgUrl={imgUrl} />
-      <Footer data={[key,imgUrl,caption]}  />
+      <Footer data={[key, imgUrl, caption]} />
     </View>
   )
 }

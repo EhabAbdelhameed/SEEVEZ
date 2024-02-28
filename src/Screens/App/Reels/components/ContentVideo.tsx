@@ -257,13 +257,13 @@ const ContentVideo = (item: any) => {
             <TouchableOpacity onPress={handleRepost}>
               <RenderSvgIcon icon="REPOST" width={20} height={20} />
             </TouchableOpacity>
-            <Text style={styles.textIcon}>10k</Text>
+            <Text style={styles.textIcon}>0</Text>
           </View>
           <View style={styles.containerIconText}>
             <TouchableOpacity onPress={() => shareReel(item?.data?.postId)}>
               <RenderSvgIcon icon="SHARE" width={20} height={20} />
             </TouchableOpacity>
-            <Text style={styles.textIcon}>10k</Text>
+            <Text style={styles.textIcon}>0</Text>
           </View>
           <View style={styles.containerIconText}>
             <RenderSvgIcon icon="THREEDOTS" width={20} height={20} />

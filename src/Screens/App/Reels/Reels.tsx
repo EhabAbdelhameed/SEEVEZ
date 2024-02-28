@@ -150,6 +150,7 @@ const ReelsScreen = () => {
           !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
+        <ContentVideo data={item} />
       </View>
     );
   };
@@ -184,44 +185,50 @@ const ReelsScreen = () => {
           },
         ]}>
         <Audio data={item?.metadata} />
+        <ContentVideo data={item} />
       </View>
     );
   };
   const renderPoll = (item: any) => {
     return polls?.map((attach: any) =>
-      attach?.pollId == item?.metadata?.poll ? (
-        item?.metadata?.color == '#0f0' ? (
-          <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
-            colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
-            style={[
-              {
-                width: width,
-                height: height,
+      <>
+        {attach?.pollId == item?.metadata?.poll ? (
+          item?.metadata?.color == '#0f0' ? (
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
+              style={[
+                {
+                  width: width,
+                  height: height,
 
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-            ]}>
-            <Boll data={attach} />
-          </LinearGradient>
-        ) : (
-          <View
-            style={[
-              {
-                width: width,
-                height: height,
-                backgroundColor: item?.metadata?.color,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                },
+              ]}>
+              <Boll data={attach} />
+            </LinearGradient>
+          ) : (
+            <View
+              style={[
+                {
+                  width: width,
+                  height: height,
+                  backgroundColor: item?.metadata?.color,
 
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-            ]}>
-            <Boll data={attach} />
-          </View>
-        )
-      ) : null,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                },
+              ]}>
+              <Boll data={attach} />
+            </View>
+          )
+        ) : null
+        }
+        <ContentVideo data={item} />
+      </>
+
     );
 
 
@@ -253,6 +260,7 @@ const ReelsScreen = () => {
           !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
+        <ContentVideo data={item} />
       </ImageBackground>
     );
   };
@@ -306,6 +314,7 @@ const ReelsScreen = () => {
           !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
+        <ContentVideo data={item} />
       </View>
     );
   };
@@ -338,66 +347,65 @@ const ReelsScreen = () => {
           backgroundColor: appColors.black,
         }}>
         <>
-          {currentVideoIndex == index ? (
-            item?.metadata?.attachments == null &&(item?.metadata?.poll==null||item?.metadata?.originalPostId?.posts[0]?.metadata?.poll==null)?
+          {
+            currentVideoIndex == index ? (item?.metadata?.attachments == null && (item?.metadata?.poll == null || item?.metadata?.originalPostId?.posts[0]?.metadata?.poll == null) ?
               (
-              renderPoll(item)
-            ) : !item?.metadata?.originalPostId ? (
-              Array.isArray(item?.metadata?.attachments) ? (
-                item?.metadata?.attachments?.length > 1 ? (
-                  renderSwiper(item)
+                renderPoll(item)
+              ) : !item?.metadata?.originalPostId ? (
+                Array.isArray(item?.metadata?.attachments) ? (
+                  item?.metadata?.attachments?.length > 1 ? (
+                    renderSwiper(item)
+                  ) : (
+                    item?.metadata?.attachments?.map((attach: any) =>
+                      renderImage(attach, item),
+                    )
+                  )
+                ) : item?.metadata?.attachments?.type == 'video' ? (
+                  renderVideo(item?.metadata?.attachments, item)
                 ) : (
-                  item?.metadata?.attachments?.map((attach: any) =>
-                    renderImage(attach, item),
+                  renderAudio(item)
+                )
+              ) : Array.isArray(
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
+              ) ? (
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
+                  ?.length > 1 ? (
+                  renderSwiper(item?.metadata?.originalPostId?.posts[0])
+                ) : (
+                  item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
+                    (attach: any) =>
+                      renderImage(
+                        attach,
+                        item?.metadata?.originalPostId?.posts[0],
+                      ),
                   )
                 )
-              ) : item?.metadata?.attachments?.type == 'video' ? (
-                renderVideo(item?.metadata?.attachments, item)
-              ) : (
-                renderAudio(item)
-              )
-            ) : Array.isArray(
-              item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
-            ) ? (
-              item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
-                ?.length > 1 ? (
-                renderSwiper(item?.metadata?.originalPostId?.posts[0])
-              ) : (
-                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
-                  (attach: any) =>
-                    renderImage(
-                      attach,
-                      item?.metadata?.originalPostId?.posts[0],
-                    ),
+              ) : item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
+                ?.type == 'video' ? (
+                renderVideo(
+                  item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
+                  item?.metadata?.originalPostId?.posts[0],
                 )
-              )
-            ) : item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
-              ?.type == 'video' ? (
-              renderVideo(
-                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
-                item?.metadata?.originalPostId?.posts[0],
+              ) : (
+                renderAudio(item?.metadata?.originalPostId?.posts[0])
               )
             ) : (
-              renderAudio(item?.metadata?.originalPostId?.posts[0])
-            )
-          ) : (
-            <View>
-              <Image
-                source={require('../../../assets/images/loading.gif')}
-                style={{
-                  width: 100,
-                  height: 100,
-                  // backgroundColor: "#589",
-                  zIndex: 100,
-                  alignSelf: 'center',
-                  marginTop: appSizes.height / 2.5,
-                }}
-                resizeMode="contain"
-              />
-            </View>
-          )}
+              <View>
+                <Image
+                  source={require('../../../assets/images/loading.gif')}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    // backgroundColor: "#589",
+                    zIndex: 100,
+                    alignSelf: 'center',
+                    marginTop: appSizes.height / 2.5,
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+            )}
 
-          <ContentVideo data={item} />
         </>
       </View>
     );

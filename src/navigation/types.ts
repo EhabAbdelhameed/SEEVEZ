@@ -15,6 +15,7 @@ export type TabParamsList = {
     Bag: any;
 }
 export type AppParamsList = {
+    JobDetails:undefined;
     Search: undefined;
     Home: undefined;
     Cv: undefined;

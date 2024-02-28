@@ -26,7 +26,7 @@ const Boll = (data: any) => {
     const Item = ({ pers, name, color, index, selected }: { pers: number; name: string; color: string; index: number; selected: boolean }) => {
         return (
             <>
-                <TouchableOpacity onPress={() => handleAnswerSelection(index)}>
+                <TouchableOpacity style={{ zIndex: 100 }} onPress={() => alert('a')}>
                     <View style={{ marginTop: 5 }}>
                         <Text style={styles.text13}>{name}</Text>
                         <View style={[styles.rowItemSlide, { columnGap: 5 }]}>
@@ -65,7 +65,7 @@ const Boll = (data: any) => {
             </>
         )
     }
-   
+
     const AccessToken = useSelector(selectAccessToken);
     React.useEffect(() => {
         AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;

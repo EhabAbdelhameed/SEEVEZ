@@ -11,7 +11,6 @@ const PollComponent = () => {
     const PollData = useSelector(selectPhotoData);
     const CurrentUserData = useSelector(selectUser);
     const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(-1);
-    console.log(JSON.stringify(PollData))
     const Item = ({ pers, name, color ,index}: { pers: number; name: string; color: string; index:number;}) => {
         return (
             <>

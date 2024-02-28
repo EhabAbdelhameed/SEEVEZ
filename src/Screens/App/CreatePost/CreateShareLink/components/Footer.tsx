@@ -10,12 +10,10 @@ import {useSelector} from 'react-redux';
 import {selectPhotoData} from 'src/redux/app';
 
 const Footer = (data: any) => {
-  console.log('Ehab Data', JSON.stringify(data?.data[1]));
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
   const photoData = useSelector(selectPhotoData);
-  console.log('KEY', photoData?.key);
   const sendAudioData = () => {
     if (photoData?.key == 6) {
       setIsLoading(true);
@@ -38,7 +36,6 @@ const Footer = (data: any) => {
         type: 'audio/mp3', // Mime type of the audio file
         name: 'audio.mp3', // Name of the audio file
       });
-      console.log('hhsh22', JSON.stringify(formdata));
       dispatch(AppThunks.doAddAudio(formdata)).then((response: any) => {
         setIsLoading(false);
       });
@@ -71,7 +68,6 @@ const Footer = (data: any) => {
       // "name": "Rectangle9.png"
       // }
       formdata.append('color', photoData?.image);
-          console.log(JSON.stringify(formdata));
       dispatch(AppThunks.CreatePoll(formdata)).then((response: any) => {
         setIsLoading(false);
       });

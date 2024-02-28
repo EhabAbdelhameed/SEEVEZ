@@ -5,10 +5,11 @@ const { width, height } = Dimensions.get("window")
 export const styles = StyleSheet.create({
     container: {
         width: width,
-        height: height / 1.18,
+        paddingVertical: 20,
         paddingHorizontal: 16,
         justifyContent: "space-between",
-        position:'absolute',
+        position: 'absolute',
+        bottom: 115
     },
     header: {
         width: "100%",
@@ -24,7 +25,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         // backgroundColor: "#5659",
         flexDirection: "row"
-        
+
     },
     rightHeader: {
         flex: 1,
@@ -111,12 +112,12 @@ export const styles = StyleSheet.create({
         right: 5
     },
     bollsContainer: {
-        width: "85%",  
+        width: "85%",
         backgroundColor: appColors.white,
         // position: "absolute",
         // height: 200,
         // left: 10,
-        marginRight:20,
+        marginRight: 20,
         // bottom: 200,
         elevation: 4,
         borderRadius: 16,
@@ -129,7 +130,7 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
     },
-    
+
     text11: {
         fontSize: 14,
         fontWeight: "700",
@@ -152,8 +153,8 @@ export const styles = StyleSheet.create({
         backgroundColor: "rgba(232, 239, 252, 1)",
         width: 16,
         height: 16,
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 3,
         borderWidth: 1,
         borderRadius: 16
@@ -196,10 +197,10 @@ export const styles = StyleSheet.create({
         paddingVertical: 5,
         width: 130,
         alignItems: "center",
-        flexDirection:"row",
-        columnGap:5,
-        justifyContent:"center",
-        marginTop:10
+        flexDirection: "row",
+        columnGap: 5,
+        justifyContent: "center",
+        marginTop: 10
     },
     CVContainer: {
         width: "80%",
@@ -210,7 +211,7 @@ export const styles = StyleSheet.create({
         // alignItems:'center',
         // height: 200,
         left: 20,
-       
+
         bottom: 180,
         elevation: 4,
         borderRadius: 16,
@@ -223,22 +224,22 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
     },
-  
+
     timeText: {
         fontSize: 12,
-       
-      },
-      modalContainer: {
+
+    },
+    modalContainer: {
         // backgroundColor: 'white',
-    
+
         marginHorizontal: 20,
-        position:'absolute',
-        bottom:280,
-        right:5,
+        position: 'absolute',
+        bottom: 280,
+        right: 5,
         width: '60%',
-        flexDirection:'row'
+        flexDirection: 'row'
         // marginTop: 'auto', // This will make the modal appear at the bottom
-      },
-   
+    },
+
 
 })

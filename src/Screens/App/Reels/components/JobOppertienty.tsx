@@ -1,29 +1,29 @@
-import {View, Text, TouchableOpacity, Linking} from 'react-native';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import React from 'react';
-import {styles} from './styles';
-import {RenderSvgIcon} from 'components/atoms/svg';
-import {AVATAR, PDF, UploadYourCv} from 'assets/Svgs';
-import {appColors, appSizes} from 'theme';
-import {useSelector} from 'react-redux';
-import {selectPhotoData} from 'src/redux/app';
-import {selectUser} from 'src/redux/auth';
-import {globalStyles} from 'src/globalStyle';
+import { styles } from './styles';
+import { RenderSvgIcon } from 'components/atoms/svg';
+import { AVATAR, PDF, UploadYourCv } from 'assets/Svgs';
+import { appColors, appSizes } from 'theme';
+import { useSelector } from 'react-redux';
+import { selectPhotoData } from 'src/redux/app';
+import { selectUser } from 'src/redux/auth';
+import { globalStyles } from 'src/globalStyle';
 import AvatarIcon from 'components/molecules/Avatar';
-import {Logo} from 'assets/images';
+import { Logo } from 'assets/images';
+import { useNavigation } from '@react-navigation/native';
 
-const JopOppertunity = (data:any) => {
-
+const JopOppertunity = (data: any) => {
   const User = useSelector(selectUser);
+  const navigation = useNavigation<any>()
 
   return (
     <View
       style={[
-        styles.CVContainer,{
-            width:'75%'
+        styles.CVContainer, {
+          width: '75%'
         }
-      
       ]}>
-      <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
+      <View style={[globalStyles.leftHeaderContainer, { width: '100%' }]}>
         <View
           style={{
             width: 40,
@@ -40,12 +40,12 @@ const JopOppertunity = (data:any) => {
           ) : (
             <AvatarIcon
               imgUrl={User?.avatar}
-              style={{width: 40, height: 40, borderRadius: 40}}
+              style={{ width: 40, height: 40, borderRadius: 40 }}
             />
           )}
         </View>
         <View>
-          <View style={{flexDirection: 'row', columnGap: 10}}>
+          <View style={{ flexDirection: 'row', columnGap: 10 }}>
             <View style={{}}>
               <Text
                 style={{
@@ -58,7 +58,7 @@ const JopOppertunity = (data:any) => {
               </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', columnGap: 35}}>
+          <View style={{ flexDirection: 'row', columnGap: 35 }}>
             <Text
               style={{
                 fontFamily: 'Noto Sans',
@@ -69,7 +69,7 @@ const JopOppertunity = (data:any) => {
               {User?.name}
             </Text>
           </View>
-          <View style={{flexDirection: 'row', columnGap: 10}}>
+          <View style={{ flexDirection: 'row', columnGap: 10 }}>
             <Text
               style={{
                 fontFamily: 'Noto Sans',
@@ -103,13 +103,14 @@ const JopOppertunity = (data:any) => {
       </View>
 
       <TouchableOpacity
-        style={[styles.containerHire, {width: '90%', paddingVertical: 15}]}>
+        onPress={() => { navigation.navigate('JobDetails') }}
+        style={[styles.containerHire, { width: '90%', paddingVertical: 15, zIndex: 3 }]}>
         <Text
           style={[
             styles.text3,
             {
               color: appColors.white,
-            },
+            }
           ]}>
           Apply for job
         </Text>

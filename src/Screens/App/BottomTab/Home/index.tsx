@@ -75,19 +75,19 @@ const Home = () => {
   }, [navigation]);
   React.useEffect(() => {
     loadFollowingList();
-    dispatch(
-      AppSlice.changePhotoData({
-        image: null,
-        addonesCaption: null,
-        location: null,
-        pdf: null,
-        tagPepoles: null,
-        key: null,
-        names: null,
-        market: null,
-        exterinalLinks: null,
-      }),
-    );
+    // dispatch(
+    //   AppSlice.changePhotoData({
+    //     image: null,
+    //     addonesCaption: null,
+    //     location: null,
+    //     pdf: null,
+    //     tagPepoles: null,
+    //     key: null,
+    //     names: null,
+    //     market: null,
+    //     exterinalLinks: null,
+    //   }),
+    // );
   }, [followingList]);
   useEffect(() => {
     dispatch(AuthSlice.chnageVerified(false));
