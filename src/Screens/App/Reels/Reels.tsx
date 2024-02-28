@@ -339,8 +339,8 @@ const ReelsScreen = () => {
         }}>
         <>
           {currentVideoIndex == index ? (
-            item?.metadata?.attachments == null &&
-              !item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments ? (
+            item?.metadata?.attachments == null &&(item?.metadata?.poll==null||item?.metadata?.originalPostId?.posts[0]?.metadata?.poll==null)?
+              (
               renderPoll(item)
             ) : !item?.metadata?.originalPostId ? (
               Array.isArray(item?.metadata?.attachments) ? (
