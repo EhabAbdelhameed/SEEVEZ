@@ -242,4 +242,91 @@ export const styles = StyleSheet.create({
         fontSize: appSizes.font_m,
         fontWeight: "500"
     },
+    screen: {
+        width: "100%",
+        height: "100%",
+        backgroundColor: appColors.bg
+    },
+    avatar: {
+        width: 50,
+        height: 50,
+        borderWidth: 1,
+        borderRadius: 25,
+        borderColor: appColors.primary
+    },
+    UserName: {
+        fontSize: 16,
+        color: appColors.dark,
+        fontWeight: '500'
+    },
+    work: {
+        fontSize: 10,
+        fontWeight: "400",
+        fontFamily:"Noto Sans",
+        color: appColors.dark
+    },
+  
+    text1: {
+        fontSize: appSizes.font_l - 1,
+        fontWeight: "600",
+        color: appColors.dark,
+        alignSelf: "center"
+    },
+    containerUsers: {
+        width: "100%",
+        alignItems: "flex-start",
+        // paddingHorizontal: appSizes.padding_m,
+        paddingVertical: 7,
+        rowGap: 10
+    },
+    container2Users: {
+        width: "100%",
+        borderRadius: appSizes.x,
+        backgroundColor: appColors.white,
+        padding: appSizes.m,
+        flex: 1,
+    },
+    titleSection: {
+        fontSize: appSizes.font_l - 1,
+        fontWeight: "500",
+        color: appColors.dark,
+        marginLeft: 5
+    },
+    containerUserSection: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        // paddingHorizontal:18,
+        padding: 7,
+        backgroundColor: appColors.lightGrey2,
+        alignItems: "center",
+        borderRadius: appSizes.m
+    },
+    followersContainer: {
+        // width: 100,
+        alignItems: "center",
+        justifyContent: "center",
+        // paddingHorizontal:18,
+        paddingVertical: 3,
+        paddingHorizontal: 8,
+        backgroundColor: appColors.lightPurple2,
+        borderRadius: appSizes.l,
+        marginTop: 2,
+        borderWidth: 1,
+        borderColor: appColors.lightPurple
+    },
+ 
+    containerFooterUsers: {
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingVertical: 7,
+        borderTopWidth: 1,
+        borderTopColor: appColors.lightGrey3
+    },
+    titleFooterUsers: {
+        fontSize: appSizes.font_l - 1,
+        fontWeight: "500",
+        color: appColors.blue2
+    }
 })

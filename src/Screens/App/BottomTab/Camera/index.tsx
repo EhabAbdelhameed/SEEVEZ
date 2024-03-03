@@ -83,10 +83,7 @@ const CameraScreen = () => {
       // .then(() => setLoad2(false))
     }
   }, [limit])
-  const AccessToken = useSelector(selectAccessToken);
-  useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
+
   const [currentVideoIndex, setCurrentVideoIndex] = useState<any>(0);
   const videoRef: any = useRef(null);
   const flatListRef: any = useRef(null);

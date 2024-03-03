@@ -58,6 +58,8 @@ import ThreeDots from './ThreeDots.svg'
 import Filter from './Filter.svg'
 import JOBOP   from './JobOprtuinty.svg'
 import SaveJob from './SaveJob.svg'
+import RepostIcon from './RepostIcon.svg'
+import PlaceHolderSearch from './PlaceHolderSearch.svg'
 export {
     Right,
     WAVE,
@@ -115,5 +117,7 @@ export {
     ThreeDots,
     Filter,
     JOBOP,
-    SaveJob
+    SaveJob,
+    RepostIcon,
+    PlaceHolderSearch
 }

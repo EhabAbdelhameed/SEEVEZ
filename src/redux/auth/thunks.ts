@@ -7,6 +7,8 @@ const doGetUserProfile: any = createAsyncThunk<any, any, any>(
   async (data: any, thunkApi: any) => {
     try {
       const response = await AuthAPI.getUserProfile(data);
+      
+      
       if (
         response.status == 400 ||
         response.status == 401 ||

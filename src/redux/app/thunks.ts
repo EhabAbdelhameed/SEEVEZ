@@ -1071,7 +1071,7 @@ const doGetFollowingList: any = createAsyncThunk<any, any, any>(
   async (_, thunkApi: any) => {
     try {
       const response = await AppAPI.followingList();
-      console.error(response?.data);
+      console.error("Response : ",response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1492,7 +1492,7 @@ const doSearch: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.search(data);
-      // alert(JSON.stringify(response?.data));
+      // console.log("Search Response :",JSON.stringify(response?.data));
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1611,13 +1611,38 @@ const doUpdatePost: any = createAsyncThunk<any, any, any>(
     }
   },
 );
-//doUpdatePost
+//doGetJobs
 const doGetJobs: any = createAsyncThunk<any, any, any>(
   'app/Jobs',
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.jobs();
       // alert(JSON.stringify(response?.data));
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doGetJobDescraption
+const doGetJobDescraption: any = createAsyncThunk<any, any, any>(
+  'app/JobDescraption',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.jobDesc(data);
+      // alert(JSON.stringify(response?.data))
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1702,7 +1727,8 @@ const AppThunks = {
   doDeleteNationality,
   doDeletePost,
   doUpdatePost,
-  doGetJobs
+  doGetJobs,
+  doGetJobDescraption
 };
 
 export default AppThunks;

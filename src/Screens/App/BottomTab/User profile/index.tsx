@@ -33,11 +33,11 @@ const UserProfile = (props: any) => {
         setLoad(true)
         dispatch(AuthThunks.doGetUserProfile(id)).then(() => setLoad(false))
     }, [id])
-    const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
         const paddingToBottom = 20;
         return layoutMeasurement.height - 100 + contentOffset.y >= ScreenHeight - paddingToBottom;
     };
-    const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
         return contentOffset.y == 0;
     }
     return (

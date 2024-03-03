@@ -1,5 +1,5 @@
 // ReelsScreen.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   FlatList,
@@ -17,17 +17,18 @@ import {
   Linking,
   ActivityIndicator,
   NativeModules,
+  BackHandler,
 } from 'react-native';
-import { styles } from './styles';
-import { data, getTime } from './fucntions/helper';
+import {styles} from './styles';
+import {data, getTime} from './fucntions/helper';
 import ContentVideo from './components/ContentVideo';
 import RenderVideo from './components/Video';
-import { appColors } from 'theme/appColors';
-import { appSizes } from 'theme/appSizes';
+import {appColors} from 'theme/appColors';
+import {appSizes} from 'theme/appSizes';
 
-import { globalStyles } from 'src/globalStyle';
-import { useAppDispatch } from 'src/redux/store';
-import { useNavigation } from '@react-navigation/native';
+import {globalStyles} from 'src/globalStyle';
+import {useAppDispatch} from 'src/redux/store';
+import {useNavigation} from '@react-navigation/native';
 import AppSlice, {
   selectAccessToken,
   selectPolls,
@@ -35,8 +36,8 @@ import AppSlice, {
 } from 'src/redux/app';
 
 import AppThunks from 'src/redux/app/thunks';
-import { useSelector } from 'react-redux';
-import AuthSlice, { selectUser } from 'src/redux/auth';
+import {useSelector} from 'react-redux';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import Video from 'react-native-fast-video';
 import Swiper from 'react-native-swiper';
 import CVAddones from './components/CVAddones';
@@ -46,8 +47,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import TextLinks from './components/TextLinks';
 import JopOppertunity from './components/JobOppertienty';
 import DeviceInfo from 'react-native-device-info';
-import { RenderSvgIcon } from 'components/atoms/svg';
-
+import {RenderSvgIcon} from 'components/atoms/svg';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
 const ReelsScreen = () => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -59,7 +60,13 @@ const ReelsScreen = () => {
 
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
+    const paddingToBottom = 20;
+    return layoutMeasurement.height-100 + contentOffset.y >= ScreenHeight - paddingToBottom;
+  };
+  const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
+    return contentOffset.y == 0;
+  }
   // const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
@@ -74,10 +81,22 @@ const ReelsScreen = () => {
     });
     return RenderFunction;
   }, [navigation]);
-  const AccessToken = useSelector(selectAccessToken);
+
   useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackPress,
+    );
+
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
+  const handleBackPress = () => {
+    navigation.navigate('Home');
+    return true; // Prevent default behavior (exit the app)
+  };
+  // console.log("Posts",JSON.stringify(postsData[0]))
   const [currentVideoIndex, setCurrentVideoIndex] = useState<any>(0);
   const videoRef: any = useRef(null);
   const flatListRef: any = useRef(null);
@@ -91,8 +110,8 @@ const ReelsScreen = () => {
     overlay: true,
     fulltime: 0.1,
   });
-  const hasNotch = DeviceInfo.hasNotch()
-  const renderSwiper = (item: any) => {
+  const hasNotch = DeviceInfo.hasNotch();
+  const renderSwiper = (item: any,key:any) => {
     return (
       <View
         style={[
@@ -104,14 +123,13 @@ const ReelsScreen = () => {
             justifyContent: 'center',
           },
         ]}>
-
         <Swiper
           ref={swiperRef}
           loop={false}
           // showsButtons
           // onIndexChanged={index => setCurrentIndex(index)}
           showsPagination={true}
-          paginationStyle={{ top: -500 }}
+          paginationStyle={{top: -500}}
           dotStyle={{
             backgroundColor: 'rgba(255,255,255,.3)',
             width: 8,
@@ -126,7 +144,7 @@ const ReelsScreen = () => {
             <View key={index}>
               {/* <TouchableOpacity onPress={() => console.log('Swiper item pressed')}> */}
               <ImageBackground
-                source={{ uri: asset?.file?.fileUrl + '?size=full' }}
+                source={{uri: asset?.file?.fileUrl + '?size=full'}}
                 style={{
                   width,
                   height,
@@ -147,31 +165,46 @@ const ReelsScreen = () => {
           <TextLinks data={item?.metadata} />
         )}
         {item?.metadata?.jobOpportunityData == null ||
-          !item?.metadata?.jobOpportunityData ? null : (
+        !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-        <ContentVideo data={item} />
+        <ContentVideo
+            data={
+              key==1
+                 ? [item, 1]
+                 : [item, 2]
+             }
+        />
       </View>
     );
   };
 
-  const renderAudio = (item: any) => {
+  const renderAudio = (item: any,key:any) => {
     return item?.metadata?.color == '#0f0' ? (
-      <LinearGradient
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
-        style={[
-          {
-            width: width,
-            height: height,
+      <>
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 0, y: 1}}
+          colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
+          style={[
+            {
+              width: width,
+              height: height,
 
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-        ]}>
-        <Audio data={item?.metadata} />
-      </LinearGradient>
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}>
+          <Audio data={item?.metadata} />
+        </LinearGradient>
+        <ContentVideo
+          data={
+            key==1
+               ? [item, 1]
+               : [item, 2]
+           }
+        />
+      </>
     ) : (
       <View
         style={[
@@ -185,18 +218,24 @@ const ReelsScreen = () => {
           },
         ]}>
         <Audio data={item?.metadata} />
-        <ContentVideo data={item} />
+        <ContentVideo
+          data={
+            !item?.metadata?.originalPostId
+              ? [item, 1]
+              : [item?.metadata?.originalPostId?.posts[0], 2]
+          }
+        />
       </View>
     );
   };
   const renderPoll = (item: any) => {
-    return polls?.map((attach: any) =>
+    return polls?.map((attach: any) => (
       <>
         {attach?.pollId == item?.metadata?.poll ? (
           item?.metadata?.color == '#0f0' ? (
             <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 1}}
               colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
               style={[
                 {
@@ -224,16 +263,19 @@ const ReelsScreen = () => {
               <Boll data={attach} />
             </View>
           )
-        ) : null
-        }
-        <ContentVideo data={item} />
+        ) : null}
+          <ContentVideo
+          data={
+            !item?.metadata?.originalPostId
+              ? [item, 1]
+              : [item?.metadata?.originalPostId?.posts[0], 2]
+          }
+        />
       </>
-
-    );
-
-
+    ));
   };
-  const renderImage = (attach: any, item: any) => {
+  const renderImage = (attach: any, item: any,key:any) => {
+    
     return (
       <ImageBackground
         source={{
@@ -257,28 +299,33 @@ const ReelsScreen = () => {
           <TextLinks data={item?.metadata} />
         )}
         {item?.metadata?.jobOpportunityData == null ||
-          !item?.metadata?.jobOpportunityData ? null : (
+        !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-        <ContentVideo data={item} />
+         <ContentVideo
+          data={
+           key==1
+              ? [item, 1]
+              : [item, 2]
+          }
+        />
       </ImageBackground>
     );
   };
-  const renderVideo = (attach: any, item: any) => {
+  const renderVideo = (attach: any, item: any,key:any,index:any) => {
     return (
       <View>
         <Video
           ref={player => {
             videoRef.current = player;
           }}
-          source={{ uri: attach?.fileUrl }}
-
+          source={{uri: attach?.fileUrl}}
           onLoad={load}
           //   fullscreenOrientation={'portrait'}
           // onProgress={progress}
           // muted={isMuted}
           // paused={video.paused}
-          // paused={currentVideoIndex != index ? false : true}
+          paused={currentVideoIndex != index ? false : true}
           style={{
             width: width,
             // height: appSizes.height ,
@@ -303,6 +350,7 @@ const ReelsScreen = () => {
             type: 'auto',
             value: '180',
           }}
+          ignoreSilentSwitch="ignore"
         />
         {item?.metadata?.pdfData == null ? null : (
           <CVAddones data={item?.metadata} />
@@ -311,10 +359,16 @@ const ReelsScreen = () => {
           <TextLinks data={item?.metadata} />
         )}
         {item?.metadata?.jobOpportunityData == null ||
-          !item?.metadata?.jobOpportunityData ? null : (
+        !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-        <ContentVideo data={item} />
+         <ContentVideo
+          data={
+            key==1
+               ? [item, 1]
+               : [item, 2]
+           }
+        />
       </View>
     );
   };
@@ -323,17 +377,17 @@ const ReelsScreen = () => {
   // const [screenType, setScreenType] = React.useState('cover');
   const scrollToTop = () => {
     if (flatListRef.current) {
-      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+      flatListRef.current.scrollToOffset({animated: true, offset: 0});
     }
   };
 
-  const load = ({ duration }: any) => {
-    setVideo(prev => ({ ...prev, duration }));
+  const load = ({duration}: any) => {
+    setVideo(prev => ({...prev, duration}));
     setLoading(false);
   };
 
-  const { height, width } = useWindowDimensions();
-  const renderVideoItem = ({ item, index }: any) => {
+  const {height, width} = useWindowDimensions();
+  const renderVideoItem = ({item, index}: any) => {
     return item?.metadata?.attachments == null &&
       item?.metadata?.poll == null &&
       !item?.metadata?.originalPostId ? null : (
@@ -347,65 +401,66 @@ const ReelsScreen = () => {
           backgroundColor: appColors.black,
         }}>
         <>
-          {
-            currentVideoIndex == index ? (item?.metadata?.attachments == null && (item?.metadata?.poll == null || item?.metadata?.originalPostId?.posts[0]?.metadata?.poll == null) ?
-              (
-                renderPoll(item)
-              ) : !item?.metadata?.originalPostId ? (
-                Array.isArray(item?.metadata?.attachments) ? (
-                  item?.metadata?.attachments?.length > 1 ? (
-                    renderSwiper(item)
-                  ) : (
-                    item?.metadata?.attachments?.map((attach: any) =>
-                      renderImage(attach, item),
-                    )
-                  )
-                ) : item?.metadata?.attachments?.type == 'video' ? (
-                  renderVideo(item?.metadata?.attachments, item)
+          {currentVideoIndex == index ? (
+            item?.metadata?.attachments == null &&
+            !item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments ? (
+              renderPoll(item)
+            ) : !item?.metadata?.originalPostId ? (
+              Array.isArray(item?.metadata?.attachments) ? (
+                item?.metadata?.attachments?.length > 1 ? (
+                  renderSwiper(item,1)
                 ) : (
-                  renderAudio(item)
+                  item?.metadata?.attachments?.map((attach: any) =>
+                    renderImage(attach, item, 1),
+                  )
                 )
-              ) : Array.isArray(
+              ) : item?.metadata?.attachments?.type == 'video' ? (
+                renderVideo(item?.metadata?.attachments, item,1,index)
+              ) : (
+                renderAudio(item,1)
+              )
+            ) : Array.isArray(
                 item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
               ) ? (
-                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
-                  ?.length > 1 ? (
-                  renderSwiper(item?.metadata?.originalPostId?.posts[0])
-                ) : (
-                  item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
-                    (attach: any) =>
-                      renderImage(
-                        attach,
-                        item?.metadata?.originalPostId?.posts[0],
-                      ),
-                  )
-                )
-              ) : item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
-                ?.type == 'video' ? (
-                renderVideo(
-                  item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
-                  item?.metadata?.originalPostId?.posts[0],
-                )
+              item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
+                ?.length > 1 ? (
+                renderSwiper(item?.metadata?.originalPostId?.posts[0],2)
               ) : (
-                renderAudio(item?.metadata?.originalPostId?.posts[0])
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
+                  (attach: any) =>
+                    renderImage(
+                      attach,
+                      item?.metadata?.originalPostId?.posts[0],
+                      2
+                    ),
+                )
+              )
+            ) : item?.metadata?.originalPostId?.posts[0]?.metradata?.attachments
+                ?.type == 'video' ? (
+              renderVideo(
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
+                item?.metadata?.originalPostId?.posts[0],
+                2,index
               )
             ) : (
-              <View>
-                <Image
-                  source={require('../../../assets/images/loading.gif')}
-                  style={{
-                    width: 100,
-                    height: 100,
-                    // backgroundColor: "#589",
-                    zIndex: 100,
-                    alignSelf: 'center',
-                    marginTop: appSizes.height / 2.5,
-                  }}
-                  resizeMode="contain"
-                />
-              </View>
-            )}
-
+              renderAudio(item?.metadata?.originalPostId?.posts[0],2)
+            )
+          ) : (
+            <View>
+              <Image
+                source={require('../../../assets/images/loading.gif')}
+                style={{
+                  width: 100,
+                  height: 100,
+                  // backgroundColor: "#589",
+                  zIndex: 100,
+                  alignSelf: 'center',
+                  marginTop: appSizes.height / 2.5,
+                }}
+                resizeMode="contain"
+              />
+            </View>
+          )}
         </>
       </View>
     );
@@ -415,17 +470,17 @@ const ReelsScreen = () => {
     // <SafeAreaView style={globalStyles.screen} edges={['top']}>
     // <View style={globalStyles.screen}>
     loader ? (
-      <ActivityIndicator size={50} style={{ marginTop: 300 }} />
-    ) :
+      <ActivityIndicator size={50} style={{marginTop: 300}} />
+    ) : (
       <>
         <TouchableOpacity
           style={{
             position: 'absolute',
-            zIndex: 100,
+            zIndex: 120,
             top: hasNotch ? 70 : 15,
             flexDirection: 'row',
             alignItems: 'center',
-            left: 10
+            left: 10,
           }}
           onPress={() => {
             navigation.navigate('Home');
@@ -442,7 +497,7 @@ const ReelsScreen = () => {
               alignItems: 'center',
               backgroundColor: '#FFF',
             }}>
-            <Text style={{ color: '#000', fontSize: 20 }}>
+            <Text style={{color: '#000', fontSize: 20}}>
               {' '}
               No posts please create post
             </Text>
@@ -458,7 +513,7 @@ const ReelsScreen = () => {
             onMomentumScrollEnd={event => {
               const index = Math.floor(
                 event.nativeEvent.contentOffset.y /
-                event.nativeEvent.layoutMeasurement.height,
+                  event.nativeEvent.layoutMeasurement.height,
               );
               setVideo({
                 currentTime: 0,
@@ -469,6 +524,7 @@ const ReelsScreen = () => {
               });
               setCurrentVideoIndex(index);
               setLoading(true);
+           
             }}
             keyExtractor={item => item._id}
             // scrollEventThrottle={16} // Adjust this value for smoother scrolling events
@@ -479,6 +535,7 @@ const ReelsScreen = () => {
           />
         )}
       </>
+    )
 
     // {/* </View> */}
   );

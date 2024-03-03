@@ -8,33 +8,46 @@ import {
   Share,
   Platform,
   BackHandler,
+  Alert,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { styles } from './styles';
-import { RenderSvgIcon } from '../../../../Components/atoms/svg';
+import React, {useEffect, useState} from 'react';
+import {styles} from './styles';
+import {RenderSvgIcon} from '../../../../Components/atoms/svg';
 import Bolls from './Bolls';
 import TextLinks from './TextLinks';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-import { useSelector } from 'react-redux';
-import AuthSlice, { selectUser } from 'src/redux/auth';
-import { AVATAR, LOVE, LikeHand, SAD, WOW } from 'assets/Svgs';
-import { appColors } from 'theme/appColors';
+import {useSelector} from 'react-redux';
+import AuthSlice, {selectUser} from 'src/redux/auth';
+import {
+  AVATAR,
+  DELETE,
+  LOVE,
+  LikeHand,
+  RepostIcon,
+  SAD,
+  WOW,
+} from 'assets/Svgs';
+import {appColors} from 'theme/appColors';
 import AppThunks from 'src/redux/app/thunks';
-import { useAppDispatch } from 'src/redux/store';
-import { selectAccessToken } from 'src/redux/app';
+import {useAppDispatch} from 'src/redux/store';
+import {selectAccessToken} from 'src/redux/app';
+import {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
 // import Share from 'react-native-share';
 const ContentVideo = (item: any) => {
   const navigation = useNavigation<any>();
   const CurrentUserData = useSelector(selectUser);
+
   const dispatch = useAppDispatch();
   const [showReactionsModal, setShowReactionsModal] = useState(false);
+  const [showEditPostModal, setShowEditPostModal] = useState(false);
 
   let count = 0;
 
   const Like = () => {
     const formdata = new FormData();
-    formdata.append('referenceId', item?.data?.postId);
+    formdata.append('referenceId', item?.data[0]?.postId);
     formdata.append('referenceType', 'post');
     formdata.append('reactionName', 'like');
     console.log(formdata);
@@ -46,7 +59,7 @@ const ContentVideo = (item: any) => {
 
   const disLike = (data: any) => {
     const formdata = new FormData();
-    formdata.append('referenceId', item?.data?.postId);
+    formdata.append('referenceId', item?.data[0]?.postId);
     formdata.append('referenceType', 'post');
     formdata.append('reactionName', data);
     dispatch(AppThunks.doRemoveLike(formdata)).then((response: any) => {
@@ -66,7 +79,7 @@ const ContentVideo = (item: any) => {
     // Handle reaction selection here
 
     const formdata = new FormData();
-    formdata.append('referenceId', item?.data?.postId);
+    formdata.append('referenceId', item?.data[0]?.postId);
     formdata.append('referenceType', 'post');
     formdata.append('reactionName', reaction);
     console.log(formdata);
@@ -78,9 +91,9 @@ const ContentVideo = (item: any) => {
   };
   const handleRepost = () => {
     // Implement repost logic here
-    console.log('Repost icon pressed');
+
     const formdata = new FormData();
-    formdata.append('originalPostId', item?.data?.postId);
+    formdata.append('originalPostId', item?.data[0]?.postId);
     dispatch(AppThunks.doRepost(formdata)).then((response: any) => {
       dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
     });
@@ -95,31 +108,45 @@ const ContentVideo = (item: any) => {
       .then(result => console.log(result))
       .catch(errorMsg => console.error(errorMsg));
   };
+  const toggleEditPostModal = () => {
+    setShowEditPostModal(!showEditPostModal);
+  };
+  const lang = useSelector(selectLang);
+  const {t, i18n} = useTranslation();
+  const handleEditPost = () => {
+    toggleEditPostModal();
+  };
+  const handleDeletePost = (postId: any) => {
+    Alert.alert(
+      t('SEEVEZ'),
+      'Are you sure you want to delete this post?',
+      [
+        {
+          text: t('cancel'),
+          style: 'cancel',
+        },
+        {
+          text: t('OK'),
+          onPress: () => {
+            // Dispatch the action to delete the experience
+            dispatch(AppThunks.doDeletePost(postId)).then((res: any) => {
+              dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
+            });
+          },
+        },
+      ],
+      {cancelable: false},
+    );
 
-  // const handleShare = async () => {
-  //   //item?.data?.metadata?.attachments?.file?.fileUrl
-  //   // console.log(item?.data?.metadata?.attachments[0]?.file?.fileUrl);
-  //   const shareOptions = {
-  //     title: 'Share file',
-  //     message:
-  //       item?.data?.metadata?.attachments[0]?.file?.fileUrl + '?size=full',
-  //     // url: 'https://google.com',
-  //   };
-
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log('Result =>', ShareResponse);
-  //     // setResult(JSON.stringify(ShareResponse, null, 2));
-  //   } catch (error) {
-  //     console.log('Error =>', error);
-  //     // setResult('error: '.concat(getErrorString(error)));
-  //   }
-  // };
+    toggleEditPostModal();
+  };
   const hasNotch = DeviceInfo.hasNotch();
 
   useEffect(() => {
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackPress,
+    );
 
     return () => {
       backHandler.remove();
@@ -132,23 +159,6 @@ const ContentVideo = (item: any) => {
   };
   return (
     <View style={[styles.container]}>
-      <View style={[styles.header, { marginTop: hasNotch ? 60 : 15 }]}>
-        <TouchableOpacity
-          style={[styles.leftHeader]}
-          onPress={() => {
-            // navigation.navigate('Home');
-          }}>
-          {/* <RenderSvgIcon icon="ARROWBACK" width={25} height={25} /> */}
-          {/* <Text style={styles.textLeftHeader}>My reels</Text> */}
-        </TouchableOpacity>
-        <View style={styles.rightHeader}>
-          {/* <TouchableOpacity activeOpacity={.8} onPress={() => { navigation.navigate('Search') }}>
-            <RenderSvgIcon icon="SEARCH" width={25} height={25} />
-          </TouchableOpacity> */}
-          {/* <RenderSvgIcon icon="COMMENT" width={25} height={25} /> */}
-          {/* <RenderSvgIcon icon="NOTIFICATION" width={25} height={25} /> */}
-        </View>
-      </View>
       <View style={styles.footer}>
         <View style={styles.leftFooter}>
           <View
@@ -167,8 +177,8 @@ const ContentVideo = (item: any) => {
               <AVATAR height={48} width={48} />
             ) : (
               <Image
-                source={{ uri: CurrentUserData?.avatar }}
-                style={{ width: 56, height: 56, borderRadius: 56 }}
+                source={{uri: CurrentUserData?.avatar}}
+                style={{width: 56, height: 56, borderRadius: 56}}
                 resizeMode="cover"
               />
             )}
@@ -177,7 +187,6 @@ const ContentVideo = (item: any) => {
             style={{
               marginLeft: 8,
               rowGap: 4,
-              
             }}>
             <View style={styles.nameIcon}>
               <Text style={styles.name}>{CurrentUserData?.name}</Text>
@@ -194,7 +203,7 @@ const ContentVideo = (item: any) => {
           <View style={styles.containerIconText}>
             {CurrentUserData?.user_data?.reactions?.map(
               (asst: any, index: any) => {
-                if (asst?.post_id === item?.data?.postId) {
+                if (asst?.post_id === item?.data[0]?.postId) {
                   switch (asst?.react) {
                     case 'like':
                       return (
@@ -238,36 +247,42 @@ const ContentVideo = (item: any) => {
             )}
             {/* Render the default reaction icon only if no reaction is found */}
             {!CurrentUserData?.user_data?.reactions?.some(
-              (asst: any) => asst?.post_id === item?.data?.postId,
+              (asst: any) => asst?.post_id === item?.data[0]?.postId,
             ) && (
-                <TouchableOpacity
-                  onLongPress={toggleReactionsModal}
-                  onPress={Like}>
-                  <RenderSvgIcon icon="DisLike" width={23} height={23} />
-                </TouchableOpacity>
-              )}
+              <TouchableOpacity
+                onLongPress={toggleReactionsModal}
+                onPress={Like}>
+                <RenderSvgIcon icon="DisLike" width={23} height={23} />
+              </TouchableOpacity>
+            )}
 
             <Text style={styles.textIcon}>
-              {item?.data?.reactionsCount >= 1000
-                ? `${item?.data?.reactionsCount / 1000}k`
-                : item?.data?.reactionsCount}
+              {item?.data[0]?.reactionsCount >= 1000
+                ? `${item?.data[0]?.reactionsCount / 1000}k`
+                : item?.data[0]?.reactionsCount}
             </Text>
           </View>
           <View style={styles.containerIconText}>
             <TouchableOpacity onPress={handleRepost}>
-              <RenderSvgIcon icon="REPOST" width={20} height={20} />
+              {item?.data[1] == 1 ? (
+                <RenderSvgIcon icon="REPOST" width={20} height={20} />
+              ) : (
+                <RepostIcon width={20} height={20} />
+              )}
             </TouchableOpacity>
             <Text style={styles.textIcon}>0</Text>
           </View>
           <View style={styles.containerIconText}>
-            <TouchableOpacity onPress={() => shareReel(item?.data?.postId)}>
+            <TouchableOpacity onPress={() => shareReel(item?.data[0]?.postId)}>
               <RenderSvgIcon icon="SHARE" width={20} height={20} />
             </TouchableOpacity>
             <Text style={styles.textIcon}>0</Text>
           </View>
-          <View style={styles.containerIconText}>
+          <TouchableOpacity
+            onPress={toggleEditPostModal}
+            style={styles.containerIconText}>
             <RenderSvgIcon icon="THREEDOTS" width={20} height={20} />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
       <Modal
@@ -302,6 +317,38 @@ const ContentVideo = (item: any) => {
             </TouchableOpacity>
           </View>
           {/* Add more reaction options as needed */}
+        </View>
+      </Modal>
+      <Modal
+        visible={showEditPostModal}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={toggleEditPostModal}>
+        <View style={styles.modalContainer1}>
+          <TouchableOpacity
+            style={{
+              paddingVertical: 8,
+              backgroundColor: appColors.bg,
+              paddingHorizontal: 20,
+              borderRadius: 16,  
+              flexDirection: 'row',
+              columnGap: 10,
+              marginTop: 20,
+            }}
+            onPress={() => {
+              handleDeletePost(item?.data[0]?.postId);
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: 'red',
+                fontFamily: 'Noto Sans',
+                fontWeight: '700',
+              }}>
+              delete post
+            </Text>
+            <DELETE />
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>

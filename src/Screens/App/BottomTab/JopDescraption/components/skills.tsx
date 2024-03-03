@@ -14,6 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
+import { useAppSelector } from 'src/redux/store';
+import { selectOneJob } from 'src/redux/app';
 
 const JobSkills = () => {
   const [seeAllExperiences, setSeeAllExperiences] = useState(false);
@@ -30,19 +32,21 @@ const JobSkills = () => {
     {name: 'Figma'},
     {name: 'Adobe Adobe XD'},
   ];
+  const MyJob = useAppSelector(selectOneJob)
+
   return (
     <View style={{marginTop:20,marginBottom:15}}>
      
         {data?.length == 0 ? null : (
         
             <FlatList
-              data={data}
+              data={MyJob?.skills}
               contentContainerStyle={{rowGap: 10}}
               numColumns={2}
               scrollEnabled={false}
               renderItem={({item}) => (
                 <View style={styles.smallCardContainer}>
-                  <Text style={styles.smallCardText}>{item?.name}</Text>
+                  <Text style={styles.smallCardText}>{item}</Text>
                   <Close />
                 </View>
               )}

@@ -23,17 +23,14 @@ const MyConnection = (props: any) => {
     const [load, setLoad] = React.useState(false)
     const ListFollowing = useAppSelector(selectFollowingList)
     const lang = useSelector(selectLang);
-  
+
     const {t, i18n} = useTranslation();
     React.useEffect(() => {
         setLoad(true)
         dispatch(AppThunks.doGetFollowingList()).then(() =>setLoad(false))
         dispatch(AppThunks.doGetListUsers())
     }, [])
-    const AccessToken = useSelector(selectAccessToken);
-    useEffect(() => {
-      AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-    }, [AccessToken]);
+
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
             <View style={styles.screen}>

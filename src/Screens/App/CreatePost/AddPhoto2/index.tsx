@@ -16,12 +16,13 @@ import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
+import { selectUser } from 'src/redux/auth';
 const CreatePhoto2 = () => {
   const {key,item}: any = useRoute().params;
 
   console.log("Photo123 ",item,key)
   const navigation = useNavigation<any>();
-
+  const CurrentUserData = useSelector(selectUser);
 
   const [loading, setLoading] = React.useState(false);
   
@@ -118,64 +119,99 @@ const CreatePhoto2 = () => {
           colors={['#919191', 'rgba(170, 170, 170, 0.56)', 'rgba(203, 203, 203, 0.00)']}
         style={styles.bottomContainer}>
          
-          <View style={styles.bottomStartContainer}>
-            <TouchableOpacity
-              style={[
-                styles.leftBtn,
-                {
-                  backgroundColor: '#E8E8E8',
-                },
-              ]}
-              onPress={() => {
-                navigation.navigate('ExterinalLinks');
-              }}>
-              <ExterinalLinks />
-              <Text style={styles.text1}>External link</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('CV');
-              }}
-              style={styles.leftBtn}>
-              <CV />
-              <Text style={styles.text1}>CV</Text>
-            </TouchableOpacity>
-          
-          </View>
-         
-        
-            
-          <View style={[styles.bottomStartContainer,{marginTop:20}]}>
-            <TouchableOpacity
-              style={[
-                styles.leftBtn,
-                {
-                  backgroundColor: '#FDF7E6',
-                },
-              ]}
-              onPress={() => {
-                navigation.navigate('Market');
-              }}>
-              <MARKET />
-              <Text style={styles.text1}>Market</Text>
-            </TouchableOpacity>
+         {CurrentUserData?.user_data?.user_type == 'company' ||
+          CurrentUserData?.user_data?.user_type == 'company_admin' ||
+          CurrentUserData?.user_data?.user_type == 'recruiter' ? (
+            <View>
+              <View style={[styles.bottomStartContainer, {marginTop: 20}]}>
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#FDF7E6',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('Market');
+                  }}>
+                  <MARKET />
+                  <Text style={styles.text1}>Market</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[
-                styles.leftBtn,
-                { 
-                 backgroundColor:'#E8EFFC'
-                },
-              ]}
-              onPress={() => {
-                navigation.navigate('JobOpportunity');
-              }}
-            >
-             <JOBOP />
-              <Text style={styles.text1}>Job opportunity</Text>
-       
-         </TouchableOpacity>
-         </View>
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#E8EFFC',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('JobOpportunity');
+                  }}>
+                  <JOBOP />
+                  <Text style={styles.text1}>Job opportunity</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.bottomStartContainer}>
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#E8E8E8',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('ExterinalLinks');
+                  }}>
+                  <ExterinalLinks />
+                  <Text style={styles.text1}>External link</Text>
+                </TouchableOpacity>
+                <View
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#transparent',
+                    },
+                  ]}
+                />
+              </View>
+            </View>
+          ) : (
+            <View style={styles.bottomStartContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('CV');
+                }}
+                style={styles.leftBtn}>
+                <CV />
+                <Text style={styles.text1}>CV</Text>
+              </TouchableOpacity>
+              {CurrentUserData?.work_type != 'freelancer' ? (
+                <View
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#transparent',
+                    },
+                  ]}
+                />
+              ) : (
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#FDF7E6',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('Market');
+                  }}>
+                  <MARKET />
+                  <Text style={styles.text1}>Market</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
        
           <Footer saveVideo={saveVideoFun} loading={loading} />
         </LinearGradient>

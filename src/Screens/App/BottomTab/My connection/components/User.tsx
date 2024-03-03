@@ -16,6 +16,7 @@ import { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
 
 const UserSection = ({ item, setLoad }: { item?: any; setLoad?: any }) => {
+
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<any>();
@@ -24,34 +25,28 @@ const UserSection = ({ item, setLoad }: { item?: any; setLoad?: any }) => {
   const { t, i18n } = useTranslation();
   const FollowingList = useAppSelector(selectFollowingList);
   let exist = FollowingList?.some(
-    (ele: any) => ele?.toUserPublicId == item?.user_id,
+    (ele: any) => ele?.id == item?.id,
   );
   const doFollowingOperation = () => {
     !exist
-      ? dispatch(AppThunks.doFollowUser(item?.userId)).then(() => {
+      ? dispatch(AppThunks.doFollowUser(item?.id)).then(() => {
         dispatch(AppThunks.doGetFollowingList());
       })
-      : dispatch(AppThunks.doUnFollowUser(item?.userId)).then((res: any) => {
+      : dispatch(AppThunks.doUnFollowUser(item?.id)).then((res: any) => {
         dispatch(AppThunks.doGetFollowingList());
       });
   };
 
-  React.useEffect(() => {
-    dispatch(AppThunks.doGetFollowers(item?.userId)).then((res: any) => {
-      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
-      setLoad(false);
-    });
-  }, []);
-  // console.log("USERS",item?.avatarCustomUrl)
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        navigate('UserProfile', { id: item?.userId });
+        navigate('UserProfile', { id: item?.id });
       }}
       style={styles.containerUserSection}>
       <View style={globalStyles.leftHeaderContainer}>
-        {(item?.avatarCustomUrl == null || item?.avatarCustomUrl == 'null' || item?.avatarCustomUrl == undefined) ? (
+        {(item?.avatar == null || item?.avatar == 'null' || item?.avatar == undefined) ? (
           <View
             style={{
               width: 65,
@@ -67,20 +62,20 @@ const UserSection = ({ item, setLoad }: { item?: any; setLoad?: any }) => {
           </View>
         ) : (
           <AvatarIcon
-            imgUrl={item?.avatarCustomUrl}
+            imgUrl={item?.avatar}
             style={{ height: 65, width: 65 }}
           />
         )}
         <View style={{ rowGap: 3 }}>
           <View style={[globalStyles.leftHeaderContainer, { width: '100%' }]}>
             <Text style={styles.UserName} numberOfLines={1}>
-              {item?.displayName}
+              {item?.name}
             </Text>
           </View>
-          <Text style={styles.work}>{item?.metadata?.job_title}</Text>
+          <Text style={styles.work}>{item?.job_title}</Text>
           <View style={styles.followersContainer}>
             <Text style={[styles.text3, { color: appColors.blue2 }]}>
-              {count >= 1000 ? `${count / 1000}k` : count} {t("Followers")}
+              {item?.number_of_followers >= 1000 ? `${item?.number_of_followers / 1000}k` : item?.number_of_followers} {t("Followers")}
             </Text>
           </View>
         </View>

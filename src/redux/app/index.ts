@@ -105,6 +105,12 @@ const slice = createSlice({
     changeMyJobs: (state, action) => {
       state.myJobs = action.payload;
     },
+    changeMyJob: (state, action) => {
+      state.myJob = action.payload;
+    },
+    changeJobSearch: (state, action) => {
+      state.jobSearch = action.payload;
+    },
   },
   extraReducers(builder) {
     //doAddSkills  Your Skills has been added successfully.
@@ -873,8 +879,8 @@ const slice = createSlice({
     });
     //doGetFollowingList
     builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
-      console.log("yarb", action.payload.data?.users)
-      state.FollowingList = action.payload.data?.users;
+      
+      state.FollowingList = action.payload.data;
       const saveFollowingListToStorage = async (followingList: any) => {
         try {
           // Convert the followingList object to a JSON string
@@ -889,7 +895,7 @@ const slice = createSlice({
       };
 
       // Call this function whenever you want to save the state to AsyncStorage
-      saveFollowingListToStorage(action.payload.data?.users);
+      saveFollowingListToStorage(action.payload.data);
     });
 
     //doGetListUsers
@@ -1423,7 +1429,10 @@ const slice = createSlice({
 
     //doSearch
     builder.addCase(thunks.doSearch.fulfilled, (state, action) => {
-      state.search = action?.payload?.result;
+     
+      state.search = action?.payload?.users;
+      state.jobSearch = action?.payload?.jobs;
+
     });
     //GetJobSeeker
 
@@ -1604,6 +1613,26 @@ const slice = createSlice({
       // Call this function whenever you want to save the state to AsyncStorage
       saveMyJobToStorage(action.payload.data);
     });
+       //doGetOneJob
+       builder.addCase(thunks.doGetJobDescraption.fulfilled, (state, action) => {
+              console.log("EEHAHHAB",action.payload.data)
+        state.myJob = action.payload.data;
+        const saveMyJobToStorage = async (myJob: any) => {
+          try {
+            // Convert the followingList object to a JSON string
+            const MyJobJSON = JSON.stringify(myJob);
+            // Save the JSON string to AsyncStorage under the key 'FollowingList'
+            await AsyncStorage.setItem('MyJobDescreption', MyJobJSON);
+          
+          } catch (error) {
+            console.error('Error saving FollowingList to AsyncStorage:', error);
+            // Handle error here, such as showing an alert to the user
+          }
+        };
+  
+        // Call this function whenever you want to save the state to AsyncStorage
+        saveMyJobToStorage(action.payload.data);
+      });
 
   },
 });
@@ -1642,6 +1671,10 @@ export const selectGlobalBools = (state: RootState) => state.app.GlobalBools;
 export const selectToken = (state: RootState) => state.app.token;
 export const selectMyJob = (state: RootState) =>
   state.app.myJobs;
+  export const selectOneJob = (state: RootState) =>
+  state.app.myJob;
+export const selectSearchingJobList = (state: RootState) => state.app.jobSearch;
+
 
 const AppSlice = {
   slice,
@@ -1677,5 +1710,9 @@ const AppSlice = {
   changeGlobalReals: slice.actions.changeGlobalReals,
   changeGlobalBools: slice.actions.changeGlobalBools,
   changeToken: slice.actions.changeToken,
+  changeMyJob: slice.actions.changeMyJob,
+  changeJobSearch: slice.actions.changeJobSearch,
+
+
 };
 export default AppSlice;

@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         width: "100%",
         gap: 10,
+        marginTop:10
     },
     leftBtn: {
         flex: 1,

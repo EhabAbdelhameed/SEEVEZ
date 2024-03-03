@@ -6,6 +6,9 @@ import {selectLang} from 'src/redux/lang';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {RenderSvgIcon} from 'components/atoms/svg';
+import { selectOneJob } from 'src/redux/app';
+import { useAppSelector } from 'src/redux/store';
+import { selectUser } from 'src/redux/auth';
 
 const Header = ({
   Title,
@@ -16,6 +19,9 @@ const Header = ({
 }) => {
   const lang = useSelector(selectLang);
   const navigation = useNavigation();
+  const MyJob = useAppSelector(selectOneJob)
+  const User = useAppSelector(selectUser)
+
   return (
     <View style={styles.Container}>
       <TouchableOpacity
@@ -34,9 +40,9 @@ const Header = ({
         <View style={{marginLeft: 10,}}>
         <Text style={[styles.Title,{fontSize:16}]}>{Title}</Text>
         <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
-          <Text style={styles.work}>O-Project</Text>
-          <Text style={styles.work}>cairo, egypt</Text>
-          <Text style={[styles.work, {color: '#00BBB6'}]}>full time</Text>
+          <Text style={styles.work}>{User?.name}</Text>
+          <Text style={styles.work}>{MyJob?.job_location}</Text>
+          <Text style={[styles.work, {color: '#00BBB6'}]}>{MyJob?.job_type_id?.name}</Text>
         </View>
         </View>
       </TouchableOpacity>

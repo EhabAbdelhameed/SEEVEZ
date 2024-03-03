@@ -63,6 +63,7 @@ const User = ({ item }: any) => {
                     color: appColors.dark,
                     fontWeight: '500',
                     width: 190,
+                    textAlign:'left'
                 }}>{item?.name}</Text>
                 <Text style={{
                     fontSize: 11,

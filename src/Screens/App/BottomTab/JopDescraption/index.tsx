@@ -8,9 +8,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { globalStyles } from '../../../../globalStyle';
 import AppThunks from 'src/redux/app/thunks';
 import { useAppDispatch, useAppSelector } from 'src/redux/store';
-import { selectAccessToken, selectFollowingList, selectListUsers, selectMyJob } from 'src/redux/app';
+import { selectAccessToken, selectFollowingList, selectListUsers, selectMyJob, selectOneJob } from 'src/redux/app';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import AuthSlice from 'src/redux/auth';
 import { useTranslation } from 'react-i18next';
@@ -19,24 +19,25 @@ import Header from './components/Header';
 import { appSizes } from 'theme/appSizes';
 
 const JobDescraption = (props: any) => {
+    const {id}:any=useRoute().params
     const dispatch = useAppDispatch()
     const navigation = useNavigation()
     const ListUsers = useAppSelector(selectListUsers)
     const [load, setLoad] = React.useState(false)
-    const MyJob = useAppSelector(selectMyJob)
+    const MyJob = useAppSelector(selectOneJob)
     const lang = useSelector(selectLang);
   
     const {t, i18n} = useTranslation();
-    // React.useEffect(() => {
-    //     setLoad(true)
-    //     dispatch(AppThunks.doGetJobs()).then(() =>setLoad(false))
+    React.useEffect(() => {
+        setLoad(true)
+        dispatch(AppThunks.doGetJobDescraption(id)).then(() =>setLoad(false))
       
-    // }, [])
+    }, [])
  
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
             <View style={styles.screen}>
-                <Header Title={"Senior ui ux designer"} onPress={() => navigation.goBack()} />
+                <Header Title={MyJob?.job_title} onPress={() => navigation.goBack()} />
                 <KeyboardAwareScrollView
           contentContainerStyle={{
             alignItems: 'center',
@@ -52,7 +53,7 @@ const JobDescraption = (props: any) => {
                             <ActivityIndicator size={50} style={{marginTop:300}}/>
                             :
                             <ContainerUsers
-                                // data={MyJob}
+                                data={MyJob}
                             />
                     }
                     

@@ -12,17 +12,27 @@ import { useAppDispatch } from 'src/redux/store'
 const Boll = (data: any) => {
     const dispatch = useAppDispatch()
     const CurrentUserData = useSelector(selectUser);
-    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(-1);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const handleAnswerSelection = (index: number) => {
+        if (isLoading) {
+            return; // Prevent user interaction while loading
+        }
+
+        setIsLoading(true);
 
         const formdata = new FormData();
         formdata.append('pollId', data?.data?.pollId);
-
         formdata.append('answerIds', data?.data?.answers[index]?.id);
-        dispatch(AppThunks.doVotePoll(formdata)).then((response: any) => {
-            dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
-        });
-    }
+
+        dispatch(AppThunks.doVotePoll(formdata))
+            .then((response: any) => {
+                dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id));
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    };
     const Item = ({ pers, name, color, index, selected }: { pers: number; name: string; color: string; index: number; selected: boolean }) => {
         return (
             <>
@@ -66,10 +76,7 @@ const Boll = (data: any) => {
         )
     }
 
-    const AccessToken = useSelector(selectAccessToken);
-    React.useEffect(() => {
-        AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-    }, [AccessToken]);
+   
     return (
         <View style={[styles.bollsContainer, { width: '65%', left: -20, paddingHorizontal: 10 }]}>
             <Text style={styles.text11}>{data?.data?.question}</Text>

@@ -17,6 +17,7 @@ const Boll = (data: any) => {
 
         formdata.append('answerIds', data?.data?.answers[index]?.id);
         dispatch(AppThunks.doVotePoll(formdata)).then((response: any) => {
+            dispatch(AppThunks.GetGlobalReels())
         });
     }
     const Item = ({ pers, name, color, index, selected }: { pers: number; name: string; color: string; index: number; selected: boolean }) => {

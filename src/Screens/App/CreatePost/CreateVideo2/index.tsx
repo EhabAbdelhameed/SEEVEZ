@@ -15,6 +15,7 @@ import AppThunks from 'src/redux/app/thunks';
 import AppSlice, {selectDone} from 'src/redux/app';
 import {useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
+import {selectUser} from 'src/redux/auth';
 
 const CreateVideo2 = () => {
   const {videoPath, key, source}: any = useRoute().params;
@@ -26,6 +27,7 @@ const CreateVideo2 = () => {
   const dispatch = useAppDispatch();
   dispatch(AppSlice.changeKey(key));
   dispatch(AppSlice.changeImage(key == '4' ? videoPath : source));
+  const CurrentUserData = useSelector(selectUser);
 
   const changeDone = useSelector(selectDone);
   useEffect(() => {
@@ -56,7 +58,7 @@ const CreateVideo2 = () => {
             }}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
-          <View style={styles.rightContainer}/>
+          <View style={styles.rightContainer} />
         </View>
         <Video
           resizeMode="cover"
@@ -79,60 +81,99 @@ const CreateVideo2 = () => {
             'rgba(203, 203, 203, 0.00)',
           ]}
           style={styles.bottomContainer}>
-          <View style={styles.bottomStartContainer}>
-            <TouchableOpacity
-              style={[
-                styles.leftBtn,
-                {
-                  backgroundColor: '#E8E8E8',
-                },
-              ]}
-              onPress={() => {
-                navigation.navigate('ExterinalLinks');
-              }}>
-              <ExterinalLinks />
-              <Text style={styles.text1}>External link</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('CV');
-              }}
-              style={styles.leftBtn}>
-              <CV />
-              <Text style={styles.text1}>CV</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.bottomStartContainer,{marginTop:20}]}>
-            <TouchableOpacity
-              style={[
-                styles.leftBtn,
-                {
-                  backgroundColor: '#FDF7E6',
-                },
-              ]}
-              onPress={() => {
-                navigation.navigate('Market');
-              }}>
-              <MARKET />
-              <Text style={styles.text1}>Market</Text>
-            </TouchableOpacity>
+          {CurrentUserData?.user_data?.user_type == 'company' ||
+          CurrentUserData?.user_data?.user_type == 'company_admin' ||
+          CurrentUserData?.user_data?.user_type == 'recruiter' ? (
+            <View>
+              <View style={[styles.bottomStartContainer, {marginTop: 20}]}>
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#FDF7E6',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('Market');
+                  }}>
+                  <MARKET />
+                  <Text style={styles.text1}>Market</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[
-                styles.leftBtn,
-                { 
-                 backgroundColor:'#E8EFFC'
-                },
-              ]}
-              onPress={() => {
-                navigation.navigate('JobOpportunity');
-              }}
-            >
-             <JOBOP />
-              <Text style={styles.text1}>Job opportunity</Text>
-       
-         </TouchableOpacity>
-         </View>
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#E8EFFC',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('JobOpportunity');
+                  }}>
+                  <JOBOP />
+                  <Text style={styles.text1}>Job opportunity</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.bottomStartContainer}>
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#E8E8E8',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('ExterinalLinks');
+                  }}>
+                  <ExterinalLinks />
+                  <Text style={styles.text1}>External link</Text>
+                </TouchableOpacity>
+                <View
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#transparent',
+                    },
+                  ]}
+                />
+              </View>
+            </View>
+          ) : (
+            <View style={styles.bottomStartContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('CV');
+                }}
+                style={styles.leftBtn}>
+                <CV />
+                <Text style={styles.text1}>CV</Text>
+              </TouchableOpacity>
+              {CurrentUserData?.work_type != 'freelancer' ? (
+                <View
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#transparent',
+                    },
+                  ]}
+                />
+              ) : (
+                <TouchableOpacity
+                  style={[
+                    styles.leftBtn,
+                    {
+                      backgroundColor: '#FDF7E6',
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate('Market');
+                  }}>
+                  <MARKET />
+                  <Text style={styles.text1}>Market</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
 
           <Footer saveVideo={saveVideoFun} loading={loading} />
         </LinearGradient>

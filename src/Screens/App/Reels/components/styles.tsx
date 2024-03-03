@@ -241,6 +241,23 @@ export const styles = StyleSheet.create({
         flexDirection: 'row'
         // marginTop: 'auto', // This will make the modal appear at the bottom
     },
+    modalContainer1: {
+        // backgroundColor: 'white',
+
+        marginHorizontal: 20,
+        position: 'absolute',
+        bottom: 80,
+        right: 5,
+        width: '70%',
+        justifyContent:'center',
+        alignItems:'center',
+        paddingHorizontal:20,
+        paddingVertical:6,
+        borderRadius:16,
+       
+        backgroundColor:'#FFF'
+        // marginTop: 'auto', // This will make the modal appear at the bottom
+    },
 
 
 })

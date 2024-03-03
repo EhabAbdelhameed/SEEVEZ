@@ -48,7 +48,8 @@ const InfoProfileCard = (data: any) => {
       savePhoto() : null
   }, [source]);
   const lang = useSelector(selectLang);
-  const CurrentUserData = useSelector(selectUser);
+//  console.log("Khalifa",JSON.stringify(data))
+
   const { t, i18n } = useTranslation();
   const uploadFile = async (type: any) => {
     try {
@@ -108,7 +109,7 @@ const InfoProfileCard = (data: any) => {
   };
   const savePhoto = () => {
     const formdata = new FormData();
-    formdata.append('name', CurrentUserData?.name);
+    formdata.append('name', data?.data?.name);
 
     source?.length != 0
       ? formdata.append('avatar', {
@@ -164,6 +165,7 @@ const InfoProfileCard = (data: any) => {
         )}
         <TouchableOpacity
           onPress={Platform.OS == 'ios' ? pick : UploadImageProfile}
+          disabled={data?.current}
           style={{
             width: 96,
             height: 96,
@@ -191,6 +193,7 @@ const InfoProfileCard = (data: any) => {
                 resizeMode="cover"
               />
             )}
+            {data?.current?null:
             <View
               style={{
                 width: 15,
@@ -212,7 +215,7 @@ const InfoProfileCard = (data: any) => {
                 height={10}
                 color={appColors.white}
               />
-            </View>
+            </View>}
           </View>
         </TouchableOpacity>
         <View style={styles.Row}>

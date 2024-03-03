@@ -58,7 +58,7 @@ const Connections = (props: any) => {
     );
    
   }, [companyIndex]);
-  //  console.log("el3m Ehab ",JobSeekerUser)
+ 
   const handlePagination = (page: number) => {
     setJobseekerIndex(page);
   };

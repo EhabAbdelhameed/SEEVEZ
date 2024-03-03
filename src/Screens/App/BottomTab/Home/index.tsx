@@ -174,7 +174,7 @@ const Home = () => {
             )}
           </View>
 
-          <View style={styles.rowContainer}>
+          {/* <View style={styles.rowContainer}>
 
             <BoxContentTitle Change title={t("myAnalytics")}>
               <View style={{
@@ -192,7 +192,7 @@ const Home = () => {
                 <DashboardSection />
               </View>
             </BoxContentTitle>
-          </View>
+          </View> */}
           {CurrentUserData?.work_type == 'freelancer' ||
             CurrentUserData?.user_data?.user_type == 'company' ||
             CurrentUserData?.user_data?.user_type == 'company_admin' ? null : (
@@ -225,7 +225,7 @@ const Home = () => {
               </BoxContentTitle>
             </View>
           )}
-          {CurrentUserData?.work_type == 'freelancer' ? null : (
+          {/* {CurrentUserData?.work_type == 'freelancer' ? null : (
             <View style={styles.rowContainer}>
               <BoxContentTitle
                 Change
@@ -252,7 +252,7 @@ const Home = () => {
                 </View>
               </BoxContentTitle>
             </View>
-          )}
+          )} */}
           {CurrentUserData?.user_data?.user_type == 'recruiter' ||
             CurrentUserData?.user_data?.user_type == 'company' ||
             CurrentUserData?.user_data?.user_type == 'company_admin' ? (
@@ -327,7 +327,7 @@ const Home = () => {
               <Profile />
             </BoxContentTitle>
           </View>
-          <View style={styles.rowContainer}>
+          {/* <View style={styles.rowContainer}>
             <BoxContentTitle Change title={t("mySchedule")}>
               <View style={{
                 backgroundColor: '#3c3c3cc9',
@@ -345,7 +345,7 @@ const Home = () => {
                 <Schedule />
               </View>
             </BoxContentTitle>
-          </View>
+          </View> */}
           <View style={styles.rowContainer}>
             <BoxContentTitle title={t("hashtags")}>
               <Hashtags />
@@ -383,7 +383,7 @@ const Home = () => {
               </View>
             </BoxContentTitle>
           </View>
-          <View style={styles.rowContainer}>
+          {/* <View style={styles.rowContainer}>
             <BoxContentTitle Change title={t("myCommunities")}>
               <View style={{
                 backgroundColor: '#3c3c3cc9',
@@ -401,7 +401,7 @@ const Home = () => {
                 <Communities />
               </View>
             </BoxContentTitle>
-          </View>
+          </View> */}
           {CurrentUserData?.user_data?.user_type == 'company' ||
             CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>

@@ -274,6 +274,7 @@ interface appState {
     last_page: any;
     to: any;
     total: any;
+    
   };
   companyUsers: {
     current_page: any;
@@ -315,6 +316,8 @@ interface appState {
     to: any;
     total: any;
   };
+  myJob: any;
+  jobSearch:any;
 }
 
 
@@ -328,6 +331,8 @@ export const initialState: appState = {
 
   FollowingList: [],
   myJobs: [],
+  myJob:null,
+
   listUsers: [],
   IndsturyData: [
     {
@@ -635,7 +640,8 @@ export const initialState: appState = {
 
 
 
-  search: []
+  search: [],
+  jobSearch:[],
   //   Search: [],
 
 };

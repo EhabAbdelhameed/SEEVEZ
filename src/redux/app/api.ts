@@ -76,11 +76,11 @@ const companyUser = (data: any) => api.get(`api/company/5?page=${data}`);
 const search = (Search: any) => api.get(`api/general/search?${Search}`);
 const Repost = (data: any) => api.post(`api/repost`, data);
 const DeleteNationality = (id: number) => api.delete(`api/delete-nationality/${id}`)
-const deletePost = (id: number) => api.delete(`api/delete-reel?postId=${id}&permanent=false`)
+const deletePost = (id: any) => api.delete(`api/delete-reel?postId=${id}&permanent=false`)
 const updatePost = (data: any) => api.post(`api/update-reel`, data);
 const jobs = () => api.get(`company/job-opportunity`)
 
-
+const jobDesc = (id:number) => api.get(`company/show/job-opportunity/${id}`)
 
 
 /////////////////////////////////end////////////////////////////////////////
@@ -153,7 +153,8 @@ const AppAPI = {
   DeleteNationality,
   deletePost,
   updatePost,
-  jobs
+  jobs,
+  jobDesc
 };
 
 export default AppAPI;
