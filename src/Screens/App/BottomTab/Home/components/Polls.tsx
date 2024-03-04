@@ -17,7 +17,7 @@ const Polls = () => {
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       setLoader(true);
-      dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id)).then(
+      dispatch(AppThunks.GetMyReels(CurrentUserData?.user_id)).then(
         (res: any) => {
           setLoader(false);
         },

@@ -8,14 +8,15 @@ import {styles} from '../styles';
 import {videoSource} from 'screens/App/Reels/fucntions/helper';
 import {appColors} from 'theme';
 import {RenderSvgIcon} from 'components/atoms/svg';
-import {DELETE, VIDEOICON} from 'assets/Svgs';
+import {DELETE, PlaceHolderReels, VIDEOICON} from 'assets/Svgs';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 import AppThunks from 'src/redux/app/thunks';
 import AppSlice from 'src/redux/app';
-import { useAppDispatch } from 'src/redux/store';
-import { useTranslation } from 'react-i18next';
-import { selectLang } from 'src/redux/lang';
+import {useAppDispatch} from 'src/redux/store';
+import {useTranslation} from 'react-i18next';
+import {selectLang} from 'src/redux/lang';
+import Header from 'components/molecules/Header';
 
 const MyVideoCV = () => {
   const _handleNavigate = useCallback(() => {
@@ -50,44 +51,87 @@ const MyVideoCV = () => {
     );
   };
   const lang = useSelector(selectLang);
-  
+
   const {t, i18n} = useTranslation();
   return (
-    <SafeAreaView
-      edges={['top']}
-      style={[
-        globalStyles.screen,
-        {
-          backgroundColor: appColors.black,
-          direction: lang == 'en' ? 'ltr' : 'rtl'
-        },
-      ]}>
+    <SafeAreaView edges={['top']} style={[]}>
       {CurrentUserData?.user_data?.cv_media === null ? (
-        <TouchableOpacity
-          style={styles.topContainer1}
-          onPress={_handleNavigate}
-          activeOpacity={0.8}>
-          <RenderSvgIcon
-            icon="ARROWBACK"
-            width={30}
-            height={30}
-            color={appColors.primary}
-          />
-        </TouchableOpacity>
+        <Header Title={t('My video cv')} onPress={() => navigation.goBack()} />
       ) : null}
+
       <View
-        style={[
-          styles.CardContainer,
-          {borderWidth: CurrentUserData?.user_data?.cv_media !== null ? 0 : 1},
-        ]}>
+        style={
+          CurrentUserData?.user_data?.cv_media === null
+            ? [
+                styles.CardContainer,
+                {
+                  borderWidth:
+                    CurrentUserData?.user_data?.cv_media !== null ? 0 : 1,
+                },
+              ]
+            : {
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+
+                backgroundColor: appColors.bg,
+              }
+        }>
         {CurrentUserData?.user_data?.cv_media === null ? (
-          <View>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+
+              backgroundColor: '#FFF',
+              paddingVertical: 16,
+              paddingHorizontal: 20,
+              borderRadius: 16,
+              marginTop:-150,
+            }}>
+            <PlaceHolderReels />
+            <Text
+              style={{
+                color: '#1C1C1C',
+                fontSize: 24,
+                fontWeight: '400',
+                marginTop: 10,
+              }}>
+              {' '}
+              No Video CV
+            </Text>
+            <View style={{width: '65%'}}>
+              <Text
+                style={{
+                  color: '#000',
+                  fontSize: 20,
+                  fontWeight: '700',
+                  textAlign: 'center',
+                }}>
+                {' '}
+                Make your first Video CV get hired fast
+              </Text>
+            </View>
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('UpdateRecordVideo', {keys: '5'})
               }
-              style={styles.secContainer}>
-              <VIDEOICON />
+              style={{
+                backgroundColor: appColors.primary,
+                paddingHorizontal: 40,
+                paddingVertical: 4,
+                borderRadius: 16,
+                marginTop: 10,
+              }}>
+              <Text
+                style={{
+                  color: '#FFF',
+                  fontSize: 14,
+                  fontWeight: '400',
+                  textAlign: 'center',
+                }}>
+                Create Video CV
+              </Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -117,13 +161,19 @@ const MyVideoCV = () => {
               activeOpacity={0.8}>
               <RenderSvgIcon
                 icon="ARROWBACK"
-                style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
+                style={{
+                  transform:
+                    lang == 'ar' ? [{rotate: '180deg'}] : [{rotate: '0deg'}],
+                }}
                 width={30}
                 height={30}
                 color={appColors.primary}
               />
             </TouchableOpacity>
-            <TouchableOpacity  onPress={() => handleDeleteVideo(CurrentUserData?.user_data?.cv_media?.id)} 
+            <TouchableOpacity
+              onPress={() =>
+                handleDeleteVideo(CurrentUserData?.user_data?.cv_media?.id)
+              }
               style={[
                 styles.secContainer,
 

@@ -7,7 +7,7 @@ const doAddSkills: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Skills(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -32,7 +32,7 @@ const doUpdateSkills: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.updateSkills(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -57,7 +57,7 @@ const doDeleteSkills: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.DeleteSkills(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -82,7 +82,7 @@ const doDeleteVideoCV: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.DeleteVideoCV(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -106,7 +106,7 @@ const doAddAudio: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.AddAudio(data);
-      console.log(response);
+      // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -131,7 +131,7 @@ const doAddIntersts: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Interests(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -156,7 +156,7 @@ const doUpdateIntersts: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.updateInterests(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -181,7 +181,7 @@ const doDeleteIntersts: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.DeleteInterests(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -231,7 +231,7 @@ const doUpdateEducation: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.updateEducation(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -279,10 +279,10 @@ const doDeleteEducation: any = createAsyncThunk<any, any, any>(
 const doAddExperience: any = createAsyncThunk<any, any, any>(
   'app/Experience',
   async (data, thunkApi: any) => {
-    console.log(data);
+    // console.log(data);
     try {
       const response = await AppAPI.Experience(data);
-      console.log(response);
+      // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -308,7 +308,7 @@ const doUpdateExperience: any = createAsyncThunk<any, any, any>(
     // console.log(data)
     try {
       const response = await AppAPI.updateExperience(data);
-      console.log('Update', response);
+      // console.log('Update', response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -331,10 +331,10 @@ const doUpdateExperience: any = createAsyncThunk<any, any, any>(
 const doDeleteExperience: any = createAsyncThunk<any, any, any>(
   'app/DeleteExperience',
   async (data, thunkApi: any) => {
-    console.log(data);
+    // console.log(data);
     try {
       const response = await AppAPI.DeleteExperience(data);
-      console.log(response);
+      // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -359,7 +359,7 @@ const doAddTrainingCourse: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.TrainingCourse(data);
-      console.log(response);
+      // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -384,7 +384,7 @@ const doUpdateTrainingCourse: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.updateTrainingCourse(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -463,7 +463,7 @@ const doUpdateReferenceCheck: any = createAsyncThunk<any, any, any>(
     // console.log(data)
     try {
       const response = await AppAPI.updateReferenceCheck(data);
-      console.log(response);
+      // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -490,7 +490,7 @@ const doDeleteReferenceCheck: any = createAsyncThunk<any, any, any>(
     // console.log(data)
     try {
       const response = await AppAPI.DeleteReferenceCheck(data);
-      console.log(response);
+      // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -515,7 +515,7 @@ const doAddAchievement: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Achievement(data);
-      console.log(response);
+      // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -540,7 +540,7 @@ const doUpdateAchievement: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.updateAchievement(data);
-      console.log(response);
+      //console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -565,7 +565,7 @@ const doDeleteAchievement: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.DeleteAchievement(data);
-      console.log(response);
+     // console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -590,7 +590,7 @@ const doAddLanguages: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Languages(data);
-      console.log(response?.data);
+      //console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -615,7 +615,7 @@ const doUpdateLanguages: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.updateLanguages(data);
-      console.log(response?.data);
+      //console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -640,7 +640,7 @@ const doDeleteLanguages: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.DeleteLanguages(data);
-      console.log(response?.data);
+      //console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -666,7 +666,7 @@ const doAddPersonalInfo: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Info(data);
-      console.log(response);
+      //console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -867,7 +867,7 @@ const doUploadCV: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.CV(data);
-      console.log(response);
+      //console.log(response);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1217,7 +1217,7 @@ const doAddCompanyInfo: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.CompanyInfo(data);
-      console.log('0000000000' + JSON.stringify(response));
+      //console.log('0000000000' + JSON.stringify(response));
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1242,7 +1242,7 @@ const doAddCompanyAbout: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.CompanyAbout(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1267,7 +1267,7 @@ const searchForTagPeopel: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.SearchToTagPeople(data);
-      console.log(JSON.stringify(response));
+      // console.log(JSON.stringify(response));
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1293,7 +1293,7 @@ const doAddUploadPortfolio: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.CVCompany(data);
-      console.log(response?.data);
+      // console.log(response?.data);
       if (
         response.status == null ||
         response.status == 401 ||
@@ -1319,7 +1319,7 @@ const GetProfileInfo: any = createAsyncThunk<any, any, any>(
     try {
       const response = await AppAPI.profileInfo();
       // console.log(JSON.stringify(response?.data))
-      console.log(JSON.stringify(response));
+      // console.log(JSON.stringify(response));
       if (
         response.status == null ||
         response.status == 401 ||

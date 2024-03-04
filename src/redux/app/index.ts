@@ -887,7 +887,7 @@ const slice = createSlice({
           const followingListJSON = JSON.stringify(followingList);
           // Save the JSON string to AsyncStorage under the key 'FollowingList'
           await AsyncStorage.setItem('FollowingList', followingListJSON);
-          console.log(followingListJSON);
+       
         } catch (error) {
           console.error('Error saving FollowingList to AsyncStorage:', error);
           // Handle error here, such as showing an alert to the user
@@ -1283,7 +1283,7 @@ const slice = createSlice({
     // doAddCompanyInfo
     builder.addCase(thunks.doAddCompanyInfo.fulfilled, (state, action) => {
       state.done = true;
-      console.log(JSON.stringify(action?.payload));
+      // console.log(JSON.stringify(action?.payload));
 
       Toast.show({
         type: 'success',
@@ -1603,7 +1603,7 @@ const slice = createSlice({
           const MyJobJSON = JSON.stringify(myJob);
           // Save the JSON string to AsyncStorage under the key 'FollowingList'
           await AsyncStorage.setItem('MyJob', MyJobJSON);
-          console.log(MyJobJSON);
+          // console.log(MyJobJSON);
         } catch (error) {
           console.error('Error saving FollowingList to AsyncStorage:', error);
           // Handle error here, such as showing an alert to the user
@@ -1615,7 +1615,7 @@ const slice = createSlice({
     });
        //doGetOneJob
        builder.addCase(thunks.doGetJobDescraption.fulfilled, (state, action) => {
-              console.log("EEHAHHAB",action.payload.data)
+              // console.log("EEHAHHAB",action.payload.data)
         state.myJob = action.payload.data;
         const saveMyJobToStorage = async (myJob: any) => {
           try {

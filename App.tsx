@@ -34,7 +34,7 @@ const App = () => {
         I18nManager.forceRTL(true)
       ))
   }, [i18n.language])
-  console.warn(I18nManager?.isRTL)
+ 
   return (
     <Provider store={Store().store}>
       <GestureHandlerRootView style={{ flex: 1 }}>

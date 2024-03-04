@@ -430,7 +430,7 @@ const Footer = (data: any) => {
           );
         }
       }
-      if (photoData?.JobOpportunity != null||!photoData?.JobOpportunity) {
+      if (photoData?.JobOpportunity != null) {
         photoData?.JobOpportunity?.job_title == ''
           ? null
           : formdata.append('job_title', photoData?.JobOpportunity?.job_title);

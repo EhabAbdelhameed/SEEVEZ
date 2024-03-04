@@ -48,6 +48,7 @@ const Home = () => {
         const parsedFollowingList = JSON.parse(followingListData);
 
         setFollowingList(parsedFollowingList);
+     
       }
     } catch (error) {
       console.error('Error loading following list', error);

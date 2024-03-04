@@ -3,9 +3,9 @@ import React from 'react'
 import styles from '../styles'
 import { RenderSvgIcon, TName } from '../../../../Components/atoms/svg'
 
-const SocailBtn = ({ title, icon }: { title: string, icon: TName }) => {
+const SocailBtn = ({ title, icon,onpress }: { title: string, icon: TName,onpress: () => void  }) => {
     return (
-        <TouchableOpacity style={styles.socialBtnContainer}>
+        <TouchableOpacity style={styles.socialBtnContainer} onPress={onpress}>
             <RenderSvgIcon
                 icon={icon}
                 width={24}

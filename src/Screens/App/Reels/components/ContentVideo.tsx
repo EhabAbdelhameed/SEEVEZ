@@ -1,6 +1,5 @@
 import {
   Image,
-  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -34,6 +33,7 @@ import {useAppDispatch} from 'src/redux/store';
 import {selectAccessToken} from 'src/redux/app';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
+import Modal from 'react-native-modal';
 // import Share from 'react-native-share';
 const ContentVideo = (item: any) => {
   const navigation = useNavigation<any>();
@@ -286,10 +286,9 @@ const ContentVideo = (item: any) => {
         </View>
       </View>
       <Modal
-        visible={showReactionsModal}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={toggleReactionsModal}>
+        isVisible={showReactionsModal}
+        onBackButtonPress={() => setShowReactionsModal(false)}
+        onBackdropPress={() => setShowReactionsModal(false)}>
         <View style={styles.modalContainer}>
           <View
             style={{
@@ -320,34 +319,36 @@ const ContentVideo = (item: any) => {
         </View>
       </Modal>
       <Modal
-        visible={showEditPostModal}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={toggleEditPostModal}>
+        isVisible={showEditPostModal}
+        onBackButtonPress={() => setShowEditPostModal(false)}
+        onBackdropPress={() => setShowEditPostModal(false)}>
         <View style={styles.modalContainer1}>
           <TouchableOpacity
             style={{
-              paddingVertical: 8,
-              backgroundColor: appColors.bg,
+             
+            
               paddingHorizontal: 20,
-              borderRadius: 16,  
+              borderRadius: 16,
               flexDirection: 'row',
               columnGap: 10,
-              marginTop: 20,
+              justifyContent:'center',
+              alignItems:'center'
+              // marginTop: 20,
             }}
             onPress={() => {
               handleDeletePost(item?.data[0]?.postId);
             }}>
+              <DELETE />
             <Text
               style={{
-                fontSize: 16,
-                color: 'red',
+                fontSize: 20,
+                color: '#191919',
                 fontFamily: 'Noto Sans',
-                fontWeight: '700',
+                fontWeight: '500',
               }}>
               delete post
             </Text>
-            <DELETE />
+            
           </TouchableOpacity>
         </View>
       </Modal>

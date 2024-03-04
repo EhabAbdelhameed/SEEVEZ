@@ -60,6 +60,7 @@ import JOBOP   from './JobOprtuinty.svg'
 import SaveJob from './SaveJob.svg'
 import RepostIcon from './RepostIcon.svg'
 import PlaceHolderSearch from './PlaceHolderSearch.svg'
+import PlaceHolderReels from './PlaceHoldrReels.svg'
 export {
     Right,
     WAVE,
@@ -119,5 +120,6 @@ export {
     JOBOP,
     SaveJob,
     RepostIcon,
-    PlaceHolderSearch
+    PlaceHolderSearch,
+    PlaceHolderReels
 }

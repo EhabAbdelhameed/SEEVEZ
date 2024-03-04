@@ -249,9 +249,8 @@ export const styles = StyleSheet.create({
         bottom: 80,
         right: 5,
         width: '70%',
-        justifyContent:'center',
-        alignItems:'center',
-        paddingHorizontal:20,
+       
+         justifyContent:'center',
         paddingVertical:6,
         borderRadius:16,
        

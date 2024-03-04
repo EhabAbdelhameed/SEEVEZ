@@ -15,7 +15,8 @@ const User = ({ item }: any) => {
     const dispatch = useAppDispatch()
     const navigation = useNavigation<any>()
     const FollowingList = useAppSelector(selectFollowingList);
-    let exist = FollowingList?.some((ele: any) => ele?.userId == item?.id);
+    console.log(FollowingList)
+    let exist = FollowingList?.some((ele: any) => ele?.id == item?.id);
 
     const doFollowingOperation = () => {
         !exist

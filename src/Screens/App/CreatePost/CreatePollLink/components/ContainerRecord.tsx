@@ -17,7 +17,7 @@ import JopOppertunity from './JobOppertienty';
 
 const ContainerRecord = () => {
   const photoData = useSelector(selectPhotoData);
-  console.log(photoData?.names);
+ 
 
   return photoData.key == '3' ? (
     <View

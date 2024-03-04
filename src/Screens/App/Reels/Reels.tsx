@@ -48,7 +48,9 @@ import TextLinks from './components/TextLinks';
 import JopOppertunity from './components/JobOppertienty';
 import DeviceInfo from 'react-native-device-info';
 import {RenderSvgIcon} from 'components/atoms/svg';
-import { ScreenHeight } from 'react-native-elements/dist/helpers';
+import {ScreenHeight} from 'react-native-elements/dist/helpers';
+import {LOCATION, PlaceHolderReels} from 'assets/Svgs';
+import Header from 'components/molecules/Header';
 const ReelsScreen = () => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -60,13 +62,24 @@ const ReelsScreen = () => {
 
   const swiperRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }: any) => {
     const paddingToBottom = 20;
-    return layoutMeasurement.height-100 + contentOffset.y >= ScreenHeight - paddingToBottom;
+    return (
+      layoutMeasurement.height - 100 + contentOffset.y >=
+      ScreenHeight - paddingToBottom
+    );
   };
-  const ifCloseToTop = ({ layoutMeasurement, contentOffset, contentSize }:any) => {
+  const ifCloseToTop = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }: any) => {
     return contentOffset.y == 0;
-  }
+  };
   // const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
@@ -96,7 +109,7 @@ const ReelsScreen = () => {
     navigation.navigate('Home');
     return true; // Prevent default behavior (exit the app)
   };
-  // console.log("Posts",JSON.stringify(postsData[0]))
+  // console.log("Posts",JSON.stringify(postsData))
   const [currentVideoIndex, setCurrentVideoIndex] = useState<any>(0);
   const videoRef: any = useRef(null);
   const flatListRef: any = useRef(null);
@@ -111,7 +124,7 @@ const ReelsScreen = () => {
     fulltime: 0.1,
   });
   const hasNotch = DeviceInfo.hasNotch();
-  const renderSwiper = (item: any,key:any) => {
+  const renderSwiper = (item: any, key: any) => {
     return (
       <View
         style={[
@@ -168,18 +181,39 @@ const ReelsScreen = () => {
         !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-        <ContentVideo
-            data={
-              key==1
-                 ? [item, 1]
-                 : [item, 2]
-             }
-        />
+          {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
       </View>
     );
   };
 
-  const renderAudio = (item: any,key:any) => {
+  const renderAudio = (item: any, key: any) => {
     return item?.metadata?.color == '#0f0' ? (
       <>
         <LinearGradient
@@ -196,14 +230,35 @@ const ReelsScreen = () => {
             },
           ]}>
           <Audio data={item?.metadata} />
+          {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
         </LinearGradient>
-        <ContentVideo
-          data={
-            key==1
-               ? [item, 1]
-               : [item, 2]
-           }
-        />
+        <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
       </>
     ) : (
       <View
@@ -218,6 +273,33 @@ const ReelsScreen = () => {
           },
         ]}>
         <Audio data={item?.metadata} />
+        {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
         <ContentVideo
           data={
             !item?.metadata?.originalPostId
@@ -261,10 +343,37 @@ const ReelsScreen = () => {
                 },
               ]}>
               <Boll data={attach} />
+              {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
             </View>
           )
         ) : null}
-          <ContentVideo
+        <ContentVideo
           data={
             !item?.metadata?.originalPostId
               ? [item, 1]
@@ -274,8 +383,7 @@ const ReelsScreen = () => {
       </>
     ));
   };
-  const renderImage = (attach: any, item: any,key:any) => {
-    
+  const renderImage = (attach: any, item: any, key: any) => {
     return (
       <ImageBackground
         source={{
@@ -302,17 +410,39 @@ const ReelsScreen = () => {
         !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-         <ContentVideo
-          data={
-           key==1
-              ? [item, 1]
-              : [item, 2]
-          }
-        />
+
+        {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
       </ImageBackground>
     );
   };
-  const renderVideo = (attach: any, item: any,key:any,index:any) => {
+  const renderVideo = (attach: any, item: any, key: any, index: any) => {
     return (
       <View>
         <Video
@@ -324,8 +454,8 @@ const ReelsScreen = () => {
           //   fullscreenOrientation={'portrait'}
           // onProgress={progress}
           // muted={isMuted}
-          // paused={video.paused}
-          paused={currentVideoIndex != index ? false : true}
+          paused={video.paused}
+          // paused={currentVideoIndex != index ? false : true}
           style={{
             width: width,
             // height: appSizes.height ,
@@ -362,13 +492,34 @@ const ReelsScreen = () => {
         !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-         <ContentVideo
-          data={
-            key==1
-               ? [item, 1]
-               : [item, 2]
-           }
-        />
+          {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
       </View>
     );
   };
@@ -408,30 +559,30 @@ const ReelsScreen = () => {
             ) : !item?.metadata?.originalPostId ? (
               Array.isArray(item?.metadata?.attachments) ? (
                 item?.metadata?.attachments?.length > 1 ? (
-                  renderSwiper(item,1)
+                  renderSwiper(item, 1)
                 ) : (
                   item?.metadata?.attachments?.map((attach: any) =>
                     renderImage(attach, item, 1),
                   )
                 )
               ) : item?.metadata?.attachments?.type == 'video' ? (
-                renderVideo(item?.metadata?.attachments, item,1,index)
+                renderVideo(item?.metadata?.attachments, item, 1, index)
               ) : (
-                renderAudio(item,1)
+                renderAudio(item, 1)
               )
             ) : Array.isArray(
                 item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
               ) ? (
               item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
                 ?.length > 1 ? (
-                renderSwiper(item?.metadata?.originalPostId?.posts[0],2)
+                renderSwiper(item?.metadata?.originalPostId?.posts[0], 2)
               ) : (
                 item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
                   (attach: any) =>
                     renderImage(
                       attach,
                       item?.metadata?.originalPostId?.posts[0],
-                      2
+                      2,
                     ),
                 )
               )
@@ -440,10 +591,11 @@ const ReelsScreen = () => {
               renderVideo(
                 item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
                 item?.metadata?.originalPostId?.posts[0],
-                2,index
+                2,
+                index,
               )
             ) : (
-              renderAudio(item?.metadata?.originalPostId?.posts[0],2)
+              renderAudio(item?.metadata?.originalPostId?.posts[0], 2)
             )
           ) : (
             <View>
@@ -473,34 +625,74 @@ const ReelsScreen = () => {
       <ActivityIndicator size={50} style={{marginTop: 300}} />
     ) : (
       <>
-        <TouchableOpacity
-          style={{
-            position: 'absolute',
-            zIndex: 120,
-            top: hasNotch ? 70 : 15,
-            flexDirection: 'row',
-            alignItems: 'center',
-            left: 10,
-          }}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}>
-          <RenderSvgIcon icon="ARROWBACK" width={25} height={25} />
-          <Text style={styles.textLeftHeader}>My reels</Text>
-        </TouchableOpacity>
+        {!postsData || postsData[0]?.postId == null ? (
+          <Header Title={'My reels'} onPress={() => navigation.goBack()} />
+        ) : (
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              zIndex: 1000,
+              top: hasNotch ? 70 : 15,
+              flexDirection: 'row',
+              alignItems: 'center',
+              left: 10,
+            }}
+            onPress={() => {
+              navigation.navigate('Home');
+            }}>
+            <RenderSvgIcon icon="ARROWBACK" width={25} height={25} />
+            <Text style={styles.textLeftHeader}>My reels</Text>
+          </TouchableOpacity>
+        )}
         {!postsData || postsData[0]?.postId == null ? (
           <View
             style={{
-              width: '100%',
-              height: '100%',
+              height: '90%',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#FFF',
+
+              backgroundColor: appColors.bg,
             }}>
-            <Text style={{color: '#000', fontSize: 20}}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+
+                backgroundColor: '#FFF',
+                paddingVertical: 16,
+                paddingHorizontal: 20,
+                borderRadius: 16,
+              }}>
+              <PlaceHolderReels />
+              <Text
+                style={{
+                  color: '#1C1C1C',
+                  fontSize: 24,
+                  fontWeight: '400',
+                  marginTop: 10,
+                }}>
+                {' '}
+                No Reels Yet
+              </Text>
+              <View style={{width: '65%'}}>
+                <Text
+                  style={{
+                    color: '#000',
+                    fontSize: 20,
+                    fontWeight: '700',
+                    textAlign: 'center',
+                  }}>
+                  {' '}
+                  Make your first reel to get hired fast
+                </Text>
+              </View>
+              {/* <View style={{width:'65%'}}>
+            <Text style={{color: '#000', fontSize: 14,fontWeight:'400',textAlign:'center'}}>
               {' '}
-              No posts please create post
+              unlimited job search ، unlimited posts and unlimited videos
             </Text>
+            </View> */}
+            </View>
           </View>
         ) : (
           <FlatList
@@ -524,7 +716,6 @@ const ReelsScreen = () => {
               });
               setCurrentVideoIndex(index);
               setLoading(true);
-           
             }}
             keyExtractor={item => item._id}
             // scrollEventThrottle={16} // Adjust this value for smoother scrolling events

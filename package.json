@@ -18,6 +18,7 @@
     "@react-native-camera-roll/camera-roll": "^7.3.0",
     "@react-native-community/datetimepicker": "^7.6.2",
     "@react-native-community/slider": "^4.5.0",
+    "@react-native-google-signin/google-signin": "^11.0.0",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/drawer": "^6.6.6",
     "@react-navigation/native": "^6.1.9",

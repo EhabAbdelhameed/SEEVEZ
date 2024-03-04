@@ -61,7 +61,7 @@ const SearchPeople = () => {
             Only people on your list can see this reel
           </Text>
         </View>
-
+         
         <Flatlist />
         <Button
           text="Done"

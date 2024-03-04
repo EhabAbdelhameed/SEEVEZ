@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, Linking, Image } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
-import { styles } from './styles';
-import { RenderSvgIcon } from 'components/atoms/svg';
+import {View, Text, TouchableOpacity, Linking, Image} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {styles} from './styles';
+import {RenderSvgIcon} from 'components/atoms/svg';
 import {
   AVATAR,
   PAUSE,
@@ -11,11 +11,11 @@ import {
   VOICE,
   WAVE,
 } from 'assets/Svgs';
-import { appColors } from 'theme';
-import { useSelector } from 'react-redux';
-import { selectPhotoData } from 'src/redux/app';
+import {appColors} from 'theme';
+import {useSelector} from 'react-redux';
+import {selectPhotoData} from 'src/redux/app';
 import Sound from 'react-native-sound';
-import { selectUser } from 'src/redux/auth';
+import {selectUser} from 'src/redux/auth';
 
 const Audio = (data: any) => {
   const audioData = useSelector(selectPhotoData);
@@ -82,8 +82,9 @@ const Audio = (data: any) => {
   const formatTime = (seconds: any) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''
-      }${remainingSeconds}`;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${
+      remainingSeconds < 10 ? '0' : ''
+    }${remainingSeconds}`;
   };
   return (
     <View
@@ -93,6 +94,7 @@ const Audio = (data: any) => {
         paddingHorizontal: 20,
         borderRadius: 20,
         paddingVertical: 5,
+        marginRight: 40,
       }}>
       <View
         style={{
@@ -126,8 +128,8 @@ const Audio = (data: any) => {
             <AVATAR height={32} width={32} />
           ) : (
             <Image
-              source={{ uri: data?.data?.user_data?.avatar }}
-              style={{ width: 40, height: 40, borderRadius: 40 }}
+              source={{uri: data?.data?.user_data?.avatar}}
+              style={{width: 40, height: 40, borderRadius: 40}}
               resizeMode="cover"
             />
           )}
@@ -149,7 +151,7 @@ const Audio = (data: any) => {
           </View>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text style={styles.timeText}>{formatTime(duration)}</Text>
         <Text style={styles.timeText}>12:00 pm</Text>
       </View>

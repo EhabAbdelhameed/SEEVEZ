@@ -50,7 +50,6 @@ import { useTranslation } from 'react-i18next';
 const UpdateOneExperience = () => {
   const {data}: any = useRoute().params;
 
-  console.log('sdasdsadedreew', data);
   const [startDates, setStartDates] = useState(new Date(data?.start_date));
   const [endDates, setEndDates] = useState(new Date(data?.end_date));
 

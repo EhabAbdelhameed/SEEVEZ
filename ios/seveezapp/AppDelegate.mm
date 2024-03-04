@@ -12,6 +12,7 @@
   self.initialProps = @{};
    [[RCTI18nUtil sharedInstance] allowRTL:NO];
    [[RCTI18nUtil sharedInstance] forceRTL:NO];
+  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

@@ -65,7 +65,7 @@ const SearchScreen = () => {
   const searchList = useAppSelector(selectSearchingList);
   const searchJobList = useAppSelector(selectSearchingJobList);
 
-  console.log('SearchData', searchJobList);
+
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       dispatch(AppSlice.changeSearch([]));

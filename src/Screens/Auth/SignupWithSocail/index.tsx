@@ -20,12 +20,43 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppSelector } from 'src/redux/store';
 import { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
-
+// import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
 const SignupWithSocail = () => {
   const { work_type, title }: any = useRoute().params
   const lang = useAppSelector(selectLang);
   const { t, i18n } = useTranslation();
   const navigation = useNavigation<any>()
+  const googleSignIn = async () => {
+
+    GoogleSignin.configure({
+        webClientId: '766263686299-qj2lg59kpq1u4cdf7c0t1qha6kd5h2j6.apps.googleusercontent.com'
+    });
+    try {
+        await GoogleSignin.hasPlayServices();
+        const userInfo = await GoogleSignin.signIn()
+        const { accessToken } = await GoogleSignin.getTokens();
+
+        console.log('user ====================================');
+        // dispatch(GoogleSign(accessToken));
+        console.log(accessToken)
+        console.log('====================================');
+
+    } catch (error: any) {
+        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+            // user cancelled the login flow
+        } else if (error.code === statusCodes.IN_PROGRESS) {
+            // operation (e.g. sign in) is in progress already
+        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+            // play services not available or outdated
+        } else {
+            // some other error happened
+        }
+        console.log('errr====================================');
+        console.log(JSON.stringify(error));
+        console.log('====================================');
+    }
+};
   return (
     <SafeAreaView edges={['top']} style={[styles.container, { direction: lang == 'en' ? 'ltr' : 'rtl' }]}>
       <KeyboardAwareScrollView
@@ -77,11 +108,11 @@ const SignupWithSocail = () => {
             title={t("Sign up")}
             subtitle=""
           />
-          <SocailBtn title={t("Facebook")} icon='FACEBOOK' />
-          <SocailBtn title={t("Linkedin")} icon='LINKEDIN' />
+          <SocailBtn onpress={()=>console.log("ehab")} title={t("Facebook")} icon='FACEBOOK' />
+          <SocailBtn onpress={()=>console.log("moh")} title={t("Linkedin")} icon='LINKEDIN' />
 
-          <SocailBtn title={t("Google")} icon='GOOGLE' />
-          <SocailBtn title={t("Apple")} icon='APPLE' />
+          <SocailBtn onpress={googleSignIn} title={t("Google")} icon='GOOGLE' />
+          <SocailBtn onpress={()=>console.log("ehab")} title={t("Apple")} icon='APPLE' />
           <View style={styles.orContainer}>
             <View style={styles.line}></View>
             <Text style={styles.orText}>{t("orSignUpBy")}</Text>

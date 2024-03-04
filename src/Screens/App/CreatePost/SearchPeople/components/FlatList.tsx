@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Platform,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {styles} from '../styles';
@@ -19,12 +20,12 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import {useSelector} from 'react-redux';
-import AppSlice, {selectSearch, selectSearchData} from 'src/redux/app';
+import AppSlice, { selectSearchData} from 'src/redux/app';
 
 const Flatlist = () => {
   const [choicePeople, setChoicePeople] = useState(false);
   const searchData = useSelector(selectSearchData);
-
+  const [Load, setLoad] = React.useState(false);
   // const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndices, setSelectedIndices] = useState<any>([]);
@@ -35,21 +36,26 @@ const Flatlist = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   useEffect(() => {
+   ;
     dispatch(AppSlice.changeTagPeopel(selectedIds));
     dispatch(AppSlice.changeTagNames(selectedNames));
   }, [selectedIds, selectedNames]);
   React.useEffect(() => {
     dispatch(AppThunks.GetProfileInfo())
+    dispatch(AppSlice.changeSearchPeopelData([]))
     const timer = setTimeout(() => {
       
       searchTerm &&
+         setLoad(true)
         dispatch(AppThunks?.searchForTagPeopel(searchTerm)).then(() => {
-          // setLoad(false)
+          setLoad(false)
         });
     }, 500);
 
     return () => clearTimeout(timer);
   }, [searchTerm]);
+
+ 
   const filteredData = (data: any) =>
     data?.name?.toLowerCase().includes(searchTerm?.toLowerCase());
   return (
@@ -77,6 +83,9 @@ const Flatlist = () => {
         }}
         placeholder={`Write here..`}
       />
+       {Load ? (
+          <ActivityIndicator size={30} style={{marginTop: 15}} />
+        ) :(
       <View style={{marginTop: 20}}>
         <FlatList
           scrollEnabled={false}
@@ -188,7 +197,7 @@ const Flatlist = () => {
           )}
           keyExtractor={(item, index) => index.toString()}
         />
-      </View>
+      </View>)}
     </SafeAreaView>
   );
 };

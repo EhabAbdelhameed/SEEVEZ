@@ -8,6 +8,7 @@ import { appSizes } from '../../../../../theme/appSizes'
 import { AVATAR } from 'assets/Svgs'
 
 const User = (data: any) => {
+    // console.log(JSON.stringify(data))
     return (
         <View style={[styles.rowContainer, {
             width: '65%',
@@ -16,7 +17,7 @@ const User = (data: any) => {
             paddingVertical: 3,
 
         }]}>
-            {data?.data?.avatarCustomUrl == null || data?.data?.avatarCustomUrl == 'null' || data?.data?.avatarCustomUrl == undefined || !data?.data?.avatarCustomUrl ?
+            {data?.data?.avatar == null || data?.data?.avatar == 'null' || data?.data?.avatar == undefined  ?
                 <View
                     style={{
                         width: 38,
@@ -32,7 +33,7 @@ const User = (data: any) => {
                 </View> :
                 <AvatarIcon
                     noActive
-                    imgUrl={data?.data?.avatarCustomUrl}
+                    imgUrl={data?.data?.avatar}
                     style={{ height: 38, width: 38 }}
                 />
             }
@@ -41,17 +42,17 @@ const User = (data: any) => {
                     <Text numberOfLines={1} style={[styles.text1, {
                         marginBottom: 0,
                         fontSize: appSizes.font_m - 3
-                    }]}>{data?.data?.displayName == null ? "User" : data?.data?.displayName}</Text>
+                    }]}>{data?.data?.name == null ? "User" : data?.data?.name}</Text>
                     {/* <RenderSvgIcon
                         icon='RIGHTACCOUNT'
                         width={13}
                     /> */}
                 </View>
                 <View style={{ width: "90%" }}>
-                    {data?.data?.metadata?.job_title == null ? null :
+                    {data?.data?.job_title == null ? null :
                         <Text style={[styles.text4]}
                             numberOfLines={2}
-                        >{data?.data?.metadata?.job_title}</Text>}
+                        >{data?.data?.job_title}</Text>}
                 </View>
             </View>
         </View>
