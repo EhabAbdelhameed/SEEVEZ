@@ -31,24 +31,133 @@ const HealthProfileCard = (data: any) => {
         <View style={styles.Row}>
           <Text style={styles.Title}>Health profile</Text>
           <TouchableOpacity
-                  style={{
-                    height: 30,
-                    width: 30,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                 
-                  onPress={() =>
-                    navigation.navigate('HealthProfile')
-                  }>
-                  <RenderSvgIcon
-                    icon="PEN"
-                    width={20}
-                    height={20}
-                    color={appColors.primary}
-                  />
-             </TouchableOpacity>
+            style={{
+              height: 30,
+              width: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => navigation.navigate('HealthProfile')}>
+            <RenderSvgIcon
+              icon="PEN"
+              width={20}
+              height={20}
+              color={appColors.primary}
+            />
+          </TouchableOpacity>
         </View>
+        {CurrentUserData?.special_needs!=null?
+        <View>
+          <Text
+            style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 16,
+              color: '#1C1C1C',
+              fontWeight: '700',
+            }}>
+            Special Needs
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 14,
+              color: '#1C1C1C',
+              fontWeight: '400',
+              marginLeft:10,
+              marginTop:3
+            }}>
+            {CurrentUserData?.special_needs}
+          </Text>
+        </View>:null}
+        {CurrentUserData?.disabilities!=null?
+        <View>
+          <Text
+            style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 16,
+              color: '#1C1C1C',
+              fontWeight: '700',
+            }}>
+            Disabilities
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 14,
+              color: '#1C1C1C',
+              fontWeight: '400',
+              marginLeft:10,
+              marginTop:3
+            }}>
+            {CurrentUserData?.disabilities}
+          </Text>
+        </View>:null}
+        {CurrentUserData?.height!=null&&CurrentUserData?.weight!=null?
+        <View style={{flexDirection:'row'}}>
+          <View style={{width:'50%'}}>
+          <Text
+            style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 16,
+              color: '#1C1C1C',
+              fontWeight: '700',
+            }}>
+            Height
+          </Text>
+          <Text style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 14,
+              color: '#1C1C1C',
+              fontWeight: '400',
+              marginLeft:10,
+              marginTop:3
+            }}>{CurrentUserData?.height} cm</Text>
+          </View>
+          <View>
+          <Text
+             style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 16,
+              color: '#1C1C1C',
+              fontWeight: '700',
+            }}>
+            Weight
+          </Text>
+          <Text style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 14,
+              color: '#1C1C1C',
+              fontWeight: '400',
+              marginLeft:10,
+              marginTop:3
+            }}>{CurrentUserData?.weight} Kg</Text>
+          </View>
+        </View>
+           :null} 
+        {CurrentUserData?.smoker!=null?
+        <View style={{marginTop:10}}>
+          <Text
+            style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 16,
+              color: '#1C1C1C',
+              fontWeight: '700',
+            }}>
+           Smoker
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Noto Sans',
+              fontSize: 14,
+              color: '#1C1C1C',
+              fontWeight: '400',
+              marginLeft:10,
+              marginTop:3
+            }}>
+          {CurrentUserData?.smoker==0?"No":"Yes"}
+          </Text>
+        </View>:null}
+        
       </View>
     </View>
   );
