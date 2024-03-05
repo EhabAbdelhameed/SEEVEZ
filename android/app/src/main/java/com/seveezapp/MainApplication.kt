@@ -39,8 +39,8 @@ class MainApplication : Application(), ReactApplication {
   override fun onCreate() {
     super.onCreate()
     val sharedI18nUtilInstance = I18nUtil.getInstance()
-    sharedI18nUtilInstance.allowRTL(this, true)
-    sharedI18nUtilInstance.forceRTL(this, true)
+    sharedI18nUtilInstance.allowRTL(this, false)
+    sharedI18nUtilInstance.forceRTL(this,false)
     SoLoader.init(this, false)
 
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
