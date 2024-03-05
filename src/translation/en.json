@@ -470,5 +470,13 @@
 "verify": "Verify",
 "notVerify": "Not Verify",
 "myMarket": "My Market",
-  "Market": "Market"
+  "Market": "Market",
+  "View profile":"View profile",
+  "Switch profile":"Switch profile",
+  "Switch Language":"Switch Language",
+  "Packages":"Packages",
+  "Settings":"Settings",
+  "Log out" :"Log out"
+  
+
 }

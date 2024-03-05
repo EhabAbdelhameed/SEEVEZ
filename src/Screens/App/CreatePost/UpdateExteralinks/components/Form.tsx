@@ -78,7 +78,7 @@ const Form = () => {
               }
             }
 
-            console.log('Exterinal', JSON.stringify(formdata));
+            console.log('Exterinal Links : ', JSON.stringify(formdata));
             dispatch(AppThunks.doUpdatePost(formdata)).then((res: any) => {
               
               setLoading(false);

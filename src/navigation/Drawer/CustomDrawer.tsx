@@ -32,6 +32,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import LangSlice, { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
 
+const lang = useSelector(selectLang);
+
+  const { t, i18n } = useTranslation();
 const {height} = Dimensions.get('window');
 
 const CustomSidebarMenu = (props: any) => {
@@ -50,7 +53,7 @@ const CustomSidebarMenu = (props: any) => {
 
   // dispatch(LangSlice.chnageLang(lang === 'ar' ? 'en' : 'ar'))
   return (
-    <SafeAreaView edges={['']} style={styles.Container}>
+    <SafeAreaView edges={['']} style={[styles.Container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <DrawerContentScrollView {...props}>
         <LinearGradient
           start={{x: 1, y: 0}}
@@ -102,6 +105,7 @@ const CustomSidebarMenu = (props: any) => {
                 color: '#000',
                 fontWeight: '600',
                 fontFamily: 'Noto Sans',
+                textAlign:lang=='ar'?'right':'left'
               }}>
               {USER?.name}
             </Text>
@@ -119,16 +123,17 @@ const CustomSidebarMenu = (props: any) => {
                 fontSize: 16,
                 fontWeight: '400',
                 fontFamily: 'Noto Sans',
+                textAlign:lang=='ar'?'right':'left'
               }}>
               {USER?.job_title}
             </Text>
           )}
           <View style={{flexDirection: 'row', marginTop: 20, columnGap: 10}}>
             <View style={styles.subContainer}>
-              <Text style={styles.subText}>Premium</Text>
+              <Text style={styles.subText}>{t("Premium")}</Text>
             </View>
             <View style={styles.statuesContainer}>
-              <Text style={styles.statuesText}>Online</Text>
+              <Text style={styles.statuesText}>{t("Online")}</Text>
             </View>
           </View>
           <TouchableOpacity
@@ -148,7 +153,7 @@ const CustomSidebarMenu = (props: any) => {
             }}>
             <Text
               style={{fontFamily: 'Noto Sans', fontSize: 18, color: '#FFF'}}>
-              View profile
+              {t("View profile")}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -169,7 +174,7 @@ const CustomSidebarMenu = (props: any) => {
                 fontSize: 18,
                 color: '#1D5EDD',
               }}>
-              Switch profile
+              {t("Switch profile")}
             </Text>
             <ArrowDown />
           </TouchableOpacity>
@@ -191,7 +196,7 @@ const CustomSidebarMenu = (props: any) => {
                 fontSize: 18,
                 color: '#1D5EDD',
               }}>
-              Switch Language
+              {t("Switch Language")}
             </Text>
            
           </TouchableOpacity>
@@ -216,7 +221,7 @@ const CustomSidebarMenu = (props: any) => {
               color: '#0C275D',
               width:'50%'
             }}>
-            Packages
+            {t("Packages")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -236,7 +241,7 @@ const CustomSidebarMenu = (props: any) => {
               color: '#0C275D',
               width:'50%'
             }}>
-            Settings
+            {t("Settings")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -257,7 +262,7 @@ const CustomSidebarMenu = (props: any) => {
               color: '#0C275D',
               width:'50%'
             }}>
-            Log out
+            {t("Log out")}
           </Text>
         </TouchableOpacity>
       </View>
