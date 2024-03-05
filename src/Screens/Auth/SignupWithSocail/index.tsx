@@ -21,42 +21,42 @@ import { useAppSelector } from 'src/redux/store';
 import { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
 // import { LoginManager, AccessToken } from 'react-native-fbsdk';
-import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
+// import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
 const SignupWithSocail = () => {
   const { work_type, title }: any = useRoute().params
   const lang = useAppSelector(selectLang);
   const { t, i18n } = useTranslation();
   const navigation = useNavigation<any>()
-  const googleSignIn = async () => {
+//   const googleSignIn = async () => {
 
-    GoogleSignin.configure({
-        webClientId: '766263686299-qj2lg59kpq1u4cdf7c0t1qha6kd5h2j6.apps.googleusercontent.com'
-    });
-    try {
-        await GoogleSignin.hasPlayServices();
-        const userInfo = await GoogleSignin.signIn()
-        const { accessToken } = await GoogleSignin.getTokens();
+//     GoogleSignin.configure({
+//         webClientId: '766263686299-qj2lg59kpq1u4cdf7c0t1qha6kd5h2j6.apps.googleusercontent.com'
+//     });
+//     try {
+//         await GoogleSignin.hasPlayServices();
+//         const userInfo = await GoogleSignin.signIn()
+//         const { accessToken } = await GoogleSignin.getTokens();
 
-        console.log('user ====================================');
-        // dispatch(GoogleSign(accessToken));
-        console.log(accessToken)
-        console.log('====================================');
+//         console.log('user ====================================');
+//         // dispatch(GoogleSign(accessToken));
+//         console.log(accessToken)
+//         console.log('====================================');
 
-    } catch (error: any) {
-        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-            // user cancelled the login flow
-        } else if (error.code === statusCodes.IN_PROGRESS) {
-            // operation (e.g. sign in) is in progress already
-        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-            // play services not available or outdated
-        } else {
-            // some other error happened
-        }
-        console.log('errr====================================');
-        console.log(JSON.stringify(error));
-        console.log('====================================');
-    }
-};
+//     } catch (error: any) {
+//         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+//             // user cancelled the login flow
+//         } else if (error.code === statusCodes.IN_PROGRESS) {
+//             // operation (e.g. sign in) is in progress already
+//         } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+//             // play services not available or outdated
+//         } else {
+//             // some other error happened
+//         }
+//         console.log('errr====================================');
+//         console.log(JSON.stringify(error));
+//         console.log('====================================');
+//     }
+// };
   return (
     <SafeAreaView edges={['top']} style={[styles.container, { direction: lang == 'en' ? 'ltr' : 'rtl' }]}>
       <KeyboardAwareScrollView
@@ -108,7 +108,7 @@ const SignupWithSocail = () => {
             title={t("Sign up")}
             subtitle=""
           />
-          <SocailBtn onpress={()=>console.log("ehab")} title={t("Facebook")} icon='FACEBOOK' />
+          {/* <SocailBtn onpress={()=>console.log("ehab")} title={t("Facebook")} icon='FACEBOOK' />
           <SocailBtn onpress={()=>console.log("moh")} title={t("Linkedin")} icon='LINKEDIN' />
 
           <SocailBtn onpress={googleSignIn} title={t("Google")} icon='GOOGLE' />
@@ -117,7 +117,7 @@ const SignupWithSocail = () => {
             <View style={styles.line}></View>
             <Text style={styles.orText}>{t("orSignUpBy")}</Text>
             <View style={styles.line}></View>
-          </View>
+          </View> */}
           <Button text={t("continueWithEmail")} onPress={() => { navigation.navigate("signup2", { work_type: work_type, title: title }) }}
             style={styles.btn}
             textStyle={{
