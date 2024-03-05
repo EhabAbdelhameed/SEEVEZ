@@ -1592,7 +1592,7 @@ const doUpdatePost: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.updatePost(data);
-      // alert(JSON.stringify(response?.data));
+      console.log(JSON.stringify(response));
       if (
         response.status == null ||
         response.status == 401 ||

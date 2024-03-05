@@ -23,7 +23,11 @@ const Footer = (data: any) => {
         : null;
       if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
         for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
-          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
+          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]?.id);
+          formdata.append(
+            `mention[${i}][name]`,
+            photoData?.tagPepoles[i]?.name,
+          );
         }
       }
       data?.data[2] != '' || !data
@@ -47,7 +51,11 @@ const Footer = (data: any) => {
         : null;
       if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
         for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
-          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
+          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]?.id);
+          formdata.append(
+            `mention[${i}][name]`,
+            photoData?.tagPepoles[i]?.name,
+          );
         }
       }
       data?.data[2] != '' || !data
@@ -76,9 +84,7 @@ const Footer = (data: any) => {
 
   return (
     <View style={styles.footerContainer}>
-      <View style={styles.footerLeftSide}>
-      
-      </View>
+      <View style={styles.footerLeftSide}></View>
       <TouchableOpacity onPress={sendAudioData} style={styles.btnShare}>
         {isLoading ? (
           <ActivityIndicator size={'small'} color={'#FFF'} />

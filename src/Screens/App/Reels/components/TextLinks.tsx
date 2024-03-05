@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { styles } from './styles'
 import { RenderSvgIcon } from '../../../../Components/atoms/svg'
@@ -14,17 +14,14 @@ const TextLinks = (data:any) => {
           
             <Text style={styles.text12}>{data?.data?.addonCaption}</Text>
             {data?.data?.externalLinks?.map((Exp: any, index: any) => (
-            <Text style={[styles.text12, {
+                <TouchableOpacity  onPress={() => Linking.openURL(Exp?.link)}>
+            <Text numberOfLines={2} style={[styles.text12, {
                 color: "#1A56C9",
                 marginTop: 12,
-            }]}>{Exp?.link}</Text>))}
+            }]}>{Exp?.link}</Text>
+            </TouchableOpacity>))}
            
-            <TouchableOpacity style={styles.containerHire}>
-                <RenderSvgIcon icon='COMMENT' width={20} height={20} />
-                <Text style={[styles.text3, {
-                    color: appColors.white
-                }]}>Hire now</Text>
-            </TouchableOpacity>
+           
         </View>
     )
 }

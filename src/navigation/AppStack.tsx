@@ -66,6 +66,8 @@ import Form2 from 'screens/App/CreatePost/JobOpportunity/components/Form2';
 import JobDetailsScreen from 'screens/App/Job Details';
 import MyJob from 'screens/App/BottomTab/My Job';
 import JobDescraption from 'screens/App/BottomTab/JopDescraption';
+import UpdateExterinalLinks from 'screens/App/CreatePost/UpdateExteralinks';
+import UpdateCV from 'screens/App/CreatePost/UpdateCV';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -339,6 +341,14 @@ const AppStack = () => {
              <Stack.Screen
                 name='JobDescraption'
                 component={JobDescraption}
+            />
+              <Stack.Screen
+                name='UpdateExterinalLinks'
+                component={UpdateExterinalLinks}
+            />
+             <Stack.Screen
+                name='UpdateCV'
+                component={UpdateCV}
             />
         </Stack.Navigator>
     );

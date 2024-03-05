@@ -31,13 +31,13 @@ const Flatlist = () => {
   const [selectedIndices, setSelectedIndices] = useState<any>([]);
   const [selectedIds, setSelectedIds] = useState<any>([]);
   const [selectedNames, setSelectedNames] = useState<any>([]);
-
+  const [selectedItems, setSelectedItems] = useState<any>([]);
   const [searchIndex, setSearchIndex] = useState<any>('');
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   useEffect(() => {
-   ;
-    dispatch(AppSlice.changeTagPeopel(selectedIds));
+  
+    dispatch(AppSlice.changeTagPeopel(selectedItems));
     dispatch(AppSlice.changeTagNames(selectedNames));
   }, [selectedIds, selectedNames]);
   React.useEffect(() => {
@@ -95,6 +95,8 @@ const Flatlist = () => {
               onPress={() => {
                 const itemId = searchData?.data[index]?.id; // Assuming you have an 'id' field in your data
                 const Name = searchData?.data[index]?.name;
+               
+                const selectedItem = { id: itemId, name: Name };
                 if (selectedIndices.includes(index)) {
                   setSelectedIndices(
                     selectedIndices.filter((idx: any) => idx !== index),
@@ -105,12 +107,16 @@ const Flatlist = () => {
                   setSelectedNames(
                     selectedNames.filter((name: any) => name !== Name),
                   );
+                  setSelectedItems(
+                    selectedItems.filter((item: any) => item.id !== itemId),
+                  );
 
                   // dispatch(AppSlice.changeTagPeopel(selectedIds))
                 } else {
                   setSelectedIndices([...selectedIndices, index]);
                   setSelectedIds([...selectedIds, itemId]);
                   setSelectedNames([...selectedNames, Name]);
+                  setSelectedItems([...selectedItems, selectedItem]);
 
                   // dispatch(AppSlice.changeTagPeopel(selectedIds))
                 }

@@ -82,6 +82,8 @@ export type AppParamsList = {
     Form2:undefined;
     MyJob:undefined;
     JobDescraption:undefined;
+    UpdateExterinalLinks:undefined;
+    UpdateCV:undefined;
 }
 export type RootParamsList = {
     auth: any;

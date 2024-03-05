@@ -43,6 +43,8 @@ import UserJobs from './components/UserJob';
 
 const SearchScreen = () => {
   const dispatch = useAppDispatch();
+  const Indstries:any = useAppSelector(selectIndstruy)
+
   const navigation = useNavigation<any>();
   const inputRef = React.useRef(null);
   const [FilterVisable, setFilterVisable] = React.useState(false);
@@ -278,12 +280,12 @@ const SearchScreen = () => {
             padding: 10,
           }}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <IndustriesList
+           {Indstries?.length!=0 && <IndustriesList
               industry={industry}
               setIndustry={setIndustry}
               setIndustryVaisable={setIndustryVaisable}
               industryVisable={industryVisable}
-            />
+            />}
             <ExperianceList
               industry={experiance}
               setIndustry={setExperiance}

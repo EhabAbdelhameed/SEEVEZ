@@ -52,11 +52,13 @@ const Footer = (data: any) => {
       photoData.location != null && photoData.location != ''
         ? formdata.append('location', photoData.location)
         : null;
-      if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
-        for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
-          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
+        if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
+          for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
+            formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]?.id);
+            formdata.append(`mention[${i}][name]`, photoData?.tagPepoles[i]?.name);
+  
+          }
         }
-      }
       //  console.log(source) item?.node?.image?.uri
       formdata.append(`photo[0][files]`, {
         uri: photoData?.image?.node?.image?.uri,
@@ -156,7 +158,9 @@ const Footer = (data: any) => {
         : null;
       if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
         for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
-          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
+          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]?.id);
+          formdata.append(`mention[${i}][name]`, photoData?.tagPepoles[i]?.name);
+
         }
       }
       photoData.market != null && photoData.market?.length != 0
@@ -275,11 +279,13 @@ const Footer = (data: any) => {
       photoData.location != null && photoData.location != ''
         ? formdata.append('location', photoData.location)
         : null;
-      if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
-        for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
-          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
+        if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
+          for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
+            formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]?.id);
+            formdata.append(`mention[${i}][name]`, photoData?.tagPepoles[i]?.name);
+  
+          }
         }
-      }
 
       for (let i = 0; i < photoData?.image?.length; i++) {
         formdata.append(`photo[${i}][files]`, {
@@ -400,11 +406,13 @@ const Footer = (data: any) => {
       photoData.location != null && photoData.location != ''
         ? formdata.append('location', photoData.location)
         : null;
-      if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
-        for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
-          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
+        if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
+          for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
+            formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]?.id);
+            formdata.append(`mention[${i}][name]`, photoData?.tagPepoles[i]?.name);
+  
+          }
         }
-      }
       //  console.log(source) item?.node?.image?.uri
       formdata.append('files', {
         uri: photoData?.image,
@@ -522,30 +530,13 @@ const Footer = (data: any) => {
       photoData.location != null && photoData.location != ''
         ? formdata.append('location', photoData.location)
         : null;
-      if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
-        for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
-          formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]);
-        }
-        photoData.market != null && photoData.market?.length != 0
-          ? formdata.append('media', {
-              uri: photoData?.market[0]?.uri,
-              type: photoData?.market[0]?.type,
-              name: photoData?.market[0]?.name,
-            })
-          : null;
-
-        if (
-          photoData?.exterinalLinks != null &&
-          photoData?.exterinalLinks?.length != 0
-        ) {
-          for (let i = 0; i < photoData?.exterinalLinks?.length; i++) {
-            formdata.append(
-              `array[${i}][link]`,
-              photoData?.exterinalLinks[i].link,
-            );
+        if (photoData?.tagPepoles != null && photoData?.tagPepoles?.length != 0) {
+          for (let i = 0; i < photoData?.tagPepoles?.length; i++) {
+            formdata.append(`mention[${i}][id]`, photoData?.tagPepoles[i]?.id);
+            formdata.append(`mention[${i}][name]`, photoData?.tagPepoles[i]?.name);
+  
           }
         }
-      }
       //  console.log(source) item?.node?.image?.uri
       formdata.append('files', {
         uri: photoData?.image?.assets[0]?.uri,

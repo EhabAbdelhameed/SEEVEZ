@@ -325,20 +325,53 @@ const ContentVideo = (item: any) => {
         <View style={styles.modalContainer1}>
           <TouchableOpacity
             style={{
-             
-            
               paddingHorizontal: 20,
               borderRadius: 16,
               flexDirection: 'row',
               columnGap: 10,
-              justifyContent:'center',
-              alignItems:'center'
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 20,
+            }}
+            onPress={() => {
+              item?.data[2] == 'Links'
+                ? navigation.navigate('UpdateExterinalLinks', {
+                    item: item?.data[0],
+                  })
+                :item?.data[2] == 'Pdf'?navigation.navigate('UpdateCV', {
+                  item: item?.data[0],
+                }) :null;
+            }}>
+            <RenderSvgIcon
+              icon="PEN"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
+            <Text
+              style={{
+                fontSize: 20,
+                color: '#191919',
+                fontFamily: 'Noto Sans',
+                fontWeight: '500',
+              }}>
+              Update post
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              paddingHorizontal: 20,
+              borderRadius: 16,
+              flexDirection: 'row',
+              columnGap: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
               // marginTop: 20,
             }}
             onPress={() => {
               handleDeletePost(item?.data[0]?.postId);
             }}>
-              <DELETE />
+            <DELETE />
             <Text
               style={{
                 fontSize: 20,
@@ -348,7 +381,6 @@ const ContentVideo = (item: any) => {
               }}>
               delete post
             </Text>
-            
           </TouchableOpacity>
         </View>
       </Modal>

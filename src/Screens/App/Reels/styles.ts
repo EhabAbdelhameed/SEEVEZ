@@ -88,4 +88,25 @@ export const styles = StyleSheet.create({
       fontWeight: "600",
       marginLeft: 10
   },
+  taggedPeopleContainer: {
+    // marginTop: 20,
+    // paddingHorizontal: 10,
+    position:'absolute',
+    left:10,
+    top:170,
+
+  },
+  taggedPerson: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'center',
+    marginBottom: 10,
+    width:84,
+    paddingHorizontal:10,
+    paddingVertical:6,
+    backgroundColor:'#FFF',
+    marginRight:10,
+    borderRadius:16,
+    
+  },
   });

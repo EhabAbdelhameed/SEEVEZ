@@ -54,7 +54,7 @@ import Header from 'components/molecules/Header';
 const ReelsScreen = () => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const postsData = useSelector(selectPosts);
   const polls = useSelector(selectPolls);
 
@@ -84,7 +84,7 @@ const ReelsScreen = () => {
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       setLoader(true);
-      dispatch(AppThunks.GetMyReels(CurrentUserData?.user_data?.id)).then(
+      dispatch(AppThunks.GetMyReels(CurrentUserData?.user_id)).then(
         (res: any) => {
           setLoader(false);
         },
@@ -181,7 +181,7 @@ const ReelsScreen = () => {
         !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-          {item?.metadata?.location == null ||
+        {item?.metadata?.location == null ||
         item?.metadata?.location == '' ? null : (
           <View
             style={{
@@ -208,7 +208,29 @@ const ReelsScreen = () => {
             </Text>
           </View>
         )}
-        <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
+        <ContentVideo
+          data={
+            key == 1
+              ? [
+                  item,
+                  1,
+                  item?.metadata?.pdfData == null
+                    ? 'Pdf'
+                    : item?.metadata?.externalLinks == null
+                    ? 'Links'
+                    : 'Job',
+                ]
+              : [
+                  item,
+                  2,
+                  item?.metadata?.pdfData == null
+                    ? 'Pdf'
+                    : item?.metadata?.externalLinks == null
+                    ? 'Links'
+                    : 'Job',
+                ]
+          }
+        />
       </View>
     );
   };
@@ -231,32 +253,32 @@ const ReelsScreen = () => {
           ]}>
           <Audio data={item?.metadata} />
           {item?.metadata?.location == null ||
-        item?.metadata?.location == '' ? null : (
-          <View
-            style={{
-              position: 'absolute',
-              top: 100,
-              left: 10,
-              flexDirection: 'row',
-              columnGap: 10,
-              backgroundColor: '#FFF',
-              borderRadius: 16,
-              width: 180,
-              paddingHorizontal: 10,
-              paddingVertical: 6,
-            }}>
-            <LOCATION />
-            <Text
+          item?.metadata?.location == '' ? null : (
+            <View
               style={{
-                color: '#10347A',
-                fontFamily: 'Noto Sans',
-                fontSize: 12,
-                fontWeight: '400',
+                position: 'absolute',
+                top: 100,
+                left: 10,
+                flexDirection: 'row',
+                columnGap: 10,
+                backgroundColor: '#FFF',
+                borderRadius: 16,
+                width: 180,
+                paddingHorizontal: 10,
+                paddingVertical: 6,
               }}>
-              {item?.metadata?.location}
-            </Text>
-          </View>
-        )}
+              <LOCATION />
+              <Text
+                style={{
+                  color: '#10347A',
+                  fontFamily: 'Noto Sans',
+                  fontSize: 12,
+                  fontWeight: '400',
+                }}>
+                {item?.metadata?.location}
+              </Text>
+            </View>
+          )}
         </LinearGradient>
         <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
       </>
@@ -301,11 +323,7 @@ const ReelsScreen = () => {
           </View>
         )}
         <ContentVideo
-          data={
-            !item?.metadata?.originalPostId
-              ? [item, 1]
-              : [item?.metadata?.originalPostId?.posts[0], 2]
-          }
+          data={key == 1 ? [item, 1, 'Audio'] : [item, 2, 'Audio']}
         />
       </View>
     );
@@ -344,40 +362,40 @@ const ReelsScreen = () => {
               ]}>
               <Boll data={attach} />
               {item?.metadata?.location == null ||
-        item?.metadata?.location == '' ? null : (
-          <View
-            style={{
-              position: 'absolute',
-              top: 100,
-              left: 10,
-              flexDirection: 'row',
-              columnGap: 10,
-              backgroundColor: '#FFF',
-              borderRadius: 16,
-              width: 180,
-              paddingHorizontal: 10,
-              paddingVertical: 6,
-            }}>
-            <LOCATION />
-            <Text
-              style={{
-                color: '#10347A',
-                fontFamily: 'Noto Sans',
-                fontSize: 12,
-                fontWeight: '400',
-              }}>
-              {item?.metadata?.location}
-            </Text>
-          </View>
-        )}
+              item?.metadata?.location == '' ? null : (
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 100,
+                    left: 10,
+                    flexDirection: 'row',
+                    columnGap: 10,
+                    backgroundColor: '#FFF',
+                    borderRadius: 16,
+                    width: 180,
+                    paddingHorizontal: 10,
+                    paddingVertical: 6,
+                  }}>
+                  <LOCATION />
+                  <Text
+                    style={{
+                      color: '#10347A',
+                      fontFamily: 'Noto Sans',
+                      fontSize: 12,
+                      fontWeight: '400',
+                    }}>
+                    {item?.metadata?.location}
+                  </Text>
+                </View>
+              )}
             </View>
           )
         ) : null}
         <ContentVideo
           data={
             !item?.metadata?.originalPostId
-              ? [item, 1]
-              : [item?.metadata?.originalPostId?.posts[0], 2]
+              ? [item, 1, 'Poll']
+              : [item?.metadata?.originalPostId?.posts[0], 2, 'Poll']
           }
         />
       </>
@@ -410,6 +428,29 @@ const ReelsScreen = () => {
         !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
+        {/* {item?.metadata?.mentions == null || item?.metadata?.mentions?.length == 0 ? null : (
+        <View style={styles.taggedPeopleContainer}>
+          <FlatList
+            scrollEnabled={false}
+            data={item?.metadata?.mentions}
+            numColumns={2}
+            renderItem={({item, index}) => (
+              <TouchableOpacity activeOpacity={.8} onPress={() => {
+                navigation.navigate('UserProfile', { id: item?.id });
+            }} key={index} style={styles.taggedPerson}>
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 8,
+                    fontWeight: '400',
+                  }}>{`@${item?.name}`}</Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      )} */}
 
         {item?.metadata?.location == null ||
         item?.metadata?.location == '' ? null : (
@@ -419,6 +460,7 @@ const ReelsScreen = () => {
               top: 100,
               left: 10,
               flexDirection: 'row',
+              zIndex:3,
               columnGap: 10,
               backgroundColor: '#FFF',
               borderRadius: 16,
@@ -438,7 +480,34 @@ const ReelsScreen = () => {
             </Text>
           </View>
         )}
-        <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
+
+        <ContentVideo
+          data={
+            key == 1
+              ? [
+                  item,
+                  1,
+                  item?.metadata?.pdfData != null
+                    ? 'Pdf'
+                    : item?.metadata?.externalLinks != null
+                    ? 'Links'
+                    : item?.metadata?.jobOpportunityData != null
+                    ? 'Job'
+                    : null,
+                ]
+              : [
+                  item,
+                  2,
+                  item?.metadata?.pdfData != null
+                  ? 'Pdf'
+                  : item?.metadata?.externalLinks != null
+                  ? 'Links'
+                  : item?.metadata?.jobOpportunityData != null
+                  ? 'Job'
+                  : null,
+                ]
+          }
+        />
       </ImageBackground>
     );
   };
@@ -454,7 +523,7 @@ const ReelsScreen = () => {
           //   fullscreenOrientation={'portrait'}
           // onProgress={progress}
           // muted={isMuted}
-          paused={video.paused}
+          // paused={video.paused}
           // paused={currentVideoIndex != index ? false : true}
           style={{
             width: width,
@@ -463,6 +532,7 @@ const ReelsScreen = () => {
             height: height,
             // backgroundColor:"#a00"
           }}
+          repeat
           resizeMode="contain"
           onEnd={() => {
             videoRef.current.seek(0);
@@ -492,7 +562,7 @@ const ReelsScreen = () => {
         !item?.metadata?.jobOpportunityData ? null : (
           <JopOppertunity data={item?.metadata} />
         )}
-          {item?.metadata?.location == null ||
+        {item?.metadata?.location == null ||
         item?.metadata?.location == '' ? null : (
           <View
             style={{
@@ -519,7 +589,29 @@ const ReelsScreen = () => {
             </Text>
           </View>
         )}
-        <ContentVideo data={key == 1 ? [item, 1] : [item, 2]} />
+        <ContentVideo
+          data={
+            key == 1
+              ? [
+                  item,
+                  1,
+                  item?.metadata?.pdfData == null
+                    ? 'Pdf'
+                    : item?.metadata?.externalLinks == null
+                    ? 'Links'
+                    : 'Job',
+                ]
+              : [
+                  item,
+                  2,
+                  item?.metadata?.pdfData == null
+                    ? 'Pdf'
+                    : item?.metadata?.externalLinks == null
+                    ? 'Links'
+                    : 'Job',
+                ]
+          }
+        />
       </View>
     );
   };
@@ -545,7 +637,7 @@ const ReelsScreen = () => {
       <View
         style={{
           flex: 1,
-          zIndex: 1000,
+          zIndex: 2,
           width: width,
           height: height,
           // height:"100%",

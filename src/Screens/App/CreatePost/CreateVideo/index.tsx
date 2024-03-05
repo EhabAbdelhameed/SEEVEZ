@@ -45,6 +45,7 @@ const CreateVideo = () => {
   );
   const device1 = useCameraDevice(cameraPosition);
   const { hasPermission, requestPermission } = useCameraPermission()
+  const videoRef=useRef(null)
   useEffect(() => {
  
       // Start recording if necessary
@@ -58,6 +59,7 @@ const CreateVideo = () => {
   
   }, [navigation, shouldNavigate, videoPath]);
   const [torch, setTorch] = React.useState<'on' | 'off'>('off');
+  const [stopVideo, setStopVideo] = useState(false);
   const requestMicrophonePermission = useCallback(async () => {
     console.log('Requesting microphone permission...')
     const permission = await Camera.requestMicrophonePermission()
@@ -88,6 +90,8 @@ const CreateVideo = () => {
           source: res,
           key: 5
         })
+        setStopVideo(true)
+
       }, 1000);
       // setSource(res)
       // console.log("sdasdas "+JSON.stringify(res?.assets[0].uri))
@@ -120,6 +124,7 @@ const CreateVideo = () => {
           <Video
             resizeMode="cover"
             repeat
+             paused={stopVideo}
             source={{uri: videoPath}}
             style={styles.video}
           />

@@ -1,4 +1,4 @@
-import {View, Text, Alert, Platform} from 'react-native';
+import {View, Text, Alert, Platform, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from '../styles';
 import {Formik} from 'formik';
@@ -13,10 +13,14 @@ import AppThunks from 'src/redux/app/thunks';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import AppSlice from 'src/redux/app';
+import CustomButton from 'components/molecules/Button/CustomButton';
 const Form = () => {
+  const {item}: any = useRoute().params;
+
   const[source,setSource]=useState<any>([])
   const dispatch = useAppDispatch();
   const navigation=useNavigation<any>()
+  const [loading, setLoading] = useState(false);
 
  
   const uploadFile = async () => {
@@ -44,33 +48,54 @@ const Form = () => {
   };
   return (
     <View style={styles.formContainer}>
-      <Text style={styles.textHeaderForm}>Upload your CV</Text>
+      <Text style={styles.textHeaderForm}>Update your CV</Text>
       <Formik
-        initialValues={{description: ''}}
+        initialValues={{description:item?.metadata?.addonCaption || ''}}
         onSubmit={values => {
-          if(values.description!=''&&source?.length!=0){
-            dispatch(AppSlice.changeAddonesCaption(values.description));
-            dispatch(AppSlice.changePDF(source));
+          setLoading(true);
 
-          
-            navigation.navigate('CreatePollLink');
-          }else{
-            Toast.show({
-              type: 'error',
-              text1: 'Please fill all the data',
-            });
+          const formdata = new FormData();
+          formdata.append('postId', item?.postId);
+          formdata.append('metadata', item?.metadata);
+          if (values.description != item?.metadata?.addonCaption) {
+            formdata.append('addons_caption', values.description);
           }
+          source?.length!=0?
+          formdata.append('media', {
+            uri: source[0]?.uri,
+            type: source[0]?.type,
+            name: source[0]?.name,
+          })
+        : null;
+        
+
+          console.log('Exterinal', JSON.stringify(formdata));
+          dispatch(AppThunks.doUpdatePost(formdata)).then((res: any) => {
+            dispatch(AppThunks.GetProfileInfo());
+            setLoading(false);
+          });
         
         }}>
         {(props: any) => (
           <View style={{height: '100%'}}>
             <View>
               <Text style={styles.label}>Add caption</Text>
-
-              <CustomInput
-                {...props}
-                Label={'description'}
-                placeholder="Write here.."
+              <TextInput
+                placeholder={'Write here..'}
+                onChangeText={value =>
+                  props?.setFieldValue(`description`, value)
+                }
+                value={props.values.description}
+                style={{
+                  borderRadius: 16,
+                  borderColor: '#1D5EDD',
+                  borderWidth: 1,
+                  paddingHorizontal: 15,
+                  height: 50,
+                  fontSize: 14,
+                  marginBottom: 10,
+                  // textAlign: lang == 'ar' ? 'right' : 'left',
+                }}
               />
             </View>
             <View>
@@ -89,13 +114,13 @@ const Form = () => {
                   fontFamily: 'Noto Sans',
                   color: appColors.primary,
                 }}>
-                {source?.length!=0?`${source[0]?.name?.slice(0,14)}...`:"Upload file"}
+                {source?.length!=0?`${source[0]?.name?.slice(0,14)}...`:"Update file"}
               </Text>
             </TouchableOpacity>
            <View style={{height:appSizes.height*.35}}/>
-            <Button
-              style={{ width: '100%'}}
-              text="Done"
+           <CustomButton
+              loading={loading}
+              text="Update"
               onPress={props.handleSubmit}
             />
           </View>
