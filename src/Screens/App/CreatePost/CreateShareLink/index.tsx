@@ -24,10 +24,7 @@ const CreateShareLink = () => {
   useEffect(() => {
     changeDone ? navigation.navigate('Reels') : null;
   }, [changeDone]);
-  const AccessToken = useSelector(selectAccessToken);
-  useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
+ 
   return (
     <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
       <Header />

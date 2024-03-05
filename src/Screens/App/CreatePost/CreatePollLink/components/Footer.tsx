@@ -7,12 +7,16 @@ import {useSelector} from 'react-redux';
 import AppSlice, {selectPhotoData} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const Footer = (data: any) => {
   const photoData = useSelector(selectPhotoData);
   const [isLoading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const lang = useSelector(selectLang);
 
+  const {t, i18n} = useTranslation();
   const sharePhotoData = () => {
     if (photoData.key == '1') {
       setLoading(true);
@@ -634,7 +638,7 @@ const Footer = (data: any) => {
                 color: appColors.white,
               },
             ]}>
-            Share
+            {t("Share")}
           </Text>
         )}
       </TouchableOpacity>

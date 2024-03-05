@@ -243,7 +243,7 @@
   "notInterested": "غير مهتم",
   "report": "الإبلاغ",
   "recording": "التسجيل",
-  "newReel": "بكرة جديدة",
+  "newReel": "قدرة جديدة",
   "changeTemplate": "تغيير القالب",
   "addPhoto": "إضافة صورة",
   "audience": "الجمهور",
@@ -722,5 +722,10 @@
   "Switch Language":"تغيير اللغة",
   "Packages":"حزم",
   "Settings":"الإعدادات",
-  "Log out": "تسجيل الخروج"
+  "Log out": "تسجيل الخروج",
+  "Search for location":"البحث عن الموقع",
+  "Only people on your list can see this reel":"يمكن للأشخاص فقط في قائمتك رؤية هذا الريل",
+  "jobOpportunity": "فرصة عمل",
+  "Add caption":"إضافة تسمية",
+  "My CV in the attachment below":"سيرتي الذاتية في المرفق أدناه"
 }

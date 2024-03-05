@@ -6,13 +6,18 @@ import {PDF, UploadYourCv} from 'assets/Svgs';
 import {appColors} from 'theme';
 import { useSelector } from 'react-redux';
 import { selectPhotoData } from 'src/redux/app';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const CV = () => {
     const photoData=useSelector(selectPhotoData)
+    const lang = useSelector(selectLang);
+
+    const {t, i18n} = useTranslation();
   return (
     <View style={styles.CVContainer}>
       <Text style={{fontSize: 14, fontWeight: '700', fontFamily: 'Noto Sans',color:'#000'}}>
-        My CV in the attachment below
+        {t("My CV in the attachment below")}
       </Text>
       <Text style={styles.text12}>{photoData?.addonesCaption}</Text>
       <View style={{flexDirection: 'row',columnGap:15,alignItems:'center'}}>

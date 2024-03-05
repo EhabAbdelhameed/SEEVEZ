@@ -84,7 +84,7 @@
 "yourCountry": "Your country",
 "yourCity": "Your city",
 "yourArea": "Your area",
-"externalLinks": "External Links",
+"externalLinks": "External links",
 "next": "Next",
 "orSignUpBy": "Or Sign Up By",
 "continueWithEmail": "Continue with Email",
@@ -324,7 +324,7 @@
 "block": "Block",
 "employees": "Employees",
 "unlimitedJobSearchUnlimitedPostsAndUnlimitedVideos": "Unlimited Job Search, Unlimited Posts and Unlimited Videos",
-"jobOpportunity": "Job Opportunity",
+"jobOpportunity": "Job opportunity",
 "externalLink": "External Link",
 "createExternalLink": "Create External Link",
 "addLink": "Add Link",
@@ -476,7 +476,10 @@
   "Switch Language":"Switch Language",
   "Packages":"Packages",
   "Settings":"Settings",
-  "Log out" :"Log out"
-  
+  "Log out" :"Log out",
+  "Search for location":"Search for location",
+  "Only people on your list can see this reel":"Only people on your list can see this reel",
+  "Add caption":"Add caption",
+  "My CV in the attachment below":"My CV in the attachment below"
 
 }

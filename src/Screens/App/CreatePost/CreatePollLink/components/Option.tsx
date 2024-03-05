@@ -6,6 +6,9 @@ import {appColors} from 'theme';
 import {PrimaryParamListKeys} from 'src/navigation/types';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const Option = () => {
   const navigation = useNavigation<any>();
@@ -21,6 +24,9 @@ const Option = () => {
     title2?: string;
     navKey?: PrimaryParamListKeys;
   }) => {
+    const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
     const _handleNav = () => {
       navigation.navigate(navKey);
     };
@@ -33,7 +39,7 @@ const Option = () => {
             width={20}
             height={20}
           />
-          <Text style={styles.textOption}>{title}</Text>
+          <Text style={styles.textOption}>{t(title)}</Text>
         </View>
         <View style={styles.leftSideOption}>
           {title2 ? (
@@ -50,7 +56,7 @@ const Option = () => {
                   color: '#979797',
                   fontWeight: '400',
                 }}>
-                Followers
+                {t("Followers")}
               </Text>
               <View style={{transform: [{rotate: '180deg'}]}}>
                 <RenderSvgIcon icon="ARROWBACK" color={appColors.primary} />
@@ -59,7 +65,7 @@ const Option = () => {
           ) : (
             <Pressable
               style={{
-                transform: [{rotate: '180deg'}],
+                transform: [{rotate:lang=='en'? '180deg':'0deg'}],
               }}
               onPress={_handleNav}>
               <RenderSvgIcon icon="ARROWBACK" color={appColors.primary} />
@@ -72,10 +78,10 @@ const Option = () => {
   return (
     <View style={styles.optionsContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('TagPeople')}>
-        <Item icon="TAG" title="Tag people"  />
+        <Item icon="TAG" title={"tagPeople"}  />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Location')}>
-      <Item icon="ADDLOCATION" title="Add location"  />
+      <Item icon="ADDLOCATION" title="addLocation"  />
       </TouchableOpacity>
       {/* <Item icon="SETTING" title="Advanced settings" /> */}
     </View>

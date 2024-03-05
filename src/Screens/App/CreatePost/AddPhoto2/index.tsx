@@ -17,6 +17,8 @@ import {useSelector} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
 import { selectUser } from 'src/redux/auth';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 const CreatePhoto2 = () => {
   const {key,item}: any = useRoute().params;
 
@@ -28,7 +30,9 @@ const CreatePhoto2 = () => {
   
   const dispatch = useAppDispatch();
   const changeDone = useSelector(selectDone);
- 
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   // console.log(changeDone)
   useEffect(() => {
 
@@ -58,6 +62,7 @@ const CreatePhoto2 = () => {
         globalStyles.screen,
         {
           backgroundColor: appColors.black,
+          direction:lang=='ar'?'rtl':'ltr'
         },
       ]}>
       <View style={styles.container}>
@@ -67,21 +72,11 @@ const CreatePhoto2 = () => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <Text style={styles.skipText}>Skip</Text>
+            <Text style={styles.skipText}>{t("Skip")}</Text>
           </TouchableOpacity>
           <View style={styles.rightContainer}>
-            <RenderSvgIcon icon="WHO" />
-            <Text style={styles.skipText}>Anyone</Text>
-            <View
-              style={{
-                transform: [
-                  {
-                    rotate: '-90deg',
-                  },
-                ],
-              }}>
-              <RenderSvgIcon icon="ARROWBACK" />
-            </View>
+          
+           
           </View>   
         </View>
         {key=='3'? <Swiper  showsButtons loop={false}>
@@ -135,7 +130,7 @@ const CreatePhoto2 = () => {
                     navigation.navigate('Market');
                   }}>
                   <MARKET />
-                  <Text style={styles.text1}>Market</Text>
+                  <Text style={styles.text1}>{t("Market")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -149,7 +144,7 @@ const CreatePhoto2 = () => {
                     navigation.navigate('JobOpportunity');
                   }}>
                   <JOBOP />
-                  <Text style={styles.text1}>Job opportunity</Text>
+                  <Text style={styles.text1}>{t("jobOpportunity")}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.bottomStartContainer}>
@@ -164,7 +159,7 @@ const CreatePhoto2 = () => {
                     navigation.navigate('ExterinalLinks');
                   }}>
                   <ExterinalLinks />
-                  <Text style={styles.text1}>External link</Text>
+                  <Text style={styles.text1}>{t("externalLinks")}</Text>
                 </TouchableOpacity>
                 <View
                   style={[
@@ -184,7 +179,7 @@ const CreatePhoto2 = () => {
                 }}
                 style={styles.leftBtn}>
                 <CV />
-                <Text style={styles.text1}>CV</Text>
+                <Text style={styles.text1}>{t("cv")}</Text>
               </TouchableOpacity>
               {CurrentUserData?.work_type != 'freelancer' ? (
                 <View
@@ -207,7 +202,7 @@ const CreatePhoto2 = () => {
                     navigation.navigate('Market');
                   }}>
                   <MARKET />
-                  <Text style={styles.text1}>Market</Text>
+                  <Text style={styles.text1}>{t("Market")}</Text>
                 </TouchableOpacity>
               )}
             </View>

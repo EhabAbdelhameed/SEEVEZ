@@ -90,12 +90,12 @@ const TopHeader = ({
           <View style={{flexDirection:'row',columnGap:10}}>
           <View style={styles.followersContainer}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-            {MyJob?.job_type_id?.name}
+            {MyJob?.job_types?.name}
             </Text>
           </View>
           <View style={[styles.followersContainer,{backgroundColor:'#E6FAFA'}]}>
             <Text style={[styles.text3, {color: '#00928E'}]}>
-            {MyJob?.work_type_id?.name}
+            {MyJob?.work_type?.name}
             </Text>
           </View>
           <View style={[styles.followersContainer,{backgroundColor:'#FDF7E6'}]}>

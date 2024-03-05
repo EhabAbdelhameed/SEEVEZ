@@ -7,13 +7,18 @@ import Header from './components/Header'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Content from './components/Content'
+import { useSelector } from 'react-redux'
+import { selectLang } from 'src/redux/lang'
+import { useTranslation } from 'react-i18next'
 
 
 const Location = () => {
     //use param
-   
+    const lang = useSelector(selectLang);
+
+    const {t, i18n} = useTranslation();
     return (
-        <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
+        <SafeAreaView edges={['top']} style={[globalStyles.screen,{direction:lang=='ar'?'rtl':'ltr'}]}>
 
             <Header />
             <KeyboardAwareScrollView

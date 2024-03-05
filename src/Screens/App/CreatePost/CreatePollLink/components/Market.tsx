@@ -4,18 +4,29 @@ import {styles} from '../styles';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {PDF, UploadYourCv} from 'assets/Svgs';
 import {appColors} from 'theme';
-import { useSelector } from 'react-redux';
-import { selectPhotoData } from 'src/redux/app';
+import {useSelector} from 'react-redux';
+import {selectPhotoData} from 'src/redux/app';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const Market = () => {
-    const photoData=useSelector(selectPhotoData)
+  const photoData = useSelector(selectPhotoData);
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.CVContainer}>
-      <Text style={{fontSize: 14, fontWeight: '700', fontFamily: 'Noto Sans',color:'#000'}}>
-      Web Design Services
+      <Text
+        style={{
+          fontSize: 14,
+          fontWeight: '700',
+          fontFamily: 'Noto Sans',
+          color: '#000',
+        }}>
+        {t("Web Design Services")}
       </Text>
       <Text style={styles.text12}>{photoData?.addonesCaption}</Text>
-      <View style={{flexDirection: 'row',columnGap:15,alignItems:'center'}}>
+      <View style={{flexDirection: 'row', columnGap: 15, alignItems: 'center'}}>
         <PDF />
         <Text
           style={{
@@ -24,7 +35,7 @@ const Market = () => {
             fontFamily: 'Noto Sans',
             color: appColors.primary,
           }}>
-     {photoData?.market[0]?.name}
+          {photoData?.market[0]?.name}
         </Text>
         <View
           style={{
@@ -32,8 +43,8 @@ const Market = () => {
             height: 34,
             borderRadius: 34,
             backgroundColor: appColors.bg,
-            justifyContent:'center',
-            alignItems:'center'
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
           <UploadYourCv />
         </View>

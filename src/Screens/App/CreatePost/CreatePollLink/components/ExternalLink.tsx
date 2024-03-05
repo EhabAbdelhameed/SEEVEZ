@@ -34,7 +34,7 @@ const ExternalLinks = () => {
         </Text>
       ))}
 
-      <TouchableOpacity style={styles.containerHire}>
+      {/* <TouchableOpacity style={styles.containerHire}>
         <RenderSvgIcon icon="COMMENT" width={20} height={20} />
         <Text
           style={[
@@ -45,7 +45,7 @@ const ExternalLinks = () => {
           ]}>
           Hire now
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

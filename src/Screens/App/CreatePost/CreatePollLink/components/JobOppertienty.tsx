@@ -10,11 +10,15 @@ import {selectUser} from 'src/redux/auth';
 import {globalStyles} from 'src/globalStyle';
 import AvatarIcon from 'components/molecules/Avatar';
 import {Logo} from 'assets/images';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const JopOppertunity = () => {
   const photoData = useSelector(selectPhotoData);
   const User = useSelector(selectUser);
+  const lang = useSelector(selectLang);
 
+  const {t, i18n} = useTranslation();
   return (
     <View
       style={[
@@ -111,7 +115,7 @@ const JopOppertunity = () => {
               color: appColors.white,
             },
           ]}>
-          Apply for job
+          {t("applyForJob")}
         </Text>
       </TouchableOpacity>
     </View>

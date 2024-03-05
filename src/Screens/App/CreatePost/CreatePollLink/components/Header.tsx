@@ -4,9 +4,15 @@ import { styles } from '../styles'
 import { RenderSvgIcon } from 'components/atoms/svg'
 import { appColors } from 'theme'
 import { useNavigation } from '@react-navigation/native'
+import { selectLang } from 'src/redux/lang'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const Header = () => {
   const navigation = useNavigation()
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   const _handleNavigate = useCallback(
     () => {
       navigation.goBack();
@@ -22,7 +28,7 @@ const Header = () => {
           color={appColors.primary}
         />
       </Pressable>
-      <Text style={styles.TitleHeader}>New reel</Text>
+      <Text style={styles.TitleHeader}>{t("newReel")}</Text>
     </View>
   )
 }
