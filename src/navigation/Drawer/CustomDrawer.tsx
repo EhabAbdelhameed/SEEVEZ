@@ -32,12 +32,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import LangSlice, { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
 
-const lang = useSelector(selectLang);
 
-  const { t, i18n } = useTranslation();
-const {height} = Dimensions.get('window');
 
 const CustomSidebarMenu = (props: any) => {
+  const { t, i18n } = useTranslation();
+const {height} = Dimensions.get('window');
   const dispatch = useAppDispatch();
   const LogOutFun = () => {
     dispatch(AuthSlice.chnageisAuth(false));
