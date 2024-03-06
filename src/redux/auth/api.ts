@@ -23,6 +23,8 @@ const forgotPassword = (body: any) => api.post('api/forgot-password', body);
 const restPassword = (body: any) => api.post('api/reset-password', body);
 const verifyOTP = (body: any) => api.post('api/verify', body);
 const resendCode = (body: any) => api.post('api/resend-code', body);
+const deleteAccount = (id: number) => api.get(`dashboard/delete/${id}`);
+
 
 
 
@@ -37,7 +39,8 @@ const AuthAPI = {
   verifyOTP,
   restPassword,
   resendCode,
-  getUserProfile
+  getUserProfile,
+  deleteAccount
 };
 
 export default AuthAPI;

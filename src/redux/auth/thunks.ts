@@ -227,7 +227,7 @@ const doResetPassword: any = createAsyncThunk<any, any, any>(
   'auth/change',
   
   async (data: any, thunkApi: any) => {
-    console.log(data)
+  
     try {
       const response = await AuthAPI.restPassword(data);
       // console.warn(JSON.stringify(response.data))
@@ -345,29 +345,29 @@ const doResetPassword: any = createAsyncThunk<any, any, any>(
 //   },
 // );
 
-// const doDeleteAccount: any = createAsyncThunk<any, any, any>(
-//   'auth/deleteAccount',
-//   async (_: any, thunkApi: any) => {
-//     try {
-//       const response = await AuthAPI.deleteAccount();
-//       // alert(JSON.stringify(response.data))
-//       if (
-//         response.status == 400 ||
-//         response.status == 401 ||
-//         response.status == 403 ||
-//         response.status == 404 ||
-//         response.status == 422 ||
-//         response.status == 500 ||
-//         response.status == 503
-//       ) {
-//         throw response;
-//       }
-//       return response.data;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue(error);
-//     }
-//   },
-// );
+const doDeleteAccount: any = createAsyncThunk<any, any, any>(
+  'auth/DeleteAccount',
+  async (data: any, thunkApi: any) => {
+    try {
+      const response = await AuthAPI.deleteAccount(data);
+      // console.log(JSON.stringify(response))
+      if (
+        response.status == 400 ||
+        response.status == 401 ||
+        response.status == 403 ||
+        response.status == 404 ||
+        response.status == 422 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 
 const AuthThunks = {
   doSignUpCompany,
@@ -380,13 +380,13 @@ const AuthThunks = {
   doVerifyOTP,
   doResetPassword,
   doResendCode,
-  doGetUserProfile
+  doGetUserProfile,
 //   doChangeProfile,
 
 //   doGetMyProfile,
 //   doEditProfile,
 //   doEditPassword,
-//   doDeleteAccount,
+  doDeleteAccount,
 };
 
 export default AuthThunks;

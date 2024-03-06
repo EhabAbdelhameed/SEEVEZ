@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   Dimensions,
@@ -29,15 +29,20 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppThunks from 'src/redux/app/thunks';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import LangSlice, { selectLang } from 'src/redux/lang';
-import { useTranslation } from 'react-i18next';
-
-
+import LangSlice, {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
+import Modal from 'react-native-modal';
+import {appColors} from 'theme/appColors';
+import AuthThunks from 'src/redux/auth/thunks';
+import {ActivityIndicator} from 'react-native';
+import User from 'screens/App/Search/components/User';
 
 const CustomSidebarMenu = (props: any) => {
-  const { t, i18n } = useTranslation();
-const {height} = Dimensions.get('window');
+  const {t, i18n} = useTranslation();
+  const {height} = Dimensions.get('window');
   const dispatch = useAppDispatch();
+  const [showReactionsModal, setShowReactionsModal] = useState(false);
+  const [load, setLoad] = useState(false);
   const LogOutFun = () => {
     dispatch(AuthSlice.chnageisAuth(false));
     AsyncStorage.setItem('USER_TOKEN', '');
@@ -48,11 +53,25 @@ const {height} = Dimensions.get('window');
   const navigation = useNavigation<any>();
   //   const dispatch = useAppDispatch();
   const USER = useSelector(selectUser);
+ 
   const lang = useSelector(selectLang);
-
+  const deleteAccount = () => {
+    setLoad(true);
+    dispatch(AuthThunks.doDeleteAccount(USER?.user_id)).then(() => {
+      setLoad(false);
+      setShowReactionsModal(false);
+      setTimeout(() => {
+        dispatch(AuthSlice.logout());
+        dispatch(AuthSlice.chnageisAuth(false));
+        navigation.replace('auth');
+      }, 500);
+    });
+  };
   // dispatch(LangSlice.chnageLang(lang === 'ar' ? 'en' : 'ar'))
   return (
-    <SafeAreaView edges={['']} style={[styles.Container,{direction:lang=='ar'?'rtl':'ltr'}]}>
+    <SafeAreaView
+      edges={['']}
+      style={[styles.Container, {direction: lang == 'ar' ? 'rtl' : 'ltr'}]}>
       <DrawerContentScrollView {...props}>
         <LinearGradient
           start={{x: 1, y: 0}}
@@ -104,7 +123,7 @@ const {height} = Dimensions.get('window');
                 color: '#000',
                 fontWeight: '600',
                 fontFamily: 'Noto Sans',
-                textAlign:lang=='ar'?'right':'left'
+                textAlign: lang == 'ar' ? 'right' : 'left',
               }}>
               {USER?.name}
             </Text>
@@ -122,22 +141,23 @@ const {height} = Dimensions.get('window');
                 fontSize: 16,
                 fontWeight: '400',
                 fontFamily: 'Noto Sans',
-                textAlign:lang=='ar'?'right':'left'
+                textAlign: lang == 'ar' ? 'right' : 'left',
               }}>
               {USER?.job_title}
             </Text>
           )}
-          <View style={{flexDirection: 'row', marginTop: 20, columnGap: 10}}>
+          <View style={{flexDirection: 'row', marginTop: 15, columnGap: 10}}>
             <View style={styles.subContainer}>
-              <Text style={styles.subText}>{t("Premium")}</Text>
+              <Text style={styles.subText}>{t('premium')}</Text>
             </View>
             <View style={styles.statuesContainer}>
-              <Text style={styles.statuesText}>{t("Online")}</Text>
+              <Text style={styles.statuesText}>{t('online')}</Text>
             </View>
           </View>
           <TouchableOpacity
             onPress={() =>
-              USER?.user_data?.user_type == 'company'||USER?.user_data?.user_type == 'company_admin'
+              USER?.user_data?.user_type == 'company' ||
+              USER?.user_data?.user_type == 'company_admin'
                 ? navigation.navigate('ProfileCompanyScreen')
                 : navigation.navigate('ProfileScreen')
             }
@@ -145,14 +165,14 @@ const {height} = Dimensions.get('window');
               width: '80%',
               height: 50,
               backgroundColor: '#1D5EDD',
-              marginTop: 20,
+              marginTop: 15,
               borderRadius: 16,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <Text
               style={{fontFamily: 'Noto Sans', fontSize: 18, color: '#FFF'}}>
-              {t("View profile")}
+              {t('View profile')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -160,7 +180,7 @@ const {height} = Dimensions.get('window');
               width: '80%',
               height: 50,
               backgroundColor: '#E8EFFC',
-              marginTop: 20,
+              marginTop: 15,
               borderRadius: 16,
               justifyContent: 'center',
               alignItems: 'center',
@@ -173,16 +193,19 @@ const {height} = Dimensions.get('window');
                 fontSize: 18,
                 color: '#1D5EDD',
               }}>
-              {t("Switch profile")}
+              {t('Switch profile')}
             </Text>
             <ArrowDown />
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>dispatch(LangSlice.chnageLang(lang === 'ar' ? 'en' : 'ar'))}
+          <TouchableOpacity
+            onPress={() =>
+              dispatch(LangSlice.chnageLang(lang === 'ar' ? 'en' : 'ar'))
+            }
             style={{
               width: '80%',
               height: 50,
               backgroundColor: '#E8EFFC',
-              marginTop: 20,
+              marginTop: 15,
               borderRadius: 16,
               justifyContent: 'center',
               alignItems: 'center',
@@ -195,9 +218,24 @@ const {height} = Dimensions.get('window');
                 fontSize: 18,
                 color: '#1D5EDD',
               }}>
-              {t("Switch Language")}
+              {t('Switch Language')}
             </Text>
-           
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setShowReactionsModal(true)}
+            style={{
+              width: '80%',
+              height: 50,
+              backgroundColor: 'red',
+              marginTop: 15,
+              borderRadius: 16,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{fontFamily: 'Noto Sans', fontSize: 18, color: '#FFF'}}>
+              {t('Delete account')}
+            </Text>
           </TouchableOpacity>
         </View>
       </DrawerContentScrollView>
@@ -218,9 +256,9 @@ const {height} = Dimensions.get('window');
               fontFamily: 'Noto Sans',
               fontWeight: '500',
               color: '#0C275D',
-              width:'50%'
+              width: '50%',
             }}>
-            {t("Packages")}
+            {t('Packages')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -238,9 +276,9 @@ const {height} = Dimensions.get('window');
               fontFamily: 'Noto Sans',
               fontWeight: '500',
               color: '#0C275D',
-              width:'50%'
+              width: '50%',
             }}>
-            {t("Settings")}
+            {t('Settings')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -259,12 +297,88 @@ const {height} = Dimensions.get('window');
               fontFamily: 'Noto Sans',
               fontWeight: '500',
               color: '#0C275D',
-              width:'50%'
+              width: '50%',
             }}>
-            {t("Log out")}
+            {t('Log out')}
           </Text>
         </TouchableOpacity>
       </View>
+      <Modal
+        isVisible={showReactionsModal}
+        onBackButtonPress={() => setShowReactionsModal(false)}
+        onBackdropPress={() => setShowReactionsModal(false)}>
+        <View
+          style={{
+            // marginHorizontal: 20,
+            position: 'absolute',
+            top: 300,
+            right: 5,
+            width: '100%',
+            paddingHorizontal: 20,
+            justifyContent: 'center',
+            paddingVertical: 6,
+            borderRadius: 16,
+
+            backgroundColor: '#FFF',
+          }}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: '#191919',
+              fontFamily: 'Noto Sans',
+              fontWeight: '500',
+            }}>
+            {t('Are you sure to delete the account')}
+          </Text>
+          <View style={{flexDirection: 'row', columnGap: 10, marginTop: 20}}>
+            <TouchableOpacity onPress={deleteAccount}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingHorizontal: 20,
+                backgroundColor: appColors.primary,
+                paddingVertical: 8,
+                borderRadius: 16,
+                width: '50%',
+              }}>
+              {load ? (
+                <ActivityIndicator color={'#FFF'} size={'small'} />
+              ) : (
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: 'Noto Sans',
+                    fontWeight: '500',
+                    color: '#FFF',
+                  }}>
+                  Yes
+                </Text>
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setShowReactionsModal(false)}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingHorizontal: 20,
+                backgroundColor: appColors.primary,
+                paddingVertical: 8,
+                borderRadius: 16,
+                width: '50%',
+              }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Noto Sans',
+                  fontWeight: '500',
+                  color: '#FFF',
+                }}>
+                No
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

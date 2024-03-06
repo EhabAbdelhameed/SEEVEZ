@@ -311,6 +311,13 @@ const slice = createSlice({
       state.UserProfile = action.payload.data;
      
     });
+    builder.addCase(thunks.doDeleteAccount.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+     
+    });
     //doGetMyProfile
     // builder.addCase(thunks.doGetMyProfile.fulfilled, (state, action) => {
     //   AsyncStorage.setItem('USER_TOKEN', action.payload.data?.token);
