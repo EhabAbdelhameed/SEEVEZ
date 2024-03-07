@@ -20,7 +20,7 @@ const Header = ({
   const lang = useSelector(selectLang);
   const navigation = useNavigation();
   const MyJob = useAppSelector(selectOneJob)
-  const User = useAppSelector(selectUser)
+
 
   return (
     <View style={styles.Container}>
@@ -40,7 +40,7 @@ const Header = ({
         <View style={{marginLeft: 10,}}>
         <Text style={[styles.Title,{fontSize:16}]}>{Title}</Text>
         <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
-          <Text style={styles.work}>{User?.name}</Text>
+          <Text style={styles.work}>{MyJob?.users?.name}</Text>
           <Text style={styles.work}>{MyJob?.job_location}</Text>
           <Text style={[styles.work, {color: '#00BBB6'}]}>{MyJob?.job_type_id?.name}</Text>
         </View>

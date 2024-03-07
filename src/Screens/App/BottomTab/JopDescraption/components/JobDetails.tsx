@@ -9,6 +9,8 @@ const JobDetails = () => {
   const User = useAppSelector(selectUser);
   return (
     <View style={styles.container}>
+      {MyJob?.job_description==null?null:
+      <View>
       <Text style={styles.sectionTitle}>Responsibilities:</Text>
       <View style={{flexDirection: 'row', marginLeft: 10}}>
         <Text style={{marginRight: 5, marginTop: 5, color: '#1C1C1C'}}>•</Text>
@@ -16,6 +18,7 @@ const JobDetails = () => {
          {MyJob?.job_description}
         </Text>
       </View>
+      </View>}
     
       {/* Add more responsibilities as needed */}
 

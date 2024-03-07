@@ -83,21 +83,23 @@ const TopHeader = ({
             <SaveJob />
           </View>
           <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
-          <Text style={styles.work}>{User?.name}</Text>
+          <Text style={styles.work}>{MyJob?.users?.name}</Text>
           <Text style={styles.work}>{MyJob?.job_location}</Text>
           <Text style={[styles.work, {color: '#00BBB6'}]}>{getdate()}</Text>
         </View>
           <View style={{flexDirection:'row',columnGap:10}}>
+          {!MyJob?.job_types?.name?null:
           <View style={styles.followersContainer}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
             {MyJob?.job_types?.name}
             </Text>
-          </View>
+          </View>}
+          {!MyJob?.work_type?.name?null:
           <View style={[styles.followersContainer,{backgroundColor:'#E6FAFA'}]}>
             <Text style={[styles.text3, {color: '#00928E'}]}>
             {MyJob?.work_type?.name}
             </Text>
-          </View>
+          </View>}
          
           </View>
         </View>
