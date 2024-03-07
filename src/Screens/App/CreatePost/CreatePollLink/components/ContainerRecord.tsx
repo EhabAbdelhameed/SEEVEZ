@@ -15,7 +15,7 @@ import {appColors} from 'theme';
 import { LOCATION } from 'assets/Svgs';
 import JopOppertunity from './JobOppertienty';
 
-const ContainerRecord = () => {
+const ContainerRecord = (stopVideo:any) => {
   const photoData = useSelector(selectPhotoData);
  
 
@@ -120,6 +120,7 @@ const ContainerRecord = () => {
       <Video
         resizeMode="cover"
         //   controls={true}
+        paused={stopVideo?.stopVideo}
         repeat
         source={{
           uri:

@@ -119,16 +119,18 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
             <Text style={[styles.work,{color: "#00BBB6"}]}>{getdate()}</Text>
           </View>
           <View style={{flexDirection:'row',columnGap:10}}>
+            {!item?.job_type_id?.name?null:
           <View style={styles.followersContainer}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
               {item?.job_type_id?.name}  
             </Text>
-          </View>
+          </View>}
+          {!item?.work_type_id?.name?null:
           <View style={[styles.followersContainer,{backgroundColor:'#E6FAFA'}]}>
             <Text style={[styles.text3, {color: '#00928E'}]}>
               {item?.work_type_id?.name}
             </Text>
-          </View>
+          </View>}
           </View>
         </View>
       </View>

@@ -44,10 +44,9 @@ const Flatlist = () => {
     dispatch(AppThunks.GetProfileInfo())
     dispatch(AppSlice.changeSearchPeopelData([]))
     const timer = setTimeout(() => {
-      
       searchTerm &&
          setLoad(true)
-        dispatch(AppThunks?.searchForTagPeopel(searchTerm)).then(() => {
+      searchTerm!=''&&  dispatch(AppThunks?.searchForTagPeopel(searchTerm)).then(() => {
           setLoad(false)
         });
     }, 500);
@@ -55,7 +54,6 @@ const Flatlist = () => {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
- 
   const filteredData = (data: any) =>
     data?.name?.toLowerCase().includes(searchTerm?.toLowerCase());
   return (

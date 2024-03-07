@@ -155,8 +155,8 @@ const Home = () => {
                   navigation.navigate('Connections');
                 }}>
                 <User data={followingList[0]} />
-                <User data={followingList[0]} />
-                <User data={followingList[0]} />
+                <User data={followingList[1]} />
+                <User data={followingList[2]} />
                 <View style={{ height: 8 }} />
               </BoxContentTitle>
             ) : (

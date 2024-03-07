@@ -10,7 +10,13 @@ import {useAppDispatch} from 'src/redux/store';
 import { useTranslation } from 'react-i18next';
 import { selectLang } from 'src/redux/lang';
 
-const Footer = (data: any) => {
+const Footer = ({
+  data,
+  setStopVideo
+}: {
+  data: any;
+  setStopVideo?: (str: boolean) => void;
+}) => {
   const photoData = useSelector(selectPhotoData);
   const [isLoading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
@@ -139,7 +145,7 @@ const Footer = (data: any) => {
           }
         }
       }
-      console.log('Photo123 ', JSON.stringify(formdata));
+      // console.log('Photo123 ', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
         setLoading(false);
       });
@@ -262,7 +268,7 @@ const Footer = (data: any) => {
         }
       }
 
-      console.log('Photo123', JSON.stringify(formdata));
+      // console.log('Photo123', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
         setLoading(false);
       });
@@ -389,7 +395,7 @@ const Footer = (data: any) => {
         }
       }
 
-      console.log('Photo123', JSON.stringify(formdata));
+      // console.log('Photo123', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
         setLoading(false);
       });
@@ -513,8 +519,11 @@ const Footer = (data: any) => {
         }
       }
 
-      console.log('Video12345', JSON.stringify(formdata));
+      // console.log('Video12345', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadVideoReel(formdata)).then((res: any) => {
+        if (setStopVideo) {
+          setStopVideo(true);
+        }
         setLoading(false);
       });
     } else if (photoData.key == '5') {
@@ -617,12 +626,16 @@ const Footer = (data: any) => {
           }
         }
       }
-      console.log('Video123456', JSON.stringify(formdata));
+      // console.log('Video123456', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadVideoReel(formdata)).then((res: any) => {
+        if (setStopVideo) {
+          setStopVideo(true);
+        }
         setLoading(false);
       });
     } else {
     }
+   
   };
   return (
     <View style={styles.footerContainer}>

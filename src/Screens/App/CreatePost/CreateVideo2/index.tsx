@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {globalStyles} from 'src/globalStyle';
@@ -33,9 +33,11 @@ const CreateVideo2 = () => {
   useEffect(() => {
     changeDone ? navigation.navigate('Reels') : null;
   }, [changeDone]);
-
+  const [stopVideo, setStopVideo] = useState(false);
   const saveVideoFun = () => {
+    setStopVideo(true)
     navigation.navigate('CreatePollLink');
+    
   };
   // useEffect(() => {
   //   changeDone ? navigation.replace('app') : null;
@@ -63,6 +65,7 @@ const CreateVideo2 = () => {
         <Video
           resizeMode="cover"
           //   controls={true}
+          paused={stopVideo}
           repeat
           source={{uri: videoPath}}
           style={{

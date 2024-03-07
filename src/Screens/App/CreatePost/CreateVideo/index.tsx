@@ -54,6 +54,7 @@ const CreateVideo = () => {
           videoPath: videoPath,
           key: 4,
         });
+        setStopVideo(true)
         setShouldNavigate(false); // Reset the flag
       }
   
@@ -74,7 +75,7 @@ const CreateVideo = () => {
     Imagepicker.openCamera({
       mediaType: 'video',
     }).then(image => {
-      console.log(image);
+      // console.log(image);
       setVideoPath(image?.path);
       setShouldNavigate(true);
     });

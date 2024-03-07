@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import AuthSlice from 'src/redux/auth';
 import { useTranslation } from 'react-i18next';
 import { selectLang } from 'src/redux/lang';
+import { appColors } from 'theme';
 
 const MyJob = (props: any) => {
     const dispatch = useAppDispatch()
@@ -30,11 +31,23 @@ const MyJob = (props: any) => {
         dispatch(AppThunks.doGetJobs()).then(() =>setLoad(false))
       
     }, [])
- 
+
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
             <View style={styles.screen}>
-                <Header Title={"My jobs"} onPress={() => navigation.goBack()} />
+            <View style={{
+        backgroundColor: appColors.bg,
+        paddingHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 25,
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+    }}>
+            
+
+        </View>
                 <ScrollView showsVerticalScrollIndicator={false} style={{
                     height: '100%',
                     width: '90%',

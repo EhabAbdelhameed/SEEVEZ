@@ -17,15 +17,15 @@ const Content = () => {
   const [caption, setCaption] = useState('');
   const searchPeople = useSelector(selectPhotoData);
 
-
+  const [stopVideo, setStopVideo] = useState(false);
   return (
     <View style={styles.ContentCotainer}>
 
-      <ContainerRecord />
+      <ContainerRecord  stopVideo={stopVideo}/>
    
       <AddCaption caption={caption} setCaption={setCaption} />
       <Option />
-      <Footer caption={caption} />
+      <Footer data={caption} setStopVideo={setStopVideo}  />
     </View>
   );
 };
