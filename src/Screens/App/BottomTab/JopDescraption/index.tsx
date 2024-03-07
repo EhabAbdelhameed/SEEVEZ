@@ -25,6 +25,7 @@ const JobDescraption = (props: any) => {
     const ListUsers = useAppSelector(selectListUsers)
     const [load, setLoad] = React.useState(false)
     const MyJob = useAppSelector(selectOneJob)
+    console.log("One Job ",JSON.stringify(MyJob))
     const lang = useSelector(selectLang);
   
     const {t, i18n} = useTranslation();

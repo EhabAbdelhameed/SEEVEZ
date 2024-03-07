@@ -87,7 +87,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         navigate('JobDescraption',{id:item?.id});
       }}
       style={styles.containerUserSection}>
-      <View style={globalStyles.leftHeaderContainer}>
+      <View style={[globalStyles.leftHeaderContainer,{width:'100%'}]}>
         {User?.avatar == null || User?.avatar == undefined ? (
           <View
             style={{
@@ -106,11 +106,13 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         ) : (
           <AvatarIcon imgUrl={User?.avatar} style={{height: 58, width: 58,marginTop:10,}} />
         )}
-        <View style={{rowGap: 3}}>
-          <View style={[globalStyles.leftHeaderContainer, {width: '100%',columnGap:70,marginLeft:3}]}>
+        <View style={{rowGap: 2}}>
+          <View style={[globalStyles.leftHeaderContainer, {width: '88%',marginLeft:3,justifyContent:'space-between'}]}>
+            <View style={{width:'80%'}}>
             <Text style={styles.UserName} numberOfLines={1}>
               {item?.job_title}
             </Text>
+            </View>
             <SaveJob />
           </View>
           <View style={{flexDirection: 'row', columnGap: 8,marginLeft:3}}>

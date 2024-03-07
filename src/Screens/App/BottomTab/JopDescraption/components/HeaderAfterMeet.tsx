@@ -10,6 +10,9 @@ import {styles} from '../styles';
 import {globalStyles} from 'src/globalStyle';
 import {AVATAR, SaveJob} from 'assets/Svgs';
 import AvatarIcon from 'components/molecules/Avatar';
+import { useAppDispatch, useAppSelector } from 'src/redux/store';
+import { selectFollowingList, selectOneJob } from 'src/redux/app';
+import AppThunks from 'src/redux/app/thunks';
 
 const HeaderAfter = ({
   Title,
@@ -20,6 +23,35 @@ const HeaderAfter = ({
 }) => {
   const lang = useSelector(selectLang);
   const navigation = useNavigation();
+  const dispatch=useAppDispatch()
+  const MyJob = useAppSelector(selectOneJob)
+  const [count, setCount] = React.useState(0);
+  const FollowingList = useAppSelector(selectFollowingList);
+  console.log("hshshh",FollowingList)
+  React.useEffect(() => {
+    dispatch(AppThunks.doGetFollowingList())
+    dispatch(
+      AppThunks.doGetFollowers(
+       MyJob?.users?.id,
+      ),
+    ).then((res: any) => {
+      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
+    });
+  }, []);
+  let exist = FollowingList?.some(
+    (ele: any) => ele?.id == MyJob?.users?.id,
+  );
+  const doFollowingOperation = () => {
+    !exist
+      ? dispatch(AppThunks.doFollowUser(MyJob?.users?.id)).then(() => {
+          dispatch(AppThunks.GetRecruiterUsers());
+          dispatch(AppThunks.doGetFollowingList());
+        })
+      : dispatch(AppThunks.doUnFollowUser(MyJob?.users?.id)).then(() => {
+          dispatch(AppThunks.GetRecruiterUsers());
+          dispatch(AppThunks.doGetFollowingList());
+        });
+  };
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -54,25 +86,23 @@ const HeaderAfter = ({
         <View style={{rowGap: 3}}>
           <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
             <Text style={styles.UserName} numberOfLines={1}>
-              Charlie ekstrom
+              {MyJob?.users?.name}
             </Text>
           </View>
-          <Text style={styles.work}>Hr recruiter at microssoft</Text>
+          {/* <Text style={styles.work}>Hr recruiter at microssoft</Text> */}
           <View style={styles.followersContainer}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-              12K {'Followers'}
+            {count >= 1000 ? `${count / 1000}k` : count} {'Followers'}
             </Text>
           </View>
         </View>
       </View>
       <TouchableOpacity
         activeOpacity={0.8}
-        // onPress={() => doFollowingOperation()}
+        onPress={() => doFollowingOperation()}
         style={styles.folowCotainer}>
         <Text style={[styles.text3, {color: appColors.darkGreen1}]}>
-          {/* {exist ? t('unfollow') : t('follow')}
-           */}
-          Follow
+          {exist ? 'unfollow' : 'Follow'}
         </Text>
         <RenderSvgIcon icon="PLUSFOLLOW" width={15} height={15} />
       </TouchableOpacity>

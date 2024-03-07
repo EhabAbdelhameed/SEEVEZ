@@ -9,17 +9,21 @@ import React, {useState} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { selectLang } from 'src/redux/lang';
 
 const AboutCardCompany = (data: any) => {
   const [aboutSection, setAboutSection] = useState('Bio'); // Added state to track edited content
   const navigation = useNavigation<any>();
-
+  const lang = useSelector(selectLang);
+const { t, i18n } = useTranslation();
 
   return (
     <View style={styles.CardContainer}>
     <View style={styles.secContainer}>
       <View style={styles.Row}>
-        <Text style={styles.Title}>About</Text>
+        <Text style={styles.Title}>{t("about")}</Text>
 
         <TouchableOpacity onPress={()=>navigation.navigate('UpdateCompanyAbout')}>
           <RenderSvgIcon

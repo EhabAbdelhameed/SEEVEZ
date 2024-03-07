@@ -73,7 +73,7 @@ const TopHeader = ({
     }
   };
   return (
-    <View style={[globalStyles.leftHeaderContainer,{backgroundColor:'#FFF',paddingHorizontal:20,marginBottom:20}]}>
+    <View style={[globalStyles.leftHeaderContainer,{backgroundColor:'#FFF',marginBottom:20}]}>
       
         <View style={{rowGap: 3}}>
           <View style={[globalStyles.leftHeaderContainer, {width: '100%',columnGap:70,marginLeft:3}]}>
@@ -98,11 +98,7 @@ const TopHeader = ({
             {MyJob?.work_type?.name}
             </Text>
           </View>
-          <View style={[styles.followersContainer,{backgroundColor:'#FDF7E6'}]}>
-            <Text style={[styles.text3, {color: '#A57900'}]}>
-            23 applicants
-            </Text>
-          </View>
+         
           </View>
         </View>
       </View>

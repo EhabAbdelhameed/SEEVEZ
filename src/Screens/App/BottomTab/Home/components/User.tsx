@@ -11,7 +11,7 @@ const User = (data: any) => {
     // console.log(JSON.stringify(data))
     return (
         <View style={[styles.rowContainer, {
-            width: '65%',
+            width: '100%',
             // justifyContent: "center",
             marginBottom: 3,
             paddingVertical: 3,

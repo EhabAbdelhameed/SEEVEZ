@@ -19,14 +19,31 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {selectUser} from 'src/redux/auth';
 import {useSelector} from 'react-redux';
+import {useAppDispatch} from 'src/redux/store';
+import AppThunks from 'src/redux/app/thunks';
+import {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
 
 const InfoCardCompany = (data: any) => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
+  const [count, setCount] = React.useState(0);
+  React.useEffect(() => {
+    dispatch(
+      AppThunks.doGetFollowers(
+        data?.current ? data?.data?.id : data?.data?.user_id,
+      ),
+    ).then((res: any) => {
+      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
+    });
+  }, []);
+  const lang = useSelector(selectLang);
+
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.CardContainer}>
       <View style={styles.secContainer}>
-       
         <View
           style={{
             flexDirection: 'row',
@@ -71,11 +88,11 @@ const InfoCardCompany = (data: any) => {
             alignItems: 'center',
             backgroundColor: appColors.bg,
           }}>
-          {CurrentUserData?.avatar == null ? (
+          {data?.data?.avatar == null ? (
             <CompanyLogo height={48} width={48} />
           ) : (
             <Image
-              source={{uri: CurrentUserData?.avatar}}
+              source={{uri: data?.data?.avatar}}
               style={{width: 96, height: 96, borderRadius: 96}}
               resizeMode="cover"
             />
@@ -116,15 +133,17 @@ const InfoCardCompany = (data: any) => {
         {data?.data?.job_title == null ? null : (
           <Text style={styles.Description}>{data?.data?.job_title}</Text>
         )}
-        <View style={[styles.Row, {marginTop: 10}]}>
+          <View style={[styles.Row, { marginTop: 10 }]}>
           <View style={styles.subContainer}>
-            <Text style={styles.subText}>Premium</Text>
+            <Text style={styles.subText}>{t('premium')}</Text>
           </View>
           <View style={styles.statuesContainer}>
-            <Text style={styles.statuesText}>Online</Text>
+            <Text style={styles.statuesText}>{t('online')}</Text>
           </View>
           <View style={styles.FollowersContainer}>
-            <Text style={styles.FollowersText}>1.500 Followers</Text>
+            <Text style={styles.FollowersText}>
+              {count >= 1000 ? `${count / 1000}k` : count} {t('Followers')}
+            </Text>
           </View>
         </View>
         {data?.data?.area == null &&
@@ -140,11 +159,11 @@ const InfoCardCompany = (data: any) => {
             <Text style={styles.InfoText}>{`${
               data?.data?.area == null ? '' : `${data?.data?.area} ، `
             } ${data?.data?.city == null ? '' : data?.data?.city}  ${
-              data?.data?.country == null ? '':data?.data?.country
+              data?.data?.country == null ? '' : data?.data?.country
             }`}</Text>
           </View>
         )}
-        <View style={styles.Row}>
+         {!data?.current && <View style={styles.Row}>
           <RenderSvgIcon
             icon="EMAIL"
             width={20}
@@ -152,16 +171,18 @@ const InfoCardCompany = (data: any) => {
             color={appColors.white}
           />
           <Text style={styles.InfoText}>{data?.data?.email}</Text>
-        </View>
-        <View style={styles.Row}>
-          <RenderSvgIcon
-            icon="PHONE"
-            width={20}
-            height={20}
-            color={appColors.white}
-          />
-          <Text style={styles.InfoText}>{data?.data?.phone_number}</Text>
-        </View>
+        </View>}
+        {data.current ? null : (
+          <View style={styles.Row}>
+            <RenderSvgIcon
+              icon="PHONE"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
+            <Text style={styles.InfoText}>{data?.data?.phone_number}</Text>
+          </View>
+        )}
         {CurrentUserData?.website == null ? null : (
           <TouchableOpacity
             onPress={() => Linking.openURL(CurrentUserData?.website)}
@@ -213,28 +234,7 @@ const InfoCardCompany = (data: any) => {
             </TouchableOpacity>
           )}
         </View>
-        <View style={[styles.Row, {marginTop: 15}]}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Analytics');
-            }}
-            style={{
-              // width: 140,
-              height: 40,
-              backgroundColor: appColors.primary,
-              paddingHorizontal: 20,
-              borderRadius: 50,
-              borderWidth: 1,
-              borderColor: appColors.primary,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              columnGap: 10,
-            }}>
-            <Analytic width={20} height={20} />
-            <Text style={{color: appColors.white}}>My analytics</Text>
-          </TouchableOpacity>
-        </View>
+       
       </View>
     </View>
   );
@@ -367,3 +367,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 });
+function setCount(followerCount: any) {
+  throw new Error('Function not implemented.');
+}

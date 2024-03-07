@@ -13,18 +13,10 @@ const JobDetails = () => {
       <View style={{flexDirection: 'row', marginLeft: 10}}>
         <Text style={{marginRight: 5, marginTop: 5, color: '#1C1C1C'}}>•</Text>
         <Text style={styles.descriptionText}>
-          Analyze and understand user requirements, behaviors, and motivations
-          through research, feedback, usability testing, another methodologies
-          to craft optimal UX solutions.
+         {MyJob?.job_description}
         </Text>
       </View>
-      <View style={{flexDirection: 'row', marginLeft: 10}}>
-        <Text style={{marginRight: 5, marginTop: 5, color: '#1C1C1C'}}>•</Text>
-        <Text style={styles.descriptionText}>
-          Develop and maintain consistent, intuitive, and high-quality Web and
-          Mobile interfaces for the Service Portals.
-        </Text>
-      </View>
+    
       {/* Add more responsibilities as needed */}
 
       <Text style={styles.sectionTitle}>Requirements:</Text>
@@ -36,20 +28,20 @@ const JobDetails = () => {
           <Text style={styles.descriptionText}>{item}</Text>
         </View>
       ))}
-     <Text style={styles.sectionTitle}>Nice to have:</Text>
+     {/* <Text style={styles.sectionTitle}>Nice to have:</Text>
       <View style={{flexDirection: 'row', marginLeft: 10}}>
         <Text style={{marginRight: 5, marginTop: 5, color: '#1C1C1C'}}>•</Text>
         <Text style={styles.descriptionText}>
           BSc (Honors) Computer Science or a similar degree with significant
           computing bias.
         </Text>
-      </View>
+      </View> */}
 
-      <Text style={styles.sectionTitle}>Languages:</Text>
+      {/* <Text style={styles.sectionTitle}>Languages:</Text>
       <View style={{flexDirection: 'row', marginLeft: 10}}>
         <Text style={{marginRight: 5, marginTop: 5, color: '#1C1C1C'}}>•</Text>
         <Text style={styles.descriptionText}>English: C2 Proficiency</Text>
-      </View>
+      </View> */}
     </View>
   );
 };

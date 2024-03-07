@@ -22,6 +22,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthSlice, { selectUser } from 'src/redux/auth';
 import TopHeader from 'screens/App/CompleteProfile/components/Header/TopHeader';
 import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHeader';
+import { selectLang } from 'src/redux/lang';
+import { useTranslation } from 'react-i18next';
 
 const UpdateCompanyAbout = () => {
   // const navigation = useNavigation<any>();
@@ -43,12 +45,10 @@ const UpdateCompanyAbout = () => {
 
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
-  const AccessToken = useSelector(selectAccessToken);
-  useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
+  const lang = useSelector(selectLang);
+  const { t, i18n } = useTranslation();
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
+    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
@@ -71,7 +71,7 @@ const UpdateCompanyAbout = () => {
               marginLeft: 8,
               fontFamily: 'Noto Sans',
             }}>
-            About
+            {t('about')}
           </Text>
           <Formik
             initialValues={{About:CurrentUserData?.about|| ''}}
@@ -82,7 +82,7 @@ const UpdateCompanyAbout = () => {
               formdata.append('about',values.About);
              
 
-              console.log("FROM ABOUT COMPANY",formdata);
+              // console.log("FROM ABOUT COMPANY",formdata);
 
             dispatch(AppThunks.doAddCompanyInfo(formdata)).then(
                 (res: any) => {
@@ -97,8 +97,8 @@ const UpdateCompanyAbout = () => {
                 <TextInput
                   multiline
                   numberOfLines={10} // Set the number of lines you want to display
-                  style={styles.textArea} // Define your own styles for the text area
-                  placeholder="Write here.."
+                  style={[styles.textArea,{textAlign:lang=='ar'?'right':'left'}]} // Define your own styles for the text area
+                  placeholder={t("writeHere")}
                   placeholderTextColor={'#B9B9B9'}
                   onChangeText={value =>
                     props?.setFieldValue(`About`, value)
@@ -110,7 +110,7 @@ const UpdateCompanyAbout = () => {
                   textAlignVertical="top"
                 />
                 <View style={{height:appSizes.height * 0.09}}/>
-                <Button loading={loading} text={'Done'} onPress={props.handleSubmit} />
+                <Button loading={loading} text={t('Done')} onPress={props.handleSubmit} />
               </View>
             )}
           </Formik>

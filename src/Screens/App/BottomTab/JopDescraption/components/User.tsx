@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Linking} from 'react-native';
 import {styles} from '../styles';
 import {globalStyles} from '../../../../../globalStyle';
 import {dummyAvatar} from '../../../../../Dummy';
@@ -8,7 +8,7 @@ import {appColors} from '../../../../../theme/appColors';
 import AvatarIcon from '../../../../../Components/molecules/Avatar';
 import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import {selectFollowingList} from 'src/redux/app';
+import {selectFollowingList, selectOneJob} from 'src/redux/app';
 import {useNavigation} from '@react-navigation/native';
 import {AVATAR, SaveJob} from 'assets/Svgs';
 import {useSelector} from 'react-redux';
@@ -31,9 +31,9 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const User = useSelector(selectUser);
 
   const {t, i18n} = useTranslation();
-
+  const MyJob = useAppSelector(selectOneJob);
   const getdate = () => {
-    const startDate: Date = new Date('2024-02-27T10:39:21.000000Z');
+    const startDate: Date = new Date(MyJob?.created_at);
     const currentDate: Date = new Date();
 
     const timeDifferenceInMilliseconds: number =
@@ -79,12 +79,20 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
       }
     }
   };
+  const handleEmailPress = () => {
+    const email = MyJob?.email;
 
+    const emailUrl = `mailto:${email}`;
+
+    Linking.openURL(emailUrl).catch(err =>
+      console.error('Error opening email client:', err),
+    );
+  };
   // console.log("USERS",item?.avatarCustomUrl)
   return (
     <View style={{paddingHorizontal: 10}}>
       <TopHeader />
-      <Text
+      {/* <Text
         style={{
           fontSize: 16,
           fontWeight: '700',
@@ -92,14 +100,15 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
           color: '#000',
         }}>
         Meet our recruiter
-      </Text>
-      <HeaderAfter />
+      </Text> */}
+      {/* <HeaderAfter /> */}
       <Text
         style={{
           fontSize: 16,
           fontWeight: '700',
           fontFamily: 'Noto Sans',
           color: '#000',
+          marginTop: 10,
         }}>
         About the job
       </Text>
@@ -124,40 +133,48 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         About the company
       </Text>
       <HeaderAfter />
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: '700',
-          fontFamily: 'Noto Sans',
-          color: '#000',
-          marginTop: -15,
-        }}>
-        About
-      </Text>
-      <ReadMore
-        style={styles.PostText}
-        animate={true}
-        seeMoreStyle={{
-          color: appColors.primary,
-          textDecorationLine: 'underline',
-        }}
-        seeLessStyle={{
-          color: appColors.primary,
-          textDecorationLine: 'underline',
-        }}
-        seeLessText={t('Less')}
-        seeMoreText={t('Learn more')}
-        numberOfLines={3}>
-        A problem isn't truly solved until it's solved for all. Googlers build
-        products that help create opportunities for everyone, whether down the
-        street or across the globe. Bring your insight, imagination and a
-        healthy disregard for the impossible. Bring everything that makes you
-        unique. Together, we can build
-      </ReadMore>
+      {MyJob?.users?.about != null ? (
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '700',
+            fontFamily: 'Noto Sans',
+            color: '#000',
+            marginTop: -15,
+          }}>
+          About
+        </Text>
+      ) : null}
+      {MyJob?.users?.about != null ? (
+        <ReadMore
+          style={styles.PostText}
+          animate={true}
+          seeMoreStyle={{
+            color: appColors.primary,
+            textDecorationLine: 'underline',
+          }}
+          seeLessStyle={{
+            color: appColors.primary,
+            textDecorationLine: 'underline',
+          }}
+          seeLessText={t('Less')}
+          seeMoreText={t('Learn more')}
+          numberOfLines={3}>
+          {MyJob?.users?.about}
+        </ReadMore>
+      ) : null}
       <View style={{height: appSizes.height * 0.04}} />
-      <View style={{flexDirection: 'row', width: '100%',columnGap:10}}>
-        <View style={{width:'80%'}}>
-          <Button style={{height:62}} text={"Apply for job"} onPress={() => console.log('Job')} />
+      <View style={{flexDirection: 'row', width: '100%', columnGap: 10}}>
+        <View style={{width: '80%'}}>
+          <Button
+            style={{height: 62}}
+            text={'Apply for job'}
+            onPress={() =>
+              MyJob?.email != null
+                ? handleEmailPress()
+                : Linking.openURL(MyJob?.external_link)
+            }
+          />
         </View>
         <View
           style={{
@@ -165,10 +182,10 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
             justifyContent: 'center',
             alignItems: 'center',
             paddingHorizontal: 15,
-            paddingVertical:15,
-            borderRadius:16,
-            borderWidth:1,
-            borderColor:appColors.primary
+            paddingVertical: 15,
+            borderRadius: 16,
+            borderWidth: 1,
+            borderColor: appColors.primary,
           }}>
           <SaveJob width={30} height={30} />
         </View>

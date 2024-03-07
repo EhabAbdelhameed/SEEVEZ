@@ -66,7 +66,7 @@ const RecordVideoCompany = (data: any) => {
         // <TouchableOpacity onPress={handleVideoPress}>
         <Video
           resizeMode="cover"
-          paused={isPaused}
+          paused={data?.stopVideo}
           repeat
           source={{uri: data?.user_data?.media}}
           style={styles.videoContainer}
