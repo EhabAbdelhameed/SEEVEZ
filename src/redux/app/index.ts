@@ -835,25 +835,7 @@ const slice = createSlice({
       state.postsData = action.payload?.posts;
       state.polls = action.payload?.polls;
     });
-    builder.addCase(thunks.GetMyReels.rejected, (state, action: any) => {
-      if (action.payload.data.message == 'Validation error.') {
-        Toast.show({
-          type: 'error',
-          text1: action.payload.data.error,
-        });
-      } else {
-        Toast.show({
-          type: 'error',
-          text1: action.payload.data.message,
-        });
-        if (action?.payload?.data?.message == 'Access token is invalid.') {
-          // state.AccessToken = true;
-        }
-      }
-      // if (action?.payload?.data?.message == 'Access token is invalid.') {
-      //   ////// state.AccessToken = true;
-      // }
-    });
+  
     //GetOnePost
     builder.addCase(thunks.GetOnePost.fulfilled, (state, action) => {
       console.log('GET One REEL ', JSON.stringify(action.payload));

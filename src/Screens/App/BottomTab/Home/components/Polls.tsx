@@ -26,10 +26,7 @@ const Polls = () => {
     return RenderFunction;
   }, [navigation]);
   const polls = useSelector(selectPolls);
-  const AccessToken = useSelector(selectAccessToken);
-  React.useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
+  
   const Slider = ({pers, title}: {pers: number; title: string}) => {
     return (
       <>
