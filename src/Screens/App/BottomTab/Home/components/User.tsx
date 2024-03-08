@@ -41,8 +41,9 @@ const User = (data: any) => {
                 <View style={styles.rowContainer}>
                     <Text numberOfLines={1} style={[styles.text1, {
                         marginBottom: 0,
-                        fontSize: appSizes.font_m - 3
-                    }]}>{data?.data?.name == null ? "User" : data?.data?.name}</Text>
+                        fontSize: appSizes.font_m - 3,
+                        width:'85%'
+                  }]}>{data?.data?.name == null ? "User" : data?.data?.name}</Text>
                     {/* <RenderSvgIcon
                         icon='RIGHTACCOUNT'
                         width={13}
