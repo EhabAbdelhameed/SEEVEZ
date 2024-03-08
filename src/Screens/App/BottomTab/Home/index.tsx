@@ -152,7 +152,7 @@ const Home = () => {
                     : t('myConnections')
                 }
                 onPress={() => {
-                  navigation.navigate('Connections');
+                  navigation.navigate('MyConnection');
                 }}>
                 <User data={followingList[0]} />
                 <User data={followingList[1]} />
@@ -254,7 +254,7 @@ const Home = () => {
               </BoxContentTitle>
             </View>
           )} */}
-          {CurrentUserData?.user_data?.user_type == 'recruiter' ||
+          {/* {CurrentUserData?.user_data?.user_type == 'recruiter' ||
             CurrentUserData?.user_data?.user_type == 'company' ||
             CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
@@ -300,8 +300,8 @@ const Home = () => {
                 </View>
               </View>
             </View>
-          ) : null}
-          {CurrentUserData?.user_data?.user_type == 'company' ||
+          ) : null} */}
+          {/* {CurrentUserData?.user_data?.user_type == 'company' ||
             CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <BoxContentTitle title={'My internship'}>
@@ -310,7 +310,7 @@ const Home = () => {
                 <CompanySection title={'My internship'} />
               </BoxContentTitle>
             </View>
-          ) : null}
+          ) : null} */}
           <View style={styles.rowContainer}>
             <BoxContentTitle title={t("myPolls")} onPress={() => {
               navigation.navigate('MYPolls');
@@ -403,7 +403,7 @@ const Home = () => {
               </View>
             </BoxContentTitle>
           </View> */}
-          {CurrentUserData?.user_data?.user_type == 'company' ||
+          {/* {CurrentUserData?.user_data?.user_type == 'company' ||
             CurrentUserData?.user_data?.user_type == 'company_admin' ? (
             <View style={styles.rowContainer}>
               <BoxContentTitle title={t("pendingRequests")}>
@@ -411,7 +411,7 @@ const Home = () => {
                 <Pending />
               </BoxContentTitle>
             </View>
-          ) : null}
+          ) : null} */}
         </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>

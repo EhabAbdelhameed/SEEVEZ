@@ -14,6 +14,7 @@ const Polls = () => {
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
   const [loader, setLoader] = React.useState(false);
+  
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       setLoader(true);
@@ -26,7 +27,10 @@ const Polls = () => {
     return RenderFunction;
   }, [navigation]);
   const polls = useSelector(selectPolls);
-  
+  const AccessToken = useSelector(selectAccessToken);
+  React.useEffect(() => {
+    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
+  }, [AccessToken]);
   const Slider = ({pers, title}: {pers: number; title: string}) => {
     return (
       <>
@@ -81,7 +85,7 @@ const Polls = () => {
         {
           justifyContent: polls[0]?.pollId == null ? 'center' : 'flex-start',
           alignItems: polls[0]?.pollId == null ? 'center' : 'flex-start',
-        },
+        },  
       ]}>
       {polls[0]?.pollId == null ? (
         <View style={{justifyContent: 'center', alignItems: 'center'}}>

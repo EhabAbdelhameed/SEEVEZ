@@ -32,6 +32,7 @@ const CreateVideo = () => {
   const [videoSource, setSourceVideo] = useState<any>([])
  
   const _handleNavigate = useCallback(() => {
+    setStopVideo(true)
     navigation.goBack();
   }, []);
   const [isRecording, setIsRecording] = useState(false);

@@ -12,7 +12,7 @@ import { selectAccessToken, selectFollowingList, selectListUsers } from 'src/red
 import Header from 'components/molecules/Header';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import AuthSlice from 'src/redux/auth';
+import AuthSlice, { selectUser } from 'src/redux/auth';
 import { useTranslation } from 'react-i18next';
 import { selectLang } from 'src/redux/lang';
 
@@ -30,11 +30,13 @@ const MyConnection = (props: any) => {
         dispatch(AppThunks.doGetFollowingList()).then(() =>setLoad(false))
         dispatch(AppThunks.doGetListUsers())
     }, [])
-
+const CurrentUserData=useSelector(selectUser)
     return (
         <SafeAreaView edges={['top']} style={[globalStyles.screen,{direction: lang == 'en' ? 'ltr' : 'rtl'}]}>
             <View style={styles.screen}>
-                <Header Title={t("myConnections")} onPress={() => navigation.goBack()} />
+                <Header Title={CurrentUserData?.user_data?.user_type == 'company' ||
+                    CurrentUserData?.user_data?.user_type == 'company_admin'?t('myApplicants')
+                    : t('myConnections')} onPress={() => navigation.goBack()} />
                 <ScrollView showsVerticalScrollIndicator={false} style={{
                     height: '100%',
                     width: '90%',

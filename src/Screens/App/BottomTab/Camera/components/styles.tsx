@@ -240,6 +240,27 @@ export const styles = StyleSheet.create({
         flexDirection: 'row'
         // marginTop: 'auto', // This will make the modal appear at the bottom
     },
+    taggedPeopleContainer: {
+        // marginTop: 20,
+        // paddingHorizontal: 10,
+        position:'absolute',
+        left:10,
+        top:140,
+    
+      },
+      taggedPerson: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent:'center',
+        marginBottom: 10,
+        width:84,
+        paddingHorizontal:10,
+        paddingVertical:6,
+        backgroundColor:'#FFF',
+        marginRight:10,
+        borderRadius:16,
+        
+      },
 
 
 })

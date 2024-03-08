@@ -1,5 +1,5 @@
 // ReelsScreen.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   FlatList,
@@ -18,19 +18,26 @@ import {
   ActivityIndicator,
   NativeModules,
 } from 'react-native';
-import { data, getTime } from './fucntions/helper';
+import {data, getTime} from './fucntions/helper';
 import ContentVideo from './components/ContentVideo';
 import RenderVideo from './components/Video';
-import { appColors } from 'theme/appColors';
-import { appSizes } from 'theme/appSizes';
+import {appColors} from 'theme/appColors';
+import {appSizes} from 'theme/appSizes';
 
-import { globalStyles } from 'src/globalStyle';
-import { useAppDispatch } from 'src/redux/store';
-import { useNavigation } from '@react-navigation/native';
-import AppSlice, { selectAccessToken, selectGlobalBools, selectGlobalReals, selectPolls, selectPosts, selectToken } from 'src/redux/app';
+import {globalStyles} from 'src/globalStyle';
+import {useAppDispatch} from 'src/redux/store';
+import {useNavigation} from '@react-navigation/native';
+import AppSlice, {
+  selectAccessToken,
+  selectGlobalBools,
+  selectGlobalReals,
+  selectPolls,
+  selectPosts,
+  selectToken,
+} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
-import { useSelector } from 'react-redux';
-import AuthSlice, { selectUser } from 'src/redux/auth';
+import {useSelector} from 'react-redux';
+import AuthSlice, {selectUser} from 'src/redux/auth';
 import Video from 'react-native-fast-video';
 import Swiper from 'react-native-swiper';
 import CVAddones from './components/CVAddones';
@@ -38,26 +45,28 @@ import Audio from './components/Audio';
 import Boll from './components/Bolls';
 import LinearGradient from 'react-native-linear-gradient';
 import TextLinks from './components/TextLinks';
-import { RenderSvgIcon } from 'components/atoms/svg';
+import {RenderSvgIcon} from 'components/atoms/svg';
 import DeviceInfo from 'react-native-device-info';
-import { styles } from './components/styles';
-import { handleInfinityScroll } from 'src/Utils/HF';
+import {styles} from './components/styles';
+import {handleInfinityScroll} from 'src/Utils/HF';
+import {LOCATION} from 'assets/Svgs';
+import JopOppertunity from './components/JobOppertienty';
 const CameraScreen = () => {
   const CurrentUserData = useSelector(selectUser);
   const dispatch = useAppDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const postsData = useSelector(selectGlobalReals);
   const polls = useSelector(selectGlobalBools);
   const token = useSelector(selectToken);
-  const [limit, setLimit] = React.useState<number>(1)
+  const [limit, setLimit] = React.useState<number>(1);
 
   const swiperRef = useRef(null);
-  const [pause, setPause] = useState(false)
+  const [pause, setPause] = useState(false);
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
-      dispatch(AppSlice.changeGlobalBools([]))
-      dispatch(AppSlice.changeGlobalReals([]))
-      dispatch(AppSlice.changeToken(''))
+      dispatch(AppSlice.changeGlobalBools([]));
+      dispatch(AppSlice.changeGlobalReals([]));
+      dispatch(AppSlice.changeToken(''));
       setVideo({
         currentTime: 0,
         duration: 0.1,
@@ -65,12 +74,12 @@ const CameraScreen = () => {
         overlay: true,
         fulltime: 0.1,
       });
-      setLoader(true)
+      setLoader(true);
       setTimeout(() => {
         dispatch(AppThunks.GetGlobalReels()).then((res: any) => {
-          setLoader(false)
-          setPause(false)
-        })
+          setLoader(false);
+          setPause(false);
+        });
       }, 500);
       dispatch(AppSlice.changeDone(false));
     });
@@ -79,22 +88,22 @@ const CameraScreen = () => {
   React.useEffect(() => {
     // { limit > 1 && setLoad2(true) }
     {
-      limit > 1 && dispatch(AppThunks.GetGlobalReels(`&token=${token}`))
+      limit > 1 && dispatch(AppThunks.GetGlobalReels(`&token=${token}`));
       // .then(() => setLoad2(false))
     }
-  }, [limit])
+  }, [limit]);
 
   const [currentVideoIndex, setCurrentVideoIndex] = useState<any>(0);
   const videoRef: any = useRef(null);
   const flatListRef: any = useRef(null);
-  const [loader, setLoader] = React.useState(false)
+  const [loader, setLoader] = React.useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const blur = navigation.addListener('blur', () => {
-      setPause(true)
+      setPause(true);
     });
-    return blur
+    return blur;
   }, [navigation]);
   const [video, setVideo] = React.useState({
     currentTime: 0,
@@ -103,7 +112,7 @@ const CameraScreen = () => {
     overlay: true,
     fulltime: 0.1,
   });
-  const hasNotch = DeviceInfo.hasNotch()
+  const hasNotch = DeviceInfo.hasNotch();
   const renderSwiper = (item: any) => {
     return (
       <View
@@ -116,14 +125,13 @@ const CameraScreen = () => {
             justifyContent: 'center',
           },
         ]}>
-
         <Swiper
           ref={swiperRef}
           loop={false}
           // showsButtons
           // onIndexChanged={index => setCurrentIndex(index)}
           showsPagination={true}
-          paginationStyle={{ top: -500 }}
+          paginationStyle={{top: -500}}
           dotStyle={{
             backgroundColor: 'rgba(255,255,255,.3)',
             width: 8,
@@ -138,7 +146,7 @@ const CameraScreen = () => {
             <View key={index}>
               {/* <TouchableOpacity onPress={() => console.log('Swiper item pressed')}> */}
               <ImageBackground
-                source={{ uri: asset?.file?.fileUrl + '?size=full' }}
+                source={{uri: asset?.file?.fileUrl + '?size=full'}}
                 style={{
                   width,
                   height,
@@ -158,6 +166,64 @@ const CameraScreen = () => {
         {item?.metadata?.externalLinks == null ? null : (
           <TextLinks data={item?.metadata} />
         )}
+        {item?.metadata?.jobOpportunityData == null ||
+        !item?.metadata?.jobOpportunityData ? null : (
+          <JopOppertunity data={item?.metadata} />
+        )}
+        {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        {item?.metadata?.mentions == null ||
+        item?.metadata?.mentions?.length == 0 ? null : (
+          <View style={styles.taggedPeopleContainer}>
+            <FlatList
+              scrollEnabled={false}
+              data={item?.metadata?.mentions}
+              numColumns={2}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('UserProfile', {id: item?.id});
+                  }}
+                  key={index}
+                  style={styles.taggedPerson}>
+                  <Text
+                    style={{
+                      color: '#10347A',
+                      fontFamily: 'Noto Sans',
+                      fontSize: 8,
+                      fontWeight: '400',
+                    }}>{`@${item?.name}`}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+        )}
       </View>
     );
   };
@@ -165,8 +231,8 @@ const CameraScreen = () => {
   const renderAudio = (item: any) => {
     return item?.metadata?.color == '#0f0' ? (
       <LinearGradient
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
+        start={{x: 0, y: 0}}
+        end={{x: 0, y: 1}}
         colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
         style={[
           {
@@ -178,6 +244,60 @@ const CameraScreen = () => {
           },
         ]}>
         <Audio data={item?.metadata} />
+        {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        {item?.metadata?.mentions == null ||
+        item?.metadata?.mentions?.length == 0 ? null : (
+          <View style={styles.taggedPeopleContainer}>
+            <FlatList
+              scrollEnabled={false}
+              data={item?.metadata?.mentions}
+              numColumns={2}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('UserProfile', {id: item?.id});
+                  }}
+                  key={index}
+                  style={styles.taggedPerson}>
+                  <Text
+                    style={{
+                      color: '#10347A',
+                      fontFamily: 'Noto Sans',
+                      fontSize: 8,
+                      fontWeight: '400',
+                    }}>{`@${item?.name}`}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+        )}
       </LinearGradient>
     ) : (
       <View
@@ -192,6 +312,60 @@ const CameraScreen = () => {
           },
         ]}>
         <Audio data={item?.metadata} />
+        {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        {item?.metadata?.mentions == null ||
+        item?.metadata?.mentions?.length == 0 ? null : (
+          <View style={styles.taggedPeopleContainer}>
+            <FlatList
+              scrollEnabled={false}
+              data={item?.metadata?.mentions}
+              numColumns={2}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('UserProfile', {id: item?.id});
+                  }}
+                  key={index}
+                  style={styles.taggedPerson}>
+                  <Text
+                    style={{
+                      color: '#10347A',
+                      fontFamily: 'Noto Sans',
+                      fontSize: 8,
+                      fontWeight: '400',
+                    }}>{`@${item?.name}`}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+        )}
       </View>
     );
   };
@@ -200,8 +374,8 @@ const CameraScreen = () => {
       attach?.pollId == item?.metadata?.poll ? (
         item?.metadata?.color == '#0f0' ? (
           <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
             colors={['#EDBC33', '#1D5EDD', '#00CEC8']}
             style={[
               {
@@ -213,6 +387,60 @@ const CameraScreen = () => {
               },
             ]}>
             <Boll data={attach} />
+            {item?.metadata?.location == null ||
+            item?.metadata?.location == '' ? null : (
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 100,
+                  left: 10,
+                  flexDirection: 'row',
+                  columnGap: 10,
+                  backgroundColor: '#FFF',
+                  borderRadius: 16,
+                  width: 180,
+                  paddingHorizontal: 10,
+                  paddingVertical: 6,
+                }}>
+                <LOCATION />
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 12,
+                    fontWeight: '400',
+                  }}>
+                  {item?.metadata?.location}
+                </Text>
+              </View>
+            )}
+            {item?.metadata?.mentions == null ||
+            item?.metadata?.mentions?.length == 0 ? null : (
+              <View style={styles.taggedPeopleContainer}>
+                <FlatList
+                  scrollEnabled={false}
+                  data={item?.metadata?.mentions}
+                  numColumns={2}
+                  renderItem={({item, index}) => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('UserProfile', {id: item?.id});
+                      }}
+                      key={index}
+                      style={styles.taggedPerson}>
+                      <Text
+                        style={{
+                          color: '#10347A',
+                          fontFamily: 'Noto Sans',
+                          fontSize: 8,
+                          fontWeight: '400',
+                        }}>{`@${item?.name}`}</Text>
+                    </TouchableOpacity>
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+                />
+              </View>
+            )}
           </LinearGradient>
         ) : (
           <View
@@ -227,6 +455,60 @@ const CameraScreen = () => {
               },
             ]}>
             <Boll data={attach} />
+            {item?.metadata?.location == null ||
+            item?.metadata?.location == '' ? null : (
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 100,
+                  left: 10,
+                  flexDirection: 'row',
+                  columnGap: 10,
+                  backgroundColor: '#FFF',
+                  borderRadius: 16,
+                  width: 180,
+                  paddingHorizontal: 10,
+                  paddingVertical: 6,
+                }}>
+                <LOCATION />
+                <Text
+                  style={{
+                    color: '#10347A',
+                    fontFamily: 'Noto Sans',
+                    fontSize: 12,
+                    fontWeight: '400',
+                  }}>
+                  {item?.metadata?.location}
+                </Text>
+              </View>
+            )}
+            {item?.metadata?.mentions == null ||
+            item?.metadata?.mentions?.length == 0 ? null : (
+              <View style={styles.taggedPeopleContainer}>
+                <FlatList
+                  scrollEnabled={false}
+                  data={item?.metadata?.mentions}
+                  numColumns={2}
+                  renderItem={({item, index}) => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('UserProfile', {id: item?.id});
+                      }}
+                      key={index}
+                      style={styles.taggedPerson}>
+                      <Text
+                        style={{
+                          color: '#10347A',
+                          fontFamily: 'Noto Sans',
+                          fontSize: 8,
+                          fontWeight: '400',
+                        }}>{`@${item?.name}`}</Text>
+                    </TouchableOpacity>
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+                />
+              </View>
+            )}
           </View>
         )
       ) : null,
@@ -256,6 +538,64 @@ const CameraScreen = () => {
         {item?.metadata?.externalLinks == null ? null : (
           <TextLinks data={item?.metadata} />
         )}
+        {item?.metadata?.jobOpportunityData == null ||
+        !item?.metadata?.jobOpportunityData ? null : (
+          <JopOppertunity data={item?.metadata} />
+        )}
+        {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        {item?.metadata?.mentions == null ||
+        item?.metadata?.mentions?.length == 0 ? null : (
+          <View style={styles.taggedPeopleContainer}>
+            <FlatList
+              scrollEnabled={false}
+              data={item?.metadata?.mentions}
+              numColumns={2}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('UserProfile', {id: item?.id});
+                  }}
+                  key={index}
+                  style={styles.taggedPerson}>
+                  <Text
+                    style={{
+                      color: '#10347A',
+                      fontFamily: 'Noto Sans',
+                      fontSize: 8,
+                      fontWeight: '400',
+                    }}>{`@${item?.name}`}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+        )}
       </ImageBackground>
     );
   };
@@ -266,7 +606,7 @@ const CameraScreen = () => {
           ref={player => {
             videoRef.current = player;
           }}
-          source={{ uri: attach?.fileUrl }}
+          source={{uri: attach?.fileUrl}}
           onLoad={load}
           //   fullscreenOrientation={'portrait'}
           // onProgress={progress}
@@ -305,6 +645,64 @@ const CameraScreen = () => {
         {item?.metadata?.externalLinks == null ? null : (
           <TextLinks data={item?.metadata} />
         )}
+        {item?.metadata?.jobOpportunityData == null ||
+        !item?.metadata?.jobOpportunityData ? null : (
+          <JopOppertunity data={item?.metadata} />
+        )}
+        {item?.metadata?.location == null ||
+        item?.metadata?.location == '' ? null : (
+          <View
+            style={{
+              position: 'absolute',
+              top: 100,
+              left: 10,
+              flexDirection: 'row',
+              columnGap: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 16,
+              width: 180,
+              paddingHorizontal: 10,
+              paddingVertical: 6,
+            }}>
+            <LOCATION />
+            <Text
+              style={{
+                color: '#10347A',
+                fontFamily: 'Noto Sans',
+                fontSize: 12,
+                fontWeight: '400',
+              }}>
+              {item?.metadata?.location}
+            </Text>
+          </View>
+        )}
+        {item?.metadata?.mentions == null ||
+        item?.metadata?.mentions?.length == 0 ? null : (
+          <View style={styles.taggedPeopleContainer}>
+            <FlatList
+              scrollEnabled={false}
+              data={item?.metadata?.mentions}
+              numColumns={2}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('UserProfile', {id: item?.id});
+                  }}
+                  key={index}
+                  style={styles.taggedPerson}>
+                  <Text
+                    style={{
+                      color: '#10347A',
+                      fontFamily: 'Noto Sans',
+                      fontSize: 8,
+                      fontWeight: '400',
+                    }}>{`@${item?.name}`}</Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+        )}
       </View>
     );
   };
@@ -313,18 +711,18 @@ const CameraScreen = () => {
   // const [screenType, setScreenType] = React.useState('cover');
   const scrollToTop = () => {
     if (flatListRef.current) {
-      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+      flatListRef.current.scrollToOffset({animated: true, offset: 0});
     }
   };
 
-  const load = ({ duration }: any) => {
-    setVideo(prev => ({ ...prev, duration }));
+  const load = ({duration}: any) => {
+    setVideo(prev => ({...prev, duration}));
     setLoading(false);
   };
 
-  const { height, width } = useWindowDimensions();
+  const {height, width} = useWindowDimensions();
 
-  const renderVideoItem = ({ item, index }: any) => {
+  const renderVideoItem = ({item, index}: any) => {
     return item?.metadata?.attachments == null &&
       item?.metadata?.poll == null ? null : (
       <View
@@ -337,64 +735,64 @@ const CameraScreen = () => {
           backgroundColor: appColors.black,
         }}>
         <>
-          {
-            currentVideoIndex == index ?
-              (item?.metadata?.attachments == null && (item?.metadata?.poll != null ) ?
-                (renderPoll(item))
-                : !item?.metadata?.originalPostId ? (
-                  Array.isArray(item?.metadata?.attachments) ? (
-                    item?.metadata?.attachments?.length > 1 ? (
-                      renderSwiper(item)
-                    ) : (
-                      item?.metadata?.attachments?.map((attach: any) =>
-                        renderImage(attach, item),
-                      )
-                    )
-                  ) : item?.metadata?.attachments?.type == 'video' ? (
-                    renderVideo(item?.metadata?.attachments, item)
-                  ) : (
-                    renderAudio(item)
-                  )
-                ) : Array.isArray(
-                  item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
-                ) ? (
-                  item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
-                    ?.length > 1 ? (
-                    renderSwiper(item?.metadata?.originalPostId?.posts[0])
-                  ) : (
-                    item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
-                      (attach: any) =>
-                        renderImage(
-                          attach,
-                          item?.metadata?.originalPostId?.posts[0],
-                        ),
-                    )
-                  )
-                ) : item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
-                  ?.type == 'video' ? (
-                  renderVideo(
-                    item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
-                    item?.metadata?.originalPostId?.posts[0],
-                  )
+          {currentVideoIndex == index ? (
+            item?.metadata?.attachments == null &&
+            item?.metadata?.poll != null ? (
+              renderPoll(item)
+            ) : !item?.metadata?.originalPostId ? (
+              Array.isArray(item?.metadata?.attachments) ? (
+                item?.metadata?.attachments?.length > 1 ? (
+                  renderSwiper(item)
                 ) : (
-                  renderAudio(item?.metadata?.originalPostId?.posts[0])
+                  item?.metadata?.attachments?.map((attach: any) =>
+                    renderImage(attach, item),
+                  )
                 )
+              ) : item?.metadata?.attachments?.type == 'video' ? (
+                renderVideo(item?.metadata?.attachments, item)
               ) : (
-                <View>
-                  <Image
-                    source={require('../../../../assets/images/loading.gif')}
-                    style={{
-                      width: 100,
-                      height: 100,
-                      // backgroundColor: "#589",
-                      zIndex: 100,
-                      alignSelf: 'center',
-                      marginTop: appSizes.height / 2.5,
-                    }}
-                    resizeMode="contain"
-                  />
-                </View>
-              )}
+                renderAudio(item)
+              )
+            ) : Array.isArray(
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
+              ) ? (
+              item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
+                ?.length > 1 ? (
+                renderSwiper(item?.metadata?.originalPostId?.posts[0])
+              ) : (
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments?.map(
+                  (attach: any) =>
+                    renderImage(
+                      attach,
+                      item?.metadata?.originalPostId?.posts[0],
+                    ),
+                )
+              )
+            ) : item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments
+                ?.type == 'video' ? (
+              renderVideo(
+                item?.metadata?.originalPostId?.posts[0]?.metadata?.attachments,
+                item?.metadata?.originalPostId?.posts[0],
+              )
+            ) : (
+              renderAudio(item?.metadata?.originalPostId?.posts[0])
+            )
+          ) : (
+            <View>
+              <Image
+                source={require('../../../../assets/images/loading.gif')}
+                style={{
+                  width: 100,
+                  height: 100,
+                  // backgroundColor: "#589",
+                  zIndex: 100,
+                  alignSelf: 'center',
+                  marginTop: appSizes.height / 2.5,
+                }}
+                resizeMode="contain"
+              />
+            </View>
+          )}
 
           <ContentVideo data={item} />
         </>
@@ -405,8 +803,9 @@ const CameraScreen = () => {
   return (
     // <SafeAreaView style={globalStyles.screen} edges={['top']}>
     // <View style={globalStyles.screen}>
-    loader ?
-      <ActivityIndicator size={50} style={{ marginTop: 300 }} /> :
+    loader ? (
+      <ActivityIndicator size={50} style={{marginTop: 300}} />
+    ) : (
       <>
         {!postsData || postsData[0]?.postId == null ? (
           <View
@@ -417,7 +816,7 @@ const CameraScreen = () => {
               alignItems: 'center',
               backgroundColor: '#FFF',
             }}>
-            <Text style={{ color: '#000', fontSize: 20 }}>
+            <Text style={{color: '#000', fontSize: 20}}>
               {' '}
               No posts please create post
             </Text>
@@ -427,14 +826,21 @@ const CameraScreen = () => {
             ref={flatListRef}
             // style={{flex: 1}}
             // contentContainerStyle={{flex:1}}
-            data={postsData?.filter(user => user?.postedUserId == CurrentUserData?.id || user?.metadata?.originalPostId == null || user?.metadata?.originalPostId == undefined)}
+            data={postsData?.filter(
+              user =>
+                user?.postedUserId == CurrentUserData?.id ||
+                user?.metadata?.originalPostId == null ||
+                user?.metadata?.originalPostId == undefined,
+            )}
             renderItem={renderVideoItem}
             pagingEnabled
             onMomentumScrollEnd={event => {
-              if (handleInfinityScroll(event)) { (postsData?.length % 10 == 0) && setLimit(limit + 1) }
+              if (handleInfinityScroll(event)) {
+                postsData?.length % 3 == 0 && setLimit(limit + 1);
+              }
               const index = Math.floor(
                 event.nativeEvent.contentOffset.y /
-                event.nativeEvent.layoutMeasurement.height,
+                  event.nativeEvent.layoutMeasurement.height,
               );
               setVideo({
                 currentTime: 0,
@@ -446,16 +852,16 @@ const CameraScreen = () => {
               setCurrentVideoIndex(index);
               setLoading(true);
             }}
-            keyExtractor={item => item._id}
+            keyExtractor={item => item?._id}
             // scrollEventThrottle={16} // Adjust this value for smoother scrolling events
             showsVerticalScrollIndicator={false}
             snapToInterval={height}
             snapToAlignment="start"
             decelerationRate={'fast'}
           />
-        )
-        }
+        )}
       </>
+    )
 
     // {/* </View> */}
   );

@@ -34,7 +34,7 @@ const Profile = () => {
           <RenderSvgIcon icon="RIGHTACCOUNT" width={16} />
         </View>
       </View>
-      <Text style={styles.text1}>{CurrentUserData?.name}</Text>
+      <Text numberOfLines={1} style={styles.text1}>{CurrentUserData?.name}</Text>
       <Text style={styles.text2}>
         {CurrentUserData?.job_title == null ? null : CurrentUserData?.job_title}
       </Text>

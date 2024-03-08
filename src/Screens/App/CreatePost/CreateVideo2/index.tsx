@@ -56,6 +56,7 @@ const CreateVideo2 = () => {
           <TouchableOpacity
             style={styles.skipContainer}
             onPress={() => {
+              setStopVideo(true)
               navigation.goBack();
             }}>
             <Text style={styles.skipText}>Skip</Text>

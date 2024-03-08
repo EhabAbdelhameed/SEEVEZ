@@ -21,7 +21,7 @@ const Footer = ({
   const [isLoading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   const lang = useSelector(selectLang);
-
+  // console.log("sss",data)
   const {t, i18n} = useTranslation();
   const sharePhotoData = () => {
     if (photoData.key == '1') {
@@ -30,7 +30,7 @@ const Footer = ({
       photoData.addonesCaption != null && photoData.addonesCaption != ''
         ? formdata.append('addons_caption', photoData.addonesCaption)
         : null;
-      data?.caption != '' ? formdata.append('caption', data?.caption) : null;
+      data != ''? formdata.append('caption', data?.caption) : null;
       photoData.pdf != null && photoData.pdf?.length != 0
         ? formdata.append('media', {
             uri: photoData?.pdf[0]?.uri,
@@ -145,7 +145,7 @@ const Footer = ({
           }
         }
       }
-      // console.log('Photo123 ', JSON.stringify(formdata));
+      console.log('Photo123 ', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
         setLoading(false);
       });
@@ -155,7 +155,7 @@ const Footer = ({
       photoData.addonesCaption != null && photoData.addonesCaption != ''
         ? formdata.append('addons_caption', photoData.addonesCaption)
         : null;
-      data?.caption != '' ? formdata.append('caption', data?.caption) : null;
+        data != '' ? formdata.append('caption', data?.caption) : null;
       photoData.pdf != null && photoData.pdf?.length != 0
         ? formdata.append('media', {
             uri: photoData?.pdf[0]?.uri,
@@ -268,7 +268,7 @@ const Footer = ({
         }
       }
 
-      // console.log('Photo123', JSON.stringify(formdata));
+      console.log('Photo1235', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadPhotoReel(formdata)).then((res: any) => {
         setLoading(false);
       });
@@ -278,7 +278,7 @@ const Footer = ({
       photoData.addonesCaption != null && photoData.addonesCaption != ''
         ? formdata.append('addons_caption', photoData.addonesCaption)
         : null;
-      data?.caption != '' ? formdata.append('caption', data?.caption) : null;
+        data != '' ? formdata.append('caption', data?.caption) : null;
       photoData.pdf != null && photoData.pdf?.length != 0
         ? formdata.append('media', {
             uri: photoData?.pdf[0]?.uri,
@@ -405,7 +405,7 @@ const Footer = ({
       photoData.addonesCaption != null && photoData.addonesCaption != ''
         ? formdata.append('addons_caption', photoData.addonesCaption)
         : null;
-      data?.caption != '' ? formdata.append('caption', data?.caption) : null;
+        data != ''? formdata.append('caption', data?.caption) : null;
       photoData.pdf != null && photoData.pdf?.length != 0
         ? formdata.append('media', {
             uri: photoData?.pdf[0]?.uri,
@@ -519,7 +519,7 @@ const Footer = ({
         }
       }
 
-      // console.log('Video12345', JSON.stringify(formdata));
+      console.log('Video12345', JSON.stringify(formdata));
       dispatch(AppThunks.doUploadVideoReel(formdata)).then((res: any) => {
         if (setStopVideo) {
           setStopVideo(true);
@@ -532,7 +532,7 @@ const Footer = ({
       photoData.addonesCaption != null && photoData.addonesCaption != ''
         ? formdata.append('addons_caption', photoData.addonesCaption)
         : null;
-      data?.caption != '' ? formdata.append('caption', data?.caption) : null;
+        data != '' ? formdata.append('caption', data?.caption) : null;
       photoData.pdf != null && photoData.pdf?.length != 0
         ? formdata.append('media', {
             uri: photoData?.pdf[0]?.uri,
