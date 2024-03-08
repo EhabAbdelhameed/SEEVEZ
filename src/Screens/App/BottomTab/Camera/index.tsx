@@ -224,6 +224,7 @@ const CameraScreen = () => {
             />
           </View>
         )}
+        <ContentVideo data={item} />
       </View>
     );
   };
@@ -298,6 +299,7 @@ const CameraScreen = () => {
             />
           </View>
         )}
+        <ContentVideo data={item} />
       </LinearGradient>
     ) : (
       <View
@@ -366,6 +368,7 @@ const CameraScreen = () => {
             />
           </View>
         )}
+        <ContentVideo data={item} />
       </View>
     );
   };
@@ -441,6 +444,7 @@ const CameraScreen = () => {
                 />
               </View>
             )}
+            <ContentVideo data={item} />
           </LinearGradient>
         ) : (
           <View
@@ -509,6 +513,7 @@ const CameraScreen = () => {
                 />
               </View>
             )}
+            <ContentVideo data={item} />
           </View>
         )
       ) : null,
@@ -596,6 +601,7 @@ const CameraScreen = () => {
             />
           </View>
         )}
+        <ContentVideo data={item} />
       </ImageBackground>
     );
   };
@@ -703,6 +709,7 @@ const CameraScreen = () => {
             />
           </View>
         )}
+        <ContentVideo data={item} />
       </View>
     );
   };
@@ -794,7 +801,7 @@ const CameraScreen = () => {
             </View>
           )}
 
-          <ContentVideo data={item} />
+          
         </>
       </View>
     );
