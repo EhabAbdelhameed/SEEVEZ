@@ -1,34 +1,48 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { styles } from './styles'
-import { appColors, appSizes } from 'theme'
-import { RenderSvgIcon } from 'components/atoms/svg'
+import {View, Text, TouchableOpacity, Linking} from 'react-native';
+import React from 'react';
+import {styles} from './styles';
+import {appColors, appSizes} from 'theme';
+import {RenderSvgIcon} from 'components/atoms/svg';
 
-const TextLinks = (data:any) => {
-
-    return (
-        <View style={[styles.CVContainer, {
-            width: "68%"
-        }]}>
-            <Text style={[styles.text11, {
-                fontSize: appSizes.m + 2,
-                fontWeight: "bold"
-            }]}>Lorem ipsum dolor</Text>
-            <Text style={styles.text12}>{data?.data?.addonCaption}</Text>
-            {data?.data?.externalLinks?.map((Exp: any, index: any) => (
-            <Text style={[styles.text12, {
-                color: "#1A56C9",
+const TextLinks = (data: any) => {
+  return (
+    <View
+      style={[
+        styles.CVContainer,
+        {
+          width: '68%',
+          
+        },
+      ]}>
+      <Text
+        style={[
+          styles.text11,
+          {
+            fontSize: appSizes.m + 2,
+            fontWeight: 'bold',
+          },
+        ]}>
+        {data?.data?.addonCaption}
+      </Text>
+      {data?.data?.externalLinks?.map((Exp: any, index: any) => (
+        <TouchableOpacity onPress={() => Linking.openURL(Exp?.link)}>
+          <Text
+            numberOfLines={2}
+            style={[
+              styles.text12,
+              {
+                color: '#1A56C9',
                 marginTop: 12,
-            }]}>{Exp?.link}</Text>))}
-           
-            <TouchableOpacity style={styles.containerHire}>
-                <RenderSvgIcon icon='COMMENT' width={20} height={20} />
-                <Text style={[styles.text3, {
-                    color: appColors.white
-                }]}>Hire now</Text>
-            </TouchableOpacity>
-        </View>
-    )
-}
+              },
+            ]}>
+            {Exp?.link}
+          </Text>
+        </TouchableOpacity>
+      ))}
 
-export default TextLinks
+      
+    </View>
+  );
+};
+
+export default TextLinks;

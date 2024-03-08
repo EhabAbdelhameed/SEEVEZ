@@ -212,7 +212,7 @@ export const styles = StyleSheet.create({
         // height: 200,
         left: 20,
 
-        bottom: 180,
+        bottom: 220,
         elevation: 4,
         borderRadius: 16,
         padding: 16,
