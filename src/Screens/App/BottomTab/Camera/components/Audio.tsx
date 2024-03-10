@@ -95,6 +95,7 @@ const Audio = (data: any) => {
         borderRadius: 20,
         paddingVertical: 5,
         marginRight: 40,
+        zIndex:3
       }}>
       <View
         style={{

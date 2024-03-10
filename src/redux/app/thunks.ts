@@ -1661,6 +1661,80 @@ const doGetJobDescraption: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//doGetJobDescraption
+const doGetFreelancerJobs: any = createAsyncThunk<any, any, any>(
+  'app/FreelancerJobs',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.freelancerJobs();
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+const doGetInternshipsJobs: any = createAsyncThunk<any, any, any>(
+  'app/Internships',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.internships();
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//GetSkills
+const GetSkills: any = createAsyncThunk<any, any, any>(
+  'app/SKILLS',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.dropDownSkills();
+      // console.log(response.data)
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 
 const AppThunks = {
   doAddSkills,
@@ -1728,7 +1802,10 @@ const AppThunks = {
   doDeletePost,
   doUpdatePost,
   doGetJobs,
-  doGetJobDescraption
+  doGetJobDescraption,
+  doGetFreelancerJobs,
+  doGetInternshipsJobs,
+  GetSkills
 };
 
 export default AppThunks;

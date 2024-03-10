@@ -8,11 +8,11 @@ import {useSelector} from 'react-redux';
 import {selectPhotoData} from 'src/redux/app';
 
 const CVAddones = (data: any) => {
-  
+ 
   return (
     <TouchableOpacity
       onPress={() => Linking.openURL(data?.data?.pdfData?.fileUrl)}
-      style={[styles.CVContainer,{width:'65%',left:20}]}>
+      style={[styles.CVContainer,{width:'65%',left:30}]}>
       <Text
         style={{
           fontSize: 14,

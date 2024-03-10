@@ -21,14 +21,14 @@ import {selectFollowingList, selectOneJob} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import {selectUser} from 'src/redux/auth';
 
-const HeaderAfter = ({
+const RecruiterHeader = ({
   data,
   onPress = () => {},
 }: {
   data?: string;
   onPress?: () => void;
 }) => {
-  const {id}: any = useRoute().params;
+    const {id}:any=useRoute().params
   const lang = useSelector(selectLang);
   const navigation = useNavigation();
   const User = useAppSelector(selectUser);
@@ -41,23 +41,27 @@ const HeaderAfter = ({
   React.useEffect(() => {
     dispatch(AppThunks.doGetFollowingList());
   }, []);
-  let exist = FollowingList?.some((ele: any) => ele?.id == MyJob?.users?.id);
+  let exist = FollowingList?.some(
+    (ele: any) => ele?.id == MyJob?.users?.company?.recruiters[0]?.user_id,
+  );
 
   const doFollowingOperation = () => {
     setLoad(true);
     !exist
-      ? dispatch(AppThunks.doFollowUser(MyJob?.users?.id)).then(() => {
-          dispatch(AppThunks.doGetFollowingList());
-          dispatch(AppThunks.doGetJobDescraption(id)).then(() =>
-            setLoad(false),
-          );
+      ? dispatch(
+          AppThunks.doFollowUser(MyJob?.users?.company?.recruiters[0]?.user_id),
+        ).then(() => {
+            dispatch(AppThunks.doGetFollowingList());
+            dispatch(AppThunks.doGetJobDescraption(id)).then(() =>setLoad(false))
           setLoad(false);
         })
-      : dispatch(AppThunks.doUnFollowUser(MyJob?.users?.id)).then(() => {
-          dispatch(AppThunks.doGetFollowingList());
-          dispatch(AppThunks.doGetJobDescraption(id)).then(() =>
-            setLoad(false),
-          );
+      : dispatch(
+          AppThunks.doUnFollowUser(
+            MyJob?.users?.company?.recruiters[0]?.user_id,
+          ),
+        ).then(() => {
+            dispatch(AppThunks.doGetFollowingList());
+            dispatch(AppThunks.doGetJobDescraption(id)).then(() =>setLoad(false))
           setLoad(false);
         });
   };
@@ -72,9 +76,9 @@ const HeaderAfter = ({
         {backgroundColor: '#FFF', marginTop: 15, marginBottom: 15},
       ]}>
       <View style={globalStyles.leftHeaderContainer}>
-        {MyJob?.users?.avatar == null ||
-        MyJob?.users?.avatar == 'null' ||
-        MyJob?.users?.avatar == undefined ? (
+        {MyJob?.users?.company?.recruiters[0]?.avatar == null ||
+        MyJob?.users?.company?.recruiters[0]?.avatar == 'null' ||
+        MyJob?.users?.company?.recruiters[0]?.avatar == undefined ? (
           <View
             style={{
               width: 65,
@@ -90,28 +94,32 @@ const HeaderAfter = ({
           </View>
         ) : (
           <AvatarIcon
-            imgUrl={MyJob?.users?.avatar}
+            imgUrl={MyJob?.users?.company?.recruiters[0]?.avatar}
             style={{height: 65, width: 65}}
           />
         )}
         <View style={{rowGap: 3}}>
-          <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
+          <View style={[globalStyles.leftHeaderContainer, {width: '90%'}]}>
             <Text style={styles.UserName} numberOfLines={1}>
-              {MyJob?.users?.name}
+              {MyJob?.users?.company?.recruiters[0]?.name}
             </Text>
           </View>
           {/* <Text style={styles.work}>Hr recruiter at microssoft</Text> */}
-          <View style={[styles.followersContainer,{paddingHorizontal:10,paddingVertical:4,marginLeft:-3}]}>
+          <View style={styles.followersContainer}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {MyJob?.users?.number_of_followers >= 1000
-                ? `${MyJob?.users?.number_of_followers / 1000}k`
-                : MyJob?.users?.number_of_followers}{' '}
+              {MyJob?.users?.company?.recruiters[0]?.number_of_followers >= 1000
+                ? `${
+                    MyJob?.users?.company?.recruiters[0]?.number_of_followers /
+                    1000
+                  }k`
+                : MyJob?.users?.company?.recruiters[0]
+                    ?.number_of_followers}{' '}
               {'Followers'}
             </Text>
           </View>
         </View>
       </View>
-      {MyJob?.users?.id == User?.user_id ? null : (
+      {MyJob?.users?.company?.recruiters[0]?.user_id == User?.user_id ? null : (
         <TouchableOpacity
           activeOpacity={0.8}
           disabled={load}
@@ -136,4 +144,4 @@ const HeaderAfter = ({
   );
 };
 
-export default HeaderAfter;
+export default RecruiterHeader;

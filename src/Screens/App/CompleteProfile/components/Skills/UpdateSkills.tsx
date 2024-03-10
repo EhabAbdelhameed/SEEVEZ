@@ -6,7 +6,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
 import DonotHaveAccountSection from '../../../../../Components/molecules/DonotHaveAccountSection';
@@ -15,7 +15,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {appColors} from '../../../../../theme/appColors';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Button from '../../../../../Components/molecules/Button';
-
+import {MultiSelect} from 'react-native-element-dropdown';
 import {BigLogo} from 'assets/Svgs';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
@@ -26,7 +26,7 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
-import {selectDone} from 'src/redux/app';
+import {selectDone, selectSkills} from 'src/redux/app';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import { selectLang } from 'src/redux/lang';
@@ -37,10 +37,21 @@ const UpdateSkills = () => {
   const navigation = useNavigation();
   const CurrentUserData = useSelector(selectUser);
   const changeDone = useSelector(selectDone);
-
+  const [selected, setSelected] = useState([]);
+  const skills=useSelector(selectSkills)
+  const [dropdownOpen2, setDropdownOpen2] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
+  useEffect(() => {
+    const RenderFunction = navigation.addListener('focus', () => {
+      dispatch(AppThunks.GetSkills());
+    
+    
+    });
+    return RenderFunction;
+  }, []);
   const dispatch = useAppDispatch();
   const {title}: any = useRoute().params;
   const lang = useSelector(selectLang);
@@ -79,13 +90,19 @@ const UpdateSkills = () => {
               const formdata = new FormData();
               formdata.append('user_id', CurrentUserData.id);
 
-              formdata.append('name', values.Skills);
+             
               if (title == 'Skills') {
+                for(let i=0;i<selected?.length;i++){
+                  formdata.append('array[1][skill_id]', selected[i]);
+                }
+                
+
                 dispatch(AppThunks.doAddSkills(formdata)).then((res: any) => {
                   dispatch(AppThunks.GetProfileInfo());
                   setLoading(false);
                 });
               } else { 
+                formdata.append('name', values.Skills);
                 dispatch(AppThunks.doAddIntersts(formdata)).then((res: any) => {
                   dispatch(AppThunks.GetProfileInfo());
                   setLoading(false);
@@ -94,12 +111,69 @@ const UpdateSkills = () => {
             }}>
             {(props: any) => (
               <View>
+                {title=='Skills'?
+                   <MultiSelect
+                   style={styles.uploadContainer1}
+                   placeholderStyle={styles.placeholderStyle}
+                   selectedTextStyle={styles.selectedTextStyle}
+                   inputSearchStyle={styles.inputSearchStyle}
+                   iconStyle={styles.iconStyle}
+                   data={skills}
+                   search
+                   labelField="name"
+                   valueField="name"
+                   placeholder={'Select one or more Nationality'}
+                   searchPlaceholder="Search..."
+                   value={selected}
+                   onChange={(items: any) => {
+                     setSelected(items)
+                     console.log(items)
+                    
+                   }}
+                   renderRightIcon={() =>
+                     lang == 'en' ? (
+                       <RenderSvgIcon
+                         icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'}
+                         width={16}
+                         height={16}
+                       />
+                     ) : null
+                   }
+                   maxSelect={7}
+                   renderLeftIcon={() =>
+                     lang == 'ar' ? (
+                       <RenderSvgIcon
+                         icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'}
+                         width={16}
+                         height={16}
+                       />
+                     ) : null
+                   }
+                   onFocus={() => setDropdownOpen2(true)}
+                   onBlur={() => setDropdownOpen2(false)}
+                   // Customizing the style of selected items
+                   selectedStyle={{
+                     backgroundColor: appColors.bg, // Change the background color of selected items
+                     borderRadius: 10, // Add border radius to the selected items
+                     paddingHorizontal: 20,
+                     paddingVertical: 10,
+                     borderColor: appColors.bg,
+                     // Adjust padding for selected items
+                     // margin: 2,
+                     columnGap: 10,
+                     justifyContent: 'center',
+                     alignItems: 'center',
+                     flexDirection: 'row', // Adjust margin for selected items
+                   }}
+                   dropdownPosition={'top'}
+                   // Customizing the rendering of selected items
+                 />:
                 <InputView
                   name="Skills"
                   placeholder={t("writeHere")}
                   // props={props}
                   {...props}
-                />
+                />}
 
                 <View style={{height: appSizes.height * 0.28}} />
 

@@ -9,6 +9,7 @@ import AvatarIcon from '../../../../../Components/molecules/Avatar'
 import { useAppSelector } from 'src/redux/store'
 import { selectUser } from 'src/redux/auth'
 import { useNavigation } from '@react-navigation/native'
+import { AVATAR } from 'assets/Svgs'
 
 const Header = () => {
   const User = useAppSelector(selectUser)
@@ -16,7 +17,25 @@ const Header = () => {
   return (
     <View style={globalStyles.header}>
       <View style={globalStyles.leftHeaderContainer}>
-        <AvatarIcon imgUrl={User?.avatar} style={styles.avatar} />
+      {User?.avatar == null || User?.avatar == undefined ? (
+          <View
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: 48,
+              // marginTop:10,
+              // borderWidth: 1,
+              // borderColor: '#DDD',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: appColors.white,
+            }}>
+            <AVATAR height={32} width={32} />
+          </View>
+        ) : (
+          <AvatarIcon imgUrl={User?.avatar} style={styles.avatar} />
+        )}
+      
         <View>
           <View style={[globalStyles.leftHeaderContainer, {
             width: "100%",

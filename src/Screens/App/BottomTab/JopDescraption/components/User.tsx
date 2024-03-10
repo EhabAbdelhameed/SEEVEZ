@@ -22,6 +22,7 @@ import JobSkills from './skills';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import {appSizes} from 'theme';
 import Button from 'components/molecules/Button';
+import RecruiterHeader from './recruiterHeader';
 
 const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const [count, setCount] = React.useState(0);
@@ -88,11 +89,11 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
       console.error('Error opening email client:', err),
     );
   };
-  // console.log("USERS",item?.avatarCustomUrl)
+  // console.log("USERS",item)
   return (
     <View style={{paddingHorizontal: 10}}>
       <TopHeader />
-      {/* <Text
+      <Text
         style={{
           fontSize: 16,
           fontWeight: '700',
@@ -100,8 +101,8 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
           color: '#000',
         }}>
         Meet our recruiter
-      </Text> */}
-      {/* <HeaderAfter /> */}
+      </Text>
+      <RecruiterHeader />
       <Text
         style={{
           fontSize: 16,
@@ -132,7 +133,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         }}>
         About the company
       </Text>
-      <HeaderAfter />
+      <HeaderAfter data={item?.users} />
       {MyJob?.users?.about != null ? (
         <Text
           style={{

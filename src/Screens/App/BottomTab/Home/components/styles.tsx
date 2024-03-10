@@ -38,7 +38,8 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         // justifyContent: "space-between",
-        columnGap: 10
+        columnGap: 10,
+        width:'95%'
 
     },
     rowContainer1: {
@@ -139,7 +140,8 @@ export const styles = StyleSheet.create({
         alignItems: "center",
     },
     textSection2: {
-        alignItems: "flex-start"
+        alignItems: "flex-start",
+        width:'75%'
     },
     textIconSection: {
         flexDirection: "row",

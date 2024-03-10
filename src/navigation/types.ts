@@ -84,6 +84,7 @@ export type AppParamsList = {
     JobDescraption:undefined;
     UpdateExterinalLinks:undefined;
     UpdateCV:undefined;
+    MyJobToJobSeeker:undefined;
 }
 export type RootParamsList = {
     auth: any;

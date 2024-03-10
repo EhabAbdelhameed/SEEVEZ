@@ -130,7 +130,7 @@ const Boll = (data: any) => {
     <View
       style={[
         styles.bollsContainer,
-        {width: '65%', left: -20, paddingHorizontal: 10},
+        {width: '65%', left: -20, paddingHorizontal: 10,zIndex:3},
       ]}>
       <Text style={styles.text11}>{data?.data?.question}</Text>
       {data?.data?.answers?.map((Exp: any, index: any) => (

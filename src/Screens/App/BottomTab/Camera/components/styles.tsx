@@ -9,7 +9,9 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         justifyContent: "space-between",
         position: 'absolute',
-        bottom: 115
+        bottom: 115,
+        // backgroundColor:'red',
+        zIndex:1
     },
     header: {
         width: "100%",
@@ -129,6 +131,7 @@ export const styles = StyleSheet.create({
         },
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
+        zIndex:3
     },
 
     text11: {
@@ -223,6 +226,7 @@ export const styles = StyleSheet.create({
         },
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
+        zIndex:3
     },
 
     timeText: {

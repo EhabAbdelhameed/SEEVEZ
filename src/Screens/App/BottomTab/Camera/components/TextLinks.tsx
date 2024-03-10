@@ -11,7 +11,6 @@ const TextLinks = (data: any) => {
         styles.CVContainer,
         {
           width: '68%',
-          
         },
       ]}>
       <Text
@@ -40,7 +39,7 @@ const TextLinks = (data: any) => {
         </TouchableOpacity>
       ))}
 
-      
+    
     </View>
   );
 };

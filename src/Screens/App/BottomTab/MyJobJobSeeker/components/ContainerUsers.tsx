@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text, FlatList, ActivityIndicator, TouchableOpacity} from 'react-native';
 import {styles} from '../styles';
 import UserSection from './User';
 import FooterSection from './footerPagaination';
@@ -9,17 +9,14 @@ const ContainerUsers = ({
   title,
   data,
   loading,
-  totalPages,
-  currentPage,
-  onPageChange,
 }: {
   title: string;
   data: any[];
   loading: boolean;
-  totalPages: any;
-  currentPage: any;
-  onPageChange: (page: number) => void;
 }) => {
+  
+  const [seeAll, setSeeAll] = useState(false);
+  const renderItem = ({ item }:any) => <UserSection item={item} />;
   return (
     <View style={styles.containerUsers}>
       <Text style={styles.titleSection}>{title}</Text>
@@ -34,12 +31,21 @@ const ContainerUsers = ({
             <ActivityIndicator size={'large'} color={appColors.primary} />
           </View>
         ) : (
-          <FlatList
-            data={data}
-            contentContainerStyle={{rowGap: 10}}
-            scrollEnabled={false}
-            renderItem={({item}) => <UserSection item={item} />}
-          />
+          <>
+          {seeAll ? (
+            <FlatList
+              data={data}
+              contentContainerStyle={{ rowGap: 10 }}
+              renderItem={renderItem}
+            />
+          ) : (
+            <FlatList
+              data={data.slice(0, 3)} 
+              contentContainerStyle={{ rowGap: 10 }}
+              renderItem={renderItem}
+            />
+          )}
+        </>
         )}
         <View
           style={{
@@ -50,10 +56,25 @@ const ContainerUsers = ({
             marginBottom: 5,
           }}
         />
-        <View style={{paddingVertical:6,justifyContent:'center',alignItems:'center'}}>
-        <Text style={{fontSize:20,color:appColors.primary,fontWeight:'500',fontFamily:'Noto Sans'}}>See all</Text>
-        </View>
-       
+        <TouchableOpacity
+          onPress={() => setSeeAll(!seeAll)}
+          disabled={data?.length<=3}
+          style={{
+            paddingVertical: 6,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: appColors.primary,
+              fontWeight: '500',
+              fontFamily: 'Noto Sans',
+            }}>
+             {seeAll ? 'See Less' : 'See All'}
+          </Text>
+        </TouchableOpacity>
+
         {/* <FooterSection
           totalPages={totalPages}
           currentPage={currentPage}

@@ -1615,6 +1615,20 @@ const slice = createSlice({
         // Call this function whenever you want to save the state to AsyncStorage
         saveMyJobToStorage(action.payload.data);
       });
+          //doGetFreelancerJobs
+
+    builder.addCase(thunks.doGetFreelancerJobs.fulfilled,(state, action) => {
+      state.FreelancerJobs = action?.payload?.data;
+    });
+      //doGetInternshipsJobs
+
+      builder.addCase(thunks.doGetInternshipsJobs.fulfilled,(state, action) => {
+        state.InternshipsJobs = action?.payload?.data;
+      });
+    //GetSkills
+    builder.addCase(thunks.GetSkills.fulfilled, (state, action) => {
+      state.skills = action.payload?.data;
+    });
 
   },
 });
@@ -1656,6 +1670,10 @@ export const selectMyJob = (state: RootState) =>
   export const selectOneJob = (state: RootState) =>
   state.app.myJob;
 export const selectSearchingJobList = (state: RootState) => state.app.jobSearch;
+export const selectFreelancerJobs = (state: RootState) => state.app.FreelancerJobs;
+export const selectInternshipsJobs = (state: RootState) => state.app.InternshipsJobs;
+
+export const selectSkills = (state: RootState) => state.app.skills;
 
 
 const AppSlice = {

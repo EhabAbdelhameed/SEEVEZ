@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     avatar: {
         width: 50,
         height: 50,
-        borderWidth: 1,
+        borderWidth: .5,
         borderRadius: 25,
         borderColor: appColors.primary
     },

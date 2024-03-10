@@ -42,7 +42,7 @@ const JobDescraption = (props: any) => {
                 <KeyboardAwareScrollView
           contentContainerStyle={{
             alignItems: 'center',
-            paddingBottom: 130,
+            // paddingBottom: 30,
             paddingHorizontal: appSizes.padding_m,
           }}
           enableOnAndroid={true}

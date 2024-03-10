@@ -91,6 +91,49 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Noto Sans',
   },
+  uploadContainer1: {
+    borderRadius: 16,
+    borderColor: '#1D5EDD',
+    borderWidth: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 4,
+
+    // borderBottomWidth: 0.5,
+    marginBottom: 10,
+    marginTop: 5,
+    height: 52,
+  },
+  logoContainer: {
+    flexBasis: 'auto',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    // alignItems: '',
+    marginVertical: appSizes.x,
+    marginBottom: appSizes.height * 0.07,
+  },
+  placeholderStyle: {
+    fontSize: 14,
+    color: '#B9B9B9',
+    fontFamily: 'Noto Sans',
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+    fontFamily: 'Noto Sans',
+    textAlign: 'left',
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+    fontFamily: 'Noto Sans',
+    color: '#000',
+    opacity: 0.8,
+    textAlign: 'left',
+  },
 });
 
 export default styles;

@@ -60,6 +60,7 @@ import {useTranslation} from 'react-i18next';
 import {Nationalities} from '../../../../../../Nationality';
 
 import {MultiSelect} from 'react-native-element-dropdown';
+import CustomInput from 'components/molecules/Input/CustomInput';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateInfo = () => {
@@ -93,12 +94,6 @@ const UpdateInfo = () => {
   useEffect(() => {
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
-  const AccessToken = useSelector(selectAccessToken);
-  useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
-  const [disabilityData, setDisabilityData] = useState('');
-  const [specialNeedsData, setSpecialNeedsData] = useState('');
 
   // const [Nationality, setNationality] = useState('');
   const [gender, setGender] = useState('');
@@ -293,8 +288,8 @@ const UpdateInfo = () => {
 
           <Formik
             initialValues={{
-              FullName: CurrentUserData?.name || '',
-              JobTitle: CurrentUserData?.job_title || '',
+              FullName: CurrentUserData?.name||'',  
+              JobTitle: CurrentUserData?.job_title||'',
 
               Location: CurrentUserData?.country || '',
               phone: CurrentUserData?.phone_number || '',
@@ -369,12 +364,6 @@ const UpdateInfo = () => {
                   )
                 : formdata.append('birthdate', '');
 
-              disabilityData != '' || !disabilityData
-                ? formdata.append('disabilities', disabilityData)
-                : formdata.append('disabilities', '');
-              specialNeedsData != ''
-                ? formdata.append('special_needs', specialNeedsData)
-                : formdata.append('special_needs', '');
               values.heights != '' || !values.heights
                 ? formdata.append('height', values.heights)
                 : formdata.append('height', '');
@@ -438,96 +427,48 @@ const UpdateInfo = () => {
             {(props: any) => (
               <View>
                 <Text style={styles.labelStyle1}>{t('fullName')}</Text>
-
-                <TextInput
-                  placeholder={t('enterYourFullName')}
-                  onChangeText={value =>
-                    props?.setFieldValue(`FullName`, value)
-                  }
+                <CustomInput
+                  {...props}
+                  Label={'FullName'}
+                  placeholder={t('fullName')}
                   value={props.values.FullName}
-                  style={{
-                    borderRadius: 16,
-                    borderColor: '#1D5EDD',
-                    borderWidth: 1,
-                    paddingHorizontal: 15,
-                    height: 50,
-                    fontSize: 14,
-                    marginBottom: 10,
-                    textAlign: lang == 'ar' ? 'right' : 'left',
-                  }}
                 />
                 <Text style={styles.labelStyle1}>{t('jobTitle')}</Text>
-
-                <TextInput
+                <CustomInput
+                  {...props}
+                  Label={'JobTitle'}
                   placeholder={t('jobTitle')}
-                  onChangeText={value =>
-                    props?.setFieldValue(`JobTitle`, value)
-                  }
-                  placeholderTextColor={'#B9B9B9'}
                   value={props.values.JobTitle}
-                  style={{
-                    borderRadius: 16,
-                    borderColor: '#1D5EDD',
-                    borderWidth: 1,
-                    paddingHorizontal: 15,
-                    height: 50,
-                    fontSize: 14,
-                    marginBottom: 10,
-                    textAlign: lang == 'ar' ? 'right' : 'left',
-                  }}
                 />
                 <Text style={styles.labelStyle1}>{t('location')}</Text>
 
-                <TextInput
+                <CustomInput
+                  {...props}
+                  Label={'Location'}
                   placeholder={t('yourCountry')}
-                  placeholderTextColor={'#B9B9B9'}
-                  onChangeText={value =>
-                    props?.setFieldValue(`Location`, value)
-                  }
                   value={props.values.Location}
-                  style={{
-                    borderRadius: 16,
-                    borderColor: '#1D5EDD',
-                    borderWidth: 1,
-                    paddingHorizontal: 15,
-                    height: 50,
-                    fontSize: 14,
-                    marginBottom: 10,
-                    textAlign: lang == 'ar' ? 'right' : 'left',
-                  }}
                 />
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     marginBottom: 10,
-                    columnGap: 15,
+                    columnGap: 10,
                   }}>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      
+                      Label={'city'}
                       placeholder={t('yourCity')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={[
-                        styles.InputStyleWithOutWidth,
-                        {textAlign: lang == 'ar' ? 'right' : 'left'},
-                      ]}
-                      onChangeText={value =>
-                        props?.setFieldValue(`city`, value)
-                      }
                       value={props.values.city}
                     />
                   </View>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      Label={'area'}
                       placeholder={t('yourArea')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={[
-                        styles.InputStyleWithOutWidth,
-                        {textAlign: lang == 'ar' ? 'right' : 'left'},
-                      ]}
-                      onChangeText={value =>
-                        props?.setFieldValue(`area`, value)
-                      }
                       value={props.values.area}
                     />
                   </View>
@@ -585,24 +526,10 @@ const UpdateInfo = () => {
                     columnGap: 15,
                   }}>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      Label={'facebook'}
                       placeholder={t('Facebook')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={[
-                        styles.InputStyle,
-                        {
-                          textAlign: lang == 'ar' ? 'right' : 'left',
-                          borderColor:
-                            props?.errors['facebook'] &&
-                            props?.touched['facebook']
-                              ? 'red'
-                              : '#1D5EDD',
-                          width: '100%',
-                        },
-                      ]}
-                      onChangeText={value =>
-                        props?.setFieldValue(`facebook`, value)
-                      }
                       value={props.values.facebook}
                     />
                     {props?.errors.facebook && props?.touched.facebook ? (
@@ -613,24 +540,10 @@ const UpdateInfo = () => {
                     ) : null}
                   </View>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      Label={'linkedin'}
                       placeholder={t('Linkedin')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={[
-                        styles.InputStyle,
-                        {
-                          textAlign: lang == 'ar' ? 'right' : 'left',
-                          borderColor:
-                            props?.errors['linkedin'] &&
-                            props?.touched['linkedin']
-                              ? 'red'
-                              : '#1D5EDD',
-                          width: '100%',
-                        },
-                      ]}
-                      onChangeText={value =>
-                        props?.setFieldValue(`linkedin`, value)
-                      }
                       value={props.values.linkedin}
                     />
                     {props?.errors.linkedin && props?.touched.linkedin ? (
@@ -649,24 +562,10 @@ const UpdateInfo = () => {
                     columnGap: 15,
                   }}>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      Label={'instagram'}
                       placeholder={t('Instagram')}
-                      style={[
-                        styles.InputStyle,
-                        {
-                          textAlign: lang == 'ar' ? 'right' : 'left',
-                          borderColor:
-                            props?.errors['instagram'] &&
-                            props?.touched['instagram']
-                              ? 'red'
-                              : '#1D5EDD',
-                          width: '100%',
-                        },
-                      ]}
-                      placeholderTextColor={'#B9B9B9'}
-                      onChangeText={value =>
-                        props?.setFieldValue(`instagram`, value)
-                      }
                       value={props.values.instagram}
                     />
                     {props?.errors.instagram && props?.touched.instagram ? (
@@ -677,24 +576,10 @@ const UpdateInfo = () => {
                     ) : null}
                   </View>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      Label={'website'}
                       placeholder={t('Website')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={[
-                        styles.InputStyle,
-                        {
-                          textAlign: lang == 'ar' ? 'right' : 'left',
-                          borderColor:
-                            props?.errors['website'] &&
-                            props?.touched['website']
-                              ? 'red'
-                              : '#1D5EDD',
-                          width: '100%',
-                        },
-                      ]}
-                      onChangeText={value =>
-                        props?.setFieldValue(`website`, value)
-                      }
                       value={props.values.website}
                     />
                     {props?.errors.website && props?.touched.website ? (
@@ -713,23 +598,10 @@ const UpdateInfo = () => {
                     columnGap: 15,
                   }}>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      Label={'github'}
                       placeholder={t('Github')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={[
-                        styles.InputStyle,
-                        {
-                          textAlign: lang == 'ar' ? 'right' : 'left',
-                          borderColor:
-                            props?.errors['github'] && props?.touched['github']
-                              ? 'red'
-                              : '#1D5EDD',
-                          width: '100%',
-                        },
-                      ]}
-                      onChangeText={value =>
-                        props?.setFieldValue(`github`, value)
-                      }
                       value={props.values.github}
                     />
                     {props?.errors.github && props?.touched.github ? (
@@ -740,23 +612,10 @@ const UpdateInfo = () => {
                     ) : null}
                   </View>
                   <View style={{width: '49%'}}>
-                    <TextInput
+                    <CustomInput
+                      {...props}
+                      Label={'other'}
                       placeholder={t('Others')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={[
-                        styles.InputStyle,
-                        {
-                          textAlign: lang == 'ar' ? 'right' : 'left',
-                          borderColor:
-                            props?.errors['other'] && props?.touched['other']
-                              ? 'red'
-                              : '#1D5EDD',
-                          width: '100%',
-                        },
-                      ]}
-                      onChangeText={value =>
-                        props?.setFieldValue(`other`, value)
-                      }
                       value={props.values.other}
                     />
                     {props?.errors.other && props?.touched.other ? (
@@ -776,28 +635,24 @@ const UpdateInfo = () => {
                     columnGap: 15,
                   }}>
                   <View style={{width: '49%'}}>
-                    <Text style={styles.labelStyle}>{t('currentSalary')}</Text>
-                    <TextInput
+                    <Text style={styles.labelStyle1}>{t('currentSalary')}</Text>
+
+                    <CustomInput
+                      {...props}
+                      Label={'currentSalary'}
                       placeholder={t('writeHere')}
-                      placeholderTextColor={'#B9B9B9'}
-                      style={styles.InputStyleWithOutWidth}
-                      keyboardType="number-pad"
-                      onChangeText={value =>
-                        props?.setFieldValue(`currentSalary`, value)
-                      }
                       value={props.values.currentSalary}
                     />
                   </View>
                   <View style={{width: '49%'}}>
-                    <Text style={styles.labelStyle}>{t('expectedSalary')}</Text>
-                    <TextInput
+                    <Text style={styles.labelStyle1}>
+                      {t('expectedSalary')}
+                    </Text>
+
+                    <CustomInput
+                      {...props}
+                      Label={'expectedSalary'}
                       placeholder={t('writeHere')}
-                      style={styles.InputStyleWithOutWidth}
-                      placeholderTextColor={'#B9B9B9'}
-                      keyboardType="number-pad"
-                      onChangeText={value =>
-                        props?.setFieldValue(`expectedSalary`, value)
-                      }
                       value={props.values.expectedSalary}
                     />
                   </View>
@@ -806,30 +661,19 @@ const UpdateInfo = () => {
                 <TouchableOpacity
                   onPress={() => {
                     setIndex(!index), setIsShowSalary(!isShowSalary);
-                    // props?.setFieldValue(`show_salary`, !isShowSalary)
                   }}
                   style={styles.rowAgree}>
-                  <View
-                    style={[
-                      styles.Circle,
-                      {width: 15, height: 15, borderRadius: 15},
-                    ]}>
-                    <View
-                      style={
-                        index
-                          ? [
-                              styles.innerCircle,
-                              {width: 15, height: 15, borderRadius: 15},
-                            ]
-                          : null
-                      }
-                    />
+                  <View style={[styles.Circle]}>
+                    <View style={index ? [styles.innerCircle] : null} />
                   </View>
-                  <Text style={[styles.agree, {fontSize: 12}]}>
+                  <Text style={[styles.agree, {fontSize: 14}]}>
                     {t('don’tShowMySalary')}
                   </Text>
                 </TouchableOpacity>
-                <Text style={styles.labelStyle}> {t('gender')}</Text>
+                <Text style={[styles.labelStyle1, {marginBottom: 10}]}>
+                  {' '}
+                  {t('gender')}
+                </Text>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -872,12 +716,13 @@ const UpdateInfo = () => {
                 </View>
 
                 <View style={{marginTop: 10, marginBottom: 10}}>
-                  <Text style={styles.labelStyle}>{t('birthdate')}</Text>
+                  <Text style={styles.labelStyle1}>{t('birthdate')}</Text>
                   <TouchableOpacity
                     onPress={() => {
                       setVisible(true), setType('1');
                     }}>
                     <View style={styles.dateStyle}>
+                      <CALANDER />
                       <Text
                         style={{
                           marginRight: 20,
@@ -887,7 +732,6 @@ const UpdateInfo = () => {
                         }}>
                         {Moment(date).format('DD/MM/yyyy')}
                       </Text>
-                      <CALANDER />
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -919,7 +763,7 @@ const UpdateInfo = () => {
                       value={selected}
                       onChange={(items: any) => {
                         setSelected(items), setNationality(items);
-                        console.log(items);
+                  
                       }}
                       renderRightIcon={() =>
                         lang == 'en' ? (
@@ -948,8 +792,8 @@ const UpdateInfo = () => {
                         borderRadius: 10, // Add border radius to the selected items
                         paddingHorizontal: 20,
                         paddingVertical: 10,
-                        borderColor:appColors.bg,
-                         // Adjust padding for selected items
+                        borderColor: appColors.bg,
+                        // Adjust padding for selected items
                         // margin: 2,
                         columnGap: 10,
                         justifyContent: 'center',

@@ -318,6 +318,9 @@ interface appState {
   };
   myJob: any;
   jobSearch:any;
+  FreelancerJobs:any;
+  InternshipsJobs:any;
+  skills:any;
 }
 
 
@@ -642,6 +645,9 @@ export const initialState: appState = {
 
   search: [],
   jobSearch:[],
+  FreelancerJobs:null,
+  InternshipsJobs:null,
+  skills:[],
   //   Search: [],
 
 };

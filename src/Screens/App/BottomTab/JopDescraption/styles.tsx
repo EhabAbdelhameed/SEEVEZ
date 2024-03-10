@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
         fontWeight: '500'
     },
     work: {
-        fontSize: 10,
+        fontSize: 13,
         fontWeight: "400",
         fontFamily:"Noto Sans",
         color: appColors.dark
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
         color: appColors.dark
     },
     text3: {
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: "400",
         color: appColors.dark
     },
@@ -77,8 +77,8 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         // paddingHorizontal:18,
-        paddingVertical: 3,
-        paddingHorizontal: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
         backgroundColor: appColors.lightPurple2,
         borderRadius: appSizes.l,
         marginTop: 2,
