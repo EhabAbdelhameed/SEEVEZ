@@ -57,13 +57,14 @@ const UpdateSkills = () => {
   const lang = useSelector(selectLang);
   
   const {t, i18n} = useTranslation();
+ 
   return (
     <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
         contentContainerStyle={{
           backgroundColor: appColors.bg,
-          marginTop: 40,
+          
         }}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
@@ -93,7 +94,7 @@ const UpdateSkills = () => {
              
               if (title == 'Skills') {
                 for(let i=0;i<selected?.length;i++){
-                  formdata.append('array[1][skill_id]', selected[i]);
+                  formdata.append(`array[${i}][skill_id]`, selected[i]);
                 }
                 
 
@@ -121,13 +122,13 @@ const UpdateSkills = () => {
                    data={skills}
                    search
                    labelField="name"
-                   valueField="name"
+                   valueField="id"
                    placeholder={'Select one or more Nationality'}
                    searchPlaceholder="Search..."
                    value={selected}
                    onChange={(items: any) => {
                      setSelected(items)
-                     console.log(items)
+                     console.log("ghdhdgfhg",items)
                     
                    }}
                    renderRightIcon={() =>
@@ -165,7 +166,7 @@ const UpdateSkills = () => {
                      alignItems: 'center',
                      flexDirection: 'row', // Adjust margin for selected items
                    }}
-                   dropdownPosition={'top'}
+                  //  dropdownPosition={'top'}
                    // Customizing the rendering of selected items
                  />:
                 <InputView
@@ -175,7 +176,7 @@ const UpdateSkills = () => {
                   {...props}
                 />}
 
-                <View style={{height: appSizes.height * 0.28}} />
+                <View style={{height: appSizes.height * 0.40}} />
 
                 <Button
                   loading={loading}
