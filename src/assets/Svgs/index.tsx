@@ -61,6 +61,14 @@ import SaveJob from './SaveJob.svg'
 import RepostIcon from './RepostIcon.svg'
 import PlaceHolderSearch from './PlaceHolderSearch.svg'
 import PlaceHolderReels from './PlaceHoldrReels.svg'
+import SaveJobFill   from './IconSave.svg'
+import FirstApplay from './1.svg'
+import SecondApplay from './2.svg'
+import ThirdApplay from './3.svg'
+import FourthApplay from './4.svg'
+import FifthApplay from './5.svg'
+import SixApplay from './6.svg'
+import DownloadIcon from './Download.svg'
 export {
     Right,
     WAVE,
@@ -121,5 +129,13 @@ export {
     SaveJob,
     RepostIcon,
     PlaceHolderSearch,
-    PlaceHolderReels
+    PlaceHolderReels,
+    SaveJobFill,
+    FirstApplay,
+    SecondApplay,
+    ThirdApplay,
+    FourthApplay,
+    FifthApplay,
+    SixApplay,
+    DownloadIcon
 }

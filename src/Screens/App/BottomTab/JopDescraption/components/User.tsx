@@ -114,6 +114,8 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         About the job
       </Text>
       <JobDetails />
+      {MyJob?.skills?.length==0?null:
+      <>
       <Text
         style={{
           fontSize: 16,
@@ -124,6 +126,8 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         Skills
       </Text>
       <JobSkills />
+      </>
+      }
       <Text
         style={{
           fontSize: 16,
@@ -170,10 +174,10 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
           <Button
             style={{height: 62}}
             text={'Apply for job'}
-            onPress={() =>
-              MyJob?.email != null
-                ? handleEmailPress()
-                : Linking.openURL(MyJob?.external_link)
+            onPress={() =>navigate('ApplayForJob')
+              // MyJob?.email != null
+              //   ? handleEmailPress()
+              //   : Linking.openURL(MyJob?.external_link)
             }
           />
         </View>

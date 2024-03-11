@@ -213,4 +213,16 @@ export const styles = StyleSheet.create({
         height: 50,
       
       },
+      uploadContainer1: {
+        borderRadius: 16,
+        borderColor: '#1D5EDD',
+        borderWidth: 1,
+        paddingHorizontal: 20,
+        paddingVertical: 4,
+    
+        // borderBottomWidth: 0.5,
+        marginBottom: 10,
+        marginTop: 5,
+        height: 52,
+      },
 })

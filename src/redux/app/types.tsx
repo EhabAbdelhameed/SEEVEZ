@@ -645,8 +645,8 @@ export const initialState: appState = {
 
   search: [],
   jobSearch:[],
-  FreelancerJobs:null,
-  InternshipsJobs:null,
+  FreelancerJobs:[],
+  InternshipsJobs:[],
   skills:[],
   //   Search: [],
 

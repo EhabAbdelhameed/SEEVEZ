@@ -140,8 +140,6 @@ const Form2 = () => {
                     job_requirements: data.job_requirements,
                     skills: data.skills,
                     user_id: User?.user_id, 
-                    updated_at: "2024-02-26T08:59:31.000000Z",
-                    created_at: "2024-02-26T08:59:31.000000Z",
                     id: 3
                 }
                 dispatch(AppSlice.changeJobOpportunity(obj));

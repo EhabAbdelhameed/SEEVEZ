@@ -85,6 +85,8 @@ export type AppParamsList = {
     UpdateExterinalLinks:undefined;
     UpdateCV:undefined;
     MyJobToJobSeeker:undefined;
+    ApplayForJob:undefined;
+    SecondApplayPage:undefined;
 }
 export type RootParamsList = {
     auth: any;

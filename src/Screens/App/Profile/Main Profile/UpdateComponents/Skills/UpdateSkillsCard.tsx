@@ -169,7 +169,7 @@ const UpdateSkillsCard = () => {
           <FlatList
             scrollEnabled={false}
             data={data}
-            renderItem={({item}) => (
+            renderItem={({item,index}) => (
               <View
                 style={{
                   marginBottom: 10,
@@ -191,6 +191,7 @@ const UpdateSkillsCard = () => {
                       navigation.navigate('UpdateOneSkills', {
                         data: item,
                         title:title,
+                        index:index
                       })
                     }>
                     <RenderSvgIcon

@@ -119,13 +119,15 @@ const MyJobToJobSeeker = (props: any) => {
             title="Internship opportunity"
             data={InternshipsJobs}
             loading={isLoadingRecuriter}
-          />}
+          />
+       } 
           {FreelancerJobs==null||FreelancerJobs?.length==0?null:
           <ContainerUsers
             title="Freelance opportunity"
             data={FreelancerJobs}
             loading={isLoadingJobSeeker}
-          />}
+          />
+         } 
       
         </KeyboardAwareScrollView>
       </View>

@@ -69,9 +69,9 @@ const Form = () => {
         : null;
         
 
-          console.log('Exterinal', JSON.stringify(formdata));
+          console.log('CV', JSON.stringify(formdata));
           dispatch(AppThunks.doUpdatePost(formdata)).then((res: any) => {
-            dispatch(AppThunks.GetProfileInfo());
+          
             setLoading(false);
           });
         

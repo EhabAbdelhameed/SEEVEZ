@@ -46,7 +46,7 @@ const JobSkills = () => {
               scrollEnabled={false}
               renderItem={({item}) => (
                 <View style={styles.smallCardContainer}>
-                  <Text style={styles.smallCardText}>{item}</Text>
+                  <Text style={styles.smallCardText}>{item?.name}</Text>
                   <Close />
                 </View>
               )}

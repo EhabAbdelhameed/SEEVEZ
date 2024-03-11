@@ -18,7 +18,7 @@ import UpdateExperience from 'screens/App/CompleteProfile/components/Experience/
 import UpdateTraining from 'screens/App/CompleteProfile/components/Training/UpdateTraining';
 import UpdateRefernceCheck from 'screens/App/CompleteProfile/components/RefernceCheck/UpdateRefernceCheck';
 import UpdateAbout from 'screens/App/CompleteProfile/components/About/UpdateAbout';
-import UpdateSkills from 'screens/App/CompleteProfile/components/Skills/UpdateSkills';
+
 import UpdateInfo from 'screens/App/CompleteProfile/components/Info/UpdateInfo';
 import UpdateLanguages from 'screens/App/CompleteProfile/components//Languages/UpdateLanguages';
 import UpdateEducation from 'screens/App/CompleteProfile/components/Education/UpdateEducation';
@@ -56,19 +56,24 @@ import Location from 'screens/App/CreatePost/AddLocation';
 import MyConnection from 'screens/App/BottomTab/My connection';
 import UserProfile from 'screens/App/BottomTab/User profile';
 import CreateShareLink from 'screens/App/CreatePost/CreateShareLink';
-import Market from 'screens/App/CreatePost/Market';
+
 import ExterinalLinks from 'screens/App/CreatePost/ExteraLinks';
 import MYPolls from 'screens/App/MyPolls';
 import HealthProfile from 'screens/App/CompleteProfile/components/HealthProfile/HealthProfile';
 import SearchScreen from 'screens/App/Search';
 import JobOpportunity from 'screens/App/CreatePost/JobOpportunity';
-import Form2 from 'screens/App/CreatePost/JobOpportunity/components/Form2';
+
 import JobDetailsScreen from 'screens/App/Job Details';
 import MyJob from 'screens/App/BottomTab/My Job';
 import JobDescraption from 'screens/App/BottomTab/JopDescraption';
 import UpdateExterinalLinks from 'screens/App/CreatePost/UpdateExteralinks';
 import UpdateCV from 'screens/App/CreatePost/UpdateCV';
 import MyJobToJobSeeker from 'screens/App/BottomTab/MyJobJobSeeker';
+import ApplayForJob from 'screens/App/ApplayForJob';
+import SecondApplayPage from 'screens/App/ApplayForJob/components/secondJob';
+import UpdateSkills from 'screens/App/CompleteProfile/components/Skills/UpdateSkills';
+import Market from 'screens/App/CreatePost/Market';
+import Form2 from 'screens/App/CreatePost/JobOpportunity/components/Form2';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -351,9 +356,17 @@ const AppStack = () => {
                 name='UpdateCV'
                 component={UpdateCV}
             />
-              <Stack.Screen
+             <Stack.Screen
                 name='MyJobToJobSeeker'
                 component={MyJobToJobSeeker}
+            />
+             <Stack.Screen
+                name='ApplayForJob'
+                component={ApplayForJob}
+            />
+            <Stack.Screen
+                name='SecondApplayPage'
+                component={SecondApplayPage}
             />
         </Stack.Navigator>
     );
