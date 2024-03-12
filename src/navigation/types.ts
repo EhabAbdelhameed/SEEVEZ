@@ -87,6 +87,9 @@ export type AppParamsList = {
     MyJobToJobSeeker:undefined;
     ApplayForJob:undefined;
     SecondApplayPage:undefined;
+    JobOpportunityCompany:undefined;
+    PreviewJob:undefined;
+    Form2JobOpportunity:undefined;
 }
 export type RootParamsList = {
     auth: any;

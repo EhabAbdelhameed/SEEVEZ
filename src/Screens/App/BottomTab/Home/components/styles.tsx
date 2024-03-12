@@ -230,4 +230,71 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: appColors.primary,
     },
+    ModalHeaderContanier: {
+        width: '100%',
+        alignItems: "center",
+        paddingHorizontal: appSizes.padding_m,
+        
+      },
+      ModalContanier: {
+        width: '100%',
+        paddingVertical: 20,
+        backgroundColor: '#ffff',
+        // alignItems: "center",
+        paddingHorizontal: 10,
+        marginTop: 2,
+        borderRadius: 15
+    
+      },
+      questionText:{
+        color: appColors.dark,
+        fontSize: 16,
+        fontWeight: '400',
+        textAlign: 'left',
+        marginTop: 10,
+        
+        fontFamily:'Noto Sans'
+      },
+      rowAnswer:{
+        flexDirection:"row",
+        justifyContent:"space-between",
+        columnGap:10,
+        paddingHorizontal:15,
+        width:"100%",
+        marginTop: 10,
+        alignItems:"center"
+      },
+      Circle:{
+        width: 20,
+        height: 20,
+        borderRadius: 20 ,
+        backgroundColor: appColors.secondary,
+        borderWidth:1,
+        borderColor:appColors.primary,
+        alignItems:"center",
+        justifyContent:"center"
+      },
+      innerCircle:{
+        width: 13,
+        height: 13,
+        borderRadius: 13 ,
+        backgroundColor: appColors.primary
+      },
+      btn:{
+        width:"100%",
+        marginTop: 20,
+        fontFamily:'Noto Sans',
+        fontSize:12
+        // position:'absolute',
+        // bottom:-110,
+      },
+      rectangleText: {
+        color: appColors.primary,
+        fontSize: 20,
+        fontWeight: '700',
+        textAlign: 'center',
+        marginTop: 10,
+        fontFamily:'Noto Sans'  
+      },
+
 })

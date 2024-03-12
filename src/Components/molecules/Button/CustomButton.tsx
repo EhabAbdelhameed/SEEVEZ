@@ -7,14 +7,16 @@ import { ButtonLoader } from 'assets/lotties';
 const CustomButton = ({
     text,
     onPress,
-    loading
+    loading,
+    style
 }: {
     text?: string;
     onPress?: () => void;
     loading?: boolean;
+    style?:any;
 }) => {
     return (
-        <TouchableOpacity activeOpacity={.8} disabled={loading} onPress={onPress} style={styles.Container}>
+        <TouchableOpacity activeOpacity={.8} disabled={loading} onPress={onPress} style={[styles.Container,style]}>
             {
                 loading ?
                     <LottieView

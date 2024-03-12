@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, TextInput, TextInputProps } from 'react-native';
-import { styles } from './styles';
-import { Eye, EyeSlash, Right } from 'assets/Svgs';
-import { useAppSelector } from 'src/redux/store';
-import { selectLang } from 'src/redux/lang';
+import React, {useState} from 'react';
+import {View, TouchableOpacity, TextInput, TextInputProps} from 'react-native';
+import {styles} from './styles';
+import {Eye, EyeSlash, Right} from 'assets/Svgs';
+import {useAppSelector} from 'src/redux/store';
+import {selectLang} from 'src/redux/lang';
 const CustomInput = ({
   values,
   Label,
@@ -14,6 +14,7 @@ const CustomInput = ({
   placeholder,
   secureTextEntry,
   maxLength,
+  color,
   ...props
 }: {
   Label?: any;
@@ -23,36 +24,58 @@ const CustomInput = ({
   touched?: any;
   errors?: any;
   secureTextEntry?: boolean;
+  color?: any;
   maxLength?: number;
 } & TextInputProps) => {
-  const [secure, setSecure] = React.useState(true)
+  const [secure, setSecure] = React.useState(true);
   const lang = useAppSelector(selectLang);
   return (
     <>
-      <View style={[styles.Container, { borderColor: (errors[Label] && touched[Label]) ? 'red' : '#1D5EDD', }]}>
+      <View
+        style={[
+          styles.Container,
+          {
+            borderColor:
+              errors[Label] && touched[Label]
+                ? 'red'
+                : !color
+                ? '#1D5EDD'
+                : color != '#FFF'
+                ? '#E8AB00'
+                : '#1D5EDD',
+          },
+        ]}>
         <TextInput
           {...props}
           value={values[Label]}
           placeholder={placeholder}
           maxLength={maxLength}
-          style={[styles.Input, { textAlign: lang == 'ar' ? 'right' : 'left'}]}
+          style={[styles.Input, {textAlign: lang == 'ar' ? 'right' : 'left'}]}
           placeholderTextColor={'#B9B9B9'}
           secureTextEntry={secureTextEntry ? secure : false}
           onChangeText={handleChange(Label)}
         />
-        {Label == 'email' && ((errors[Label] == undefined && values[Label] != '') ? <Right fill={'green'} /> : <Right fill="#E8E8E8" />)}
-        {secureTextEntry && (
-          secure ?
-            <TouchableOpacity activeOpacity={.8} onPress={() => setSecure(false)}>
+        {Label == 'email' &&
+          (errors[Label] == undefined && values[Label] != '' ? (
+            <Right fill={'green'} />
+          ) : (
+            <Right fill="#E8E8E8" />
+          ))}
+        {secureTextEntry &&
+          (secure ? (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setSecure(false)}>
               <Eye fill={'green'} />
             </TouchableOpacity>
-            :
-            <TouchableOpacity activeOpacity={.8} onPress={() => setSecure(true)}>
+          ) : (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setSecure(true)}>
               <EyeSlash fill="#E8E8E8" />
             </TouchableOpacity>
-        )}
-      </View >
-
+          ))}
+      </View>
     </>
   );
 };

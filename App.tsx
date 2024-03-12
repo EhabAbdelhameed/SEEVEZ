@@ -9,7 +9,7 @@ import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-c
 import { Provider } from 'react-redux';
 import { Store } from 'src/redux/store';
 import Toast from 'react-native-toast-message';
-// import i18n from 'src/i18n/i18n';
+import i18n from 'src/i18n/i18n';
 // import Smartlook from 'react-native-smartlook-analytics';
 enableScreens()
 
@@ -19,21 +19,21 @@ const App = () => {
   //   '88c97b44a64556fd4911b869a547fd1f544692a4'
   // );
   // Smartlook.instance.start();
-  // React.useEffect(() => {
-  //   Platform.OS == 'ios' ?
-  //     (
-  //       I18nManager.allowRTL(true),
-  //       I18nManager.forceRTL(true)
-  //     )
-  //     :
-  //     ((i18n.language === 'en') ? (
-  //       I18nManager.allowRTL(false),
-  //       I18nManager.forceRTL(false)
-  //     ) : (
-  //       I18nManager.allowRTL(true),
-  //       I18nManager.forceRTL(true)
-  //     ))
-  // }, [i18n.language])
+  React.useEffect(() => {
+    Platform.OS == 'ios' ?
+      (
+        I18nManager.allowRTL(true),
+        I18nManager.forceRTL(true)
+      )
+      :
+      ((i18n.language === 'en') ? (
+        I18nManager.allowRTL(false),
+        I18nManager.forceRTL(false)
+      ) : (
+        I18nManager.allowRTL(true),
+        I18nManager.forceRTL(true)
+      ))
+  }, [i18n.language])
  
   return (
     <Provider store={Store().store}>

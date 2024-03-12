@@ -321,6 +321,7 @@ interface appState {
   FreelancerJobs:any;
   InternshipsJobs:any;
   skills:any;
+  RecommandedJobs:any;
 }
 
 
@@ -648,6 +649,7 @@ export const initialState: appState = {
   FreelancerJobs:[],
   InternshipsJobs:[],
   skills:[],
+  RecommandedJobs:[],
   //   Search: [],
 
 };

@@ -1735,6 +1735,81 @@ const GetSkills: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//doGetRecommandedJobs
+const doGetRecommandedJobs: any = createAsyncThunk<any, any, any>(
+  'app/RecommandedJobs',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.recommandedJobs();
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doAddJobOpportunity
+const doAddJobOpportunity: any = createAsyncThunk<any, any, any>(
+  'app/JobOpportunity',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.JobOpportunity(data);
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doAddInternshipOpportunity
+const doAddInternshipOpportunity: any = createAsyncThunk<any, any, any>(
+  'app/InternshipOpportunity',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.InternshipOpportunity(data);
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 
 const AppThunks = {
   doAddSkills,
@@ -1805,7 +1880,10 @@ const AppThunks = {
   doGetJobDescraption,
   doGetFreelancerJobs,
   doGetInternshipsJobs,
-  GetSkills
+  GetSkills,
+  doGetRecommandedJobs,
+  doAddJobOpportunity,
+  doAddInternshipOpportunity
 };
 
 export default AppThunks;

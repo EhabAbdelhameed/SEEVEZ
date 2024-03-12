@@ -14,6 +14,7 @@ import {
   selectFollowingList,
   selectFreelancerJobs,
   selectInternshipsJobs,
+  selectRecommandedJobs,
   selectJobSeeker,
   selectListUsers,
   selectRecuriters,
@@ -29,7 +30,7 @@ const MyJobToJobSeeker = (props: any) => {
 
   const FreelancerJobs = useAppSelector(selectFreelancerJobs);
   const InternshipsJobs = useAppSelector(selectInternshipsJobs);
-
+  const RecommandedJobs = useAppSelector(selectRecommandedJobs);
 
   const [isLoadingJobSeeker, setIsloadingJobSeeker] = useState(false);
   const [isLoadingRecuriter, setIsloadingRecuriter] = useState(false);
@@ -37,6 +38,7 @@ const MyJobToJobSeeker = (props: any) => {
   React.useEffect(() => {
     setIsloadingJobSeeker(true);
     setIsloadingRecuriter(true);
+    setIsloadingCompany(true);
 
     dispatch(AppThunks.doGetFollowingList());
     dispatch(AppThunks.doGetListUsers());
@@ -108,27 +110,27 @@ const MyJobToJobSeeker = (props: any) => {
           keyboardShouldPersistTaps={'handled'}
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}>
-          {/* <ContainerUsers
-            title="Recommended for you"
-            data={FreelancerJobs?.data}
-            loading={isLoadingJobSeeker}
-         
-          /> */}
-           {InternshipsJobs==null||InternshipsJobs?.length==0?null:
-          <ContainerUsers
-            title="Internship opportunity"
-            data={InternshipsJobs}
-            loading={isLoadingRecuriter}
-          />
-       } 
-          {FreelancerJobs==null||FreelancerJobs?.length==0?null:
-          <ContainerUsers
-            title="Freelance opportunity"
-            data={FreelancerJobs}
-            loading={isLoadingJobSeeker}
-          />
-         } 
-      
+          {/* {RecommandedJobs == null || RecommandedJobs?.length == 0 ? null : ( */}
+            <ContainerUsers
+              title="Recommended for you"
+              data={RecommandedJobs}
+              loading={isLoadingCompany}
+            />
+          {/* )} */}
+          {InternshipsJobs == null || InternshipsJobs?.length == 0 ? null : (
+            <ContainerUsers
+              title="Internship opportunity"
+              data={InternshipsJobs}
+              loading={isLoadingRecuriter}
+            />
+          )}
+          {FreelancerJobs == null || FreelancerJobs?.length == 0 ? null : (
+            <ContainerUsers
+              title="Freelance opportunity"
+              data={FreelancerJobs}
+              loading={isLoadingJobSeeker}
+            />
+          )}
         </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>

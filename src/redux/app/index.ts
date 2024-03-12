@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import Toast from 'react-native-toast-message';
-import { EntityKeys } from 'src/redux/keys';
-import { RootState } from '../store';
-import { initialState } from './types';
+import {EntityKeys} from 'src/redux/keys';
+import {RootState} from '../store';
+import {initialState} from './types';
 import thunks from './thunks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -228,7 +228,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
-        JobOpportunity:[],
+        JobOpportunity: [],
       };
       Toast.show({
         type: 'success',
@@ -266,7 +266,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
-        JobOpportunity:[],
+        JobOpportunity: [],
       };
       Toast.show({
         type: 'success',
@@ -835,7 +835,7 @@ const slice = createSlice({
       state.postsData = action.payload?.posts;
       state.polls = action.payload?.polls;
     });
-  
+
     //GetOnePost
     builder.addCase(thunks.GetOnePost.fulfilled, (state, action) => {
       console.log('GET One REEL ', JSON.stringify(action.payload));
@@ -861,7 +861,6 @@ const slice = createSlice({
     });
     //doGetFollowingList
     builder.addCase(thunks.doGetFollowingList.fulfilled, (state, action) => {
-      
       state.FollowingList = action.payload.data;
       const saveFollowingListToStorage = async (followingList: any) => {
         try {
@@ -869,7 +868,6 @@ const slice = createSlice({
           const followingListJSON = JSON.stringify(followingList);
           // Save the JSON string to AsyncStorage under the key 'FollowingList'
           await AsyncStorage.setItem('FollowingList', followingListJSON);
-       
         } catch (error) {
           console.error('Error saving FollowingList to AsyncStorage:', error);
           // Handle error here, such as showing an alert to the user
@@ -1149,7 +1147,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
-        JobOpportunity:[],
+        JobOpportunity: [],
       };
       Toast.show({
         type: 'success',
@@ -1186,7 +1184,7 @@ const slice = createSlice({
         names: [],
         market: [],
         exterinalLinks: [],
-        JobOpportunity:[]
+        JobOpportunity: [],
       };
       Toast.show({
         type: 'success',
@@ -1391,7 +1389,7 @@ const slice = createSlice({
     });
 
     //doVotePoll
-    builder.addCase(thunks.doVotePoll.fulfilled, (state, action) => { });
+    builder.addCase(thunks.doVotePoll.fulfilled, (state, action) => {});
     builder.addCase(thunks.doVotePoll.rejected, (state, action: any) => {
       if (action?.payload?.data?.message == 'Validation error.') {
         Toast.show({
@@ -1411,10 +1409,8 @@ const slice = createSlice({
 
     //doSearch
     builder.addCase(thunks.doSearch.fulfilled, (state, action) => {
-     
       state.search = action?.payload?.users;
       state.jobSearch = action?.payload?.jobs;
-
     });
     //GetJobSeeker
 
@@ -1479,12 +1475,11 @@ const slice = createSlice({
       }
     });
 
-
     //GetGlobalReels
     builder.addCase(thunks.GetGlobalReels.fulfilled, (state, action) => {
-      state.GlobalReals = state.GlobalReals.concat(action?.payload?.posts)
-      state.GlobalBools = state.GlobalBools.concat(action?.payload?.polls)
-      state.token = action.payload?.paging?.next
+      state.GlobalReals = state.GlobalReals.concat(action?.payload?.posts);
+      state.GlobalBools = state.GlobalBools.concat(action?.payload?.polls);
+      state.token = action.payload?.paging?.next;
     });
     builder.addCase(thunks.GetGlobalReels.rejected, (state, action: any) => {
       if (action?.payload?.data?.message == 'Validation error.') {
@@ -1502,9 +1497,9 @@ const slice = createSlice({
         }
       }
     });
-     //doRepost
+    //doRepost
 
-     builder.addCase(thunks.doRepost.fulfilled, (state, action) => {
+    builder.addCase(thunks.doRepost.fulfilled, (state, action) => {
       Toast.show({
         type: 'success',
         text1: action?.payload?.message,
@@ -1526,58 +1521,57 @@ const slice = createSlice({
         }
       }
     });
-      //doDeletePost
+    //doDeletePost
 
-      builder.addCase(thunks.doDeletePost.fulfilled, (state, action) => {
+    builder.addCase(thunks.doDeletePost.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+    });
+    builder.addCase(thunks.doDeletePost.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
         Toast.show({
-          type: 'success',
-          text1: action?.payload?.message,
+          type: 'error',
+          text1: action?.payload?.data?.error,
         });
-      });
-      builder.addCase(thunks.doDeletePost.rejected, (state, action: any) => {
-        if (action?.payload?.data?.message == 'Validation error.') {
-          Toast.show({
-            type: 'error',
-            text1: action?.payload?.data?.error,
-          });
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: action?.payload?.data?.message,
-          });
-          if (action?.payload?.data?.message == 'Access token is invalid.') {
-            state.AccessToken = true;
-          }
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
+        });
+        if (action?.payload?.data?.message == 'Access token is invalid.') {
+          state.AccessToken = true;
         }
+      }
+    });
+    //doUpdatePost
+
+    builder.addCase(thunks.doUpdatePost.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
       });
-        //doUpdatePost
-  
-        builder.addCase(thunks.doUpdatePost.fulfilled, (state, action) => {
-          Toast.show({
-            type: 'success',
-            text1: action?.payload?.message,
-          });
-          state.done=true
+      state.done = true;
+    });
+    builder.addCase(thunks.doUpdatePost.rejected, (state, action: any) => {
+      if (action?.payload?.data?.message == 'Validation error.') {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.error,
         });
-        builder.addCase(thunks.doUpdatePost.rejected, (state, action: any) => {
-          if (action?.payload?.data?.message == 'Validation error.') {
-            Toast.show({
-              type: 'error',
-              text1: action?.payload?.data?.error,
-            });
-          } else {
-            Toast.show({
-              type: 'error',
-              text1: action?.payload?.data?.message,
-            });
-            if (action?.payload?.data?.message == 'Access token is invalid.') {
-              state.AccessToken = true;
-            }
-          }
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: action?.payload?.data?.message,
         });
-         //doGetJobs
+        if (action?.payload?.data?.message == 'Access token is invalid.') {
+          state.AccessToken = true;
+        }
+      }
+    });
+    //doGetJobs
     builder.addCase(thunks.doGetJobs.fulfilled, (state, action) => {
-    
       state.myJobs = action.payload.data;
       const saveMyJobToStorage = async (myJob: any) => {
         try {
@@ -1595,41 +1589,94 @@ const slice = createSlice({
       // Call this function whenever you want to save the state to AsyncStorage
       saveMyJobToStorage(action.payload.data);
     });
-       //doGetOneJob
-       builder.addCase(thunks.doGetJobDescraption.fulfilled, (state, action) => {
-              // console.log("EEHAHHAB",action.payload.data)
-        state.myJob = action.payload.data;
-        const saveMyJobToStorage = async (myJob: any) => {
-          try {
-            // Convert the followingList object to a JSON string
-            const MyJobJSON = JSON.stringify(myJob);
-            // Save the JSON string to AsyncStorage under the key 'FollowingList'
-            await AsyncStorage.setItem('MyJobDescreption', MyJobJSON);
-          
-          } catch (error) {
-            console.error('Error saving FollowingList to AsyncStorage:', error);
-            // Handle error here, such as showing an alert to the user
-          }
-        };
-  
-        // Call this function whenever you want to save the state to AsyncStorage
-        saveMyJobToStorage(action.payload.data);
-      });
-          //doGetFreelancerJobs
+    //doGetOneJob
+    builder.addCase(thunks.doGetJobDescraption.fulfilled, (state, action) => {
+      // console.log("EEHAHHAB",action.payload.data)
+      state.myJob = action.payload.data;
+      const saveMyJobToStorage = async (myJob: any) => {
+        try {
+          // Convert the followingList object to a JSON string
+          const MyJobJSON = JSON.stringify(myJob);
+          // Save the JSON string to AsyncStorage under the key 'FollowingList'
+          await AsyncStorage.setItem('MyJobDescreption', MyJobJSON);
+        } catch (error) {
+          console.error('Error saving FollowingList to AsyncStorage:', error);
+          // Handle error here, such as showing an alert to the user
+        }
+      };
 
-    builder.addCase(thunks.doGetFreelancerJobs.fulfilled,(state, action) => {
+      // Call this function whenever you want to save the state to AsyncStorage
+      saveMyJobToStorage(action.payload.data);
+    });
+    //doGetFreelancerJobs
+
+    builder.addCase(thunks.doGetFreelancerJobs.fulfilled, (state, action) => {
       state.FreelancerJobs = action?.payload?.data;
     });
-      //doGetInternshipsJobs
+    //doGetInternshipsJobs
 
-      builder.addCase(thunks.doGetInternshipsJobs.fulfilled,(state, action) => {
-        state.InternshipsJobs = action?.payload?.data;
-      });
+    builder.addCase(thunks.doGetInternshipsJobs.fulfilled, (state, action) => {
+      state.InternshipsJobs = action?.payload?.data;
+    });
     //GetSkills
     builder.addCase(thunks.GetSkills.fulfilled, (state, action) => {
       state.skills = action.payload?.data;
     });
-
+    //doGetRecommandedJobs
+    builder.addCase(thunks.doGetRecommandedJobs.fulfilled, (state, action) => {
+      state.RecommandedJobs = action?.payload?.data;
+    });
+    //doAddJobOpportunity
+    builder.addCase(thunks.doAddJobOpportunity.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+      state.done = true;
+    });
+    builder.addCase(
+      thunks.doAddJobOpportunity.rejected,
+      (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      },
+    );
+    //doAddInternshipOpportunity
+    builder.addCase(
+      thunks.doAddInternshipOpportunity.fulfilled,
+      (state, action) => {
+        Toast.show({
+          type: 'success',
+          text1: action?.payload?.message,
+        });
+        state.done = true;
+      },
+    );
+    builder.addCase(
+      thunks.doAddInternshipOpportunity.rejected,
+      (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      },
+    );
   },
 });
 
@@ -1665,16 +1712,17 @@ export const selectCompaniesUser = (state: RootState) => state.app.companyUsers;
 export const selectGlobalReals = (state: RootState) => state.app.GlobalReals;
 export const selectGlobalBools = (state: RootState) => state.app.GlobalBools;
 export const selectToken = (state: RootState) => state.app.token;
-export const selectMyJob = (state: RootState) =>
-  state.app.myJobs;
-  export const selectOneJob = (state: RootState) =>
-  state.app.myJob;
+export const selectMyJob = (state: RootState) => state.app.myJobs;
+export const selectOneJob = (state: RootState) => state.app.myJob;
 export const selectSearchingJobList = (state: RootState) => state.app.jobSearch;
-export const selectFreelancerJobs = (state: RootState) => state.app.FreelancerJobs;
-export const selectInternshipsJobs = (state: RootState) => state.app.InternshipsJobs;
+export const selectFreelancerJobs = (state: RootState) =>
+  state.app.FreelancerJobs;
+export const selectInternshipsJobs = (state: RootState) =>
+  state.app.InternshipsJobs;
 
 export const selectSkills = (state: RootState) => state.app.skills;
-
+export const selectRecommandedJobs = (state: RootState) =>
+  state.app.RecommandedJobs;
 
 const AppSlice = {
   slice,
@@ -1712,7 +1760,5 @@ const AppSlice = {
   changeToken: slice.actions.changeToken,
   changeMyJob: slice.actions.changeMyJob,
   changeJobSearch: slice.actions.changeJobSearch,
-
-
 };
 export default AppSlice;

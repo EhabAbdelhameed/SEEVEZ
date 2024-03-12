@@ -85,6 +85,11 @@ const jobDesc = (id:number) => api.get(`company/show/job-opportunity/${id}`)
 const freelancerJobs = () => api.get(`company/job-opportunity/show/freelancer`)
 const internships = () => api.get(`company/job-opportunity/show/intern`)
 const dropDownSkills = () => api.get(`api/drop-down/skills`)
+const recommandedJobs = () => api.get(`company/job-opportunity/recommended`)
+const JobOpportunity = (data: any) => api.post(`company/job-opportunity/create`, data);
+const InternshipOpportunity = (data: any) => api.post(`company/job-opportunity/create/intern`, data);
+
+
 /////////////////////////////////end////////////////////////////////////////
 // const home = (data: any) => api.get(`home?${data}`)
 
@@ -159,7 +164,10 @@ const AppAPI = {
   jobDesc,
   freelancerJobs,
   internships,
-  dropDownSkills
+  dropDownSkills,
+  recommandedJobs,
+  JobOpportunity,
+  InternshipOpportunity
 };
 
 export default AppAPI;

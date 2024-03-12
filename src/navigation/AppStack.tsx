@@ -74,6 +74,9 @@ import SecondApplayPage from 'screens/App/ApplayForJob/components/secondJob';
 import UpdateSkills from 'screens/App/CompleteProfile/components/Skills/UpdateSkills';
 import Market from 'screens/App/CreatePost/Market';
 import Form2 from 'screens/App/CreatePost/JobOpportunity/components/Form2';
+import JobOpportunityCompany from 'screens/App/BottomTab/Home/components/CreateJobOpportunities/JobOpportunity';
+import PreviewJob from 'screens/App/BottomTab/Home/components/CreateJobOpportunities/JobOpportunity/PreviewJob';
+import Form2JobOpportunity from 'screens/App/BottomTab/Home/components/CreateJobOpportunities/JobOpportunity/components/Form2';
 
 
 const Stack = createNativeStackNavigator<AppParamsList>();
@@ -367,6 +370,18 @@ const AppStack = () => {
             <Stack.Screen
                 name='SecondApplayPage'
                 component={SecondApplayPage}
+            />
+              <Stack.Screen
+                name='JobOpportunityCompany'
+                component={JobOpportunityCompany}
+            />
+              <Stack.Screen
+                name='PreviewJob'
+                component={PreviewJob}
+            />
+              <Stack.Screen
+                name='Form2JobOpportunity'
+                component={Form2JobOpportunity}
             />
         </Stack.Navigator>
     );

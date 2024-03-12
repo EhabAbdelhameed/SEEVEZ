@@ -69,6 +69,9 @@ import FourthApplay from './4.svg'
 import FifthApplay from './5.svg'
 import SixApplay from './6.svg'
 import DownloadIcon from './Download.svg'
+import YallowBag from './YallowBag.svg'
+import AddAnotherYallow from './AddanotherYallow.svg'
+
 export {
     Right,
     WAVE,
@@ -137,5 +140,7 @@ export {
     FourthApplay,
     FifthApplay,
     SixApplay,
-    DownloadIcon
+    DownloadIcon,
+    YallowBag,
+    AddAnotherYallow
 }
