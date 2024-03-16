@@ -31,6 +31,7 @@ import Button from 'components/molecules/Button';
 const ThirdApplayPage = () => {
   // console.log(CurrentUserData)
   const User = useSelector(selectUser);
+  const navigation = useNavigation<any>();
 
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
@@ -74,7 +75,7 @@ const ThirdApplayPage = () => {
             </Text>
             
             <TouchableOpacity style={styles.InputStyleNoWidth1}>
-              <RecordAudio width={24} height={24} />
+              <RecordAudio width={30} height={30} />
               <View>
                 <Text
                   numberOfLines={1}
@@ -83,7 +84,8 @@ const ThirdApplayPage = () => {
                 </Text>
               </View>
             </TouchableOpacity>
-            <View style={{height: appSizes.height * 0.22}} />
+            {/* <Text>You can always record again if needed.</Text> */}
+            <View style={{height: appSizes.height * 0.37}} />
             <View style={{flexDirection: 'row', columnGap: 10}}>
               <View style={{width: '49%'}}>
                 <TouchableOpacity
@@ -110,8 +112,9 @@ const ThirdApplayPage = () => {
                   </Text>
                 </TouchableOpacity>
               </View>
+
               <View style={{width: '49%'}}>
-                <Button onPress={() => {}} text={'Next'} />
+                <Button onPress={() => {navigation.navigate("FourthApplayPage")}} text={'Next'} />
               </View>
             </View>
           </View>

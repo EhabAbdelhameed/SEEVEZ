@@ -15,6 +15,7 @@ import Button from 'components/molecules/Button';
 import NewPicker from 'components/molecules/PhonePicker';
 import {Input} from 'react-native-elements';
 import { appSizes } from 'theme';
+import { FirstApplay, LoginSchema } from 'src/Formik/schema';
 const Formick = () => {
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
@@ -27,12 +28,13 @@ const Formick = () => {
   //   console.log(User?.email)
   return (
     <Formik
-      //   validationSchema={LoginSchema}
+        validationSchema={FirstApplay}
       initialValues={{email:User?.email, phone: User?.phone_number || ''}}
       onSubmit={values => {
         const formdata = new FormData();
         formdata.append('email', values.email);
 
+        navigation.navigate("SecondApplayPage",{data:values})
         // navigation.navigate("app")
       }}>
       {(props: any) => (
@@ -111,7 +113,7 @@ const Formick = () => {
           <Button
             // loading={loading}
             text={t('next')}
-            onPress={()=>navigation.navigate("SecondApplayPage")}
+            onPress={props.handleSubmit}
           />
         </View>
       )}

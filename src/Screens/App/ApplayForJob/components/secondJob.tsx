@@ -1,10 +1,10 @@
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {Linking, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from 'components/molecules/Header';
 import styles from '../styles';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
@@ -25,11 +25,43 @@ import UserHeader from './UserHeader';
 import Formick from './Formick';
 import {appColors, appSizes} from 'theme';
 import Button from 'components/molecules/Button';
-
+import DocumentPicker from 'react-native-document-picker';
 const SecondApplayPage = () => {
   // console.log(CurrentUserData)
+  const {data}: any = useRoute().params;
+  // console.log(JSON.stringify(data))
   const User = useSelector(selectUser);
+  const navigation = useNavigation<any>();
+  const [source, setSource] = useState<any>([]);
+  const uploadFile = async () => {
+    try {
+      const res: any = await DocumentPicker.pick({
+        type: [DocumentPicker.types.pdf],
+      });
 
+      setSource(res);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('Canceled');
+      } else {
+        console.log('Unknown Error: ' + JSON.stringify(err));
+        throw err;
+      }
+    }
+  };
+  const _handleNavigate = useCallback(() => {
+    navigation.goBack();
+  }, []);
+  const navigateToNextPage =()=>{
+    let obj={
+      email:data?.email,
+      phone:data?.phone,
+      cv_pdf:source?.length!=0?User?.cv_pdf:source,
+    }
+
+    navigation.navigate('ThirdApplayPage',{data:obj})
+  }
+  // console.log(JSON.stringify(User))
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -61,79 +93,70 @@ const SecondApplayPage = () => {
               }}>
               Upolad your CV
             </Text>
-            <TouchableOpacity style={styles.InputStyleNoWidth1}>
-              <PDF />
-              <View>
-                <Text
-                  numberOfLines={1}
-                  style={{fontSize: 16, color: appColors.primary}}>
-                  Justin Dokidis CV 2023
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{fontSize: 12, color: appColors.primary}}>
-                  1 MB
-                </Text>
-              </View>
+            {User?.cv_pdf == null ? null : (
               <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                }}>
-                <View style={styles.Circle}>
-                  <DownloadIcon />
+                onPress={() => Linking.openURL(User?.cv_pdf?.fileUrl)}
+                style={styles.InputStyleNoWidth1}>
+                <PDF />
+                <View>
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: 16, color: appColors.primary}}>
+                    {User?.cv_pdf?.attributes?.name}
+                  </Text>
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: 12, color: appColors.primary}}>
+                    {(
+                      parseInt(User?.cv_pdf?.attributes?.size) / 1048576
+                    ).toFixed(4)}{' '}
+                    MB
+                  </Text>
                 </View>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                  }}>
+                  <View style={styles.Circle}>
+                    <DownloadIcon />
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                  }}>
+                  <View style={styles.Circle}>
+                    <View style={styles?.innerCircle} />
+                  </View>
+                </TouchableOpacity>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                }}>
-                <View style={styles.Circle}>
-                  <View style={styles?.innerCircle} />
-                </View>
-              </TouchableOpacity>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.InputStyleNoWidth1}>
-              <PDF />
-              <View>
-                <Text
-                  numberOfLines={1}
-                  style={{fontSize: 16, color: appColors.primary}}>
-                  Justin Dokidis CV 2021
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{fontSize: 12, color: appColors.primary}}>
-                  1 MB
-                </Text>
-              </View>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                }}>
-                <View style={styles.Circle}>
-                  <DownloadIcon />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                }}>
-                <View style={styles.Circle}>
-                  {/* <View style={styles?.innerCircle} /> */}
-                </View>
-              </TouchableOpacity>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.InputStyleNoWidth1}>
+            )}
+
+            <TouchableOpacity
+              onPress={uploadFile}
+              style={styles.InputStyleNoWidth1}>
               <UploadYourCv width={24} height={24} />
               <View>
+                {source?.length==0?
                 <Text
                   numberOfLines={1}
                   style={{fontSize: 20, color: appColors.primary}}>
                   Upload file
-                </Text>
+                </Text>: <Text
+                  numberOfLines={1}
+                  style={{fontSize: 20, color: appColors.primary}}>
+                  {source[0].name}
+                </Text>}
               </View>
             </TouchableOpacity>
-            <View style={{height: appSizes.height * 0.22}} />
+            <View
+              style={{
+                height:
+                  User?.cv_pdf == null
+                    ? appSizes.height * 0.45
+                    : appSizes.height * 0.33,
+              }}
+            />
             <View style={{flexDirection: 'row', columnGap: 10}}>
               <View style={{width: '49%'}}>
                 <TouchableOpacity
@@ -147,7 +170,7 @@ const SecondApplayPage = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}
-                  onPress={() => {}}>
+                  onPress={_handleNavigate}>
                   <Text
                     style={{
                       color: appColors.primary,
@@ -161,7 +184,10 @@ const SecondApplayPage = () => {
                 </TouchableOpacity>
               </View>
               <View style={{width: '49%'}}>
-                <Button onPress={() => {}} text={'Next'} />
+                <Button
+                  onPress={navigateToNextPage}
+                  text={'Next'}
+                />
               </View>
             </View>
           </View>

@@ -71,10 +71,10 @@ export const styles = StyleSheet.create({
         borderRadius: appSizes.m
     },
     followersContainer: {
-        width: 100,
+        // width: 100,
         // height:21,
-        alignItems: "center",
-        justifyContent: "center",
+        // alignItems: "center",
+        // justifyContent: "center",
         // paddingHorizontal:18,
         paddingVertical: 4,
         paddingHorizontal:15,

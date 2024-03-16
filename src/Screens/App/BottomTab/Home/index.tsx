@@ -400,6 +400,7 @@ const Home = () => {
                   <Trending style={styles.absIcon} />
                 </ImageBackground>
               </View>
+              
             </BoxContentTitle>
           </View>
           {/* <View style={styles.rowContainer}>

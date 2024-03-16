@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     // borderBottomWidth: 0.5,
     marginBottom: 10,
-    marginTop: 15,
+    marginTop: 20,
     backgroundColor: appColors.bg,
     // height: 54,
     flexDirection: 'row',

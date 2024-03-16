@@ -84,7 +84,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        navigate('JobDescraption',{id:item?.id});
+        navigate('JobDescraptionCompany',{id:item?.id});
       }}
       style={styles.containerUserSection}>
       <View style={[globalStyles.leftHeaderContainer,{width:'100%'}]}>

@@ -59,7 +59,7 @@ const UpdateAbout = () => {
       <KeyboardAwareScrollView
         contentContainerStyle={{
           backgroundColor: appColors.bg,
-          marginTop:40,
+          // marginTop:40,
           
         }}
         enableOnAndroid={true}

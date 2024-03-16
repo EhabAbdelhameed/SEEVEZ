@@ -85,7 +85,7 @@ const Audio = (data: any) => {
     return `${minutes < 10 ? '0' : ''}${minutes}:${
       remainingSeconds < 10 ? '0' : ''
     }${remainingSeconds}`;
-  };
+  }; 
   return (
     <View
       style={{

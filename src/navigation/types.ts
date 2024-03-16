@@ -90,6 +90,19 @@ export type AppParamsList = {
     JobOpportunityCompany:undefined;
     PreviewJob:undefined;
     Form2JobOpportunity:undefined;
+    ThirdApplayPage:undefined;
+    FourthApplayPage:undefined;
+    FifthApplayPage:undefined;
+    SixApplayPage:undefined;
+    SavedJob:undefined;
+    ApplicationsJob:undefined;
+    Assignment:undefined;
+    JobDescraptionCompany:undefined;
+    ReviewUser:undefined;
+    ShortedList:undefined;
+    WatingList:undefined;
+    EmployeeAppliedList:undefined;
+    RejectedList:undefined;
 }
 export type RootParamsList = {
     auth: any;

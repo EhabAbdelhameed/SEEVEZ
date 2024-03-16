@@ -71,7 +71,17 @@ import SixApplay from './6.svg'
 import DownloadIcon from './Download.svg'
 import YallowBag from './YallowBag.svg'
 import AddAnotherYallow from './AddanotherYallow.svg'
-
+import WihteSave from './WhiteSave.svg'
+import UnSave from './UnSave.svg'
+import WhiteBag from './WhiteBag.svg'
+import DotsThree from './3Dots.svg'
+import ShareJob from './ShareJob.svg'
+import RecommandedJob from './RecommandedJob.svg'
+import WaitIcon from './WaitListIcon.svg'
+import RejectedIcon from './rejectedListIcon.svg'
+import ShortedIcon from './ShortlistedIcon.svg'
+import AppliedIcon from './EmployeesApplied.svg'
+import EmptySound from './EmpatySound.svg'
 export {
     Right,
     WAVE,
@@ -142,5 +152,16 @@ export {
     SixApplay,
     DownloadIcon,
     YallowBag,
-    AddAnotherYallow
+    AddAnotherYallow,
+    WihteSave,
+    UnSave,
+    WhiteBag,
+    DotsThree,
+    ShareJob,
+    RecommandedJob,
+    WaitIcon,
+    RejectedIcon,
+    ShortedIcon,
+    AppliedIcon,
+    EmptySound
 }

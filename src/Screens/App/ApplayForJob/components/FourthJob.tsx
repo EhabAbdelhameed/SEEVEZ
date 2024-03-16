@@ -17,6 +17,7 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import {
   DownloadIcon,
   FirstApplay,
+  FourthApplay,
   PDF,
   RecordAudio,
   SecondApplay,
@@ -31,7 +32,10 @@ import Button from 'components/molecules/Button';
 const FourthApplayPage = () => {
   // console.log(CurrentUserData)
   const User = useSelector(selectUser);
-
+  const navigation = useNavigation<any>();
+  const data=['Yes','No']
+  const [buttonIndexSmoker, setButtonIndexSmoker] = React.useState(0);
+  const [smoker, setSmoker] = useState(false);
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -52,7 +56,7 @@ const FourthApplayPage = () => {
           </View>
         </View>
         <View style={{marginTop: 40}}>
-          <ThirdApplay width={'100%'} height={20} />
+          <FourthApplay width={'100%'} height={20} />
           <View style={{marginTop: 30, marginBottom: 30}}>
             <Text
               style={{
@@ -61,29 +65,38 @@ const FourthApplayPage = () => {
                 color: '#000',
                 fontWeight: '700',
               }}>
-             Tell us briefly about yourself. and your working experience
+             Have you completed the following level of education: Bachelor's Degree?
             </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: 'Noto Sans',
-                color: '#000',
-                fontWeight: '400',
-              }}>
-               Max duration is 3 minutes
-            </Text>
+            <View style={{justifyContent:'flex-start',alignItems:'flex-start',marginTop:10}}>
+            {data?.map((item, index) => (
+                    <TouchableOpacity
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                      onPress={() => {
+                        setButtonIndexSmoker(index), setSmoker(!smoker);
+                      }}>
+                      <View style={[styles.Circle,{marginTop:15}]}>
+                        {buttonIndexSmoker == index ? (
+                          <View style={styles?.innerCircle} />
+                        ) : null}
+                      </View>
+
+                      <Text
+                        style={{
+                          color: '#000',
+                          marginLeft: 8,
+                          fontFamily: 'Noto Sans',
+                        }}>
+                        {item}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
             
-            <TouchableOpacity style={styles.InputStyleNoWidth1}>
-              <RecordAudio width={24} height={24} />
-              <View>
-                <Text
-                  numberOfLines={1}
-                  style={{fontSize: 20, color: appColors.primary}}>
-                  record
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <View style={{height: appSizes.height * 0.22}} />
+            </View>
+            <View style={{height: appSizes.height * 0.37}} />
             <View style={{flexDirection: 'row', columnGap: 10}}>
               <View style={{width: '49%'}}>
                 <TouchableOpacity
@@ -111,7 +124,7 @@ const FourthApplayPage = () => {
                 </TouchableOpacity>
               </View>
               <View style={{width: '49%'}}>
-                <Button onPress={() => {}} text={'Next'} />
+                <Button onPress={() => {navigation.navigate("FifthApplayPage")}} text={'Next'} />
               </View>
             </View>
           </View>

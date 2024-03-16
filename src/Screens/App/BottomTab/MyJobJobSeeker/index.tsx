@@ -23,15 +23,16 @@ import FooterSection from './components/footerPagaination';
 import {appColors} from 'theme';
 import {SaveJobFill} from 'assets/Svgs';
 import {RenderSvgIcon} from 'components/atoms/svg';
+import { useNavigation } from '@react-navigation/native';
 
 const MyJobToJobSeeker = (props: any) => {
   const dispatch = useAppDispatch();
   const ListUsers = useAppSelector(selectListUsers);
-
+  const navigation = useNavigation<any>();
   const FreelancerJobs = useAppSelector(selectFreelancerJobs);
   const InternshipsJobs = useAppSelector(selectInternshipsJobs);
   const RecommandedJobs = useAppSelector(selectRecommandedJobs);
-
+// console.log("Recommanded",JSON.stringify(InternshipsJobs))
   const [isLoadingJobSeeker, setIsloadingJobSeeker] = useState(false);
   const [isLoadingRecuriter, setIsloadingRecuriter] = useState(false);
   const [isLoadingCompany, setIsloadingCompany] = useState(false);
@@ -48,6 +49,9 @@ const MyJobToJobSeeker = (props: any) => {
     dispatch(AppThunks.doGetInternshipsJobs()).then(() =>
       setIsloadingRecuriter(false),
     );
+    dispatch(AppThunks.doGetRecommandedJobs()).then(() =>
+    setIsloadingCompany(false),
+  );
   }, []);
 
   return (
@@ -56,7 +60,7 @@ const MyJobToJobSeeker = (props: any) => {
         <Header />
         <View
           style={{paddingHorizontal: 20, flexDirection: 'row', columnGap: 10}}>
-          <TouchableOpacity
+          <TouchableOpacity onPress={()=>navigation.navigate("SavedJob")}
             style={{
               borderWidth: 1,
               borderColor: appColors.primary,
@@ -78,7 +82,7 @@ const MyJobToJobSeeker = (props: any) => {
               Saved
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          <TouchableOpacity onPress={()=>navigation.navigate("ApplicationsJob")}
             style={{
               borderWidth: 1,
               borderColor: appColors.primary,

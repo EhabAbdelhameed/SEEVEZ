@@ -1,11 +1,11 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Cv from '../Screens/App/CvMaker';
 import ReelsScreen from '../Screens/App/Reels/Reels';
 import TabBar from './BottomTab/TabBar';
-import { AppParamsList } from './types';
+import {AppParamsList} from './types';
 import ProfileScreen from 'screens/App/Profile/Main Profile';
-import CompleteProfileScreen from 'screens/App/CompleteProfile'
-import CompleteCompanyProfileScreen from 'screens/App/CompleteCompanyProfile'
+import CompleteProfileScreen from 'screens/App/CompleteProfile';
+import CompleteCompanyProfileScreen from 'screens/App/CompleteCompanyProfile';
 
 import CreateVideo from 'screens/App/CreatePost/CreateVideo';
 import CreateVoice from 'screens/App/CreatePost/CreateVoice';
@@ -77,314 +77,174 @@ import Form2 from 'screens/App/CreatePost/JobOpportunity/components/Form2';
 import JobOpportunityCompany from 'screens/App/BottomTab/Home/components/CreateJobOpportunities/JobOpportunity';
 import PreviewJob from 'screens/App/BottomTab/Home/components/CreateJobOpportunities/JobOpportunity/PreviewJob';
 import Form2JobOpportunity from 'screens/App/BottomTab/Home/components/CreateJobOpportunities/JobOpportunity/components/Form2';
-
+import ThirdApplayPage from 'screens/App/ApplayForJob/components/ThirdJob';
+import FourthApplayPage from 'screens/App/ApplayForJob/components/FourthJob';
+import FifthApplayPage from 'screens/App/ApplayForJob/components/FifthPage';
+import sixApplayPage from 'screens/App/ApplayForJob/components/sixPage';
+import SixApplayPage from 'screens/App/ApplayForJob/components/sixPage';
+import SavedJob from 'screens/App/BottomTab/SavedJob';
+import ApplicationsJob from 'screens/App/BottomTab/ApplicationJob';
+import Assignment from 'screens/App/BottomTab/ApplicationJob/components/Assignment';
+import JobDescraptionCompany from 'screens/App/BottomTab/JobDescraptionCompany';
+import ReviewUser from 'screens/App/BottomTab/ReviewUser';
+import ShortedList from 'screens/App/BottomTab/ShortedList';
+import WatingList from 'screens/App/BottomTab/WaitingList';
+import EmployeeAppliedList from 'screens/App/BottomTab/EmployeeAppliedList';
+import RejectedList from 'screens/App/BottomTab/RejectedList';
 
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
-    return (
-        <Stack.Navigator initialRouteName="TabBar" screenOptions={{
-            headerShown: false,
-        }}>
+  return (
+    <Stack.Navigator
+      initialRouteName="TabBar"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="TabBar" component={TabBar} />
+      <Stack.Screen name="MyConnection" component={MyConnection} />
+      <Stack.Screen
+        name="CompleteProfileScreen"
+        component={CompleteProfileScreen}
+      />
+      <Stack.Screen
+        name="CompleteCompanyProfileScreen"
+        component={CompleteCompanyProfileScreen}
+      />
+      <Stack.Screen name="UpdateAbout" component={UpdateAbout} />
+      <Stack.Screen name="SaveVideo" component={SaveVideo} />
+      <Stack.Screen name="SaveVideoCompany" component={SaveVideoCompany} />
+      <Stack.Screen name="UpdateRecordVideo" component={UpdateRecordVideo} />
+      <Stack.Screen
+        name="UpdateRecordVideoCompany"
+        component={UpdateRecordVideoCompany}
+      />
+      <Stack.Screen name="UpdateCompanyAbout" component={UpdateCompanyAbout} />
+      <Stack.Screen name="UpdateLanguages" component={UpdateLanguages} />
+      <Stack.Screen name="UpdateAchievements" component={UpdateAchievements} />
+      <Stack.Screen name="UserProfile" component={UserProfile} />
+      <Stack.Screen
+        name="UpdateRefernceCheck"
+        component={UpdateRefernceCheck}
+      />
+      <Stack.Screen name="UpdateSkills" component={UpdateSkills} />
+      <Stack.Screen name="UpdateTraining" component={UpdateTraining} />
+      <Stack.Screen name="UpdateExperience" component={UpdateExperience} />
+      <Stack.Screen name="UpdateEducation" component={UpdateEducation} />
+      <Stack.Screen name="UpdateInfo" component={UpdateInfo} />
+      <Stack.Screen name="UpdateCompanyInfo" component={UpdateCompanyInfo} />
+      <Stack.Screen name="UpdateAboutCard" component={UpdateAboutCard} />
+      <Stack.Screen name="UpdateInfoCard" component={UpdateInfoCard} />
+      <Stack.Screen name="AddNewExperience" component={AddNewExperience} />
+      <Stack.Screen
+        name="UpdateExperienceCard"
+        component={UpdateExperienceCard}
+      />
+      <Stack.Screen
+        name="UpdateOneExperience"
+        component={UpdateOneExperience}
+      />
+      <Stack.Screen
+        name="UpdateEducationCard"
+        component={UpdateEducationCard}
+      />
+      <Stack.Screen name="UpdateOneEducation" component={UpdateOneEducation} />
+      <Stack.Screen name="UpdateLanguageCard" component={UpdateLanguageCard} />
+      <Stack.Screen
+        name="UpdateOneAchievements"
+        component={UpdateOneAchievements}
+      />
+      <Stack.Screen
+        name="UpdateAchievementCard"
+        component={UpdateAchievementCard}
+      />
+      <Stack.Screen name="UpdateOneLanguage" component={UpdateOneLanguage} />
+      <Stack.Screen name="UpdateTrainingCard" component={UpdateTrainingCard} />
+      <Stack.Screen name="UpdateOneTraining" component={UpdateOneTraining} />
+      <Stack.Screen
+        name="UpdateReferenceCheckCard"
+        component={UpdateReferenceCheckCard}
+      />
+      <Stack.Screen
+        name="UpdateOneRefernceCheck"
+        component={UpdateOneRefernceCheck}
+      />
+      <Stack.Screen name="UpdateSkillsCard" component={UpdateSkillsCard} />
+      <Stack.Screen name="UpdateOneSkills" component={UpdateOneSkills} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen
+        name="ProfileCompanyScreen"
+        component={ProfileCompanyScreen}
+      />
 
-            <Stack.Screen
-                name="TabBar"
-                component={TabBar}
-            />
-            <Stack.Screen
-                name="MyConnection"
-                component={MyConnection}
-            />
-            <Stack.Screen
-                name="CompleteProfileScreen"
-                component={CompleteProfileScreen}
-            />
-            <Stack.Screen
-                name="CompleteCompanyProfileScreen"
-                component={CompleteCompanyProfileScreen}
-            />
-            <Stack.Screen
-                name="UpdateAbout"
-                component={UpdateAbout}
-            />
-            <Stack.Screen
-                name="SaveVideo"
-                component={SaveVideo}
-            />
-            <Stack.Screen
-                name="SaveVideoCompany"
-                component={SaveVideoCompany}
-            />
-            <Stack.Screen
-                name="UpdateRecordVideo"
-                component={UpdateRecordVideo}
-            />
-            <Stack.Screen
-                name="UpdateRecordVideoCompany"
-                component={UpdateRecordVideoCompany}
-            />
-            <Stack.Screen
-                name="UpdateCompanyAbout"
-                component={UpdateCompanyAbout}
-            />
-            <Stack.Screen
-                name="UpdateLanguages"
-                component={UpdateLanguages}
-            />
-            <Stack.Screen
-                name="UpdateAchievements"
-                component={UpdateAchievements}
-            />
-            <Stack.Screen
-                name="UserProfile"
-                component={UserProfile}
-            />
-            <Stack.Screen
-                name="UpdateRefernceCheck"
-                component={UpdateRefernceCheck}
-            />
-            <Stack.Screen
-                name="UpdateSkills"
-                component={UpdateSkills}
-            />
-            <Stack.Screen
-                name="UpdateTraining"
-                component={UpdateTraining}
-            />
-            <Stack.Screen
-                name="UpdateExperience"
-                component={UpdateExperience}
-            />
-            <Stack.Screen
-                name="UpdateEducation"
-                component={UpdateEducation}
-            />
-            <Stack.Screen
-                name="UpdateInfo"
-                component={UpdateInfo}
-            />
-            <Stack.Screen
-                name="UpdateCompanyInfo"
-                component={UpdateCompanyInfo}
-            />
-            <Stack.Screen
-                name="UpdateAboutCard"
-                component={UpdateAboutCard}
-            />
-            <Stack.Screen
-                name="UpdateInfoCard"
-                component={UpdateInfoCard}
-            />
-            <Stack.Screen
-                name="AddNewExperience"
-                component={AddNewExperience}
-            />
-            <Stack.Screen
-                name="UpdateExperienceCard"
-                component={UpdateExperienceCard}
-            />
-            <Stack.Screen
-                name="UpdateOneExperience"
-                component={UpdateOneExperience}
-            />
-            <Stack.Screen
-                name="UpdateEducationCard"
-                component={UpdateEducationCard}
-            />
-            <Stack.Screen
-                name="UpdateOneEducation"
-                component={UpdateOneEducation}
-            />
-            <Stack.Screen
-                name="UpdateLanguageCard"
-                component={UpdateLanguageCard}
-            />
-            <Stack.Screen
-                name="UpdateOneAchievements"
-                component={UpdateOneAchievements}
-            />
-            <Stack.Screen
-                name="UpdateAchievementCard"
-                component={UpdateAchievementCard}
-            />
-            <Stack.Screen
-                name="UpdateOneLanguage"
-                component={UpdateOneLanguage}
-            />
-            <Stack.Screen
-                name="UpdateTrainingCard"
-                component={UpdateTrainingCard}
-            />
-            <Stack.Screen
-                name="UpdateOneTraining"
-                component={UpdateOneTraining}
-            />
-            <Stack.Screen
-                name="UpdateReferenceCheckCard"
-                component={UpdateReferenceCheckCard}
-            />
-            <Stack.Screen
-                name="UpdateOneRefernceCheck"
-                component={UpdateOneRefernceCheck}
-            />
-            <Stack.Screen
-                name="UpdateSkillsCard"
-                component={UpdateSkillsCard}
-            />
-            <Stack.Screen
-                name="UpdateOneSkills"
-                component={UpdateOneSkills}
-            />
-            <Stack.Screen
-                name="ProfileScreen"
-                component={ProfileScreen}
-            />
-            <Stack.Screen
-                name="ProfileCompanyScreen"
-                component={ProfileCompanyScreen}
-            />
-
-            <Stack.Screen
-                name="Analytics"
-                component={AnalyticsScreen}
-            />
-            <Stack.Screen
-                name="Cv"
-                component={Cv}
-            />
-            {/* <Stack.Screen
+      <Stack.Screen name="Analytics" component={AnalyticsScreen} />
+      <Stack.Screen name="Cv" component={Cv} />
+      {/* <Stack.Screen
                 name="Connections"
                 component={Connections}
             /> */}
-            <Stack.Screen
-                name="Reels"
-                component={ReelsScreen}
-            />
-            <Stack.Screen
-                name="CreateVideo"
-                component={CreateVideo}
-            />
-            <Stack.Screen
-                name="CreateVoice"
-                component={CreateVoice}
-            />
-            <Stack.Screen
-                name="AddPhoto"
-                component={AddPhoto}
-            />
-            <Stack.Screen
-                name='CreateVideo2'
-                component={CreateVideo2}
-            />
-            <Stack.Screen
-                name="CreatePhoto2"
-                component={CreatePhoto2}
-            />
-            <Stack.Screen
-                name='CreatePull'
-                component={CreatePull}
-            />
-            <Stack.Screen
-                name='CV'
-                component={CV}
-            />
-            <Stack.Screen
-                name='Location'
-                component={Location}
-            />
-            <Stack.Screen
-                name='CreatePollLink'
-                component={CreatePollLink}
-            />
-            <Stack.Screen
-                name='TagPeople'
-                component={TagPeople}
-            />
-            <Stack.Screen
-                name='SearchPeople'
-                component={SearchPeople}
-            />
-            <Stack.Screen
-                name='MyVideoCV'
-                component={MyVideoCV}
-            />
-            <Stack.Screen
-                name='CreateShareLink'
-                component={CreateShareLink}
-            />
-            <Stack.Screen
-                name='Market'
-                component={Market}
-            />
-            <Stack.Screen
-                name='ExterinalLinks'
-                component={ExterinalLinks}
-            />
-            <Stack.Screen
-                name='MYPolls'
-                component={MYPolls}
-            />
-            <Stack.Screen
-                name='HealthProfile'
-                component={HealthProfile} />
-            <Stack.Screen
-                name='Search'
-                component={SearchScreen}
-            />
-            <Stack.Screen
-                name='JobOpportunity'
-                component={JobOpportunity}
-            />
-            <Stack.Screen
-                name='Form2'
-                component={Form2}
-            />
+      <Stack.Screen name="Reels" component={ReelsScreen} />
+      <Stack.Screen name="CreateVideo" component={CreateVideo} />
+      <Stack.Screen name="CreateVoice" component={CreateVoice} />
+      <Stack.Screen name="AddPhoto" component={AddPhoto} />
+      <Stack.Screen name="CreateVideo2" component={CreateVideo2} />
+      <Stack.Screen name="CreatePhoto2" component={CreatePhoto2} />
+      <Stack.Screen name="CreatePull" component={CreatePull} />
+      <Stack.Screen name="CV" component={CV} />
+      <Stack.Screen name="Location" component={Location} />
+      <Stack.Screen name="CreatePollLink" component={CreatePollLink} />
+      <Stack.Screen name="TagPeople" component={TagPeople} />
+      <Stack.Screen name="SearchPeople" component={SearchPeople} />
+      <Stack.Screen name="MyVideoCV" component={MyVideoCV} />
+      <Stack.Screen name="CreateShareLink" component={CreateShareLink} />
+      <Stack.Screen name="Market" component={Market} />
+      <Stack.Screen name="ExterinalLinks" component={ExterinalLinks} />
+      <Stack.Screen name="MYPolls" component={MYPolls} />
+      <Stack.Screen name="HealthProfile" component={HealthProfile} />
+      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="JobOpportunity" component={JobOpportunity} />
+      <Stack.Screen name="Form2" component={Form2} />
 
-            <Stack.Screen
-                name='JobDetails'
-                component={JobDetailsScreen}
-            />
-              <Stack.Screen
-                name='MyJob'
-                component={MyJob}
-            />
-             <Stack.Screen
-                name='JobDescraption'
-                component={JobDescraption}
-            />
-              <Stack.Screen
-                name='UpdateExterinalLinks'
-                component={UpdateExterinalLinks}
-            />
-             <Stack.Screen
-                name='UpdateCV'
-                component={UpdateCV}
-            />
-             <Stack.Screen
-                name='MyJobToJobSeeker'
-                component={MyJobToJobSeeker}
-            />
-             <Stack.Screen
-                name='ApplayForJob'
-                component={ApplayForJob}
-            />
-            <Stack.Screen
-                name='SecondApplayPage'
-                component={SecondApplayPage}
-            />
-              <Stack.Screen
-                name='JobOpportunityCompany'
-                component={JobOpportunityCompany}
-            />
-              <Stack.Screen
-                name='PreviewJob'
-                component={PreviewJob}
-            />
-              <Stack.Screen
-                name='Form2JobOpportunity'
-                component={Form2JobOpportunity}
-            />
-        </Stack.Navigator>
-    );
+      <Stack.Screen name="JobDetails" component={JobDetailsScreen} />
+      <Stack.Screen name="MyJob" component={MyJob} />
+      <Stack.Screen name="JobDescraption" component={JobDescraption} />
+      <Stack.Screen
+        name="UpdateExterinalLinks"
+        component={UpdateExterinalLinks}
+      />
+      <Stack.Screen name="UpdateCV" component={UpdateCV} />
+      <Stack.Screen name="MyJobToJobSeeker" component={MyJobToJobSeeker} />
+      <Stack.Screen name="ApplayForJob" component={ApplayForJob} />
+      <Stack.Screen name="SecondApplayPage" component={SecondApplayPage} />
+      <Stack.Screen
+        name="JobOpportunityCompany"
+        component={JobOpportunityCompany}
+      />
+      <Stack.Screen name="PreviewJob" component={PreviewJob} />
+      <Stack.Screen
+        name="Form2JobOpportunity"
+        component={Form2JobOpportunity}
+      />
+      <Stack.Screen name="ThirdApplayPage" component={ThirdApplayPage} />
+      <Stack.Screen name="FourthApplayPage" component={FourthApplayPage} />
+      <Stack.Screen name="FifthApplayPage" component={FifthApplayPage} />
+      <Stack.Screen name="SixApplayPage" component={SixApplayPage} />
+      <Stack.Screen name="SavedJob" component={SavedJob} />
+      <Stack.Screen name="ApplicationsJob" component={ApplicationsJob} />
+      <Stack.Screen name="Assignment" component={Assignment} />
+      <Stack.Screen
+        name="JobDescraptionCompany"
+        component={JobDescraptionCompany}
+      />
+      <Stack.Screen name="ReviewUser" component={ReviewUser} />
+      <Stack.Screen name="ShortedList" component={ShortedList} />
+      <Stack.Screen name="WatingList" component={WatingList} />
+      <Stack.Screen
+        name="EmployeeAppliedList"
+        component={EmployeeAppliedList}
+      />
+      <Stack.Screen name="RejectedList" component={RejectedList} />
+    </Stack.Navigator>
+  );
 };
 
 export default AppStack;
