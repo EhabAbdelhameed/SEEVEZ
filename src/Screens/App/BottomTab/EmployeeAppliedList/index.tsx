@@ -32,7 +32,7 @@ import Header from './components/Header';
 import {appSizes} from 'theme/appSizes';
 
 const EmployeeAppliedList = (props: any) => {
-  // const {id,title,subTitle}: any = useRoute().params;
+  const {id}: any = useRoute().params;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const ListUsers = useAppSelector(selectListUsers);
@@ -48,7 +48,11 @@ const EmployeeAppliedList = (props: any) => {
   const {t, i18n} = useTranslation();
   React.useEffect(() => {
     setLoad(true);
-    dispatch(AppThunks.doGetListedUser(0)).then(() => setLoad(false));
+    let obj={
+      job_id:id,
+      status:0
+    }
+    dispatch(AppThunks.doGetListedUser(obj)).then(() => setLoad(false));
   }, []);
   return (
     <SafeAreaView

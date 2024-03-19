@@ -326,6 +326,7 @@ interface appState {
   ListedUsers:any;
   myJobJobSeeker: any;
   mySavedJob: any;
+  myApplicationJob:any;
 
 }
 
@@ -660,6 +661,8 @@ export const initialState: appState = {
   ListedUsers:[],
   myJobJobSeeker:null,
   mySavedJob: [],
+  myApplicationJob:[],
+
 
   //   Search: [],
 

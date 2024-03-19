@@ -11,13 +11,15 @@ import Users from './Users';
 import {appColors} from 'theme';
 const data = [1, 2, 3, 4, 5, 6];
 
-const ContainerUsers = ({setLoad}: {setLoad?: any}) => {
+const ContainerUsers = ({setLoad,data}: {setLoad?: any,data:any}) => {
+  // console.log("data",JSON.stringify(data))
   const [seeAll, setSeeAll] = useState(false);
   return (
     <View>
-      <JobAnaltics />
+      <JobAnaltics AnalticsData={data?.analytics} />
 
       <View style={[styles.containerUsers]}>
+        {data?.applied_users?.length!=0?
         <View
           style={[styles.container2Users, {paddingBottom: 20, width: '100%'}]}>
           <View style={{paddingHorizontal: 20, paddingVertical: 8}}>
@@ -31,8 +33,8 @@ const ContainerUsers = ({setLoad}: {setLoad?: any}) => {
               Employee applied for this job
             </Text>
           </View>
-          {data?.map((Exp: any, index: any) =>
-            seeAll ? <Users /> : index < 3 ? <Users /> : null,
+          {data?.applied_users?.map((Exp: any, index: any) =>
+            seeAll ? <Users item={Exp} /> : index < 3 ? <Users item={Exp}/> : null,
           )}
           <View
             style={{
@@ -71,10 +73,10 @@ const ContainerUsers = ({setLoad}: {setLoad?: any}) => {
           </TouchableOpacity>
 
           {/* </View> */}
-        </View>
+        </View>:null}
       </View>
-      <View style={styles.containerUsers}>
-        <View style={styles.container2Users}>
+      <View style={[styles.containerUsers]}>
+        <View style={[styles.container2Users,{flex:1}]}>
           <UserSection />
         </View>
       </View>

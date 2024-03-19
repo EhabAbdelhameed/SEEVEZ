@@ -29,7 +29,7 @@ const ContainerUsers = ({data, loading}: {data: any[]; loading: boolean}) => {
           <View
             style={{height:'100%'}}>
           <FlatList
-            data={data.slice(0, 3)}
+            data={data}
             contentContainerStyle={{rowGap: 10}}
             renderItem={renderItem}
           />

@@ -1865,7 +1865,7 @@ const doGetListedUser: any = createAsyncThunk<any, any, any>(
   'app/listUser',
   async (data, thunkApi: any) => {
     try {
-      const response = await AppAPI.List(data);
+      const response = await AppAPI.List(data?.status,data?.job_id);
       console.log(JSON.stringify(response?.data))
       if (
         response.status == null ||
@@ -1985,6 +1985,31 @@ const doGetMySavedJob: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//doGetMyApplicationJob
+const doGetMyApplicationJob: any = createAsyncThunk<any, any, any>(
+  'app/MyApplicationJob',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.getApplicationJob();
+      // alert(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 const AppThunks = {
   doAddSkills,
   GetAccessToken,
@@ -2064,7 +2089,8 @@ const AppThunks = {
   doGetJobDescraptionJobSeeker,
   doSaveJob,
   doUnSaveJob,
-  doGetMySavedJob
+  doGetMySavedJob,
+  doGetMyApplicationJob
 };
 
 export default AppThunks;

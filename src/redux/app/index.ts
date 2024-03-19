@@ -1784,6 +1784,11 @@ const slice = createSlice({
       // console.log("QuestionsFFF:",action?.payload?.data)
       state.mySavedJob = action?.payload?.data;
     });
+     //doGetMyApplicationJob
+     builder.addCase(thunks.doGetMyApplicationJob.fulfilled, (state, action) => {
+      // console.log("QuestionsFFF:",action?.payload?.data)
+      state.myApplicationJob = action?.payload?.data;
+    });
   },
 });
 
@@ -1834,6 +1839,8 @@ export const selectJobQuestions = (state: RootState) => state.app.jobQuestions;
 export const selectListedUser = (state: RootState) => state.app.ListedUsers;
 export const selectMyJobJobSeeker = (state: RootState) => state.app.myJobJobSeeker;
 export const selectMySavedJob = (state: RootState) => state.app.mySavedJob;
+export const selectMyApplicationJob = (state: RootState) => state.app.myApplicationJob;
+
 
 const AppSlice = {
   slice,

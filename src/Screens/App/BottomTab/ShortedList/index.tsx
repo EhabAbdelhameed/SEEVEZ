@@ -32,7 +32,7 @@ import Header from './components/Header';
 import {appSizes} from 'theme/appSizes';
 
 const ShortedList = (props: any) => {
-  // const {id,title,subTitle}: any = useRoute().params;
+  const {id}: any = useRoute().params;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const ListUsers = useAppSelector(selectListUsers);
@@ -49,7 +49,11 @@ const ShortedList = (props: any) => {
   const {t, i18n} = useTranslation();
   React.useEffect(() => {
     setLoad(true);
-    dispatch(AppThunks.doGetListedUser(4)).then(() => setLoad(false));
+    let obj={
+      job_id:id,
+      status:4
+    }
+    dispatch(AppThunks.doGetListedUser(obj)).then(() => setLoad(false));
   }, []);
 
   return (

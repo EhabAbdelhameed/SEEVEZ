@@ -33,6 +33,7 @@ import {appSizes} from 'theme/appSizes';
 
 const RejectedList = (props: any) => {
   // const {id,title,subTitle}: any = useRoute().params;
+  const {id}: any = useRoute().params;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
  
@@ -48,7 +49,11 @@ const RejectedList = (props: any) => {
   const {t, i18n} = useTranslation();
   React.useEffect(() => {
     setLoad(true);
-    dispatch(AppThunks.doGetListedUser(2)).then(() => setLoad(false));
+    let obj={
+      job_id:id,
+      status:2
+    }
+    dispatch(AppThunks.doGetListedUser(obj)).then(() => setLoad(false));
   }, []);
 
   return (

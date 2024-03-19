@@ -13,15 +13,16 @@ import {useNavigation} from '@react-navigation/native';
 import {appSizes} from 'theme';
 
 const Users = ({item}: {item?: any}) => {
+  console.log("1",item)
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const [count, setCount] = React.useState(0);
 
-  React.useEffect(() => {
-    dispatch(AppThunks.doGetFollowers(item?.user_id)).then((res: any) => {
-      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(AppThunks.doGetFollowers(item?.user_id)).then((res: any) => {
+  //     setCount(res?.payload?.data?.followCounts[0]?.followerCount);
+  //   });
+  // }, []);
 
   return (
     <TouchableOpacity
@@ -31,7 +32,7 @@ const Users = ({item}: {item?: any}) => {
       }}
       style={styles.containerUserSection}>
       <View style={globalStyles.leftHeaderContainer}>
-        {item?.avatar == null ? (
+        {item?.users?.avatar == null ? (
           <View
             style={{
               width: 62,
@@ -51,19 +52,19 @@ const Users = ({item}: {item?: any}) => {
         <View style={{rowGap: 3}}>
           <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
             <Text style={styles.UserName} numberOfLines={1}>
-              Charlie ekstrom
+              {item?.users?.name}
             </Text>
           </View>
           <Text style={[styles.work, {fontSize: 11}]}>
-            Ui Ux designer at microssoft
+          {item?.users?.job_title}
           </Text>
           <View
             style={[
               styles.followersContainer,
-              {width: 100, paddingVertical: 2},
+              {width: 120, paddingVertical: 2},
             ]}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {count >= 1000 ? `${count / 1000}k` : count} {'Followers'}
+              {item?.users?.number_of_followers >= 1000 ? `${item?.users?.number_of_followers / 1000}k` : item?.users?.number_of_followers} {'Followers'}
             </Text>
           </View>
         </View>

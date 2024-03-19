@@ -28,14 +28,15 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const handleSavePress = () => {
     const formdata = new FormData();
     if (isSaved) {
-      
-      dispatch(AppThunks.doUnSaveJob(item?.id));
+      console.log("UnSave")
+      // dispatch(AppThunks.doUnSaveJob(item?.id));
     } else {
       formdata.append('job_id',item?.id);
-      console.log(JSON.stringify(formdata))
-      dispatch(AppThunks.doSaveJob(item?.id));
+    
+      dispatch(AppThunks.doSaveJob(formdata));
+        setIsSaved(!isSaved); 
+
     }
-    setIsSaved(!isSaved); 
   };
   const getdate = () => {
     const startDate: Date = new Date(item?.created_at);

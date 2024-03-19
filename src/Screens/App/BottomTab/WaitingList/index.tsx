@@ -33,7 +33,7 @@ import {appSizes} from 'theme/appSizes';
 import Header from './components/Header';
 
 const WatingList = (props: any) => {
-  // const {id,title,subTitle}: any = useRoute().params;
+  const {id}: any = useRoute().params;
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const ListUsers = useAppSelector(selectListUsers);
@@ -43,14 +43,18 @@ const WatingList = (props: any) => {
   const ListedUser = useAppSelector(selectListedUser)
 
 
-  console.log("dfc2 : ",ListedUser)
+ 
 
   const lang = useSelector(selectLang);
 
   const {t, i18n} = useTranslation();
   React.useEffect(() => {
     setLoad(true);
-    dispatch(AppThunks.doGetListedUser(3)).then(() => setLoad(false));
+    let obj={
+      job_id:id,
+      status:3
+    }
+    dispatch(AppThunks.doGetListedUser(obj)).then(() => setLoad(false));
   }, []);
 
   return (

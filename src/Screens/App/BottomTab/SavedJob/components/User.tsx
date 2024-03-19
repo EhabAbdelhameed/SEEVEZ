@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {styles} from '../styles';
 import {globalStyles} from '../../../../../globalStyle';
 import {dummyAvatar} from '../../../../../Dummy';
@@ -24,14 +24,17 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const lang = useSelector(selectLang);
   const User = useSelector(selectUser);
   const [isSaved, setIsSaved] = React.useState(false);
-
+  const [load, setLoading] = useState(false);
   const {t, i18n} = useTranslation();
-  const handleSavePress = () => {
-    // if (isSaved) {
-    //   dispatch(AppThunks.doUnsaveJob(item?.id));
-    // } else {
-    //   dispatch(AppThunks.doSaveJob(item?.id));
-    // }
+  const handleUnSavePress = () => {
+    setLoading(true)
+    dispatch(AppThunks.doUnSaveJob(item?.save_id)).then((res: any) => {
+
+      dispatch(AppThunks.doGetMySavedJob()).then((res: any) => {
+        setLoading(false)
+      });
+    });
+
     setIsSaved(!isSaved);
   };
   const getdate = () => {
@@ -81,24 +84,24 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
       }
     }
   };
-  React.useEffect(() => {
-    dispatch(AppThunks.doGetFollowers(item?.userId)).then((res: any) => {
-      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
-      setLoad(false);
-    });
-  }, []);
+
   const swipeoutBtns = [
-  
     {
       text: 'Unsave',
       component: (
         <TouchableOpacity
+          disabled={load}
+          onPress={handleUnSavePress}
           style={{
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: 20,
           }}>
-          <UnSave />
+          {load ? (
+            <ActivityIndicator color={'red'} size={'small'} />
+          ) : (
+            <UnSave />
+          )}
           <Text
             style={{
               fontSize: 14,
@@ -166,14 +169,20 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
                   {item?.job_title}
                 </Text>
               </View>
-              <TouchableOpacity onPress={handleSavePress}>
+              <TouchableOpacity>
                 <SaveJobFill width={20} height={20} />
-              </TouchableOpacity>  
+              </TouchableOpacity>
             </View>
             <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
-              <Text style={styles.work}>{item?.users?.name}</Text>
-              <Text style={styles.work}>{item?.job_location}</Text>
-              <Text style={[styles.work, {color: '#00BBB6'}]}>{getdate()}</Text>
+              <Text style={[styles.work, {fontSize: 10}]}>
+                {item?.users?.name}
+              </Text>
+              <Text style={[styles.work, {fontSize: 10}]}>
+                {item?.job_location}
+              </Text>
+              <Text style={[styles.work, {color: '#00BBB6', fontSize: 10}]}>
+                {getdate()}
+              </Text>
             </View>
             <View style={{flexDirection: 'row', columnGap: 10}}>
               {!item?.job_types?.name ? null : (

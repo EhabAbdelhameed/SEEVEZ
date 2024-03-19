@@ -38,6 +38,53 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const [visable, setVisable] = useState(false);
 
   const navigation = useNavigation<any>();
+  const getdate = () => {
+    const startDate: Date = new Date(item?.created_at);
+    const currentDate: Date = new Date();
+
+    const timeDifferenceInMilliseconds: number =
+      currentDate.getTime() - startDate.getTime();
+
+    // Calculate total hours
+    let totalHours: number = timeDifferenceInMilliseconds / (1000 * 60 * 60);
+    let totalDays: number = totalHours / 24;
+    let totalMonths: number = totalDays / 30;
+    let totalYears: number = totalMonths / 12;
+    if (totalHours < 24) {
+      return parseInt(totalHours.toString()) + ' hours ago';
+    }
+    // Calculate total days
+    if (totalHours >= 24 && totalDays < 30) {
+      totalDays = totalHours / 24;
+      if (totalDays < 2) {
+        return parseInt(totalDays.toString()) + ' day ago';
+      } else {
+        return parseInt(totalDays.toString()) + ' days ago';
+      }
+    }
+
+    // Calculate total months
+    if (totalDays > 30 && totalMonths < 12) {
+      totalMonths = totalDays / 30;
+
+      if (totalMonths < 2) {
+        return parseInt(totalMonths.toString()) + ' month ago';
+      } else {
+        return parseInt(totalMonths.toString()) + ' months ago';
+      }
+    }
+
+    // Calculate total years
+    if (totalMonths >= 12) {
+      totalYears = totalMonths / 12;
+
+      if (totalYears < 2) {
+        return parseInt(totalYears.toString()) + ' year ago';
+      } else {
+        return parseInt(totalYears.toString()) + ' years ago';
+      }
+    }
+  };
 
   React.useEffect(() => {
     dispatch(AppThunks.doGetFollowers(item?.userId)).then((res: any) => {
@@ -93,7 +140,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
             ]}>
             <View style={{width: '80%'}}>
               <Text style={styles.UserName} numberOfLines={1}>
-                {item?.job_title}
+                {item?.jobs?.job_title}
               </Text>
             </View>
             <TouchableOpacity
@@ -103,41 +150,86 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
             </TouchableOpacity>
           </View>
           <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
-            <Text style={styles.work}>{item?.users?.name}</Text>
-            <Text style={styles.work}>{item?.job_location}</Text>
+            <Text style={styles.work}>{item?.jobs?.users?.name}</Text>
+            <Text style={styles.work}>{item?.jobs?.job_location}</Text>
           </View>
           <View>
             <Text style={[styles.work, {color: '#494949'}]}>
-              applied 2 days ago
+              applied {getdate()}
             </Text>
           </View>
           <View style={{flexDirection: 'row', columnGap: 5}}>
-            {!item?.job_types?.name ? null : (
+            {!item?.jobs?.job_types?.name ? null : (
               <View style={styles.followersContainer}>
                 <Text style={[styles.text3, {color: appColors.blue2}]}>
-                  {item?.job_types?.name}
+                  {item?.jobs?.job_types?.name}
                 </Text>
               </View>
             )}
-            {!item?.work_type?.name ? null : (
+            {!item?.jobs?.work_type?.name ? null : (
               <View
                 style={[
                   styles.followersContainer,
                   {backgroundColor: '#E6FAFA'},
                 ]}>
                 <Text style={[styles.text3, {color: '#00928E'}]}>
-                  {item?.work_type?.name}
+                  {item?.jobs?.work_type?.name}
                 </Text>
               </View>
             )}
-            {!item?.work_type?.name ? null : (
+            {!item?.jobs?.job_types?.name ? null : (
               <View
                 style={[
                   styles.followersContainer,
-                  {backgroundColor: '#E6FAFA'},
+                  {
+                    backgroundColor:
+                      item?.status == 2
+                        ? '#FAE6E6'
+                        : item?.status == 0
+                        ? '#FDF7E6'
+                        : item.status == 3
+                        ? '#E8EFFC'
+                        : item.status == 4
+                        ? '#E6FAFA'
+                        : '#676767',
+                    borderWidth: 1,
+                    borderColor:
+                      item?.status == 2
+                        ? '#F0B0B0'
+                        : item?.status == 0
+                        ? '#F8E5B0'
+                        : item.status == 3
+                        ? '#B9CDF4'
+                        : item.status == 4
+                        ? '#B0F0EE'
+                        : '#494949',
+                  },
                 ]}>
-                <Text style={[styles.text3, {color: '#00928E'}]}>
-                  Shortlisted
+                <Text
+                  style={[
+                    styles.text3,
+                    {
+                      color:
+                        item?.status == 2
+                          ? '#ED3C3C'
+                          : item?.status == 0
+                          ? '#A57900'
+                          : item.status == 3
+                          ? '#15439D'
+                          : item.status == 4
+                          ? '#00928E'
+                          : '#DCDCDC',
+                    },
+                  ]}>
+                  {item?.status == 2
+                    ? 'Rejected'
+                    : item?.status == 0
+                    ? 'Pending'
+                    : item.status == 3
+                    ? 'Waiting list'
+                    : item.status == 4
+                    ? 'Shortlisted'
+                    : 'Closed'}
                 </Text>
               </View>
             )}

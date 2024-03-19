@@ -37,6 +37,7 @@ const JobDescraptionCompany = (props: any) => {
   const ListUsers = useAppSelector(selectListUsers);
   const [load, setLoad] = React.useState(false);
   const MyJob = useAppSelector(selectOneJob);
+  // console.log(id)
 
   const lang = useSelector(selectLang);
 
@@ -65,7 +66,7 @@ const JobDescraptionCompany = (props: any) => {
           {load ? (
             <ActivityIndicator size={50} style={{marginTop: 300}} />
           ) : (
-            <ContainerUsers />
+            <ContainerUsers data={MyJob}/>
           )}
         </KeyboardAwareScrollView>
       </View>

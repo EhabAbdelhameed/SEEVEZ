@@ -18,6 +18,7 @@ import {
   selectJobSeeker,
   selectListUsers,
   selectRecuriters,
+  selectMyApplicationJob,
 } from 'src/redux/app';
 import FooterSection from './components/footerPagaination';
 import {appColors} from 'theme';
@@ -29,16 +30,16 @@ const ApplicationsJob = (props: any) => {
   const dispatch = useAppDispatch();
   const ListUsers = useAppSelector(selectListUsers);
 
-  const InternshipsJobs = useAppSelector(selectInternshipsJobs);
+  const InternshipsJobs = useAppSelector(selectMyApplicationJob);
 
-  // console.log("Recommanded",JSON.stringify(InternshipsJobs))
+  console.log("MyApplicationJob",JSON.stringify(InternshipsJobs))
 
   const [isLoadingRecuriter, setIsloadingRecuriter] = useState(false);
   const navigation = useNavigation<any>();
   React.useEffect(() => {
     setIsloadingRecuriter(true);
 
-    dispatch(AppThunks.doGetInternshipsJobs()).then(() =>
+    dispatch(AppThunks.doGetMyApplicationJob()).then(() =>
       setIsloadingRecuriter(false),
     );
   }, []);

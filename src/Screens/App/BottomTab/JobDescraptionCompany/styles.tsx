@@ -45,13 +45,14 @@ export const styles = StyleSheet.create({
     containerUsers: {
         // width: "100%",
         alignItems: "flex-start",
+        // backgroundColor:'#FFF',
         // paddingHorizontal: appSizes.padding_m,
         paddingVertical: 7,
         rowGap: 10
     },
     container2Users: {
         // width: "100%",
-        borderRadius: appSizes.x,
+        borderRadius: 16,
         backgroundColor: appColors.white,
         // padding: appSizes.m,
       
