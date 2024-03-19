@@ -65,7 +65,7 @@ const FifthApplayPage = () => {
               Additional Questions
             </Text>
             <Formik
-              initialValues={{About: ''}}
+              initialValues={{first: '',second:'',third:''}}
               onSubmit={values => {
                 // navigation.navigate("ResetPassword")
               }}>
@@ -100,7 +100,7 @@ const FifthApplayPage = () => {
               </Text>
               <CustomInput
                 {...props}
-                Label={'first'}
+                Label={'second'}
                 placeholder="Write here.."
               />
               <Text
@@ -116,7 +116,7 @@ const FifthApplayPage = () => {
               </Text>
               <CustomInput
                 {...props}
-                Label={'first'}
+                Label={'third'}
                 placeholder="Write here.."
               />
                     </>

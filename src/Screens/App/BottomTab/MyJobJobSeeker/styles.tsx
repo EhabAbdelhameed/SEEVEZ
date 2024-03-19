@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
         fontWeight: '500'
     },
     work: {
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: "400",
         color: appColors.dark
     },

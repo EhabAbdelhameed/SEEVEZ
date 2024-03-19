@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     flexBasis: 'auto',
-    justifyContent: 'space-between',
+    // justifyContent: 'center',
     flexDirection: 'row',
     paddingHorizontal: 20,
     // alignItems: '',
-    marginVertical: appSizes.x,
+    marginVertical: 20,
     marginBottom: appSizes.height * 0.07,
     backgroundColor: appColors.bg,
   },

@@ -89,6 +89,15 @@ const recommandedJobs = () => api.get(`company/job-opportunity/recommended`)
 const JobOpportunity = (data: any) => api.post(`company/job-opportunity/create`, data);
 const InternshipOpportunity = (data: any) => api.post(`company/job-opportunity/create/intern`, data);
 
+const JobQuestions = (id: any) => api.get(`company/job/question/?job_id=${id}`);
+const Applay = (data: any) => api.post(`company/job/question/apply`, data);
+const List = (status: any) => api.get(`company/status/list?job_id=29&status=${status}`);
+const jobDescJobSeeker = (id:number) => api.get(`job-seeker/show/job-opportunity/${id}`)
+
+const saveJob = (data: any) => api.post(`company/job-opportunity/save`, data);
+const unSaveJob = (id: any) => api.get(`company/job-opportunity/unsaved?save_id=${id}`);
+const getSavedJob = () => api.get(`company/job-opportunity/saved`);
+
 
 /////////////////////////////////end////////////////////////////////////////
 // const home = (data: any) => api.get(`home?${data}`)
@@ -167,7 +176,14 @@ const AppAPI = {
   dropDownSkills,
   recommandedJobs,
   JobOpportunity,
-  InternshipOpportunity
+  InternshipOpportunity,
+  JobQuestions,
+  Applay,
+  List,
+  jobDescJobSeeker,
+  saveJob,
+  unSaveJob,
+  getSavedJob
 };
 
 export default AppAPI;

@@ -9,7 +9,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {globalStyles} from '../../../../globalStyle';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch, useAppSelector} from 'src/redux/store';
-import {
+import AppSlice, {
   selectCompaniesUser,
   selectFollowingList,
   selectFreelancerJobs,
@@ -32,7 +32,7 @@ const MyJobToJobSeeker = (props: any) => {
   const FreelancerJobs = useAppSelector(selectFreelancerJobs);
   const InternshipsJobs = useAppSelector(selectInternshipsJobs);
   const RecommandedJobs = useAppSelector(selectRecommandedJobs);
-// console.log("Recommanded",JSON.stringify(InternshipsJobs))
+// console.log("Recommanded",JSON.stringify(FreelancerJobs))
   const [isLoadingJobSeeker, setIsloadingJobSeeker] = useState(false);
   const [isLoadingRecuriter, setIsloadingRecuriter] = useState(false);
   const [isLoadingCompany, setIsloadingCompany] = useState(false);
@@ -40,7 +40,7 @@ const MyJobToJobSeeker = (props: any) => {
     setIsloadingJobSeeker(true);
     setIsloadingRecuriter(true);
     setIsloadingCompany(true);
-
+    dispatch(AppSlice.changeDone(false));
     dispatch(AppThunks.doGetFollowingList());
     dispatch(AppThunks.doGetListUsers());
     dispatch(AppThunks.doGetFreelancerJobs()).then(() =>
@@ -114,13 +114,13 @@ const MyJobToJobSeeker = (props: any) => {
           keyboardShouldPersistTaps={'handled'}
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}>
-          {/* {RecommandedJobs == null || RecommandedJobs?.length == 0 ? null : ( */}
+          {RecommandedJobs == null || RecommandedJobs?.length == 0 ? null : (
             <ContainerUsers
               title="Recommended for you"
               data={RecommandedJobs}
               loading={isLoadingCompany}
             />
-          {/* )} */}
+        )} 
           {InternshipsJobs == null || InternshipsJobs?.length == 0 ? null : (
             <ContainerUsers
               title="Internship opportunity"

@@ -51,14 +51,14 @@ const HeaderAfter = ({
           dispatch(AppThunks.doGetJobDescraption(id)).then(() =>
             setLoad(false),
           );
-          setLoad(false);
+         
         })
       : dispatch(AppThunks.doUnFollowUser(MyJob?.users?.id)).then(() => {
           dispatch(AppThunks.doGetFollowingList());
           dispatch(AppThunks.doGetJobDescraption(id)).then(() =>
             setLoad(false),
           );
-          setLoad(false);
+        
         });
   };
   return (

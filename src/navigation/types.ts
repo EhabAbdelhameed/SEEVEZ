@@ -103,6 +103,7 @@ export type AppParamsList = {
     WatingList:undefined;
     EmployeeAppliedList:undefined;
     RejectedList:undefined;
+    DynamicQuestionsComponent:undefined;
 }
 export type RootParamsList = {
     auth: any;

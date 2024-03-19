@@ -29,7 +29,7 @@ import Formick from './Formick';
 import {appColors, appSizes} from 'theme';
 import Button from 'components/molecules/Button';
 
-const FourthApplayPage = () => {
+const FourthApplayPage = (questions:any) => {
   // console.log(CurrentUserData)
   const User = useSelector(selectUser);
   const navigation = useNavigation<any>();

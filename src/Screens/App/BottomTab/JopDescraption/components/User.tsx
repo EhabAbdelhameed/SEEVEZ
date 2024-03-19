@@ -173,8 +173,8 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         <View style={{width: '80%'}}>
           <Button
             style={{height: 62}}
-            text={'Apply for job'}
-            onPress={() =>navigate('ApplayForJob')
+            text={'Apply for job'} 
+            onPress={() =>navigate('ApplayForJob',{id:MyJob?.id})
               // MyJob?.email != null
               //   ? handleEmailPress()
               //   : Linking.openURL(MyJob?.external_link)

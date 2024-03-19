@@ -26,12 +26,15 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
 
   const {t, i18n} = useTranslation();
   const handleSavePress = () => {
-   
-    // if (isSaved) {
-    //   dispatch(AppThunks.doUnsaveJob(item?.id));
-    // } else {
-    //   dispatch(AppThunks.doSaveJob(item?.id));
-    // }
+    const formdata = new FormData();
+    if (isSaved) {
+      
+      dispatch(AppThunks.doUnSaveJob(item?.id));
+    } else {
+      formdata.append('job_id',item?.id);
+      console.log(JSON.stringify(formdata))
+      dispatch(AppThunks.doSaveJob(item?.id));
+    }
     setIsSaved(!isSaved); 
   };
   const getdate = () => {

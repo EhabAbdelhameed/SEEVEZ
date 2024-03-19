@@ -53,7 +53,7 @@ const RecruiterHeader = ({
         ).then(() => {
             dispatch(AppThunks.doGetFollowingList());
             dispatch(AppThunks.doGetJobDescraption(id)).then(() =>setLoad(false))
-          setLoad(false);
+         
         })
       : dispatch(
           AppThunks.doUnFollowUser(
@@ -62,7 +62,7 @@ const RecruiterHeader = ({
         ).then(() => {
             dispatch(AppThunks.doGetFollowingList());
             dispatch(AppThunks.doGetJobDescraption(id)).then(() =>setLoad(false))
-          setLoad(false);
+         
         });
   };
   return (

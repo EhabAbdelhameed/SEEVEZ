@@ -9,7 +9,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
 import AuthSlice, {selectUser} from 'src/redux/auth';
-import AppSlice, {selectAccessToken} from 'src/redux/app';
+import AppSlice, {selectAccessToken, selectDone} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import ApplayHeader from './Header';
 import {StatusBar} from 'react-native';
@@ -27,12 +27,19 @@ import {appColors, appSizes} from 'theme';
 import Button from 'components/molecules/Button';
 import DocumentPicker from 'react-native-document-picker';
 const SecondApplayPage = () => {
+  const changeDone = useSelector(selectDone);
+  // console.log(changeDone)
+  useEffect(() => {
+    changeDone ? navigation.navigate('Bag') : null;
+  }, [changeDone]);
   // console.log(CurrentUserData)
-  const {data}: any = useRoute().params;
+  const {data, questions}: any = useRoute().params;
   // console.log(JSON.stringify(data))
+  const dispatch = useAppDispatch();
   const User = useSelector(selectUser);
   const navigation = useNavigation<any>();
   const [source, setSource] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
   const uploadFile = async () => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -49,18 +56,53 @@ const SecondApplayPage = () => {
       }
     }
   };
+
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
   }, []);
-  const navigateToNextPage =()=>{
-    let obj={
-      email:data?.email,
-      phone:data?.phone,
-      cv_pdf:source?.length!=0?User?.cv_pdf:source,
-    }
+  const navigateToNextPage = () => {
+   
+    let obj = {
+      job_id: data?.job_id,
+      email: data?.email,
+      phone: data?.phone,
+      cv_pdf: source?.length != 0 ? User?.cv_pdf : source,
 
-    navigation.navigate('ThirdApplayPage',{data:obj})
-  }
+      questions: questions,
+    };
+   
+      navigation.navigate('BasicPage', {data: obj});
+  
+  };
+  const submit = () => {
+    setLoading(true);
+        
+    const formdata = new FormData();
+    formdata.append('job_id', data?.job_id);
+    for (let i = 0; i < questions?.length; i++) {
+      if (i > 2) {
+        break;
+      } else {
+        formdata.append(`array[${i}][question_id]`, questions[i].id);
+        formdata.append(`array[${i}][type]`, questions[i].type);
+      }
+    }
+    formdata.append(`array[0][answer]`, data?.email);
+    formdata.append(`array[1][answer]`, data?.phone);
+    if (source?.length != 0) {
+      formdata.append('array[2][answer]', {
+        uri:source[0]?.uri,
+        type:source[0]?.type,
+        name:source[0]?.name,
+      });
+    } else {
+      formdata.append('array[2][answer]', User?.cv_pdf);
+    }
+    console.log(JSON.stringify(formdata));
+    dispatch(AppThunks.doApplayQuestion(formdata)).then((res: any) => {
+      setLoading(false);
+    });
+  };
   // console.log(JSON.stringify(User))
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
@@ -91,7 +133,7 @@ const SecondApplayPage = () => {
                 color: '#000',
                 fontWeight: '700',
               }}>
-              Upolad your CV
+              {questions[2]?.question}
             </Text>
             {User?.cv_pdf == null ? null : (
               <TouchableOpacity
@@ -137,24 +179,37 @@ const SecondApplayPage = () => {
               style={styles.InputStyleNoWidth1}>
               <UploadYourCv width={24} height={24} />
               <View>
-                {source?.length==0?
-                <Text
-                  numberOfLines={1}
-                  style={{fontSize: 20, color: appColors.primary}}>
-                  Upload file
-                </Text>: <Text
-                  numberOfLines={1}
-                  style={{fontSize: 20, color: appColors.primary}}>
-                  {source[0].name}
-                </Text>}
+                {source?.length == 0 ? (
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: 20, color: appColors.primary}}>
+                    Upload file
+                  </Text>
+                ) : (
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: 20, color: appColors.primary}}>
+                    {source[0].name}
+                  </Text>
+                )}
               </View>
             </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 11,
+                fontFamily: 'Noto Sans',
+                color: '#000',
+                fontWeight: '400',
+                // marginBottom: 10,
+              }}>
+              Upload files (Image, PDF, Video) max (2 MB)
+            </Text>
             <View
               style={{
                 height:
                   User?.cv_pdf == null
-                    ? appSizes.height * 0.45
-                    : appSizes.height * 0.33,
+                    ? appSizes.height * 0.43
+                    : appSizes.height * 0.31,
               }}
             />
             <View style={{flexDirection: 'row', columnGap: 10}}>
@@ -185,8 +240,9 @@ const SecondApplayPage = () => {
               </View>
               <View style={{width: '49%'}}>
                 <Button
-                  onPress={navigateToNextPage}
-                  text={'Next'}
+                  loading={loading}
+                  onPress={questions?.length == 3 ? submit : navigateToNextPage}
+                  text={questions?.length == 3 ? 'Submit' : 'Next'}
                 />
               </View>
             </View>

@@ -1810,7 +1810,181 @@ const doAddInternshipOpportunity: any = createAsyncThunk<any, any, any>(
     }
   },
 );
-
+//doGetJobQuestions
+const doGetJobQuestions: any = createAsyncThunk<any, any, any>(
+  'app/JobQuestions',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.JobQuestions(data);
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doGetJobQuestions
+const doApplayQuestion: any = createAsyncThunk<any, any, any>(
+  'app/ApplayQuestion',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.Applay(data);
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doGetListedUser
+const doGetListedUser: any = createAsyncThunk<any, any, any>(
+  'app/listUser',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.List(data);
+      console.log(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doGetJobDescraptionJobSeeker
+const doGetJobDescraptionJobSeeker: any = createAsyncThunk<any, any, any>(
+  'app/JobDescraptionJobSeeker',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.jobDescJobSeeker(data);
+      // alert(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doSaveJob
+const doSaveJob: any = createAsyncThunk<any, any, any>(
+  'app/SaveJob',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.saveJob(data);
+      // alert(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doUnSaveJob
+const doUnSaveJob: any = createAsyncThunk<any, any, any>(
+  'app/UnSaveJob',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.unSaveJob(data);
+      // alert(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doGetMySavedJob
+const doGetMySavedJob: any = createAsyncThunk<any, any, any>(
+  'app/getSavedJob',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.getSavedJob();
+      // alert(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 const AppThunks = {
   doAddSkills,
   GetAccessToken,
@@ -1883,7 +2057,14 @@ const AppThunks = {
   GetSkills,
   doGetRecommandedJobs,
   doAddJobOpportunity,
-  doAddInternshipOpportunity
+  doAddInternshipOpportunity,
+  doGetJobQuestions,
+  doApplayQuestion,
+  doGetListedUser,
+  doGetJobDescraptionJobSeeker,
+  doSaveJob,
+  doUnSaveJob,
+  doGetMySavedJob
 };
 
 export default AppThunks;

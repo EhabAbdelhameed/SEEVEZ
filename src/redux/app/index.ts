@@ -1609,7 +1609,6 @@ const slice = createSlice({
       saveMyJobToStorage(action.payload.data);
     });
     //doGetFreelancerJobs
-
     builder.addCase(thunks.doGetFreelancerJobs.fulfilled, (state, action) => {
       state.FreelancerJobs = action?.payload?.data;
     });
@@ -1677,6 +1676,114 @@ const slice = createSlice({
         }
       },
     );
+    //doGetJobQuestions
+
+    builder.addCase(thunks.doGetJobQuestions.fulfilled, (state, action) => {
+      // console.log("QuestionsFFF:",action?.payload?.data)
+      state.jobQuestions = action?.payload?.data;
+    });
+     //doApplayJob
+     builder.addCase(thunks.doApplayQuestion.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+      state.done = true;
+    });
+    builder.addCase(
+      thunks.doApplayQuestion.rejected,
+      (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      },
+    );
+      //doGetListedUser
+
+      builder.addCase(thunks.doGetListedUser.fulfilled, (state, action) => {
+        // console.log("QuestionsFFF:",action?.payload?.data)
+        state.ListedUsers = action?.payload?.data;
+      });
+    //doGetJobDescraptionJobSeeker
+    builder.addCase(thunks.doGetJobDescraptionJobSeeker.fulfilled, (state, action) => {
+      // console.log("EEHAHHAB",action.payload.data)
+      state.myJobJobSeeker = action.payload.data;
+      const saveMyJobToStorage = async (myJob: any) => {
+        try {
+          // Convert the followingList object to a JSON string
+          const MyJobJSON = JSON.stringify(myJob);
+          // Save the JSON string to AsyncStorage under the key 'FollowingList'
+          await AsyncStorage.setItem('MyJobDescreption', MyJobJSON);
+        } catch (error) {
+          console.error('Error saving FollowingList to AsyncStorage:', error);
+          // Handle error here, such as showing an alert to the user
+        }
+      };
+
+      // Call this function whenever you want to save the state to AsyncStorage
+      saveMyJobToStorage(action.payload.data);
+    });
+     //doSaveJob
+     builder.addCase(thunks.doSaveJob.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+      // state.done = true;
+    });
+    //doUnSaveJob
+    builder.addCase(
+      thunks.doSaveJob.rejected,
+      (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      },
+    );
+    builder.addCase(thunks.doUnSaveJob.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+      state.done = true;
+    });
+    builder.addCase(
+      thunks.doUnSaveJob.rejected,
+      (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      },
+    );
+    //doGetMySavedJob
+    builder.addCase(thunks.doGetMySavedJob.fulfilled, (state, action) => {
+      // console.log("QuestionsFFF:",action?.payload?.data)
+      state.mySavedJob = action?.payload?.data;
+    });
   },
 });
 
@@ -1723,6 +1830,10 @@ export const selectInternshipsJobs = (state: RootState) =>
 export const selectSkills = (state: RootState) => state.app.skills;
 export const selectRecommandedJobs = (state: RootState) =>
   state.app.RecommandedJobs;
+export const selectJobQuestions = (state: RootState) => state.app.jobQuestions;
+export const selectListedUser = (state: RootState) => state.app.ListedUsers;
+export const selectMyJobJobSeeker = (state: RootState) => state.app.myJobJobSeeker;
+export const selectMySavedJob = (state: RootState) => state.app.mySavedJob;
 
 const AppSlice = {
   slice,

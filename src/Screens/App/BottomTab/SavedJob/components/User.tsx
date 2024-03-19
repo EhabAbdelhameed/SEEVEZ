@@ -168,7 +168,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
               </View>
               <TouchableOpacity onPress={handleSavePress}>
                 <SaveJobFill width={20} height={20} />
-              </TouchableOpacity>
+              </TouchableOpacity>  
             </View>
             <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
               <Text style={styles.work}>{item?.users?.name}</Text>

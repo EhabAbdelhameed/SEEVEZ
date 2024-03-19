@@ -73,7 +73,7 @@ export const ResetSchema = Yup.object().shape({
   password: Yup.string().required('Please Enter your New password ').min(8, 'New password must be at least 8 numbers'),
   confirmPassword: Yup.string().required('Please Enter your Confirm password ').min(8, 'Confirm Password must be at least 8 numbers').oneOf([Yup.ref('password'), null], 'Passwords do not match'),
 });
-export const FirstApplay = Yup.object().shape({
+export const FirstApplaySchema = Yup.object().shape({
   email: Yup.string().email('E-mail must be valid').trim().min(8, 'Enter a valid e-mail').required('Please Enter your E-mail ').matches(EmailReg, 'Invalid e-mail'),
   phone: Yup.string().required('Please enter your Mobile number').matches(phoneRegExp, 'Invalid mobile number'),
 });

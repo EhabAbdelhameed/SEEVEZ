@@ -34,13 +34,13 @@ const ApplayHeader = () => {
               transform:
                 lang == 'ar' ? [{rotate: '180deg'}] : [{rotate: '0deg'}],
             }}
-            width={30}
-            height={30}
+            width={24}
+            height={24}
             color={appColors.primary}
           />
           <Text
             style={{
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: '700',
               fontFamily: 'Noto Sans',
               color: '#000',

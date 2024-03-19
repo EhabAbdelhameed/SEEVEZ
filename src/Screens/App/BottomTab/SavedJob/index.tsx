@@ -13,11 +13,12 @@ import {
   selectCompaniesUser,
   selectFollowingList,
   selectFreelancerJobs,
-  selectInternshipsJobs,
+
   selectRecommandedJobs,
   selectJobSeeker,
   selectListUsers,
   selectRecuriters,
+  selectMySavedJob,
 } from 'src/redux/app';
 import FooterSection from './components/footerPagaination';
 import {appColors} from 'theme';
@@ -29,17 +30,18 @@ const SavedJob = (props: any) => {
   const dispatch = useAppDispatch();
   const ListUsers = useAppSelector(selectListUsers);
   const navigation = useNavigation<any>();
-  const InternshipsJobs = useAppSelector(selectInternshipsJobs);
+  const mySavedJob = useAppSelector(selectMySavedJob);
+   
 
-  // console.log("Recommanded",JSON.stringify(InternshipsJobs))
+  // console.log("MySavedJob",JSON.stringify(mySavedJob))
 
-  const [isLoadingRecuriter, setIsloadingRecuriter] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
 
   React.useEffect(() => {
-    setIsloadingRecuriter(true);
+    setIsloading(true);
 
-    dispatch(AppThunks.doGetInternshipsJobs()).then(() =>
-      setIsloadingRecuriter(false),
+    dispatch(AppThunks.doGetMySavedJob()).then(() =>
+      setIsloading(false),
     );
   }, []);
 
@@ -110,10 +112,10 @@ const SavedJob = (props: any) => {
           keyboardShouldPersistTaps={'handled'}
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}>
-          {InternshipsJobs == null || InternshipsJobs?.length == 0 ? null : (
+          {mySavedJob == null || mySavedJob?.length == 0 ? null : (
             <ContainerUsers
-              data={InternshipsJobs}
-              loading={isLoadingRecuriter}
+              data={mySavedJob}
+              loading={isLoading}
             />
           )}
         </KeyboardAwareScrollView>

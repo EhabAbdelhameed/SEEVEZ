@@ -46,10 +46,7 @@ const UpdateAbout = () => {
 
     changeDone ? navigation.goBack() : null;
   }, [changeDone]);
-  const AccessToken = useSelector(selectAccessToken);
-  useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
+
   const lang = useSelector(selectLang);
   
   const {t, i18n} = useTranslation();

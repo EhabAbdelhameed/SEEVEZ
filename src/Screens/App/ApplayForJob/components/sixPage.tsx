@@ -27,7 +27,7 @@ import {
   UploadYourCv,
 } from 'assets/Svgs';
 import UserHeader from './UserHeader';
-
+import * as Yup from 'yup';
 import {appColors, appSizes} from 'theme';
 import Button from 'components/molecules/Button';
 import {Formik} from 'formik';
@@ -37,8 +37,8 @@ const SixApplayPage = () => {
   // console.log(CurrentUserData)
   const User = useSelector(selectUser);
   const navigation = useNavigation<any>();
-  const data = ['Yes', 'No'];
-  
+  const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -71,50 +71,56 @@ const SixApplayPage = () => {
               Additional Questions
             </Text>
             <Formik
-              initialValues={{About: ''}}
+              initialValues={{expectedSalary: '', portfolio_link: ''}}
+              validationSchema={Yup.object().shape({
+                portfolio_link: Yup.string().trim().matches(urlPattern, 'Must be a portfolio link'),
+              })}
               onSubmit={values => {
+
                 // navigation.navigate("ResetPassword")
               }}>
-                {(props: any) => (
-              <>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontFamily: 'Noto Sans',
-                  color: '#000',
-                  fontWeight: '400',
-                  marginTop: 10,
-                  marginBottom:10,
-                }}>
-                What are your salary expectations?
-              </Text>
-              <CustomInput
-                {...props}
-                Label={'first'}
-                placeholder="Write here.."
-              />
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontFamily: 'Noto Sans',
-                  color: '#000',
-                  fontWeight: '400',
-                  marginTop: 10,
-                  marginBottom:10,
-                }}>
-               Portfolio link
-              </Text>
-              <CustomInput
-                {...props}
-                Label={'first'}
-                placeholder="Write here.."
-              />
-             
-                    </>
-              )}
-            </Formik>
-
-            <View style={{height: appSizes.height * 0.28}} />
+              {(props: any) => (
+                <>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: 'Noto Sans',
+                      color: '#000',
+                      fontWeight: '400',
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}>
+                    What are your salary expectations?
+                  </Text>
+                  <CustomInput
+                    {...props}
+                    Label={'expectedSalary'}
+                    placeholder="Write here.."
+                    keyboardType='number-pad'
+                  />
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: 'Noto Sans',
+                      color: '#000',
+                      fontWeight: '400',
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}>
+                    Portfolio link
+                  </Text>
+                  <CustomInput
+                    {...props}
+                    Label={'portfolio_link'}
+                    placeholder="Write here.."
+                  />
+                   {props?.errors.portfolio_link && props?.touched.portfolio_link ? (
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
+                        {props?.errors.portfolio_link}
+                      </Text>
+                    ) : null}
+                      <View style={{height: appSizes.height * 0.28}} />
             <View style={{flexDirection: 'row', columnGap: 10}}>
               <View style={{width: '49%'}}>
                 <TouchableOpacity
@@ -142,9 +148,15 @@ const SixApplayPage = () => {
                 </TouchableOpacity>
               </View>
               <View style={{width: '49%'}}>
-                <Button onPress={() => {}} text={'Next'} />
+                <Button onPress={() => {props.handleSubmit}} text={'Next'} />
               </View>
             </View>
+                </>
+              )}
+              
+            </Formik>
+
+          
           </View>
         </View>
       </View>

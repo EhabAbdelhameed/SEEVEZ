@@ -18,6 +18,7 @@ import {
   selectAccessToken,
   selectFollowingList,
   selectListUsers,
+  selectListedUser,
   selectMyJob,
   selectOneJob,
 } from 'src/redux/app';
@@ -39,15 +40,18 @@ const WatingList = (props: any) => {
   const [load, setLoad] = React.useState(false);
   const MyJob = useAppSelector(selectOneJob)
 
+  const ListedUser = useAppSelector(selectListedUser)
 
+
+  console.log("dfc2 : ",ListedUser)
 
   const lang = useSelector(selectLang);
 
   const {t, i18n} = useTranslation();
-  // React.useEffect(() => {
-  //   setLoad(true);
-  //   dispatch(AppThunks.doGetJobDescraption(id)).then(() => setLoad(false));
-  // }, []);
+  React.useEffect(() => {
+    setLoad(true);
+    dispatch(AppThunks.doGetListedUser(3)).then(() => setLoad(false));
+  }, []);
 
   return (
     <SafeAreaView
@@ -68,7 +72,7 @@ const WatingList = (props: any) => {
           {load ? (
             <ActivityIndicator size={50} style={{marginTop: 300}} />
           ) : (
-            <ContainerUsers />
+            <ContainerUsers data={ListedUser}/>
           )}
         </KeyboardAwareScrollView>
       </View>

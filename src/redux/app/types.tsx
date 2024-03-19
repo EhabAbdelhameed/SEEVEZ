@@ -322,6 +322,11 @@ interface appState {
   InternshipsJobs:any;
   skills:any;
   RecommandedJobs:any;
+  jobQuestions:any;
+  ListedUsers:any;
+  myJobJobSeeker: any;
+  mySavedJob: any;
+
 }
 
 
@@ -637,7 +642,8 @@ export const initialState: appState = {
     from: null,
     last_page: null,
     to: null,
-    total: null
+    total: null,
+  
   },
 
 
@@ -650,6 +656,11 @@ export const initialState: appState = {
   InternshipsJobs:[],
   skills:[],
   RecommandedJobs:[],
+  jobQuestions:[],
+  ListedUsers:[],
+  myJobJobSeeker:null,
+  mySavedJob: [],
+
   //   Search: [],
 
 };

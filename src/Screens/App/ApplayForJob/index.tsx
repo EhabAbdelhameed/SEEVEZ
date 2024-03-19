@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from 'components/molecules/Header';
 import styles from './styles';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {useAppDispatch} from 'src/redux/store';
 import {useSelector} from 'react-redux';
@@ -20,7 +20,13 @@ import Formick from './components/Formick';
 
 const ApplayForJob = () => {
   // console.log(CurrentUserData)
-  const User =useSelector(selectUser)
+
+  
+
+  const User = useSelector(selectUser);
+  
+
+
 
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
@@ -41,9 +47,9 @@ const ApplayForJob = () => {
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
         </View>
-        <View style={{ marginTop: 40}}>
+        <View style={{marginTop: 40}}>
           <FirstApplay width={'100%'} height={20} />
-          <View style={{marginTop: 30,marginBottom:30}}>
+          <View style={{marginTop: 30, marginBottom: 10}}>
             <Text
               style={{
                 fontSize: 22,
@@ -53,11 +59,11 @@ const ApplayForJob = () => {
               }}>
               Contact info
             </Text>
-            <UserHeader/>
+            <UserHeader />
           </View>
-        
         </View>
         <Formick/>
+        
       </View>
     </SafeAreaView>
   );

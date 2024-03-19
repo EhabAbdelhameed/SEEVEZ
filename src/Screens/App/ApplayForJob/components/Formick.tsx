@@ -1,9 +1,9 @@
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {appColors} from '../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../Components/atoms/svg';
 import {AVATAR, Star} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import styles from '../styles';
 import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
@@ -15,8 +15,13 @@ import Button from 'components/molecules/Button';
 import NewPicker from 'components/molecules/PhonePicker';
 import {Input} from 'react-native-elements';
 import { appSizes } from 'theme';
-import { FirstApplay, LoginSchema } from 'src/Formik/schema';
+import { FirstApplaySchema, LoginSchema } from 'src/Formik/schema';
+import { useAppDispatch } from 'src/redux/store';
+import AppThunks from 'src/redux/app/thunks';
+import { selectJobQuestions } from 'src/redux/app';
 const Formick = () => {
+  const {id}: any = useRoute().params;
+ 
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -25,29 +30,49 @@ const Formick = () => {
 
   const {t, i18n} = useTranslation();
   const User = useSelector(selectUser);
+  const dispatch=useAppDispatch()
+  const Questions=useSelector(selectJobQuestions)
+
+  React.useEffect(() => {
+    // setIsloadingCompany(true);
+    // dispatch(AppThunks.doGetFollowingList())
+    dispatch(AppThunks.doGetJobQuestions(id))
+  }, []);
+
+
   //   console.log(User?.email)
   return (
     <Formik
-        validationSchema={FirstApplay}
+        validationSchema={FirstApplaySchema}
       initialValues={{email:User?.email, phone: User?.phone_number || ''}}
       onSubmit={values => {
         const formdata = new FormData();
         formdata.append('email', values.email);
+        let array=[];
+            let obj1={
+              question1:Questions[0],
+              question2:Questions[1],
+              email:values.email,
+              phone:values.phone,
+              job_id:id
+            }
 
-        navigation.navigate("SecondApplayPage",{data:values})
+        navigation.navigate("SecondApplayPage",{data:obj1,questions:Questions})
         // navigation.navigate("app")
       }}>
       {(props: any) => (
         <View>
+          
           <Text
             style={{
               fontSize: 18,
               fontFamily: 'Noto Sans',
               color: '#000',
               fontWeight: '500',
-              marginBottom: 10,
+              marginBottom: 15,
             }}>
-            Your email address
+              {Questions[0]?.question}
+            {/* Your email address */}
           </Text>
           <CustomInput
             {...props}
@@ -62,9 +87,9 @@ const Formick = () => {
               fontFamily: 'Noto Sans',
               color: '#000',
               fontWeight: '500',
-              marginBottom: 10,
+              marginBottom: 15,
             }}>
-            Your phone number
+           {Questions[1]?.question}
           </Text>
           {/* <InputView {...props} name="phone" placeholder="Your phone" /> */}
           <Input
@@ -109,7 +134,11 @@ const Formick = () => {
             keyboardType="number-pad"
             placeholder={t('Enter phone number')}
           />
-          <View style={{height:appSizes.height*.15}} />
+          <Text style={{fontSize:11,fontFamily:'Noto Sans',fontWeight:'400',color:'#191919',marginTop:15}}>
+          Submitting this application won’t change your seevez profile.
+          Application powered by seevez | <Text style={{color:'#1D5EDD'}} >Help Center</Text>
+        </Text>
+          <View style={{height:appSizes.height*.13}} />
           <Button
             // loading={loading}
             text={t('next')}

@@ -15,7 +15,7 @@ import {appSizes} from 'theme';
 const Users = ({item}: {item?: any}) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
-  const [count, setCount] = React.useState(1000000);
+  // const [count, setCount] = React.useState(1000000);
 
   // React.useEffect(() => {
   //   dispatch(AppThunks.doGetFollowers(item?.user_id)).then((res: any) => {
@@ -25,52 +25,53 @@ const Users = ({item}: {item?: any}) => {
 
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={() => {
-        navigation.navigate('UserProfile', {id: item?.user_id});
-      }}
-      style={styles.containerUserSection}>
-      <View style={globalStyles.leftHeaderContainer}>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          {item?.avatar == null ? (
-            <View
-              style={{
-                width: 62,
-                height: 62,
-                borderRadius: 62,
-                // borderWidth: 1,
-                // borderColor: '#DDD',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: appColors.bg,
-              }}>
-              <AVATAR height={48} width={48} />
-            </View>
-          ) : (
-            <AvatarIcon imgUrl={item?.avatar} style={{height: 62, width: 62}} />
-          )}
-        </View>
-        <View style={{rowGap: 1}}>
-          <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
-            <Text style={styles.UserName} numberOfLines={1}>
-              Charlie ekstrom
-            </Text>
+    activeOpacity={0.8}
+    onPress={() => {
+      navigation.navigate('UserProfile', {id: item?.id});
+    }}
+    style={styles.containerUserSection}>
+    <View style={globalStyles.leftHeaderContainer}>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        {item?.avatar == null ? (
+          <View
+            style={{
+              width: 62,
+              height: 62,
+              borderRadius: 62,
+              // borderWidth: 1,
+              // borderColor: '#DDD',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: appColors.bg,
+            }}>
+            <AVATAR height={48} width={48} />
           </View>
-          <Text style={[styles.work, {fontSize: 10}]}>
-            Ui Ux designer at microssoft
+        ) : (
+          <AvatarIcon imgUrl={item?.avatar} style={{height: 62, width: 62}} />
+        )}
+      </View>
+      <View style={{rowGap: 1}}>
+        <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
+          <Text style={styles.UserName} numberOfLines={1}>
+            {item?.name}
           </Text>
-          <View style={[styles.followersContainer]}>
-            <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {count >= 1000 && count < 1000000
-                ? `${count / 1000}k`
-                : count >= 1000000
-                ? `${count / 1000000}m`
-                : count}{' '}
-              {'Followers'}
-            </Text>
-          </View>
+        </View>
+        <Text style={[styles.work, {fontSize: 10}]}>
+          {item?.job_title}
+          {/* Ui Ux designer at microssoft */}
+        </Text>
+        <View style={[styles.followersContainer]}>
+          <Text style={[styles.text3, {color: appColors.blue2}]}>
+            {item?.number_of_followers >= 1000 && item?.number_of_followers < 1000000
+              ? `${item?.number_of_followers / 1000}k`
+              : item?.number_of_followers >= 1000000
+              ? `${item?.number_of_followers / 1000000}m`
+              : item?.number_of_followers}{' '}
+            {'Followers'}
+          </Text>
         </View>
       </View>
+    </View>
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {}}
