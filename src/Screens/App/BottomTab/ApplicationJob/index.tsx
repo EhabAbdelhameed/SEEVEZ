@@ -32,7 +32,7 @@ const ApplicationsJob = (props: any) => {
 
   const InternshipsJobs = useAppSelector(selectMyApplicationJob);
 
-  console.log("MyApplicationJob",JSON.stringify(InternshipsJobs))
+
 
   const [isLoadingRecuriter, setIsloadingRecuriter] = useState(false);
   const navigation = useNavigation<any>();

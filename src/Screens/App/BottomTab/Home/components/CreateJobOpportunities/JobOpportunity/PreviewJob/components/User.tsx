@@ -83,6 +83,7 @@ const UserSection = () => {
 
   // console.log("USERS",item)
   return (
+    
     <View style={{paddingHorizontal: 10}}>
       <TopHeader data={obj} />
 
@@ -102,7 +103,7 @@ const UserSection = () => {
         </>
       )}
 
-      <View style={{height: appSizes.height * 0.16}} />
+      {/* <View style={{height: appSizes.height * 0.16}} /> */}
 
       <CustomButton
         loading={loading}

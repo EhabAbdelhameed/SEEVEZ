@@ -18,7 +18,7 @@ import {selectPhotoData} from 'src/redux/app';
 import Sound from 'react-native-sound';
 import {selectUser} from 'src/redux/auth';
 
-const ReviewRecord = (data: any) => {
+const ReviewRecord = ({user,data}:{user:any,data:any}) => {
   const audioData = useSelector(selectPhotoData);
   const CurrentUserData = useSelector(selectUser);
 
@@ -26,26 +26,26 @@ const ReviewRecord = (data: any) => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const soundRef = useRef<Sound | null>(null);
-  //   useEffect(() => {
-  //     const sound = new Sound(
-  //       data?.data?.attachments?.fileUrl,
-  //       Sound.MAIN_BUNDLE,
-  //       error => {
-  //         if (error) {
-  //           console.log('Failed to load sound:', error);
-  //         } else {
-  //           setDuration(sound?.getDuration());
-  //           soundRef.current = sound; // Save the sound instance to the ref
-  //         }
-  //       },
-  //     );
+    useEffect(() => {
+      const sound = new Sound(
+        data?.answer?.answer,
+        Sound.MAIN_BUNDLE,
+        error => {
+          if (error) {
+            console.log('Failed to load sound:', error);
+          } else {
+            setDuration(sound?.getDuration());
+            soundRef.current = sound; // Save the sound instance to the ref
+          }
+        },
+      );
 
-  //     return () => {
-  //       if (soundRef.current) {
-  //         soundRef.current.release(); // Release the sound instance when unmounting
-  //       }
-  //     };
-  //   }, []);
+      return () => {
+        if (soundRef.current) {
+          soundRef.current.release(); // Release the sound instance when unmounting
+        }
+      };
+    }, []);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -60,24 +60,24 @@ const ReviewRecord = (data: any) => {
 
   const playSound = () => {
     setIsPlaying(true);
-    // if (soundRef.current) {
-    //   soundRef.current.play(success => {
-    //     if (success) {
-    //       console.log('Sound played successfully');
-    //       setIsPlaying(false);
-    //     } else {
-    //       console.log('Sound playback failed');
-    //       setIsPlaying(false);
-    //     }
-    //   });
-    // }
+    if (soundRef.current) {
+      soundRef.current.play(success => {
+        if (success) {
+          console.log('Sound played successfully');
+          setIsPlaying(false);
+        } else {
+          console.log('Sound playback failed');
+          setIsPlaying(false);
+        }
+      });
+    }
   };
 
   const stopSound = () => {
     setIsPlaying(false);
-    // if (soundRef.current) {
-    //   soundRef.current.stop();
-    // }
+    if (soundRef.current) {
+      soundRef.current.stop();
+    }
   };
 
   const formatTime = (seconds: any) => {
@@ -124,11 +124,11 @@ const ReviewRecord = (data: any) => {
             alignItems: 'center',
             backgroundColor: appColors.bg,
           }}>
-          {CurrentUserData?.avatar == null ? (
+          {data?.avatar == null ? (
             <AVATAR height={32} width={32} />
           ) : (
             <Image
-              source={{uri: CurrentUserData?.avatar}}
+              source={{uri: data?.avatar}}
               style={{width: 40, height: 40, borderRadius: 40}}
               resizeMode="cover"
             />
@@ -157,24 +157,7 @@ const ReviewRecord = (data: any) => {
           justifyContent: 'space-between',
           marginTop: 5,
         }}>
-        <Text
-          style={{
-            fontSize: 10,
-            fontFamily: 'Noto Sans',
-            color: '#1C1C1C',
-            fontWeight: '400',
-          }}>
-          01:24
-        </Text>
-        <Text
-          style={{
-            fontSize: 10,
-            fontFamily: 'Noto Sans',
-            color: '#1C1C1C',
-            fontWeight: '400',
-          }}>
-          12:00 pm
-        </Text>
+       
       </View>
     </View>
   );

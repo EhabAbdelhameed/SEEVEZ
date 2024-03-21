@@ -16,7 +16,7 @@ const Users = ({item}: {item?: any}) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const [count, setCount] = React.useState(0);
-
+  //  console.log(item)
   React.useEffect(() => {
     dispatch(AppThunks.doGetFollowers(item?.user_id)).then((res: any) => {
       setCount(res?.payload?.data?.followCounts[0]?.followerCount);
@@ -53,19 +53,19 @@ const Users = ({item}: {item?: any}) => {
         <View style={{rowGap: 1}}>
           <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
             <Text style={styles.UserName} numberOfLines={1}>
-              Charlie ekstrom
+             {item?.name}
             </Text>
           </View>
           <Text style={[styles.work, {fontSize: 11}]}>
-            Ui Ux designer at microssoft
+           {item?.job_title}
           </Text>
           <View style={[styles.followersContainer]}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {count >= 1000 && count < 1000000
-                ? `${count / 1000}k`
-                : count >= 1000000
-                ? `${count / 1000000}m`
-                : count}{' '}
+              {item?.number_of_followers >= 1000 && item?.number_of_followers < 1000000
+                ? `${item?.number_of_followers / 1000}k`
+                : item?.number_of_followers >= 1000000
+                ? `${item?.number_of_followers / 1000000}m`
+                : item?.number_of_followers}{' '}
               {'Followers'}
             </Text>
           </View>

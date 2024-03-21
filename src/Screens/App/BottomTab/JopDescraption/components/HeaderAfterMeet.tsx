@@ -17,7 +17,7 @@ import {globalStyles} from 'src/globalStyle';
 import {AVATAR, SaveJob} from 'assets/Svgs';
 import AvatarIcon from 'components/molecules/Avatar';
 import {useAppDispatch, useAppSelector} from 'src/redux/store';
-import {selectFollowingList, selectOneJob} from 'src/redux/app';
+import {selectFollowingList, selectMyJobJobSeeker, selectOneJob} from 'src/redux/app';
 import AppThunks from 'src/redux/app/thunks';
 import {selectUser} from 'src/redux/auth';
 
@@ -33,7 +33,7 @@ const HeaderAfter = ({
   const navigation = useNavigation();
   const User = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const MyJob = useAppSelector(selectOneJob);
+  const MyJob = useAppSelector(selectMyJobJobSeeker);
   const [count, setCount] = React.useState(0);
   const FollowingList = useAppSelector(selectFollowingList);
   const [load, setLoad] = useState(false);

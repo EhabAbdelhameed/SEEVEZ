@@ -8,7 +8,7 @@ import {appColors} from '../../../../../theme/appColors';
 import AvatarIcon from '../../../../../Components/molecules/Avatar';
 import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import {selectFollowingList, selectOneJob} from 'src/redux/app';
+import {selectFollowingList, selectMyJobJobSeeker, selectOneJob} from 'src/redux/app';
 import {useNavigation} from '@react-navigation/native';
 import {AVATAR, SaveJob} from 'assets/Svgs';
 import {useSelector} from 'react-redux';
@@ -24,15 +24,15 @@ import {appSizes} from 'theme';
 import Button from 'components/molecules/Button';
 import RecruiterHeader from './recruiterHeader';
 
-const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
+const UserSection = ({item, setLoad,data}: {item?: any; setLoad?: any,data?:any}) => {
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const {navigate} = useNavigation<any>();
   const lang = useSelector(selectLang);
   const User = useSelector(selectUser);
-
+  
   const {t, i18n} = useTranslation();
-  const MyJob = useAppSelector(selectOneJob);
+  const MyJob = useAppSelector(selectMyJobJobSeeker);
   const getdate = () => {
     const startDate: Date = new Date(MyJob?.created_at);
     const currentDate: Date = new Date();

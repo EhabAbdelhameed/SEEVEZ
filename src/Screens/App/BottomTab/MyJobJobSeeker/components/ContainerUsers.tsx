@@ -9,14 +9,16 @@ const ContainerUsers = ({
   title,
   data,
   loading,
+  load,
 }: {
   title: string;
   data: any[];
   loading: boolean;
+  load:React.Dispatch<React.SetStateAction<any>>
 }) => {
   
   const [seeAll, setSeeAll] = useState(false);
-  const renderItem = ({ item }:any) => <UserSection item={item} />;
+  const renderItem = ({ item }:any) => <UserSection item={item} load={load} />;
   return (
     <View style={styles.containerUsers}>
       <Text style={styles.titleSection}>{title}</Text>

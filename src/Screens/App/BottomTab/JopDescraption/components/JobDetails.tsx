@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {selectOneJob} from 'src/redux/app';
+import {selectMyJobJobSeeker, selectOneJob} from 'src/redux/app';
 import {selectUser} from 'src/redux/auth';
 import {useAppSelector} from 'src/redux/store';
 
 const JobDetails = () => {
-  const MyJob = useAppSelector(selectOneJob);
+  const MyJob = useAppSelector(selectMyJobJobSeeker);
   const User = useAppSelector(selectUser);
   return (
     <View style={styles.container}>

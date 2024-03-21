@@ -8,7 +8,7 @@ import styles from '../styles';
 import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
-const QuestionReview = () => {
+const QuestionReview = ({data}:{data:any}) => {
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -16,41 +16,41 @@ const QuestionReview = () => {
   const lang = useSelector(selectLang);
 
   const {t, i18n} = useTranslation();
-  const data = [
-    {
-      question:
-        "Have you completed the following level of education: Bachelor's Degree?",
-      answer: 'Yes',
-      id: '1',
-    },
-    {
-      question:
-        'How many years of work experience do you have with Prototyping?',
-      answer: '3',
-      id: '2',
-    },
-    {
-      question:
-        'How many years of work experience do you have with User Flows?',
-      answer: '3',
-      id: '3',
-    },
-    {
-      question:
-        'How many years of work experience do you have with Figma (Software)?',
-      answer: '3',
-      id: '4',
-    },
-    {
-      question: 'What are your salary expectations?',
-      answer: '2000',
-      id: '5',
-    },
-  ];
+  // const data = [
+  //   {
+  //     question:
+  //       "Have you completed the following level of education: Bachelor's Degree?",
+  //     answer: 'Yes',
+  //     id: '1',
+  //   },
+  //   {
+  //     question:
+  //       'How many years of work experience do you have with Prototyping?',
+  //     answer: '3',
+  //     id: '2',
+  //   },
+  //   {
+  //     question:
+  //       'How many years of work experience do you have with User Flows?',
+  //     answer: '3',
+  //     id: '3',
+  //   },
+  //   {
+  //     question:
+  //       'How many years of work experience do you have with Figma (Software)?',
+  //     answer: '3',
+  //     id: '4',
+  //   },
+  //   {
+  //     question: 'What are your salary expectations?',
+  //     answer: '2000',
+  //     id: '5',
+  //   },
+  // ];
   return (
-    <View style={{marginTop: 10}}>
-      {data?.map((item: any, index: any) => (
-        <View key={item.id}>
+    <View style={{}}>
+    
+        <View >
           <Text
             style={{
               fontSize: 16,
@@ -59,44 +59,20 @@ const QuestionReview = () => {
               fontWeight: '700',
               marginTop: 10,
             }}>
-            {item.question}{' '}
+            {data?.question?.question}
           </Text>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 12,
               fontFamily: 'Noto Sans',
               color: '#000',
               fontWeight: '400',
               marginTop: 10,
             }}>
-            {item.answer}
+            {data?.answer?.answer}
           </Text>
         </View>
-      ))}
-      <View style={{marginBottom:10}}>
-        <Text
-          style={{
-            fontSize: 16,
-            fontFamily: 'Noto Sans',
-            color: '#000',
-            fontWeight: '700',
-            marginTop: 10,
-          }}>
-          Portfolio link
-        </Text>
-        <TouchableOpacity>
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: 'Noto Sans',
-              color: '#000',
-              fontWeight: '400',
-              marginTop: 10,
-            }}>
-            Http/www.portofolio.com{' '}
-          </Text>
-        </TouchableOpacity>
-      </View>
+  
     </View>
   );
 };

@@ -1789,6 +1789,35 @@ const slice = createSlice({
       // console.log("QuestionsFFF:",action?.payload?.data)
       state.myApplicationJob = action?.payload?.data;
     });
+     //doChangeStatusUser
+     builder.addCase(thunks.doChangeStatusUser.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text1: action?.payload?.message,
+      });
+      state.done = true;
+    });
+    builder.addCase(
+      thunks.doChangeStatusUser.rejected,
+      (state, action: any) => {
+        if (action?.payload?.data?.message == 'Validation error.') {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.error,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: action?.payload?.data?.message,
+          });
+        }
+      },
+    );
+    //doGetMyApplicationJob
+    builder.addCase(thunks.doReviewUser.fulfilled, (state, action) => {
+     
+      state.reviewUser = action?.payload?.data;
+    });
   },
 });
 
@@ -1840,6 +1869,7 @@ export const selectListedUser = (state: RootState) => state.app.ListedUsers;
 export const selectMyJobJobSeeker = (state: RootState) => state.app.myJobJobSeeker;
 export const selectMySavedJob = (state: RootState) => state.app.mySavedJob;
 export const selectMyApplicationJob = (state: RootState) => state.app.myApplicationJob;
+export const selectReviewUser = (state: RootState) => state.app.reviewUser;
 
 
 const AppSlice = {

@@ -10,7 +10,7 @@ import {styles} from '../styles';
 import {globalStyles} from 'src/globalStyle';
 import {SaveJob} from 'assets/Svgs';
 import {selectUser} from 'src/redux/auth';
-import {selectOneJob} from 'src/redux/app';
+import {selectMyJobJobSeeker, selectOneJob} from 'src/redux/app';
 import {useAppSelector} from 'src/redux/store';
 
 const TopHeader = ({
@@ -22,8 +22,8 @@ const TopHeader = ({
 }) => {
   const lang = useSelector(selectLang);
   const navigation = useNavigation();
-  const MyJob = useAppSelector(selectOneJob);
-  const User = useAppSelector(selectUser);
+  const MyJob = useAppSelector(selectMyJobJobSeeker);
+ 
 
   const getdate = () => {
     const startDate: Date = new Date(MyJob?.created_at);

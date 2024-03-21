@@ -36,6 +36,7 @@ const MyJobToJobSeeker = (props: any) => {
   const [isLoadingJobSeeker, setIsloadingJobSeeker] = useState(false);
   const [isLoadingRecuriter, setIsloadingRecuriter] = useState(false);
   const [isLoadingCompany, setIsloadingCompany] = useState(false);
+  const [load, setLoad] = React.useState(false);
   React.useEffect(() => {
     setIsloadingJobSeeker(true);
     setIsloadingRecuriter(true);
@@ -52,7 +53,7 @@ const MyJobToJobSeeker = (props: any) => {
     dispatch(AppThunks.doGetRecommandedJobs()).then(() =>
     setIsloadingCompany(false),
   );
-  }, []);
+  }, [load]);
 
   return (
     <SafeAreaView edges={['top']} style={globalStyles.screen}>
@@ -108,7 +109,7 @@ const MyJobToJobSeeker = (props: any) => {
         <KeyboardAwareScrollView
           contentContainerStyle={{
             alignItems: 'center',
-            paddingBottom: 140,
+           
           }}
           enableOnAndroid={true}
           keyboardShouldPersistTaps={'handled'}
@@ -119,6 +120,7 @@ const MyJobToJobSeeker = (props: any) => {
               title="Recommended for you"
               data={RecommandedJobs}
               loading={isLoadingCompany}
+              load={setLoad}
             />
         )} 
           {InternshipsJobs == null || InternshipsJobs?.length == 0 ? null : (
@@ -126,6 +128,7 @@ const MyJobToJobSeeker = (props: any) => {
               title="Internship opportunity"
               data={InternshipsJobs}
               loading={isLoadingRecuriter}
+              load={setLoad}
             />
           )}
           {FreelancerJobs == null || FreelancerJobs?.length == 0 ? null : (
@@ -133,6 +136,7 @@ const MyJobToJobSeeker = (props: any) => {
               title="Freelance opportunity"
               data={FreelancerJobs}
               loading={isLoadingJobSeeker}
+              load={setLoad}
             />
           )}
         </KeyboardAwareScrollView>

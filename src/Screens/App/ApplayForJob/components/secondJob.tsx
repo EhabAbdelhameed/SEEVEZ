@@ -26,6 +26,7 @@ import Formick from './Formick';
 import {appColors, appSizes} from 'theme';
 import Button from 'components/molecules/Button';
 import DocumentPicker from 'react-native-document-picker';
+import ApplySteps from './ApplaySteps';
 const SecondApplayPage = () => {
   const changeDone = useSelector(selectDone);
   // console.log(changeDone)
@@ -34,7 +35,7 @@ const SecondApplayPage = () => {
   }, [changeDone]);
   // console.log(CurrentUserData)
   const {data, questions}: any = useRoute().params;
-  // console.log(JSON.stringify(data))
+  // console.log(JSON.stringify(questions))
   const dispatch = useAppDispatch();
   const User = useSelector(selectUser);
   const navigation = useNavigation<any>();
@@ -66,12 +67,13 @@ const SecondApplayPage = () => {
       job_id: data?.job_id,
       email: data?.email,
       phone: data?.phone,
-      cv_pdf: source?.length != 0 ? User?.cv_pdf : source,
+      cv_pdf: source?.length == 0 ? User?.cv_pdf : source,
 
       questions: questions,
     };
+
    
-      navigation.navigate('BasicPage', {data: obj});
+      navigation.navigate('DynamicQuestionsComponent', {data: obj});
   
   };
   const submit = () => {
@@ -123,8 +125,8 @@ const SecondApplayPage = () => {
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
         </View>
-        <View style={{marginTop: 40}}>
-          <SecondApplay width={'100%'} height={20} />
+        <View style={{}}>
+          <ApplySteps question={questions} CurrentIndex={1}/>
           <View style={{marginTop: 30, marginBottom: 30}}>
             <Text
               style={{

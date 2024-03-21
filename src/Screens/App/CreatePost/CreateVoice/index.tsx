@@ -183,11 +183,11 @@ const CreateVoice = () => {
           </>
         ) : (
           <>
-            {/* <Button
+            <Button
             title="Start Recording"
             onPress={startRecording}
             disabled={isPlaying}
-          /> */}
+          />
             {/* {audioData && (
             <View style={{ marginTop: 20 }}>
               <Button title="Start Playback" onPress={startPlayback} disabled={isRecording} />

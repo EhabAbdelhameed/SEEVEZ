@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {styles} from '../styles';
 import {globalStyles} from '../../../../../globalStyle';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
@@ -9,7 +9,7 @@ import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import {selectFollowingList} from 'src/redux/app';
 import {AVATAR} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {appSizes} from 'theme';
 
 const Users = ({item}: {item?: any}) => {
@@ -22,6 +22,21 @@ const Users = ({item}: {item?: any}) => {
   //     setCount(res?.payload?.data?.followCounts[0]?.followerCount);
   //   });
   // }, []);
+  const [shortedListLoading, setShortedListLoading] = React.useState(false);
+  const {id}: any = useRoute().params;
+  const _handleAddToShortList = () => {
+    setShortedListLoading(true);
+    const formdata = new FormData();
+    formdata.append('apply_id', item?.apply_id);
+    formdata.append('status', '4');
+    dispatch(AppThunks.doChangeStatusUser(formdata)).then((res: any) => {
+      if (res?.meta?.requestStatus == 'fulfilled') {
+        navigation.replace('ShortedList', {id: id});
+        dispatch(AppThunks.doGetJobDescraption(id))
+      }
+      setShortedListLoading(false);
+    });
+  };
 
   return (
     <TouchableOpacity
@@ -72,9 +87,9 @@ const Users = ({item}: {item?: any}) => {
         </View>
       </View>
     </View>
-      <TouchableOpacity
+    <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {}}
+        onPress={_handleAddToShortList}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -87,7 +102,11 @@ const Users = ({item}: {item?: any}) => {
           borderColor: appColors.lightGreen,
           backgroundColor: '#E6FAFA',
         }}>
-        <Text style={[styles.text3, {color: '#00928E'}]}>Shortlisted</Text>
+        {shortedListLoading ? (
+          <ActivityIndicator color={'#00928E'} size={15}/>
+        ) : (
+          <Text style={[styles.text3, {color: '#00928E'}]}>Shortlisted</Text>
+        )}
       </TouchableOpacity>
     </TouchableOpacity>
   );

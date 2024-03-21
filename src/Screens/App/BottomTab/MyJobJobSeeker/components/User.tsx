@@ -16,7 +16,7 @@ import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
 import {selectUser} from 'src/redux/auth';
 
-const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
+const UserSection = ({item, load}: {item?: any; load?:any}) => {
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const {navigate} = useNavigation<any>();
@@ -28,14 +28,19 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const handleSavePress = () => {
     const formdata = new FormData();
     if (isSaved) {
-      console.log("UnSave")
+      console.log('UnSave');
       // dispatch(AppThunks.doUnSaveJob(item?.id));
     } else {
-      formdata.append('job_id',item?.id);
-    
-      dispatch(AppThunks.doSaveJob(formdata));
-        setIsSaved(!isSaved); 
+      formdata.append('job_id', item?.id);
 
+      dispatch(AppThunks.doSaveJob(formdata)).then((res: any) => {
+           load(true)
+        dispatch(AppThunks.doGetRecommandedJobs())
+        dispatch(AppThunks.doGetInternshipsJobs())
+        dispatch(AppThunks.doGetFreelancerJobs())
+      })
+
+      setIsSaved(!isSaved);
     }
   };
   const getdate = () => {
@@ -85,28 +90,23 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
       }
     }
   };
-  React.useEffect(() => {
-    dispatch(AppThunks.doGetFollowers(item?.userId)).then((res: any) => {
-      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
-      setLoad(false);
-    });
-  }, []);
+ 
   // console.log("USERS",item?.avatarCustomUrl)
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        navigate('JobDescraption',{id:item?.id});
+        navigate('JobDescraption', {id: item?.id});
       }}
       style={styles.containerUserSection}>
-      <View style={[globalStyles.leftHeaderContainer,{width:'100%'}]}>
+      <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
         {item?.users?.avatar == null || item?.users?.avatar == undefined ? (
           <View
             style={{
               width: 58,
               height: 58,
               borderRadius: 58,
-              marginTop:10,
+              marginTop: 10,
               // borderWidth: 1,
               // borderColor: '#DDD',
               justifyContent: 'center',
@@ -116,50 +116,65 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
             <AVATAR height={40} width={40} />
           </View>
         ) : (
-          <AvatarIcon imgUrl={item?.users?.avatar} style={{height: 58, width: 58,marginTop:10,borderWidth:.5,borderColor:appColors.primary,borderRadius:58}} />
+          <AvatarIcon
+            imgUrl={item?.users?.avatar}
+            style={{
+              height: 58,
+              width: 58,
+              marginTop: 10,
+              borderWidth: 0.5,
+              borderColor: appColors.primary,
+              borderRadius: 58,
+            }}
+          />
         )}
         <View style={{rowGap: 2}}>
-          <View style={[globalStyles.leftHeaderContainer, {width: '88%',marginLeft:3,justifyContent:'space-between'}]}>
-            <View style={{width:'80%'}}>
-            <Text style={styles.UserName} numberOfLines={1}>
-            {item?.job_title}
-            </Text>
+          <View
+            style={[
+              globalStyles.leftHeaderContainer,
+              {width: '88%', marginLeft: 3, justifyContent: 'space-between'},
+            ]}>
+            <View style={{width: '80%'}}>
+              <Text style={styles.UserName} numberOfLines={1}>
+                {item?.job_title}
+              </Text>
             </View>
             <TouchableOpacity onPress={handleSavePress}>
-            {/* Step 2: Conditionally render the save icon based on the save state */}
-            {isSaved ? (
-              <SaveJobFill width={20} height={20}/>
-            ) : (
-              <SaveJob />
-            )}
-          </TouchableOpacity>
+              {/* Step 2: Conditionally render the save icon based on the save state */}
+              {item?.saved != null ? (
+                <SaveJobFill width={20} height={20} />
+              ) : (
+                <SaveJob />
+              )}
+            </TouchableOpacity>
           </View>
-          <View style={{flexDirection: 'row', columnGap: 8,marginLeft:3}}>
+          <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
             <Text style={styles.work}>{item?.users?.name}</Text>
             <Text style={styles.work}>{item?.job_location}</Text>
-            <Text style={[styles.work,{color: "#00BBB6"}]}>{getdate()}</Text>
+            <Text style={[styles.work, {color: '#00BBB6'}]}>{getdate()}</Text>
           </View>
-          <View style={{flexDirection:'row',columnGap:10}}>
-            {!item?.job_types?.name?null:
-          <View style={styles.followersContainer}>
-            <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {item?.job_types?.name}  
-             
-            </Text>
-          </View>
-          } 
-          {!item?.work_type?.name?null:
-          <View style={[styles.followersContainer,{backgroundColor:'#E6FAFA'}]}>
-            <Text style={[styles.text3, {color: '#00928E'}]}>
-              {item?.work_type?.name}
-            
-            </Text>
-          </View>
-        } 
+          <View style={{flexDirection: 'row', columnGap: 10}}>
+            {!item?.job_types?.name ? null : (
+              <View style={styles.followersContainer}>
+                <Text style={[styles.text3, {color: appColors.blue2}]}>
+                  {item?.job_types?.name}
+                </Text>
+              </View>
+            )}
+            {!item?.work_type?.name ? null : (
+              <View
+                style={[
+                  styles.followersContainer,
+                  {backgroundColor: '#E6FAFA'},
+                ]}>
+                <Text style={[styles.text3, {color: '#00928E'}]}>
+                  {item?.work_type?.name}
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       </View>
-     
     </TouchableOpacity>
   );
 };

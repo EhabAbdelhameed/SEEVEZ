@@ -29,10 +29,13 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const handleUnSavePress = () => {
     setLoading(true)
     dispatch(AppThunks.doUnSaveJob(item?.save_id)).then((res: any) => {
-
+         
       dispatch(AppThunks.doGetMySavedJob()).then((res: any) => {
         setLoading(false)
       });
+      dispatch(AppThunks.doGetRecommandedJobs())
+      dispatch(AppThunks.doGetInternshipsJobs())
+      dispatch(AppThunks.doGetFreelancerJobs())
     });
 
     setIsSaved(!isSaved);

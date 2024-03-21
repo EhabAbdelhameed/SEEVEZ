@@ -18,7 +18,7 @@ const ContainerUsers = ({
     return (
         <View style={styles.containerUsers}>
             <View style={styles.container2Users}>
-            <UserSection />
+            <UserSection data={data} />
 
             </View>
         </View>

@@ -159,6 +159,7 @@ const Form2JobOpportunity = () => {
                     color={color != '#FFF' ? '#E8AB00' : '#FFF'}
                     Label={'number_of_vacancies'}
                     placeholder={t('writeHere')}
+                    keyboardType='numeric'
                   />
                 </View>
                 <View>
@@ -186,7 +187,9 @@ const Form2JobOpportunity = () => {
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
+                    itemTextStyle={{color: '#000'}}
                     iconStyle={styles.iconStyle}
+                    
                     data={WorkTypeData}
                     search
                     // maxHeight={300}
@@ -246,6 +249,7 @@ const Form2JobOpportunity = () => {
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
+                    itemTextStyle={{color: '#000'}}
                     iconStyle={styles.iconStyle}
                     data={JobTypeData}
                     search
@@ -317,7 +321,7 @@ const Form2JobOpportunity = () => {
                   </Text>
                   <CustomInput
                     {...props}
-                    color={color != '#FFF' ? '#E8AB00' : appColors.primary}
+                    color={color != '#FFF' ? '#E8AB00' : '#FFF'}
                     Label={'salary_range'}
                     placeholder={t('writeHere')}
                   />

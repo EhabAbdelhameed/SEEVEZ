@@ -1,4 +1,11 @@
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import React, {useCallback} from 'react';
 import {appColors} from '../../../../../theme/appColors';
 import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
@@ -8,7 +15,8 @@ import styles from '../styles';
 import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
-const ReviewCV = () => {
+const ReviewCV = ({data}: {data: any}) => {
+  // console.log(JSON.stringify(data), 'data');
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -18,6 +26,7 @@ const ReviewCV = () => {
   const {t, i18n} = useTranslation();
   return (
     <TouchableOpacity
+      onPress={() => Linking.openURL(data?.answer?.answer?.fileUrl)}
       style={{
         backgroundColor: appColors.bg,
         borderWidth: 1,
@@ -27,6 +36,7 @@ const ReviewCV = () => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderRadius: 16,
+        marginTop: 20,
       }}>
       <View
         style={{
@@ -38,13 +48,14 @@ const ReviewCV = () => {
         <PDF />
         <View>
           <Text
+            numberOfLines={1}
             style={{
               fontSize: 16,
               fontFamily: 'Noto Sans',
               color: appColors.primary,
               fontWeight: '700',
             }}>
-            Justin Dokidis CV 2023
+            {data?.answer?.answer?.attributes?.name}
           </Text>
           <Text
             style={{
@@ -54,7 +65,10 @@ const ReviewCV = () => {
               fontWeight: '400',
               marginTop: 2,
             }}>
-            1 MB
+            {(
+              parseInt(data?.answer?.answer?.attributes?.size) / 1048576
+            ).toFixed(4)}{' '}
+            MB
           </Text>
         </View>
       </View>

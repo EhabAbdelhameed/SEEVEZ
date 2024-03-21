@@ -114,7 +114,7 @@ const SavedJob = (props: any) => {
           showsVerticalScrollIndicator={false}>
           {mySavedJob == null || mySavedJob?.length == 0 ? null : (
             <ContainerUsers
-              data={mySavedJob}
+              data={mySavedJob}  
               loading={isLoading}
             />
           )}

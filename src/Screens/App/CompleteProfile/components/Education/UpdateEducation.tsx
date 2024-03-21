@@ -274,6 +274,7 @@ const UpdateEducation = () => {
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       data={EducationLevelData}
+                      itemTextStyle={{color: '#000'}}
                       search
                       // maxHeight={300}
                       labelField="name"

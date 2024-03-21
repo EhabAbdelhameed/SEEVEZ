@@ -17,6 +17,7 @@ import {RenderSvgIcon} from 'components/atoms/svg';
 import {FirstApplay} from 'assets/Svgs';
 import UserHeader from './components/UserHeader';
 import Formick from './components/Formick';
+import ApplySteps from './components/ApplaySteps';
 
 const ApplayForJob = () => {
   // console.log(CurrentUserData)
@@ -47,21 +48,7 @@ const ApplayForJob = () => {
             <RenderSvgIcon icon="CIRCLECV" width={64} height={32} />
           </View>
         </View>
-        <View style={{marginTop: 40}}>
-          <FirstApplay width={'100%'} height={20} />
-          <View style={{marginTop: 30, marginBottom: 10}}>
-            <Text
-              style={{
-                fontSize: 22,
-                fontFamily: 'Noto Sans',
-                color: '#000',
-                fontWeight: '700',
-              }}>
-              Contact info
-            </Text>
-            <UserHeader />
-          </View>
-        </View>
+      
         <Formick/>
         
       </View>

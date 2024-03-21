@@ -75,7 +75,7 @@ const ContainerUsers = ({setLoad,data}: {setLoad?: any,data:any}) => {
           {/* </View> */}
         </View>:null}
       </View>
-      <View style={[styles.containerUsers]}>
+      <View style={[styles.containerUsers,{flex:1}]}>
         <View style={[styles.container2Users,{flex:1}]}>
           <UserSection />
         </View>

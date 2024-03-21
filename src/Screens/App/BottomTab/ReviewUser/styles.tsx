@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
   },
   bottomSection: {
     backgroundColor: appColors.white,
-    flex: 1,
+    
+    // flex: 1,
     // borderTopLeftRadius: 30,
     // borderTopRightRadius: 30,
     position: 'relative',

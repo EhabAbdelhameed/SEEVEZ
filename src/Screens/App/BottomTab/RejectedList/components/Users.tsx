@@ -9,15 +9,29 @@ import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import {selectFollowingList} from 'src/redux/app';
 import {AVATAR} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {appSizes} from 'theme';
+import {ActivityIndicator} from 'react-native';
 
 const Users = ({item}: {item?: any}) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const [count, setCount] = React.useState(0);
-
- 
+  const [shortedListLoading, setShortedListLoading] = React.useState(false);
+  const {id}: any = useRoute().params;
+  const _handleAddToShortList = () => {
+    setShortedListLoading(true);
+    const formdata = new FormData();
+    formdata.append('apply_id', item?.apply_id);
+    formdata.append('status', '4');
+    dispatch(AppThunks.doChangeStatusUser(formdata)).then((res: any) => {
+      if (res?.meta?.requestStatus == 'fulfilled') {
+        navigation.replace('ShortedList', {id: id});
+        dispatch(AppThunks.doGetJobDescraption(id))
+      }
+      setShortedListLoading(false);
+    });
+  };
 
   return (
     <TouchableOpacity
@@ -49,15 +63,14 @@ const Users = ({item}: {item?: any}) => {
         <View style={{rowGap: 1}}>
           <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
             <Text style={styles.UserName} numberOfLines={1}>
-            {item?.name}
+              {item?.name}
             </Text>
           </View>
-          <Text style={[styles.work, {fontSize: 10}]}>
-          {item?.job_title}
-          </Text>
+          <Text style={[styles.work, {fontSize: 10}]}>{item?.job_title}</Text>
           <View style={[styles.followersContainer]}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-            {item?.number_of_followers >= 1000 && item?.number_of_followers < 1000000
+              {item?.number_of_followers >= 1000 &&
+              item?.number_of_followers < 1000000
                 ? `${item?.number_of_followers / 1000}k`
                 : item?.number_of_followers >= 1000000
                 ? `${item?.number_of_followers / 1000000}m`
@@ -69,9 +82,7 @@ const Users = ({item}: {item?: any}) => {
       </View>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {
-          // navigation.navigate('ReviewUser');
-        }}
+        onPress={_handleAddToShortList}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -84,7 +95,11 @@ const Users = ({item}: {item?: any}) => {
           borderColor: appColors.lightGreen,
           backgroundColor: '#E6FAFA',
         }}>
-        <Text style={[styles.text3, {color: '#00928E'}]}>Shortlisted</Text>
+        {shortedListLoading ? (
+          <ActivityIndicator color={'#00928E'} size={15}/>
+        ) : (
+          <Text style={[styles.text3, {color: '#00928E'}]}>Shortlisted</Text>
+        )}
       </TouchableOpacity>
     </TouchableOpacity>
   );

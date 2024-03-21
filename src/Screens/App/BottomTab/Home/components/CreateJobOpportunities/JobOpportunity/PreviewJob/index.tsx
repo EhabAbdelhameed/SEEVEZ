@@ -41,7 +41,7 @@ const PreviewJob = (props: any) => {
  
   // console.log(changeDone)
   useEffect(() => {
-    changeDone ? navigation.navigate('MyJob') : null;
+    changeDone ? navigation.navigate('Bag') : null;
   }, [changeDone]);
  
   const lang = useSelector(selectLang);
@@ -58,7 +58,7 @@ const PreviewJob = (props: any) => {
         <KeyboardAwareScrollView
           contentContainerStyle={{
             alignItems: 'center',
-            flex:1,
+            // flex:1,
             // paddingBottom: 30,
             paddingHorizontal: appSizes.padding_m,
           }}

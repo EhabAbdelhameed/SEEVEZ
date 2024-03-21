@@ -6,7 +6,7 @@ import {selectLang} from 'src/redux/lang';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {RenderSvgIcon} from 'components/atoms/svg';
-import { selectOneJob } from 'src/redux/app';
+import { selectMyJobJobSeeker, selectOneJob } from 'src/redux/app';
 import { useAppSelector } from 'src/redux/store';
 import { selectUser } from 'src/redux/auth';
 
@@ -19,7 +19,7 @@ const Header = ({
 }) => {
   const lang = useSelector(selectLang);
   const navigation = useNavigation();
-  const MyJob = useAppSelector(selectOneJob)
+  const MyJob = useAppSelector(selectMyJobJobSeeker)
 
 
   return (

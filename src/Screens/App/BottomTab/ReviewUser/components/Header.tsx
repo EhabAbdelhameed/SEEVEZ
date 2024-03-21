@@ -8,7 +8,10 @@ import styles from '../styles';
 import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
+import { useAppSelector } from 'src/redux/store';
+import { selectOneJob } from 'src/redux/app';
 const UsersHeader = () => {
+
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -16,6 +19,7 @@ const UsersHeader = () => {
   const lang = useSelector(selectLang);
 
   const {t, i18n} = useTranslation();
+  const MyJob = useAppSelector(selectOneJob);
   return (
     <View style={{backgroundColor: appColors.bg}}>
       <View style={styles.logoContainer}>
@@ -39,7 +43,7 @@ const UsersHeader = () => {
             color={appColors.primary}
           />
 
-          <View style={{marginLeft: 10}}>
+          <View style={{}}>
             <Text
               style={{
                 fontSize: 16,
@@ -47,7 +51,7 @@ const UsersHeader = () => {
                 fontFamily: 'Noto Sans',
                 color: '#000',
               }}>
-              Senior ui ux designer
+             {MyJob?.job_title}
             </Text>
             <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
               <Text
@@ -57,7 +61,7 @@ const UsersHeader = () => {
                   fontFamily: 'Noto Sans',
                   color: '#000',
                 }}>
-                O-Project
+              {MyJob?.users?.name}
               </Text>
               <Text
                 style={{
@@ -66,7 +70,7 @@ const UsersHeader = () => {
                   fontFamily: 'Noto Sans',
                   color: '#000',
                 }}>
-                cairo, egypt
+               {MyJob?.job_location}
               </Text>
               <Text
                 style={{
@@ -75,13 +79,11 @@ const UsersHeader = () => {
                   fontWeight: '400',
                   fontFamily: 'Noto Sans',
                 }}>
-               full time
+              {MyJob?.job_type_id?.name}
               </Text>
             </View>
           </View>
         </TouchableOpacity>
-        {/* <BigLogo height={30} width={96} style={{marginLeft: 70}} />
-         */}
       </View>
     </View>
   );

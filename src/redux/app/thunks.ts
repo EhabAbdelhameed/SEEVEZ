@@ -1841,7 +1841,7 @@ const doApplayQuestion: any = createAsyncThunk<any, any, any>(
   async (data, thunkApi: any) => {
     try {
       const response = await AppAPI.Applay(data);
-      console.log(JSON.stringify(response?.data))
+      console.log(JSON.stringify(response))
       if (
         response.status == null ||
         response.status == 401 ||
@@ -2010,6 +2010,56 @@ const doGetMyApplicationJob: any = createAsyncThunk<any, any, any>(
     }
   },
 );
+//doChangeStatusUser
+const doChangeStatusUser: any = createAsyncThunk<any, any, any>(
+  'app/StatusUser',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.statusUser(data);
+      // alert(JSON.stringify(response?.data))
+      if (
+        response.status == null ||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+//doReviewUser
+const doReviewUser: any = createAsyncThunk<any, any, any>(
+  'app/ReviewUser',
+  async (data, thunkApi: any) => {
+    try {
+      const response = await AppAPI.reviewUser(data);
+      console.log(JSON.stringify(response))
+      if (
+        response.status == null||
+        response.status == 401 ||
+        response.status == 400 ||
+        response.status == 422 ||
+        response.status == 404 ||
+        response.status == 403 ||
+        response.status == 500 ||
+        response.status == 503
+      ) {
+        throw response;
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
 const AppThunks = {
   doAddSkills,
   GetAccessToken,
@@ -2090,7 +2140,9 @@ const AppThunks = {
   doSaveJob,
   doUnSaveJob,
   doGetMySavedJob,
-  doGetMyApplicationJob
+  doGetMyApplicationJob,
+  doChangeStatusUser,
+  doReviewUser
 };
 
 export default AppThunks;

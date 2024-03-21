@@ -419,6 +419,7 @@ const UpdateExperience = () => {
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       data={IndustryData}
+                      itemTextStyle={{color: '#000'}}
                       search
                       // maxHeight={300}
                       labelField="name"
@@ -458,6 +459,7 @@ const UpdateExperience = () => {
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
+                      itemTextStyle={{color: '#000'}}
                       data={YearsData}
                       search
                       // maxHeight={300}
@@ -497,6 +499,7 @@ const UpdateExperience = () => {
                       style={styles.uploadContainer1}
                       placeholderStyle={styles.placeholderStyle}
                       selectedTextStyle={styles.selectedTextStyle}
+                      itemTextStyle={{color: '#000'}}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       data={JobTypeData}

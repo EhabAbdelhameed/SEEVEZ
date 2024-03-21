@@ -9,7 +9,7 @@ import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
 import {selectUser} from 'src/redux/auth';
-const UserHeader = () => {
+const UserHeader = ({data}: {data: any}) => {
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -32,7 +32,7 @@ const UserHeader = () => {
           alignItems: 'center',
           backgroundColor: appColors.bg,
         }}>
-        {User?.avatar == null ? (
+        {data?.avatar == null ? (
           <AVATAR height={48} width={48} />
         ) : (
           <Image
@@ -55,34 +55,45 @@ const UserHeader = () => {
             fontWeight: '700',
           }}>
           {/* {User?.name} */}
-          Carter Rosser
+          {data?.name}
         </Text>
-
-        <Text style={{
-            fontSize: 14,
-            fontFamily: 'Noto Sans',
-            color: '#1C1C1C',
-            fontWeight: '400',
-          }}>
-          {/* {User?.job_title} */}
-          Senior ui ux designer
+        {data?.job_title == null ? null : (
+          <Text
+            style={{
+              fontSize: 14,
+              fontFamily: 'Noto Sans',
+              color: '#1C1C1C',
+              fontWeight: '400',
+            }}>
+            {data?.job_title}
           </Text>
-        <Text style={{
-            fontSize: 14,
-            fontFamily: 'Noto Sans',
-            color: '#1C1C1C',
-            fontWeight: '400',
-          }}>
-          {/* {User?.country} */}
-          6th of October, Cairo, Egypt
+        )}
+        {data?.country == null &&
+        data?.city == null &&
+        data?.area == null ? null : (
+          <Text
+            style={{
+              fontSize: 14,
+              fontFamily: 'Noto Sans',
+              color: '#1C1C1C',
+              fontWeight: '400',
+            }}>
+            {data?.area == null ? '' : data?.area}{' '}
+            {data?.city == null ? '' : data?.city}{' '}
+            {data?.country == null ? '' : data?.country}
           </Text>
-        <Text style={{
-            fontSize: 14,
-            fontFamily: 'Noto Sans',
-            color: '#1C1C1C',
-            fontWeight: '400',
-          }}>{User?.phone_number}</Text>
-
+        )}
+        {data?.phone_number == null ? null : (
+          <Text
+            style={{
+              fontSize: 14,
+              fontFamily: 'Noto Sans',
+              color: '#1C1C1C',
+              fontWeight: '400',
+            }}>
+            {data?.phone_number}
+          </Text>
+        )}
       </View>
     </View>
   );

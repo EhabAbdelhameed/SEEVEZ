@@ -14,14 +14,17 @@ import CustomInput from 'components/molecules/Input/CustomInput';
 import Button from 'components/molecules/Button';
 import NewPicker from 'components/molecules/PhonePicker';
 import {Input} from 'react-native-elements';
-import { appSizes } from 'theme';
-import { FirstApplaySchema, LoginSchema } from 'src/Formik/schema';
-import { useAppDispatch } from 'src/redux/store';
+import {appSizes} from 'theme';
+import {FirstApplaySchema, LoginSchema} from 'src/Formik/schema';
+import {useAppDispatch} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import { selectJobQuestions } from 'src/redux/app';
+import {selectJobQuestions} from 'src/redux/app';
+import UserHeader from './UserHeader';
+import ApplySteps from './ApplaySteps';
+import {ActivityIndicator} from 'react-native';
 const Formick = () => {
   const {id}: any = useRoute().params;
- 
+  const [isloading, setIsloading] = useState(false);
   const navigation = useNavigation<any>();
   const _handleNavigate = useCallback(() => {
     navigation.goBack();
@@ -30,39 +33,62 @@ const Formick = () => {
 
   const {t, i18n} = useTranslation();
   const User = useSelector(selectUser);
-  const dispatch=useAppDispatch()
-  const Questions=useSelector(selectJobQuestions)
+  const dispatch = useAppDispatch();
+  const Questions = useSelector(selectJobQuestions);
 
   React.useEffect(() => {
     // setIsloadingCompany(true);
     // dispatch(AppThunks.doGetFollowingList())
-    dispatch(AppThunks.doGetJobQuestions(id))
+    setIsloading(true);
+    dispatch(AppThunks.doGetJobQuestions(id)).then((res: any) => {
+      setIsloading(false);
+    });
   }, []);
 
-
   //   console.log(User?.email)
-  return (
+  return isloading ? (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <ActivityIndicator size="large" color={appColors.primary} />
+    </View>
+  ) : (
     <Formik
-        validationSchema={FirstApplaySchema}
-      initialValues={{email:User?.email, phone: User?.phone_number || ''}}
+      validationSchema={FirstApplaySchema}
+      initialValues={{email: User?.email, phone: User?.phone_number || ''}}
       onSubmit={values => {
         const formdata = new FormData();
         formdata.append('email', values.email);
-        let array=[];
-            let obj1={
-              question1:Questions[0],
-              question2:Questions[1],
-              email:values.email,
-              phone:values.phone,
-              job_id:id
-            }
+        let array = [];
+        let obj1 = {
+          question1: Questions[0],
+          question2: Questions[1],
+          email: values.email,
+          phone: values.phone,
+          job_id: id,
+        };
 
-        navigation.navigate("SecondApplayPage",{data:obj1,questions:Questions})
+        navigation.navigate('SecondApplayPage', {
+          data: obj1,
+          questions: Questions,
+        });
         // navigation.navigate("app")
       }}>
       {(props: any) => (
         <View>
-          
+          <ApplySteps question={Questions} CurrentIndex={0} />
+          <View style={{marginTop: 10}}>
+            <View style={{marginTop: 20, marginBottom: 10}}>
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontFamily: 'Noto Sans',
+                  color: '#000',
+                  fontWeight: '700',
+                }}>
+                Contact info
+              </Text>
+              <UserHeader />
+            </View>
+          </View>
           <Text
             style={{
               fontSize: 18,
@@ -71,14 +97,13 @@ const Formick = () => {
               fontWeight: '500',
               marginBottom: 15,
             }}>
-              {Questions[0]?.question}
+            {Questions[0]?.question}
             {/* Your email address */}
           </Text>
           <CustomInput
             {...props}
             Label="email"
             placeholder={t('WriteYourEmail')}
-           
           />
 
           <Text
@@ -89,7 +114,7 @@ const Formick = () => {
               fontWeight: '500',
               marginBottom: 15,
             }}>
-           {Questions[1]?.question}
+            {Questions[1]?.question}
           </Text>
           {/* <InputView {...props} name="phone" placeholder="Your phone" /> */}
           <Input
@@ -134,11 +159,19 @@ const Formick = () => {
             keyboardType="number-pad"
             placeholder={t('Enter phone number')}
           />
-          <Text style={{fontSize:11,fontFamily:'Noto Sans',fontWeight:'400',color:'#191919',marginTop:15}}>
-          Submitting this application won’t change your seevez profile.
-          Application powered by seevez | <Text style={{color:'#1D5EDD'}} >Help Center</Text>
-        </Text>
-          <View style={{height:appSizes.height*.13}} />
+          <Text
+            style={{
+              fontSize: 11,
+              fontFamily: 'Noto Sans',
+              fontWeight: '400',
+              color: '#191919',
+              marginTop: 15,
+            }}>
+            Submitting this application won’t change your seevez profile.
+            Application powered by seevez |{' '}
+            <Text style={{color: '#1D5EDD'}}>Help Center</Text>
+          </Text>
+          <View style={{height: appSizes.height * 0.13}} />
           <Button
             // loading={loading}
             text={t('next')}

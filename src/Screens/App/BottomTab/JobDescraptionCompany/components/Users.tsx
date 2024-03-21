@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {appSizes} from 'theme';
 
 const Users = ({item}: {item?: any}) => {
-  console.log("1",item)
+  // console.log("1",item)
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const [count, setCount] = React.useState(0);
@@ -56,7 +56,7 @@ const Users = ({item}: {item?: any}) => {
             </Text>
           </View>
           <Text style={[styles.work, {fontSize: 11}]}>
-          {item?.users?.job_title}
+            {item?.users?.job_title}
           </Text>
           <View
             style={[
@@ -64,14 +64,23 @@ const Users = ({item}: {item?: any}) => {
               {width: 120, paddingVertical: 2},
             ]}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
-              {item?.users?.number_of_followers >= 1000 ? `${item?.users?.number_of_followers / 1000}k` : item?.users?.number_of_followers} {'Followers'}
+              {item?.users?.number_of_followers >= 1000
+                ? `${item?.users?.number_of_followers / 1000}k`
+                : item?.users?.number_of_followers}{' '}
+              {'Followers'}
             </Text>
           </View>
         </View>
       </View>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => { navigation.navigate("ReviewUser")}}
+        onPress={() => {
+          navigation.navigate('ReviewUser', {
+            apply_id: item?.id,
+            user_id: item?.user_id,
+            job_id: item?.job_id,
+          });
+        }}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -79,8 +88,8 @@ const Users = ({item}: {item?: any}) => {
           columnGap: 3,
           borderRadius: appSizes.l,
           // borderWidth: 1,
-          paddingVertical:10,
-          paddingHorizontal:20,
+          paddingVertical: 10,
+          paddingHorizontal: 20,
           // borderColor: appColors.lightGreen,
           backgroundColor: appColors.primary,
         }}>
