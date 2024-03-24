@@ -27,12 +27,12 @@ import {appColors, appSizes} from 'theme';
 const ReviewUser = () => {
   // console.log(CurrentUserData)
   const {apply_id, job_id, user_id}: any = useRoute().params;
-  console.log(apply_id,job_id,user_id)
+  // console.log(apply_id,job_id,user_id)
 
   const [load, setLoad] = useState(false);
   const dispatch = useAppDispatch();
   const ReviewUser = useSelector(selectReviewUser);
-   console.log("1234",ReviewUser)
+  //  console.log("1234",JSON.stringify(ReviewUser))
   React.useEffect(() => {
     setLoad(true);
     let obj = {
@@ -114,7 +114,20 @@ const ReviewUser = () => {
               return (
                 <View>
                   {item?.question?.type == 4 ? (
+                    <>
+                        <Text
+                        style={{
+                          fontSize: 15,
+                          fontFamily: 'Noto Sans',
+                          color: '#000',
+                          fontWeight: '700',
+                          marginTop: 20,
+                     
+                        }}>
+                        {item?.question?.question}
+                      </Text>
                     <ReviewCV data={item} />
+                    </>
                   ) : item?.question?.type == 2 ? (
                     <View>
                       <Text

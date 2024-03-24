@@ -1739,7 +1739,7 @@ const slice = createSlice({
       });
       // state.done = true;
     });
-    //doUnSaveJob
+    //doSaveJob
     builder.addCase(
       thunks.doSaveJob.rejected,
       (state, action: any) => {
@@ -1761,24 +1761,24 @@ const slice = createSlice({
         type: 'success',
         text1: action?.payload?.message,
       });
-      state.done = true;
+      // state.done = true;
     });
-    builder.addCase(
-      thunks.doUnSaveJob.rejected,
-      (state, action: any) => {
-        if (action?.payload?.data?.message == 'Validation error.') {
-          Toast.show({
-            type: 'error',
-            text1: action?.payload?.data?.error,
-          });
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: action?.payload?.data?.message,
-          });
-        }
-      },
-    );
+    // builder.addCase(
+    //   thunks.doUnSaveJob.rejected,
+    //   (state, action: any) => {
+    //     if (action?.payload?.data?.message == 'Validation error.') {
+    //       Toast.show({
+    //         type: 'error',
+    //         text1: action?.payload?.data?.error,
+    //       });
+    //     } else {
+    //       Toast.show({
+    //         type: 'error',
+    //         text1: action?.payload?.data?.message,
+    //       });
+    //     }
+    //   },
+    // );
     //doGetMySavedJob
     builder.addCase(thunks.doGetMySavedJob.fulfilled, (state, action) => {
       // console.log("QuestionsFFF:",action?.payload?.data)

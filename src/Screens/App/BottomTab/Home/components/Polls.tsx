@@ -14,7 +14,7 @@ const Polls = () => {
   const dispatch = useAppDispatch();
   const CurrentUserData = useSelector(selectUser);
   const [loader, setLoader] = React.useState(false);
-  
+
   React.useEffect(() => {
     const RenderFunction = navigation.addListener('focus', () => {
       setLoader(true);
@@ -27,15 +27,14 @@ const Polls = () => {
     return RenderFunction;
   }, [navigation]);
   const polls = useSelector(selectPolls);
-  const AccessToken = useSelector(selectAccessToken);
-  React.useEffect(() => {
-    AccessToken ? dispatch(AuthSlice.chnageisAuth(false)) : null;
-  }, [AccessToken]);
-  const Slider = ({pers, title}: {pers: number; title: string}) => {
+
+  const Slider = ({pers, title,index}: {pers: number; title: string,index:number}) => {
     return (
       <>
-        <View style={{marginTop: 4}}>
-          <Text style={[styles.text2, {fontWeight: '700'}]}>{title}</Text>
+        <View style={{marginTop:4}}>
+          <Text numberOfLines={1} style={[styles.text2, {fontWeight: '700'}]}>
+            {title}
+          </Text>
           <View
             style={[
               styles.rowItemSlide,
@@ -78,6 +77,7 @@ const Polls = () => {
       </>
     );
   };
+  // console.log("12345",polls[0].answers?.length)
   return (
     <View
       style={[
@@ -85,19 +85,21 @@ const Polls = () => {
         {
           justifyContent: polls[0]?.pollId == null ? 'center' : 'flex-start',
           alignItems: polls[0]?.pollId == null ? 'center' : 'flex-start',
-        },  
+        },
       ]}>
       {polls[0]?.pollId == null ? (
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <Text style={styles.text1}>No Polls</Text>
         </View>
       ) : (
-        <View>
+        <View style={{marginTop:polls[0]?.answers?.length <= 2 ? 30 : 0}}>
           <Text style={styles.text1}>{polls[0]?.question}</Text>
           <View>
-            {polls[0]?.answers?.map((Exp: any, index: any) => (
-              <Slider pers={Exp?.voteCount} title={Exp?.data} />
-            ))}
+            {polls[0]?.answers?.map((Exp: any, index: any) =>
+             index < 3 ? (
+                <Slider index={index} pers={Exp?.voteCount} title={Exp?.data} />
+              ) : null,
+            )}
 
             <View style={{height: 2}} />
           </View>

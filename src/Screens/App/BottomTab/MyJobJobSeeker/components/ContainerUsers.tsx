@@ -19,6 +19,7 @@ const ContainerUsers = ({
   
   const [seeAll, setSeeAll] = useState(false);
   const renderItem = ({ item }:any) => <UserSection item={item} load={load} />;
+  // console.log(JSON.stringify(data))
   return (
     <View style={styles.containerUsers}>
       <Text style={styles.titleSection}>{title}</Text>

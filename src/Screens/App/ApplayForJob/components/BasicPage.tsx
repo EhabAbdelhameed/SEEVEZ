@@ -31,8 +31,6 @@ import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
 import { current } from '@reduxjs/toolkit';
 import ApplySteps from './ApplaySteps';
-import { selectDone } from 'src/redux/app';
-import { useSelector } from 'react-redux';
 const audioRecorderPlayer = new AudioRecorderPlayer();
 // Component for text input question
 const TextInputQuestion = ({
@@ -577,19 +575,14 @@ const DynamicQuestionsComponent = () => {
           name: answer[i].answer[0]?.name,
         });
       } else {
-        formdata.append(`array[${i}][answer]`, JSON.stringify(answer[i].answer));
+        formdata.append(`array[${i}][answer]`, answer[i].answer);
       }
     }
-    console.log(JSON.stringify(formdata));
+    // console.log(JSON.stringify(formdata));
     dispatch(AppThunks.doApplayQuestion(formdata)).then((res: any) => {
       setIsSubmitting(false);
     });
   };
-  const changeDone = useSelector(selectDone);
-  // console.log(changeDone)
-  useEffect(() => {
-    changeDone ? navigation.navigate('Bag') : null;
-  }, [changeDone]);
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />

@@ -304,6 +304,8 @@ const AddNewExperience = () => {
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
+                      activeColor='#DDD'
+                      itemTextStyle={{color: '#000'}}
                       data={IndustryData}
                       search
                       // maxHeight={300}
@@ -336,6 +338,8 @@ const AddNewExperience = () => {
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
+                      activeColor='#DDD'
+                      itemTextStyle={{color: '#000'}}
                       data={YearsData}
                       search
                       // maxHeight={300}
@@ -368,6 +372,8 @@ const AddNewExperience = () => {
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
+                      activeColor='#DDD'
+                      itemTextStyle={{color: '#000'}}
                       data={JobTypeData}
                       search
                       // maxHeight={300}

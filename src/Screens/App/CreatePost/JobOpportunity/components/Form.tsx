@@ -178,6 +178,7 @@ const Form = () => {
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
                 itemTextStyle={{color: '#000'}}
+                activeColor='#DDD'
                 data={skills}
                 search
                 labelField="name"

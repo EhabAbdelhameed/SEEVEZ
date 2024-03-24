@@ -68,6 +68,7 @@ const QuestionReview = ({data}:{data:any}) => {
               color: '#000',
               fontWeight: '400',
               marginTop: 10,
+              marginLeft:10
             }}>
             {data?.answer?.answer}
           </Text>

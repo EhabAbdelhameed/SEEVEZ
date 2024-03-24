@@ -16,7 +16,9 @@ const ContainerUsers = ({setLoad,data}: {setLoad?: any,data:any}) => {
   const [seeAll, setSeeAll] = useState(false);
   return (
     <View>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
       <JobAnaltics AnalticsData={data?.analytics} />
+      </View>
 
       <View style={[styles.containerUsers]}>
         {data?.applied_users?.length!=0?

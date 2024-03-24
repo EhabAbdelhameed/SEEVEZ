@@ -273,6 +273,7 @@ const UpdateEducation = () => {
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
+                      activeColor='#DDD'
                       data={EducationLevelData}
                       itemTextStyle={{color: '#000'}}
                       search

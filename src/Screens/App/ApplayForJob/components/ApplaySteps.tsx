@@ -30,12 +30,11 @@ const ApplySteps = ({
         marginTop: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        width:'100%'
+        width: '100%',
         // justifyContent: 'space-around',
       }}>
       {question?.map((item: any, index: any) => {
-        return (
-            index<question?.length-1?
+        return index < question?.length - 1 ? (
           <View
             key={index}
             style={{
@@ -43,35 +42,35 @@ const ApplySteps = ({
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            {index<=CurrentIndex ? (
-                  <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-    
-                    width: 20,
-                    height: 20,
-                    borderRadius: 20,
-                    backgroundColor: '#00CEC8',
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: '400',
-                      fontFamily: 'Noto Sans',
-                      color: '#fff',
-                    }}>
-                    {index + 1}
-                  </Text>
-                </View>
-            ):(
-                <View
+            {index <= CurrentIndex ? (
+              <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center',
-  
+
+                  width: 20,
+                  height: 20,
+                  borderRadius: 20,
+                  backgroundColor: '#00CEC8',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '400',
+                    fontFamily: 'Noto Sans',
+                    color: '#fff',
+                  }}>
+                  {index + 1}
+                </Text>
+              </View>
+            ) : (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+
                   width: 20,
                   height: 20,
                   borderRadius: 20,
@@ -86,21 +85,26 @@ const ApplySteps = ({
                   }}>
                   {index + 1}
                 </Text>
-              </View> 
+              </View>
             )}
-          
+
             {question?.length - 2 == index ? null : (
               <View
                 style={{
-                  width:question?.length<=4?200:question?.length>4&&question?.length<7? 35:20,
+                  width:
+                    question?.length <= 4
+                      ? 200
+                      : question?.length > 4 && question?.length < 7
+                      ? 35
+                      : 20,
                   height: 2,
 
                   backgroundColor: '#00CEC8',
                 }}
               />
             )}
-          </View>:null
-        );
+          </View>
+        ) : null;
       })}
     </View>
   );

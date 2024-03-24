@@ -37,15 +37,13 @@ const Formick = () => {
   const Questions = useSelector(selectJobQuestions);
 
   React.useEffect(() => {
-    // setIsloadingCompany(true);
-    // dispatch(AppThunks.doGetFollowingList())
     setIsloading(true);
     dispatch(AppThunks.doGetJobQuestions(id)).then((res: any) => {
       setIsloading(false);
     });
   }, []);
 
-  //   console.log(User?.email)
+
   return isloading ? (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <ActivityIndicator size="large" color={appColors.primary} />

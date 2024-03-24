@@ -186,6 +186,7 @@ const Form2 = () => {
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    activeColor='#DDD'
                     data={WorkTypeData}
                     search
                     // maxHeight={300}
@@ -238,6 +239,7 @@ const Form2 = () => {
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    activeColor='#DDD'
                     data={JobTypeData}
                     search
                     // maxHeight={300}

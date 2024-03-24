@@ -35,7 +35,7 @@ const SecondApplayPage = () => {
   }, [changeDone]);
   // console.log(CurrentUserData)
   const {data, questions}: any = useRoute().params;
- 
+
   const dispatch = useAppDispatch();
   const User = useSelector(selectUser);
   // console.log(User?.cv_pdf)
@@ -63,7 +63,6 @@ const SecondApplayPage = () => {
     navigation.goBack();
   }, []);
   const navigateToNextPage = () => {
-   
     let obj = {
       job_id: data?.job_id,
       email: data?.email,
@@ -73,13 +72,11 @@ const SecondApplayPage = () => {
       questions: questions,
     };
 
-   
-      navigation.navigate('DynamicQuestionsComponent', {data: obj});
-  
+    navigation.navigate('DynamicQuestionsComponent', {data: obj});
   };
   const submit = () => {
     setLoading(true);
-        
+
     const formdata = new FormData();
     formdata.append('job_id', data?.job_id);
     for (let i = 0; i < questions?.length; i++) {
@@ -94,21 +91,19 @@ const SecondApplayPage = () => {
     formdata.append(`array[1][answer]`, data?.phone);
     if (source?.length != 0) {
       formdata.append('array[2][answer]', {
-        uri:source[0]?.uri,
-        type:source[0]?.type,
-        name:source[0]?.name,
+        uri: source[0]?.uri,
+        type: source[0]?.type,
+        name: source[0]?.name,
       });
     } else {
       formdata.append('array[2][answer]', JSON.stringify(User?.cv_pdf));
-
-
     }
     // console.log(JSON.stringify(formdata));
     dispatch(AppThunks.doApplayQuestion(formdata)).then((res: any) => {
       setLoading(false);
     });
   };
-  // console.log(JSON.stringify(User))
+
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
@@ -129,7 +124,7 @@ const SecondApplayPage = () => {
           </View>
         </View>
         <View style={{}}>
-          <ApplySteps question={questions} CurrentIndex={1}/>
+          <ApplySteps question={questions} CurrentIndex={1} />
           <View style={{marginTop: 30, marginBottom: 30}}>
             <Text
               style={{

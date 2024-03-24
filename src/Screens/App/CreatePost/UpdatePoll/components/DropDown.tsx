@@ -23,6 +23,8 @@ const DropDown = (props:any) => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
+        activeColor='#DDD'
+        itemTextStyle={{color: '#000'}}
         data={data}
         search
         // maxHeight={300}

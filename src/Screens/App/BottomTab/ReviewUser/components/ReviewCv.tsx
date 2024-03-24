@@ -36,7 +36,7 @@ const ReviewCV = ({data}: {data: any}) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderRadius: 16,
-        marginTop: 20,
+        marginTop: 10,
       }}>
       <View
         style={{

@@ -20,15 +20,6 @@ import Formick from './components/Formick';
 import ApplySteps from './components/ApplaySteps';
 
 const ApplayForJob = () => {
-  // console.log(CurrentUserData)
-
-  
-
-  const User = useSelector(selectUser);
-  
-
-
-
   return (
     <SafeAreaView edges={['top']} style={[styles.Container]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />

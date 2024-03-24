@@ -92,7 +92,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   // console.log("USERS",item)
   return (
   
-    <View style={{paddingHorizontal: 10}}>
+    <View style={{paddingHorizontal: 20,marginTop:20}}>
       <TopHeader />
 
       <Text

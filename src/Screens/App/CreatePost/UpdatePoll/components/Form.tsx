@@ -120,6 +120,8 @@ const Form = () => {
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
+                activeColor='#DDD'
+                itemTextStyle={{color: '#000'}}
                 data={lang == 'en' ? data : data1}
                 search
                 // maxHeight={300}

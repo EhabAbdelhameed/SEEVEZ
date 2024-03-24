@@ -47,6 +47,7 @@ import BottomHeader from 'screens/App/CompleteProfile/components/Header/BottomHe
 import AuthSlice from 'src/redux/auth';
 import { selectLang } from 'src/redux/lang';
 import { useTranslation } from 'react-i18next';
+import Textarea from 'react-native-textarea';
 const UpdateOneExperience = () => {
   const {data}: any = useRoute().params;
 
@@ -343,6 +344,8 @@ const UpdateOneExperience = () => {
                     selectedTextStyle={[styles.selectedTextStyle,{textAlign:lang=='ar'?'right':'left'}]}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    activeColor='#DDD'
+                    itemTextStyle={{color: '#000'}}
                     data={IndustryData}
                     search
                     // maxHeight={300}
@@ -380,6 +383,8 @@ const UpdateOneExperience = () => {
                     selectedTextStyle={[styles.selectedTextStyle,{textAlign:lang=='ar'?'right':'left'}]}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    activeColor='#DDD'
+                    itemTextStyle={{color: '#000'}}
                     data={YearsData}
                     search
                     // maxHeight={300}
@@ -419,6 +424,8 @@ const UpdateOneExperience = () => {
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
                     data={JobTypeData}
+                    activeColor='#DDD'
+                    itemTextStyle={{color: '#000'}}
                     search
                     // maxHeight={300}
                     labelField="name"
@@ -449,7 +456,7 @@ const UpdateOneExperience = () => {
                     onFocus={() => setDropdownOpen2(true)} // Set the state to open when the dropdown is focused
                     onBlur={() => setDropdownOpen2(false)}
                   />
-                  <Input
+                  {/* <Input
                     {...props}
                     name={`description`}
                     placeholderTextColor={'#B9B9B9'}
@@ -472,6 +479,20 @@ const UpdateOneExperience = () => {
                       //  color: 'red'
                     }}
                     placeholder={t("description")}
+                  /> */}
+                    <Textarea
+                    containerStyle={[
+                      styles.uploadContainer,
+                   
+                    ]}
+                    value={props.values.description}
+                    // style={styles.textarea}
+                    onChangeText={(e:any) => props?.setFieldValue(`description`, e)}
+                    // defaultValue={this.state.text}
+                    // maxLength={120}
+                    placeholder={t("description")}
+                    placeholderTextColor={'#B9B9B9'}
+                    underlineColorAndroid={'transparent'}
                   />
 
                   <View

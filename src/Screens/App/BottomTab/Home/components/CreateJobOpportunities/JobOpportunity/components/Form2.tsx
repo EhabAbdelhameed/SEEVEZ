@@ -27,6 +27,7 @@ import Header from './Header';
 import AppThunks from 'src/redux/app/thunks';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {selectUser} from 'src/redux/auth';
+import Textarea from 'react-native-textarea';
 
 const Form2JobOpportunity = () => {
   const JobTypeData = useSelector(selectJobtype);
@@ -137,7 +138,7 @@ const Form2JobOpportunity = () => {
                 skillsName: data.skillsName,
               };
 
-              navigation.navigate('PreviewJob', {obj: obj,color:color});
+              navigation.navigate('PreviewJob', {obj: obj, color: color});
             }}>
             {(props: any) => (
               <View>
@@ -159,7 +160,7 @@ const Form2JobOpportunity = () => {
                     color={color != '#FFF' ? '#E8AB00' : '#FFF'}
                     Label={'number_of_vacancies'}
                     placeholder={t('writeHere')}
-                    keyboardType='numeric'
+                    keyboardType="numeric"
                   />
                 </View>
                 <View>
@@ -188,8 +189,8 @@ const Form2JobOpportunity = () => {
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     itemTextStyle={{color: '#000'}}
+                    activeColor={'#DDD'}
                     iconStyle={styles.iconStyle}
-                    
                     data={WorkTypeData}
                     search
                     // maxHeight={300}
@@ -250,6 +251,7 @@ const Form2JobOpportunity = () => {
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     itemTextStyle={{color: '#000'}}
+                    activeColor={'#DDD'}
                     iconStyle={styles.iconStyle}
                     data={JobTypeData}
                     search
@@ -298,12 +300,25 @@ const Form2JobOpportunity = () => {
                       {'( Optional )'}
                     </Text>
                   </Text>
-                  <CustomInput
-                    {...props}
-                    Label={'job_description'}
-                    color={color != '#FFF' ? '#E8AB00' : '#FFF'}
-                    placeholder={t('writeHere')}
-                    style={{height: 200}}
+
+                  <Textarea
+                    containerStyle={[
+                      styles.uploadContainer7,
+                      {
+                        borderColor:
+                          color != '#FFF' ? '#E8AB00' : appColors.primary,
+                        borderWidth: 1,
+                      },
+                    ]}
+                    // style={styles.textarea}
+                    onChangeText={(e: any) =>
+                      props?.setFieldValue(`job_description`, e)
+                    }
+                    // defaultValue={this.state.text}
+                    // maxLength={120}
+                    placeholder={'job_description'}
+                    placeholderTextColor={'#B9B9B9'}
+                    underlineColorAndroid={'transparent'}
                   />
                 </View>
                 <View>

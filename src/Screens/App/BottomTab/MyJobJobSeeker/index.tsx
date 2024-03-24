@@ -54,6 +54,7 @@ const MyJobToJobSeeker = (props: any) => {
     setIsloadingCompany(false),
   );
   }, [load]);
+  
 
   return (
     <SafeAreaView edges={['top']} style={globalStyles.screen}>
@@ -109,7 +110,7 @@ const MyJobToJobSeeker = (props: any) => {
         <KeyboardAwareScrollView
           contentContainerStyle={{
             alignItems: 'center',
-           
+           paddingBottom:120
           }}
           enableOnAndroid={true}
           keyboardShouldPersistTaps={'handled'}

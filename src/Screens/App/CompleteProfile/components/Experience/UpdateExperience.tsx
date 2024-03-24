@@ -45,8 +45,9 @@ import {Input} from 'react-native-elements';
 import TopHeader from '../Header/TopHeader';
 import BottomHeader from '../Header/BottomHeader';
 import AuthSlice from 'src/redux/auth';
-import { selectLang } from 'src/redux/lang';
-import { useTranslation } from 'react-i18next';
+import {selectLang} from 'src/redux/lang';
+import {useTranslation} from 'react-i18next';
+import Textarea from 'react-native-textarea';
 // import RNDateTimePicker from '@react-native-community/datetimepicker';
 // import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 const UpdateExperience = () => {
@@ -103,12 +104,12 @@ const UpdateExperience = () => {
   }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const lang = useSelector(selectLang);
-  
+
   const {t, i18n} = useTranslation();
   // const filteredData = data.filter(item =>
   //   item.toLowerCase().includes(searchQuery.toLowerCase()),
   // );
-  const filteredData = (data: any) => 
+  const filteredData = (data: any) =>
     data?.name?.toLowerCase().includes(searchQuery?.toLowerCase());
   const renderListItem = (item: any, props: any, index: any) => (
     <TouchableOpacity
@@ -181,7 +182,7 @@ const UpdateExperience = () => {
           // setLoad(false)
         });
     }, 500);
-    
+
     return () => clearTimeout(timer);
   }, [searchQuery]);
   const uploadFile = async (props: any, index: any) => {
@@ -190,7 +191,7 @@ const UpdateExperience = () => {
         type: [DocumentPicker.types.pdf],
       });
 
-      setExperienceLetter((prevExperienceLetter) => {
+      setExperienceLetter(prevExperienceLetter => {
         const updatedExperienceLetter = [...prevExperienceLetter];
         updatedExperienceLetter[index] = res[0].name;
         return updatedExperienceLetter;
@@ -217,12 +218,12 @@ const UpdateExperience = () => {
     navigation.goBack();
   }, []);
   return (
-    <SafeAreaView edges={['top']} style={[styles.container,{direction:lang=='ar'?'rtl':'ltr'}]}>
+    <SafeAreaView
+      edges={['top']}
+      style={[styles.container, {direction: lang == 'ar' ? 'rtl' : 'ltr'}]}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
       <KeyboardAwareScrollView
-        contentContainerStyle={{
-       
-        }}
+        contentContainerStyle={{}}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={'handled'}
         enableResetScrollToCoords={false}
@@ -241,7 +242,7 @@ const UpdateExperience = () => {
                   years_of_experience_id: '',
                   job_type_id: '',
                   start_date: '',
-                  end_date:'',
+                  end_date: '',
                   still_work_here: 0,
                   experience_letter: '',
                   description: '',
@@ -254,7 +255,8 @@ const UpdateExperience = () => {
               const formdata = new FormData();
               values.Experince.map((item: any, index: any) => {
                 formdata.append(`array[${index}][job_title]`, item.job_title);
-                values.Experince[index].company_id == ''||!values.Experince[index].company_id
+                values.Experince[index].company_id == '' ||
+                !values.Experince[index].company_id
                   ? formdata.append(
                       `array[${index}][company_name]`,
                       item.company_name,
@@ -279,21 +281,32 @@ const UpdateExperience = () => {
                   `array[${index}][job_type_id]`,
                   item.job_type_id,
                 );
-                formdata.append(`array[${index}][start_date]`,item.start_date==''||!item.start_date? Moment(new Date()).format('yyyy/MM/DD'):item.start_date);
-                formdata.append(`array[${index}][end_date]`,item.end_date==''||!item.end_date? Moment(new Date()).format('yyyy/MM/DD'):item.end_date);
-                item.still_work_here==0||!item.still_work_here?formdata.append(
-                  `array[${index}][still_work_here]`,
-                  0,
-                ):formdata.append(
-                  `array[${index}][still_work_here]`,
-                  item.still_work_here,
-                )
-                item.experience_letter==''||!item.experience_letter?null:formdata.append(
-                  `array[${index}][experience_letter]`,
-                  item.experience_letter,
-                ) 
+                formdata.append(
+                  `array[${index}][start_date]`,
+                  item.start_date == '' || !item.start_date
+                    ? Moment(new Date()).format('yyyy/MM/DD')
+                    : item.start_date,
+                );
+                formdata.append(
+                  `array[${index}][end_date]`,
+                  item.end_date == '' || !item.end_date
+                    ? Moment(new Date()).format('yyyy/MM/DD')
+                    : item.end_date,
+                );
+                item.still_work_here == 0 || !item.still_work_here
+                  ? formdata.append(`array[${index}][still_work_here]`, 0)
+                  : formdata.append(
+                      `array[${index}][still_work_here]`,
+                      item.still_work_here,
+                    );
+                item.experience_letter == '' || !item.experience_letter
+                  ? null
+                  : formdata.append(
+                      `array[${index}][experience_letter]`,
+                      item.experience_letter,
+                    );
               });
-              console.log('FormData f ', formdata, "ffffff");
+              console.log('FormData f ', formdata, 'ffffff');
 
               dispatch(AppThunks.doAddExperience(formdata)).then((res: any) => {
                 dispatch(AppThunks.GetProfileInfo());
@@ -313,9 +326,9 @@ const UpdateExperience = () => {
                         marginLeft: 8,
                         marginBottom: 10,
                       }}>
-                      {t("experience")}
+                      {t('experience')}
                     </Text>
-                    <View style={{marginBottom:10}}>
+                    <View style={{marginBottom: 10}}>
                       <Input
                         {...props}
                         name={`Experince[${index}]["job_title"]`}
@@ -343,13 +356,13 @@ const UpdateExperience = () => {
                         }}
                         inputStyle={{
                           fontSize: 14,
-                          textAlign:lang=='ar'?'right':'left'
+                          textAlign: lang == 'ar' ? 'right' : 'left',
                           //  color: 'red'
                         }}
                         placeholder={t('jobTitle')}
                       />
                     </View>
-                    <View style={{marginBottom:5}}>
+                    <View style={{marginBottom: 5}}>
                       <Input
                         {...props}
                         name={`Experince[${index}]["company_name"]`}
@@ -385,7 +398,7 @@ const UpdateExperience = () => {
                         }}
                         inputStyle={{
                           fontSize: 14,
-                          textAlign:lang=='ar'?'right':'left'
+                          textAlign: lang == 'ar' ? 'right' : 'left',
                           //  color: 'red'
                         }}
                         placeholder={t('CompanyName')}
@@ -420,11 +433,12 @@ const UpdateExperience = () => {
                       iconStyle={styles.iconStyle}
                       data={IndustryData}
                       itemTextStyle={{color: '#000'}}
+                      activeColor={'#DDD'}
                       search
                       // maxHeight={300}
                       labelField="name"
                       valueField="id"
-                      placeholder={t("industry")}
+                      placeholder={t('industry')}
                       searchPlaceholder="Search..."
                       value={value}
                       onChange={(item: any) => {
@@ -433,22 +447,24 @@ const UpdateExperience = () => {
                           item?.id,
                         );
                       }}
-                      renderRightIcon={() => (
-                        lang=='en'?
-                        <RenderSvgIcon
-                          icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
-                          width={16}
-                          height={16}
-                        />:null
-                      )}
-                      renderLeftIcon={()=>(
-                        lang=='ar'?
-                        <RenderSvgIcon
-                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
-                        width={16}
-                        height={16}
-                      />:null
-                      )}
+                      renderRightIcon={() =>
+                        lang == 'en' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
+                      renderLeftIcon={() =>
+                        lang == 'ar' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
                       onFocus={() => setDropdownOpen(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen(false)}
                     />
@@ -459,13 +475,14 @@ const UpdateExperience = () => {
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
+                      activeColor={'#DDD'}
                       itemTextStyle={{color: '#000'}}
                       data={YearsData}
                       search
                       // maxHeight={300}
                       labelField="name"
                       valueField="id"
-                      placeholder={t("yearsOfExperience")}
+                      placeholder={t('yearsOfExperience')}
                       searchPlaceholder="Search..."
                       value={value1}
                       onChange={(item: any) => {
@@ -475,22 +492,24 @@ const UpdateExperience = () => {
                         );
                         // setValue1(item?.name);
                       }}
-                      renderRightIcon={() => (
-                        lang=='en'?
-                        <RenderSvgIcon
-                          icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
-                          width={16}
-                          height={16}
-                        />:null
-                      )}
-                      renderLeftIcon={()=>(
-                        lang=='ar'?
-                        <RenderSvgIcon
-                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
-                        width={16}
-                        height={16}
-                      />:null
-                      )}
+                      renderRightIcon={() =>
+                        lang == 'en' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
+                      renderLeftIcon={() =>
+                        lang == 'ar' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
                       onFocus={() => setDropdownOpen1(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen1(false)}
                     />
@@ -500,6 +519,7 @@ const UpdateExperience = () => {
                       placeholderStyle={styles.placeholderStyle}
                       selectedTextStyle={styles.selectedTextStyle}
                       itemTextStyle={{color: '#000'}}
+                      activeColor={'#DDD'}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       data={JobTypeData}
@@ -507,7 +527,7 @@ const UpdateExperience = () => {
                       // maxHeight={300}
                       labelField="name"
                       valueField="id"
-                      placeholder={t("jobType")}
+                      placeholder={t('jobType')}
                       searchPlaceholder="Search..."
                       value={value2}
                       onChange={(item: any) => {
@@ -517,22 +537,24 @@ const UpdateExperience = () => {
                         );
                         // setValue1(item?.name);
                       }}
-                      renderRightIcon={() => (
-                        lang=='en'?
-                        <RenderSvgIcon
-                          icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
-                          width={16}
-                          height={16}
-                        />:null
-                      )}
-                      renderLeftIcon={()=>(
-                        lang=='ar'?
-                        <RenderSvgIcon
-                        icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
-                        width={16}
-                        height={16}
-                      />:null
-                      )}
+                      renderRightIcon={() =>
+                        lang == 'en' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
+                      renderLeftIcon={() =>
+                        lang == 'ar' ? (
+                          <RenderSvgIcon
+                            icon={dropdownOpen ? 'ArrowUp' : 'ArrowDown'} // Choose the icon based on the dropdown state
+                            width={16}
+                            height={16}
+                          />
+                        ) : null
+                      }
                       onFocus={() => setDropdownOpen2(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen2(false)}
                     />
@@ -559,10 +581,25 @@ const UpdateExperience = () => {
                       }}
                       inputStyle={{
                         fontSize: 14,
-                        textAlign:lang=='ar'?'right':'left'
+                        textAlign: lang == 'ar' ? 'right' : 'left',
                         //  color: 'red'
                       }}
-                      placeholder= {t("description")}
+                      placeholder={t('description')}
+                    />
+                    <Textarea
+                      containerStyle={[styles.uploadContainer7]}
+                      // style={styles.textarea}
+                      onChangeText={(e: any) =>
+                        props?.setFieldValue(
+                          `Experince[${index}]["description"]`,
+                          e,
+                        )
+                      }
+                      // defaultValue={this.state.text}
+                      // maxLength={120}
+                      placeholder={t('description')}
+                      placeholderTextColor={'#B9B9B9'}
+                      underlineColorAndroid={'transparent'}
                     />
 
                     <View
@@ -582,7 +619,7 @@ const UpdateExperience = () => {
                             marginBottom: 10,
                             marginLeft: 10,
                           }}>
-                          {t("startDate")}
+                          {t('startDate')}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -613,7 +650,7 @@ const UpdateExperience = () => {
                             marginBottom: 10,
                             marginLeft: 10,
                           }}>
-                          {t("endDate")}
+                          {t('endDate')}
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
@@ -794,7 +831,9 @@ const UpdateExperience = () => {
                           }
                         />
                       </TouchableOpacity>
-                      <Text style={styles.agree}>{t("iCurrentlyWorkThere")}</Text>
+                      <Text style={styles.agree}>
+                        {t('iCurrentlyWorkThere')}
+                      </Text>
                     </View>
                     <TouchableOpacity
                       onPress={() => uploadFile(props, index)}
@@ -809,8 +848,7 @@ const UpdateExperience = () => {
                         }}>
                         {experienceLetter[index] == null
                           ? t('uploadDegreeCertificate')
-                          : `${experienceLetter[index].slice(0,20)}...`}
-                         
+                          : `${experienceLetter[index].slice(0, 20)}...`}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -849,7 +887,7 @@ const UpdateExperience = () => {
                         color: '#000',
                         fontFamily: 'Noto Sans',
                       }}>
-                      {t("addAnotherJob")}
+                      {t('addAnotherJob')}
                     </Text>
                   </View>
                 </TouchableOpacity>

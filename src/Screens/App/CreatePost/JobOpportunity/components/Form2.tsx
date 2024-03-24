@@ -26,7 +26,7 @@ import {globalStyles} from 'src/globalStyle';
 import Header from './Header';
 import AppThunks from 'src/redux/app/thunks';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { selectUser } from 'src/redux/auth';
+import {selectUser} from 'src/redux/auth';
 const data = [
   {label: '1 day', id: 1},
   {label: '3 days', id: 2},
@@ -45,7 +45,7 @@ const Form2 = () => {
   const User = useSelector(selectUser);
 
   const {data}: any = useRoute().params;
-  console.log(JSON.stringify(data))
+  console.log(JSON.stringify(data));
 
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
@@ -57,7 +57,7 @@ const Form2 = () => {
   }, []);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [value, setValue] = useState(null);
-  
+
   // const [jobRequirements, setJobRequirements] = useState<any>([1]);
   const [jobRequirements, setJobRequirements] = useState<any>(['']);
   const [skills, setSkills] = useState<any>(['']);
@@ -127,24 +127,23 @@ const Form2 = () => {
                   })
             }
             onSubmit={values => {
-                let obj={
-                    job_title:data.JobTitle,
-                    job_location: data.JobLocation,
-                    number_of_vacancies: values.number_of_vacancies,
-                    work_type_id: values.work_type_id,
-                    job_type_id: values.job_type_id,
-                    job_description: values.job_description,
-                    salary_range:values.salary_range,
-                    email: values.email,
-                    external_link: values.external_link,
-                    job_requirements: data.job_requirements,
-                    skills: data.skills,
-                    user_id: User?.user_id, 
-                    id: 3
-                }
-                dispatch(AppSlice.changeJobOpportunity(obj));
-                navigation.navigate('CreatePollLink');
-            
+              let obj = {
+                job_title: data.JobTitle,
+                job_location: data.JobLocation,
+                number_of_vacancies: values.number_of_vacancies,
+                work_type_id: values.work_type_id,
+                job_type_id: values.job_type_id,
+                job_description: values.job_description,
+                salary_range: values.salary_range,
+                email: values.email,
+                external_link: values.external_link,
+                job_requirements: data.job_requirements,
+                skills: data.skills,
+                user_id: User?.user_id,
+                id: 3,
+              };
+              dispatch(AppSlice.changeJobOpportunity(obj));
+              navigation.navigate('CreatePollLink');
             }}>
             {(props: any) => (
               <View>
@@ -186,6 +185,8 @@ const Form2 = () => {
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    activeColor="#DDD"
+                    itemTextStyle={{color: '#000'}}
                     data={WorkTypeData}
                     search
                     // maxHeight={300}
@@ -238,6 +239,8 @@ const Form2 = () => {
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    activeColor='#DDD'
+                    itemTextStyle={{color: '#000'}}
                     data={JobTypeData}
                     search
                     // maxHeight={300}
@@ -248,7 +251,7 @@ const Form2 = () => {
                     value={value}
                     onChange={(item: any) => {
                       props?.setFieldValue(`job_type_id`, item?.id),
-                      dispatch(AppSlice.changeAddonesCaption(item?.name));
+                        dispatch(AppSlice.changeAddonesCaption(item?.name));
                     }}
                     renderRightIcon={() =>
                       lang == 'en' ? (
@@ -386,11 +389,15 @@ const Form2 = () => {
                     }
                     value={props.values.linkedin}
                   />
-                  {buttonIndexHealth == 1?props?.errors.external_link && props?.touched.external_link ? (
-                    <Text style={{color: 'red', marginLeft: 10, fontSize: 12}}>
-                      {props?.errors.external_link}
-                    </Text>
-                  ) : null:props?.errors.email && props?.touched.email ? (
+                  {buttonIndexHealth == 1 ? (
+                    props?.errors.external_link &&
+                    props?.touched.external_link ? (
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12}}>
+                        {props?.errors.external_link}
+                      </Text>
+                    ) : null
+                  ) : props?.errors.email && props?.touched.email ? (
                     <Text style={{color: 'red', marginLeft: 10, fontSize: 12}}>
                       {props?.errors.email}
                     </Text>

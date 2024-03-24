@@ -22,7 +22,7 @@ const JobDetails = () => {
     
       {/* Add more responsibilities as needed */}
 
-      <Text style={styles.sectionTitle}>Requirements:</Text>
+      {MyJob?.job_requirements?.length==0?null:<Text style={styles.sectionTitle}>Requirements:</Text>}
       {MyJob?.job_requirements?.map((item: any) => (
         <View style={{flexDirection: 'row', marginLeft: 10}}>
           <Text style={{marginRight: 5, marginTop: 5, color: '#1C1C1C'}}>

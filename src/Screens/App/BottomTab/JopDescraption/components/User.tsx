@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Linking} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Linking,
+  ActivityIndicator,
+} from 'react-native';
 import {styles} from '../styles';
 import {globalStyles} from '../../../../../globalStyle';
 import {dummyAvatar} from '../../../../../Dummy';
@@ -8,9 +14,13 @@ import {appColors} from '../../../../../theme/appColors';
 import AvatarIcon from '../../../../../Components/molecules/Avatar';
 import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
-import {selectFollowingList, selectMyJobJobSeeker, selectOneJob} from 'src/redux/app';
-import {useNavigation} from '@react-navigation/native';
-import {AVATAR, SaveJob} from 'assets/Svgs';
+import {
+  selectFollowingList,
+  selectMyJobJobSeeker,
+  selectOneJob,
+} from 'src/redux/app';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {AVATAR, SaveJob, SaveJobFill} from 'assets/Svgs';
 import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
@@ -24,15 +34,54 @@ import {appSizes} from 'theme';
 import Button from 'components/molecules/Button';
 import RecruiterHeader from './recruiterHeader';
 
-const UserSection = ({item, setLoad,data}: {item?: any; setLoad?: any,data?:any}) => {
+const UserSection = ({
+  item,
+  setLoad,
+  data,
+}: {
+  item?: any;
+  setLoad?: any;
+  data?: any;
+}) => {
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const {navigate} = useNavigation<any>();
   const lang = useSelector(selectLang);
   const User = useSelector(selectUser);
-  
+  const {id, saved}: any = useRoute().params;
+  const [load, setLoading] = React.useState(false);
   const {t, i18n} = useTranslation();
   const MyJob = useAppSelector(selectMyJobJobSeeker);
+  const [save, setSave] = React.useState(false);
+  // console.log("MyJob",MyJob)
+  const handleSavePress = () => {
+    const formdata = new FormData();
+    setLoading(true);
+    if (MyJob?.save_id != null) {
+      dispatch(AppThunks.doUnSaveJob(MyJob?.save_id)).then((res: any) => {
+        dispatch(AppThunks.doGetRecommandedJobs());
+        dispatch(AppThunks.doGetInternshipsJobs());
+        dispatch(AppThunks.doGetFreelancerJobs());
+        dispatch(AppThunks.doGetJobDescraptionJobSeeker(id)).then(() =>
+        setLoading(false),
+      );
+       
+      });
+    } else {
+      formdata.append('job_id', id);
+
+      dispatch(AppThunks.doSaveJob(formdata)).then((res: any) => {
+        dispatch(AppThunks.doGetRecommandedJobs());
+        dispatch(AppThunks.doGetInternshipsJobs());
+        dispatch(AppThunks.doGetFreelancerJobs());
+        dispatch(AppThunks.doGetJobDescraptionJobSeeker(id)).then(() =>
+        setLoading(false),
+      );
+       
+   
+      });
+    }
+  };
   const getdate = () => {
     const startDate: Date = new Date(MyJob?.created_at);
     const currentDate: Date = new Date();
@@ -114,20 +163,20 @@ const UserSection = ({item, setLoad,data}: {item?: any; setLoad?: any,data?:any}
         About the job
       </Text>
       <JobDetails />
-      {MyJob?.skills?.length==0?null:
-      <>
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: '700',
-          fontFamily: 'Noto Sans',
-          color: '#000',
-        }}>
-        Skills
-      </Text>
-      <JobSkills />
-      </>
-      }
+      {MyJob?.skills?.length == 0 ? null : (
+        <>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '700',
+              fontFamily: 'Noto Sans',
+              color: '#000',
+            }}>
+            Skills
+          </Text>
+          <JobSkills />
+        </>
+      )}
       <Text
         style={{
           fontSize: 16,
@@ -173,15 +222,17 @@ const UserSection = ({item, setLoad,data}: {item?: any; setLoad?: any,data?:any}
         <View style={{width: '80%'}}>
           <Button
             style={{height: 62}}
-            text={'Apply for job'} 
-            onPress={() =>navigate('ApplayForJob',{id:MyJob?.id})
+            text={'Apply for job'}
+            onPress={
+              () => navigate('ApplayForJob', {id: MyJob?.id})
               // MyJob?.email != null
               //   ? handleEmailPress()
               //   : Linking.openURL(MyJob?.external_link)
             }
           />
         </View>
-        <View
+        <TouchableOpacity
+          onPress={handleSavePress}
           style={{
             backgroundColor: appColors.bg,
             justifyContent: 'center',
@@ -192,8 +243,14 @@ const UserSection = ({item, setLoad,data}: {item?: any; setLoad?: any,data?:any}
             borderWidth: 1,
             borderColor: appColors.primary,
           }}>
-          <SaveJob width={30} height={30} />
-        </View>
+          {load ? (
+            <ActivityIndicator size="small" color={appColors.primary} />
+          ) : MyJob?.save_id != null ? (
+            <SaveJobFill width={30} height={30} />
+          ) : (
+            <SaveJob width={30} height={30} />
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -755,6 +755,7 @@ const UpdateInfo = () => {
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       itemTextStyle={{color: '#000'}}
+                      activeColor='#DDD'
                       data={Nationalities}
                       search
                       labelField="name"

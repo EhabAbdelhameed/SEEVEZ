@@ -16,7 +16,7 @@ import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
 import {selectUser} from 'src/redux/auth';
 
-const UserSection = ({item, load}: {item?: any; load?:any}) => {
+const UserSection = ({item, load}: {item?: any; load?: any}) => {
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const {navigate} = useNavigation<any>();
@@ -25,20 +25,25 @@ const UserSection = ({item, load}: {item?: any; load?:any}) => {
   const [isSaved, setIsSaved] = React.useState(false);
 
   const {t, i18n} = useTranslation();
+
   const handleSavePress = () => {
     const formdata = new FormData();
-    if (isSaved) {
-      console.log('UnSave');
-      // dispatch(AppThunks.doUnSaveJob(item?.id));
+    if (item?.saved != null) {
+      dispatch(AppThunks.doUnSaveJob(item?.saved)).then((res: any) => {
+        load(true);
+        dispatch(AppThunks.doGetRecommandedJobs());
+        dispatch(AppThunks.doGetInternshipsJobs());
+        dispatch(AppThunks.doGetFreelancerJobs());
+      });
     } else {
       formdata.append('job_id', item?.id);
 
       dispatch(AppThunks.doSaveJob(formdata)).then((res: any) => {
-           load(true)
-        dispatch(AppThunks.doGetRecommandedJobs())
-        dispatch(AppThunks.doGetInternshipsJobs())
-        dispatch(AppThunks.doGetFreelancerJobs())
-      })
+        load(true);
+        dispatch(AppThunks.doGetRecommandedJobs());
+        dispatch(AppThunks.doGetInternshipsJobs());
+        dispatch(AppThunks.doGetFreelancerJobs());
+      });
 
       setIsSaved(!isSaved);
     }
@@ -90,13 +95,13 @@ const UserSection = ({item, load}: {item?: any; load?:any}) => {
       }
     }
   };
- 
+
   // console.log("USERS",item?.avatarCustomUrl)
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        navigate('JobDescraption', {id: item?.id});
+        navigate('JobDescraption', {id: item?.id, saved: item?.saved});
       }}
       style={styles.containerUserSection}>
       <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>

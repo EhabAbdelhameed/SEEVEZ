@@ -9,20 +9,17 @@ import {useAppDispatch, useAppSelector} from 'src/redux/store';
 import AppThunks from 'src/redux/app/thunks';
 import {selectFollowingList} from 'src/redux/app';
 import {AVATAR} from 'assets/Svgs';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {appSizes} from 'theme';
 
 const Users = ({item}: {item?: any}) => {
-  console.log("123" ,item)
+  console.log("12345" ,item)
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const [count, setCount] = React.useState(0);
 
-  React.useEffect(() => {
-    dispatch(AppThunks.doGetFollowers(item?.user_id)).then((res: any) => {
-      setCount(res?.payload?.data?.followCounts[0]?.followerCount);
-    });
-  }, []);
+  const {id}: any = useRoute().params;
+
 
   return (
     <TouchableOpacity
@@ -76,7 +73,8 @@ const Users = ({item}: {item?: any}) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.navigate('ReviewUser');
+          //apply_id, job_id, user_id
+          navigation.navigate('ReviewUser',{apply_id:item?.apply_id,job_id:id,user_id:item?.id});
         }}
         style={{
           flexDirection: 'row',

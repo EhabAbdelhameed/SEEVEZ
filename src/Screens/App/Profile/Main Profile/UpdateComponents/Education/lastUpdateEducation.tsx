@@ -221,6 +221,8 @@ const UpdateOneEducation = () => {
                     selectedTextStyle={[styles.selectedTextStyle,{textAlign:lang=='ar'?'right':'left'}]}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    activeColor='#DDD'
+                    itemTextStyle={{color: '#000'}}
                     data={EducationLevelData}
                     search
                     // maxHeight={300}
