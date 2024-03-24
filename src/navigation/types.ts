@@ -104,6 +104,7 @@ export type AppParamsList = {
     EmployeeAppliedList:undefined;
     RejectedList:undefined;
     DynamicQuestionsComponent:undefined;
+    MyCalendarScreen:undefined;
 }
 export type RootParamsList = {
     auth: any;

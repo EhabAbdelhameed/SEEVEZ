@@ -35,9 +35,10 @@ const SecondApplayPage = () => {
   }, [changeDone]);
   // console.log(CurrentUserData)
   const {data, questions}: any = useRoute().params;
-  // console.log(JSON.stringify(questions))
+ 
   const dispatch = useAppDispatch();
   const User = useSelector(selectUser);
+  // console.log(User?.cv_pdf)
   const navigation = useNavigation<any>();
   const [source, setSource] = useState<any>([]);
   const [loading, setLoading] = useState(false);
@@ -98,9 +99,11 @@ const SecondApplayPage = () => {
         name:source[0]?.name,
       });
     } else {
-      formdata.append('array[2][answer]', User?.cv_pdf);
+      formdata.append('array[2][answer]', JSON.stringify(User?.cv_pdf));
+
+
     }
-    console.log(JSON.stringify(formdata));
+    // console.log(JSON.stringify(formdata));
     dispatch(AppThunks.doApplayQuestion(formdata)).then((res: any) => {
       setLoading(false);
     });

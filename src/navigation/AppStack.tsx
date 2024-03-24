@@ -92,6 +92,7 @@ import WatingList from 'screens/App/BottomTab/WaitingList';
 import EmployeeAppliedList from 'screens/App/BottomTab/EmployeeAppliedList';
 import RejectedList from 'screens/App/BottomTab/RejectedList';
 import DynamicQuestionsComponent from 'screens/App/ApplayForJob/components/BasicPage';
+import MyCalendarScreen from 'screens/App/BottomTab/MySchedule';
 
 const Stack = createNativeStackNavigator<AppParamsList>();
 const AppStack = () => {
@@ -245,6 +246,7 @@ const AppStack = () => {
       />
       <Stack.Screen name="RejectedList" component={RejectedList} />
       <Stack.Screen name="DynamicQuestionsComponent" component={DynamicQuestionsComponent} />
+      <Stack.Screen name="MyCalendarScreen" component={MyCalendarScreen} />
     </Stack.Navigator>
   );
 };

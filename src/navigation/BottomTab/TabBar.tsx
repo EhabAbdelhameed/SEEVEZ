@@ -13,6 +13,7 @@ import {useSelector} from 'react-redux';
 import {selectUser} from 'src/redux/auth';
 import MyJob from 'screens/App/BottomTab/My Job';
 import MyJobToJobSeeker from 'screens/App/BottomTab/MyJobJobSeeker';
+import MyCalendarScreen from 'screens/App/BottomTab/MySchedule';
 const Tabs = createBottomTabNavigator<TabParamsList>();
 
 const TabBar = () => {
@@ -41,7 +42,7 @@ const TabBar = () => {
           }
         />
       )}
-      <Tabs.Screen name="Calendar" component={Calendar} />
+      <Tabs.Screen name="Calendar" component={MyCalendarScreen} />
     </Tabs.Navigator>
   );
 };
