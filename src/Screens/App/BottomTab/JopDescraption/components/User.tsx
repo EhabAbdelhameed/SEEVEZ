@@ -43,7 +43,6 @@ const UserSection = ({
   setLoad?: any;
   data?: any;
 }) => {
-  console.log("USERS",item)
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const {navigate} = useNavigation<any>();
@@ -139,8 +138,8 @@ const UserSection = ({
       console.error('Error opening email client:', err),
     );
   };
-
-  return (
+  console.log("USERS",data)
+  return (   
     <View style={{paddingHorizontal: 10}}>
       <TopHeader />
       <Text
@@ -164,7 +163,7 @@ const UserSection = ({
         About the job
       </Text>
       <JobDetails />
-      {MyJob?.skills?.length == 0 ? null : (
+      {data?.skills?.length == 0 ? null : (
         <>
           <Text
             style={{
@@ -175,7 +174,7 @@ const UserSection = ({
             }}>
             Skills
           </Text>
-          <JobSkills />
+          <JobSkills data={data?.skills} />
         </>
       )}
       <Text

@@ -17,13 +17,14 @@ import {useTranslation} from 'react-i18next';
 import {useAppSelector} from 'src/redux/store';
 import {selectOneJob} from 'src/redux/app';
 
-const JobSkills = () => {
-  const MyJob = useAppSelector(selectOneJob);
+const JobSkills = ({data}:{data:any}) => {
+  // const MyJob = useAppSelector(selectOneJob);
+  console.log(data, 'data');
 
   return (
     <View style={{marginTop: 20, marginBottom: 15}}>
       <FlatList
-        data={MyJob?.skills}
+        data={data}
         contentContainerStyle={{rowGap: 10}}
         numColumns={2}
         scrollEnabled={false}
