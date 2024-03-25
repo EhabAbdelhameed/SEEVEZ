@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>766263686299-5on6jndrshm1aofj8jnvek8473d9htej.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.766263686299-5on6jndrshm1aofj8jnvek8473d9htej</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>766263686299-t210hc0hg9lpbacobhj5bf4ldjoh55bk.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAdLEvir2hSzC0U-2xWRqA8ar_0tgcpJhc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>766263686299</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sevees</string>
+	<key>PROJECT_ID</key>
+	<string>socialmedia-e440a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>socialmedia-e440a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:766263686299:ios:61b7c728544e09df07423e</string>
+</dict>
+</plist>
