@@ -5,6 +5,7 @@ import {
   TextInput,
   Platform,
   KeyboardAvoidingView,
+  Share,
 } from 'react-native';
 import React from 'react';
 import {RNModal} from '../../../../../ui';
@@ -19,6 +20,7 @@ import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
 import {DELETE, JOBOP, RecommandedJob, ShareJob, YallowBag} from 'assets/Svgs';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 const ApplicationModal = ({
   setVisable,
@@ -27,14 +29,7 @@ const ApplicationModal = ({
   visable,
 }: {
   setVisable: any;
-  data?: {
-    title: string;
-    question: string;
-    answers: {
-      answer: string;
-      selected: boolean;
-    }[];
-  };
+  data?: any;
 
   visable: boolean;
 }) => {
@@ -43,6 +38,33 @@ const ApplicationModal = ({
   const {t, i18n} = useTranslation();
   const [buttonIndex, setButtonIndex] = React.useState(0);
   const navigation = useNavigation<any>();
+  const generateLink = async () => {
+    try {
+      const link = await dynamicLinks().buildShortLink(
+        {
+          link: `https://seveezapp.page.link/Zi7X?job_id=${data?.job_id}`,
+          domainUriPrefix: 'https://seveezapp.page.link',
+          android: {
+            packageName: 'com.seveezapp',
+          },
+        },
+        dynamicLinks.ShortLinkType.DEFAULT,
+      );
+      console.log(link, 'link');
+      return link;
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+  const ShareJobs = async () => {
+    const link = await generateLink();
+    console.log(link, 'link');
+    Share.share({
+      message: `${link}`,
+    })
+      .then(result => console.log(result))
+      .catch(errorMsg => console.error(errorMsg));
+  };
   return (
     <ReactNativeModal
       isVisible={visable}
@@ -56,7 +78,7 @@ const ApplicationModal = ({
           </View>
 
           <View style={{}}>
-            <TouchableOpacity style={[styles.rowAnswer,{marginBottom:10}]}>
+            <TouchableOpacity onPress={ShareJobs} style={[styles.rowAnswer, {marginBottom: 10}]}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -70,14 +92,14 @@ const ApplicationModal = ({
                     styles.questionText,
                     {
                       marginTop: 0,
-                      fontSize:18
+                      fontSize: 18,
                     },
                   ]}>
                   Share job via
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.rowAnswer,{marginBottom:10}]}>
+            <TouchableOpacity style={[styles.rowAnswer, {marginBottom: 10}]}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -91,14 +113,14 @@ const ApplicationModal = ({
                     styles.questionText,
                     {
                       marginTop: 0,
-                      fontSize:18
+                      fontSize: 18,
                     },
                   ]}>
                   Recommend
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.rowAnswer,{marginBottom:10}]}>
+            <TouchableOpacity style={[styles.rowAnswer, {marginBottom: 10}]}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -106,13 +128,13 @@ const ApplicationModal = ({
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <DELETE width={32} height={32}/>
+                <DELETE width={32} height={32} />
                 <Text
                   style={[
                     styles.questionText,
                     {
                       marginTop: 0,
-                      fontSize:18
+                      fontSize: 18,
                     },
                   ]}>
                   Withdraw
@@ -120,7 +142,6 @@ const ApplicationModal = ({
               </View>
             </TouchableOpacity>
           </View>
-         
         </View>
       </KeyboardAvoidingView>
     </ReactNativeModal>

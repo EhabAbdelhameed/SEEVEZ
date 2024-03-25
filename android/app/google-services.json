@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "766263686299",
+    "project_id": "socialmedia-e440a",
+    "storage_bucket": "socialmedia-e440a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766263686299:android:f4e2972a7c2a206207423e",
+        "android_client_info": {
+          "package_name": "com.seevezapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766263686299-qj2lg59kpq1u4cdf7c0t1qha6kd5h2j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsJtRWVP4_tnCiSsSlW9O3y37cmtzW_ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766263686299-qj2lg59kpq1u4cdf7c0t1qha6kd5h2j6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766263686299:android:db660b04b6936af507423e",
+        "android_client_info": {
+          "package_name": "com.seveezapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766263686299-qj2lg59kpq1u4cdf7c0t1qha6kd5h2j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsJtRWVP4_tnCiSsSlW9O3y37cmtzW_ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766263686299-qj2lg59kpq1u4cdf7c0t1qha6kd5h2j6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

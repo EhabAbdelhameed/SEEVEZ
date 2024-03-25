@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Share} from 'react-native';
 import {styles} from '../styles';
 import {globalStyles} from '../../../../../globalStyle';
 import {dummyAvatar} from '../../../../../Dummy';
@@ -15,7 +15,6 @@ import {useSelector} from 'react-redux';
 import {selectLang} from 'src/redux/lang';
 import {useTranslation} from 'react-i18next';
 import {selectUser} from 'src/redux/auth';
-
 import Swipeout from 'react-native-swipeout';
 import ApplicationModal from './ApplicationJobModal';
 const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
@@ -27,6 +26,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const [isSaved, setIsSaved] = React.useState(false);
 
   const {t, i18n} = useTranslation();
+
   const handleSavePress = () => {
     // if (isSaved) {
     //   dispatch(AppThunks.doUnsaveJob(item?.id));
@@ -262,7 +262,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
           ) : null}
         </View>
       </View>
-      <ApplicationModal setVisable={setVisable} visable={visable} />
+      <ApplicationModal setVisable={setVisable} visable={visable} data={item} />
     </View>
   );
 };
