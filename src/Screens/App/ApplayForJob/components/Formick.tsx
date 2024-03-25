@@ -39,8 +39,8 @@ const Formick = () => {
   React.useEffect(() => {
     setIsloading(true);
     const formdata=new FormData()
-    formdata.append('job_id',id)
-    dispatch(AppThunks.doGetJobQuestions(formdata)).then((res: any) => {
+    // formdata.append('job_id',id)
+    dispatch(AppThunks.doGetJobQuestions(id)).then((res: any) => {
       setIsloading(false);
     });
   }, []);
