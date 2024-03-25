@@ -47,6 +47,10 @@ const ApplicationModal = ({
           android: {
             packageName: 'com.seveezapp',
           },
+          ios: {
+            appStoreId: '6474092434',
+            bundleId: 'com.sevees',
+          },
         },
         dynamicLinks.ShortLinkType.DEFAULT,
       );
