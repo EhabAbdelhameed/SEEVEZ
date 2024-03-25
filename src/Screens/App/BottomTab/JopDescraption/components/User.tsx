@@ -43,6 +43,7 @@ const UserSection = ({
   setLoad?: any;
   data?: any;
 }) => {
+  console.log("USERS",item)
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
   const {navigate} = useNavigation<any>();
@@ -138,7 +139,7 @@ const UserSection = ({
       console.error('Error opening email client:', err),
     );
   };
-  // console.log("USERS",item)
+
   return (
     <View style={{paddingHorizontal: 10}}>
       <TopHeader />

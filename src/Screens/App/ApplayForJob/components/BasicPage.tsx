@@ -578,7 +578,7 @@ const DynamicQuestionsComponent = () => {
         formdata.append(`array[${i}][answer]`, answer[i].answer);
       }
     }
-    // console.log(JSON.stringify(formdata));
+    console.log(JSON.stringify(formdata));
     dispatch(AppThunks.doApplayQuestion(formdata)).then((res: any) => {
       setIsSubmitting(false);
     });

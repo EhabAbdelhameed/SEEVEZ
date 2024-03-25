@@ -42,6 +42,7 @@ const SecondApplayPage = () => {
   const navigation = useNavigation<any>();
   const [source, setSource] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [buttonIndex, setButtonIndex] = useState(0);
   const uploadFile = async () => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -49,6 +50,7 @@ const SecondApplayPage = () => {
       });
 
       setSource(res);
+      // console.log("RESS",JSON.stringify(res))
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('Canceled');
@@ -67,7 +69,7 @@ const SecondApplayPage = () => {
       job_id: data?.job_id,
       email: data?.email,
       phone: data?.phone,
-      cv_pdf: source?.length == 0 ? User?.cv_pdf : source,
+      cv_pdf: buttonIndex == 0 ? User?.cv_pdf : source,
 
       questions: questions,
     };
@@ -89,7 +91,7 @@ const SecondApplayPage = () => {
     }
     formdata.append(`array[0][answer]`, data?.email);
     formdata.append(`array[1][answer]`, data?.phone);
-    if (source?.length != 0) {
+    if (buttonIndex != 0) {
       formdata.append('array[2][answer]', {
         uri: source[0]?.uri,
         type: source[0]?.type,
@@ -137,7 +139,7 @@ const SecondApplayPage = () => {
             </Text>
             {User?.cv_pdf == null ? null : (
               <TouchableOpacity
-                onPress={() => Linking.openURL(User?.cv_pdf?.fileUrl)}
+                onPress={() => setButtonIndex(0)}
                 style={styles.InputStyleNoWidth1}>
                 <PDF />
                 <View>
@@ -168,7 +170,49 @@ const SecondApplayPage = () => {
                     flexDirection: 'row',
                   }}>
                   <View style={styles.Circle}>
-                    <View style={styles?.innerCircle} />
+                    {buttonIndex == 0 ? (
+                      <View style={styles?.innerCircle} />
+                    ) : null}
+                  </View>
+                </TouchableOpacity>
+              </TouchableOpacity>
+            )}
+            {source?.length == 0 ? null : (
+              <TouchableOpacity
+                onPress={() => setButtonIndex(1)}
+                style={styles.InputStyleNoWidth1}>
+                <PDF />
+                <View>
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: 16, color: appColors.primary}}>
+                    {source[0]?.name}
+                  </Text>
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: 12, color: appColors.primary}}>
+                    {(
+                      parseInt(source[0]?.size) / 1048576
+                    ).toFixed(4)}{' '}
+                    MB
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                  }}>
+                  <View style={styles.Circle}>
+                    <DownloadIcon />
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                  }}>
+                  <View style={styles.Circle}>
+                    {buttonIndex == 1 ? (
+                      <View style={styles?.innerCircle} />
+                    ) : null}
                   </View>
                 </TouchableOpacity>
               </TouchableOpacity>
