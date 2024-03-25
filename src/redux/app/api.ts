@@ -105,7 +105,7 @@ const JobOpportunity = (data: any) =>
 const InternshipOpportunity = (data: any) =>
   api.post(`company/job-opportunity/create/intern`, data);
 
-const JobQuestions = (id: any) => api.get(`company/job/question/?job_id=${id}`);
+const JobQuestions = (id: any) => api.post(`company/job/question`,id);
 const Applay = (data: any) => api.post(`company/job/question/apply`, data);
 const List = (status: any, job_id: any) =>
   api.get(`company/status/list?job_id=${job_id}&status=${status}`);

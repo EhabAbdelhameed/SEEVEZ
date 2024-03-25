@@ -17,8 +17,8 @@ const initAxios = (store: TStore) => {
   api.axiosInstance.interceptors.request.use(async (config: any) => {
     const token: any = await AsyncStorage.getItem('USER_TOKEN');
     const accesstoken: any = await AsyncStorage.getItem('USER_ACCESS_TOKEN');
-    const authorization = `Bearer ${token}`;
-    const authHeaders = {authorization,accesstoken};
+    const Authorization = `Bearer ${token}`;
+    const authHeaders = {Authorization,accesstoken};
     if (token) {
       assign(config.headers, authHeaders);
     }
@@ -28,8 +28,8 @@ const initAxios = (store: TStore) => {
     const token: any = await AsyncStorage.getItem('USER_TOKEN');
     const accesstoken: any = await AsyncStorage.getItem('USER_ACCESS_TOKEN');
 
-    const authorization = `Bearer ${token}`;
-    const authHeaders = {authorization, accesstoken};
+    const Authorization = `Bearer ${token}`;
+    const authHeaders = {Authorization, accesstoken};
     assign(config.headers, authHeaders);
 
     return config;
