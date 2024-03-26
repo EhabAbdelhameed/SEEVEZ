@@ -21,14 +21,14 @@ import {selectUser} from 'src/redux/auth';
 const ReviewRecord = ({user,data}:{user:any,data:any}) => {
   const audioData = useSelector(selectPhotoData);
   const CurrentUserData = useSelector(selectUser);
-
+  console.log(data)
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const soundRef = useRef<Sound | null>(null);
     useEffect(() => {
       const sound = new Sound(
-        data?.answer?.answer,
+        data?.answer?.answer?.fileUrl,
         Sound.MAIN_BUNDLE,
         error => {
           if (error) {

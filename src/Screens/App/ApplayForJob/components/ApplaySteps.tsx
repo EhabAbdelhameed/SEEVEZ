@@ -92,9 +92,9 @@ const ApplySteps = ({
               <View
                 style={{
                   width:
-                    question?.length <= 4
+                    question?.length <= 3
                       ? 200
-                      : question?.length > 4 && question?.length < 7
+                      :question?.length > 3 && question?.length < 5?100: question?.length > 5 && question?.length < 7
                       ? 35
                       : 20,
                   height: 2,

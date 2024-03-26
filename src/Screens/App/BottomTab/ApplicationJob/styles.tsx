@@ -259,5 +259,17 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         fontFamily:'Noto Sans'  
       },
+      topButton:{
+        borderWidth: 1,
+        borderColor: appColors.primary,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        columnGap: 5,
+        width: '50%',
+        paddingVertical: 8,
+        borderRadius: 16,
+        backgroundColor:'transparent'
+      }
 
 })

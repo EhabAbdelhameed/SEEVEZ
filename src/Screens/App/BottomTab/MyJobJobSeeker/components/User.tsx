@@ -95,13 +95,21 @@ const UserSection = ({item, load}: {item?: any; load?: any}) => {
       }
     }
   };
-
-  // console.log("USERS",item?.avatarCustomUrl)
+ const capitalizeFirstLetter=(string:any)=> {
+    // Check if string is empty or undefined
+    if (!string) {
+      return string;
+    }
+  
+    // Capitalize first letter and concatenate the rest of the string
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  // console.log("USERS",item)
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        navigate('JobDescraption', {id: item?.id, saved: item?.saved});
+        navigate('JobDescraption', {id: item?.id,applied:item?.applied});
       }}
       style={styles.containerUserSection}>
       <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
@@ -154,10 +162,14 @@ const UserSection = ({item, load}: {item?: any; load?: any}) => {
             </TouchableOpacity>
           </View>
           <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
-            <Text style={styles.work}>{item?.users?.name}</Text>
+            <Text style={styles.work}>{capitalizeFirstLetter(item?.users?.name)}</Text>
             <Text style={styles.work}>{item?.job_location}</Text>
             <Text style={[styles.work, {color: '#00BBB6'}]}>{getdate()}</Text>
           </View>
+          {/* {item?.applied!=null?
+          <View>
+          
+          </View>:null} */}
           <View style={{flexDirection: 'row', columnGap: 10}}>
             {!item?.job_types?.name ? null : (
               <View style={styles.followersContainer}>
@@ -174,6 +186,17 @@ const UserSection = ({item, load}: {item?: any; load?: any}) => {
                 ]}>
                 <Text style={[styles.text3, {color: '#00928E'}]}>
                   {item?.work_type?.name}
+                </Text>
+              </View>
+            )}
+              {item?.applied==null ? null : (
+              <View
+                style={[
+                  styles.followersContainer,
+                  {backgroundColor: '#E6FAFA'},
+                ]}>
+                <Text style={[styles.text3, {color: '#00928E'}]}>
+                Already Applied
                 </Text>
               </View>
             )}

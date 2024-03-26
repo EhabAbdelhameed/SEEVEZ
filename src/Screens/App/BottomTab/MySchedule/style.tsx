@@ -172,4 +172,22 @@ export const styles = StyleSheet.create({
         bottom: 20,
         height: 80,
       },
+      dayContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        marginRight: 10,
+      },
+      dayText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+      selectedDay: {
+        backgroundColor: 'blue', // Apply your custom style here for the selected day
+        borderColor: 'blue', // Apply border color to match background color
+      },
 })

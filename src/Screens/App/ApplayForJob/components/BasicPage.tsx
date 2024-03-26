@@ -29,7 +29,7 @@ import AudioRecorderPlayer, {
 import Content from 'screens/App/CreatePost/CreateVoice/components/Content';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch} from 'src/redux/store';
-import { current } from '@reduxjs/toolkit';
+import {current} from '@reduxjs/toolkit';
 import ApplySteps from './ApplaySteps';
 const audioRecorderPlayer = new AudioRecorderPlayer();
 // Component for text input question
@@ -244,7 +244,7 @@ const ThirdApplayPageaudio = ({
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStoped, setIsStoped] = useState(false);
-  const [audioData, setAudioData] = useState<any>(answer[currentQuestionIndex]?.answer);
+  const [audioData, setAudioData] = useState<any>(null);
   const [recordData, setRecordData] = useState<any>('');
   const [milliseconds, setMilliseconds] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -488,15 +488,15 @@ const DynamicQuestionsComponent = () => {
       setAnswer((prev: any) => [
         ...prev,
         {
-          question_id: data?.questions[i].id,
-          type: data?.questions[i].type,
+          question_id: data?.questions[i]?.id,
+          type: data?.questions[i]?.type,
           answer:
             i == 0
-              ? data.email
+              ? data?.email
               : i == 1
-              ? data.phone
+              ? data?.phone
               : i == 2
-              ? data.cv_pdf
+              ? data?.cv_pdf
               : null,
         },
       ]);
@@ -567,6 +567,13 @@ const DynamicQuestionsComponent = () => {
     for (let i = 0; i < answer?.length; i++) {
       formdata.append(`array[${i}][question_id]`, answer[i].question_id);
       formdata.append(`array[${i}][type]`, answer[i].type);
+      if (answer[i].type == 2) {
+        formdata.append(`array[${i}][answer]`, {
+          uri: answer[i].answer,
+          type: 'audio/mp3',
+          name: 'audio.mp3',
+        });
+      }
 
       if (Array.isArray(answer[i].answer)) {
         formdata.append(`array[${i}][answer]`, {
@@ -575,11 +582,18 @@ const DynamicQuestionsComponent = () => {
           name: answer[i].answer[0]?.name,
         });
       } else {
-        formdata.append(`array[${i}][answer]`, answer[i].answer);
+        formdata.append(
+          `array[${i}][answer]`,
+          JSON.stringify(answer[i].answer),
+        );
       }
     }
     console.log(JSON.stringify(formdata));
     dispatch(AppThunks.doApplayQuestion(formdata)).then((res: any) => {
+      dispatch(AppThunks.doGetFreelancerJobs());
+      dispatch(AppThunks.doGetInternshipsJobs());
+      dispatch(AppThunks.doGetRecommandedJobs());
+
       setIsSubmitting(false);
     });
   };
@@ -590,7 +604,10 @@ const DynamicQuestionsComponent = () => {
 
       <View style={styles.bottomSection}>
         <View style={{}}>
-        <ApplySteps question={data?.questions} CurrentIndex={currentQuestionIndex-1}/>
+          <ApplySteps
+            question={data?.questions}
+            CurrentIndex={currentQuestionIndex - 1}
+          />
           <View style={{marginTop: 30}}>{renderQuestion()}</View>
         </View>
 
@@ -632,7 +649,7 @@ const DynamicQuestionsComponent = () => {
 
           <View style={{width: '49%'}}>
             <Button
-            loading={isSubmitting}
+              loading={isSubmitting}
               onPress={
                 data?.questions?.length - 1 == currentQuestionIndex
                   ? handleSubmit

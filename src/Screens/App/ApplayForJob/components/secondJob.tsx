@@ -253,7 +253,7 @@ const SecondApplayPage = () => {
                 height:
                   User?.cv_pdf == null
                     ? appSizes.height * 0.43
-                    : appSizes.height * 0.31,
+                    : appSizes.height * 0.18,
               }}
             />
             <View style={{flexDirection: 'row', columnGap: 10}}>

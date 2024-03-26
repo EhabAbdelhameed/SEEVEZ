@@ -20,7 +20,7 @@ import ApplicationModal from './ApplicationJobModal';
 const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
   const [count, setCount] = React.useState(0);
   const dispatch = useAppDispatch();
-
+  // console.log("item",item)
   const lang = useSelector(selectLang);
   const User = useSelector(selectUser);
   const [isSaved, setIsSaved] = React.useState(false);
@@ -92,6 +92,15 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
       setLoad(false);
     });
   }, []);
+  const capitalizeFirstLetter=(string:any)=> {
+    // Check if string is empty or undefined
+    if (!string) {
+      return string;
+    }
+  
+    // Capitalize first letter and concatenate the rest of the string
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   // console.log("USERS",item)
   return (
@@ -100,7 +109,10 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.navigate('JobDescraption', {id: item?.id});
+            navigation.navigate('JobDescraption', {
+              id: item?.job_id,
+           
+            });
           }}
           style={{justifyContent: 'center', alignItems: 'center'}}>
           {item?.users?.avatar == null || item?.users?.avatar == undefined ? (
@@ -136,7 +148,7 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
           <View
             style={[
               globalStyles.leftHeaderContainer,
-              {width: '88%', marginLeft: 3, justifyContent: 'space-between'},
+              {width: '88%', justifyContent: 'space-between'},
             ]}>
             <View style={{width: '80%'}}>
               <Text style={styles.UserName} numberOfLines={1}>
@@ -149,91 +161,100 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
               <DotsThree />
             </TouchableOpacity>
           </View>
-          <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
-            <Text style={styles.work}>{item?.jobs?.users?.name}</Text>
-            <Text style={styles.work}>{item?.jobs?.job_location}</Text>
-          </View>
-          <View>
-            <Text style={[styles.work, {color: '#494949'}]}>
-              applied {getdate()}
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row', columnGap: 5}}>
-            {!item?.jobs?.job_types?.name ? null : (
-              <View style={styles.followersContainer}>
-                <Text style={[styles.text3, {color: appColors.blue2}]}>
-                  {item?.jobs?.job_types?.name}
-                </Text>
-              </View>
-            )}
-            {!item?.jobs?.work_type?.name ? null : (
-              <View
-                style={[
-                  styles.followersContainer,
-                  {backgroundColor: '#E6FAFA'},
-                ]}>
-                <Text style={[styles.text3, {color: '#00928E'}]}>
-                  {item?.jobs?.work_type?.name}
-                </Text>
-              </View>
-            )}
-            {!item?.jobs?.job_types?.name ? null : (
-              <View
-                style={[
-                  styles.followersContainer,
-                  {
-                    backgroundColor:
-                      item?.status == 2
-                        ? '#FAE6E6'
-                        : item?.status == 0
-                        ? '#FDF7E6'
-                        : item.status == 3
-                        ? '#E8EFFC'
-                        : item.status == 4
-                        ? '#E6FAFA'
-                        : '#676767',
-                    borderWidth: 1,
-                    borderColor:
-                      item?.status == 2
-                        ? '#F0B0B0'
-                        : item?.status == 0
-                        ? '#F8E5B0'
-                        : item.status == 3
-                        ? '#B9CDF4'
-                        : item.status == 4
-                        ? '#B0F0EE'
-                        : '#494949',
-                  },
-                ]}>
-                <Text
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('JobDescraption', {
+                id: item?.job_id,
+                applied: 1,
+              });
+            }}>
+            <View style={{flexDirection: 'row', columnGap: 8}}>
+              <Text style={styles.work}>{capitalizeFirstLetter(item?.jobs?.users?.name)}</Text>
+              <Text style={styles.work}>{item?.jobs?.job_location}</Text>
+            </View>
+            <View>
+              <Text style={[styles.work, {color: '#494949'}]}>
+                Applied {getdate()}
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row', columnGap: 5}}>
+              {!item?.jobs?.job_types?.name ? null : (
+                <View style={styles.followersContainer}>
+                  <Text style={[styles.text3, {color: appColors.blue2}]}>
+                    {item?.jobs?.job_types?.name}
+                  </Text>
+                </View>
+              )}
+              {!item?.jobs?.work_type?.name ? null : (
+                <View
                   style={[
-                    styles.text3,
+                    styles.followersContainer,
+                    {backgroundColor: '#E6FAFA'},
+                  ]}>
+                  <Text style={[styles.text3, {color: '#00928E'}]}>
+                    {item?.jobs?.work_type?.name}
+                  </Text>
+                </View>
+              )}
+              {!item?.jobs?.job_types?.name ? null : (
+                <View
+                  style={[
+                    styles.followersContainer,
                     {
-                      color:
+                      backgroundColor:
                         item?.status == 2
-                          ? '#ED3C3C'
+                          ? '#FAE6E6'
                           : item?.status == 0
-                          ? '#A57900'
+                          ? '#FDF7E6'
                           : item.status == 3
-                          ? '#15439D'
+                          ? '#E8EFFC'
                           : item.status == 4
-                          ? '#00928E'
-                          : '#DCDCDC',
+                          ? '#E6FAFA'
+                          : '#676767',
+                      borderWidth: 1,
+                      borderColor:
+                        item?.status == 2
+                          ? '#F0B0B0'
+                          : item?.status == 0
+                          ? '#F8E5B0'
+                          : item.status == 3
+                          ? '#B9CDF4'
+                          : item.status == 4
+                          ? '#B0F0EE'
+                          : '#494949',
                     },
                   ]}>
-                  {item?.status == 2
-                    ? 'Rejected'
-                    : item?.status == 0
-                    ? 'Pending'
-                    : item.status == 3
-                    ? 'Waiting list'
-                    : item.status == 4
-                    ? 'Shortlisted'
-                    : 'Closed'}
-                </Text>
-              </View>
-            )}
-          </View>
+                  <Text
+                    style={[
+                      styles.text3,
+                      {
+                        color:
+                          item?.status == 2
+                            ? '#ED3C3C'
+                            : item?.status == 0
+                            ? '#A57900'
+                            : item.status == 3
+                            ? '#15439D'
+                            : item.status == 4
+                            ? '#00928E'
+                            : '#DCDCDC',
+                      },
+                    ]}>
+                    {item?.status == 2
+                      ? 'Rejected'
+                      : item?.status == 0
+                      ? 'Pending'
+                      : item.status == 3
+                      ? 'Waiting list'
+                      : item.status == 4
+                      ? 'Shortlisted'
+                      : 'Closed'}
+                  </Text>
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
           {item?.id == '9' ? (
             <TouchableOpacity
               onPress={() => navigation.navigate('Assignment')}

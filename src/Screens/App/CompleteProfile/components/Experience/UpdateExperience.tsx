@@ -558,34 +558,7 @@ const UpdateExperience = () => {
                       onFocus={() => setDropdownOpen2(true)} // Set the state to open when the dropdown is focused
                       onBlur={() => setDropdownOpen2(false)}
                     />
-                    <Input
-                      {...props}
-                      name={`Experince[${index}][description]`}
-                      placeholderTextColor={'#B9B9B9'}
-                      inputContainerStyle={{
-                        borderRadius: 16,
-                        borderColor: '#1D5EDD',
-                        borderWidth: 1,
-                        paddingHorizontal: 15,
-                        height: 50,
-                      }}
-                      onChangeText={e =>
-                        props?.setFieldValue(
-                          `Experince[${index}]["description"]`,
-                          e,
-                        )
-                      }
-                      containerStyle={{
-                        paddingHorizontal: 0,
-                        marginVertical: 1,
-                      }}
-                      inputStyle={{
-                        fontSize: 14,
-                        textAlign: lang == 'ar' ? 'right' : 'left',
-                        //  color: 'red'
-                      }}
-                      placeholder={t('description')}
-                    />
+                 
                     <Textarea
                       containerStyle={[styles.uploadContainer7]}
                       // style={styles.textarea}

@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
         color: appColors.dark
     },
     text3: {
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: "400",
         color: appColors.dark
     },
@@ -71,13 +71,13 @@ export const styles = StyleSheet.create({
         borderRadius: appSizes.m
     },
     followersContainer: {
-        width: 100,
+        // width: 100,
         // height:21,
         alignItems: "center",
         justifyContent: "center",
         // paddingHorizontal:18,
         paddingVertical: 4,
-        paddingHorizontal:15,
+        paddingHorizontal:10,
         backgroundColor: appColors.lightPurple2,
         borderRadius: appSizes.l,
         marginTop: 5,

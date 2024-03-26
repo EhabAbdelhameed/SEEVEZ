@@ -146,4 +146,16 @@ export const styles = StyleSheet.create({
         // marginBottom: appSizes.height * 0.07,
         backgroundColor: appColors.bg,
       },
+      topButton:{
+        borderWidth: 1,
+        borderColor: appColors.primary,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        columnGap: 5,
+        width: '50%',
+        paddingVertical: 8,
+        borderRadius: 16,
+        backgroundColor:'transparent'
+      }
 })

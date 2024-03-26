@@ -69,7 +69,7 @@ const EducationProfileCard = (data: any) => {
               <AVATAR height={32} width={32} />
             </View>
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.Title2}>{t("schoolUniversityName")}</Text>
+              <Text  style={styles.Title2}>{t("schoolUniversityName")}</Text>
               <Text style={styles.CompanyName}>{t("fieldOfStudy")}</Text>
             </View>
           </View>
@@ -89,8 +89,8 @@ const EducationProfileCard = (data: any) => {
                   }}>
                   <AVATAR height={32} width={32} />
                 </View>
-                <View style={{ marginLeft: 10,width:'90%' }}>
-                <Text style={[styles.Title2,{textAlign:'left'}]}>{item?.university_name}</Text>
+                <View style={{ marginLeft: 10,width:'70%' }}>
+                    <Text numberOfLines={1}  style={[styles.Title2,{textAlign:'left'}]}>{item?.university_name}</Text>
                     <Text style={[styles.CompanyName,{textAlign:'left'}]}>
                       {item?.level_id?.name}
                     </Text>
@@ -138,8 +138,8 @@ const EducationProfileCard = (data: any) => {
                     }}>
                     <AVATAR height={32} width={32} />
                   </View>
-                  <View style={{ marginLeft: 10,width:'90%' }}>
-                    <Text style={[styles.Title2,{textAlign:'left'}]}>{item?.university_name}</Text>
+                  <View style={{ marginLeft: 10,width:'70%' }}>
+                    <Text numberOfLines={1} style={[styles.Title2,{textAlign:'left'}]}>{item?.university_name}</Text>
                     <Text style={[styles.CompanyName,{textAlign:'left'}]}>
                       {item?.level_id?.name}
                     </Text>
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     color: appColors.black,
   },
   Title2: {
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: '600',
     color: appColors.black,
   },
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   CompanyName: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '400',
     color: appColors.black,
     marginTop: 3,

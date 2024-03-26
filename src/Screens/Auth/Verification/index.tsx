@@ -1,5 +1,5 @@
 import {View, Text, Image, Alert, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {RenderSvgIcon} from '../../../Components/atoms/svg';
 import {Formik} from 'formik';
@@ -95,6 +95,10 @@ const Verification = () => {
     dispatch(AuthThunks.doResendCode(formData));
     setSeconds(59);
   };
+  /* */ 
+          const _handleNavigate = useCallback(() => {
+      navigation.goBack();
+    }, []);
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       {/* <View style={styles.container}> */}
@@ -113,6 +117,15 @@ const Verification = () => {
             source={require('../../../assets/images/Verification.png')}
             style={styles.img}
           />
+           <TouchableOpacity style={{position: 'absolute', top: 10, left: 10}} onPress={_handleNavigate} activeOpacity={0.8}>
+              <RenderSvgIcon
+                icon="ARROWBACK"
+                style={{transform:lang=='ar'?[{rotate: '180deg'}]:[{rotate: '0deg'}]}}
+                width={30}
+                height={30}
+                color={appColors.primary}
+              />
+            </TouchableOpacity>
         </View>
         <View style={styles.bottomSection}>
           <RenderSvgIcon

@@ -87,6 +87,8 @@ export const styles = StyleSheet.create({
     folowCotainer: {
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "center",
+        width:75,
         columnGap: 3,
         borderRadius: appSizes.l,
         borderWidth: 1,

@@ -50,7 +50,7 @@ const ApplicationModal = ({
           ios: {
             appStoreId: '6474092434',
             bundleId: 'com.sevees',
-          },
+          },
         },
         dynamicLinks.ShortLinkType.DEFAULT,
       );
@@ -82,7 +82,9 @@ const ApplicationModal = ({
           </View>
 
           <View style={{}}>
-            <TouchableOpacity onPress={ShareJobs} style={[styles.rowAnswer, {marginBottom: 10}]}>
+            <TouchableOpacity
+              onPress={ShareJobs}
+              style={[styles.rowAnswer, {marginBottom: 10}]}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -100,48 +102,6 @@ const ApplicationModal = ({
                     },
                   ]}>
                   Share job via
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.rowAnswer, {marginBottom: 10}]}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  columnGap: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <RecommandedJob />
-                <Text
-                  style={[
-                    styles.questionText,
-                    {
-                      marginTop: 0,
-                      fontSize: 18,
-                    },
-                  ]}>
-                  Recommend
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.rowAnswer, {marginBottom: 10}]}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  columnGap: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <DELETE width={32} height={32} />
-                <Text
-                  style={[
-                    styles.questionText,
-                    {
-                      marginTop: 0,
-                      fontSize: 18,
-                    },
-                  ]}>
-                  Withdraw
                 </Text>
               </View>
             </TouchableOpacity>

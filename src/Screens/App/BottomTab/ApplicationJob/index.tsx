@@ -56,21 +56,11 @@ const ApplicationsJob = (props: any) => {
             marginBottom: 20,
           }}>
           <TouchableOpacity  onPress={()=>navigation.navigate("SavedJob")}
-            style={{
-              borderWidth: 1,
-              borderColor: appColors.primary,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              columnGap: 5,
-              width: '50%',
-              paddingVertical: 8,
-              borderRadius: 16,
-              backgroundColor:'transparent'
-            }}>
-            <SaveJobFill />
+            style={styles.topButton}>
+            <SaveJobFill width={24} height={24}/>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'Noto Sans',
                 fontWeight: '400',
                 color: appColors.primary,
@@ -79,22 +69,11 @@ const ApplicationsJob = (props: any) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            style={{
-              borderWidth: 1,
-              borderColor: appColors.primary,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              columnGap: 5,
-              width: '50%',
-              paddingVertical: 8,
-              borderRadius: 16,
-              backgroundColor:appColors.primary
-
-            }}>
-            <WhiteBag/>
+            style={[styles.topButton,{backgroundColor:appColors.primary}]}>
+            <WhiteBag width={24} height={24}/>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'Noto Sans',
                 fontWeight: '400',
                 color: '#FFF',

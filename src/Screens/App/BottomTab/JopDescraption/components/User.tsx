@@ -48,12 +48,13 @@ const UserSection = ({
   const {navigate} = useNavigation<any>();
   const lang = useSelector(selectLang);
   const User = useSelector(selectUser);
-  const {id, saved}: any = useRoute().params;
+  const {id}: any = useRoute().params;
   const [load, setLoading] = React.useState(false);
   const {t, i18n} = useTranslation();
   const MyJob = useAppSelector(selectMyJobJobSeeker);
   const [save, setSave] = React.useState(false);
   // console.log("MyJob",MyJob)
+  // console.log("id",applied)
   const handleSavePress = () => {
     const formdata = new FormData();
     setLoading(true);
@@ -63,9 +64,8 @@ const UserSection = ({
         dispatch(AppThunks.doGetInternshipsJobs());
         dispatch(AppThunks.doGetFreelancerJobs());
         dispatch(AppThunks.doGetJobDescraptionJobSeeker(id)).then(() =>
-        setLoading(false),
-      );
-       
+          setLoading(false),
+        );
       });
     } else {
       formdata.append('job_id', id);
@@ -75,10 +75,8 @@ const UserSection = ({
         dispatch(AppThunks.doGetInternshipsJobs());
         dispatch(AppThunks.doGetFreelancerJobs());
         dispatch(AppThunks.doGetJobDescraptionJobSeeker(id)).then(() =>
-        setLoading(false),
-      );
-       
-   
+          setLoading(false),
+        );
       });
     }
   };
@@ -138,8 +136,8 @@ const UserSection = ({
       console.error('Error opening email client:', err),
     );
   };
-  console.log("USERS",data)
-  return (   
+  // console.log('USERS', data);
+  return (
     <View style={{paddingHorizontal: 10}}>
       <TopHeader />
       <Text
@@ -220,16 +218,33 @@ const UserSection = ({
       <View style={{height: appSizes.height * 0.04}} />
       <View style={{flexDirection: 'row', width: '100%', columnGap: 10}}>
         <View style={{width: '80%'}}>
-          <Button
-            style={{height: 62}}
-            text={'Apply for job'}
-            onPress={
-              () => navigate('ApplayForJob', {id: MyJob?.id})
-              // MyJob?.email != null
-              //   ? handleEmailPress()
-              //   : Linking.openURL(MyJob?.external_link)
-            }
-          />
+          {data?.applied != null ? (
+            <View
+              style={{
+                backgroundColor: appColors.lightGrey,
+                paddingVertical: 10,
+                borderRadius: 16,
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '700',
+                  fontFamily: 'Noto Sans',
+                  color: '#fff',
+                }}>
+                Apply for job
+              </Text>
+              </View>
+          ) : (
+            <Button
+              style={{height: 62}}
+              text={'Apply for job'}
+              onPress={() => navigate('ApplayForJob', {id: MyJob?.id})}
+            />
+          )}
         </View>
         <TouchableOpacity
           onPress={handleSavePress}

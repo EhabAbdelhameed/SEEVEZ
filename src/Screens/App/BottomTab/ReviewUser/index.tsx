@@ -48,17 +48,7 @@ const ReviewUser = () => {
       <StatusBar barStyle={'dark-content'} backgroundColor={'#FFF'} />
 
       <UsersHeader />
-      {/* <KeyboardAwareScrollView
-          contentContainerStyle={{
-            // alignItems: 'center',
-            
-          }}
-          enableOnAndroid={true}
-          keyboardShouldPersistTaps={'handled'}
-          enableResetScrollToCoords={false}
 
-
-          showsVerticalScrollIndicator={false}> */}
       {load ? (
         <View
           style={{

@@ -1,10 +1,10 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Share} from 'react-native';
 import React from 'react';
 
 import {appColors} from 'theme/appColors';
 import {selectLang} from 'src/redux/lang';
 import {useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {styles} from '../styles';
 import {globalStyles} from 'src/globalStyle';
@@ -12,6 +12,7 @@ import {SaveJob} from 'assets/Svgs';
 import {selectUser} from 'src/redux/auth';
 import {selectMyJobJobSeeker, selectOneJob} from 'src/redux/app';
 import {useAppSelector} from 'src/redux/store';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 const TopHeader = ({
   Title,
@@ -23,7 +24,7 @@ const TopHeader = ({
   const lang = useSelector(selectLang);
   const navigation = useNavigation();
   const MyJob = useAppSelector(selectMyJobJobSeeker);
- 
+  const {id,applied}: any = useRoute().params;
 
   const getdate = () => {
     const startDate: Date = new Date(MyJob?.created_at);
@@ -72,6 +73,37 @@ const TopHeader = ({
       }
     }
   };
+  const generateLink = async () => {
+    try {
+      const link = await dynamicLinks().buildShortLink(
+        {
+          link: `https://seveezapp.page.link/Zi7X?job_id=${id}`,
+          domainUriPrefix: 'https://seveezapp.page.link',
+          android: {
+            packageName: 'com.seveezapp',
+          },
+          ios: {
+            appStoreId: '6474092434',
+            bundleId: 'com.sevees',
+          },
+        },
+        dynamicLinks.ShortLinkType.DEFAULT,
+      );
+      console.log(link, 'link');
+      return link;
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+  const ShareJobs = async () => {
+    const link = await generateLink();
+    console.log(link, 'link');
+    Share.share({
+      message: `${link}`,
+    })
+      .then(result => console.log(result))
+      .catch(errorMsg => console.error(errorMsg));
+  };
   return (
     <View
       style={[
@@ -87,6 +119,7 @@ const TopHeader = ({
           <Text style={[styles.UserName,{fontSize:20}]} numberOfLines={1}>
             {MyJob?.job_title}
           </Text>
+          <TouchableOpacity onPress={ShareJobs}>
           <RenderSvgIcon
             icon="SEND"
             width={20}
@@ -95,6 +128,7 @@ const TopHeader = ({
             style={{marginRight:10}}
             // style={styles.SENDIcon}
           />
+          </TouchableOpacity>
         </View>
         <View style={{flexDirection: 'row', columnGap: 8, marginLeft: 3}}>
           <Text style={styles.work}>{MyJob?.users?.name}</Text>

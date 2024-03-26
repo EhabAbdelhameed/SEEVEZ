@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
-import { appColors } from '../../../../../theme/appColors';
-import { RenderSvgIcon } from '../../../../../Components/atoms/svg';
-import { ImageBackground } from 'react-native';
+import React, {useState} from 'react';
+import {appColors} from '../../../../../theme/appColors';
+import {RenderSvgIcon} from '../../../../../Components/atoms/svg';
+import {ImageBackground} from 'react-native';
 import {
   AVATAR,
   Analytic,
@@ -19,16 +19,16 @@ import {
   PDF,
   ReviewCV,
 } from '../../../../../assets/Svgs';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { selectUser } from 'src/redux/auth';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {selectUser} from 'src/redux/auth';
 import AppThunks from 'src/redux/app/thunks';
-import { useAppDispatch } from 'src/redux/store';
+import {useAppDispatch} from 'src/redux/store';
 import DocumentPicker from 'react-native-document-picker';
 import AppSlice from 'src/redux/app';
-import { useTranslation } from 'react-i18next';
-import { selectLang } from 'src/redux/lang';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {useTranslation} from 'react-i18next';
+import {selectLang} from 'src/redux/lang';
+import {launchImageLibrary} from 'react-native-image-picker';
 const InfoProfileCard = (data: any) => {
   const [name, setName] = useState<any>('');
   const [count, setCount] = React.useState(0);
@@ -43,14 +43,15 @@ const InfoProfileCard = (data: any) => {
     ).then((res: any) => {
       setCount(res?.payload?.data?.followCounts[0]?.followerCount);
     });
-
-    source?.length != 0 ?
-      savePhoto() : null
+       source?.length == 0 
+        ? null
+        : savePhoto()
+      // : null;
   }, [source]);
   const lang = useSelector(selectLang);
-//  console.log("Khalifa",JSON.stringify(data))
+  //  console.log("Khalifa",JSON.stringify(data))
 
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
   const uploadFile = async (type: any) => {
     try {
       const res: any = await DocumentPicker.pick({
@@ -68,8 +69,10 @@ const InfoProfileCard = (data: any) => {
       console.log(formdata);
 
       dispatch(AppThunks.doAddPersonalInfo(formdata)).then((response: any) => {
-        setLoading(false);
-        dispatch(AppThunks.GetProfileInfo());
+        
+        dispatch(AppThunks.GetProfileInfo()).then((res: any) => {
+          setLoading(false);
+        });
         dispatch(AppSlice.changeDone(false));
         setName(res[0].name);
       });
@@ -82,7 +85,6 @@ const InfoProfileCard = (data: any) => {
       }
     }
   };
-
 
   const UploadImageProfile = async () => {
     try {
@@ -103,7 +105,7 @@ const InfoProfileCard = (data: any) => {
     }
   };
   const pick = () => {
-    launchImageLibrary({ quality: 0.5, mediaType: 'photo' }).then((res: any) => {
+    launchImageLibrary({quality: 0.5, mediaType: 'photo'}).then((res: any) => {
       setSource(res?.assets);
     });
   };
@@ -113,15 +115,16 @@ const InfoProfileCard = (data: any) => {
 
     source?.length != 0
       ? formdata.append('avatar', {
-        uri: source[0]?.uri,
-        type: source[0]?.type,
-        name: Platform.OS == 'ios' ? source[0]?.fileName : source[0]?.name,
-      })
+          uri: source[0]?.uri,
+          type: source[0]?.type,
+          name: Platform.OS == 'ios' ? source[0]?.fileName : source[0]?.name,
+        })
       : null;
 
     dispatch(AppThunks.doAddPersonalInfo(formdata)).then((res: any) => {
       dispatch(AppThunks.GetProfileInfo());
       setLoading(false);
+      setSource([]);
     });
   };
   const navigation = useNavigation();
@@ -158,7 +161,7 @@ const InfoProfileCard = (data: any) => {
                 width={20}
                 height={20}
                 color={appColors.white}
-              // style={styles.PENIcon}
+                // style={styles.PENIcon}
               />
             </TouchableOpacity>
           </View>
@@ -184,38 +187,40 @@ const InfoProfileCard = (data: any) => {
               alignItems: 'center',
               backgroundColor: appColors.bg,
             }}>
-            {data?.data?.avatar == null ? (
+            {loading ? <ActivityIndicator color={appColors.primary} /> : 
+            data?.data?.avatar == null ? (
               <AVATAR height={48} width={48} />
             ) : (
               <Image
-                source={{ uri: data?.data?.avatar }}
-                style={{ width: 96, height: 96, borderRadius: 96 }}
+                source={{uri: data?.data?.avatar}}
+                style={{width: 96, height: 96, borderRadius: 96}}
                 resizeMode="cover"
               />
             )}
-            {data?.current?null:
-            <View
-              style={{
-                width: 15,
-                height: 15,
-                borderRadius: 15,
-                // borderWidth: 1,
-                // borderColor: '#DDD',
-                justifyContent: 'center',
-                position: 'absolute',
-                bottom: 2,
-                right: 12,
-                alignItems: 'center',
-                backgroundColor: appColors.primary,
-              }}>
-              <RenderSvgIcon
-                icon="PLUSFOLLOW"
-                // style={{marginRight: 10}}
-                width={10}
-                height={10}
-                color={appColors.white}
-              />
-            </View>}
+            {data?.current ? null : (
+              <View
+                style={{
+                  width: 15,
+                  height: 15,
+                  borderRadius: 15,
+                  // borderWidth: 1,
+                  // borderColor: '#DDD',
+                  justifyContent: 'center',
+                  position: 'absolute',
+                  bottom: 2,
+                  right: 12,
+                  alignItems: 'center',
+                  backgroundColor: appColors.primary,
+                }}>
+                <RenderSvgIcon
+                  icon="PLUSFOLLOW"
+                  // style={{marginRight: 10}}
+                  width={10}
+                  height={10}
+                  color={appColors.white}
+                />
+              </View>
+            )}
           </View>
         </TouchableOpacity>
         <View style={styles.Row}>
@@ -230,7 +235,7 @@ const InfoProfileCard = (data: any) => {
         {data?.data?.job_title == null ? null : (
           <Text style={styles.Description}>{data?.data?.job_title}</Text>
         )}
-        <View style={[styles.Row, { marginTop: 10 }]}>
+        <View style={[styles.Row, {marginTop: 10}]}>
           <View style={styles.subContainer}>
             <Text style={styles.subText}>{t('premium')}</Text>
           </View>
@@ -244,8 +249,8 @@ const InfoProfileCard = (data: any) => {
           </View>
         </View>
         {data?.data?.area == null &&
-          data?.data?.city == null &&
-          data?.data?.country == null ? null : (
+        data?.data?.city == null &&
+        data?.data?.country == null ? null : (
           <View style={styles.Row}>
             <RenderSvgIcon
               icon="LOCATION"
@@ -253,20 +258,24 @@ const InfoProfileCard = (data: any) => {
               height={20}
               color={appColors.white}
             />
-            <Text style={styles.InfoText}>{`${data?.data?.area == null ? ' ' : `${data?.data?.area} `
-              } ${data?.data?.city == null ? ' ' : '، ' + data?.data?.city}${data?.data?.country == null ? ' ' : '  ' + data?.data?.country
-              }`}</Text>
+            <Text style={styles.InfoText}>{`${
+              data?.data?.area == null ? ' ' : `${data?.data?.area} `
+            } ${data?.data?.city == null ? ' ' : '، ' + data?.data?.city}${
+              data?.data?.country == null ? ' ' : '  ' + data?.data?.country
+            }`}</Text>
           </View>
         )}
-        {!data?.current && <View style={styles.Row}>
-          <RenderSvgIcon
-            icon="EMAIL"
-            width={20}
-            height={20}
-            color={appColors.white}
-          />
-          <Text style={styles.InfoText}>{data?.data?.email}</Text>
-        </View>}
+        {!data?.current && (
+          <View style={styles.Row}>
+            <RenderSvgIcon
+              icon="EMAIL"
+              width={20}
+              height={20}
+              color={appColors.white}
+            />
+            <Text style={styles.InfoText}>{data?.data?.email}</Text>
+          </View>
+        )}
         {data.current ? null : (
           <View style={styles.Row}>
             <RenderSvgIcon
@@ -300,7 +309,7 @@ const InfoProfileCard = (data: any) => {
                 width={20}
                 height={20}
                 color={appColors.white}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
             </TouchableOpacity>
           )}
@@ -312,7 +321,7 @@ const InfoProfileCard = (data: any) => {
                 width={20}
                 height={20}
                 color={appColors.white}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
             </TouchableOpacity>
           )}
@@ -324,14 +333,14 @@ const InfoProfileCard = (data: any) => {
                 width={20}
                 height={20}
                 color={appColors.white}
-                style={{ marginRight: 20 }}
+                style={{marginRight: 20}}
               />
             </TouchableOpacity>
           )}
         </View>
         {data?.data?.work_type == 'freelancer' ||
-          data?.data?.user_data?.user_type == 'recruiter' ? (
-          <View style={[styles.Row, { marginTop: 15 }]}>
+        data?.data?.user_data?.user_type == 'recruiter' ? (
+          <View style={[styles.Row, {marginTop: 15}]}>
             <TouchableOpacity
               style={{
                 // width: 140,
@@ -347,11 +356,11 @@ const InfoProfileCard = (data: any) => {
                 columnGap: 10,
               }}>
               <Analytic width={20} height={20} />
-              <Text style={{ color: appColors.white }}>{t('myAnalytics')}</Text>
+              <Text style={{color: appColors.white}}>{t('myAnalytics')}</Text>
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={[styles.Row, { marginTop: 15 }]}>
+          <View style={[styles.Row, {marginTop: 15}]}>
             {data?.data?.cv_pdf == null && !data.current ? (
               <TouchableOpacity
                 onPress={uploadFile}
@@ -403,7 +412,7 @@ const InfoProfileCard = (data: any) => {
                 onPress={() => {
                   navigation.navigate('Analytics');
                 }}>
-                <Analytics width={140} style={{ marginLeft: 10 }} />
+                <Analytics width={140} style={{marginLeft: 10}} />
               </TouchableOpacity>
             )}
           </View>

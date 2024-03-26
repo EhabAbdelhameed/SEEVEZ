@@ -19,14 +19,14 @@ import {selectOneJob} from 'src/redux/app';
 
 const JobSkills = ({data}:{data:any}) => {
   // const MyJob = useAppSelector(selectOneJob);
-  console.log(data, 'data');
+  // console.log(data, 'data');
 
   return (
     <View style={{marginTop: 20, marginBottom: 15}}>
       <FlatList
         data={data}
         contentContainerStyle={{rowGap: 10}}
-        numColumns={2}
+        numColumns={3}
         scrollEnabled={false}
         renderItem={({item}) => (
           <View style={styles.smallCardContainer}>

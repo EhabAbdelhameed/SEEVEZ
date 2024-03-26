@@ -4,9 +4,11 @@ import { Text, TouchableOpacity, View } from "react-native"
 import { RenderSvgIcon } from "../../Components/atoms/svg"
 import { appColors } from "../../theme/appColors"
 import PlusAbs from "./Plus"
+import PopUp from "./ModalIos"
 
 export function MyTabBar({ state, descriptors, navigation }:
     { state: any, descriptors: any, navigation: any }) {
+  const [show, setShow] = useState(false);
     
     // const [isOpened, setIsOpened] = useState(false)
     // const [inHome, setInHome] = useState(true)

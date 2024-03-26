@@ -149,7 +149,7 @@ import { useTranslation } from 'react-i18next';
             
          {data?.map((item: any, index: any) =>
          <View style={{marginBottom: 15}}>
-           <View style={{marginBottom: 10, flexDirection: 'row'}}>
+           <View style={{marginBottom: 10, flexDirection: 'row',width:'100%'}}>
                <View style={styles.Row2}>
            <View
               style={{
@@ -163,7 +163,7 @@ import { useTranslation } from 'react-i18next';
               }}>
               <AVATAR height={32} width={32} />
             </View>
-              <View style={{marginLeft: 10}}>
+              <View style={{marginLeft: 10,width:'78%'}}>
                 <Text style={styles.Title2}>{item?.university_name}</Text>
                 <Text style={styles.CompanyName}>
                  {item?.level_id?.name}

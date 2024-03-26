@@ -57,21 +57,11 @@ const SavedJob = (props: any) => {
             marginBottom: 20,
           }}>
           <TouchableOpacity
-            style={{
-              borderWidth: 1,
-              borderColor: appColors.primary,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              columnGap: 5,
-              width: '50%',
-              paddingVertical: 8,
-              borderRadius: 16,
-              backgroundColor:appColors.primary
-            }}>
-            <WihteSave />
+            style={[styles.topButton,{backgroundColor:appColors.primary}]}>
+            <WihteSave width={24} height={24}/>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'Noto Sans',
                 fontWeight: '400',
                 color: '#FFF',
@@ -80,20 +70,11 @@ const SavedJob = (props: any) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>navigation.navigate("ApplicationsJob")}
-            style={{
-              borderWidth: 1,
-              borderColor: appColors.primary,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              columnGap: 5,
-              width: '50%',
-              paddingVertical: 8,
-              borderRadius: 16,
-            }}>
-            <RenderSvgIcon icon="BAG" color={appColors.primary} />
+            style={styles.topButton}>
+            <RenderSvgIcon icon="BAG" color={appColors.primary} width={24} height={24} />
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'Noto Sans',
                 fontWeight: '400',
                 color: appColors.primary,

@@ -111,8 +111,8 @@ const ExperienceProfileCard = (data: any) => {
                   }}>
                   <CompanyLogo height={32} width={32} />
                 </View>
-                <View style={{ marginLeft: 10 ,width:'85%'}}>
-                  <Text style={styles.Title2}>{item.job_title}</Text>
+                <View style={{ marginLeft: 10 ,width:'75%'}}>
+                  <Text numberOfLines={1} style={styles.Title2}>{item.job_title}</Text>
                   <Text style={styles.CompanyName}>
                     {item?.company_name == null
                       ? item?.company_id?.name
@@ -187,8 +187,8 @@ const ExperienceProfileCard = (data: any) => {
                     }}>
                     <CompanyLogo height={32} width={32} />
                   </View>
-                  <View style={{ marginLeft: 10,width:'85%' }}>
-                    <Text style={styles.Title2}>{item.job_title}</Text>
+                  <View style={{ marginLeft: 10,width:'75%' }}>
+                    <Text numberOfLines={1} style={styles.Title2}>{item.job_title}</Text>
                     <Text style={styles.CompanyName}>
                       {item?.company_name == null
                         ? item?.company_id?.name

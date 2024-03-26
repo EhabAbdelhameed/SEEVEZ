@@ -120,7 +120,7 @@ const TrainingProfileCard = (data: any) => {
                   <AVATAR height={32} width={32} />
                 </View>
                 <View style={{marginLeft: 10, width: '90%'}}>
-                  <Text style={styles.Title2}>{item?.institute}</Text>
+                  <Text numberOfLines={1} style={styles.Title2}>{item?.institute}</Text>
                   <Text style={styles.CompanyName}>{item?.field_of_study}</Text>
                   <Text style={styles.des}>
                     {moment(item.start_date).format('yyyy')} -{' '}
@@ -168,8 +168,8 @@ const TrainingProfileCard = (data: any) => {
                     }}>
                     <AVATAR height={32} width={32} />
                   </View>
-                  <View style={{marginLeft: 10, width: '90%'}}>
-                    <Text style={styles.Title2}>{item?.institute}</Text>
+                  <View style={{marginLeft: 10, width: '75%'}}>
+                    <Text numberOfLines={1} style={styles.Title2}>{item?.institute}</Text>
                     <Text style={styles.CompanyName}>
                       {item?.field_of_study}
                     </Text>
