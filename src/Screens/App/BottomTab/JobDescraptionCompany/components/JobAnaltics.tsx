@@ -44,7 +44,7 @@ const JobAnaltics = (data: any) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate('WatingList', {id: id})}
-          style={styles.AnalticContainer}>
+          style={[styles.AnalticContainer]}>
           <Text style={styles.bigText}>{data?.AnalticsData?.waiting}</Text>
           <Text style={styles.subText}>Waiting list</Text>
           <Text style={styles.timeText}>Past 10 days</Text>
@@ -70,7 +70,7 @@ const JobAnaltics = (data: any) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate('RejectedList', {id: id})}
-          style={styles.AnalticContainer}>
+          style={[styles.AnalticContainer]}>
           <Text style={styles.bigText}>{data?.AnalticsData?.rejected}</Text>
           <Text style={styles.subText}>Rejected</Text>
           <Text style={styles.timeText}>Past 10 days</Text>

@@ -41,6 +41,7 @@ const ReviewUser = () => {
       user_id: user_id,
     };
     dispatch(AppThunks.doReviewUser(obj)).then(() => setLoad(false));
+
   }, []);
 
   return (

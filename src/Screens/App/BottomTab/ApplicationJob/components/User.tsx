@@ -255,9 +255,12 @@ const UserSection = ({item, setLoad}: {item?: any; setLoad?: any}) => {
               )}
             </View>
           </TouchableOpacity>
-          {item?.id == '9' ? (
+          {item?.job_id == '41' ? (
             <TouchableOpacity
-              onPress={() => navigation.navigate('Assignment')}
+              onPress={() => navigation.navigate('Assignment', {
+                job_id: item?.job_id,
+             
+              })}
               style={{
                 borderWidth: 1,
                 borderColor: appColors.primary,

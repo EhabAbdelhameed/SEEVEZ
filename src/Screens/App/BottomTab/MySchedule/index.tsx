@@ -1,80 +1,95 @@
-import React, {useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-// import { Calendar } from 'react-native-calendars';
+import React, { useRef, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Calendar  } from 'react-native-big-calendar';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { globalStyles } from 'src/globalStyle';
+import { appSizes } from 'theme';
 import Header from './components/Header';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {globalStyles} from 'src/globalStyle';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {appColors, appSizes} from 'theme';
-// import {Calendar} from 'react-native-calendars';
-import {RenderSvgIcon} from 'components/atoms/svg';
-import {Agenda} from 'react-native-calendars';
-import { styles } from './style';
-const MyCalendarScreen = () => {
-  const CustomKnob = () => {
-    return null; // Returning null to remove the loader
-  };
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [items, setItems] = useState({
-    '2024-03-25': [{name: 'Event 1', time: '10:00 AM'}],
-    '2024-03-26': [
-      {name: 'Event 2', time: '2:00 PM'},
-      {name: 'Event 3', time: '4:00 PM'},
-    ],
-    '2024-03-27': [{name: 'Event 4', time: '11:00 AM'}],
-  });
 
-  const handleDayPress = (day: any) => {
-    // You can update items based on the selected day
-    // For demonstration, let's set events for the selected day
-   
-      
-    
-    let obj={
-     
-      [day.dateString]:[{name: 'New Event', time: '12:00 PM'}]
-    }
-    setItems(obj)
+const MyCalendarScreen = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const calendarRef = useRef(null);
+  // Example events data
+  const events = [
+    {
+      title: 'Meeting',
+      start: new Date(2024, 3, 25, 10, 0), // year, month (0-based), day, hour, minute
+      end: new Date(2024, 3, 25, 11, 0),
+    },
+    {
+      title: 'Party',
+      start: new Date(2024, 3, 26, 14, 0),
+      end: new Date(2024, 3, 26, 17, 0),
+    },
+  ];
+  const handleDateChange = (date:any) => {
+    setSelectedDate(date);
   };
-  const renderDay = (day: any, item: any) => {
-    // Ensure day object is defined before accessing properties
-    if (!day) {
-      return null;
-    }
-  
-    // Apply custom style to selected day if it matches the selectedDay
-    const selectedStyle = selectedDay === day.dateString ? styles.selectedDay : null;
-  
-    return (
-      <View style={[styles.dayContainer, selectedStyle]}>
-        <Text style={styles.dayText}>{day.day}</Text>
-      </View>
-    );
+  const handleScroll = (event:any) => {
+    const scrollX = event.nativeEvent.contentOffset.x;
+    // Calculate the visible month based on the scroll position
+    // Update the displayed month and year accordingly
+    // ...
   };
   return (
-    <SafeAreaView edges={['top']} style={[globalStyles.screen]}>
-      <Header />
-      <KeyboardAwareScrollView
-        contentContainerStyle={{
-          // alignItems: 'center',
-          // paddingBottom: 30,
-          paddingHorizontal: appSizes.padding_m,
-        }}
-        enableOnAndroid={true}
-        keyboardShouldPersistTaps={'handled'}
-        enableResetScrollToCoords={false}
-        showsVerticalScrollIndicator={false}>
-        <View style={{flex: 1}}>
-        <Agenda
-            items={items}
-            // Pass renderDay prop to customize day rendering
-            renderDay={renderDay}
-            onDayPress={handleDayPress}
-          />
-        </View>
-      </KeyboardAwareScrollView>
+    <SafeAreaView edges={['top']} style={[globalStyles.screen,{backgroundColor:'white'}]}>
+    <Header />
+    <KeyboardAwareScrollView
+      contentContainerStyle={{
+        // alignItems: 'center',
+        // paddingBottom: 30,
+        paddingBottom: 100,
+      }}
+      enableOnAndroid={true}
+      keyboardShouldPersistTaps={'handled'}
+      enableResetScrollToCoords={false}
+      showsVerticalScrollIndicator={false}>
+    <View style={{ flex: 1 }}>
+    {/* <Text style={{ textAlign: 'center', fontSize: 20, paddingVertical: 10 }}>
+        {selectedDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+      </Text> */}
+      {/* <ScrollView
+        horizontal
+        pagingEnabled
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        ref={calendarRef}
+        style={{flex:1,width:'100%'}}
+      > */}
+    <Calendar
+        events={events}
+        height={500}
+        // horizontal={true} // Optional: specify the height of the calendar
+        // Customize the appearance of events using the eventCellStyle prop
+        eventCellStyle={(event) => ({
+          backgroundColor: event.title === 'Meeting' ? 'blue' : 'green',
+        })}
+        // mode="month"
+        // Handle event press using the onEventPress prop
+        onEventPress={(event:any) => console.log('Event pressed:', event)}
+        // Change background color to white
+      
+        // Enable scrolling and navigation between days
+        scrollEnabled={true}
+        
+      
+        ampm={true}
+        onDateChange={handleDateChange}
+        titleFormat={'MMMM yyyy'}
+      />
+      {/* </ScrollView> */}
+    </View>
+    </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
 
 export default MyCalendarScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white', // Set background color to white
+  },
+  
+});

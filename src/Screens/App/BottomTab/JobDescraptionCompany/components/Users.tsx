@@ -47,7 +47,7 @@ const Users = ({item}: {item?: any}) => {
             <AVATAR height={48} width={48} />
           </View>
         ) : (
-          <AvatarIcon imgUrl={item?.avatar} style={{height: 62, width: 62}} />
+          <AvatarIcon imgUrl={item?.users?.avatar} style={{height: 62, width: 62}} />
         )}
         <View style={{rowGap: 3}}>
           <View style={[globalStyles.leftHeaderContainer, {width: '100%'}]}>
@@ -55,13 +55,14 @@ const Users = ({item}: {item?: any}) => {
               {item?.users?.name}
             </Text>
           </View>
+          {item?.users?.job_title!=null?
           <Text style={[styles.work, {fontSize: 11}]}>
             {item?.users?.job_title}
-          </Text>
+          </Text>:null}
           <View
             style={[
               styles.followersContainer,
-              {width: 120, paddingVertical: 2},
+              {width: 120, paddingVertical:2},
             ]}>
             <Text style={[styles.text3, {color: appColors.blue2}]}>
               {item?.users?.number_of_followers >= 1000

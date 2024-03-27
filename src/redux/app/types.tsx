@@ -328,6 +328,7 @@ interface appState {
   mySavedJob: any;
   myApplicationJob:any;
   reviewUser:any;
+  AssessmentQuestions:any;
 
 }
 
@@ -664,6 +665,7 @@ export const initialState: appState = {
   mySavedJob: [],
   myApplicationJob:[],
   reviewUser:null,
+  AssessmentQuestions:[],
 
 
   //   Search: [],

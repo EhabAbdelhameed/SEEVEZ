@@ -122,6 +122,10 @@ const reviewUser = (data: any) =>
   api.get(
     `company/show/user/answer?apply_id=${data?.apply_id}&job_id=${data?.job_id}&user_id=${data?.user_id}`,
   );
+const assessmentQuestions = (data: any) =>
+  api.get(`company/job/assessment?job_id=${data}`);
+const postAssessmentQuestions = (data: any) =>
+  api.post(`company/job/assessment/answer`, data);
 
 /////////////////////////////////end////////////////////////////////////////
 // const home = (data: any) => api.get(`home?${data}`)
@@ -210,7 +214,9 @@ const AppAPI = {
   getSavedJob,
   getApplicationJob,
   statusUser,
-  reviewUser
+  reviewUser,
+  assessmentQuestions,
+  postAssessmentQuestions
 };
 
 export default AppAPI;

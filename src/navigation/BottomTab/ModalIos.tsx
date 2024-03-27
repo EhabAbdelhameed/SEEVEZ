@@ -15,7 +15,7 @@ import ReactNativeModal from 'react-native-modal';
 import {RenderSvgIcon} from 'components/atoms/svg';
 import {appColors, appSizes} from 'theme';
 import Button from 'components/molecules/Button';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const PopUp = ({
   setVisable,
@@ -28,7 +28,11 @@ const PopUp = ({
 
   visable: boolean;
 }) => {
-    const navigation = useNavigation<any>();
+  const navigation = useNavigation<any>();
+  const handlePress = () => {
+    navigation.navigate(data)
+    setVisable(false)
+  }
   return (
     <ReactNativeModal
       isVisible={visable}
@@ -147,18 +151,19 @@ const PopUp = ({
                   </Text>
                 </View>
                 <View
-                  style={{flexDirection: 'row', columnGap: 10, width: '100%',marginTop:20}}>
-                  <View style={{width: '50%'}}>
-                    <Button text={'Done'} onPress={() =>  navigation.navigate(data)} />
-                  </View>
-                  <View style={{width: '50%'}}>
-                    <Button
-                      text="Cancel"
-                      style={{backgroundColor: '#DDD'}}
-                      textStyle={{color:'#000'}}
-                      onPress={() => setVisable(false)}
-                    />
-                  </View>
+                  style={{
+                    // flexDirection: 'row',
+                    columnGap: 10,
+                    // width: '100%',
+                    marginTop: 20,
+                  }}>
+                  <Button
+                    text={'Agree'}
+                    onPress={() => {
+                      navigation.navigate(data),
+                        setVisable(false)
+                    }}
+                  />
                 </View>
               </View>
             </View>

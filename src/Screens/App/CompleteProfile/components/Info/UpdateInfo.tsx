@@ -288,8 +288,8 @@ const UpdateInfo = () => {
 
           <Formik
             initialValues={{
-              FullName: CurrentUserData?.name||'',  
-              JobTitle: CurrentUserData?.job_title||'',
+              FullName: CurrentUserData?.name || '',
+              JobTitle: CurrentUserData?.job_title || '',
 
               Location: CurrentUserData?.country || '',
               phone: CurrentUserData?.phone_number || '',
@@ -331,6 +331,10 @@ const UpdateInfo = () => {
               website: Yup.string()
                 .trim()
                 .matches(urlPattern, 'Must be a website link'),
+                FullName: Yup.string()
+                .trim()
+                .matches(/^[^0-9]*$/, 'Full name should not contain numbers')
+                .required('Full name is required'),
             })}
             onSubmit={values => {
               setLoading(true);
@@ -344,9 +348,12 @@ const UpdateInfo = () => {
               values.JobTitle != '' || !values.JobTitle
                 ? formdata.append('job_title', values.JobTitle)
                 : formdata.append('job_title', '');
-              values.phone != '' || !values.phone
-                ? formdata.append('phone_number', values.phone)
-                : formdata.append('phone_number', '');
+              if (values.phone != CurrentUserData?.phone_number) {
+                values.phone != '' || !values.phone
+                  ? formdata.append('phone_number', values.phone)
+                  : formdata.append('phone_number', '');
+              }
+
               values.currentSalary != ''
                 ? formdata.append('current_salary', values.currentSalary)
                 : formdata.append('current_salary', '');
@@ -433,6 +440,12 @@ const UpdateInfo = () => {
                   placeholder={t('fullName')}
                   value={props.values.FullName}
                 />
+                   {props?.errors.FullName && props?.touched.FullName ? (
+                      <Text
+                        style={{color: 'red', marginLeft: 10, fontSize: 12, marginTop: -5}}>
+                        {props?.errors.FullName}
+                      </Text>
+                    ) : null}
                 <Text style={styles.labelStyle1}>{t('jobTitle')}</Text>
                 <CustomInput
                   {...props}
@@ -458,7 +471,6 @@ const UpdateInfo = () => {
                   <View style={{width: '49%'}}>
                     <CustomInput
                       {...props}
-                      
                       Label={'city'}
                       placeholder={t('yourCity')}
                       value={props.values.city}
@@ -755,7 +767,7 @@ const UpdateInfo = () => {
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       itemTextStyle={{color: '#000'}}
-                      activeColor='#DDD'
+                      activeColor="#DDD"
                       data={Nationalities}
                       search
                       labelField="name"
@@ -765,7 +777,6 @@ const UpdateInfo = () => {
                       value={selected}
                       onChange={(items: any) => {
                         setSelected(items), setNationality(items);
-                  
                       }}
                       renderRightIcon={() =>
                         lang == 'en' ? (

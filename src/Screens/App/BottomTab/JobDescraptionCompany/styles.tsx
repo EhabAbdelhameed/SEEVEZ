@@ -118,7 +118,7 @@ export const styles = StyleSheet.create({
         textAlign:'left'
       },
       AnalticContainer:{
-        // width: '49%',
+        width: '49%',
         backgroundColor: '#FFF',
         elevation: 2,
         borderRadius: 16,

@@ -9,7 +9,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {globalStyles} from '../../../../globalStyle';
 import AppThunks from 'src/redux/app/thunks';
 import {useAppDispatch, useAppSelector} from 'src/redux/store';
-import {
+import AppSlice, {
   selectCompaniesUser,
   selectFollowingList,
   selectFreelancerJobs,
@@ -38,7 +38,7 @@ const ApplicationsJob = (props: any) => {
   const navigation = useNavigation<any>();
   React.useEffect(() => {
     setIsloadingRecuriter(true);
-
+    dispatch(AppSlice.changeDone(false));    
     dispatch(AppThunks.doGetMyApplicationJob()).then(() =>
       setIsloadingRecuriter(false),
     );
